@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
+             xmlns:renderers="clr-namespace:ReminderXamarin.Renderers;assembly=ReminderXamarin"
+             xmlns:elements="clr-namespace:ReminderXamarin.Elements"
+             x:Class="ReminderXamarin.Pages.NotesPage"
+             Title="All notes">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Icon="add.png" Clicked="Create_OnClicked"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.BindingContext>
+        <viewModels1:NotesPageViewModel x:Name="ViewModel" />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="10" Spacing="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <!-- Search bar with border -->
+        <renderers:ContentViewWithBorder BorderColor="Gray">
+            <SearchBar x:Name="SearchBar" 
+                       BackgroundColor="White"
+                       Placeholder="Search..." 
+                       TextChanged="SearchBar_OnTextChanged" />
+        </renderers:ContentViewWithBorder>
+        <!-- List with notes -->
+        <ListView x:Name="NotesList" 
+                  ItemsSource="{Binding Notes}"
+                  IsPullToRefreshEnabled="True"
+                  HasUnevenRows="True"
+                  CachingStrategy="RecycleElement"
+                  RefreshCommand="{Binding RefreshListCommand}"
+                  IsRefreshing="{Binding IsRefreshing}"
+                  ItemSelected="NotesList_OnItemSelected"
+                  SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell Height="100">
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Delete" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
+                        </ViewCell.ContextActions>
+                        <StackLayout BackgroundColor="White">
+                            <renderers:ContentViewWithBorder HorizontalOptions="FillAndExpand" 
+                                                             VerticalOptions="FillAndExpand" 
+                                                             Padding="10" 
+                                                             BorderColor="DarkGray" 
+                                                             BorderWidth="1">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding Photos[0].ResizedPath}" 
+                                           IsVisible="{Binding Photos[0].ResizedPath, Converter={StaticResource StringToBoolConverter}}" 
+                                           Aspect="AspectFill" 
+                                           HeightRequest="80"
+                                           WidthRequest="50" />
+                                    <StackLayout Spacing="10">
+                                        <Label Text="{Binding EditDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" />
+                                        <elements:LineSpacingLabel HorizontalTextAlignment="Start" Lines="3" LineSpacing="1.1" Text="{Binding Description}" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </renderers:ContentViewWithBorder>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>

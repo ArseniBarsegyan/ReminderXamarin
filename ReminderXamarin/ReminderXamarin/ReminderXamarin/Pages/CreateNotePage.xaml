@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
+             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
+             x:Class="ReminderXamarin.Pages.CreateNotePage"
+             Title="Create note"
+             BackgroundColor="White">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="video.png" Command="{Binding TakeVideoCommand}" />
+        <ToolbarItem Icon="camera.png" Command="{Binding TakePhotoCommand}" />
+        <ToolbarItem Icon="confirm.png" Clicked="Save_OnClicked" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.BindingContext>
+        <viewModels1:CreateNoteViewModel x:Name="ViewModel" PhotoAdded="ViewModel_OnPhotoAdded" />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <!-- Image gallery with all photos of current note -->
+            <elements:ImageGallery x:Name="ImageGallery" 
+                                   Orientation="Horizontal" 
+                                   ItemsSource="{Binding Photos}"
+                                   HeightRequest="100"
+                                   IsVisible="{Binding Photos.Count, Converter={StaticResource NumberToBoolConverter}}">
+                <elements:ImageGallery.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <AbsoluteLayout x:Name="ImageViewLayout" Padding="5" HeightRequest="80" WidthRequest="80">
+                                    <elements:ClickableImage Source="{Binding ResizedPath}" 
+                                                             FullSizeImageSource="{Binding ResizedPath}" 
+                                                             Aspect="AspectFill" 
+                                                             AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                                             AbsoluteLayout.LayoutFlags="All" />
+                                </AbsoluteLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </elements:ImageGallery.ItemTemplate>
+            </elements:ImageGallery>
+            
+            <ScrollView VerticalOptions="FillAndExpand">
+                <Editor x:Name="DescriptionEditor"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand" />
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

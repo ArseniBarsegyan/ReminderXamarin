@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+                  xmlns:pages="clr-namespace:ReminderXamarin.Pages;assembly=ReminderXamarin"
+                  x:Class="ReminderXamarin.Pages.MenuPage"
+                  MasterBehavior="Popover">
+    <MasterDetailPage.Master>
+        <ContentPage Title="Menu">
+            <ListView x:Name="MenuList"
+                      RowHeight="60"
+                      HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand"
+                      BackgroundColor="White"
+                      ItemSelected="MenuList_OnItemSelected">
+                <ListView.Header>
+                    <!-- User profile information, photo and name -->
+                    <StackLayout HeightRequest="100" Orientation="Horizontal" Padding="5" Spacing="10">
+                        <abstractions:CircleImage WidthRequest="60"
+                                                  HeightRequest="60" 
+                                                  Aspect="AspectFill"
+                                                  Source="https://www.cabe-africa.org/wp-content/uploads/2012/01/1.png" />
+                        <Label Text="User name" VerticalTextAlignment="Center" HorizontalOptions="Center" />
+                        <!-- Separate user info section from list -->
+                        <StackLayout HeightRequest="1" BackgroundColor="LightGray" />
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Orientation="Horizontal" Padding="10,0">
+                                    <Image Source="{Binding IconSource}" 
+                                           HeightRequest="50" 
+                                           HorizontalOptions="Center" />
+                                    <Label Text="{Binding Title}" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center"
+                                           FontSize="Medium" />
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ContentPage>
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <pages:NotesPage />
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>
