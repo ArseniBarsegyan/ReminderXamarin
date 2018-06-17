@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Android.Text;
 using ReminderXamarin.Droid.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -15,17 +16,11 @@ namespace ReminderXamarin.Droid.Renderers
         protected override void OnElementChanged(ElementChangedEventArgs<Editor> e)
         {
             base.OnElementChanged(e);
-
             if (Control != null)
             {
                 Control.Background = null;
+                Control.InputType = InputTypes.ClassText | InputTypes.TextFlagCapSentences | InputTypes.TextFlagMultiLine;
             }
-        }
-
-        protected override void OnAttachedToWindow()
-        {
-            base.OnAttachedToWindow();
-            Enabled = true;
         }
     }
 }
