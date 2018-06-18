@@ -16,11 +16,13 @@
     <ContentPage.Content>
         <StackLayout Padding="10" Spacing="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             <ListView x:Name="ToDoList"
-                  ItemsSource="{Binding ToDoViewModels}"
-                  IsPullToRefreshEnabled="True"
-                  CachingStrategy="RecycleElement"
-                  RefreshCommand="{Binding RefreshListCommand}"
-                  IsRefreshing="{Binding IsRefreshing}">
+                      ItemsSource="{Binding ToDoViewModels}"
+                      IsPullToRefreshEnabled="True"
+                      HasUnevenRows="True"
+                      CachingStrategy="RecycleElement"
+                      RefreshCommand="{Binding RefreshListCommand}"
+                      IsRefreshing="{Binding IsRefreshing}"
+                      SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell Height="100">
@@ -36,7 +38,7 @@
                                     <StackLayout Orientation="Horizontal">
                                         <Image Source="{Binding WarningLevelImage}"
                                            Aspect="AspectFill" 
-                                           HeightRequest="80"
+                                           HeightRequest="50"
                                            WidthRequest="50" />
                                         <StackLayout Spacing="10">
                                             <Label Text="{Binding EditDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" />
