@@ -8,6 +8,7 @@ namespace ReminderXamarin
     public partial class App : Application
     {
         private static NoteRepository _noteRepository;
+        private static ToDoRepository _toDoRepository;
 
         public App()
         {
@@ -22,6 +23,14 @@ namespace ReminderXamarin
         public static NoteRepository NoteRepository => _noteRepository ??
                                                  (_noteRepository = new NoteRepository(DependencyService.Get<IFileHelper>()
                                                      .GetLocalFilePath("MyDiaryDB.db3")));
+
+        /// <summary>
+        /// Gets the Todomodels repository through dependency service.
+        /// </summary>
+        /// <value>The database.</value>
+        public static ToDoRepository ToDoRepository => _toDoRepository ??
+                                                       (_toDoRepository = new ToDoRepository(DependencyService.Get<IFileHelper>()
+                                                           .GetLocalFilePath("MyDiaryDB.db3")));
 
         protected override void OnStart()
         {

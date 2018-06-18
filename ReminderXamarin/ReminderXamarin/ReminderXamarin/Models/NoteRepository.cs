@@ -17,7 +17,7 @@ namespace ReminderXamarin.Models
         }
 
         /// <summary>
-        /// Get all notes from database
+        /// Get all notes from database.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Note> GetAll()
@@ -26,7 +26,7 @@ namespace ReminderXamarin.Models
         }
 
         /// <summary>
-        /// Get note from database by id
+        /// Get note from database by id.
         /// </summary>
         /// <param name="id">Id of the note</param>
         /// <returns></returns>
@@ -36,7 +36,7 @@ namespace ReminderXamarin.Models
         }
 
         /// <summary>
-        /// Create (if id = 0) or update note in database
+        /// Create (if id = 0) or update note in database.
         /// </summary>
         /// <param name="note">Note to be saved</param>
         /// <returns></returns>
@@ -53,7 +53,7 @@ namespace ReminderXamarin.Models
         }
 
         /// <summary>
-        /// Delete note from database
+        /// Delete note from database.
         /// </summary>
         /// <param name="note">Note to be deleted</param>
         /// <returns></returns>

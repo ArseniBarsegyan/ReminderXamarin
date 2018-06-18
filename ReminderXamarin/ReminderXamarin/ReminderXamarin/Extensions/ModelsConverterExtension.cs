@@ -111,5 +111,55 @@ namespace ReminderXamarin.Extensions
                 })
                 .ToList();
         }
+
+        public static ToDoModel ToToDoModel(this ToDoViewModel viewModel)
+        {
+            return new ToDoModel
+            {
+                Id = viewModel.Id,
+                CreationDate = viewModel.CreationDate,
+                EditDate = viewModel.EditDate,
+                Description = viewModel.Description,
+                WarningLevelImage = viewModel.WarningLevelImage
+            };
+        }
+
+        public static ToDoViewModel ToToDoViewModel(this ToDoModel model)
+        {
+            return new ToDoViewModel
+            {
+                Id = model.Id,
+                CreationDate = model.CreationDate,
+                EditDate = model.EditDate,
+                Description = model.Description,
+                WarningLevelImage = model.WarningLevelImage
+            };
+        }
+
+        public static IEnumerable<ToDoModel> ToToDoModels(this IEnumerable<ToDoViewModel> viewModels)
+        {
+            return viewModels.Select(viewModel => new ToDoModel
+            {
+                    Id = viewModel.Id,
+                    CreationDate = viewModel.CreationDate,
+                    EditDate = viewModel.EditDate,
+                    Description = viewModel.Description,
+                    WarningLevelImage = "http://icdn.pro/images/es/a/l/alerta-icono-3660-128.png"
+            })
+            .ToList();
+        }
+
+        public static IEnumerable<ToDoViewModel> ToToDoViewModels(this IEnumerable<ToDoModel> models)
+        {
+            return models.Select(model => new ToDoViewModel
+            {
+                    Id = model.Id,
+                    CreationDate = model.CreationDate,
+                    EditDate = model.EditDate,
+                    Description = model.Description,
+                    WarningLevelImage = "http://icdn.pro/images/es/a/l/alerta-icono-3660-128.png"
+            })
+            .ToList();
+        }
     }
 }
