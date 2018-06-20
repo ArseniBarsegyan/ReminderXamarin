@@ -35,7 +35,7 @@
                 <DataTemplate>
                     <ViewCell Height="100">
                         <ViewCell.ContextActions>
-                            <MenuItem Text="Delete" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
+                            <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
                         </ViewCell.ContextActions>
                         <StackLayout BackgroundColor="White">
                             <renderers:ContentViewWithBorder HorizontalOptions="FillAndExpand" 
@@ -44,8 +44,8 @@
                                                              BorderColor="DarkGray" 
                                                              BorderWidth="1">
                                 <StackLayout Orientation="Horizontal">
-                                    <Image Source="{Binding Photos[0].ResizedPath}" 
-                                           IsVisible="{Binding Photos[0].ResizedPath, Converter={StaticResource StringToBoolConverter}}" 
+                                    <Image Source="{Binding Photos, Converter={StaticResource NullElementToImageSourceConverter}}" 
+                                           IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}" 
                                            Aspect="AspectFill" 
                                            HeightRequest="80"
                                            WidthRequest="50" />

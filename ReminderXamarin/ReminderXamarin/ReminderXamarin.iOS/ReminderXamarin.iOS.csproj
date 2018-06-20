@@ -275,4 +275,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\video%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\warning_level%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\warning_level%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\warning_level%403x.png" />
+  </ItemGroup>
 </Project>

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -25,14 +23,14 @@ namespace ReminderXamarin.Pages
         {
             if (string.IsNullOrWhiteSpace(DescriptionEditor.Text))
             {
-                await DisplayAlert(ConstantHelper.Warning, ConstantHelper.NoteTextIsEmptyMessage, ConstantHelper.Ok);
+                await Navigation.PopAsync();
                 return;
             }
 
-            if (!ViewModel.Photos.Any())
-            {
-                ViewModel.Photos.Add(new PhotoViewModel());
-            }
+            //if (!ViewModel.Photos.Any())
+            //{
+            //    ViewModel.Photos.Add(new PhotoViewModel());
+            //}
 
             if (!_saveClicked)
             {

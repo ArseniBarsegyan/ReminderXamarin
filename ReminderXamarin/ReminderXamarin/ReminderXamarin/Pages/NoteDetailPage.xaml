@@ -16,7 +16,7 @@
                                    Orientation="Horizontal" 
                                    ItemsSource="{Binding Photos}"
                                    HeightRequest="100"
-                                   IsVisible="{Binding Photos[0].ResizedPath, Converter={StaticResource StringToBoolConverter}}">
+                                   IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}">
                 <elements1:ImageGallery.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

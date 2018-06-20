@@ -8,6 +8,8 @@
         <ResourceDictionary>
             <converters:NumberToBoolConverter x:Key="NumberToBoolConverter" />
             <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+            <converters:NullElementToBoolConverter x:Key="NullElementToBoolConverter" />
+            <converters:NullElementToImageSourceConverter x:Key="NullElementToImageSourceConverter" />
         </ResourceDictionary>
 	</Application.Resources>
 </Application>

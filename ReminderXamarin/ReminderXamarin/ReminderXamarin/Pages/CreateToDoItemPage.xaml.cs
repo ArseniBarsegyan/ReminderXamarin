@@ -1,5 +1,4 @@
 ﻿using System;
-using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -18,7 +17,7 @@ namespace ReminderXamarin.Pages
         {
             if (string.IsNullOrWhiteSpace(DescriptionEditor.Text))
             {
-                await DisplayAlert(ConstantHelper.Warning, ConstantHelper.ToDoTextIsEmptyMessage, ConstantHelper.Ok);
+                await Navigation.PopAsync();
                 return;
             }
 

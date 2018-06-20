@@ -61,15 +61,15 @@ namespace ReminderXamarin.ViewModels
 
         private void CreateNoteCommandExecute(NoteViewModel viewModel)
         {
-            // If there is no photos in list, add photomodel with empty image
-            if (!Photos.Any())
-            {
-                Photos.Add(new PhotoViewModel
-                {
-                    ResizedPath = "empty_note.jpg",
-                    Thumbnail = "empty_note.jpg"
-                });
-            }
+            //// If there is no photos in list, add photomodel with empty image
+            //if (!Photos.Any())
+            //{
+            //    Photos.Add(new PhotoViewModel
+            //    {
+            //        ResizedPath = "empty_note.jpg",
+            //        Thumbnail = "empty_note.jpg"
+            //    });
+            //}
             App.NoteRepository.Save(viewModel.ToNoteModel());
         }
 
