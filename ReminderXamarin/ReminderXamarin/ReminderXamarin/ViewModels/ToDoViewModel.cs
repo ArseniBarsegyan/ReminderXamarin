@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
+using ReminderXamarin.Models;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -14,8 +15,8 @@ namespace ReminderXamarin.ViewModels
         }
 
         public int Id { get; set; }
+        public ToDoPriority Priority { get; set; }
         public string Description { get; set; }
-        public string WarningLevelImage { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime EditDate { get; set; }
 

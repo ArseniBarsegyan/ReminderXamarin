@@ -276,12 +276,30 @@
     <BundleResource Include="Resources\video%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\warning_level%401x.png" />
+    <BundleResource Include="Resources\warning_high%401x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\warning_level%402x.png" />
+    <BundleResource Include="Resources\warning_high%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\warning_level%403x.png" />
+    <BundleResource Include="Resources\warning_high%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\warning_medium%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\warning_medium%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\warning_medium%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\warning_low%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\warning_low%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\warning_low%403x.png" />
   </ItemGroup>
 </Project>

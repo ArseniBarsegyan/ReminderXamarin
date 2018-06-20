@@ -1,4 +1,5 @@
 ﻿using System;
+using ReminderXamarin.Models;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -31,6 +32,12 @@ namespace ReminderXamarin.Pages
             });
 
             await Navigation.PopAsync();
+        }
+
+        private void PriorityPicker_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            var priority = (ToDoPriority)PriorityPicker.SelectedItem;
+            ViewModel.Priority = priority;
         }
     }
 }

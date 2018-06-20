@@ -31,5 +31,14 @@ namespace ReminderXamarin.Pages
         {
             await Navigation.PushAsync(new CreateToDoItemPage());
         }
+
+        private async void ToDoList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem is ToDoViewModel viewModel)
+            {
+                await Navigation.PushAsync(new ToDoDetailPage(viewModel));
+            }
+            ToDoList.SelectedItem = null;
+        }
     }
 }

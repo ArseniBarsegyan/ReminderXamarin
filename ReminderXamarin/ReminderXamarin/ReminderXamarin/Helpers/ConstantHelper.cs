@@ -11,6 +11,7 @@
         public const string NoteTextIsEmptyMessage = "Note text is empty. Creation cancelled";
         public const string ToDoTextIsEmptyMessage = "To do text is empty. Creation cancelled";
         public const string NoteDeleteMessage = "Are you sure you want to delete this note?";
+        public const string ToDoItemDeleteMessage = "Are you sure you want to delete this to-do?";
         public const string Warning = "Warning";
         public const string DetailPageChanged = "DetailPageChanged";
         public const string NotesListIcon = "notes_list.png";

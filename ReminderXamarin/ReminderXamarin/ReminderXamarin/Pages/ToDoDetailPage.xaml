@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ReminderXamarin.Pages.ToDoDetailPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="delete.png" Clicked="Delete_OnClicked" />
+        <ToolbarItem Icon="confirm.png" Clicked="Confirm_OnClicked" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Picker x:Name="PriorityPicker"
+                    SelectedItem="{Binding Priority}"
+                    ItemsSource="{Binding AvailablePriorities}" />
+            <ScrollView VerticalOptions="FillAndExpand">
+                <Editor x:Name="DescriptionEditor"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand" />
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

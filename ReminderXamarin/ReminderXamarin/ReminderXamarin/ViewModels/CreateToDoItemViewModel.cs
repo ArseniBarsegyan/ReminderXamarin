@@ -1,5 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using ReminderXamarin.Extensions;
+using ReminderXamarin.Models;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -8,10 +10,19 @@ namespace ReminderXamarin.ViewModels
     {
         public CreateToDoItemViewModel()
         {
+            AvailablePriorities = new ObservableCollection<ToDoPriority>
+            {
+                ToDoPriority.High,
+                ToDoPriority.Medium,
+                ToDoPriority.Low
+            };
+
             CreateToDoItemCommand = new Command<ToDoViewModel>(CreateToDoCommandExecute);
             DeleteToDoItemCommand = new Command<ToDoViewModel>(toDoModel => DeleteNoteCommandExecute(toDoModel));
         }
-        
+
+        public ObservableCollection<ToDoPriority> AvailablePriorities { get; set; }
+        public ToDoPriority Priority { get; set; } = ToDoPriority.Medium;
         public ICommand CreateToDoItemCommand { get; set; }
         public ICommand DeleteToDoItemCommand { get; set; }
 

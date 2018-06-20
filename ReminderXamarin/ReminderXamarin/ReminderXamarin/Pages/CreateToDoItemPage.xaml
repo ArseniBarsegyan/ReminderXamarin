@@ -14,9 +14,15 @@
 
     <ContentPage.Content>
         <ScrollView VerticalOptions="FillAndExpand">
-            <Editor x:Name="DescriptionEditor"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand" />
+            <StackLayout>
+                <Picker x:Name="PriorityPicker"
+                        ItemsSource="{Binding AvailablePriorities}"
+                        SelectedIndexChanged="PriorityPicker_OnSelectedIndexChanged"/>
+                
+                <Editor x:Name="DescriptionEditor"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand" />
+            </StackLayout>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -22,6 +22,7 @@
                       CachingStrategy="RecycleElement"
                       RefreshCommand="{Binding RefreshListCommand}"
                       IsRefreshing="{Binding IsRefreshing}"
+                      ItemSelected="ToDoList_OnItemSelected"
                       SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -36,10 +37,10 @@
                                                              BorderColor="DarkGray" 
                                                              BorderWidth="1">
                                     <StackLayout Orientation="Horizontal">
-                                        <Image Source="{Binding WarningLevelImage}"
-                                           Aspect="AspectFill" 
-                                           HeightRequest="50"
-                                           WidthRequest="50" />
+                                        <Image Source="{Binding Priority, Converter={StaticResource PriorityToImageConverter}}"
+                                               Aspect="AspectFill" 
+                                               HeightRequest="50"
+                                               WidthRequest="50" />
                                         <StackLayout Spacing="10">
                                             <Label Text="{Binding EditDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" />
                                             <elements:LineSpacingLabel HorizontalTextAlignment="Start" Lines="3" LineSpacing="1.1" Text="{Binding Description}" />

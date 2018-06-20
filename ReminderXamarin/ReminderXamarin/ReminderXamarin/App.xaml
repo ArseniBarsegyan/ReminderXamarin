@@ -10,6 +10,7 @@
             <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
             <converters:NullElementToBoolConverter x:Key="NullElementToBoolConverter" />
             <converters:NullElementToImageSourceConverter x:Key="NullElementToImageSourceConverter" />
+            <converters:PriorityToImageConverter x:Key="PriorityToImageConverter" />
         </ResourceDictionary>
 	</Application.Resources>
 </Application>

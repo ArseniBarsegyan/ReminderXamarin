@@ -117,10 +117,10 @@ namespace ReminderXamarin.Extensions
             return new ToDoModel
             {
                 Id = viewModel.Id,
+                Priority = viewModel.Priority,
                 CreationDate = viewModel.CreationDate,
                 EditDate = viewModel.EditDate,
-                Description = viewModel.Description,
-                WarningLevelImage = viewModel.WarningLevelImage
+                Description = viewModel.Description
             };
         }
 
@@ -129,10 +129,10 @@ namespace ReminderXamarin.Extensions
             return new ToDoViewModel
             {
                 Id = model.Id,
+                Priority = model.Priority,
                 CreationDate = model.CreationDate,
                 EditDate = model.EditDate,
-                Description = model.Description,
-                WarningLevelImage = model.WarningLevelImage
+                Description = model.Description
             };
         }
 
@@ -141,10 +141,10 @@ namespace ReminderXamarin.Extensions
             return viewModels.Select(viewModel => new ToDoModel
             {
                     Id = viewModel.Id,
+                    Priority = viewModel.Priority,
                     CreationDate = viewModel.CreationDate,
                     EditDate = viewModel.EditDate,
-                    Description = viewModel.Description,
-                    WarningLevelImage = "http://icdn.pro/images/es/a/l/alerta-icono-3660-128.png"
+                    Description = viewModel.Description
             })
             .ToList();
         }
@@ -154,10 +154,10 @@ namespace ReminderXamarin.Extensions
             return models.Select(model => new ToDoViewModel
             {
                     Id = model.Id,
+                    Priority = model.Priority,
                     CreationDate = model.CreationDate,
                     EditDate = model.EditDate,
-                    Description = model.Description,
-                    WarningLevelImage = "http://icdn.pro/images/es/a/l/alerta-icono-3660-128.png"
+                    Description = model.Description
             })
             .ToList();
         }
