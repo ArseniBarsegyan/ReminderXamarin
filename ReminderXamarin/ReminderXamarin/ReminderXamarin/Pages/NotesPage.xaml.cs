@@ -1,4 +1,5 @@
 ﻿using System;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 
@@ -40,12 +41,17 @@ namespace ReminderXamarin.Pages
             ViewModel.SearchCommand.Execute(SearchBar.Text);
         }
 
-        private void Delete_OnClicked(object sender, EventArgs e)
+        private async void Delete_OnClicked(object sender, EventArgs e)
         {
-            var menuItem = sender as MenuItem;
-            var noteViewModel = menuItem?.CommandParameter as NoteViewModel;
-            noteViewModel?.DeleteNoteCommand.Execute(noteViewModel);
-            ViewModel.OnAppearing();
+            bool result = await DisplayAlert
+                (ConstantHelper.Warning, ConstantHelper.NoteDeleteMessage, ConstantHelper.Ok, ConstantHelper.Cancel);
+            if (result)
+            {
+                var menuItem = sender as MenuItem;
+                var noteViewModel = menuItem?.CommandParameter as NoteViewModel;
+                noteViewModel?.DeleteNoteCommand.Execute(noteViewModel);
+                ViewModel.OnAppearing();
+            }
         }
     }
 }
