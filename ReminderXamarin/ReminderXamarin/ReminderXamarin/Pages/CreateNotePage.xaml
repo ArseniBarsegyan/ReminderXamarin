@@ -23,7 +23,7 @@
                                    Orientation="Horizontal" 
                                    ItemsSource="{Binding Photos}"
                                    HeightRequest="100"
-                                   IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}">
+                                   IsVisible="False">
                 <elements:ImageGallery.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

@@ -8,11 +8,6 @@ namespace ReminderXamarin.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CreateNotePage : ContentPage
     {
-        /// <summary>
-        /// Indicates if user tapped on "Save" button.
-        /// </summary>
-        private bool _saveClicked;
-
         public CreateNotePage()
         {
             InitializeComponent();
@@ -27,29 +22,22 @@ namespace ReminderXamarin.Pages
                 return;
             }
 
-            //if (!ViewModel.Photos.Any())
-            //{
-            //    ViewModel.Photos.Add(new PhotoViewModel());
-            //}
+            DateTime currentDateTime = DateTime.Now;
 
-            if (!_saveClicked)
+            ViewModel.CreateNoteCommand.Execute(new NoteViewModel
             {
-                DateTime currentDateTime = DateTime.Now;
-                
-                ViewModel.CreateNoteCommand.Execute(new NoteViewModel
-                {
-                    CreationDate = currentDateTime,
-                    EditDate = currentDateTime,
-                    Description = DescriptionEditor.Text,
-                    Photos = ViewModel.Photos
-                });
-            }
-            _saveClicked = true;
+                CreationDate = currentDateTime,
+                EditDate = currentDateTime,
+                Description = DescriptionEditor.Text,
+                Photos = ViewModel.Photos
+            });
+
             await Navigation.PopAsync();
         }
 
         private void ViewModel_OnPhotoAdded(object sender, EventArgs e)
         {
+            ImageGallery.IsVisible = true;
             ImageGallery.Render();
         }
     }
