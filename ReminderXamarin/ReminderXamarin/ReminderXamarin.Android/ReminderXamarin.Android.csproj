@@ -82,7 +82,6 @@
     <Compile Include="Renderers\CustomEditorRenderer.cs" />
     <Compile Include="Renderers\ImageGalleryRenderer.cs" />
     <Compile Include="Renderers\LineSpacingLabelRenderer.cs" />
-    <Compile Include="Renderers\NavigationPageCustomRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

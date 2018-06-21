@@ -98,7 +98,6 @@
     <Compile Include="Renderers\EditorRenderer.cs" />
     <Compile Include="Renderers\ImageGalleryRenderer.cs" />
     <Compile Include="Renderers\LineSpacingLabelRenderer.cs" />
-    <Compile Include="Renderers\NavigationPageCustomRenderer.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
