@@ -6,7 +6,6 @@
              BackgroundColor="White">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="delete.png" Clicked="Delete_OnClicked" />
-        <ToolbarItem Icon="confirm.png" Clicked="Confirm_OnClicked" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
@@ -36,6 +35,7 @@
 
             <ScrollView VerticalOptions="FillAndExpand">
                 <Editor x:Name="DescriptionEditor"
+                        TextChanged="DescriptionEditor_OnTextChanged"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="FillAndExpand" />
             </ScrollView>

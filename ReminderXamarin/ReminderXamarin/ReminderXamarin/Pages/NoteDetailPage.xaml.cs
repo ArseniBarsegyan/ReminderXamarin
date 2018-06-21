@@ -10,14 +10,32 @@ namespace ReminderXamarin.Pages
     public partial class NoteDetailPage : ContentPage
     {
         private readonly NoteViewModel _noteViewModel;
+        private readonly ToolbarItem _confirmToolbarItem;
 
         public NoteDetailPage(NoteViewModel noteViewModel)
         {
             InitializeComponent();
             BindingContext = noteViewModel;
             _noteViewModel = noteViewModel;
+
+            _confirmToolbarItem = new ToolbarItem { Icon = "confirm.png" };
+            
+            ToolbarItems.Add(_confirmToolbarItem);
+
             Title = $"{noteViewModel.EditDate:d}";
             DescriptionEditor.Text = noteViewModel.Description;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _confirmToolbarItem.Clicked += Confirm_OnClicked;
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            _confirmToolbarItem.Clicked -= Confirm_OnClicked;
         }
 
         private async void Delete_OnClicked(object sender, EventArgs e)
@@ -35,6 +53,19 @@ namespace ReminderXamarin.Pages
         {
             _noteViewModel.Description = DescriptionEditor.Text;
             _noteViewModel.UpdateNoteCommand.Execute(_noteViewModel);
+
+            if (ToolbarItems.Contains(_confirmToolbarItem))
+            {
+                ToolbarItems.RemoveAt(1);
+            }
+        }
+
+        private void DescriptionEditor_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!ToolbarItems.Contains(_confirmToolbarItem))
+            {
+                ToolbarItems.Add(_confirmToolbarItem);
+            }
         }
     }
 }

@@ -19,7 +19,6 @@ namespace ReminderXamarin.ViewModels
         public DateTime CreationDate { get; set; }
         public DateTime EditDate { get; set; }
         public string FullDescription { get; set; }
-
         public ICommand UpdateNoteCommand { get; set; }
         public ICommand DeleteNoteCommand { get; set; }
 
