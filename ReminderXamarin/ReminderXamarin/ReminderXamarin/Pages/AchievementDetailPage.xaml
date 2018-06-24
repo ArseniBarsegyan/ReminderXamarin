@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ReminderXamarin.Pages.AchievementDetailPage"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button x:Name="AddNoteButton"
+                    BackgroundColor="DodgerBlue"
+                    TextColor="White"
+                    Text="+"
+                    Clicked="AddNoteButton_OnClicked" />
+            <ListView x:Name="AchievementNotes"
+                      ItemsSource="{Binding AchievementNotes}"
+                      HasUnevenRows="True"
+                      ItemSelected="AchievementNotes_OnItemSelected"
+                      SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="100">
+                            <ViewCell.View>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Description}" FontSize="Small" />
+                                    <Label Text="{Binding HoursSpent}"  FontSize="Small" />
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

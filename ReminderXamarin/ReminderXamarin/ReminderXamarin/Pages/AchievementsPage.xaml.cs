@@ -25,8 +25,13 @@ namespace ReminderXamarin.Pages
             await Navigation.PushAsync(new AchievementCreatePage());
         }
 
-        private void AchievementsList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void AchievementsList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            if (e.SelectedItem is AchievementViewModel viewModel)
+            {
+                await Navigation.PushAsync(new AchievementDetailPage(viewModel));
+            }
+            AchievementsList.SelectedItem = null;
         }
 
         private async void Delete_OnClicked(object sender, EventArgs e)
