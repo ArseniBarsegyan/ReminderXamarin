@@ -236,13 +236,13 @@ namespace ReminderXamarin.Extensions
         public static IEnumerable<AchievementNoteViewModel> ToAchievementNoteViewModels(
             this IEnumerable<AchievementNote> models)
         {
-            return models.Select(achievementNote => achievementNote.ToAchievementNoteViewModel()).ToList();
+            return models.Select(model => model.ToAchievementNoteViewModel()).ToList();
         }
 
         public static IEnumerable<AchievementNote> ToAchievementNoteViewModels(
             this IEnumerable<AchievementNoteViewModel> viewModels)
         {
-            return viewModels.Select(achievementNote => achievementNote.ToAchievementNote()).ToList();
+            return viewModels.Select(viewModel => viewModel.ToAchievementNote()).ToList();
         }
 
         public static AchievementModel ToAchievementModel(this AchievementViewModel viewModel)
@@ -267,6 +267,18 @@ namespace ReminderXamarin.Extensions
                 GeneralTimeSpent = model.GeneralTimeSpent,
                 ImageUrl = model.ImageUrl
             };
+        }
+
+        public static IEnumerable<AchievementModel> ToAchievementModels(
+            this IEnumerable<AchievementViewModel> viewModels)
+        {
+            return viewModels.Select(viewModel => viewModel.ToAchievementModel()).ToList();
+        }
+
+        public static IEnumerable<AchievementViewModel> ToAchievementViewModels(
+            this IEnumerable<AchievementModel> models)
+        {
+            return models.Select(model => model.ToAchievementViewModel()).ToList();
         }
     }
 }
