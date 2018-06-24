@@ -208,5 +208,65 @@ namespace ReminderXamarin.Extensions
         {
             return new Image { Source = viewModel.ResizedPath };
         }
+
+        public static AchievementNote ToAchievementNote(this AchievementNoteViewModel viewModel)
+        {
+            return new AchievementNote
+            {
+                Id = viewModel.Id,
+                Description = viewModel.Description,
+                From = viewModel.From,
+                To = viewModel.To,
+                HoursSpent = viewModel.HoursSpent
+            };
+        }
+
+        public static AchievementNoteViewModel ToAchievementNoteViewModel(this AchievementNote model)
+        {
+            return new AchievementNoteViewModel
+            {
+                Id = model.Id,
+                Description = model.Description,
+                From = model.From,
+                To = model.To,
+                HoursSpent = model.HoursSpent
+            };
+        }
+
+        public static IEnumerable<AchievementNoteViewModel> ToAchievementNoteViewModels(
+            this IEnumerable<AchievementNote> models)
+        {
+            return models.Select(achievementNote => achievementNote.ToAchievementNoteViewModel()).ToList();
+        }
+
+        public static IEnumerable<AchievementNote> ToAchievementNoteViewModels(
+            this IEnumerable<AchievementNoteViewModel> viewModels)
+        {
+            return viewModels.Select(achievementNote => achievementNote.ToAchievementNote()).ToList();
+        }
+
+        public static AchievementModel ToAchievementModel(this AchievementViewModel viewModel)
+        {
+            return new AchievementModel
+            {
+                Id = viewModel.Id,
+                AchievementNotes = viewModel.AchievementNotes.ToAchievementNoteViewModels().ToList(),
+                Title = viewModel.Title,
+                GeneralTimeSpent = viewModel.GeneralTimeSpent,
+                ImageUrl = viewModel.ImageUrl
+            };
+        }
+
+        public static AchievementViewModel ToAchievementViewModel(this AchievementModel model)
+        {
+            return new AchievementViewModel
+            {
+                Id = model.Id,
+                AchievementNotes = model.AchievementNotes.ToAchievementNoteViewModels().ToList(),
+                Title = model.Title,
+                GeneralTimeSpent = model.GeneralTimeSpent,
+                ImageUrl = model.ImageUrl
+            };
+        }
     }
 }
