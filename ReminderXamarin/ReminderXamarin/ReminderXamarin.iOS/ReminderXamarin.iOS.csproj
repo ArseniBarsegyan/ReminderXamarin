@@ -310,4 +310,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\todo_list%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\achievements_icon%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\achievements_icon%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\achievements_icon%403x.png" />
+  </ItemGroup>
 </Project>
