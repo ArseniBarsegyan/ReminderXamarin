@@ -30,7 +30,7 @@
                             Date="{x:Static sys:DateTime.Now}" />
                 
                 <Label Text="Time: " />
-                <TimePicker x:Name="TimePicker" />
+                <TimePicker x:Name="TimePicker" Format="HH:mm" />
 
                 <Label Text="Description" />
                 <Editor x:Name="DescriptionEditor"

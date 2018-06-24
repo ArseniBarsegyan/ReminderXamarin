@@ -2,7 +2,7 @@
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using ReminderXamarin.Droid.Renderers;
-using ReminderXamarin.Renderers;
+using ReminderXamarin.Elements;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 

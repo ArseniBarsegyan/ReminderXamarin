@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels"
-             xmlns:renderers="clr-namespace:ReminderXamarin.Renderers;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.ToDoPage"
              Title="To-do list">
@@ -18,7 +17,6 @@
             <ListView x:Name="ToDoList"
                       ItemsSource="{Binding ToDoViewModels}"
                       IsPullToRefreshEnabled="True"
-                      HasUnevenRows="True"
                       CachingStrategy="RecycleElement"
                       RefreshCommand="{Binding RefreshListCommand}"
                       IsRefreshing="{Binding IsRefreshing}"
@@ -26,26 +24,29 @@
                       SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell Height="50">
+                        <ViewCell>
                             <ViewCell.ContextActions>
                                 <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
                             </ViewCell.ContextActions>
                             <StackLayout BackgroundColor="White">
-                                <renderers:ContentViewWithBorder HorizontalOptions="FillAndExpand" 
-                                                             VerticalOptions="FillAndExpand" 
-                                                             Padding="10" 
-                                                             BorderColor="DarkGray" 
-                                                             BorderWidth="1">
-                                    <StackLayout Orientation="Horizontal">
+                                <elements:ContentViewWithBorder HorizontalOptions="FillAndExpand" 
+                                                                 VerticalOptions="FillAndExpand" 
+                                                                 Padding="10" 
+                                                                 BorderColor="DarkGray" 
+                                                                 BorderWidth="1">
+                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                         <Image Source="{Binding Priority, Converter={StaticResource PriorityToImageConverter}}"
                                                Aspect="AspectFit"
-                                               HeightRequest="20" />
-                                        <StackLayout Orientation="Horizontal" Spacing="3">
-                                            <Label Text="{Binding WhenHappens, StringFormat='{0:dd.MM.yy, HH:mm}'}" />
-                                            <elements:LineSpacingLabel HorizontalTextAlignment="Start" Lines="3" LineSpacing="1.1" Text="{Binding Description}" />
-                                        </StackLayout>
+                                               VerticalOptions="Center"
+                                               HeightRequest="30" />
+                                        <Label Text="{Binding WhenHappens, StringFormat='{0:dd.MM.yy, HH:mm}'}" VerticalOptions="Center" />
+                                        <elements:LineSpacingLabel HorizontalTextAlignment="Start" 
+                                                                   Lines="3"
+                                                                   LineSpacing="1.1" 
+                                                                   Text="{Binding Description}"
+                                                                   VerticalOptions="Center" />
                                     </StackLayout>
-                                </renderers:ContentViewWithBorder>
+                                </elements:ContentViewWithBorder>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

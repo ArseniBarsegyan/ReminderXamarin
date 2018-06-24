@@ -35,8 +35,7 @@
                                            HorizontalOptions="Center" />
                                     <Label Text="{Binding Title}" 
                                            VerticalOptions="Center" 
-                                           HorizontalOptions="Center"
-                                           FontSize="Medium" />
+                                           HorizontalOptions="Center" />
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>

@@ -15,6 +15,7 @@ namespace ReminderXamarin.Pages
         public ToDoDetailPage(ToDoViewModel viewModel)
         {
             InitializeComponent();
+            TimePicker.Time = viewModel.WhenHappens.TimeOfDay;
             BindingContext = viewModel;
             _viewModel = viewModel;
 

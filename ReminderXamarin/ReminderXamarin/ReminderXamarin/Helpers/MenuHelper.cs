@@ -23,7 +23,7 @@ namespace ReminderXamarin.Helpers
                 new MasterPageItem
                 {
                     Title = ConstantHelper.ToDoSection,
-                    IconSource = "",
+                    IconSource = ConstantHelper.ToDoListIcon,
                     TargetType = typeof(ToDoPage),
                     IsDisplayed = true
                 }

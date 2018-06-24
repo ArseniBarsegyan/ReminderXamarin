@@ -22,7 +22,7 @@
                         Date="{Binding WhenHappens}" />
 
             <Label Text="Time: " />
-            <TimePicker x:Name="TimePicker" />
+            <TimePicker x:Name="TimePicker" Format="HH:mm" />
 
             <Label Text="Description: " />
             <ScrollView VerticalOptions="FillAndExpand">

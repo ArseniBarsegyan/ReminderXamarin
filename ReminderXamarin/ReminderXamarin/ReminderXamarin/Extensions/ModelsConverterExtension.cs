@@ -115,6 +115,11 @@ namespace ReminderXamarin.Extensions
 
         public static ToDoModel ToToDoModel(this ToDoViewModel viewModel)
         {
+            var todoModel = new ToDoModel
+            {
+                WhenHappens = viewModel.WhenHappens
+            };
+
             return new ToDoModel
             {
                 Id = viewModel.Id,

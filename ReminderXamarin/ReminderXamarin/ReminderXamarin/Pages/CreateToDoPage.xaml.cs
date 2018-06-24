@@ -11,6 +11,7 @@ namespace ReminderXamarin.Pages
         public CreateToDoPage()
         {
             InitializeComponent();
+            TimePicker.Time = DateTime.Now.TimeOfDay;
         }
 
         private async void Save_OnClicked(object sender, EventArgs e)

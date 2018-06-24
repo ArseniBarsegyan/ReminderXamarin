@@ -15,6 +15,7 @@
         public const string Warning = "Warning";
         public const string DetailPageChanged = "DetailPageChanged";
         public const string NotesListIcon = "notes_list.png";
+        public const string ToDoListIcon = "todo_list.png";
         public const string Notes = "Notes";
         public const string ToDoSection = "To-do section";
     }

@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
-             xmlns:renderers="clr-namespace:ReminderXamarin.Renderers;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements"
              x:Class="ReminderXamarin.Pages.NotesPage"
              Title="All notes">
@@ -15,12 +14,12 @@
 
     <StackLayout Padding="10" Spacing="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
         <!-- Search bar with border -->
-        <renderers:ContentViewWithBorder BorderColor="Gray">
+        <elements:ContentViewWithBorder BorderColor="Gray">
             <SearchBar x:Name="SearchBar" 
                        BackgroundColor="White"
                        Placeholder="Search..." 
                        TextChanged="SearchBar_OnTextChanged" />
-        </renderers:ContentViewWithBorder>
+        </elements:ContentViewWithBorder>
         <!-- List with notes -->
         <ListView x:Name="NotesList" 
                   ItemsSource="{Binding Notes}"
@@ -38,7 +37,7 @@
                             <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
                         </ViewCell.ContextActions>
                         <StackLayout BackgroundColor="White">
-                            <renderers:ContentViewWithBorder HorizontalOptions="FillAndExpand" 
+                            <elements:ContentViewWithBorder HorizontalOptions="FillAndExpand" 
                                                              VerticalOptions="FillAndExpand" 
                                                              Padding="10" 
                                                              BorderColor="DarkGray" 
@@ -54,7 +53,7 @@
                                         <elements:LineSpacingLabel HorizontalTextAlignment="Start" Lines="3" LineSpacing="1.1" Text="{Binding Description}" />
                                     </StackLayout>
                                 </StackLayout>
-                            </renderers:ContentViewWithBorder>
+                            </elements:ContentViewWithBorder>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
@@ -63,3 +62,6 @@
     </StackLayout>
 
 </ContentPage>
+
+
+

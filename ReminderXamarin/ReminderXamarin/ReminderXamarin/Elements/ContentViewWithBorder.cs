@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace ReminderXamarin.Renderers
+namespace ReminderXamarin.Elements
 {
     /// <summary>
     /// ContentView with properties: border color, corner radius and border width.

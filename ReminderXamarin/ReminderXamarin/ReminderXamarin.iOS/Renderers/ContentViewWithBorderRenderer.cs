@@ -1,5 +1,5 @@
-﻿using ReminderXamarin.iOS.Renderers;
-using ReminderXamarin.Renderers;
+﻿using ReminderXamarin.Elements;
+using ReminderXamarin.iOS.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 

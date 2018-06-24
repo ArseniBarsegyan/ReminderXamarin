@@ -301,4 +301,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\warning_low%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\todo_list%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\todo_list%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\todo_list%403x.png" />
+  </ItemGroup>
 </Project>
