@@ -1,4 +1,5 @@
-﻿using Foundation;
+﻿using System.Reflection;
+using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
 using UIKit;
 
@@ -20,6 +21,8 @@ namespace ReminderXamarin.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            var cv = typeof(Xamarin.Forms.CarouselView);
+            var assembly = Assembly.Load(cv.FullName);
             ImageCircleRenderer.Init();
             LoadApplication(new App());
 

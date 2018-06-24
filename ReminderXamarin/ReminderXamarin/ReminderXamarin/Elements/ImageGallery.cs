@@ -1,58 +1,74 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Elements
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Scroll view that accepts images as ItemsSource and display them.
+    /// <see cref="ImageGallery"/> extends absolute layout and takes collection of <see cref="Image"/> in
+    /// constructor as parameter. This class uses <see cref="CarouselView"/> to draw horizontal set of images
+    /// that could be changed by swipe.
     /// </summary>
-    public class ImageGallery : ScrollView
+    public class ImageGallery : AbsoluteLayout
     {
-        public static readonly BindableProperty ItemsSourceProperty =
-            BindableProperty.Create(nameof(ItemsSource), typeof(IEnumerable), typeof(ImageGallery), default(IEnumerable));
+        private readonly CarouselView _carousel;
 
-        public IEnumerable ItemsSource
+        public ImageGallery(ObservableCollection<Image> images)
         {
-            get => (IEnumerable)GetValue(ItemsSourceProperty);
-            set => SetValue(ItemsSourceProperty, value);
-        }
+            HorizontalOptions = LayoutOptions.FillAndExpand;
+            VerticalOptions = LayoutOptions.FillAndExpand;
 
-        public static readonly BindableProperty ItemTemplateProperty =
-            BindableProperty.Create(nameof(ItemTemplate), typeof(DataTemplate), typeof(ImageGallery), default(DataTemplate));
+            _carousel = new CarouselView
+            {
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.StartAndExpand,
+                HeightRequest = 350
+            };
 
-        public DataTemplate ItemTemplate
-        {
-            get => (DataTemplate)GetValue(ItemTemplateProperty);
-            set => SetValue(ItemTemplateProperty, value);
+            Images = images;
+            _carousel.ItemsSource = images;
+            _carousel.PositionSelected += OnImageChanged;
+
+            Children.Add(_carousel);
+            SetLayoutBounds(_carousel, new Rectangle(0, 0, 1, 1));
+            SetLayoutFlags(_carousel, AbsoluteLayoutFlags.All);
         }
 
         /// <summary>
-        /// Call this method in custom renderer in Android and iOS projects.
+        /// Collection of <seealso cref="Image"/> as item source for image gallery.
         /// </summary>
-        public void Render()
+        public ObservableCollection<Image> Images
         {
-            if (ItemTemplate == null || ItemsSource == null)
-            {
-                return;
-            }
+            get => (ObservableCollection<Image>)_carousel.ItemsSource;
+            set => _carousel.ItemsSource = value;
+        }
 
-            var layout = new StackLayout
-            {
-                Orientation = Orientation == ScrollOrientation.Vertical
-                    ? StackOrientation.Vertical
-                    : StackOrientation.Horizontal
-            };
+        /// <summary>
+        /// Item template for image gallery.
+        /// </summary>
+        public DataTemplate ItemTemplate
+        {
+            get => _carousel.ItemTemplate;
+            set => _carousel.ItemTemplate = value;
+        }
 
-            foreach (var item in ItemsSource)
-            {
-                if (ItemTemplate.CreateContent() is ViewCell viewCell)
-                {
-                    viewCell.View.BindingContext = item;
-                    layout.Children.Add(viewCell.View);
-                }
-            }
+        public event EventHandler<int> ImageChanged;
 
-            Content = layout;
+        /// <summary>
+        /// Display current image gallery element by number.
+        /// </summary>
+        /// <param name="position">number of element to be displayed.</param>
+        public void SetCurrentPosition(int position)
+        {
+            _carousel.Position = position;
+        }
+
+        private void OnImageChanged(object sender, SelectedPositionChangedEventArgs e)
+        {
+            // Get the selected page
+            var position = (int)e.SelectedPosition;
+            ImageChanged?.Invoke(this, position);
         }
     }
 }

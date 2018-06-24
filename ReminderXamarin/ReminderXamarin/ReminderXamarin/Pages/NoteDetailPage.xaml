@@ -11,27 +11,32 @@
     <ContentPage.Content>
         <StackLayout Padding="10">
             <!-- Image gallery with all photos of current note. Visible if note contains not empty photo -->
-            <elements1:ImageGallery x:Name="ImageGallery" 
+            <elements1:HorizontalImageGallery x:Name="ImageGallery" 
                                    Orientation="Horizontal" 
                                    ItemsSource="{Binding Photos}"
                                    HeightRequest="100"
                                    IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}">
-                <elements1:ImageGallery.ItemTemplate>
+                <elements1:HorizontalImageGallery.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
                                 <AbsoluteLayout x:Name="ImageViewLayout" Padding="5" HeightRequest="80" WidthRequest="80">
-                                    <elements1:ClickableImage Source="{Binding ResizedPath}"
-                                                             FullSizeImageSource="{Binding ResizedPath}"
-                                                             Aspect="AspectFill"
-                                                             AbsoluteLayout.LayoutBounds="0,0,1,1"
-                                                             AbsoluteLayout.LayoutFlags="All" />
+                                    <Image Source="{Binding ResizedPath}"
+                                           Aspect="AspectFill"
+                                           HeightRequest="150"  
+                                           WidthRequest="150"
+                                           AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                           AbsoluteLayout.LayoutFlags="All">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="HorizontalImageGallery_OnItemTapped" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
                                 </AbsoluteLayout>
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
-                </elements1:ImageGallery.ItemTemplate>
-            </elements1:ImageGallery>
+                </elements1:HorizontalImageGallery.ItemTemplate>
+            </elements1:HorizontalImageGallery>
 
             <ScrollView VerticalOptions="FillAndExpand">
                 <Editor x:Name="DescriptionEditor"

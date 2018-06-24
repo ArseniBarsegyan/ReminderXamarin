@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using ReminderXamarin.Models;
 using ReminderXamarin.ViewModels;
+using Xamarin.Forms;
 
 namespace ReminderXamarin.Extensions
 {
@@ -186,6 +187,21 @@ namespace ReminderXamarin.Extensions
                 viewModels.Add(viewModel);
             }
             return viewModels;
+        }
+
+        public static IEnumerable<Image> ToImages(this IEnumerable<PhotoViewModel> viewModels)
+        {
+            var images = new ObservableCollection<Image>();
+            foreach (var viewModel in viewModels)
+            {
+                images.Add(viewModel.ToImage());
+            }
+            return images;
+        }
+
+        public static Image ToImage(this PhotoViewModel viewModel)
+        {
+            return new Image { Source = viewModel.ResizedPath };
         }
     }
 }

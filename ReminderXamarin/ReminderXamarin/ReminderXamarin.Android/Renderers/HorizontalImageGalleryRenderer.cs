@@ -4,12 +4,12 @@ using ReminderXamarin.Elements;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-[assembly: ExportRenderer(typeof(ImageGallery), typeof(ImageGalleryRenderer))]
+[assembly: ExportRenderer(typeof(HorizontalImageGallery), typeof(HorizontalImageGalleryRenderer))]
 namespace ReminderXamarin.Droid.Renderers
 {
-    public class ImageGalleryRenderer : ScrollViewRenderer
+    public class HorizontalImageGalleryRenderer : ScrollViewRenderer
     {
-        public ImageGalleryRenderer(Context context) : base(context)
+        public HorizontalImageGalleryRenderer(Context context) : base(context)
         {
         }
 
@@ -17,7 +17,7 @@ namespace ReminderXamarin.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            var element = e.NewElement as ImageGallery;
+            var element = e.NewElement as HorizontalImageGallery;
             element?.Render();
         }
     }
