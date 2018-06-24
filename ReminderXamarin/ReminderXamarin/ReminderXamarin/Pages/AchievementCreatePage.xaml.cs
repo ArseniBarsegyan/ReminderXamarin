@@ -20,6 +20,7 @@ namespace ReminderXamarin.Pages
                 return;
             }
             ViewModel.Title = TitleEditor.Text;
+            ViewModel.GeneralDescription = Title;
             ViewModel.CreateAchievementCommand.Execute(null);
             await Navigation.PopAsync();
         }

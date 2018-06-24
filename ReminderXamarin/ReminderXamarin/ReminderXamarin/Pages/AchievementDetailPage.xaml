@@ -9,6 +9,7 @@
                     BackgroundColor="DodgerBlue"
                     TextColor="White"
                     Text="+"
+                    HeightRequest="50"
                     Clicked="AddNoteButton_OnClicked" />
             <ListView x:Name="AchievementNotes"
                       ItemsSource="{Binding AchievementNotes}"
@@ -20,8 +21,8 @@
                         <ViewCell Height="100">
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Description}" FontSize="Small" />
-                                    <Label Text="{Binding HoursSpent}"  FontSize="Small" />
+                                    <Label Text="{Binding Description}" FontSize="Small" HorizontalOptions="Start" />
+                                    <Label Text="{Binding HoursSpent}"  FontSize="Small" HorizontalOptions="EndAndExpand" />
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>

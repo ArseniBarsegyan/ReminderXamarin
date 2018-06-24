@@ -19,10 +19,12 @@ namespace ReminderXamarin.Pages
 
         private void AchievementNotes_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            AchievementNotes.SelectedItem = null;
         }
 
         private async void AddNoteButton_OnClicked(object sender, EventArgs e)
         {
+            await Navigation.PushModalAsync(new AchievementNoteCreatePage(_viewModel));
         }
     }
 }

@@ -44,6 +44,7 @@ namespace ReminderXamarin.ViewModels
 
         private void UpdateAchievementCommandExecute()
         {
+            App.AchievementRepository.Save(this.ToAchievementModel());
         }
 
         private int DeleteAchievementCommandExecute()
