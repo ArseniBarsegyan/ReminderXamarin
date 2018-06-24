@@ -9,6 +9,7 @@ namespace ReminderXamarin
     {
         private static NoteRepository _noteRepository;
         private static ToDoRepository _toDoRepository;
+        private static AchievementRepository _achievementRepository;
 
         public App()
         {
@@ -17,7 +18,7 @@ namespace ReminderXamarin
         }
 
         /// <summary>
-        /// Gets the Note repository through dependency service.
+        /// Gets the Note repository with help dependency service.
         /// </summary>
         /// <value>The database.</value>
         public static NoteRepository NoteRepository => _noteRepository ??
@@ -25,11 +26,19 @@ namespace ReminderXamarin
                                                      .GetLocalFilePath("MyDiaryDB.db3")));
 
         /// <summary>
-        /// Gets the Todomodels repository through dependency service.
+        /// Gets the To-do models repository with help of dependency service.
         /// </summary>
         /// <value>The database.</value>
         public static ToDoRepository ToDoRepository => _toDoRepository ??
                                                        (_toDoRepository = new ToDoRepository(DependencyService.Get<IFileHelper>()
+                                                           .GetLocalFilePath("MyDiaryDB.db3")));
+
+        /// <summary>
+        /// Gets the achievement models repository with help dependency service.
+        /// </summary>
+        /// <value>The database.</value>
+        public static AchievementRepository AchievementRepository => _achievementRepository ??
+                                                       (_achievementRepository = new AchievementRepository(DependencyService.Get<IFileHelper>()
                                                            .GetLocalFilePath("MyDiaryDB.db3")));
 
         protected override void OnStart()
