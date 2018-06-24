@@ -56,7 +56,7 @@ namespace ReminderXamarin.Models
         /// </summary>
         /// <param name="achievement">achievement to be deleted</param>
         /// <returns></returns>
-        public int DeleteNote(AchievementModel achievement)
+        public int DeleteAchievement(AchievementModel achievement)
         {
             return _db.Delete(achievement);
         }

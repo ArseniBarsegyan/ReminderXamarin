@@ -252,6 +252,7 @@ namespace ReminderXamarin.Extensions
                 Id = viewModel.Id,
                 AchievementNotes = viewModel.AchievementNotes.ToAchievementNoteViewModels().ToList(),
                 Title = viewModel.Title,
+                GeneralDescription = viewModel.GeneralDescription,
                 GeneralTimeSpent = viewModel.GeneralTimeSpent,
                 ImageUrl = viewModel.ImageUrl
             };
@@ -264,6 +265,7 @@ namespace ReminderXamarin.Extensions
                 Id = model.Id,
                 AchievementNotes = model.AchievementNotes.ToAchievementNoteViewModels().ToList(),
                 Title = model.Title,
+                GeneralDescription = model.GeneralDescription,
                 GeneralTimeSpent = model.GeneralTimeSpent,
                 ImageUrl = model.ImageUrl
             };

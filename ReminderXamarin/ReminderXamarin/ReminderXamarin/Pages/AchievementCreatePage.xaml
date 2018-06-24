@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
+             x:Class="ReminderXamarin.Pages.AchievementCreatePage"
+             Title="Create achievement"
+             BackgroundColor="White">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="confirm.png" Clicked="Save_OnClicked" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.BindingContext>
+        <viewModels:AchievementViewModel x:Name="ViewModel" />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
