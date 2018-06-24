@@ -25,16 +25,16 @@
                       SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell Height="100">
+                        <ViewCell Height="200">
                             <ViewCell.ContextActions>
                                 <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
                             </ViewCell.ContextActions>
                             <StackLayout BackgroundColor="White">
                                 <elements:ContentViewWithBorder HorizontalOptions="FillAndExpand" 
-                                                                 VerticalOptions="FillAndExpand" 
-                                                                 Padding="10" 
-                                                                 BorderColor="DarkGray" 
-                                                                 BorderWidth="1">
+                                                                VerticalOptions="FillAndExpand" 
+                                                                Padding="10" 
+                                                                BorderColor="DarkGray" 
+                                                                BorderWidth="1">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />

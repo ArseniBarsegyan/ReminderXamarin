@@ -20,6 +20,25 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand"
                     MaxLength="20" />
+            
+            <ListView x:Name="AchievementNotes"
+                      ItemsSource="{Binding AchievementNotes}"
+                      HasUnevenRows="True"
+                      ItemSelected="AchievementNotes_OnItemSelected"
+                      SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="100">
+                            <ViewCell.View>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Description}" FontSize="Small" />
+                                    <Label Text="{Binding HoursSpent}"  FontSize="Small" />
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

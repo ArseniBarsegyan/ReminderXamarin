@@ -23,5 +23,9 @@ namespace ReminderXamarin.Pages
             ViewModel.CreateAchievementCommand.Execute(null);
             await Navigation.PopAsync();
         }
+
+        private void AchievementNotes_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+        }
     }
 }

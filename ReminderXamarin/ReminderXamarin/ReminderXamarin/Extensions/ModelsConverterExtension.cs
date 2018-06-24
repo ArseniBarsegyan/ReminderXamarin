@@ -217,7 +217,8 @@ namespace ReminderXamarin.Extensions
                 Description = viewModel.Description,
                 From = viewModel.From,
                 To = viewModel.To,
-                HoursSpent = viewModel.HoursSpent
+                HoursSpent = viewModel.HoursSpent,
+                AchievementId = viewModel.AchievementId
             };
         }
 
@@ -229,7 +230,8 @@ namespace ReminderXamarin.Extensions
                 Description = model.Description,
                 From = model.From,
                 To = model.To,
-                HoursSpent = model.HoursSpent
+                HoursSpent = model.HoursSpent,
+                AchievementId = model.AchievementId
             };
         }
 
@@ -263,7 +265,7 @@ namespace ReminderXamarin.Extensions
             return new AchievementViewModel
             {
                 Id = model.Id,
-                AchievementNotes = model.AchievementNotes.ToAchievementNoteViewModels().ToList(),
+                AchievementNotes = model.AchievementNotes.ToAchievementNoteViewModels().ToObservableCollection(),
                 Title = model.Title,
                 GeneralDescription = model.GeneralDescription,
                 GeneralTimeSpent = model.GeneralTimeSpent,
