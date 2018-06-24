@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             x:Class="ReminderXamarin.Pages.CreateToDoPage"
+             Title="Create to-do">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="confirm.png" Clicked="Save_OnClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.BindingContext>
+        <viewModels1:ToDoViewModel x:Name="ViewModel" />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <ScrollView VerticalOptions="FillAndExpand">
+            <StackLayout Padding="10">
+                <Label Text="Priority: " />
+                <Picker x:Name="PriorityPicker"
+                        ItemsSource="{Binding AvailablePriorities}"
+                        SelectedIndex="{Binding Priority, Converter={StaticResource IntEnumConverter}}"
+                        SelectedIndexChanged="PriorityPicker_OnSelectedIndexChanged" />
+
+                <Label Text="Date: " />
+                <DatePicker x:Name="DatePicker"
+                            MinimumDate="01/01/2018"
+                            MaximumDate="01/01/2100"
+                            Date="{x:Static sys:DateTime.Now}" />
+                
+                <Label Text="Time: " />
+                <TimePicker x:Name="TimePicker" />
+
+                <Label Text="Description" />
+                <Editor x:Name="DescriptionEditor"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand" MaxLength="50" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

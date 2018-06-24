@@ -35,7 +35,7 @@ namespace ReminderXamarin.Pages
 
         private async void Create_OnClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new CreateToDoItemPage());
+            await Navigation.PushAsync(new CreateToDoPage());
         }
 
         private async void ToDoList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)

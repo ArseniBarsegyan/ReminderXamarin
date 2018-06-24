@@ -16,7 +16,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Pages\CreateToDoItemPage.xaml">
+    <Compile Update="Pages\CreateToDoPage.xaml.cs">
+      <DependentUpon>CreateToDoPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Pages\CreateToDoPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\ToDoDetailPage.xaml">

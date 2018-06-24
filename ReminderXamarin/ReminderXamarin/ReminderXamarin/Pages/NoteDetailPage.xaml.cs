@@ -19,8 +19,6 @@ namespace ReminderXamarin.Pages
             _noteViewModel = noteViewModel;
 
             _confirmToolbarItem = new ToolbarItem { Icon = "confirm.png" };
-            
-            ToolbarItems.Add(_confirmToolbarItem);
 
             Title = $"{noteViewModel.EditDate:d}";
             DescriptionEditor.Text = noteViewModel.Description;

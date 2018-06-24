@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Models;
@@ -10,29 +13,37 @@ namespace ReminderXamarin.ViewModels
     {
         public ToDoViewModel()
         {
-            UpdateItemCommand = new Command<ToDoViewModel>(UpdateItemCommandExecute);
-            DeleteItemCommand = new Command<ToDoViewModel>(item => DeleteItemCommandExecute(item));
+            CreateToDoCommand = new Command(CreateToDoCommandExecute);
+            UpdateItemCommand = new Command(UpdateItemCommandExecute);
+            DeleteItemCommand = new Command(result => DeleteItemCommandExecute());
         }
 
         public int Id { get; set; }
-        public ToDoPriority Priority { get; set; }
-        public string Description { get; set; }
-        public DateTime CreationDate { get; set; }
-        public DateTime EditDate { get; set; }
+        public IList<string> AvailablePriorities => 
+            Enum.GetNames(typeof(ToDoPriority)).Select(x => x.ToString()).ToList();
 
+        public ToDoPriority Priority { get; set; } = ToDoPriority.High;
+        public string Description { get; set; }
+        public DateTime WhenHappens { get; set; }
+
+        public ICommand CreateToDoCommand { get; set; }
         public ICommand UpdateItemCommand { get; set; }
         public ICommand DeleteItemCommand { get; set; }
 
-        private void UpdateItemCommandExecute(ToDoViewModel viewModel)
+        private void CreateToDoCommandExecute()
         {
-            // Update edit date since user pressed confirm
-            viewModel.EditDate = DateTime.Now;
-            App.ToDoRepository.Save(viewModel.ToToDoModel());
+            App.ToDoRepository.Save(this.ToToDoModel());
         }
 
-        private int DeleteItemCommandExecute(ToDoViewModel viewModel)
+        private void UpdateItemCommandExecute()
         {
-            return App.ToDoRepository.DeleteModel(viewModel.ToToDoModel());
+            // Update edit date since user pressed confirm
+            App.ToDoRepository.Save(this.ToToDoModel());
+        }
+
+        private int DeleteItemCommandExecute()
+        {
+            return App.ToDoRepository.DeleteModel(this.ToToDoModel());
         }
     }
 }

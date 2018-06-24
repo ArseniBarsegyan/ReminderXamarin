@@ -26,7 +26,7 @@
                       SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell Height="100">
+                        <ViewCell Height="50">
                             <ViewCell.ContextActions>
                                 <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
                             </ViewCell.ContextActions>
@@ -38,11 +38,10 @@
                                                              BorderWidth="1">
                                     <StackLayout Orientation="Horizontal">
                                         <Image Source="{Binding Priority, Converter={StaticResource PriorityToImageConverter}}"
-                                               Aspect="AspectFill" 
-                                               HeightRequest="50"
-                                               WidthRequest="50" />
-                                        <StackLayout Spacing="10">
-                                            <Label Text="{Binding EditDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" />
+                                               Aspect="AspectFit"
+                                               HeightRequest="20" />
+                                        <StackLayout Orientation="Horizontal" Spacing="3">
+                                            <Label Text="{Binding WhenHappens, StringFormat='{0:dd.MM.yy, HH:mm}'}" />
                                             <elements:LineSpacingLabel HorizontalTextAlignment="Start" Lines="3" LineSpacing="1.1" Text="{Binding Description}" />
                                         </StackLayout>
                                     </StackLayout>

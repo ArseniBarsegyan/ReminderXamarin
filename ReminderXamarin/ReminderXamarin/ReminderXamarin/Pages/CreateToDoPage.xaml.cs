@@ -1,15 +1,14 @@
 ﻿using System;
 using ReminderXamarin.Models;
-using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace ReminderXamarin.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CreateToDoItemPage : ContentPage
+    public partial class CreateToDoPage : ContentPage
     {
-        public CreateToDoItemPage()
+        public CreateToDoPage()
         {
             InitializeComponent();
         }
@@ -22,22 +21,24 @@ namespace ReminderXamarin.Pages
                 return;
             }
 
-            DateTime currentDateTime = DateTime.Now;
+            var eventDate = DatePicker.Date;
+            var eventTime = TimePicker.Time;
 
-            ViewModel.CreateToDoItemCommand.Execute(new ToDoViewModel
-            {
-                CreationDate = currentDateTime,
-                EditDate = currentDateTime,
-                Description = DescriptionEditor.Text,
-            });
+            var fullDate = eventDate.Add(eventTime);
+
+            ViewModel.WhenHappens = fullDate;
+            ViewModel.Description = DescriptionEditor.Text;
+            ViewModel.CreateToDoCommand.Execute(ViewModel);
 
             await Navigation.PopAsync();
         }
 
         private void PriorityPicker_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            var priority = (ToDoPriority)PriorityPicker.SelectedItem;
-            ViewModel.Priority = priority;
+            if (PriorityPicker.SelectedItem is ToDoPriority priority)
+            {
+                ViewModel.Priority = priority;
+            }
         }
     }
 }

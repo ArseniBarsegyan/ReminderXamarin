@@ -117,49 +117,75 @@ namespace ReminderXamarin.Extensions
             return new ToDoModel
             {
                 Id = viewModel.Id,
-                Priority = viewModel.Priority,
-                CreationDate = viewModel.CreationDate,
-                EditDate = viewModel.EditDate,
+                Priority = viewModel.Priority.ToString(),
+                WhenHappens = viewModel.WhenHappens,
                 Description = viewModel.Description
             };
         }
 
         public static ToDoViewModel ToToDoViewModel(this ToDoModel model)
         {
-            return new ToDoViewModel
+            var viewModel = new ToDoViewModel
             {
                 Id = model.Id,
-                Priority = model.Priority,
-                CreationDate = model.CreationDate,
-                EditDate = model.EditDate,
+                WhenHappens = model.WhenHappens,
                 Description = model.Description
             };
+
+            switch (model.Priority)
+            {
+                case "High":
+                    viewModel.Priority = ToDoPriority.High;
+                    break;
+                case "Medium":
+                    viewModel.Priority = ToDoPriority.Medium;
+                    break;
+                default:
+                    viewModel.Priority = ToDoPriority.Low;
+                    break;
+            }
+            return viewModel;
         }
 
         public static IEnumerable<ToDoModel> ToToDoModels(this IEnumerable<ToDoViewModel> viewModels)
         {
             return viewModels.Select(viewModel => new ToDoModel
             {
-                    Id = viewModel.Id,
-                    Priority = viewModel.Priority,
-                    CreationDate = viewModel.CreationDate,
-                    EditDate = viewModel.EditDate,
-                    Description = viewModel.Description
+                Id = viewModel.Id,
+                Priority = viewModel.Priority.ToString(),
+                WhenHappens = viewModel.WhenHappens,
+                Description = viewModel.Description
             })
             .ToList();
         }
 
         public static IEnumerable<ToDoViewModel> ToToDoViewModels(this IEnumerable<ToDoModel> models)
         {
-            return models.Select(model => new ToDoViewModel
+            var viewModels = new List<ToDoViewModel>();
+
+            foreach (var model in models)
             {
+                var viewModel = new ToDoViewModel
+                {
                     Id = model.Id,
-                    Priority = model.Priority,
-                    CreationDate = model.CreationDate,
-                    EditDate = model.EditDate,
+                    WhenHappens = model.WhenHappens,
                     Description = model.Description
-            })
-            .ToList();
+                };
+                switch (model.Priority)
+                {
+                    case "High":
+                        viewModel.Priority = ToDoPriority.High;
+                        break;
+                    case "Medium":
+                        viewModel.Priority = ToDoPriority.Medium;
+                        break;
+                    default:
+                        viewModel.Priority = ToDoPriority.Low;
+                        break;
+                }
+                viewModels.Add(viewModel);
+            }
+            return viewModels;
         }
     }
 }

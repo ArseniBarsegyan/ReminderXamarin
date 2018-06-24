@@ -11,6 +11,7 @@
             <converters:NullElementToBoolConverter x:Key="NullElementToBoolConverter" />
             <converters:NullElementToImageSourceConverter x:Key="NullElementToImageSourceConverter" />
             <converters:PriorityToImageConverter x:Key="PriorityToImageConverter" />
+            <converters:IntEnumConverter x:Key="IntEnumConverter" />
         </ResourceDictionary>
 	</Application.Resources>
 </Application>

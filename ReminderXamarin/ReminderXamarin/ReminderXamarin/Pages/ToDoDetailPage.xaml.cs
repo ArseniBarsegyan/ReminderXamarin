@@ -17,7 +17,8 @@ namespace ReminderXamarin.Pages
             InitializeComponent();
             BindingContext = viewModel;
             _viewModel = viewModel;
-            Title = $"{viewModel.EditDate:d}";
+
+            Title = $"{viewModel.WhenHappens:d}";
             DescriptionEditor.Text = viewModel.Description;
         }
 
@@ -32,11 +33,23 @@ namespace ReminderXamarin.Pages
             }
         }
 
-        private void Confirm_OnClicked(object sender, EventArgs e)
+        private async void Confirm_OnClicked(object sender, EventArgs e)
         {
             _viewModel.Description = DescriptionEditor.Text;
-            _viewModel.Priority = (ToDoPriority)PriorityPicker.SelectedItem;
+
+            var eventDate = DatePicker.Date;
+            var eventTime = TimePicker.Time;
+
+            var fullDate = eventDate.Add(eventTime);
+            _viewModel.WhenHappens = fullDate;
+
+            if (PriorityPicker.SelectedItem is ToDoPriority priority)
+            {
+                _viewModel.Priority = priority;
+            }
             _viewModel.UpdateItemCommand.Execute(_viewModel);
+
+            await Navigation.PopAsync();
         }
     }
 }
