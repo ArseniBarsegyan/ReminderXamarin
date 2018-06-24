@@ -46,7 +46,7 @@ namespace ReminderXamarin.Pages
                 (ConstantHelper.Warning, ConstantHelper.NoteDeleteMessage, ConstantHelper.Ok, ConstantHelper.Cancel);
             if (result)
             {
-                _noteViewModel.DeleteNoteCommand.Execute(_noteViewModel);
+                _noteViewModel.DeleteNoteCommand.Execute(null);
                 await Navigation.PopAsync();
             }
         }
@@ -54,7 +54,7 @@ namespace ReminderXamarin.Pages
         private void Confirm_OnClicked(object sender, EventArgs e)
         {
             _noteViewModel.Description = DescriptionEditor.Text;
-            _noteViewModel.UpdateNoteCommand.Execute(_noteViewModel);
+            _noteViewModel.UpdateNoteCommand.Execute(null);
 
             if (ToolbarItems.Contains(_confirmToolbarItem))
             {

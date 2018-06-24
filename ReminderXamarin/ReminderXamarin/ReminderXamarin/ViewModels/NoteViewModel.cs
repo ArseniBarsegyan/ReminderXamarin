@@ -21,9 +21,9 @@ namespace ReminderXamarin.ViewModels
 
             TakePhotoCommand = new Command(async () => await TakePhotoCommandExecute());
             TakeVideoCommand = new Command(async () => await TakeVideoCommandExecute());
-            CreateNoteCommand = new Command<NoteViewModel>(CreateNoteCommandExecute);
-            UpdateNoteCommand = new Command<NoteViewModel>(UpdateNoteCommandExecute);
-            DeleteNoteCommand = new Command<NoteViewModel>(note => DeleteNoteCommandExecute(note));
+            CreateNoteCommand = new Command(CreateNoteCommandExecute);
+            UpdateNoteCommand = new Command(UpdateNoteCommandExecute);
+            DeleteNoteCommand = new Command(note => DeleteNoteCommandExecute());
         }
 
         public PhotoViewModel SelectedPhoto { get; set; }
@@ -67,21 +67,21 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private void CreateNoteCommandExecute(NoteViewModel viewModel)
+        private void CreateNoteCommandExecute()
         {
-            App.NoteRepository.Save(viewModel.ToNoteModel());
+            App.NoteRepository.Save(this.ToNoteModel());
         }
 
-        private void UpdateNoteCommandExecute(NoteViewModel viewModel)
+        private void UpdateNoteCommandExecute()
         {
             // Update edit date since user pressed confirm
-            viewModel.EditDate = DateTime.Now;
-            App.NoteRepository.Save(viewModel.ToNoteModel());
+            EditDate = DateTime.Now;
+            App.NoteRepository.Save(this.ToNoteModel());
         }
 
-        private int DeleteNoteCommandExecute(NoteViewModel viewModel)
+        private int DeleteNoteCommandExecute()
         {
-            return App.NoteRepository.DeleteNote(viewModel.ToNoteModel());
+            return App.NoteRepository.DeleteNote(this.ToNoteModel());
         }
     }
 }

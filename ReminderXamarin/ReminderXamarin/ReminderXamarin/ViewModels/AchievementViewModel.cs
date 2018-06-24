@@ -9,9 +9,9 @@ namespace ReminderXamarin.ViewModels
     {
         public AchievementViewModel()
         {
-            CreateAchievementCommand = new Command<AchievementViewModel>(CreateAchievementCommandExecute);
-            UpdateAchievementCommand = new Command<AchievementViewModel>(UpdateAchievementCommandExecute);
-            DeleteAchievementCommand = new Command<AchievementViewModel>(viewModel => DeleteAchievementCommandExecute(viewModel));
+            CreateAchievementCommand = new Command(CreateAchievementCommandExecute);
+            UpdateAchievementCommand = new Command(UpdateAchievementCommandExecute);
+            DeleteAchievementCommand = new Command(viewModel => DeleteAchievementCommandExecute());
         }
 
         public int Id { get; set; }
@@ -25,18 +25,18 @@ namespace ReminderXamarin.ViewModels
         public ICommand UpdateAchievementCommand { get; set; }
         public ICommand DeleteAchievementCommand { get; set; }
 
-        private void CreateAchievementCommandExecute(AchievementViewModel viewModel)
+        private void CreateAchievementCommandExecute()
         {
-            App.AchievementRepository.Save(viewModel.ToAchievementModel());
+            App.AchievementRepository.Save(this.ToAchievementModel());
         }
 
-        private void UpdateAchievementCommandExecute(AchievementViewModel viewModel)
+        private void UpdateAchievementCommandExecute()
         {
         }
 
-        private int DeleteAchievementCommandExecute(AchievementViewModel viewModel)
+        private int DeleteAchievementCommandExecute()
         {
-            return App.AchievementRepository.DeleteAchievement(viewModel.ToAchievementModel());
+            return App.AchievementRepository.DeleteAchievement(this.ToAchievementModel());
         }
     }
 }

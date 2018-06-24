@@ -29,7 +29,7 @@ namespace ReminderXamarin.Pages
 
             ViewModel.WhenHappens = fullDate;
             ViewModel.Description = DescriptionEditor.Text;
-            ViewModel.CreateToDoCommand.Execute(ViewModel);
+            ViewModel.CreateToDoCommand.Execute(null);
 
             await Navigation.PopAsync();
         }

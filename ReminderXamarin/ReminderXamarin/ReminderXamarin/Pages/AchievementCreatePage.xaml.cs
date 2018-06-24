@@ -12,8 +12,16 @@ namespace ReminderXamarin.Pages
             InitializeComponent();
         }
 
-        private void Save_OnClicked(object sender, EventArgs e)
+        private async void Save_OnClicked(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(TitleEditor.Text))
+            {
+                await Navigation.PopAsync();
+                return;
+            }
+            ViewModel.Title = TitleEditor.Text;
+            ViewModel.CreateAchievementCommand.Execute(null);
+            await Navigation.PopAsync();
         }
     }
 }

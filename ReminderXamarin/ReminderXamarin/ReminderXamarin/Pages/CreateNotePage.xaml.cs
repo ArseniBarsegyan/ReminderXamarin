@@ -2,7 +2,6 @@
 using System.Linq;
 using ReminderXamarin.Elements;
 using ReminderXamarin.Extensions;
-using ReminderXamarin.ViewModels;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -28,14 +27,11 @@ namespace ReminderXamarin.Pages
 
             DateTime currentDateTime = DateTime.Now;
 
-            ViewModel.CreateNoteCommand.Execute(new NoteViewModel
-            {
-                CreationDate = currentDateTime,
-                EditDate = currentDateTime,
-                Description = DescriptionEditor.Text,
-                Photos = ViewModel.Photos
-            });
+            ViewModel.CreationDate = currentDateTime;
+            ViewModel.EditDate = currentDateTime;
+            ViewModel.Description = DescriptionEditor.Text;
 
+            ViewModel.CreateNoteCommand.Execute(null);
             await Navigation.PopAsync();
         }
 
