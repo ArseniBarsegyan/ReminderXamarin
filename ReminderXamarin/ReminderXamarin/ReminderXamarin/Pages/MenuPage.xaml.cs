@@ -26,6 +26,9 @@ namespace ReminderXamarin.Pages
                     case MenuPageIndex.ToDoPage:
                         Navigation.PushAsync(new ToDoPage());
                         break;
+                    case MenuPageIndex.AchievementsPage:
+                        Navigation.PushAsync(new AchievementsPage());
+                        break;
                     default:
                         break;
                 }

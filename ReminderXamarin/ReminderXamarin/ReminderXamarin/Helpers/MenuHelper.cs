@@ -26,6 +26,13 @@ namespace ReminderXamarin.Helpers
                     IconSource = ConstantHelper.ToDoListIcon,
                     TargetType = typeof(ToDoPage),
                     IsDisplayed = true
+                },
+                new MasterPageItem
+                {
+                    Title = ConstantHelper.AchievementsSection,
+                    IconSource = ConstantHelper.AchievementsIcon,
+                    TargetType = typeof(AchievementsPage),
+                    IsDisplayed = true
                 }
             };
             return masterPageItems;
@@ -55,6 +62,7 @@ namespace ReminderXamarin.Helpers
     public enum MenuPageIndex
     {
         NotesPage,
-        ToDoPage
+        ToDoPage,
+        AchievementsPage
     }
 }
