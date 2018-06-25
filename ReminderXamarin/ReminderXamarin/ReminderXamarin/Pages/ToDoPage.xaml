@@ -17,6 +17,7 @@
             <ListView x:Name="ToDoList"
                       ItemsSource="{Binding ToDoViewModels}"
                       IsPullToRefreshEnabled="True"
+                      HasUnevenRows="True"
                       CachingStrategy="RecycleElement"
                       RefreshCommand="{Binding RefreshListCommand}"
                       IsRefreshing="{Binding IsRefreshing}"
@@ -24,7 +25,7 @@
                       SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
+                        <ViewCell Height="60">
                             <ViewCell.ContextActions>
                                 <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
                             </ViewCell.ContextActions>
@@ -34,18 +35,36 @@
                                                                  Padding="10" 
                                                                  BorderColor="DarkGray" 
                                                                  BorderWidth="1">
-                                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="4*" />
+                                        </Grid.ColumnDefinitions>
+
                                         <Image Source="{Binding Priority, Converter={StaticResource PriorityToImageConverter}}"
-                                               Aspect="AspectFit"
-                                               VerticalOptions="Center"
-                                               HeightRequest="30" />
-                                        <Label Text="{Binding WhenHappens, StringFormat='{0:dd.MM.yy, HH:mm}'}" VerticalOptions="Center" />
-                                        <elements:LineSpacingLabel HorizontalTextAlignment="Start" 
-                                                                   Lines="3"
+                                               Aspect="AspectFill"
+                                               Grid.Row="0"
+                                               Grid.Column="0"
+                                               HeightRequest="40"
+                                               WidthRequest="40"
+                                               VerticalOptions="Center" />
+
+                                        <elements:LineSpacingLabel Text="{Binding WhenHappens, StringFormat='{0:dd.MM.yy HH:mm}'}" 
+                                                                   VerticalOptions="Center"
+                                                                   Grid.Row="0"
+                                                                   Grid.Column="1" />
+
+                                        <elements:LineSpacingLabel Lines="2"
                                                                    LineSpacing="1.1" 
+                                                                   Grid.Row="0"
+                                                                   Grid.Column="2"
                                                                    Text="{Binding Description}"
                                                                    VerticalOptions="Center" />
-                                    </StackLayout>
+                                    </Grid>
                                 </elements:ContentViewWithBorder>
                             </StackLayout>
                         </ViewCell>

@@ -45,11 +45,13 @@
                     </DataTemplate>
                 </elements:HorizontalImageGallery.ItemTemplate>
             </elements:HorizontalImageGallery>
-            
+
+
             <ScrollView VerticalOptions="FillAndExpand">
                 <Editor x:Name="DescriptionEditor"
                         HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand" />
+                        VerticalOptions="FillAndExpand"
+                        HeightRequest="200" />
             </ScrollView>
         </StackLayout>
     </ContentPage.Content>

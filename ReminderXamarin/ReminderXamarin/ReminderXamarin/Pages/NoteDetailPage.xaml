@@ -42,7 +42,7 @@
                 <Editor x:Name="DescriptionEditor"
                         TextChanged="DescriptionEditor_OnTextChanged"
                         HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand" />
+                        HeightRequest="200" />
             </ScrollView>
         </StackLayout>
     </ContentPage.Content>
