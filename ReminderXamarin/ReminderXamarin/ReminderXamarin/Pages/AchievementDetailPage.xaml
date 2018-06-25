@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ReminderXamarin.Pages.AchievementDetailPage"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             BackgroundColor="White">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="10">
             <Button x:Name="AddNoteButton"
                     BackgroundColor="DodgerBlue"
                     TextColor="White"
@@ -14,11 +15,14 @@
             <ListView x:Name="AchievementNotes"
                       ItemsSource="{Binding AchievementNotes}"
                       HasUnevenRows="True"
+                      IsPullToRefreshEnabled="True"
+                      IsRefreshing="{Binding IsRefreshing}"
+                      RefreshCommand="{Binding RefreshListCommand}"
                       ItemSelected="AchievementNotes_OnItemSelected"
                       SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell Height="100">
+                        <ViewCell Height="80">
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="{Binding Description}" FontSize="Small" HorizontalOptions="Start" />

@@ -17,6 +17,12 @@ namespace ReminderXamarin.Pages
             _viewModel = viewModel;
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.OnAppearing();
+        }
+
         private void AchievementNotes_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             AchievementNotes.SelectedItem = null;

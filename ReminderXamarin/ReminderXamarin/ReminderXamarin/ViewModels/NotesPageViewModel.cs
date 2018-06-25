@@ -21,7 +21,6 @@ namespace ReminderXamarin.ViewModels
             SearchCommand = new Command<string>(SearchNotesByDescription);
         }
 
-        public bool IsLoading { get; set; }
         public bool IsRefreshing { get; set; }
         public ObservableCollection<NoteViewModel> Notes { get; set; }
         public ICommand RefreshListCommand { get; set; }

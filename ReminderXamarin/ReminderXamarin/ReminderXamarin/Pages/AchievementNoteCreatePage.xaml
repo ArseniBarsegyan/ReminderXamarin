@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
-             x:Class="ReminderXamarin.Pages.AchievementNoteCreatePage">
+             x:Class="ReminderXamarin.Pages.AchievementNoteCreatePage"
+             BackgroundColor="White">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="10">
             <StackLayout VerticalOptions="FillAndExpand">
                 <Label Text="Date: " />
                 <DatePicker x:Name="DatePicker"
