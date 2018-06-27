@@ -29,7 +29,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
-                                <StackLayout Orientation="Horizontal" Padding="10,0">
+                                <StackLayout Orientation="Horizontal" Spacing="10" Padding="10,0">
                                     <Image Source="{Binding IconSource}" 
                                            HeightRequest="50" 
                                            HorizontalOptions="Center" />
