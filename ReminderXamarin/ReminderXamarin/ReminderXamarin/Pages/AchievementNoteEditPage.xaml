@@ -23,6 +23,7 @@
                 <Label Text="Description: " />
                 <ScrollView>
                     <Editor x:Name="DescriptionEditor"
+                            HeightRequest="200"
                             Text="{Binding Description}"
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="FillAndExpand" />

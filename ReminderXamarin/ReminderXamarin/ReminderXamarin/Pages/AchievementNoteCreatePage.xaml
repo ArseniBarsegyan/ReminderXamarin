@@ -22,8 +22,9 @@
                 <Label Text="Description: " />
                 <ScrollView>
                     <Editor x:Name="DescriptionEditor"
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="FillAndExpand" />
+                            HeightRequest="200"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand" />
                 </ScrollView>
 
                 <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
