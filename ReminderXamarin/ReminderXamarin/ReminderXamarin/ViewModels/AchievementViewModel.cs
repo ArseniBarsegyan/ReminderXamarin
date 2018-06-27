@@ -14,7 +14,7 @@ namespace ReminderXamarin.ViewModels
 
             RefreshListCommand = new Command(RefreshCommandExecute);
             CreateAchievementCommand = new Command(CreateAchievementCommandExecute);
-            UpdateAchievementCommand = new Command(UpdateAchievementCommandExecute);
+            UpdateAchievementCommand = new Command<AchievementNoteViewModel>(UpdateAchievementCommandExecute);
             DeleteAchievementCommand = new Command(viewModel => DeleteAchievementCommandExecute());
         }
 
@@ -56,8 +56,11 @@ namespace ReminderXamarin.ViewModels
             App.AchievementRepository.Save(this.ToAchievementModel());
         }
 
-        private void UpdateAchievementCommandExecute()
+        private void UpdateAchievementCommandExecute(AchievementNoteViewModel achievementNoteViewModel)
         {
+            GeneralTimeSpent += achievementNoteViewModel.HoursSpent;
+            AchievementNotes.Add(achievementNoteViewModel);
+
             App.AchievementRepository.Save(this.ToAchievementModel());
         }
 

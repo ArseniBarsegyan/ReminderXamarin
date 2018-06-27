@@ -13,6 +13,7 @@ namespace ReminderXamarin.Models
         public int HoursSpent { get; set; }
         public DateTime From { get; set; }
         public DateTime To { get; set; }
+
         [ForeignKey(typeof(AchievementModel))]
         public int AchievementId { get; set; }
     }

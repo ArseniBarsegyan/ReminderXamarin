@@ -28,10 +28,8 @@ namespace ReminderXamarin.Pages
                 From = fromFullDate,
                 To = toFullDate,
                 HoursSpent = (toFullDate - fromFullDate).Hours
-            };
-            _viewModel.GeneralTimeSpent += achievementNoteViewModel.HoursSpent;
-            _viewModel.AchievementNotes.Add(achievementNoteViewModel);
-            _viewModel.UpdateAchievementCommand.Execute(null);
+            };            
+            _viewModel.UpdateAchievementCommand.Execute(achievementNoteViewModel);
             await Navigation.PopModalAsync();
         }
 

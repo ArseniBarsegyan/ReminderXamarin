@@ -235,10 +235,10 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static IEnumerable<AchievementNoteViewModel> ToAchievementNoteViewModels(
+        public static ObservableCollection<AchievementNoteViewModel> ToAchievementNoteViewModels(
             this IEnumerable<AchievementNote> models)
         {
-            return models.Select(model => model.ToAchievementNoteViewModel()).ToList();
+            return models.Select(model => model.ToAchievementNoteViewModel()).ToObservableCollection();
         }
 
         public static IEnumerable<AchievementNote> ToAchievementNoteViewModels(
@@ -265,7 +265,7 @@ namespace ReminderXamarin.Extensions
             return new AchievementViewModel
             {
                 Id = model.Id,
-                AchievementNotes = model.AchievementNotes.ToAchievementNoteViewModels().ToObservableCollection(),
+                AchievementNotes = model.AchievementNotes.ToAchievementNoteViewModels(),
                 Title = model.Title,
                 GeneralDescription = model.GeneralDescription,
                 GeneralTimeSpent = model.GeneralTimeSpent,

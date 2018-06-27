@@ -21,7 +21,9 @@ namespace ReminderXamarin.Models
         /// <returns></returns>
         public IEnumerable<AchievementModel> GetAll()
         {
-            return _db.GetAllWithChildren<AchievementModel>();
+            var achs = _db.GetAllWithChildren<AchievementModel>();
+
+            return achs;
         }
 
         /// <summary>
@@ -43,7 +45,7 @@ namespace ReminderXamarin.Models
         {
             if (achievement.Id != 0)
             {
-                _db.UpdateWithChildren(achievement);
+                _db.InsertOrReplaceWithChildren(achievement);
             }
             else
             {
