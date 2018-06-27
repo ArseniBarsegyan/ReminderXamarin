@@ -29,7 +29,7 @@
                 <Editor x:Name="DescriptionEditor"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="FillAndExpand"
-                        MaxLength="50" />
+                        MaxLength="100" />
             </ScrollView>
         </StackLayout>
     </ContentPage.Content>
