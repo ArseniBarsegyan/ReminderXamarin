@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             x:Class="ReminderXamarin.Pages.AchievementNoteEditPage"
+             Title="Edit note"
+             BackgroundColor="White">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <StackLayout VerticalOptions="FillAndExpand">
+                <Label Text="Date: " />
+                <DatePicker x:Name="DatePicker"
+                            MinimumDate="01/01/2018"
+                            MaximumDate="01/01/2100"
+                            Date="{x:Static sys:DateTime.Now}" />
+
+                <Label Text="From: " />
+                <TimePicker x:Name="FromTimePicker" Time="{Binding From.TimeOfDay}" Format="HH:mm" />
+
+                <Label Text="To: " />
+                <TimePicker x:Name="ToTimePicker" Time="{Binding To.TimeOfDay}" Format="HH:mm" />
+
+                <Label Text="Description: " />
+                <ScrollView>
+                    <Editor x:Name="DescriptionEditor"
+                            Text="{Binding Description}"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand" />
+                </ScrollView>
+
+                <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+                    <Button x:Name="SubmitButton"
+                            HorizontalOptions="FillAndExpand"
+                            BackgroundColor="DodgerBlue"
+                            Text="Save"
+                            TextColor="White"
+                            Clicked="SubmitButton_OnClicked" />
+
+                    <Button x:Name="CancelButton"
+                            HorizontalOptions="FillAndExpand"
+                            BackgroundColor="LightBlue"
+                            Text="Cancel"
+                            TextColor="DodgerBlue" 
+                            Clicked="CancelButton_OnClicked" />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

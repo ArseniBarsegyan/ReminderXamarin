@@ -23,8 +23,12 @@ namespace ReminderXamarin.Pages
             _viewModel.OnAppearing();
         }
 
-        private void AchievementNotes_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void AchievementNotes_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            if (e.SelectedItem is AchievementNoteViewModel achievementNoteViewModel)
+            {
+                await Navigation.PushAsync(new AchievementNoteEditPage(achievementNoteViewModel));
+            }
             AchievementNotes.SelectedItem = null;
         }
 
