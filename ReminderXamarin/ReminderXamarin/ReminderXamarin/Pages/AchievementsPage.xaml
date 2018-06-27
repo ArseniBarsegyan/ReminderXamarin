@@ -39,7 +39,7 @@
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="3*" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
@@ -48,12 +48,13 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
-                                        <abstractions:CircleImage Source="{Binding ImageUrl}"
+                                        <abstractions:CircleImage Source="{Binding ImageContent, Converter={StaticResource ByteToImageSourceConverter}}"
                                                                   Aspect="AspectFit"
                                                                   Grid.Column="0"
                                                                   Grid.RowSpan="2"
                                                                   VerticalOptions="Center"
-                                                                  HeightRequest="50" />
+                                                                  HorizontalOptions="Start"
+                                                                  HeightRequest="90" />
 
                                         <Label Text="{Binding Title}" 
                                                Grid.Column="1"
@@ -62,6 +63,7 @@
 
                                         <elements:LineSpacingLabel HorizontalTextAlignment="Start" 
                                                                    Lines="3"
+                                                                   LineBreakMode="TailTruncation" 
                                                                    Grid.Column="1"
                                                                    Grid.Row="1"
                                                                    LineSpacing="1.1" 

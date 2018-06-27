@@ -90,6 +90,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Interfaces\FileHelper.cs" />
+    <Compile Include="Interfaces\FilePickerService\PageExtensions.cs" />
+    <Compile Include="Interfaces\FilePickerService\PageRenderer.cs" />
+    <Compile Include="Interfaces\FilePickerService\PlatformDocumentPicker.cs" />
+    <Compile Include="Interfaces\FileSystem.cs" />
     <Compile Include="Interfaces\ImageService.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />

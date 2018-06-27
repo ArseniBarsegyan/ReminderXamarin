@@ -15,11 +15,15 @@
     
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="Pick image for achievement" />
+            <Label x:Name="FileNameLabel" />
+            <Button x:Name="PickImageButton" Text="Pick image" Clicked="PickImageButton_OnClicked" />
+            
             <Label Text="Achievement name: " HorizontalOptions="Start" />
             <Editor x:Name="TitleEditor"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand"
-                    MaxLength="20" />
+                    MaxLength="50" />
 
             <Label Text="Description: " HorizontalOptions="Start" />
             <Editor x:Name="DescriptionEditor"

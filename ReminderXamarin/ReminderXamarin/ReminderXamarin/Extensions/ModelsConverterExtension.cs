@@ -256,7 +256,7 @@ namespace ReminderXamarin.Extensions
                 Title = viewModel.Title,
                 GeneralDescription = viewModel.GeneralDescription,
                 GeneralTimeSpent = viewModel.GeneralTimeSpent,
-                ImageUrl = viewModel.ImageUrl
+                ImageContent = viewModel.ImageContent
             };
         }
 
@@ -269,7 +269,7 @@ namespace ReminderXamarin.Extensions
                 Title = model.Title,
                 GeneralDescription = model.GeneralDescription,
                 GeneralTimeSpent = model.GeneralTimeSpent,
-                ImageUrl = model.ImageUrl
+                ImageContent = model.ImageContent
             };
         }
 

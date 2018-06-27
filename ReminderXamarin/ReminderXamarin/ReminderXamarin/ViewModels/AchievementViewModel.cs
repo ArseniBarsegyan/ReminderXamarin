@@ -21,7 +21,7 @@ namespace ReminderXamarin.ViewModels
 
         public bool IsRefreshing { get; set; }
         public int Id { get; set; }
-        public string ImageUrl { get; set; }
+        public byte[] ImageContent { get; set; }
         public string Title { get; set; }
         public string GeneralDescription { get; set; }
         public int GeneralTimeSpent { get; set; }
