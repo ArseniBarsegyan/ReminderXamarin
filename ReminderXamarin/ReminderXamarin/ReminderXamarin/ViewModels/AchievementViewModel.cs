@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using Xamarin.Forms;
@@ -47,7 +48,7 @@ namespace ReminderXamarin.ViewModels
         {
             AchievementNotes.Add(new AchievementNoteViewModel
             {
-                Description = Title,
+                Description = GeneralDescription,
                 HoursSpent = 0,
                 From = DateTime.Now,
                 To = DateTime.Now,
@@ -58,9 +59,11 @@ namespace ReminderXamarin.ViewModels
 
         private void UpdateAchievementCommandExecute(AchievementNoteViewModel achievementNoteViewModel)
         {
-            GeneralTimeSpent += achievementNoteViewModel.HoursSpent;
-            AchievementNotes.Add(achievementNoteViewModel);
-
+            if (!AchievementNotes.Contains(achievementNoteViewModel))
+            {
+                AchievementNotes.Add(achievementNoteViewModel);
+            }
+            GeneralTimeSpent = AchievementNotes.Sum(x => x.HoursSpent);
             App.AchievementRepository.Save(this.ToAchievementModel());
         }
 

@@ -14,6 +14,8 @@ namespace ReminderXamarin.Pages
         {
             InitializeComponent();
             _viewModel = viewModel;
+            FromTimePicker.Time = DateTime.Now.TimeOfDay;
+            ToTimePicker.Time = DateTime.Now.TimeOfDay;
         }
 
         private async void SubmitButton_OnClicked(object sender, EventArgs e)

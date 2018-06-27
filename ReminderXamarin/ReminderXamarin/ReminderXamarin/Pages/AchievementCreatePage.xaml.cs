@@ -20,13 +20,9 @@ namespace ReminderXamarin.Pages
                 return;
             }
             ViewModel.Title = TitleEditor.Text;
-            ViewModel.GeneralDescription = Title;
+            ViewModel.GeneralDescription = DescriptionEditor.Text;
             ViewModel.CreateAchievementCommand.Execute(null);
             await Navigation.PopAsync();
-        }
-
-        private void AchievementNotes_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
         }
     }
 }

@@ -15,30 +15,17 @@
     
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Achievement title: " HorizontalOptions="Start" />
+            <Label Text="Achievement name: " HorizontalOptions="Start" />
             <Editor x:Name="TitleEditor"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand"
                     MaxLength="20" />
-            
-            <ListView x:Name="AchievementNotes"
-                      ItemsSource="{Binding AchievementNotes}"
-                      HasUnevenRows="True"
-                      ItemSelected="AchievementNotes_OnItemSelected"
-                      SeparatorVisibility="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell Height="100">
-                            <ViewCell.View>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Description}" FontSize="Small" />
-                                    <Label Text="{Binding HoursSpent}"  FontSize="Small" />
-                                </StackLayout>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+
+            <Label Text="Description: " HorizontalOptions="Start" />
+            <Editor x:Name="DescriptionEditor"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    MaxLength="100" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

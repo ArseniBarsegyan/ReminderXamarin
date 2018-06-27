@@ -27,7 +27,7 @@ namespace ReminderXamarin.Pages
         {
             if (e.SelectedItem is AchievementNoteViewModel achievementNoteViewModel)
             {
-                await Navigation.PushAsync(new AchievementNoteEditPage(achievementNoteViewModel));
+                await Navigation.PushAsync(new AchievementNoteEditPage(_viewModel, achievementNoteViewModel));
             }
             AchievementNotes.SelectedItem = null;
         }
