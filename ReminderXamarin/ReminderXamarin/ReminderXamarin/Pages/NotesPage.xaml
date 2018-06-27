@@ -50,7 +50,11 @@
                                            WidthRequest="50" />
                                     <StackLayout Spacing="10">
                                         <Label Text="{Binding EditDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" />
-                                        <elements:LineSpacingLabel HorizontalTextAlignment="Start" Lines="3" LineSpacing="1.1" Text="{Binding Description}" />
+                                        <elements:LineSpacingLabel HorizontalTextAlignment="Start" 
+                                                                   Lines="3" 
+                                                                   LineSpacing="1.1" 
+                                                                   LineBreakMode="TailTruncation" 
+                                                                   Text="{Binding Description}" />
                                     </StackLayout>
                                 </StackLayout>
                             </elements:ContentViewWithBorder>

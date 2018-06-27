@@ -61,6 +61,7 @@
                                         <elements:LineSpacingLabel Lines="2"
                                                                    LineSpacing="1.1" 
                                                                    Grid.Row="0"
+                                                                   LineBreakMode="TailTruncation"
                                                                    Grid.Column="2"
                                                                    Text="{Binding Description}"
                                                                    VerticalOptions="Center" />
