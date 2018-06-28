@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
 using Xamarin.Forms;
@@ -38,10 +39,14 @@ namespace ReminderXamarin.Pages
             {
                 return;
             }
-
-            FileNameLabel.Text = document.Name;
             // Retrieve file content throught IFileService implementation.
             byte[] fileContent = FileService.ReadAllBytes(document.Path);
+
+            FileNameLabel.IsVisible = true;
+            FileNameLabel.Text = document.Name;
+            
+            PreviewImage.IsVisible = true;
+            PreviewImage.Source = ImageSource.FromStream(() => new MemoryStream(fileContent));
             ViewModel.ImageContent = fileContent;
         }
     }

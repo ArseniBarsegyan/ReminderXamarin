@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
+             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              x:Class="ReminderXamarin.Pages.AchievementCreatePage"
              Title="Create achievement"
              BackgroundColor="White">
@@ -16,7 +17,11 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Pick image for achievement" />
-            <Label x:Name="FileNameLabel" />
+            <Label x:Name="FileNameLabel" IsVisible="False" />
+            <abstractions:CircleImage x:Name="PreviewImage" 
+                                      HeightRequest="90" 
+                                      Aspect="AspectFill" 
+                                      IsVisible="False" />
             <Button x:Name="PickImageButton" Text="Pick image" Clicked="PickImageButton_OnClicked" />
             
             <Label Text="Achievement name: " HorizontalOptions="Start" />
