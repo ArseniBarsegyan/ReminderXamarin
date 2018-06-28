@@ -46,6 +46,7 @@ namespace ReminderXamarin.ViewModels
                 .GetAll()
                 .ToToDoViewModels()
                 .OrderBy(x => x.Priority)
+                .ThenByDescending(x => x.WhenHappens)
                 .ToObservableCollection();
         }
     }

@@ -51,9 +51,8 @@ namespace ReminderXamarin.ViewModels
         private void LoadNoteFromDatabase()
         {
             // Fetch all note models from database.
-            _allNotes = App.NoteRepository.GetAll().ToNoteViewModels().ToList();
-            // Show recent notes at the top of the list.
-            _allNotes.Reverse();
+            _allNotes = App.NoteRepository.GetAll().ToNoteViewModels().OrderByDescending(x => x.EditDate).ToList();
+            // Show recently edited notes at the top of the list.
             Notes = _allNotes.ToObservableCollection();
             // Save filtering.
             SearchNotesByDescription(_currentSearchText);
