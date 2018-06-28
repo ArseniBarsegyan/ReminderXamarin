@@ -1,4 +1,5 @@
 ﻿using System;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,25 +15,28 @@ namespace ReminderXamarin.Pages
         {
             InitializeComponent();
             _viewModel = viewModel;
-            FromTimePicker.Time = DateTime.Now.TimeOfDay;
-            ToTimePicker.Time = DateTime.Now.TimeOfDay;
         }
 
         private async void SubmitButton_OnClicked(object sender, EventArgs e)
         {
-            var fromFullDate = DatePicker.Date.Add(FromTimePicker.Time);
-            var toFullDate = DatePicker.Date.Add(ToTimePicker.Time);
+            bool result = double.TryParse(TimeSpentEditor.Text, out var timeSpent);
 
-            var achievementNoteViewModel = new AchievementNoteViewModel
+            if (result)
             {
-                AchievementId = _viewModel.Id,
-                Description = DescriptionEditor.Text,
-                From = fromFullDate,
-                To = toFullDate,
-                HoursSpent = (toFullDate - fromFullDate).Hours
-            };            
-            _viewModel.UpdateAchievementCommand.Execute(achievementNoteViewModel);
-            await Navigation.PopModalAsync();
+                var achievementNoteViewModel = new AchievementNoteViewModel
+                {
+                    AchievementId = _viewModel.Id,
+                    Description = DescriptionEditor.Text,
+                    Date = DatePicker.Date,
+                    HoursSpent = timeSpent
+                };
+                _viewModel.UpdateAchievementCommand.Execute(achievementNoteViewModel);
+                await Navigation.PopModalAsync();
+            }
+            else
+            {
+                await DisplayAlert(ConstantHelper.Warning, ConstantHelper.TimeParsingError, ConstantHelper.Ok);
+            }
         }
 
         private async void CancelButton_OnClicked(object sender, EventArgs e)

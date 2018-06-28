@@ -12,13 +12,10 @@
                 <DatePicker x:Name="DatePicker"
                             MinimumDate="01/01/2018"
                             MaximumDate="01/01/2100"
-                            Date="{Binding From}" />
+                            Date="{Binding Date}" />
 
-                <Label Text="From: " />
-                <TimePicker x:Name="FromTimePicker" Format="HH:mm" />
-
-                <Label Text="To: " />
-                <TimePicker x:Name="ToTimePicker" Time="{Binding To.TimeOfDay}" Format="HH:mm" />
+                <Label Text="Time spent: " />
+                <Editor x:Name="TimeSpentEditor" Text="{Binding HoursSpent}" Keyboard="Numeric" />
 
                 <Label Text="Description: " />
                 <ScrollView>

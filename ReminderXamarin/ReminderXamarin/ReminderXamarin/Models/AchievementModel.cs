@@ -13,7 +13,7 @@ namespace ReminderXamarin.Models
         public byte[] ImageContent { get; set; }
         public string Title { get; set; }
         public string GeneralDescription { get; set; }
-        public int GeneralTimeSpent { get; set; }
+        public double GeneralTimeSpent { get; set; }
 
         [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<AchievementNote> AchievementNotes { get; set; }

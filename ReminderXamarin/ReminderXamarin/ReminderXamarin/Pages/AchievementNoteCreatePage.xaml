@@ -9,15 +9,12 @@
             <StackLayout VerticalOptions="FillAndExpand">
                 <Label Text="Date: " />
                 <DatePicker x:Name="DatePicker"
-                                MinimumDate="01/01/2018"
-                                MaximumDate="01/01/2100"
-                                Date="{x:Static sys:DateTime.Now}" />
+                            MinimumDate="01/01/2018"
+                            MaximumDate="01/01/2100"
+                            Date="{x:Static sys:DateTime.Now}" />
 
-                <Label Text="From: " />
-                <TimePicker x:Name="FromTimePicker" Format="HH:mm" />
-
-                <Label Text="To: " />
-                <TimePicker x:Name="ToTimePicker" Format="HH:mm" />
+                <Label Text="Time spent: " />
+                <Editor x:Name="TimeSpentEditor" Text="0" Keyboard="Numeric"/>
 
                 <Label Text="Description: " />
                 <ScrollView>

@@ -6,9 +6,8 @@ namespace ReminderXamarin.ViewModels
     {
         public int Id { get; set; }
         public string Description { get; set; }
-        public int HoursSpent { get; set; }
-        public DateTime From { get; set; }
-        public DateTime To { get; set; }
+        public double HoursSpent { get; set; }
+        public DateTime Date { get; set; }
         public int AchievementId { get; set; }
     }
 }

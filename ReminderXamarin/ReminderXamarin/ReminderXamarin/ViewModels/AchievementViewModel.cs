@@ -24,7 +24,7 @@ namespace ReminderXamarin.ViewModels
         public byte[] ImageContent { get; set; }
         public string Title { get; set; }
         public string GeneralDescription { get; set; }
-        public int GeneralTimeSpent { get; set; }
+        public double GeneralTimeSpent { get; set; }
         public ObservableCollection<AchievementNoteViewModel> AchievementNotes { get; set; }
 
         public ICommand RefreshListCommand { get; set; }
@@ -50,8 +50,7 @@ namespace ReminderXamarin.ViewModels
             {
                 Description = GeneralDescription,
                 HoursSpent = 0,
-                From = DateTime.Now,
-                To = DateTime.Now,
+                Date = DateTime.Now,
                 AchievementId = Id
             });
             App.AchievementRepository.Save(this.ToAchievementModel());

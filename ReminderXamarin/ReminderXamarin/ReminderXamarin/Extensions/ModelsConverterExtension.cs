@@ -215,8 +215,7 @@ namespace ReminderXamarin.Extensions
             {
                 Id = viewModel.Id,
                 Description = viewModel.Description,
-                From = viewModel.From,
-                To = viewModel.To,
+                Date = viewModel.Date,
                 HoursSpent = viewModel.HoursSpent,
                 AchievementId = viewModel.AchievementId
             };
@@ -228,8 +227,7 @@ namespace ReminderXamarin.Extensions
             {
                 Id = model.Id,
                 Description = model.Description,
-                From = model.From,
-                To = model.To,
+                Date = model.Date,
                 HoursSpent = model.HoursSpent,
                 AchievementId = model.AchievementId
             };

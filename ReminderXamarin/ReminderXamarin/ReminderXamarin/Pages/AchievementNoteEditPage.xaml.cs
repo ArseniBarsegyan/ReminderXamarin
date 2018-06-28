@@ -1,4 +1,5 @@
 ﻿using System;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,22 +17,26 @@ namespace ReminderXamarin.Pages
             InitializeComponent();
             _achievementViewModel = achievementViewModel;
             _achievementNoteViewModel = achievementNoteViewModel;
-            FromTimePicker.Time = _achievementNoteViewModel.From.TimeOfDay;
             BindingContext = achievementNoteViewModel;
         }
 
         private async void SubmitButton_OnClicked(object sender, EventArgs e)
         {
-            var fromFullDate = DatePicker.Date.Add(FromTimePicker.Time);
-            var toFullDate = DatePicker.Date.Add(ToTimePicker.Time);
+            bool result = double.TryParse(TimeSpentEditor.Text, out var timeSpent);
 
-            _achievementNoteViewModel.From = fromFullDate;
-            _achievementNoteViewModel.To = toFullDate;
-            _achievementNoteViewModel.HoursSpent = (toFullDate - fromFullDate).Hours;
-            _achievementNoteViewModel.Description = DescriptionEditor.Text;
+            if (result)
+            {
+                _achievementNoteViewModel.Date = DatePicker.Date;
+                _achievementNoteViewModel.HoursSpent = timeSpent;
+                _achievementNoteViewModel.Description = DescriptionEditor.Text;
 
-            _achievementViewModel.UpdateAchievementCommand.Execute(_achievementNoteViewModel);
-            await Navigation.PopAsync();
+                _achievementViewModel.UpdateAchievementCommand.Execute(_achievementNoteViewModel);
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                await DisplayAlert(ConstantHelper.Warning, ConstantHelper.TimeParsingError, ConstantHelper.Ok);
+            }
         }
 
         private async void CancelButton_OnClicked(object sender, EventArgs e)

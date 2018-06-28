@@ -19,6 +19,7 @@
         public const string Ok = "Ok";
         public const string Photos = "Photos";
         public const string PageCloseMessage = "Are you sure you want to close this page?";
+        public const string TimeParsingError = "Enter a valid number";
         public const string ToDoItemDeleteMessage = "Are you sure you want to delete this to-do?";
         public const string ToDoTextIsEmptyMessage = "To do text is empty. Creation cancelled";
         public const string ToDoListIcon = "todo_list.png";
