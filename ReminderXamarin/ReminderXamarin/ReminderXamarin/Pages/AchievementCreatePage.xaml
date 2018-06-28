@@ -33,8 +33,7 @@
             <Label Text="Description: " HorizontalOptions="Start" />
             <Editor x:Name="DescriptionEditor"
                     HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand"
-                    MaxLength="100" />
+                    VerticalOptions="FillAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
