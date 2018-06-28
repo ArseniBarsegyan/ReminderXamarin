@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using ReminderXamarin.Helpers;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 
 namespace ReminderXamarin.Models
 {
-    [Table("Achievements")]
+    [Table(ConstantHelper.Achievements)]
     public class AchievementModel
     {
         [PrimaryKey, AutoIncrement]

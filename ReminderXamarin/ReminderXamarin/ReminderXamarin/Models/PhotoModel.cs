@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using ReminderXamarin.Helpers;
+using SQLite;
 using SQLiteNetExtensions.Attributes;
 
 namespace ReminderXamarin.Models
@@ -6,7 +7,7 @@ namespace ReminderXamarin.Models
     /// <summary>
     /// Store filepath to pictures.
     /// </summary>
-    [Table("Photos")]
+    [Table(ConstantHelper.Photos)]
     public class PhotoModel
     {
         [PrimaryKey, AutoIncrement]

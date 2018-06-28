@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using ReminderXamarin.Helpers;
+using SQLite;
 using SQLiteNetExtensions.Attributes;
 
 namespace ReminderXamarin.Models
@@ -6,7 +7,7 @@ namespace ReminderXamarin.Models
     /// <summary>
     /// Store filepath to videos.
     /// </summary>
-    [Table("Videos")]
+    [Table(ConstantHelper.Videos)]
     public class VideoModel
     {
         [PrimaryKey, AutoIncrement]

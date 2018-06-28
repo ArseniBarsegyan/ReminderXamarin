@@ -1,9 +1,10 @@
 ﻿using System;
+using ReminderXamarin.Helpers;
 using SQLite;
 
 namespace ReminderXamarin.Models
 {
-    [Table("ToDoModels")]
+    [Table(ConstantHelper.ToDoModels)]
     public class ToDoModel
     {
         [PrimaryKey, AutoIncrement]
