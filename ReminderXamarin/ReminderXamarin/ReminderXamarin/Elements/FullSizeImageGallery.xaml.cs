@@ -1,7 +1,4 @@
-﻿
-using System.Collections.Generic;
-using ReminderXamarin.Extensions;
-using ReminderXamarin.ViewModels;
+﻿using System.Collections.Generic;
 using Rg.Plugins.Popup.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

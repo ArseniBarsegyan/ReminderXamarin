@@ -11,14 +11,14 @@ namespace ReminderXamarin.Elements
         public static readonly BindableProperty ItemsSourceProperty =
             BindableProperty.Create(nameof(ItemsSource), typeof(IEnumerable), typeof(HorizontalImageGallery), default(IEnumerable));
 
+        public static readonly BindableProperty ItemTemplateProperty =
+            BindableProperty.Create(nameof(ItemTemplate), typeof(DataTemplate), typeof(HorizontalImageGallery), default(DataTemplate));
+
         public IEnumerable ItemsSource
         {
             get => (IEnumerable)GetValue(ItemsSourceProperty);
             set => SetValue(ItemsSourceProperty, value);
         }
-
-        public static readonly BindableProperty ItemTemplateProperty =
-            BindableProperty.Create(nameof(ItemTemplate), typeof(DataTemplate), typeof(HorizontalImageGallery), default(DataTemplate));
 
         public DataTemplate ItemTemplate
         {
