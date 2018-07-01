@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
+using ReminderXamarin.Interfaces;
+using ReminderXamarin.Interfaces.FilePickerService;
 using ReminderXamarin.Models;
 using Xamarin.Forms;
 
@@ -12,15 +15,18 @@ namespace ReminderXamarin.ViewModels
     public class NoteViewModel : BaseViewModel
     {
         private readonly MediaHelper _mediaHelper;
+        private readonly TransformHelper _transformHelper;
 
         public NoteViewModel()
         {
             _mediaHelper = new MediaHelper();
+            _transformHelper = new TransformHelper();
             Photos = new ObservableCollection<PhotoViewModel>();
             Videos = new ObservableCollection<VideoModel>();
 
             TakePhotoCommand = new Command(async () => await TakePhotoCommandExecute());
             TakeVideoCommand = new Command(async () => await TakeVideoCommandExecute());
+            PickPhotoCommand = new Command<PlatformDocument>(async document => await PickPhotoCommandExecute(document));
             CreateNoteCommand = new Command(CreateNoteCommandExecute);
             UpdateNoteCommand = new Command(UpdateNoteCommandExecute);
             DeleteNoteCommand = new Command(note => DeleteNoteCommandExecute());
@@ -38,6 +44,7 @@ namespace ReminderXamarin.ViewModels
         
         public ICommand TakePhotoCommand { get; set; }
         public ICommand TakeVideoCommand { get; set; }
+        public ICommand PickPhotoCommand { get; set; }
         public ICommand CreateNoteCommand { get; set; }
         public ICommand UpdateNoteCommand { get; set; }
         public ICommand DeleteNoteCommand { get; set; }
@@ -52,6 +59,25 @@ namespace ReminderXamarin.ViewModels
             var photoModel = await _mediaHelper.TakePhotoAsync();
             if (photoModel != null)
             {
+                Photos.Add(photoModel.ToPhotoViewModel());
+                PhotoAdded?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        private async Task PickPhotoCommandExecute(PlatformDocument document)
+        {
+            if (document == null)
+            {
+                return;
+            }
+
+            if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg"))
+            {
+                var photoModel = new PhotoModel
+                {
+                    NoteId = Id
+                };
+                await _transformHelper.ResizeAsync(document.Path, photoModel);
                 Photos.Add(photoModel.ToPhotoViewModel());
                 PhotoAdded?.Invoke(this, EventArgs.Empty);
             }

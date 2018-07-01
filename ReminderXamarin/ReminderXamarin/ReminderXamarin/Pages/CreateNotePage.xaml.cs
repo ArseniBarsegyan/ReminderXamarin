@@ -2,6 +2,7 @@
 using System.Linq;
 using ReminderXamarin.Elements;
 using ReminderXamarin.Extensions;
+using ReminderXamarin.Interfaces.FilePickerService;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,6 +12,8 @@ namespace ReminderXamarin.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CreateNotePage : ContentPage
     {
+        private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
+
         public CreateNotePage()
         {
             InitializeComponent();
@@ -53,6 +56,16 @@ namespace ReminderXamarin.Pages
 
                 await Navigation.PushPopupAsync(new FullSizeImageGallery(images, currentImage));
             }
+        }
+
+        private async void MenuItem_OnClicked(object sender, EventArgs e)
+        {
+            var document = await DocumentPicker.DisplayImportAsync(this);
+            if (document == null)
+            {
+                return;
+            }
+            ViewModel.PickPhotoCommand.Execute(document);
         }
     }
 }
