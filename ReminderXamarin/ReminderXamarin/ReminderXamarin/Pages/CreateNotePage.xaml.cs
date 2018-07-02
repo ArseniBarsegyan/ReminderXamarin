@@ -58,7 +58,7 @@ namespace ReminderXamarin.Pages
             }
         }
 
-        private async void MenuItem_OnClicked(object sender, EventArgs e)
+        private async void PickPhoto_OnClicked(object sender, EventArgs e)
         {
             var document = await DocumentPicker.DisplayImportAsync(this);
             if (document == null)

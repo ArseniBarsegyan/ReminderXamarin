@@ -3,6 +3,7 @@ using System.Linq;
 using ReminderXamarin.Elements;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
+using ReminderXamarin.Interfaces.FilePickerService;
 using ReminderXamarin.ViewModels;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
@@ -13,6 +14,7 @@ namespace ReminderXamarin.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NoteDetailPage : ContentPage
     {
+        private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
         private readonly NoteViewModel _noteViewModel;
         private readonly ToolbarItem _confirmToolbarItem;
 
@@ -31,12 +33,25 @@ namespace ReminderXamarin.Pages
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            _noteViewModel.PhotoAdded += NoteViewModel_OnPhotoAdded;
             _confirmToolbarItem.Clicked += Confirm_OnClicked;
+        }
+
+        private void NoteViewModel_OnPhotoAdded(object sender, EventArgs eventArgs)
+        {
+            ImageGallery.IsVisible = true;
+            ImageGallery.Render();
+
+            if (!ToolbarItems.Contains(_confirmToolbarItem))
+            {
+                ToolbarItems.Add(_confirmToolbarItem);
+            }
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
+            _noteViewModel.PhotoAdded -= NoteViewModel_OnPhotoAdded;
             _confirmToolbarItem.Clicked -= Confirm_OnClicked;
         }
 
@@ -58,7 +73,7 @@ namespace ReminderXamarin.Pages
 
             if (ToolbarItems.Contains(_confirmToolbarItem))
             {
-                ToolbarItems.RemoveAt(1);
+                ToolbarItems.Remove(_confirmToolbarItem);
             }
         }
 
@@ -82,6 +97,16 @@ namespace ReminderXamarin.Pages
 
                 await Navigation.PushPopupAsync(new FullSizeImageGallery(images, currentImage));
             }
+        }
+
+        private async void PickPhoto_OnClicked(object sender, EventArgs e)
+        {
+            var document = await DocumentPicker.DisplayImportAsync(this);
+            if (document == null)
+            {
+                return;
+            }
+            _noteViewModel.PickPhotoCommand.Execute(document);
         }
     }
 }

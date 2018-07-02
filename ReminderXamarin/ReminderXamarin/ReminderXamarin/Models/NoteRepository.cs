@@ -44,7 +44,7 @@ namespace ReminderXamarin.Models
         {
             if (note.Id != 0)
             {
-                _db.UpdateWithChildren(note);
+                _db.InsertOrReplaceWithChildren(note);
             }
             else
             {

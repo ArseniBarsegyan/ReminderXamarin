@@ -10,7 +10,7 @@
         <ToolbarItem Icon="video.png" Command="{Binding TakeVideoCommand}" />
         <ToolbarItem Icon="camera.png" Command="{Binding TakePhotoCommand}" />
         <ToolbarItem Icon="confirm.png" Clicked="Save_OnClicked" />
-        <ToolbarItem Text="Pick photo" Order="Secondary" Clicked="MenuItem_OnClicked" />
+        <ToolbarItem Text="Pick photo" Order="Secondary" Clicked="PickPhoto_OnClicked" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.BindingContext>

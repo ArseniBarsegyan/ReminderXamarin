@@ -42,7 +42,7 @@ namespace ReminderXamarin.Models
         {
             if (model.Id != 0)
             {
-                _db.UpdateWithChildren(model);
+                _db.InsertOrReplaceWithChildren(model);
             }
             else
             {

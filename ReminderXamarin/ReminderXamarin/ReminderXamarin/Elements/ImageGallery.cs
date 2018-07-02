@@ -22,8 +22,7 @@ namespace ReminderXamarin.Elements
             _carousel = new CarouselView
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
-                VerticalOptions = LayoutOptions.StartAndExpand,
-                HeightRequest = 350
+                VerticalOptions = LayoutOptions.FillAndExpand
             };
 
             Images = images;
