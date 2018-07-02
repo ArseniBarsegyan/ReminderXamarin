@@ -44,7 +44,7 @@ namespace ReminderXamarin.ViewModels
             Achievements = App.AchievementRepository
                 .GetAll()
                 .ToAchievementViewModels()
-                .OrderBy(x => x.GeneralTimeSpent)
+                .OrderByDescending(x => x.GeneralTimeSpent)
                 .ToObservableCollection();
         }
     }

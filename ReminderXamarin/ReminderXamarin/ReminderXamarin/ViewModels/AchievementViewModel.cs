@@ -76,7 +76,6 @@ namespace ReminderXamarin.ViewModels
             AchievementNotes = App.AchievementRepository.GetAchievementAsync(Id)
                 .AchievementNotes
                 .ToAchievementNoteViewModels()
-                .OrderByDescending(x => x.HoursSpent)
                 .ToObservableCollection();
         }
     }
