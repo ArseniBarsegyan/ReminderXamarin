@@ -4832,6 +4832,9 @@ namespace ReminderXamarin.Droid
 			// aapt resource value: 0x7f0d0008
 			public const int ThemeOverlay_MediaRouter_Light = 2131558408;
 			
+			// aapt resource value: 0x7f0d018c
+			public const int ToolbarPopupTheme = 2131558796;
+			
 			// aapt resource value: 0x7f0d0126
 			public const int Widget_AppCompat_ActionBar = 2131558694;
 			

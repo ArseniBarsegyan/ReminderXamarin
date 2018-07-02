@@ -5,10 +5,10 @@
              x:Class="ReminderXamarin.Pages.NoteDetailPage"
              BackgroundColor="White">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="video.png" Command="{Binding TakeVideoCommand}" />
-        <ToolbarItem Icon="camera.png" Command="{Binding TakePhotoCommand}" />
+        <ToolbarItem Icon="video.png" Text="Take video" Order="Secondary" Command="{Binding TakeVideoCommand}" />
+        <ToolbarItem Icon="camera.png" Text="Take photo" Order="Secondary" Command="{Binding TakePhotoCommand}" />
         <ToolbarItem Text="Pick photo" Order="Secondary" Clicked="PickPhoto_OnClicked" />
-        <ToolbarItem Icon="delete.png" Clicked="Delete_OnClicked" />
+        <ToolbarItem Icon="delete.png" Order="Primary" Clicked="Delete_OnClicked" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
