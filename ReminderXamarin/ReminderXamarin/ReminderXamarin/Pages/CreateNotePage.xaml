@@ -14,7 +14,7 @@
     </ContentPage.ToolbarItems>
     
     <ContentPage.BindingContext>
-        <viewModels1:NoteViewModel x:Name="ViewModel" PhotosCollectionChanged="ViewModel_OnPhotosCollectionChanged" />
+        <viewModels1:NoteViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
     
     <ContentPage.Content>

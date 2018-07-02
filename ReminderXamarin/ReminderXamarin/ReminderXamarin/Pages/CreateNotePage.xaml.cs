@@ -2,6 +2,7 @@
 using System.Linq;
 using ReminderXamarin.Elements;
 using ReminderXamarin.Extensions;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces.FilePickerService;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
@@ -36,6 +37,23 @@ namespace ReminderXamarin.Pages
 
             ViewModel.CreateNoteCommand.Execute(null);
             await Navigation.PopAsync();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ViewModel.PhotosCollectionChanged += ViewModel_OnPhotosCollectionChanged;
+            MessagingCenter.Subscribe<ImageGallery, int>(this, ConstantHelper.ImageDeleted, (gallery, i) =>
+            {
+                ViewModel.DeletePhotoCommand.Execute(i);
+            });
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            ViewModel.PhotosCollectionChanged -= ViewModel_OnPhotosCollectionChanged;
+            MessagingCenter.Unsubscribe<ImageGallery, int>(this, ConstantHelper.ImageDeleted);
         }
 
         private void ViewModel_OnPhotosCollectionChanged(object sender, EventArgs e)
