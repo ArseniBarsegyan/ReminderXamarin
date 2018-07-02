@@ -33,11 +33,15 @@ namespace ReminderXamarin.Pages
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _noteViewModel.PhotoAdded += NoteViewModel_OnPhotoAdded;
+            _noteViewModel.PhotosCollectionChanged += NoteViewModelOnPhotosCollectionChanged;
             _confirmToolbarItem.Clicked += Confirm_OnClicked;
+            MessagingCenter.Subscribe<ImageGallery, int>(this, ConstantHelper.ImageDeleted, (gallery, i) =>
+            {
+                _noteViewModel.DeletePhotoCommand.Execute(i);
+            });
         }
 
-        private void NoteViewModel_OnPhotoAdded(object sender, EventArgs eventArgs)
+        private void NoteViewModelOnPhotosCollectionChanged(object sender, EventArgs eventArgs)
         {
             ImageGallery.IsVisible = true;
             ImageGallery.Render();
@@ -51,8 +55,9 @@ namespace ReminderXamarin.Pages
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            _noteViewModel.PhotoAdded -= NoteViewModel_OnPhotoAdded;
+            _noteViewModel.PhotosCollectionChanged -= NoteViewModelOnPhotosCollectionChanged;
             _confirmToolbarItem.Clicked -= Confirm_OnClicked;
+            MessagingCenter.Unsubscribe<ImageGallery, int>(this, ConstantHelper.ImageDeleted);
         }
 
         private async void Delete_OnClicked(object sender, EventArgs e)

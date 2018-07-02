@@ -38,7 +38,7 @@ namespace ReminderXamarin.Pages
             await Navigation.PopAsync();
         }
 
-        private void ViewModel_OnPhotoAdded(object sender, EventArgs e)
+        private void ViewModel_OnPhotosCollectionChanged(object sender, EventArgs e)
         {
             ImageGallery.IsVisible = true;
             ImageGallery.Render();

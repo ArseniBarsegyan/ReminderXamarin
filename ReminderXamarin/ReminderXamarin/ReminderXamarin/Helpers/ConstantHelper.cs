@@ -12,6 +12,7 @@
         public const string AchievementDeleteMessage = "Are you sure you want to delete this achievement?";
         public const string Cancel = "Cancel";
         public const string DetailPageChanged = "DetailPageChanged";
+        public const string ImageDeleted = "ImageDeleted";
         public const string Notes = "Notes";
         public const string NoteTextIsEmptyMessage = "Note text is empty. Creation cancelled";
         public const string NoteDeleteMessage = "Are you sure you want to delete this note?";

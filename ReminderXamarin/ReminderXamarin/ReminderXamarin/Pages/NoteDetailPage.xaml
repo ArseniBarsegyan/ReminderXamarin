@@ -15,10 +15,10 @@
         <StackLayout Padding="10">
             <!-- Image gallery with all photos of current note. Visible if note contains not empty photo -->
             <elements1:HorizontalImageGallery x:Name="ImageGallery" 
-                                   Orientation="Horizontal" 
-                                   ItemsSource="{Binding Photos}"
-                                   HeightRequest="100"
-                                   IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}">
+                                              Orientation="Horizontal" 
+                                              ItemsSource="{Binding Photos}"
+                                              HeightRequest="100"
+                                              IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}">
                 <elements1:HorizontalImageGallery.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

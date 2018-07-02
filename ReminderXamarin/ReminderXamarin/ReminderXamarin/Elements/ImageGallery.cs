@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using ReminderXamarin.Helpers;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Elements
 {
     /// <inheritdoc />
     /// <summary>
-    /// <see cref="ImageGallery"/> extends absolute layout and takes collection of <see cref="Image"/> in
+    /// <see cref="ImageGallery"/> extends <see cref="StackLayout"/> and takes collection of <see cref="Image"/> in
     /// constructor as parameter. This class uses <see cref="CarouselView"/> to draw horizontal set of images
     /// that could be changed by swipe.
     /// </summary>
-    public class ImageGallery : AbsoluteLayout
+    public class ImageGallery : StackLayout
     {
         private readonly CarouselView _carousel;
 
@@ -30,8 +31,25 @@ namespace ReminderXamarin.Elements
             _carousel.PositionSelected += OnImageChanged;
 
             Children.Add(_carousel);
-            SetLayoutBounds(_carousel, new Rectangle(0, 0, 1, 1));
-            SetLayoutFlags(_carousel, AbsoluteLayoutFlags.All);
+            AddOptionsToAllImages();
+        }
+
+        private void AddOptionsToAllImages()
+        {
+            var deleteImage = new Image
+            {
+                Source = "delete.png",
+                HeightRequest = 20
+            };
+            var deleteGestureRecognizer = new TapGestureRecognizer();
+            // Taping on "delete" image will delete current image.
+            deleteGestureRecognizer.Tapped += (sender, args) =>
+            {
+                Images.RemoveAt(_carousel.Position);
+                MessagingCenter.Send(this, ConstantHelper.ImageDeleted, _carousel.Position);
+            };
+            deleteImage.GestureRecognizers.Add(deleteGestureRecognizer);
+            Children.Add(deleteImage);
         }
 
         /// <summary>

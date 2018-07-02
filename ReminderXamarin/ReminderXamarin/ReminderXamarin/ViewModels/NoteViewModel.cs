@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
@@ -25,6 +26,7 @@ namespace ReminderXamarin.ViewModels
             Videos = new ObservableCollection<VideoModel>();
 
             TakePhotoCommand = new Command(async () => await TakePhotoCommandExecute());
+            DeletePhotoCommand = new Command<int>(DeletePhotoCommandExecute);
             TakeVideoCommand = new Command(async () => await TakeVideoCommandExecute());
             PickPhotoCommand = new Command<PlatformDocument>(async document => await PickPhotoCommandExecute(document));
             CreateNoteCommand = new Command(CreateNoteCommandExecute);
@@ -42,6 +44,7 @@ namespace ReminderXamarin.ViewModels
         public DateTime EditDate { get; set; }
         public string FullDescription { get; set; }
         
+        public ICommand DeletePhotoCommand { get; set; }
         public ICommand TakePhotoCommand { get; set; }
         public ICommand TakeVideoCommand { get; set; }
         public ICommand PickPhotoCommand { get; set; }
@@ -50,9 +53,9 @@ namespace ReminderXamarin.ViewModels
         public ICommand DeleteNoteCommand { get; set; }
 
         /// <summary>
-        /// Invokes when photo added to Photos.
+        /// Invokes when Photos collection changing.
         /// </summary>
-        public event EventHandler PhotoAdded;
+        public event EventHandler PhotosCollectionChanged;
 
         private async Task TakePhotoCommandExecute()
         {
@@ -60,7 +63,7 @@ namespace ReminderXamarin.ViewModels
             if (photoModel != null)
             {
                 Photos.Add(photoModel.ToPhotoViewModel());
-                PhotoAdded?.Invoke(this, EventArgs.Empty);
+                PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -79,7 +82,16 @@ namespace ReminderXamarin.ViewModels
                 };
                 await _transformHelper.ResizeAsync(document.Path, photoModel);
                 Photos.Add(photoModel.ToPhotoViewModel());
-                PhotoAdded?.Invoke(this, EventArgs.Empty);
+                PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        private void DeletePhotoCommandExecute(int position)
+        {
+            if (Photos.Any())
+            {
+                Photos.RemoveAt(position);
+                PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
