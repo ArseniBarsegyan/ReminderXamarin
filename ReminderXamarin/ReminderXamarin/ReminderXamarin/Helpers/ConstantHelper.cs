@@ -10,9 +10,12 @@
         public const string AchievementsSection = "Achievements";
         public const string AchievementsIcon = "achievements_icon.png";
         public const string AchievementDeleteMessage = "Are you sure you want to delete this achievement?";
+        public const string AreYouSure = "Are you sure?";
         public const string Cancel = "Cancel";
+        public const string DeleteImageSource = "delete.png";
         public const string DetailPageChanged = "DetailPageChanged";
         public const string ImageDeleted = "ImageDeleted";
+        public const string No = "No";
         public const string Notes = "Notes";
         public const string NoteTextIsEmptyMessage = "Note text is empty. Creation cancelled";
         public const string NoteDeleteMessage = "Are you sure you want to delete this note?";
@@ -28,5 +31,6 @@
         public const string ToDoSection = "To-do";
         public const string Videos = "Videos";
         public const string Warning = "Warning";
+        public const string Yes = "Yes";
     }
 }

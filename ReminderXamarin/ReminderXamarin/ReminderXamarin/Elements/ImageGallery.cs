@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using ReminderXamarin.Helpers;
+using ReminderXamarin.Interfaces;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Elements
@@ -14,6 +15,7 @@ namespace ReminderXamarin.Elements
     public class ImageGallery : StackLayout
     {
         private readonly CarouselView _carousel;
+        private static readonly IAlertService AlertService = DependencyService.Get<IAlertService>();
 
         public ImageGallery(ObservableCollection<Image> images)
         {
@@ -38,15 +40,19 @@ namespace ReminderXamarin.Elements
         {
             var deleteImage = new Image
             {
-                Source = "delete.png",
+                Source = ConstantHelper.DeleteImageSource,
                 HeightRequest = 20
             };
             var deleteGestureRecognizer = new TapGestureRecognizer();
-            // Taping on "delete" image will delete current image.
-            deleteGestureRecognizer.Tapped += (sender, args) =>
+            // Taping on "delete" image will delete current image after user confirm it.
+            deleteGestureRecognizer.Tapped += async (sender, args) =>
             {
-                Images.RemoveAt(_carousel.Position);
-                MessagingCenter.Send(this, ConstantHelper.ImageDeleted, _carousel.Position);
+                bool result = await AlertService.ShowYesNoAlert(ConstantHelper.AreYouSure, ConstantHelper.Yes, ConstantHelper.No);
+                if (result)
+                {
+                    Images.RemoveAt(_carousel.Position);
+                    MessagingCenter.Send(this, ConstantHelper.ImageDeleted, _carousel.Position);
+                }
             };
             deleteImage.GestureRecognizers.Add(deleteGestureRecognizer);
             Children.Add(deleteImage);
