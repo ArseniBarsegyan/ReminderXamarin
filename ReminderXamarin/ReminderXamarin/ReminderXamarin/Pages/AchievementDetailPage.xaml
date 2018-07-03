@@ -24,10 +24,27 @@
                     <DataTemplate>
                         <ViewCell Height="80">
                             <ViewCell.View>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Description}" FontSize="Small" HorizontalOptions="Start" />
-                                    <Label Text="{Binding HoursSpent}" WidthRequest="40"  FontSize="Small" HorizontalOptions="EndAndExpand" />
-                                </StackLayout>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    
+                                    <Label Grid.Row="0"
+                                           Grid.Column="0" 
+                                           Text="{Binding Description}" 
+                                           FontSize="Small" 
+                                           HorizontalOptions="Start" />
+                                    <Label Grid.Row="0"
+                                           Grid.Column="1" 
+                                           Text="{Binding HoursSpent}" 
+                                           WidthRequest="40"  
+                                           FontSize="Small"
+                                           HorizontalOptions="EndAndExpand" />
+                                </Grid>
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
