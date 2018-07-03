@@ -74,5 +74,11 @@ namespace ReminderXamarin.Pages
         {
             MessagingCenter.Unsubscribe<NotesPage, MenuPageIndex>(this, ConstantHelper.DetailPageChanged);
         }
+
+        private void UserProfile_OnTapped(object sender, EventArgs e)
+        {
+            var userProfilePage = new UserProfilePage();
+            NavigateTo(userProfilePage);
+        }
     }
 }

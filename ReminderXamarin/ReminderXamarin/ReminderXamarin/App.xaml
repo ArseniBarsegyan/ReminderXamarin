@@ -13,6 +13,7 @@
             <converters:PriorityToImageConverter x:Key="PriorityToImageConverter" />
             <converters:IntEnumConverter x:Key="IntEnumConverter" />
             <converters:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
+            <converters:EmptyByteToImageSourceConverter x:Key="EmptyByteToImageSourceConverter" />
         </ResourceDictionary>
 	</Application.Resources>
 </Application>

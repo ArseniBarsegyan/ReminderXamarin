@@ -15,7 +15,14 @@
                       ItemSelected="MenuList_OnItemSelected">
                 <ListView.Header>
                     <!-- User profile information, photo and name -->
-                    <StackLayout HeightRequest="100" Orientation="Horizontal" Padding="5" Spacing="10">
+                    <StackLayout x:Name="UserProfileLink"
+                                 HeightRequest="100" 
+                                 Orientation="Horizontal" 
+                                 Padding="5" 
+                                 Spacing="10">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="UserProfile_OnTapped" NumberOfTapsRequired="1" />
+                        </StackLayout.GestureRecognizers>
                         <abstractions:CircleImage WidthRequest="60"
                                                   HeightRequest="60" 
                                                   Aspect="AspectFill"
