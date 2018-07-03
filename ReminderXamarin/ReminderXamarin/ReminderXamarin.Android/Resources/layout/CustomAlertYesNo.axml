@@ -34,8 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="Yes apply"
-            android:background="@color/red"
+            android:text="Yes"
+            android:background="@color/deleteButtonBackground"
             android:textAllCaps="false"
             android:layout_gravity="bottom"
             android:textColor="#fafafa" />
@@ -44,10 +44,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="No thanks"
+            android:text="No"
             android:background="@android:color/white"
             android:textAllCaps="false"
             android:layout_gravity="bottom"
-            android:textColor="#0467a1" />
+            android:textColor="#000000" />
     </LinearLayout>
 </LinearLayout>

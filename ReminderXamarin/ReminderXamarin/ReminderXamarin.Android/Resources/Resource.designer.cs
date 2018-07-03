@@ -1313,6 +1313,9 @@ namespace ReminderXamarin.Droid
 			// aapt resource value: 0x7f0e004c
 			public const int colorPrimaryDark = 2131624012;
 			
+			// aapt resource value: 0x7f0e004e
+			public const int deleteButtonBackground = 2131624014;
+			
 			// aapt resource value: 0x7f0e003f
 			public const int design_bottom_navigation_shadow_color = 2131623999;
 			
@@ -1447,9 +1450,6 @@ namespace ReminderXamarin.Droid
 			
 			// aapt resource value: 0x7f0e0034
 			public const int primary_text_disabled_material_light = 2131623988;
-			
-			// aapt resource value: 0x7f0e004e
-			public const int red = 2131624014;
 			
 			// aapt resource value: 0x7f0e0035
 			public const int ripple_material_dark = 2131623989;

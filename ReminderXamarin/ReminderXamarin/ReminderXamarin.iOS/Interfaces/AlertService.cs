@@ -59,7 +59,7 @@ namespace ReminderXamarin.iOS.Interfaces
                 this.BackgroundColor = UIColor.White;
                 
                 var messageBody = string.IsNullOrEmpty(message + "\n") ? "Error" : message + "\n";
-                var label = new UILabel()
+                var label = new UILabel
                 {
                     BackgroundColor = UIColor.Clear,
                     TextColor = UIColor.Black,
@@ -83,7 +83,7 @@ namespace ReminderXamarin.iOS.Interfaces
                 _btnClose.SetTitle(noButtonText, UIControlState.Normal);
                 _btnClose.Frame = new CGRect(this.Frame.Width / 2, this.Frame.Height - _btnHeight, this.Frame.Width / 2, _btnHeight);
                 _btnClose.BackgroundColor = UIColor.FromRGB(245, 245, 245);
-                _btnClose.SetTitleColor(UIColor.FromRGB(4, 103, 161), UIControlState.Normal);
+                _btnClose.SetTitleColor(UIColor.Black, UIControlState.Normal);
                 _btnClose.TouchUpInside += delegate
                 {
                     NoButtonClicked?.Invoke();
@@ -92,7 +92,7 @@ namespace ReminderXamarin.iOS.Interfaces
 
                 _actionBtn.SetTitle(yesButtonText, UIControlState.Normal);
                 _actionBtn.Frame = new CGRect(0, this.Frame.Height - _btnHeight, this.Frame.Width / 2, _btnHeight);
-                _actionBtn.BackgroundColor = UIColor.FromRGB(4, 103, 161);
+                _actionBtn.BackgroundColor = UIColor.FromRGB(245, 16, 16);
                 _actionBtn.SetTitleColor(UIColor.White, UIControlState.Normal);
                 _actionBtn.TouchUpInside += delegate
                 {
