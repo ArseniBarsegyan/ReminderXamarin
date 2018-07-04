@@ -80,7 +80,7 @@ namespace ReminderXamarin.ViewModels
                 {
                     NoteId = Id
                 };
-                await _transformHelper.ResizeAsync(document.Path, photoModel);
+                await _transformHelper.ResizeAsync(document.Path, photoModel, true);
 
                 Photos.Add(photoModel.ToPhotoViewModel());
                 PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);

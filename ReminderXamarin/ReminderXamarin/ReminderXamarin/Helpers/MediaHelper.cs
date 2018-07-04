@@ -35,9 +35,9 @@ namespace ReminderXamarin.Helpers
             }
 
             var dt = DateTime.Now;
-            var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+            var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
             {
-                PhotoSize = Plugin.Media.Abstractions.PhotoSize.Small,
+                PhotoSize = PhotoSize.Small,
                 Directory = "Photos",
                 Name = $"{dt:yyyyMMdd}_{dt:HHmmss}.jpg",
                 SaveToAlbum = true
@@ -47,7 +47,7 @@ namespace ReminderXamarin.Helpers
             {
                 var pm = new PhotoModel();
 
-                await _transformHelper.ResizeAsync(file.Path, pm);
+                await _transformHelper.ResizeAsync(file.Path, pm, false);
                 await DeleteFileAsync(file.Path);
 
                 return pm;

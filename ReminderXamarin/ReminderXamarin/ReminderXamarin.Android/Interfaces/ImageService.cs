@@ -16,7 +16,7 @@ namespace ReminderXamarin.Droid.Interfaces
         /// <param name="targetFile">Target file.</param>
         /// <param name="requiredWidth">Required width.</param>
         /// <param name="requiredHeight">Required height.</param>
-        public void ResizeImage(string sourceFile, string targetFile, int requiredWidth, int requiredHeight)
+        public void ResizeImage(string sourceFile, string targetFile, int requiredWidth, int requiredHeight, bool isHighQualityImage)
         {
             if (!File.Exists(targetFile) && File.Exists(sourceFile))
             {
@@ -25,11 +25,11 @@ namespace ReminderXamarin.Droid.Interfaces
                 {
                     if (targetFile.ToLower().EndsWith("png"))
                     {
-                        downImg.Compress(Bitmap.CompressFormat.Png, 100, outStream);
+                        downImg.Compress(Bitmap.CompressFormat.Png, isHighQualityImage ? 50 : 100, outStream);
                     }
                     else
                     {
-                        downImg.Compress(Bitmap.CompressFormat.Jpeg, 95, outStream);
+                        downImg.Compress(Bitmap.CompressFormat.Jpeg, isHighQualityImage ? 25 : 95, outStream);
                     }
                 }
                 downImg.Recycle();

@@ -34,6 +34,12 @@
                 </Image>
                 <Label FontSize="Medium" HorizontalOptions="Center" Text="{Binding UserName}" />
             </StackLayout>
+            
+            <Button VerticalOptions="EndAndExpand" 
+                    BackgroundColor="DodgerBlue"
+                    Text="Save" 
+                    TextColor="White"
+                    Command="{Binding UpdateUserCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

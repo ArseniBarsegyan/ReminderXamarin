@@ -15,6 +15,12 @@ namespace ReminderXamarin.Pages
             InitializeComponent();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ViewModel.OnAppearing();
+        }
+
         private async void EditUserProfilePhoto_OnTapped(object sender, EventArgs e)
         {
             var document = await DocumentPicker.DisplayImportAsync(this);

@@ -18,7 +18,8 @@ namespace ReminderXamarin.iOS.Interfaces
         /// <param name="targetFile">Target file.</param>
         /// <param name="requiredWidth">Required width.</param>
         /// <param name="requiredHeight">Required height.</param>
-        public void ResizeImage(string sourceFile, string targetFile, int requiredWidth, int requiredHeight)
+        /// <param name="isHighQualityImage">True if current image of high quality.</param>
+        public void ResizeImage(string sourceFile, string targetFile, int requiredWidth, int requiredHeight, bool isHighQualityImage)
         {
             if (File.Exists(sourceFile) && !File.Exists(targetFile))
             {

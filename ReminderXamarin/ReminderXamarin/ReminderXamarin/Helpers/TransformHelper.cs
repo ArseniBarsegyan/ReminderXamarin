@@ -20,10 +20,11 @@ namespace ReminderXamarin.Helpers
         /// <returns>The async.</returns>
         /// <param name="filePath">File path.</param>
         /// <param name="photoModel">Photomodel.</param>
-        public async Task ResizeAsync(string filePath, PhotoModel photoModel)
+        /// <param name="isHighQualityPhoto">True if current image of high quality.</param>
+        public async Task ResizeAsync(string filePath, PhotoModel photoModel, bool isHighQualityPhoto)
         {
             _landscape = false;
-            var str = await ResizeAsync(filePath);
+            var str = await ResizeAsync(filePath, isHighQualityPhoto);
             photoModel.ResizedPath = str[0];
             photoModel.Thumbnail = str[1];
             photoModel.Landscape = _landscape;
@@ -35,7 +36,7 @@ namespace ReminderXamarin.Helpers
         /// </summary>
         /// <returns>The async.</returns>
         /// <param name="filePath">File path.</param>
-        private async Task<string[]> ResizeAsync(string filePath)
+        private async Task<string[]> ResizeAsync(string filePath, bool IsHighQualityImage)
         {
             var str = new string[2];
 
@@ -49,8 +50,8 @@ namespace ReminderXamarin.Helpers
 
             int width = 0;
             int height = 0;
-            int tw = 0;
-            int th = 0;
+            int thumbWidth = 0;
+            int thumbHigh = 0;
 
             if (exif.Width > 0)
             {
@@ -72,17 +73,16 @@ namespace ReminderXamarin.Helpers
             }
             if (exif.Width / 7 < 100)
             {
-                tw = 70;
-                th = 100;
+                thumbWidth = 70;
+                thumbHigh = 100;
             }
             else
             {
-                tw = width / 7;
-                th = height / 13;
+                thumbWidth = width / 7;
+                thumbHigh = height / 13;
             }
-
-            ImageServiceHelper.ResizeImage(filePath, img, width, height);
-            ImageServiceHelper.ResizeImage(filePath, thumb, tw, th);
+            ImageServiceHelper.ResizeImage(filePath, img, width, height, IsHighQualityImage);
+            ImageServiceHelper.ResizeImage(filePath, thumb, thumbWidth, thumbHigh, IsHighQualityImage);
 
             str[0] = img;
             str[1] = thumb;

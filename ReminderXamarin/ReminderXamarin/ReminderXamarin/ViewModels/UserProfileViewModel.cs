@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using System.Linq;
+using System.Windows.Input;
+using ReminderXamarin.Extensions;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
 using Xamarin.Forms;
@@ -11,15 +13,25 @@ namespace ReminderXamarin.ViewModels
 
         public UserProfileViewModel()
         {
-            ChangeUserProfileCommand = new Command<PlatformDocument>(ChangeUserProfileCommandExecute);
-            UserName = "Arseni";
             ImageContent = new byte[0];
+
+            ChangeUserProfileCommand = new Command<PlatformDocument>(ChangeUserProfileCommandExecute);
+            UpdateUserCommand = new Command(UpdateUserCommandExecute);
         }
 
+        public int Id { get; set; }
         public string UserName { get; set; }
         public byte[] ImageContent { get; set; }
 
         public ICommand ChangeUserProfileCommand { get; set; }
+        public ICommand UpdateUserCommand { get; set; }
+
+        public void OnAppearing()
+        {
+            var user = App.UseRepository.GetAll().FirstOrDefault(x => x.UserName == "Arseni");
+            UserName = user?.UserName;
+            ImageContent = user?.ImageContent;
+        }
 
         private void ChangeUserProfileCommandExecute(PlatformDocument document)
         {
@@ -28,6 +40,11 @@ namespace ReminderXamarin.ViewModels
             {
                 ImageContent = FileSystemService.ReadAllBytes(document.Path);
             }
+        }
+
+        private void UpdateUserCommandExecute()
+        {
+            App.UseRepository.Save(this.ToUserModel());
         }
     }
 }

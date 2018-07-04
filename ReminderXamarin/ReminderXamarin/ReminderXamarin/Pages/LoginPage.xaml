@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
+             xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
+             x:Class="ReminderXamarin.Pages.LoginPage">
+    <ContentPage.BindingContext>
+        <viewModels:LoginViewModel x:Name="ViewModel" />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <elements:GradientColorStack Padding="10">
+            <!-- User name -->
+            <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+                <StackLayout Spacing="0">
+                    <Label Text="User name:" TextColor="White" />
+                    <Entry x:Name="UserNameEntry" 
+                           TextColor="White" 
+                           WidthRequest="100"
+                           Text="{Binding UserName}" />
+                </StackLayout>
+
+                <!-- Password -->
+                <StackLayout Spacing="0">
+                    <Label Text="Password:" TextColor="White" />
+
+                    <StackLayout Spacing="0" Orientation="Horizontal">
+                        <Entry x:Name="PasswordEntry"
+                               Text="{Binding Password}" 
+                               IsPassword="True" 
+                               WidthRequest="100"
+                               TextColor="White" />
+
+                        <Image x:Name="TogglePasswordVisibilityButton" Source="camera.png">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TogglePasswordVisibilityButton_OnTapped" NumberOfTapsRequired="1" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+
+            <!-- Error message -->
+            <Label FontSize="Micro" 
+                   TextColor="White"
+                   Text="Incorrect data" 
+                   IsVisible="{Binding IsValid}" />
+            <!-- Submit button -->
+            <Button x:Name="SubmitButton" 
+                    Command="{Binding LoginCommand}" 
+                    VerticalOptions="EndAndExpand"
+                    BackgroundColor="DodgerBlue" 
+                    Text="LogIn" 
+                    TextColor="White" />
+        </elements:GradientColorStack>
+    </ContentPage.Content>
+</ContentPage>

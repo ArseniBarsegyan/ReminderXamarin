@@ -282,5 +282,25 @@ namespace ReminderXamarin.Extensions
         {
             return models.Select(model => model.ToAchievementViewModel()).ToList();
         }
+
+        public static UserModel ToUserModel(this UserProfileViewModel viewModel)
+        {
+            return new UserModel
+            {
+                Id = viewModel.Id,
+                ImageContent = viewModel.ImageContent,
+                UserName = viewModel.UserName
+            };
+        }
+
+        public static UserProfileViewModel ToUserProfileViewModel(this UserModel model)
+        {
+            return new UserProfileViewModel
+            {
+                Id = model.Id,
+                ImageContent = model.ImageContent,
+                UserName = model.UserName
+            };
+        }
     }
 }
