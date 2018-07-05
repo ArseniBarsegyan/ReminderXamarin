@@ -106,6 +106,8 @@ namespace ReminderXamarin.Pages
 
         private async void PickPhoto_OnClicked(object sender, EventArgs e)
         {
+            _noteViewModel.IsLoading = true;
+
             var document = await DocumentPicker.DisplayImportAsync(this);
             if (document == null)
             {

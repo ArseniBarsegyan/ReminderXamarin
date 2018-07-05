@@ -23,8 +23,10 @@ namespace ReminderXamarin.Pages
         // Create note with photos and save them to SQLite DB
         private async void Save_OnClicked(object sender, EventArgs e)
         {
+            ViewModel.IsLoading = true;
             if (string.IsNullOrWhiteSpace(DescriptionEditor.Text))
             {
+                ViewModel.IsLoading = false;
                 await Navigation.PopAsync();
                 return;
             }
@@ -78,6 +80,7 @@ namespace ReminderXamarin.Pages
 
         private async void PickPhoto_OnClicked(object sender, EventArgs e)
         {
+            ViewModel.IsLoading = true;
             var document = await DocumentPicker.DisplayImportAsync(this);
             if (document == null)
             {

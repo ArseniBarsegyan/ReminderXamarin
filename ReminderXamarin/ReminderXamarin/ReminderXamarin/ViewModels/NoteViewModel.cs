@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
-using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
 using ReminderXamarin.Models;
 using Xamarin.Forms;
@@ -43,6 +42,7 @@ namespace ReminderXamarin.ViewModels
         public DateTime CreationDate { get; set; }
         public DateTime EditDate { get; set; }
         public string FullDescription { get; set; }
+        public bool IsLoading { get; set; }
         
         public ICommand DeletePhotoCommand { get; set; }
         public ICommand TakePhotoCommand { get; set; }
@@ -59,18 +59,21 @@ namespace ReminderXamarin.ViewModels
 
         private async Task TakePhotoCommandExecute()
         {
+            IsLoading = true;
             var photoModel = await _mediaHelper.TakePhotoAsync();
             if (photoModel != null)
             {
                 Photos.Add(photoModel.ToPhotoViewModel());
                 PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
             }
+            IsLoading = false;
         }
 
         private async Task PickPhotoCommandExecute(PlatformDocument document)
         {
             if (document == null)
             {
+                IsLoading = false;
                 return;
             }
 
@@ -85,37 +88,45 @@ namespace ReminderXamarin.ViewModels
                 Photos.Add(photoModel.ToPhotoViewModel());
                 PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
             }
+            IsLoading = false;
         }
 
         private void DeletePhotoCommandExecute(int position)
         {
+            IsLoading = true;
             if (Photos.Any())
             {
                 Photos.RemoveAt(position);
                 PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
             }
+            IsLoading = false;
         }
 
         //TODO: implement video player
         private async Task TakeVideoCommandExecute()
         {
+            IsLoading = true;
             var videoModel = await _mediaHelper.TakeVideoAsync();
             if (videoModel != null)
             {
                 Videos.Add(videoModel);
             }
+            IsLoading = false;
         }
 
         private void CreateNoteCommandExecute()
         {
             App.NoteRepository.Save(this.ToNoteModel());
+            IsLoading = false;
         }
 
         private void UpdateNoteCommandExecute()
         {
+            IsLoading = true;
             // Update edit date since user pressed confirm
             EditDate = DateTime.Now;
             App.NoteRepository.Save(this.ToNoteModel());
+            IsLoading = false;
         }
 
         private int DeleteNoteCommandExecute()
