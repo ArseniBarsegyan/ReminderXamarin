@@ -10,33 +10,38 @@
     
     <ContentPage.Content>
         <elements:GradientColorStack Padding="10">
-            <!-- User name -->
-            <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+            <StackLayout Spacing="10" VerticalOptions="CenterAndExpand">
+                <!-- User name -->
                 <StackLayout Spacing="0">
-                    <Label Text="User name:" TextColor="White" />
-                    <Entry x:Name="UserNameEntry" 
-                           TextColor="White" 
-                           WidthRequest="100"
-                           Text="{Binding UserName}" />
+                    <Label Text="User name:" Style="{StaticResource LoginLabelStyle}" />
+                    <elements:EntryWithBorder x:Name="UserNameEntry" 
+                                              Style="{StaticResource LoginEntryStyle}"
+                                              Text="{Binding UserName}"
+                                              Completed="UserNameEntry_OnCompleted"/>
                 </StackLayout>
 
                 <!-- Password -->
                 <StackLayout Spacing="0">
-                    <Label Text="Password:" TextColor="White" />
+                    <Label Text="Password:" Style="{StaticResource LoginLabelStyle}" />
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                        <elements:EntryWithBorder x:Name="PasswordEntry"
+                                                  AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                                  AbsoluteLayout.LayoutFlags="All"
+                                                  Text="{Binding Password}" 
+                                                  IsPassword="True" 
+                                                  Style="{StaticResource LoginEntryStyle}"
+                                                  Completed="PasswordEntry_OnCompleted" />
 
-                    <StackLayout Spacing="0" Orientation="Horizontal">
-                        <Entry x:Name="PasswordEntry"
-                               Text="{Binding Password}" 
-                               IsPassword="True" 
-                               WidthRequest="100"
-                               TextColor="White" />
-
-                        <Image x:Name="TogglePasswordVisibilityButton" Source="camera.png">
+                        <!-- Hide or show password -->
+                        <Image x:Name="TogglePasswordVisibilityButton" 
+                               AbsoluteLayout.LayoutBounds="0.9,0.5,20,20"
+                               AbsoluteLayout.LayoutFlags="PositionProportional"
+                               Source="eye.png">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="TogglePasswordVisibilityButton_OnTapped" NumberOfTapsRequired="1" />
                             </Image.GestureRecognizers>
                         </Image>
-                    </StackLayout>
+                    </AbsoluteLayout>
                 </StackLayout>
             </StackLayout>
 
@@ -49,9 +54,8 @@
             <Button x:Name="SubmitButton" 
                     Command="{Binding LoginCommand}" 
                     VerticalOptions="EndAndExpand"
-                    BackgroundColor="DodgerBlue" 
-                    Text="LogIn" 
-                    TextColor="White" />
+                    Style="{StaticResource SubmitButtonStyle}"
+                    Text="LogIn" />
         </elements:GradientColorStack>
     </ContentPage.Content>
 </ContentPage>

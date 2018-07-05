@@ -16,5 +16,15 @@ namespace ReminderXamarin.Pages
         {
             PasswordEntry.IsPassword = !PasswordEntry.IsPassword;
         }
+
+        private void UserNameEntry_OnCompleted(object sender, EventArgs e)
+        {
+            PasswordEntry.Focus();
+        }
+
+        private void PasswordEntry_OnCompleted(object sender, EventArgs e)
+        {
+            ViewModel.LoginCommand.Execute(null);
+        }
     }
 }

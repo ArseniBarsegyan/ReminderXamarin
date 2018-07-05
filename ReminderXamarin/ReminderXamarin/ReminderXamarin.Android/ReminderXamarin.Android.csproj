@@ -90,6 +90,7 @@
     <Compile Include="Renderers\ClickableImageRenderer.cs" />
     <Compile Include="Renderers\ContentViewWithBorderRenderer.cs" />
     <Compile Include="Renderers\CustomEditorRenderer.cs" />
+    <Compile Include="Renderers\EntryWithBorderRenderer.cs" />
     <Compile Include="Renderers\GradientColorStackRenderer.cs" />
     <Compile Include="Renderers\HorizontalImageGalleryRenderer.cs" />
     <Compile Include="Renderers\LineSpacingLabelRenderer.cs" />
@@ -262,6 +263,15 @@
     <AndroidResource Include="Resources\layout\CustomAlertYesNo.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\eye.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\eye.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\eye.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

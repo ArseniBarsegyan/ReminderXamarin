@@ -101,6 +101,7 @@
     <Compile Include="Renderers\ClickableImageRenderer.cs" />
     <Compile Include="Renderers\ContentViewWithBorderRenderer.cs" />
     <Compile Include="Renderers\EditorRenderer.cs" />
+    <Compile Include="Renderers\EntryWithBorderRenderer.cs" />
     <Compile Include="Renderers\GradientColorStackRenderer.cs" />
     <Compile Include="Renderers\HorizontalImageGalleryRenderer.cs" />
     <Compile Include="Renderers\LineSpacingLabelRenderer.cs" />
@@ -324,5 +325,14 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\achievements_icon%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\eye%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\eye%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\eye%403x.png" />
   </ItemGroup>
 </Project>

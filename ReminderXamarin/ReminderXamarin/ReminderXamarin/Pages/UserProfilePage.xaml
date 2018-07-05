@@ -36,9 +36,8 @@
             </StackLayout>
             
             <Button VerticalOptions="EndAndExpand" 
-                    BackgroundColor="DodgerBlue"
+                    Style="{StaticResource SubmitButtonStyle}"
                     Text="Save" 
-                    TextColor="White"
                     Command="{Binding UpdateUserCommand}" />
         </StackLayout>
     </ContentPage.Content>

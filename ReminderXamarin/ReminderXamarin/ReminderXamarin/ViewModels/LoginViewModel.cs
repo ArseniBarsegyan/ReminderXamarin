@@ -10,6 +10,8 @@ namespace ReminderXamarin.ViewModels
         public LoginViewModel()
         {
             LoginCommand = new Command(LoginCommandExecute);
+            UserName = "Ars";
+            Password = "1";
         }
 
         public string UserName { get; set; }

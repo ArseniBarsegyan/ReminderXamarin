@@ -14,7 +14,9 @@
                             Date="{x:Static sys:DateTime.Now}" />
 
                 <Label Text="Time spent: " />
-                <Editor x:Name="TimeSpentEditor" Text="0" Keyboard="Numeric"/>
+                <Entry x:Name="TimeSpentEditor" 
+                       Text="0" 
+                       Keyboard="Numeric"/>
 
                 <Label Text="Description: " />
                 <ScrollView>
@@ -27,16 +29,14 @@
                 <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
                     <Button x:Name="SubmitButton"
                             HorizontalOptions="FillAndExpand"
-                            BackgroundColor="DodgerBlue"
+                            Style="{StaticResource SubmitButtonStyle}"
                             Text="Add"
-                            TextColor="White"
                             Clicked="SubmitButton_OnClicked" />
 
                     <Button x:Name="CancelButton"
                             HorizontalOptions="FillAndExpand"
-                            BackgroundColor="LightBlue"
+                            Style="{StaticResource CancelButtonStyle}"
                             Text="Cancel"
-                            TextColor="DodgerBlue" 
                             Clicked="CancelButton_OnClicked" />
                 </StackLayout>
             </StackLayout>
