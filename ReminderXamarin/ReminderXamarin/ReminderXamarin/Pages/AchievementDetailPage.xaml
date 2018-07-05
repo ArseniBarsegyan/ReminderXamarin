@@ -7,12 +7,6 @@
              BackgroundColor="White">
     <ContentPage.Content>
         <StackLayout Padding="10">
-            <Button x:Name="AddNoteButton"
-                    BackgroundColor="DodgerBlue"
-                    TextColor="White"
-                    Text="+"
-                    HeightRequest="50"
-                    Clicked="AddNoteButton_OnClicked" />
             <ListView x:Name="AchievementNotes"
                       ItemsSource="{Binding AchievementNotes}"
                       HasUnevenRows="True"
@@ -36,6 +30,7 @@
                                     
                                     <elements:LineSpacingLabel Grid.Row="0"
                                                                Lines="3"
+                                                               LineSpacing="1.0"
                                                                Grid.Column="0" 
                                                                Text="{Binding Description}" 
                                                                FontSize="Small" 
@@ -52,6 +47,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
+            <Button x:Name="AddNoteButton"
+                    Style="{StaticResource SubmitButtonStyle}"
+                    Text="+"
+                    Clicked="AddNoteButton_OnClicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
