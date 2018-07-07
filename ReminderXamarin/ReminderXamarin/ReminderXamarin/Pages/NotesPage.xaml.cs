@@ -29,12 +29,7 @@ namespace ReminderXamarin.Pages
                 await Navigation.PushAsync(new NoteDetailPage(viewModel));
             }
             NotesList.SelectedItem = null;
-        }
-
-        private async void Create_OnClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new CreateNotePage());
-        }
+        }        
 
         private void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)
         {
@@ -52,6 +47,11 @@ namespace ReminderXamarin.Pages
                 noteViewModel?.DeleteNoteCommand.Execute(noteViewModel);
                 ViewModel.OnAppearing();
             }
+        }
+
+        private async void CreateNoteButton_OnClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new CreateNotePage());
         }
     }
 }

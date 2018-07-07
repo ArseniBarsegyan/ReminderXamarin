@@ -6,9 +6,6 @@
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              x:Class="ReminderXamarin.Pages.AchievementsPage"
              Title="Achievements">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" Icon="add.png" Clicked="Create_OnClicked"/>
-    </ContentPage.ToolbarItems>
     <ContentPage.BindingContext>
         <viewModels:AchievementsPageViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
@@ -82,6 +79,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
+            <Button x:Name="CreateAchievementButton"
+                    Style="{StaticResource SubmitButtonStyle}"
+                    Text="+"
+                    Clicked="CreateAchievementButton_OnClicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

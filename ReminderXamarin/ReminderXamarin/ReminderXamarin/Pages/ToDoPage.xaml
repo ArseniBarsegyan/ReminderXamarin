@@ -5,9 +5,6 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.ToDoPage"
              Title="To-do list">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" Icon="add.png" Clicked="Create_OnClicked"/>
-    </ContentPage.ToolbarItems>
     <ContentPage.BindingContext>
         <viewModels1:ToDoPageViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
@@ -72,6 +69,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
+            <Button x:Name="CreateToDoButton"
+                    Style="{StaticResource SubmitButtonStyle}"
+                    Text="+"
+                    Clicked="CreateToDoButton_OnClicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

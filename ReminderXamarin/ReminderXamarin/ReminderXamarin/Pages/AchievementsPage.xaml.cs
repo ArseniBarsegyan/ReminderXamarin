@@ -18,12 +18,7 @@ namespace ReminderXamarin.Pages
         {
             base.OnAppearing();
             ViewModel.OnAppearing();
-        }
-
-        private async void Create_OnClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new AchievementCreatePage());
-        }
+        }        
 
         private async void AchievementsList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -45,6 +40,11 @@ namespace ReminderXamarin.Pages
                 viewModel?.DeleteAchievementCommand.Execute(viewModel);
                 ViewModel.OnAppearing();
             }
+        }
+
+        private async void CreateAchievementButton_OnClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AchievementCreatePage());
         }
     }
 }

@@ -31,12 +31,7 @@ namespace ReminderXamarin.Pages
                 toDoViewModel?.DeleteItemCommand.Execute(toDoViewModel);
                 ViewModel.OnAppearing();
             }
-        }
-
-        private async void Create_OnClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new CreateToDoPage());
-        }
+        }        
 
         private async void ToDoList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -45,6 +40,11 @@ namespace ReminderXamarin.Pages
                 await Navigation.PushAsync(new ToDoDetailPage(viewModel));
             }
             ToDoList.SelectedItem = null;
+        }
+
+        private async void CreateToDoButton_OnClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new CreateToDoPage());
         }
     }
 }

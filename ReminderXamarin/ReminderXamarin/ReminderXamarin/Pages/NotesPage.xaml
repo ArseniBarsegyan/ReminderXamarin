@@ -5,9 +5,6 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements"
              x:Class="ReminderXamarin.Pages.NotesPage"
              Title="All notes">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" Icon="add.png" Clicked="Create_OnClicked"/>
-    </ContentPage.ToolbarItems>
     <ContentPage.BindingContext>
         <viewModels1:NotesPageViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
@@ -63,8 +60,12 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </StackLayout>
 
+        <Button x:Name="CreateNoteButton"
+                Style="{StaticResource SubmitButtonStyle}"
+                Text="+"
+                Clicked="CreateNoteButton_OnClicked" />
+    </StackLayout>
 </ContentPage>
 
 
