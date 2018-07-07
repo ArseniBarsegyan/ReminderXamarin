@@ -35,7 +35,7 @@ namespace ReminderXamarin.Pages
 
         private async void UserProfileImage_OnTapped(object sender, EventArgs e)
         {
-            await Navigation.PushPopupAsync(new FullSizeImageView(UserProfileImage));
+            await Navigation.PushPopupAsync(new FullSizeImageView(UserProfileImage.Source));
         }
     }
 }

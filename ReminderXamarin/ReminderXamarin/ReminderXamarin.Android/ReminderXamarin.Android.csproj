@@ -87,7 +87,6 @@
     <Compile Include="Interfaces\ImageService.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
-    <Compile Include="Renderers\ClickableImageRenderer.cs" />
     <Compile Include="Renderers\ContentViewWithBorderRenderer.cs" />
     <Compile Include="Renderers\CustomEditorRenderer.cs" />
     <Compile Include="Renderers\EntryWithBorderRenderer.cs" />

@@ -8,16 +8,13 @@
             <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Background_OnClick" />
         </AbsoluteLayout.GestureRecognizers>
 
-        <!--<Image x:Name="Image"
+        <Image x:Name="Image"
                Source="{Binding Source}"
                Aspect="AspectFit"
                WidthRequest="300"
                HeightRequest="500"
                AbsoluteLayout.LayoutBounds="0.5,0.5,300,500"
                AbsoluteLayout.LayoutFlags="PositionProportional">
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Tapped="Image_OnTapped" NumberOfTapsRequired="1" />
-            </Image.GestureRecognizers>
-        </Image>-->
+        </Image>
     </AbsoluteLayout>
 </pages:PopupPage>
