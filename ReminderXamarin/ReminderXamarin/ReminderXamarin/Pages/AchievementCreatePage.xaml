@@ -15,20 +15,18 @@
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="10">
             <Label Text="Pick image for achievement" />
             <Label x:Name="FileNameLabel" IsVisible="False" />
             <abstractions:CircleImage x:Name="PreviewImage" 
-                                      HeightRequest="90" 
-                                      Aspect="AspectFill" 
+                                      HeightRequest="120" 
+                                      Aspect="AspectFit" 
                                       IsVisible="False" />
             <Button x:Name="PickImageButton" Text="Pick image" Clicked="PickImageButton_OnClicked" />
             
             <Label Text="Achievement name: " HorizontalOptions="Start" />
-            <Editor x:Name="TitleEditor"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand"
-                    MaxLength="50" />
+            <Entry x:Name="TitleEntry"
+                   HorizontalOptions="FillAndExpand" />
 
             <Label Text="Description: " HorizontalOptions="Start" />
             <Editor x:Name="DescriptionEditor"

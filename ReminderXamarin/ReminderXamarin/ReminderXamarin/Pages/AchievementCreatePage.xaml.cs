@@ -20,12 +20,12 @@ namespace ReminderXamarin.Pages
 
         private async void Save_OnClicked(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TitleEditor.Text))
+            if (string.IsNullOrWhiteSpace(TitleEntry.Text))
             {
                 await Navigation.PopAsync();
                 return;
             }
-            ViewModel.Title = TitleEditor.Text;
+            ViewModel.Title = TitleEntry.Text;
             ViewModel.GeneralDescription = DescriptionEditor.Text;
             ViewModel.CreateAchievementCommand.Execute(null);
             await Navigation.PopAsync();
