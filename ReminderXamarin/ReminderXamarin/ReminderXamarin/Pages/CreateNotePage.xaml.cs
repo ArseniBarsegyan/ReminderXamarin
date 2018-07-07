@@ -84,8 +84,9 @@ namespace ReminderXamarin.Pages
             var document = await DocumentPicker.DisplayImportAsync(this);
             if (document == null)
             {
+                ViewModel.IsLoading = false;
                 return;
-            }
+            }            
             ViewModel.PickPhotoCommand.Execute(document);
         }
     }

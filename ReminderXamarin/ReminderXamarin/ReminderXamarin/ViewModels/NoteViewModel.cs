@@ -71,12 +71,6 @@ namespace ReminderXamarin.ViewModels
 
         private async Task PickPhotoCommandExecute(PlatformDocument document)
         {
-            if (document == null)
-            {
-                IsLoading = false;
-                return;
-            }
-
             if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg"))
             {
                 var photoModel = new PhotoModel
