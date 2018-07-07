@@ -15,6 +15,13 @@
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="BackgroundColor" Value="{StaticResource SubmitButtonBackground}" />
             </Style>
+            
+            <Style x:Key="ButtonWithImageStyle" TargetType="Button" BasedOn="{StaticResource SubmitButtonStyle}">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="WidthRequest" Value="60" />
+                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="CornerRadius" Value="30" />
+            </Style>
 
             <Style x:Key="CancelButtonStyle" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource CancelButtonBackground}" />

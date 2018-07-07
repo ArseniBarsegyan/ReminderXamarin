@@ -8,9 +8,6 @@
              BackgroundColor="White">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="confirm.png" Order="Primary" Clicked="Save_OnClicked" />
-        <ToolbarItem Icon="video.png" Text="Take video" Order="Secondary" Command="{Binding TakeVideoCommand}" />
-        <ToolbarItem Icon="camera.png" Text="Take photo" Order="Secondary" Command="{Binding TakePhotoCommand}" />
-        <ToolbarItem Text="Pick photo" Order="Secondary" Clicked="PickPhoto_OnClicked" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.BindingContext>
@@ -54,6 +51,13 @@
                         VerticalOptions="FillAndExpand"
                         HeightRequest="200" />
                 </ScrollView>
+
+                <!-- Buttons for taking video/photo or upload video/photo -->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button Style="{StaticResource ButtonWithImageStyle}" Image="video.png" Command="{Binding TakeVideoCommand}" />
+                    <Button Style="{StaticResource ButtonWithImageStyle}" Image="camera.png" Command="{Binding TakePhotoCommand}" />
+                    <Button Style="{StaticResource ButtonWithImageStyle}" Image="add.png" Clicked="PickPhoto_OnClicked" />
+                </StackLayout>
             </StackLayout>
 
             <ActivityIndicator x:Name="ActivityIndicator"
