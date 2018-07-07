@@ -30,7 +30,7 @@ namespace ReminderXamarin.Pages
                     Date = DatePicker.Date,
                     HoursSpent = timeSpent
                 };
-                _viewModel.UpdateAchievementCommand.Execute(achievementNoteViewModel);
+                _viewModel.CreateAchievementNoteCommand.Execute(achievementNoteViewModel);
                 await Navigation.PopModalAsync();
             }
             else

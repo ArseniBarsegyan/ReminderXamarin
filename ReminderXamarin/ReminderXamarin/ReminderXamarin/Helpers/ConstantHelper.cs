@@ -10,6 +10,7 @@
         public const string AchievementsSection = "Achievements";
         public const string AchievementsIcon = "achievements_icon.png";
         public const string AchievementDeleteMessage = "Are you sure you want to delete this achievement?";
+        public const string AchievementNoteDeleteMessage = "Are you sure you want to delete this achievement note?";
         public const string AreYouSure = "Are you sure?";
         public const string Cancel = "Cancel";
         public const string DeleteImageSource = "delete.png";

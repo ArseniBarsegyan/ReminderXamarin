@@ -1,4 +1,5 @@
 ﻿using System;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -21,6 +22,19 @@ namespace ReminderXamarin.Pages
         {
             base.OnAppearing();
             _viewModel.OnAppearing();
+        }
+
+        private async void Delete_OnClicked(object sender, EventArgs e)
+        {
+            bool result = await DisplayAlert
+                (ConstantHelper.Warning, ConstantHelper.AchievementNoteDeleteMessage, ConstantHelper.Ok, ConstantHelper.Cancel);
+            if (result)
+            {
+                var menuItem = sender as MenuItem;
+                var achievementNoteViewModel = menuItem?.CommandParameter as AchievementNoteViewModel;
+                _viewModel.DeleteAchievementNoteCommand.Execute(achievementNoteViewModel);
+                _viewModel.OnAppearing();
+            }
         }
 
         private async void AchievementNotes_OnItemSelected(object sender, SelectedItemChangedEventArgs e)

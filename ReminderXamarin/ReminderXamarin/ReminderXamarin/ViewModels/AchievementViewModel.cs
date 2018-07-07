@@ -15,8 +15,11 @@ namespace ReminderXamarin.ViewModels
 
             RefreshListCommand = new Command(RefreshCommandExecute);
             CreateAchievementCommand = new Command(CreateAchievementCommandExecute);
-            UpdateAchievementCommand = new Command<AchievementNoteViewModel>(UpdateAchievementCommandExecute);
+            CreateAchievementNoteCommand = new Command<AchievementNoteViewModel>(CreateAchievementNoteCommandExecute);
+            UpdateAchievementCommand = new Command(UpdateAchievementCommandExecute);
+            UpdateAchievementNoteCommand = new Command<AchievementNoteViewModel>(UpdateAchievementNoteCommandExecute);
             DeleteAchievementCommand = new Command(viewModel => DeleteAchievementCommandExecute());
+            DeleteAchievementNoteCommand = new Command<AchievementNoteViewModel>(DeleteAchievementNoteCommandExecute);
         }
 
         public bool IsRefreshing { get; set; }
@@ -29,8 +32,11 @@ namespace ReminderXamarin.ViewModels
 
         public ICommand RefreshListCommand { get; set; }
         public ICommand CreateAchievementCommand { get; set; }
+        public ICommand CreateAchievementNoteCommand { get; set; }
         public ICommand UpdateAchievementCommand { get; set; }
+        public ICommand UpdateAchievementNoteCommand { get; set; }
         public ICommand DeleteAchievementCommand { get; set; }
+        public ICommand DeleteAchievementNoteCommand { get; set; }
 
         public void OnAppearing()
         {
@@ -49,21 +55,35 @@ namespace ReminderXamarin.ViewModels
             AchievementNotes.Add(new AchievementNoteViewModel
             {
                 Description = GeneralDescription,
-                HoursSpent = 0,
+                HoursSpent = GeneralTimeSpent,
                 Date = DateTime.Now,
                 AchievementId = Id
             });
             App.AchievementRepository.Save(this.ToAchievementModel());
         }
 
-        private void UpdateAchievementCommandExecute(AchievementNoteViewModel achievementNoteViewModel)
+        private void CreateAchievementNoteCommandExecute(AchievementNoteViewModel achievementNoteViewModel)
         {
             if (!AchievementNotes.Contains(achievementNoteViewModel))
             {
                 AchievementNotes.Add(achievementNoteViewModel);
             }
+            UpdateAchievementCommandExecute();
+        }
+
+        private void UpdateAchievementCommandExecute()
+        {
             GeneralTimeSpent = AchievementNotes.Sum(x => x.HoursSpent);
             App.AchievementRepository.Save(this.ToAchievementModel());
+        }
+
+        private void UpdateAchievementNoteCommandExecute(AchievementNoteViewModel achievementNoteViewModel)
+        {
+            var oldNote = AchievementNotes.FirstOrDefault(x => x.Id == achievementNoteViewModel.Id);
+            int oldNoteIndex = AchievementNotes.IndexOf(oldNote);
+            AchievementNotes.Insert(oldNoteIndex, achievementNoteViewModel);
+
+            UpdateAchievementCommandExecute();
         }
 
         private int DeleteAchievementCommandExecute()
@@ -71,12 +91,23 @@ namespace ReminderXamarin.ViewModels
             return App.AchievementRepository.DeleteAchievement(this.ToAchievementModel());
         }
 
+        private void DeleteAchievementNoteCommandExecute(AchievementNoteViewModel noteViewModel)
+        {
+            if (AchievementNotes.Contains(noteViewModel))
+            {
+                AchievementNotes.Remove(noteViewModel);
+            }
+            UpdateAchievementCommandExecute();
+        }
+
         private void LoadAchievementNotesFromDataBase()
         {
+            // Fetch all note models from database, order by recent date, then by recent upload.
             AchievementNotes = App.AchievementRepository.GetAchievementAsync(Id)
                 .AchievementNotes
-                .ToAchievementNoteViewModels()
                 .OrderByDescending(x => x.Date)
+                .ThenByDescending(x => x.Id)
+                .ToAchievementNoteViewModels()
                 .ToObservableCollection();
         }
     }

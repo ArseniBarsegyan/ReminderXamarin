@@ -30,7 +30,7 @@ namespace ReminderXamarin.Pages
                 _achievementNoteViewModel.HoursSpent = timeSpent;
                 _achievementNoteViewModel.Description = DescriptionEditor.Text;
 
-                _achievementViewModel.UpdateAchievementCommand.Execute(_achievementNoteViewModel);
+                _achievementViewModel.UpdateAchievementNoteCommand.Execute(_achievementNoteViewModel);
                 await Navigation.PopAsync();
             }
             else

@@ -18,6 +18,9 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell Height="80">
+                            <ViewCell.ContextActions>
+                                <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
+                            </ViewCell.ContextActions>
                             <ViewCell.View>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
