@@ -19,6 +19,9 @@
                                           HeightRequest="80" 
                                           Aspect="AspectFit"
                                           Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}">
+                    <abstractions:CircleImage.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="UserProfileImage_OnTapped" NumberOfTapsRequired="1" />
+                    </abstractions:CircleImage.GestureRecognizers>
                 </abstractions:CircleImage>
                 
                 <!-- Clicking on this icon will open selection of image for user profile -->

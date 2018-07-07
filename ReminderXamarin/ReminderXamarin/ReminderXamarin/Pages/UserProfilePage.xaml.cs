@@ -1,5 +1,7 @@
 ﻿using System;
 using ReminderXamarin.Interfaces.FilePickerService;
+using ReminderXamarin.Views;
+using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -29,6 +31,11 @@ namespace ReminderXamarin.Pages
                 return;
             }
             ViewModel.ChangeUserProfileCommand.Execute(document);
+        }
+
+        private async void UserProfileImage_OnTapped(object sender, EventArgs e)
+        {
+            await Navigation.PushPopupAsync(new FullSizeImageView(UserProfileImage));
         }
     }
 }
