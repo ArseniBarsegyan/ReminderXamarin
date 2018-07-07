@@ -20,6 +20,17 @@ namespace ReminderXamarin.Pages
             BindingContext = achievementNoteViewModel;
         }
 
+        private async void Delete_OnClicked(object sender, EventArgs e)
+        {
+            bool result = await DisplayAlert
+                (ConstantHelper.Warning, ConstantHelper.AchievementNoteDeleteMessage, ConstantHelper.Ok, ConstantHelper.Cancel);
+            if (result)
+            {
+                _achievementViewModel.DeleteAchievementNoteCommand.Execute(_achievementNoteViewModel);
+                await Navigation.PopAsync();
+            }
+        }
+
         private async void SubmitButton_OnClicked(object sender, EventArgs e)
         {
             bool result = double.TryParse(TimeSpentEditor.Text, out var timeSpent);
