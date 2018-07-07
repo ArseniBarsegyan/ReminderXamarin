@@ -11,7 +11,7 @@ namespace ReminderXamarin.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string Description { get; set; }
-        public double HoursSpent { get; set; }
+        public int HoursSpent { get; set; }
         public DateTime Date { get; set; }
 
         [ForeignKey(typeof(AchievementModel))]

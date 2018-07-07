@@ -19,7 +19,7 @@ namespace ReminderXamarin.Pages
 
         private async void SubmitButton_OnClicked(object sender, EventArgs e)
         {
-            bool result = double.TryParse(TimeSpentEditor.Text, out var timeSpent);
+            bool result = int.TryParse(TimeSpentEditor.Text, out var timeSpent);
 
             if (result)
             {

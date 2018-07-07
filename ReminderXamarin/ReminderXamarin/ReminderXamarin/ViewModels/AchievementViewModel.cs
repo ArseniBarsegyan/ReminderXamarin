@@ -27,7 +27,7 @@ namespace ReminderXamarin.ViewModels
         public byte[] ImageContent { get; set; }
         public string Title { get; set; }
         public string GeneralDescription { get; set; }
-        public double GeneralTimeSpent { get; set; }
+        public int GeneralTimeSpent { get; set; }
         public ObservableCollection<AchievementNoteViewModel> AchievementNotes { get; set; }
 
         public ICommand RefreshListCommand { get; set; }
