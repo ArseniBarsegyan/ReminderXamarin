@@ -99,6 +99,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\ContentViewWithBorderRenderer.cs" />
+    <Compile Include="Renderers\CustomPickerWithIconRenderer.cs" />
     <Compile Include="Renderers\EditorRenderer.cs" />
     <Compile Include="Renderers\EntryWithBorderRenderer.cs" />
     <Compile Include="Renderers\GradientColorStackRenderer.cs" />

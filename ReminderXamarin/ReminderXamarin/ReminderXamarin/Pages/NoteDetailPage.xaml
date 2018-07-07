@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:elements1="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
+             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.NoteDetailPage"
              BackgroundColor="White">
     <ContentPage.ToolbarItems>
@@ -12,12 +12,12 @@
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <StackLayout Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <!-- Image gallery with all photos of current note. Visible if note contains not empty photo -->
-                <elements1:HorizontalImageGallery x:Name="ImageGallery" 
+                <elements:HorizontalImageGallery x:Name="ImageGallery" 
                                               Orientation="Horizontal" 
                                               ItemsSource="{Binding Photos}"
                                               HeightRequest="100"
                                               IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}">
-                    <elements1:HorizontalImageGallery.ItemTemplate>
+                    <elements:HorizontalImageGallery.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.View>
@@ -36,8 +36,8 @@
                                 </ViewCell.View>
                             </ViewCell>
                         </DataTemplate>
-                    </elements1:HorizontalImageGallery.ItemTemplate>
-                </elements1:HorizontalImageGallery>
+                    </elements:HorizontalImageGallery.ItemTemplate>
+                </elements:HorizontalImageGallery>
 
                 <ScrollView VerticalOptions="FillAndExpand">
                     <Editor x:Name="DescriptionEditor"

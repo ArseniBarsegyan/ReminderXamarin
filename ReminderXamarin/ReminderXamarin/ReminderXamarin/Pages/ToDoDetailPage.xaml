@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.ToDoDetailPage"
              BackgroundColor="White">
     <ContentPage.ToolbarItems>
@@ -11,9 +12,9 @@
     <ContentPage.Content>
         <StackLayout Padding="10">
             <Label Text="Priority: " />
-            <Picker x:Name="PriorityPicker"
-                    ItemsSource="{Binding AvailablePriorities}"
-                    SelectedIndex="{Binding Priority, Converter={StaticResource IntEnumConverter}}" />
+            <elements:CustomPickerWithIcon x:Name="PriorityPicker"
+                                           ItemsSource="{Binding AvailablePriorities}"
+                                           SelectedIndex="{Binding Priority, Converter={StaticResource IntEnumConverter}}" />
 
             <Label Text="Date: " />
             <DatePicker x:Name="DatePicker"

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.CreateToDoPage"
              Title="Create to-do"
              BackgroundColor="White">
@@ -18,10 +19,10 @@
         <ScrollView VerticalOptions="FillAndExpand">
             <StackLayout Padding="10">
                 <Label Text="Priority: " />
-                <Picker x:Name="PriorityPicker"
-                        ItemsSource="{Binding AvailablePriorities}"
-                        SelectedIndex="{Binding Priority, Converter={StaticResource IntEnumConverter}}"
-                        SelectedIndexChanged="PriorityPicker_OnSelectedIndexChanged" />
+                <elements:CustomPickerWithIcon x:Name="PriorityPicker"
+                                               ItemsSource="{Binding AvailablePriorities}"
+                                               SelectedIndex="{Binding Priority, Converter={StaticResource IntEnumConverter}}"
+                                               SelectedIndexChanged="PriorityPicker_OnSelectedIndexChanged" />
 
                 <Label Text="Date: " />
                 <DatePicker x:Name="DatePicker"
