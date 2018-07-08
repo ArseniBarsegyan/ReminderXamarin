@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using Xamarin.Forms;
@@ -14,6 +15,8 @@ namespace ReminderXamarin.Elements
     /// </summary>
     public class ImageGallery : StackLayout
     {
+        // Carousel.Position property doesn't show correct value, so here is current element position number
+        private int _currentPosition;
         private readonly CarouselView _carousel;
         private static readonly IAlertService AlertService = DependencyService.Get<IAlertService>();
 
@@ -50,8 +53,8 @@ namespace ReminderXamarin.Elements
                 bool result = await AlertService.ShowYesNoAlert(ConstantHelper.AreYouSure, ConstantHelper.Yes, ConstantHelper.No);
                 if (result)
                 {
-                    Images.RemoveAt(_carousel.Position);
-                    MessagingCenter.Send(this, ConstantHelper.ImageDeleted, _carousel.Position);
+                    Images.RemoveAt(_currentPosition);
+                    MessagingCenter.Send(this, ConstantHelper.ImageDeleted, _currentPosition);
                 }
             };
             deleteImage.GestureRecognizers.Add(deleteGestureRecognizer);
@@ -85,13 +88,14 @@ namespace ReminderXamarin.Elements
         public void SetCurrentPosition(int position)
         {
             _carousel.Position = position;
+            _currentPosition = position;
         }
 
         private void OnImageChanged(object sender, SelectedPositionChangedEventArgs e)
         {
             // Get the selected page
-            var position = (int)e.SelectedPosition;
-            ImageChanged?.Invoke(this, position);
+            _currentPosition = (int) e.SelectedPosition;
+            ImageChanged?.Invoke(this, _currentPosition);
         }
     }
 }
