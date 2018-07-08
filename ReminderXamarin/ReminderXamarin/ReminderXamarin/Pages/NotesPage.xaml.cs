@@ -44,7 +44,7 @@ namespace ReminderXamarin.Pages
             {
                 var menuItem = sender as MenuItem;
                 var noteViewModel = menuItem?.CommandParameter as NoteViewModel;
-                noteViewModel?.DeleteNoteCommand.Execute(noteViewModel);
+                noteViewModel?.DeleteNoteCommand.Execute(null);
                 ViewModel.OnAppearing();
             }
         }

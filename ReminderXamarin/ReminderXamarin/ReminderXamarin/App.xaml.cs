@@ -12,6 +12,7 @@ namespace ReminderXamarin
         private static ToDoRepository _toDoRepository;
         private static AchievementRepository _achievementRepository;
         private static UserRepository _userRepository;
+        private static FriendsRepository _friendsRepository;
 
         public App()
         {
@@ -20,7 +21,7 @@ namespace ReminderXamarin
         }
 
         /// <summary>
-        /// Gets the Note repository with help dependency service.
+        /// Get Note repository with help dependency service.
         /// </summary>
         /// <value>The database.</value>
         public static NoteRepository NoteRepository => _noteRepository ??
@@ -28,7 +29,7 @@ namespace ReminderXamarin
                                                      .GetLocalFilePath(ConstantHelper.SqLiteDataBaseName)));
 
         /// <summary>
-        /// Gets the To-do models repository with help of dependency service.
+        /// Get To-do models repository with help of dependency service.
         /// </summary>
         /// <value>The database.</value>
         public static ToDoRepository ToDoRepository => _toDoRepository ??
@@ -36,7 +37,7 @@ namespace ReminderXamarin
                                                            .GetLocalFilePath(ConstantHelper.SqLiteDataBaseName)));
 
         /// <summary>
-        /// Gets the achievement models repository with help dependency service.
+        /// Get achievement models repository with help dependency service.
         /// </summary>
         /// <value>The database.</value>
         public static AchievementRepository AchievementRepository => _achievementRepository ??
@@ -44,12 +45,20 @@ namespace ReminderXamarin
                                                            .GetLocalFilePath(ConstantHelper.SqLiteDataBaseName)));
 
         /// <summary>
-        /// Gets the achievement models repository with help dependency service.
+        /// Get users repository with help dependency service.
         /// </summary>
         /// <value>The database.</value>
-        public static UserRepository UseRepository => _userRepository ??
+        public static UserRepository UserRepository => _userRepository ??
                                                                      (_userRepository = new UserRepository(DependencyService.Get<IFileHelper>()
                                                                          .GetLocalFilePath(ConstantHelper.SqLiteDataBaseName)));
+
+        /// <summary>
+        /// Get friends repository with help dependency service.
+        /// </summary>
+        /// <value>The database.</value>
+        public static FriendsRepository FriendsRepository => _friendsRepository ??
+                                                       (_friendsRepository = new FriendsRepository(DependencyService.Get<IFileHelper>()
+                                                           .GetLocalFilePath(ConstantHelper.SqLiteDataBaseName)));
 
         protected override void OnStart()
         {

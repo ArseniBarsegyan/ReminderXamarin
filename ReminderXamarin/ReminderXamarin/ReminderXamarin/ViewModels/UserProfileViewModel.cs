@@ -28,7 +28,7 @@ namespace ReminderXamarin.ViewModels
 
         public void OnAppearing()
         {
-            var user = App.UseRepository.GetAll().FirstOrDefault(x => x.UserName == "Arseni");
+            var user = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == "Arseni");
             UserName = user?.UserName;
             ImageContent = user?.ImageContent;
         }
@@ -44,7 +44,7 @@ namespace ReminderXamarin.ViewModels
 
         private void UpdateUserCommandExecute()
         {
-            App.UseRepository.Save(this.ToUserModel());
+            App.UserRepository.Save(this.ToUserModel());
         }
     }
 }

@@ -336,4 +336,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\eye%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\birthday%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\birthday%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\birthday%403x.png" />
+  </ItemGroup>
 </Project>

@@ -13,10 +13,16 @@
         public const string AchievementNoteDeleteMessage = "Are you sure you want to delete this achievement note?";
         public const string ArrowForwardImage = "arrow_forward.png";
         public const string AreYouSure = "Are you sure?";
+        public const string Birthdays = "Birthdays";
+        public const string BirthdaysIcon = "birthday.png";
         public const string Cancel = "Cancel";
         public const string DeleteImageSource = "delete.png";
         public const string DetailPageChanged = "DetailPageChanged";
+        public const string Friends = "Friends";
+        public const string FriendDeleteMessage = "Are you sure you want to delete this friend and all his data?";
+        public const string High = "High";
         public const string ImageDeleted = "ImageDeleted";
+        public const string Medium = "Medium";
         public const string No = "No";
         public const string Notes = "Notes";
         public const string NoteTextIsEmptyMessage = "Note text is empty. Creation cancelled";

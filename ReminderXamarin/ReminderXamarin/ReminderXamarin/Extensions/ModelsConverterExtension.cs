@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.Models;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
@@ -140,10 +141,10 @@ namespace ReminderXamarin.Extensions
 
             switch (model.Priority)
             {
-                case "High":
+                case ConstantHelper.High:
                     viewModel.Priority = ToDoPriority.High;
                     break;
-                case "Medium":
+                case ConstantHelper.Medium:
                     viewModel.Priority = ToDoPriority.Medium;
                     break;
                 default:
@@ -179,10 +180,10 @@ namespace ReminderXamarin.Extensions
                 };
                 switch (model.Priority)
                 {
-                    case "High":
+                    case ConstantHelper.High:
                         viewModel.Priority = ToDoPriority.High;
                         break;
-                    case "Medium":
+                    case ConstantHelper.Medium:
                         viewModel.Priority = ToDoPriority.Medium;
                         break;
                     default:
@@ -192,6 +193,40 @@ namespace ReminderXamarin.Extensions
                 viewModels.Add(viewModel);
             }
             return viewModels;
+        }
+
+        public static FriendModel ToFriendModel(this FriendViewModel viewModel)
+        {
+            return new FriendModel
+            {
+                Id = viewModel.Id,
+                Name = viewModel.Name,
+                ImageContent = viewModel.ImageContent,
+                BirthDayDate = viewModel.BirthDayDate,
+                GiftDescription = viewModel.GiftDescription
+            };
+        }
+
+        public static FriendViewModel ToFriendViewModel(this FriendModel model)
+        {
+            return new FriendViewModel
+            {
+                Id = model.Id,
+                Name = model.Name,
+                ImageContent = model.ImageContent,
+                BirthDayDate = model.BirthDayDate,
+                GiftDescription = model.GiftDescription
+            };
+        }
+
+        public static IEnumerable<FriendModel> ToFriendModels(this IEnumerable<FriendViewModel> viewModels)
+        {
+            return viewModels.Select(viewModel => viewModel.ToFriendModel()).ToObservableCollection();
+        }
+
+        public static IEnumerable<FriendViewModel> ToFriendViewModels(this IEnumerable<FriendModel> models)
+        {
+            return models.Select(model => model.ToFriendViewModel()).ToObservableCollection();
         }
 
         public static IEnumerable<Image> ToImages(this IEnumerable<PhotoViewModel> viewModels)

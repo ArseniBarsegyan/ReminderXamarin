@@ -29,6 +29,13 @@ namespace ReminderXamarin.Helpers
                 },
                 new MasterPageItem
                 {
+                    Title = ConstantHelper.Birthdays,
+                    IconSource = ConstantHelper.BirthdaysIcon,
+                    TargetType = typeof(BirthdaysPage),
+                    IsDisplayed = true
+                },
+                new MasterPageItem
+                {
                     Title = ConstantHelper.AchievementsSection,
                     IconSource = ConstantHelper.AchievementsIcon,
                     TargetType = typeof(AchievementsPage),
@@ -63,6 +70,7 @@ namespace ReminderXamarin.Helpers
     {
         NotesPage,
         ToDoPage,
+        BirthdaysPage,
         AchievementsPage
     }
 }
