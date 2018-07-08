@@ -4,33 +4,43 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.ToDoDetailPage"
              BackgroundColor="White">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="delete.png" Clicked="Delete_OnClicked" />
-        <ToolbarItem Icon="confirm.png" Clicked="Confirm_OnClicked" />
-    </ContentPage.ToolbarItems>
-    
     <ContentPage.Content>
-        <StackLayout Padding="10">
-            <Label Text="Priority: " />
-            <elements:CustomPickerWithIcon x:Name="PriorityPicker"
-                                           ItemsSource="{Binding AvailablePriorities}"
-                                           SelectedIndex="{Binding Priority, Converter={StaticResource IntEnumConverter}}" />
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Label Text="Priority: " />
+                <elements:CustomPickerWithIcon x:Name="PriorityPicker"
+                                               ItemsSource="{Binding AvailablePriorities}"
+                                               SelectedIndex="{Binding Priority, Converter={StaticResource IntEnumConverter}}" />
 
-            <Label Text="Date: " />
-            <DatePicker x:Name="DatePicker"
-                        MinimumDate="01/01/2018"
-                        MaximumDate="01/01/2100"
-                        Date="{Binding WhenHappens}" />
+                <Label Text="Date: " />
+                <DatePicker x:Name="DatePicker"
+                            MinimumDate="01/01/2018"
+                            MaximumDate="01/01/2100"
+                            Date="{Binding WhenHappens}" />
 
-            <Label Text="Time: " />
-            <TimePicker x:Name="TimePicker" Format="HH:mm" />
+                <Label Text="Time: " />
+                <TimePicker x:Name="TimePicker" Format="HH:mm" />
 
-            <Label Text="Description: " />
-            <ScrollView VerticalOptions="FillAndExpand">
-                <Editor x:Name="DescriptionEditor"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand" />
-            </ScrollView>
-        </StackLayout>
+                <Label Text="Description: " />
+                <ScrollView VerticalOptions="FillAndExpand">
+                    <Editor x:Name="DescriptionEditor"
+                            Margin="0,0,70,0"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand" />
+                </ScrollView>
+            </StackLayout>
+
+            <!-- Confirm and delete buttons -->
+            <StackLayout AbsoluteLayout.LayoutBounds="0.95,1,100,150" AbsoluteLayout.LayoutFlags="PositionProportional">
+                <Button Style="{StaticResource ButtonDangerStyle}"
+                        HorizontalOptions="EndAndExpand" 
+                        Clicked="Delete_OnClicked" 
+                        Image="delete.png" />
+                <Button Style="{StaticResource ButtonWithImageStyle}" 
+                        HorizontalOptions="EndAndExpand" 
+                        Clicked="Confirm_OnClicked" 
+                        Image="confirm.png" />
+            </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

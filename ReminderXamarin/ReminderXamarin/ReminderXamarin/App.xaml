@@ -10,7 +10,9 @@
             <Color x:Key="SubmitButtonBackground">#245496</Color>
             <Color x:Key="CancelButtonBackground">#FFADD8E6</Color>
             <Color x:Key="CancelButtonText">#245496</Color>
+            <Color x:Key="DeleteButtonBackground">#d9534f</Color>
 
+            <!-- Buttons styles -->
             <Style x:Key="SubmitButtonStyle" TargetType="Button">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="BackgroundColor" Value="{StaticResource SubmitButtonBackground}" />
@@ -23,17 +25,23 @@
                 <Setter Property="CornerRadius" Value="30" />
             </Style>
 
+            <Style x:Key="ButtonDangerStyle" TargetType="Button" BasedOn="{StaticResource ButtonWithImageStyle}">
+                <Setter Property="BackgroundColor" Value="{StaticResource DeleteButtonBackground}" />
+            </Style>
+
             <Style x:Key="CancelButtonStyle" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource CancelButtonBackground}" />
                 <Setter Property="TextColor" Value="{StaticResource CancelButtonText}" />
             </Style>
             
+            <!-- Label styles -->
             <Style x:Key="LoginLabelStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontSize" Value="Small" />
                 <Setter Property="Margin" Value="25, 0" />
             </Style>
 
+            <!-- Entry styles -->
             <Style x:Key="LoginEntryStyle" TargetType="elements:EntryWithBorder">
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
@@ -41,6 +49,7 @@
                 <Setter Property="Margin" Value="25, 0" />
             </Style>
             
+            <!-- Converters -->
             <converters:NumberToBoolConverter x:Key="NumberToBoolConverter" />
             <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
             <converters:NullElementToBoolConverter x:Key="NullElementToBoolConverter" />
