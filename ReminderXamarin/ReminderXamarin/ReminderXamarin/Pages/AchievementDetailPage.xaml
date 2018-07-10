@@ -6,8 +6,9 @@
              Title="{Binding Title}"
              BackgroundColor="White">
     <ContentPage.Content>
-        <StackLayout Padding="10">
-            <ListView x:Name="AchievementNotes"
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" >
+                <ListView x:Name="AchievementNotes"
                       ItemsSource="{Binding AchievementNotes}"
                       HasUnevenRows="True"
                       IsPullToRefreshEnabled="True"
@@ -15,46 +16,49 @@
                       RefreshCommand="{Binding RefreshListCommand}"
                       ItemSelected="AchievementNotes_OnItemSelected"
                       SeparatorVisibility="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell Height="80">
-                            <ViewCell.ContextActions>
-                                <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
-                            </ViewCell.ContextActions>
-                            <ViewCell.View>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    
-                                    <elements:LineSpacingLabel Grid.Row="0"
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Height="80">
+                                <ViewCell.ContextActions>
+                                    <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
+                                </ViewCell.ContextActions>
+                                <ViewCell.View>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+
+                                        <elements:LineSpacingLabel Grid.Row="0"
                                                                Lines="3"
                                                                LineSpacing="1.0"
                                                                Grid.Column="0" 
                                                                Text="{Binding Description}" 
                                                                FontSize="Small" 
                                                                HorizontalOptions="Start" />
-                                    <Label Grid.Row="0"
+                                        <Label Grid.Row="0"
                                            Grid.Column="1" 
                                            Text="{Binding HoursSpent}" 
                                            WidthRequest="40"  
                                            FontSize="Small"
                                            HorizontalOptions="EndAndExpand" />
-                                </Grid>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
 
             <Button x:Name="AddNoteButton"
-                    Style="{StaticResource SubmitButtonStyle}"
+                    AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    Style="{StaticResource ButtonWithImageStyle}"
                     Text="+"
                     Clicked="AddNoteButton_OnClicked" />
-        </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
