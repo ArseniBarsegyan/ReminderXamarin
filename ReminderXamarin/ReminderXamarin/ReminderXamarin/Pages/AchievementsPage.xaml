@@ -9,10 +9,16 @@
     <ContentPage.BindingContext>
         <viewModels:AchievementsPageViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Content>
-        <StackLayout Padding="10" Spacing="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-            <ListView x:Name="AchievementsList"
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                     AbsoluteLayout.LayoutFlags="All" 
+                     Padding="10" 
+                     Spacing="0" 
+                     VerticalOptions="FillAndExpand" 
+                     HorizontalOptions="FillAndExpand">
+                <ListView x:Name="AchievementsList"
                       ItemsSource="{Binding Achievements}"
                       IsPullToRefreshEnabled="True"
                       HasUnevenRows="True"
@@ -21,31 +27,31 @@
                       IsRefreshing="{Binding IsRefreshing}"
                       ItemSelected="AchievementsList_OnItemSelected"
                       SeparatorVisibility="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell Height="120">
-                            <ViewCell.ContextActions>
-                                <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
-                            </ViewCell.ContextActions>
-                            <StackLayout BackgroundColor="White">
-                                <elements:ContentViewWithBorder HorizontalOptions="FillAndExpand" 
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Height="120">
+                                <ViewCell.ContextActions>
+                                    <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
+                                </ViewCell.ContextActions>
+                                <StackLayout BackgroundColor="White">
+                                    <elements:ContentViewWithBorder HorizontalOptions="FillAndExpand" 
                                                                 VerticalOptions="FillAndExpand" 
                                                                 Padding="10" 
                                                                 BorderColor="DarkGray" 
                                                                 BorderWidth="1">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="3*" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="3*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
 
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
 
-                                        <abstractions:CircleImage Source="{Binding ImageContent, Converter={StaticResource ByteToImageSourceConverter}}"
+                                            <abstractions:CircleImage Source="{Binding ImageContent, Converter={StaticResource ByteToImageSourceConverter}}"
                                                                   Aspect="AspectFit"
                                                                   Grid.Column="0"
                                                                   Grid.RowSpan="2"
@@ -53,12 +59,12 @@
                                                                   HorizontalOptions="Start"
                                                                   HeightRequest="90" />
 
-                                        <Label Text="{Binding Title}" 
+                                            <Label Text="{Binding Title}" 
                                                Grid.Column="1"
                                                Grid.Row="0"
                                                FontSize="Medium" />
 
-                                        <elements:LineSpacingLabel HorizontalTextAlignment="Start" 
+                                            <elements:LineSpacingLabel HorizontalTextAlignment="Start" 
                                                                    Lines="3"
                                                                    LineBreakMode="TailTruncation" 
                                                                    Grid.Column="1"
@@ -67,23 +73,26 @@
                                                                    Text="{Binding GeneralDescription}"
                                                                    VerticalOptions="Start" />
 
-                                        <Label Text="{Binding GeneralTimeSpent}" 
+                                            <Label Text="{Binding GeneralTimeSpent}" 
                                                Grid.Column="2"
                                                HorizontalOptions="Center"
                                                Grid.RowSpan="2"
                                                VerticalOptions="Center" />
-                                    </Grid>
-                                </elements:ContentViewWithBorder>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                        </Grid>
+                                    </elements:ContentViewWithBorder>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
 
             <Button x:Name="CreateAchievementButton"
-                    Style="{StaticResource SubmitButtonStyle}"
+                    AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    Style="{StaticResource ButtonWithImageStyle}"
                     Text="+"
                     Clicked="CreateAchievementButton_OnClicked" />
-        </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
