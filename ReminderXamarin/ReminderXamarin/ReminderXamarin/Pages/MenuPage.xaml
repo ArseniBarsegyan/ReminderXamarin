@@ -23,9 +23,10 @@
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer Tapped="UserProfile_OnTapped" NumberOfTapsRequired="1" />
                         </StackLayout.GestureRecognizers>
-                        <abstractions:CircleImage WidthRequest="60"
+                        <abstractions:CircleImage x:Name="UserProfilePhoto"
+                                                  WidthRequest="60"
                                                   HeightRequest="60" 
-                                                  Aspect="AspectFill"
+                                                  Aspect="AspectFit"
                                                   Source="https://www.cabe-africa.org/wp-content/uploads/2012/01/1.png" />
                         <Label Text="User name" VerticalTextAlignment="Center" HorizontalOptions="Center" />
                         <!-- Separate user info section from list -->

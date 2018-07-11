@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using ReminderXamarin.Helpers;
+using ReminderXamarin.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,9 +11,17 @@ namespace ReminderXamarin.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage : MasterDetailPage, IDisposable
     {
+        private readonly UserModel _appUser;
+
         public MenuPage()
         {
             InitializeComponent();
+            var user = App.UserRepository.GetAll().LastOrDefault(x => x.UserName == "Arseni");
+            if (user != null)
+            {
+                _appUser = user;
+            }
+
             NavigationPage.SetHasNavigationBar(this, false);
             var pages = MenuHelper.GetMenu().Where(x => x.IsDisplayed).ToList();
             MenuList.ItemsSource = pages;
@@ -41,6 +51,13 @@ namespace ReminderXamarin.Pages
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            
+            if (_appUser != null)
+            {
+                byte[] fileContent = _appUser.ImageContent;
+                UserProfilePhoto.Source = ImageSource.FromStream(() => new MemoryStream(fileContent));
+            }
+
             if (Navigation.NavigationStack.Count > 0)
             {
                 var pages = Navigation.NavigationStack;

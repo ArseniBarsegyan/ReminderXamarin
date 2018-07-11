@@ -9,6 +9,7 @@ namespace ReminderXamarin.ViewModels
 {
     public class UserProfileViewModel : BaseViewModel
     {
+        private bool _first = true;
         private static readonly IFileSystem FileSystemService = DependencyService.Get<IFileSystem>();
 
         public UserProfileViewModel()
@@ -28,9 +29,14 @@ namespace ReminderXamarin.ViewModels
 
         public void OnAppearing()
         {
-            var user = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == "Arseni");
-            UserName = user?.UserName;
-            ImageContent = user?.ImageContent;
+            if (_first)
+            {
+                var user = App.UserRepository.GetAll().LastOrDefault(x => x.UserName == "Arseni");
+                Id = user.Id;
+                UserName = user?.UserName;
+                ImageContent = user?.ImageContent;
+                _first = false;
+            }
         }
 
         private void ChangeUserProfileCommandExecute(PlatformDocument document)

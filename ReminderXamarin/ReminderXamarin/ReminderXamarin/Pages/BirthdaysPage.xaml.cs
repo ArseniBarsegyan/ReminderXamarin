@@ -14,6 +14,12 @@ namespace ReminderXamarin.Pages
             InitializeComponent();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ViewModel.OnAppearing();
+        }
+
         private async void FriendsList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem is BirthdayViewModel viewModel)
