@@ -51,11 +51,11 @@ namespace ReminderXamarin.Models
         }
 
         /// <summary>
-        /// Delete friend from database.
+        /// Delete Birthday model from database.
         /// </summary>
         /// <param name="model">BirthdayModel to be deleted</param>
         /// <returns></returns>
-        public int DeleteNote(BirthdayModel model)
+        public int DeleteBirthday(BirthdayModel model)
         {
             return _db.Delete(model);
         }
