@@ -10,12 +10,12 @@ namespace ReminderXamarin.ViewModels
     {
         public BirthdaysPageViewModel()
         {
-            FriendViewModels = new ObservableCollection<FriendViewModel>();
+            BirthdayViewModels = new ObservableCollection<BirthdayViewModel>();
             RefreshListCommand = new Command(RefreshCommandExecute);
         }
 
         public bool IsRefreshing { get; set; }
-        public ObservableCollection<FriendViewModel> FriendViewModels { get; set; }
+        public ObservableCollection<BirthdayViewModel> BirthdayViewModels { get; set; }
 
         public ICommand RefreshListCommand { get; set; }
 
@@ -33,7 +33,7 @@ namespace ReminderXamarin.ViewModels
 
         private void LoadFriendsFromDatabase()
         {
-            FriendViewModels = App.FriendsRepository
+            BirthdayViewModels = App.BirthdaysRepository
                 .GetAll()
                 .ToFriendViewModels()
                 .OrderByDescending(x => x.BirthDayDate)

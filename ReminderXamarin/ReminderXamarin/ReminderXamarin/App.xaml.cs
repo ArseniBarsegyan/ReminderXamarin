@@ -12,7 +12,7 @@ namespace ReminderXamarin
         private static ToDoRepository _toDoRepository;
         private static AchievementRepository _achievementRepository;
         private static UserRepository _userRepository;
-        private static FriendsRepository _friendsRepository;
+        private static BirthdaysRepository _birthdaysRepository;
 
         public App()
         {
@@ -53,11 +53,11 @@ namespace ReminderXamarin
                                                                          .GetLocalFilePath(ConstantHelper.SqLiteDataBaseName)));
 
         /// <summary>
-        /// Get friends repository with help dependency service.
+        /// Get birthday repository with help dependency service.
         /// </summary>
         /// <value>The database.</value>
-        public static FriendsRepository FriendsRepository => _friendsRepository ??
-                                                       (_friendsRepository = new FriendsRepository(DependencyService.Get<IFileHelper>()
+        public static BirthdaysRepository BirthdaysRepository => _birthdaysRepository ??
+                                                       (_birthdaysRepository = new BirthdaysRepository(DependencyService.Get<IFileHelper>()
                                                            .GetLocalFilePath(ConstantHelper.SqLiteDataBaseName)));
 
         protected override void OnStart()

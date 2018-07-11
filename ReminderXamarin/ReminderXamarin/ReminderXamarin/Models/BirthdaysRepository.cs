@@ -4,41 +4,41 @@ using SQLiteNetExtensions.Extensions;
 
 namespace ReminderXamarin.Models
 {
-    public class FriendsRepository
+    public class BirthdaysRepository
     {
         private readonly SQLiteConnection _db;
 
-        public FriendsRepository(string dbPath)
+        public BirthdaysRepository(string dbPath)
         {
             _db = new SQLiteConnection(dbPath);
-            _db.CreateTable<FriendModel>();
+            _db.CreateTable<BirthdayModel>();
         }
 
         /// <summary>
-        /// Get all friends from database.
+        /// Get all birthdays from database.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<FriendModel> GetAll()
+        public IEnumerable<BirthdayModel> GetAll()
         {
-            return _db.GetAllWithChildren<FriendModel>();
+            return _db.GetAllWithChildren<BirthdayModel>();
         }
 
         /// <summary>
-        /// Get friend from database by id.
+        /// Get birthday from database by id.
         /// </summary>
-        /// <param name="id">Id of the note</param>
+        /// <param name="id">Id of the birthday</param>
         /// <returns></returns>
-        public FriendModel GetFriendAsync(int id)
+        public BirthdayModel GetBirthdayAsync(int id)
         {
-            return _db.GetWithChildren<FriendModel>(id);
+            return _db.GetWithChildren<BirthdayModel>(id);
         }
 
         /// <summary>
-        /// Create (if id = 0) or update FriendModel in database.
+        /// Create (if id = 0) or update BirthdayModel in database.
         /// </summary>
-        /// <param name="model">FriendModel to be saved</param>
+        /// <param name="model">BirthdayModel to be saved</param>
         /// <returns></returns>
-        public void Save(FriendModel model)
+        public void Save(BirthdayModel model)
         {
             if (model.Id != 0)
             {
@@ -53,9 +53,9 @@ namespace ReminderXamarin.Models
         /// <summary>
         /// Delete friend from database.
         /// </summary>
-        /// <param name="model">FriendModel to be deleted</param>
+        /// <param name="model">BirthdayModel to be deleted</param>
         /// <returns></returns>
-        public int DeleteNote(FriendModel model)
+        public int DeleteNote(BirthdayModel model)
         {
             return _db.Delete(model);
         }

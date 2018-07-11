@@ -1,12 +1,13 @@
-﻿using Xamarin.Forms;
+﻿using ReminderXamarin.ViewModels;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace ReminderXamarin.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FriendDetailPage : ContentPage
+    public partial class BirthdayDetailPage : ContentPage
     {
-        public FriendDetailPage()
+        public BirthdayDetailPage(BirthdayViewModel viewModel)
         {
             InitializeComponent();
         }

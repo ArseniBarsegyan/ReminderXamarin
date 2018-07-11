@@ -2,7 +2,7 @@
 
 namespace ReminderXamarin.ViewModels
 {
-    public class FriendViewModel : BaseViewModel
+    public class BirthdayViewModel : BaseViewModel
     {
         public int Id { get; set; }
         public byte[] ImageContent { get; set; }

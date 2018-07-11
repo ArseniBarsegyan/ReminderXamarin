@@ -4,9 +4,9 @@ using Xamarin.Forms.Xaml;
 namespace ReminderXamarin.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CreateFriendDataPage : ContentPage
+    public partial class BirthdayCreatePage : ContentPage
     {
-        public CreateFriendDataPage()
+        public BirthdayCreatePage()
         {
             InitializeComponent();
         }

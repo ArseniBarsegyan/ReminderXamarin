@@ -16,9 +16,9 @@ namespace ReminderXamarin.Pages
 
         private async void FriendsList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (e.SelectedItem is FriendViewModel viewModel)
+            if (e.SelectedItem is BirthdayViewModel viewModel)
             {
-                await Navigation.PushAsync(new FriendDetailPage());
+                await Navigation.PushAsync(new BirthdayDetailPage(viewModel));
             }
             FriendsList.SelectedItem = null;
         }
@@ -27,6 +27,7 @@ namespace ReminderXamarin.Pages
         {
             bool result = await DisplayAlert
                 (ConstantHelper.Warning, ConstantHelper.FriendDeleteMessage, ConstantHelper.Ok, ConstantHelper.Cancel);
+
             if (result)
             {
                 var menuItem = sender as MenuItem;
@@ -38,7 +39,7 @@ namespace ReminderXamarin.Pages
 
         private async void AddFriendButton_OnClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new CreateFriendDataPage());
+            await Navigation.PushAsync(new BirthdayCreatePage());
         }
     }
 }

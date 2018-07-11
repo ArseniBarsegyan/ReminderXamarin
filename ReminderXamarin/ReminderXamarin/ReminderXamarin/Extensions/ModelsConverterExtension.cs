@@ -195,9 +195,9 @@ namespace ReminderXamarin.Extensions
             return viewModels;
         }
 
-        public static FriendModel ToFriendModel(this FriendViewModel viewModel)
+        public static BirthdayModel ToBirthdayModel(this BirthdayViewModel viewModel)
         {
-            return new FriendModel
+            return new BirthdayModel
             {
                 Id = viewModel.Id,
                 Name = viewModel.Name,
@@ -207,9 +207,9 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static FriendViewModel ToFriendViewModel(this FriendModel model)
+        public static BirthdayViewModel ToBirthdayViewModel(this BirthdayModel model)
         {
-            return new FriendViewModel
+            return new BirthdayViewModel
             {
                 Id = model.Id,
                 Name = model.Name,
@@ -219,14 +219,14 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static IEnumerable<FriendModel> ToFriendModels(this IEnumerable<FriendViewModel> viewModels)
+        public static IEnumerable<BirthdayModel> ToBirthdayModels(this IEnumerable<BirthdayViewModel> viewModels)
         {
-            return viewModels.Select(viewModel => viewModel.ToFriendModel()).ToObservableCollection();
+            return viewModels.Select(viewModel => viewModel.ToBirthdayModel()).ToObservableCollection();
         }
 
-        public static IEnumerable<FriendViewModel> ToFriendViewModels(this IEnumerable<FriendModel> models)
+        public static IEnumerable<BirthdayViewModel> ToFriendViewModels(this IEnumerable<BirthdayModel> models)
         {
-            return models.Select(model => model.ToFriendViewModel()).ToObservableCollection();
+            return models.Select(model => model.ToBirthdayViewModel()).ToObservableCollection();
         }
 
         public static IEnumerable<Image> ToImages(this IEnumerable<PhotoViewModel> viewModels)

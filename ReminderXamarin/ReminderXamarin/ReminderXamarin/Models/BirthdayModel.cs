@@ -4,8 +4,8 @@ using SQLite;
 
 namespace ReminderXamarin.Models
 {
-    [Table(ConstantHelper.Friends)]
-    public class FriendModel
+    [Table(ConstantHelper.Birthdays)]
+    public class BirthdayModel
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

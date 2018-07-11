@@ -19,7 +19,7 @@
                          VerticalOptions="FillAndExpand" 
                          HorizontalOptions="FillAndExpand">
                 <ListView x:Name="FriendsList"
-                      ItemsSource="{Binding FriendViewModels}"
+                      ItemsSource="{Binding BirthdayViewModels}"
                       IsPullToRefreshEnabled="True"
                       HasUnevenRows="True"
                       CachingStrategy="RecycleElement"
