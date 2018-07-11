@@ -23,14 +23,17 @@ namespace ReminderXamarin.Droid.Renderers
         {
             if (page.Navigation.NavigationStack.LastOrDefault() is CreateNotePage createNotePage)
             {
-                bool result = await createNotePage.DisplayAlert(ConstantHelper.Warning,
-                    ConstantHelper.PageCloseMessage, ConstantHelper.Ok, ConstantHelper.Cancel);
-
-                if (result)
+                if (createNotePage.ShouldDisplayMessage())
                 {
-                    return await base.OnPopViewAsync(page, animated);
+                    bool result = await createNotePage.DisplayAlert(ConstantHelper.Warning,
+                        ConstantHelper.PageCloseMessage, ConstantHelper.Ok, ConstantHelper.Cancel);
+
+                    if (result)
+                    {
+                        return await base.OnPopViewAsync(page, animated);
+                    }
+                    return await Task.FromResult(false);
                 }
-                return await Task.FromResult(false);
             }
             return await base.OnPopViewAsync(page, animated);
         }

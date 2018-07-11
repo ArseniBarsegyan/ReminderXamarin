@@ -37,6 +37,7 @@ namespace ReminderXamarin.ViewModels
         public ObservableCollection<VideoModel> Videos { get; set; }
 
         public int Id { get; set; }
+        public bool ShouldDisplayMessageWhenLeaving { get; set; }
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime EditDate { get; set; }

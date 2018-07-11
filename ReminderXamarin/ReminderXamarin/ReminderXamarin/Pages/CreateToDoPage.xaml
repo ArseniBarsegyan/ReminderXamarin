@@ -7,37 +7,44 @@
              x:Class="ReminderXamarin.Pages.CreateToDoPage"
              Title="Create to-do"
              BackgroundColor="White">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="confirm.png" Clicked="Save_OnClicked" />
-    </ContentPage.ToolbarItems>
-
     <ContentPage.BindingContext>
         <viewModels1:ToDoViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <ScrollView VerticalOptions="FillAndExpand">
-            <StackLayout Padding="10">
-                <Label Text="Priority: " />
-                <elements:CustomPickerWithIcon x:Name="PriorityPicker"
-                                               ItemsSource="{Binding AvailablePriorities}"
-                                               SelectedIndex="{Binding Priority, Converter={StaticResource IntEnumConverter}}"
-                                               SelectedIndexChanged="PriorityPicker_OnSelectedIndexChanged" />
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <ScrollView VerticalOptions="FillAndExpand">
+                    <StackLayout Padding="10">
+                        <Label Text="Priority: " />
+                        <elements:CustomPickerWithIcon x:Name="PriorityPicker"
+                                                       ItemsSource="{Binding AvailablePriorities}"
+                                                       SelectedIndex="{Binding Priority, Converter={StaticResource IntEnumConverter}}"
+                                                       SelectedIndexChanged="PriorityPicker_OnSelectedIndexChanged" />
 
-                <Label Text="Date: " />
-                <DatePicker x:Name="DatePicker"
-                            MinimumDate="01/01/2018"
-                            MaximumDate="01/01/2100"
-                            Date="{x:Static sys:DateTime.Now}" />
-                
-                <Label Text="Time: " />
-                <TimePicker x:Name="TimePicker" Format="HH:mm" />
+                        <Label Text="Date: " />
+                        <DatePicker x:Name="DatePicker"
+                                    MinimumDate="01/01/2018"
+                                    MaximumDate="01/01/2100"
+                                    Date="{x:Static sys:DateTime.Now}" />
 
-                <Label Text="Description" />
-                <Editor x:Name="DescriptionEditor"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand" />
+                        <Label Text="Time: " />
+                        <TimePicker x:Name="TimePicker" Format="HH:mm" />
+
+                        <Label Text="Description" />
+                        <Editor x:Name="DescriptionEditor"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand" />
+                    </StackLayout>
+                </ScrollView>
             </StackLayout>
-        </ScrollView>
+
+            <Button x:Name="CreateToDoButton"
+                    AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    Style="{StaticResource ButtonWithImageStyle}"
+                    Image="confirm.png"
+                    Clicked="Save_OnClicked" />
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

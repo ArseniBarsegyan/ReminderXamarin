@@ -14,16 +14,41 @@ namespace ReminderXamarin.Pages
     public partial class CreateNotePage : ContentPage
     {
         private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
+        // Display message only when tap "back" and there is no changes.
+        private bool _shouldDisplayMessage;
+        private bool _saveClicked;
 
         public CreateNotePage()
         {
             InitializeComponent();
         }
 
-        // Create note with photos and save them to SQLite DB
+        // Message should display only when user tap "back" and current data
+        // has been modified (added photos or description)
+        public bool ShouldDisplayMessage()
+        {
+            if (_saveClicked)
+            {
+                _shouldDisplayMessage = false;
+            }
+            else if (ViewModel.Photos.Any() || !string.IsNullOrWhiteSpace(DescriptionEditor.Text))
+            {
+                _shouldDisplayMessage = true;
+            }
+            else
+            {
+                _shouldDisplayMessage = false;
+            }
+            return _shouldDisplayMessage;
+        }
+
+        // Create note with photos and save them to SQLite DB.
+        // There is no need to display warning message.
         private async void Save_OnClicked(object sender, EventArgs e)
         {
+            _saveClicked = true;
             ViewModel.IsLoading = true;
+
             if (string.IsNullOrWhiteSpace(DescriptionEditor.Text))
             {
                 ViewModel.IsLoading = false;

@@ -32,7 +32,7 @@
 
             <!-- Confirm and delete buttons -->
             <StackLayout AbsoluteLayout.LayoutBounds="0.95,1,100,150" AbsoluteLayout.LayoutFlags="PositionProportional">
-                <Button Style="{StaticResource ButtonDangerStyle}"
+                <Button Style="{StaticResource ButtonDangerStyle}" 
                         HorizontalOptions="EndAndExpand" 
                         Clicked="Delete_OnClicked" 
                         Image="delete.png" />
