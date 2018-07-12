@@ -4,8 +4,8 @@
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
-             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
-             x:Class="ReminderXamarin.Pages.BirthdayCreatePage">
+             x:Class="ReminderXamarin.Pages.BirthdayCreatePage"
+             BackgroundColor="White">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="confirm.png" Clicked="Save_OnClicked" />
     </ContentPage.ToolbarItems>
@@ -36,17 +36,16 @@
 
             <StackLayout Spacing="0">
                 <Label Text="Friend name: " />
-                <elements:EntryWithBorder x:Name="NameEntry"
-                                          IsPassword="True" 
-                                          HorizontalOptions="Fill"
-                                          Style="{StaticResource LoginEntryStyle}" />
+                <Entry x:Name="NameEntry"
+                       HorizontalOptions="FillAndExpand" />
             </StackLayout>
             
             <StackLayout Spacing="0">
                 <Label Text="Preferences description: " HorizontalOptions="Start" />
                 <Editor x:Name="GiftDescriptionEditor"
                         HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand" />
+                        VerticalOptions="FillAndExpand"
+                        HeightRequest="200" />
             </StackLayout>
 
         </StackLayout>
