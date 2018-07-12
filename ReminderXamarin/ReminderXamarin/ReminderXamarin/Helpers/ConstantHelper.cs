@@ -14,6 +14,7 @@
         public const string ArrowForwardImage = "arrow_forward.png";
         public const string AreYouSure = "Are you sure?";
         public const string Birthdays = "Birthdays";
+        public const string BirthdaysDeleteMessage = "Are you sure you want to delete this birthday?";
         public const string BirthdaysIcon = "birthday.png";
         public const string Cancel = "Cancel";
         public const string DeleteImageSource = "delete.png";

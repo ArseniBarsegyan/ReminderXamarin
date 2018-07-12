@@ -65,7 +65,7 @@
                                                Grid.Row="0"
                                                FontSize="Medium" />
 
-                                            <Label Text="{Binding BirthDayDate, StringFormat='{0:dd.MM.yy, HH:mm}'}"
+                                            <Label Text="{Binding BirthDayDate, StringFormat='{0:dd.MM.yy}'}"
                                                Grid.Column="1"
                                                Grid.Row="1"
                                                FontSize="Medium" />
@@ -93,7 +93,7 @@
                     AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     Style="{StaticResource ButtonWithImageStyle}"
-                    Text="+"
+                    Image="add.png"
                     Clicked="AddFriendButton_OnClicked" />
         </AbsoluteLayout>
     </ContentPage.Content>

@@ -91,7 +91,7 @@
                     AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     Style="{StaticResource ButtonWithImageStyle}"
-                    Text="+"
+                    Image="add.png"
                     Clicked="CreateAchievementButton_OnClicked" />
         </AbsoluteLayout>
     </ContentPage.Content>
