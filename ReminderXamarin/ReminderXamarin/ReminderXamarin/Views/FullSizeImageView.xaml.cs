@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Rg.Plugins.Popup.Extensions;
 using Rg.Plugins.Popup.Pages;
 using Xamarin.Forms;
@@ -21,7 +22,6 @@ namespace ReminderXamarin.Views
         {
             InitializeComponent();
             Image.Source = imageSource;
-            CloseWhenBackgroundIsClicked = true;
         }
 
         // Close current popup page if user tap outside of the image.

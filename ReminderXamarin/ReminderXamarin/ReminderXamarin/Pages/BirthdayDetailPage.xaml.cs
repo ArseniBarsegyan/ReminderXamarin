@@ -4,6 +4,8 @@ using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
 using ReminderXamarin.ViewModels;
+using ReminderXamarin.Views;
+using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -65,6 +67,11 @@ namespace ReminderXamarin.Pages
             _viewModel.Name = NameEntry.Text;
             _viewModel.UpdateBirthdayCommand.Execute(null);
             await Navigation.PopAsync();
+        }
+
+        private async void FriendPhoto_OnTapped(object sender, EventArgs e)
+        {
+            await Navigation.PushPopupAsync(new FullSizeImageView(FriendPhoto.Source));
         }
     }
 }

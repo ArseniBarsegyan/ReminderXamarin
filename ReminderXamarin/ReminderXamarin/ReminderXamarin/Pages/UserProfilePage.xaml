@@ -15,10 +15,8 @@
             <!-- Header with user name and photo -->
             <StackLayout Spacing="4">
                 <abstractions:CircleImage x:Name="UserProfileImage"
-                                          WidthRequest="80"
-                                          HeightRequest="80" 
-                                          Aspect="AspectFit"
-                                          Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}">
+                                          Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}"
+                                          Style="{StaticResource UserImageStyle}">
                     <abstractions:CircleImage.GestureRecognizers>
                         <TapGestureRecognizer Tapped="UserProfileImage_OnTapped" NumberOfTapsRequired="1" />
                     </abstractions:CircleImage.GestureRecognizers>

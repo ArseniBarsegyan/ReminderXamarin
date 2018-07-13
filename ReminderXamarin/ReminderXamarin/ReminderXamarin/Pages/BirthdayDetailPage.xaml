@@ -11,8 +11,11 @@
                 <StackLayout Spacing="0">
                     <abstractions:CircleImage x:Name="FriendPhoto"
                                               Source="{Binding ImageContent, Converter={StaticResource ByteToImageSourceConverter}}"
-                                              WidthRequest="60" 
-                                              HeightRequest="60" />
+                                              Style="{StaticResource UserImageStyle}">
+                        <abstractions:CircleImage.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="FriendPhoto_OnTapped" NumberOfTapsRequired="1" />
+                        </abstractions:CircleImage.GestureRecognizers>
+                    </abstractions:CircleImage>
 
                     <Button x:Name="PhotoPickerButton" 
                             Text="Pick photo"
