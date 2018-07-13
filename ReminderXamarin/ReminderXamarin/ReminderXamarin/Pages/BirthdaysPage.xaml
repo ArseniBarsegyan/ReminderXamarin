@@ -48,33 +48,29 @@
 
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*" />
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="2*" />
                                             </Grid.RowDefinitions>
 
                                             <abstractions:CircleImage Source="{Binding ImageContent, Converter={StaticResource ByteToImageSourceConverter}}"
                                                                   Aspect="AspectFit"
                                                                   Grid.Column="0"
-                                                                  Grid.RowSpan="3"
+                                                                  Grid.RowSpan="2"
                                                                   VerticalOptions="Center"
                                                                   HorizontalOptions="Start"
                                                                   HeightRequest="90" />
 
-                                            <Label Text="{Binding Name}" 
-                                               Grid.Column="1"
-                                               Grid.Row="0"
-                                               FontSize="Medium" />
-
-                                            <Label Text="{Binding BirthDayDate, StringFormat='{0:dd.MM.yy}'}"
-                                               Grid.Column="1"
-                                               Grid.Row="1"
-                                               FontSize="Medium" />
+                                            <StackLayout Orientation="Horizontal" 
+                                                         Spacing="0"
+                                                         Grid.Column="1"
+                                                         Grid.Row="0">
+                                                <Label Text="{Binding Title}" FontSize="Medium" />
+                                            </StackLayout>
 
                                             <elements:LineSpacingLabel HorizontalTextAlignment="Start" 
                                                                    Lines="3"
                                                                    LineBreakMode="TailTruncation" 
                                                                    Grid.Column="1"
-                                                                   Grid.Row="2"
+                                                                   Grid.Row="1"
                                                                    LineSpacing="1.1" 
                                                                    Text="{Binding GiftDescription}"
                                                                    VerticalOptions="Start" />

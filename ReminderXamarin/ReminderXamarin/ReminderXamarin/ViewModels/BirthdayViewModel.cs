@@ -18,6 +18,7 @@ namespace ReminderXamarin.ViewModels
         public byte[] ImageContent { get; set; }
         public string Name { get; set; }
         public DateTime BirthDayDate { get; set; }
+        public string Title => Name + ", " + BirthDayDate.ToString("dd.MM.yy");
         public string GiftDescription { get; set; }
 
         public ICommand CreateBirthdayCommand { get; set; }
