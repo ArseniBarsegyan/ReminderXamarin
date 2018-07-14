@@ -10,13 +10,15 @@ namespace ReminderXamarin.ViewModels
         public LoginViewModel()
         {
             LoginCommand = new Command(LoginCommandExecute);
-            UserName = "Ars";
-            Password = "1";
         }
 
         public string UserName { get; set; }
         public string Password { get; set; }
-        public bool IsValid { get; set; }
+
+        // Set this field to true to hide error message at LoginPage.
+        // When user will press "Login" button and get error change this property
+        // will show error at LoginPage.
+        public bool IsValid { get; set; } = true;
 
         public ICommand LoginCommand { get; set; }
 
@@ -24,7 +26,7 @@ namespace ReminderXamarin.ViewModels
         {
             if (AuthenticationManager.Authenticate(UserName, Password))
             {
-                Application.Current.MainPage = new NavigationPage(new MenuPage());
+                Application.Current.MainPage = new NavigationPage(new MenuPage(UserName));
                 IsValid = true;
             }
             else

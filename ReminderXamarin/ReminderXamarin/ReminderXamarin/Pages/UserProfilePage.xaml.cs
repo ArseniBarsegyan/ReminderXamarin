@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Linq;
+using ReminderXamarin.Extensions;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces.FilePickerService;
+using ReminderXamarin.ViewModels;
 using ReminderXamarin.Views;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
@@ -12,15 +16,22 @@ namespace ReminderXamarin.Pages
     {
         private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
 
-        public UserProfilePage()
+        public UserProfilePage(string username)
         {
             InitializeComponent();
+            var appUser = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == username);
+            if (appUser != null)
+            {
+                var viewModel = appUser.ToUserProfileViewModel();
+                BindingContext = viewModel;
+            }
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ViewModel.OnAppearing();
+            var viewModel = BindingContext as UserProfileViewModel;
+            viewModel?.OnAppearing();
         }
 
         private async void EditUserProfilePhoto_OnTapped(object sender, EventArgs e)
@@ -30,12 +41,20 @@ namespace ReminderXamarin.Pages
             {
                 return;
             }
-            ViewModel.ChangeUserProfileCommand.Execute(document);
+            var viewModel = BindingContext as UserProfileViewModel;
+            viewModel?.ChangeUserProfileCommand.Execute(document);
         }
 
         private async void UserProfileImage_OnTapped(object sender, EventArgs e)
         {
             await Navigation.PushPopupAsync(new FullSizeImageView(UserProfileImage.Source));
+        }
+
+        private void SaveButton_OnClicked(object sender, EventArgs e)
+        {
+            var viewModel = BindingContext as UserProfileViewModel;
+            viewModel?.UpdateUserCommand.Execute(null);
+            MessagingCenter.Send(this, ConstantHelper.ProfileUpdated);
         }
     }
 }

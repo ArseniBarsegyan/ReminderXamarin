@@ -11,16 +11,19 @@ namespace ReminderXamarin.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage : MasterDetailPage, IDisposable
     {
-        private readonly UserModel _appUser;
+        private UserModel _appUser;
+        private string _userName;
 
-        public MenuPage()
+        public MenuPage(string userName)
         {
             InitializeComponent();
-            var user = App.UserRepository.GetAll().LastOrDefault(x => x.UserName == "Arseni");
+            var user = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == userName);
             if (user != null)
             {
                 _appUser = user;
             }
+            _userName = userName;
+            BindingContext = _appUser;
 
             NavigationPage.SetHasNavigationBar(this, false);
             var pages = MenuHelper.GetMenu().Where(x => x.IsDisplayed).ToList();
@@ -69,6 +72,12 @@ namespace ReminderXamarin.Pages
                     }
                 }
             }
+
+            MessagingCenter.Subscribe<UserProfilePage>(this, ConstantHelper.ProfileUpdated, userProfilePage =>
+            {
+                _appUser = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == _userName);
+                BindingContext = _appUser;
+            });
         }
 
         private void MenuList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -93,11 +102,12 @@ namespace ReminderXamarin.Pages
         public void Dispose()
         {
             MessagingCenter.Unsubscribe<NotesPage, MenuPageIndex>(this, ConstantHelper.DetailPageChanged);
+            MessagingCenter.Unsubscribe<UserProfilePage>(this, ConstantHelper.ProfileUpdated);
         }
 
         private void UserProfile_OnTapped(object sender, EventArgs e)
         {
-            var userProfilePage = new UserProfilePage();
+            var userProfilePage = new UserProfilePage(_appUser.UserName);
             NavigateTo(userProfilePage);
         }
     }

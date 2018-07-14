@@ -69,6 +69,7 @@
             <converters:IntEnumConverter x:Key="IntEnumConverter" />
             <converters:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
             <converters:EmptyByteToImageSourceConverter x:Key="EmptyByteToImageSourceConverter" />
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         </ResourceDictionary>
 	</Application.Resources>
 </Application>

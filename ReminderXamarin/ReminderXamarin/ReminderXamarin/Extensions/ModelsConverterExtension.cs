@@ -324,7 +324,8 @@ namespace ReminderXamarin.Extensions
             {
                 Id = viewModel.Id,
                 ImageContent = viewModel.ImageContent,
-                UserName = viewModel.UserName
+                UserName = viewModel.UserName,
+                Password = viewModel.Password
             };
         }
 
@@ -334,7 +335,8 @@ namespace ReminderXamarin.Extensions
             {
                 Id = model.Id,
                 ImageContent = model.ImageContent,
-                UserName = model.UserName
+                UserName = model.UserName,
+                Password = model.Password
             };
         }
     }

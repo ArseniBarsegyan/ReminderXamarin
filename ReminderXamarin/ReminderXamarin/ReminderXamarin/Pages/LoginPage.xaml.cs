@@ -10,6 +10,7 @@ namespace ReminderXamarin.Pages
         public LoginPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
 
         private void TogglePasswordVisibilityButton_OnTapped(object sender, EventArgs e)
@@ -25,6 +26,11 @@ namespace ReminderXamarin.Pages
         private void PasswordEntry_OnCompleted(object sender, EventArgs e)
         {
             ViewModel.LoginCommand.Execute(null);
+        }
+
+        private void RegisterLink_OnTapped(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new RegisterPage();
         }
     }
 }
