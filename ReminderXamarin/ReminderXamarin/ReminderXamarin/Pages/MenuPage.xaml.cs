@@ -11,8 +11,7 @@ namespace ReminderXamarin.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage : MasterDetailPage, IDisposable
     {
-        private UserModel _appUser;
-        private string _userName;
+        private readonly UserModel _appUser;
 
         public MenuPage(string userName)
         {
@@ -22,7 +21,6 @@ namespace ReminderXamarin.Pages
             {
                 _appUser = user;
             }
-            _userName = userName;
             BindingContext = _appUser;
 
             NavigationPage.SetHasNavigationBar(this, false);
@@ -72,12 +70,6 @@ namespace ReminderXamarin.Pages
                     }
                 }
             }
-
-            MessagingCenter.Subscribe<UserProfilePage>(this, ConstantHelper.ProfileUpdated, userProfilePage =>
-            {
-                _appUser = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == _userName);
-                BindingContext = _appUser;
-            });
         }
 
         private void MenuList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)

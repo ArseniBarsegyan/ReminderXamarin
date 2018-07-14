@@ -49,12 +49,5 @@ namespace ReminderXamarin.Pages
         {
             await Navigation.PushPopupAsync(new FullSizeImageView(UserProfileImage.Source));
         }
-
-        private void SaveButton_OnClicked(object sender, EventArgs e)
-        {
-            var viewModel = BindingContext as UserProfileViewModel;
-            viewModel?.UpdateUserCommand.Execute(null);
-            MessagingCenter.Send(this, ConstantHelper.ProfileUpdated);
-        }
     }
 }

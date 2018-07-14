@@ -34,7 +34,7 @@
             <Button VerticalOptions="EndAndExpand" 
                     Style="{StaticResource SubmitButtonStyle}"
                     Text="Save" 
-                    Clicked="SaveButton_OnClicked" />
+                    Command="{Binding UpdateUserCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
