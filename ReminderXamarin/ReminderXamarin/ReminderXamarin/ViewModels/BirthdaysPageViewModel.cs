@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using ReminderXamarin.Helpers;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -33,8 +34,11 @@ namespace ReminderXamarin.ViewModels
 
         private void LoadFriendsFromDatabase()
         {
+            int.TryParse(Settings.CurrentUserId, out int userId);
+
             BirthdayViewModels = App.BirthdaysRepository
                 .GetAll()
+                .Where(x => x.UserId == userId)
                 .ToFriendViewModels()
                 .OrderByDescending(x => x.BirthDayDate)
                 .ToObservableCollection();

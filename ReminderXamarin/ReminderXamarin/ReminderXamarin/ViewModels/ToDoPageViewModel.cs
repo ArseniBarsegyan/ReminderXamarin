@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
+using ReminderXamarin.Helpers;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -42,8 +43,11 @@ namespace ReminderXamarin.ViewModels
 
         private void LoadModelsFromDatabase()
         {
+            int.TryParse(Settings.CurrentUserId, out int userId);
+
             ToDoViewModels = App.ToDoRepository
                 .GetAll()
+                .Where(x => x.UserId == userId)
                 .ToToDoViewModels()
                 .OrderBy(x => x.Priority)
                 .ThenByDescending(x => x.WhenHappens)

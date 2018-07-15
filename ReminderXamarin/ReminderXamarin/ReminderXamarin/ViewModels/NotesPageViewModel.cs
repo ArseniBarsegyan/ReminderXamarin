@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
+using ReminderXamarin.Helpers;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -50,8 +51,15 @@ namespace ReminderXamarin.ViewModels
 
         private void LoadNoteFromDatabase()
         {
+            int.TryParse(Settings.CurrentUserId, out int userId);
+
             // Fetch all note models from database.
-            _allNotes = App.NoteRepository.GetAll().ToNoteViewModels().OrderByDescending(x => x.EditDate).ToList();
+            _allNotes = App.NoteRepository
+                .GetAll()
+                .Where(x => x.UserId == userId)
+                .ToNoteViewModels()
+                .OrderByDescending(x => x.EditDate)
+                .ToList();
             // Show recently edited notes at the top of the list.
             Notes = _allNotes.ToObservableCollection();
             // Save filtering.

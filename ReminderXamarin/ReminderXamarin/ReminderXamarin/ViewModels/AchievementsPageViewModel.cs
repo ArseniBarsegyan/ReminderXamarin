@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
+using ReminderXamarin.Helpers;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -41,8 +42,11 @@ namespace ReminderXamarin.ViewModels
 
         private void LoadAchievementsFromDatabase()
         {
+            int.TryParse(Settings.CurrentUserId, out int userId);
+
             Achievements = App.AchievementRepository
                 .GetAll()
+                .Where(x => x.UserId == userId)
                 .ToAchievementViewModels()
                 .OrderByDescending(x => x.GeneralTimeSpent)
                 .ToObservableCollection();

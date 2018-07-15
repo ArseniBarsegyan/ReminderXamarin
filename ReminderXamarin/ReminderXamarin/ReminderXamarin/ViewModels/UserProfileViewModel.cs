@@ -1,9 +1,7 @@
-﻿using System.Linq;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
-using ReminderXamarin.Models;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
