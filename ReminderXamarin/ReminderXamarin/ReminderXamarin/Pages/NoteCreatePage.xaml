@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
+             xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
-             x:Class="ReminderXamarin.Pages.CreateNotePage"
+             x:Class="ReminderXamarin.Pages.NoteCreatePage"
              Title="Create note"
              BackgroundColor="White">
     <ContentPage.ToolbarItems>
@@ -11,9 +11,9 @@
     </ContentPage.ToolbarItems>
     
     <ContentPage.BindingContext>
-        <viewModels1:NoteViewModel x:Name="ViewModel" />
+        <viewModels:NoteViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <StackLayout Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">

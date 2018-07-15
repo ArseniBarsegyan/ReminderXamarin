@@ -6,9 +6,9 @@ using Xamarin.Forms.Xaml;
 namespace ReminderXamarin.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CreateToDoPage : ContentPage
+    public partial class ToDoCreatePage : ContentPage
     {
-        public CreateToDoPage()
+        public ToDoCreatePage()
         {
             InitializeComponent();
             TimePicker.Time = DateTime.Now.TimeOfDay;

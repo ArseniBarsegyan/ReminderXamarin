@@ -51,7 +51,7 @@ namespace ReminderXamarin.Pages
 
         private async void CreateNoteButton_OnClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new CreateNotePage());
+            await Navigation.PushAsync(new NoteCreatePage());
         }
     }
 }

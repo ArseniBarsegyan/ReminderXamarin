@@ -44,7 +44,7 @@ namespace ReminderXamarin.Pages
 
         private async void CreateToDoButton_OnClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new CreateToDoPage());
+            await Navigation.PushAsync(new ToDoCreatePage());
         }
     }
 }

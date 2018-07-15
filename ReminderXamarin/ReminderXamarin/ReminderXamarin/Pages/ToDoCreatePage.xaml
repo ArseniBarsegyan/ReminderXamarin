@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels"
-             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
-             x:Class="ReminderXamarin.Pages.CreateToDoPage"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             x:Class="ReminderXamarin.Pages.ToDoCreatePage"
              Title="Create to-do"
              BackgroundColor="White">
     <ContentPage.BindingContext>
-        <viewModels1:ToDoViewModel x:Name="ViewModel" />
+        <viewModels:ToDoViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>

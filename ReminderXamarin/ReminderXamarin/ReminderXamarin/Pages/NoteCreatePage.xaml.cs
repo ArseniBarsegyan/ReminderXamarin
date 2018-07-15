@@ -11,14 +11,14 @@ using Xamarin.Forms.Xaml;
 namespace ReminderXamarin.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CreateNotePage : ContentPage
+    public partial class NoteCreatePage : ContentPage
     {
         private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
         // Display message only when tap "back" and there is no changes.
         private bool _shouldDisplayMessage;
         private bool _saveClicked;
 
-        public CreateNotePage()
+        public NoteCreatePage()
         {
             InitializeComponent();
         }
@@ -111,7 +111,7 @@ namespace ReminderXamarin.Pages
             {
                 ViewModel.IsLoading = false;
                 return;
-            }            
+            }
             ViewModel.PickPhotoCommand.Execute(document);
         }
     }
