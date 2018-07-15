@@ -6,51 +6,56 @@
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              x:Class="ReminderXamarin.Pages.BirthdayCreatePage"
              BackgroundColor="White">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="confirm.png" Clicked="Save_OnClicked" />
-    </ContentPage.ToolbarItems>
-    
     <ContentPage.BindingContext>
         <viewModels:BirthdayViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Content>
-        <StackLayout Padding="10" Spacing="10">
-            <StackLayout Spacing="0">
-                <abstractions:CircleImage x:Name="FriendPhoto"
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Padding="10" Spacing="10">
+                <StackLayout Spacing="0">
+                    <abstractions:CircleImage x:Name="FriendPhoto"
                                           Source="https://www.cabe-africa.org/wp-content/uploads/2012/01/1.png"
                                           Style="{StaticResource UserImageStyle}">
-                    <abstractions:CircleImage.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="FriendPhoto_OnTapped" NumberOfTapsRequired="1" />
-                    </abstractions:CircleImage.GestureRecognizers>
-                </abstractions:CircleImage>
-                <Button x:Name="PhotoPickerButton" 
+                        <abstractions:CircleImage.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="FriendPhoto_OnTapped" NumberOfTapsRequired="1" />
+                        </abstractions:CircleImage.GestureRecognizers>
+                    </abstractions:CircleImage>
+                    <Button x:Name="PhotoPickerButton" 
                         Text="Pick photo"
                         Clicked="PhotoPickerButton_OnClicked" />
-            </StackLayout>
-            
-            <StackLayout Spacing="0">
-                <Label Text="Birthday: " />
-                <DatePicker x:Name="DatePicker"
+                </StackLayout>
+
+                <StackLayout Spacing="0">
+                    <Label Text="Birthday: " />
+                    <DatePicker x:Name="DatePicker"
                             MinimumDate="01/01/2018"
                             MaximumDate="01/01/2100"
                             Date="{x:Static sys:DateTime.Now}" />
-            </StackLayout>
+                </StackLayout>
 
-            <StackLayout Spacing="0">
-                <Label Text="Friend name: " />
-                <Entry x:Name="NameEntry"
+                <StackLayout Spacing="0">
+                    <Label Text="Friend name: " />
+                    <Entry x:Name="NameEntry"
                        HorizontalOptions="FillAndExpand" />
-            </StackLayout>
-            
-            <StackLayout Spacing="0">
-                <Label Text="Preferences description: " HorizontalOptions="Start" />
-                <Editor x:Name="GiftDescriptionEditor"
+                </StackLayout>
+
+                <StackLayout Spacing="0">
+                    <Label Text="Preferences description: " HorizontalOptions="Start" />
+                    <Editor x:Name="GiftDescriptionEditor"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="FillAndExpand"
                         HeightRequest="200" />
+                </StackLayout>
+
             </StackLayout>
 
-        </StackLayout>
+            <Button x:Name="BirthDayCreateButton"
+                AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Style="{StaticResource ButtonWithImageStyle}"
+                Image="confirm.png"
+                Clicked="Save_OnClicked" />
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

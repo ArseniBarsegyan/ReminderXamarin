@@ -6,32 +6,37 @@
              x:Class="ReminderXamarin.Pages.AchievementCreatePage"
              Title="Create achievement"
              BackgroundColor="White">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="confirm.png" Clicked="Save_OnClicked" />
-    </ContentPage.ToolbarItems>
-    
     <ContentPage.BindingContext>
         <viewModels:AchievementViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
-        <StackLayout Padding="10">
-            <Label Text="Pick image for achievement" />
-            <Label x:Name="FileNameLabel" IsVisible="False" />
-            <abstractions:CircleImage x:Name="PreviewImage" 
-                                      HeightRequest="120" 
-                                      Aspect="AspectFit" 
-                                      IsVisible="False" />
-            <Button x:Name="PickImageButton" Text="Pick image" Clicked="PickImageButton_OnClicked" />
-            
-            <Label Text="Achievement name: " HorizontalOptions="Start" />
-            <Entry x:Name="TitleEntry"
-                   HorizontalOptions="FillAndExpand" />
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Padding="10">
+                <Label Text="Pick image for achievement" />
+                <Label x:Name="FileNameLabel" IsVisible="False" />
+                <abstractions:CircleImage x:Name="PreviewImage" 
+                                          HeightRequest="120" 
+                                          Aspect="AspectFit" 
+                                          IsVisible="False" />
+                <Button x:Name="PickImageButton" Text="Pick image" Clicked="PickImageButton_OnClicked" />
 
-            <Label Text="Description: " HorizontalOptions="Start" />
-            <Editor x:Name="DescriptionEditor"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand" />
-        </StackLayout>
+                <Label Text="Achievement name: " HorizontalOptions="Start" />
+                <Entry x:Name="TitleEntry"
+                       HorizontalOptions="FillAndExpand" />
+
+                <Label Text="Description: " HorizontalOptions="Start" />
+                <Editor x:Name="DescriptionEditor"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand" />
+            </StackLayout>
+
+            <Button x:Name="AchievementCreateButton"
+                    AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    Style="{StaticResource ButtonWithImageStyle}"
+                    Image="confirm.png"
+                    Clicked="Save_OnClicked" />
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
