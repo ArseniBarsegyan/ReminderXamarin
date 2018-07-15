@@ -10,11 +10,12 @@ namespace ReminderXamarin.Elements
     {
         public static readonly BindableProperty LinesProperty =
             BindableProperty.Create(nameof(Lines), typeof(int), typeof(ExtendedLabel), 3);
+
         public static readonly BindableProperty LineSpacingProperty =
             BindableProperty.Create(nameof(LineSpacing), typeof(double), typeof(ExtendedLabel), 1.3);
 
         public static readonly BindableProperty IsUnderlinedProperty =
-            BindableProperty.Create(nameof(IsUnderlined), typeof(bool), typeof(ExtendedLabel), true, BindingMode.Default);
+            BindableProperty.Create(nameof(IsUnderlined), typeof(bool), typeof(ExtendedLabel), false, BindingMode.Default);
 
         /// <summary>
         /// How much lines will be displayed.

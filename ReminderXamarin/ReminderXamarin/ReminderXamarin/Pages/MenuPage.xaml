@@ -3,6 +3,7 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
                   xmlns:pages="clr-namespace:ReminderXamarin.Pages;assembly=ReminderXamarin"
+                  xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
                   x:Class="ReminderXamarin.Pages.MenuPage"
                   MasterBehavior="Popover">
     <MasterDetailPage.Master>
@@ -15,11 +16,11 @@
                       ItemSelected="MenuList_OnItemSelected">
                 <ListView.Header>
                     <!-- User profile information, photo and name -->
-                    <StackLayout x:Name="UserProfileLink"
-                                 HeightRequest="100" 
-                                 Orientation="Horizontal" 
-                                 Padding="5" 
-                                 Spacing="16">
+                    <elements:GradientColorStack x:Name="UserProfileLink"
+                                                 HeightRequest="100" 
+                                                 Orientation="Horizontal" 
+                                                 Padding="5" 
+                                                 Spacing="16">
                         <StackLayout Orientation="Horizontal"
                                      HorizontalOptions="FillAndExpand"
                                      Spacing="16">
@@ -39,14 +40,14 @@
                                    HorizontalOptions="Center" />
                         </StackLayout>
 
-                        <Image Source="logout.png" HorizontalOptions="EndAndExpand">
+                        <Image Source="logout.png" HorizontalOptions="EndAndExpand" HeightRequest="80">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Logout_OnTapped" NumberOfTapsRequired="1" />
                             </Image.GestureRecognizers>
                         </Image>
                         <!-- Separate user info section from list -->
                         <StackLayout HeightRequest="1" BackgroundColor="LightGray" />
-                    </StackLayout>
+                    </elements:GradientColorStack>
                 </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
