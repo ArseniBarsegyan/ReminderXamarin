@@ -56,12 +56,12 @@
                                                WidthRequest="40"
                                                VerticalOptions="Center" />
 
-                                            <elements:LineSpacingLabel Text="{Binding WhenHappens, StringFormat='{0:dd.MM.yy HH:mm}'}" 
+                                            <elements:ExtendedLabel Text="{Binding WhenHappens, StringFormat='{0:dd.MM.yy HH:mm}'}" 
                                                                    VerticalOptions="Center"
                                                                    Grid.Row="0"
                                                                    Grid.Column="1" />
 
-                                            <elements:LineSpacingLabel Lines="2"
+                                            <elements:ExtendedLabel Lines="2"
                                                                    LineSpacing="1.1" 
                                                                    Grid.Row="0"
                                                                    LineBreakMode="TailTruncation"

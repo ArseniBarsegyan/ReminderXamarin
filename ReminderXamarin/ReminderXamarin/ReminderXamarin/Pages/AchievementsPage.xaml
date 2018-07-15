@@ -64,7 +64,7 @@
                                                Grid.Row="0"
                                                FontSize="Medium" />
 
-                                            <elements:LineSpacingLabel HorizontalTextAlignment="Start" 
+                                            <elements:ExtendedLabel HorizontalTextAlignment="Start" 
                                                                    Lines="3"
                                                                    LineBreakMode="TailTruncation" 
                                                                    Grid.Column="1"

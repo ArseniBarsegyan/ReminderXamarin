@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels"
+             xmlns:elements1="clr-namespace:ReminderXamarin.Elements"
              x:Class="ReminderXamarin.Pages.RegisterPage">
     <ContentPage.BindingContext>
         <viewModels1:RegisterViewModel x:Name="ViewModel" />
@@ -10,7 +11,10 @@
     
     <ContentPage.Content>
         <elements:GradientColorStack Padding="10">
-            <Label FontSize="Large" Text="Register" HorizontalOptions="Center" />
+            <Label FontSize="Large"
+                   Text="Register" 
+                   HorizontalOptions="Center" 
+                   TextColor="White" />
             <StackLayout Spacing="10" VerticalOptions="CenterAndExpand">
                 <!-- User name -->
                 <StackLayout Spacing="0">
@@ -67,8 +71,7 @@
             </StackLayout>
 
             <!-- Error message -->
-            <Label FontSize="Micro" 
-                   TextColor="White"
+            <Label TextColor="White"
                    HorizontalOptions="Center"
                    Text="Check your passwords match, or current user is already in use." 
                    IsVisible="{Binding IsValid, Converter={StaticResource InverseBooleanConverter}}" />
@@ -76,16 +79,17 @@
             <Button x:Name="SubmitButton" 
                     Clicked="SubmitButton_OnClicked"
                     VerticalOptions="EndAndExpand"
-                    Style="{StaticResource SubmitButtonStyle}"
+                    Style="{StaticResource LoginButtonStyle}"
                     Text="Register" />
-            <Label FontSize="Micro"
-                   TextColor="White"
-                   HorizontalOptions="Center"
-                   Text="Already have an account? Login">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Login_OnTapped" NumberOfTapsRequired="1" />
-                </Label.GestureRecognizers>
-            </Label>
+            
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label TextColor="White" Text="Already have an account?" />
+                <elements1:ExtendedLabel TextColor="White" IsUnderlined="True" Text="Login">
+                    <elements:ExtendedLabel.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Login_OnTapped" NumberOfTapsRequired="1" />
+                    </elements:ExtendedLabel.GestureRecognizers>
+                </elements1:ExtendedLabel>
+            </StackLayout>
         </elements:GradientColorStack>
     </ContentPage.Content>
 </ContentPage>

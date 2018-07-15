@@ -22,6 +22,7 @@ namespace ReminderXamarin.iOS.Renderers
 
                 Control.Layer.BorderColor = view.BorderColor.ToCGColor();
                 Control.Layer.BorderWidth = 1;
+                Control.Layer.CornerRadius = 5;
                 Control.ClipsToBounds = true;
             }
         }

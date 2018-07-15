@@ -10,7 +10,10 @@
     
     <ContentPage.Content>
         <elements:GradientColorStack Padding="10">
-            <Label FontSize="Large" Text="LogIn" HorizontalOptions="Center" />
+            <Label FontSize="Large" 
+                   Text="Log In" 
+                   HorizontalOptions="Center" 
+                   TextColor="White" />
             <StackLayout Spacing="10" VerticalOptions="CenterAndExpand">
                 <!-- User name -->
                 <StackLayout Spacing="0">
@@ -47,8 +50,7 @@
             </StackLayout>
 
             <!-- Error message -->
-            <Label FontSize="Micro" 
-                   TextColor="White"
+            <Label TextColor="White"
                    HorizontalOptions="Center"
                    Text="Incorrect data" 
                    IsVisible="{Binding IsValid, Converter={StaticResource InverseBooleanConverter}}" />
@@ -56,16 +58,17 @@
             <Button x:Name="SubmitButton" 
                     Command="{Binding LoginCommand}" 
                     VerticalOptions="EndAndExpand"
-                    Style="{StaticResource SubmitButtonStyle}"
+                    Style="{StaticResource LoginButtonStyle}"
                     Text="LogIn" />
-            <Label FontSize="Micro"
-                   TextColor="White"
-                   HorizontalOptions="Center"
-                   Text="Don't have an account? Register">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="RegisterLink_OnTapped" NumberOfTapsRequired="1" />
-                </Label.GestureRecognizers>
-            </Label>
+            
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="2">
+                <Label TextColor="White" Text="Don't have an account?" />
+                <elements:ExtendedLabel TextColor="White" IsUnderlined="True" Text="Register">
+                    <elements:ExtendedLabel.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="RegisterLink_OnTapped" NumberOfTapsRequired="1" />
+                    </elements:ExtendedLabel.GestureRecognizers>
+                </elements:ExtendedLabel>
+            </StackLayout>
         </elements:GradientColorStack>
     </ContentPage.Content>
 </ContentPage>

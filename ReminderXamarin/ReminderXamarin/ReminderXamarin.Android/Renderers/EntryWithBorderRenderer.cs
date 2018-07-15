@@ -32,15 +32,25 @@ namespace ReminderXamarin.Droid.Renderers
 
                 _borderShape = new ShapeDrawable(new Android.Graphics.Drawables.Shapes.RoundRectShape(new[]
                 {
-                    (float)0,
-                    (float)0,
-                    (float)0,
-                    (float)0,
-                    (float)0,
-                    (float)0,
-                    (float)0,
-                    (float)0
-                }, null, null));
+                    (float)5,
+                    (float)5,
+                    (float)5,
+                    (float)5,
+                    (float)5,
+                    (float)5,
+                    (float)5,
+                    (float)5
+                }, null, new[]
+                {
+                    (float)5,
+                    (float)5,
+                    (float)5,
+                    (float)5,
+                    (float)5,
+                    (float)5,
+                    (float)5,
+                    (float)5
+                }));
 
                 var paint = new Paint(PaintFlags.AntiAlias)
                 {

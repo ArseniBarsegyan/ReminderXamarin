@@ -32,7 +32,7 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
-                                        <elements:LineSpacingLabel Grid.Row="0"
+                                        <elements:ExtendedLabel Grid.Row="0"
                                                                Lines="3"
                                                                LineSpacing="1.0"
                                                                Grid.Column="0" 
