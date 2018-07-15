@@ -102,5 +102,10 @@ namespace ReminderXamarin.Pages
             var userProfilePage = new UserProfilePage(_appUser.UserName);
             NavigateTo(userProfilePage);
         }
+
+        private void Logout_OnTapped(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new LoginPage();
+        }
     }
 }

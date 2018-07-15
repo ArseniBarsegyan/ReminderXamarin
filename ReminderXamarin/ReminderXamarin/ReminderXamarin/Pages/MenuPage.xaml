@@ -19,16 +19,31 @@
                                  HeightRequest="100" 
                                  Orientation="Horizontal" 
                                  Padding="5" 
-                                 Spacing="10">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="UserProfile_OnTapped" NumberOfTapsRequired="1" />
-                        </StackLayout.GestureRecognizers>
-                        <abstractions:CircleImage x:Name="UserProfilePhoto"
-                                                  WidthRequest="60"
-                                                  HeightRequest="60" 
-                                                  Aspect="AspectFit"
-                                                  Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}" />
-                        <Label Text="{Binding UserName}" VerticalTextAlignment="Center" HorizontalOptions="Center" />
+                                 Spacing="16">
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="FillAndExpand"
+                                     Spacing="16">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="UserProfile_OnTapped" NumberOfTapsRequired="1" />
+                            </StackLayout.GestureRecognizers>
+                            
+                            <abstractions:CircleImage x:Name="UserProfilePhoto"
+                                                      WidthRequest="60"
+                                                      HeightRequest="60" 
+                                                      Aspect="AspectFit"
+                                                      Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}">
+                            </abstractions:CircleImage>
+                            <Label Text="{Binding UserName}" 
+                                   FontSize="Medium" 
+                                   VerticalTextAlignment="Center" 
+                                   HorizontalOptions="Center" />
+                        </StackLayout>
+
+                        <Image Source="logout.png" HorizontalOptions="EndAndExpand">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Logout_OnTapped" NumberOfTapsRequired="1" />
+                            </Image.GestureRecognizers>
+                        </Image>
                         <!-- Separate user info section from list -->
                         <StackLayout HeightRequest="1" BackgroundColor="LightGray" />
                     </StackLayout>
@@ -37,11 +52,12 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
-                                <StackLayout Orientation="Horizontal" Spacing="10" Padding="10,0">
+                                <StackLayout Orientation="Horizontal" Spacing="16" Padding="10,0">
                                     <Image Source="{Binding IconSource}" 
-                                           HeightRequest="50" 
+                                           HeightRequest="80" 
                                            HorizontalOptions="Center" />
                                     <Label Text="{Binding Title}" 
+                                           FontSize="Medium"
                                            VerticalOptions="Center" 
                                            HorizontalOptions="Center" />
                                 </StackLayout>
