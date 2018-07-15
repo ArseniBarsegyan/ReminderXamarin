@@ -12,6 +12,10 @@ namespace ReminderXamarin.Models
         {
             _db = new SQLiteConnection(dbPath);
             _db.CreateTable<UserModel>();
+            _db.CreateTable<AchievementModel>();
+            _db.CreateTable<BirthdayModel>();
+            _db.CreateTable<Note>();
+            _db.CreateTable<ToDoModel>();
         }
 
         /// <summary>

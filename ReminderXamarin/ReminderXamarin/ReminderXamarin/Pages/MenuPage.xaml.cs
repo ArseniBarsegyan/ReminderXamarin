@@ -20,6 +20,7 @@ namespace ReminderXamarin.Pages
             if (user != null)
             {
                 _appUser = user;
+                Settings.CurrentUserId = user.Id.ToString();
             }
             BindingContext = _appUser;
 

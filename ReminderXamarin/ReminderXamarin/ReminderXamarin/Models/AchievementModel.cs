@@ -15,6 +15,9 @@ namespace ReminderXamarin.Models
         public string GeneralDescription { get; set; }
         public int GeneralTimeSpent { get; set; }
 
+        [ForeignKey(typeof(UserModel))]
+        public int UserId { get; set; }
+
         [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<AchievementNote> AchievementNotes { get; set; }
     }

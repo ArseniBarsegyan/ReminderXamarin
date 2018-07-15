@@ -1,6 +1,7 @@
 ﻿using System;
 using ReminderXamarin.Helpers;
 using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace ReminderXamarin.Models
 {
@@ -13,5 +14,8 @@ namespace ReminderXamarin.Models
         public string Name { get; set; }
         public DateTime BirthDayDate { get; set; }
         public string GiftDescription { get; set; }
+
+        [ForeignKey(typeof(UserModel))]
+        public int UserId { get; set; }
     }
 }
