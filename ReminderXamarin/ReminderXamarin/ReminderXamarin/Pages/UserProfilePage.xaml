@@ -10,6 +10,8 @@
             <!-- Header with user name and photo -->
             <StackLayout Spacing="4">
                 <abstractions:CircleImage x:Name="UserProfileImage"
+                                          HeightRequest="120"
+                                          WidthRequest="120"
                                           Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}"
                                           Style="{StaticResource UserImageStyle}">
                     <abstractions:CircleImage.GestureRecognizers>

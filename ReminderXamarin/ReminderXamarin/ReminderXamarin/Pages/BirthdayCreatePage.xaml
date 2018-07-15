@@ -15,15 +15,25 @@
             <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Padding="10" Spacing="10">
                 <StackLayout Spacing="0">
                     <abstractions:CircleImage x:Name="FriendPhoto"
-                                          Source="https://www.cabe-africa.org/wp-content/uploads/2012/01/1.png"
-                                          Style="{StaticResource UserImageStyle}">
+                                              HeightRequest="120"
+                                              WidthRequest="120"
+                                              Source="https://www.cabe-africa.org/wp-content/uploads/2012/01/1.png"
+                                              Style="{StaticResource UserImageStyle}">
                         <abstractions:CircleImage.GestureRecognizers>
                             <TapGestureRecognizer Tapped="FriendPhoto_OnTapped" NumberOfTapsRequired="1" />
                         </abstractions:CircleImage.GestureRecognizers>
                     </abstractions:CircleImage>
-                    <Button x:Name="PhotoPickerButton" 
-                        Text="Pick photo"
-                        Clicked="PhotoPickerButton_OnClicked" />
+                    
+                    <Image x:Name="PhotoPickerButton" 
+                           Source="edit.png" 
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="Center"
+                           BackgroundColor="LightBlue">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="PhotoPickerButton_OnClicked" NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
                 </StackLayout>
 
                 <StackLayout Spacing="0">
