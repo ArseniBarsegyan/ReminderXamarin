@@ -363,4 +363,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\logout%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings%403x.png" />
+  </ItemGroup>
 </Project>

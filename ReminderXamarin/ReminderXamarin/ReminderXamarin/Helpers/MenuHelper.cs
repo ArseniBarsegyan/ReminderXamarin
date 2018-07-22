@@ -40,6 +40,13 @@ namespace ReminderXamarin.Helpers
                     IconSource = ConstantHelper.AchievementsIcon,
                     TargetType = typeof(AchievementsPage),
                     IsDisplayed = true
+                },
+                new MasterPageItem
+                {
+                    Title = ConstantHelper.Settings,
+                    IconSource = ConstantHelper.SettingsIcon,
+                    TargetType = typeof(SettingsPage),
+                    IsDisplayed = true
                 }
             };
             return masterPageItems;
@@ -71,6 +78,7 @@ namespace ReminderXamarin.Helpers
         NotesPage,
         ToDoPage,
         BirthdaysPage,
-        AchievementsPage
+        AchievementsPage,
+        SettingsPage
     }
 }

@@ -44,6 +44,9 @@ namespace ReminderXamarin.Pages
                     case MenuPageIndex.AchievementsPage:
                         Navigation.PushAsync(new AchievementsPage());
                         break;
+                    case MenuPageIndex.SettingsPage:
+                        Navigation.PushAsync(new SettingsPage());
+                        break;
                     default:
                         break;
                 }

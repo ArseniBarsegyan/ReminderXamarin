@@ -16,6 +16,7 @@ namespace ReminderXamarin.Helpers
 
         private const string SettingsKey = "settings_key";
         private const string CurrentUserIdKey = "0";
+        private const string UsePinKey = "True";
 
         private static readonly string SettingsDefault = string.Empty;
 
@@ -25,6 +26,12 @@ namespace ReminderXamarin.Helpers
         {
             get => AppSettings.GetValueOrDefault(CurrentUserIdKey, SettingsDefault);
             set => AppSettings.AddOrUpdateValue(CurrentUserIdKey, value);
+        }
+
+        public static string UsePin
+        {
+            get => AppSettings.GetValueOrDefault(UsePinKey, SettingsDefault);
+            set => AppSettings.AddOrUpdateValue(UsePinKey, value);
         }
 
         public static string GeneralSettings
