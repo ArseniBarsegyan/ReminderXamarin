@@ -372,4 +372,22 @@
   <ItemGroup>
     <BundleResource Include="Resources\settings%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\emptyDot%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\emptyDot%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\emptyDot%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\filledDot%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\filledDot%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\filledDot%403x.png" />
+  </ItemGroup>
 </Project>

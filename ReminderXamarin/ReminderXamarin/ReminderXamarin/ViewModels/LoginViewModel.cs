@@ -26,6 +26,7 @@ namespace ReminderXamarin.ViewModels
         {
             if (AuthenticationManager.Authenticate(UserName, Password))
             {
+                Settings.ApplicationUser = UserName;
                 Application.Current.MainPage = new NavigationPage(new MenuPage(UserName));
                 IsValid = true;
             }

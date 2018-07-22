@@ -19,6 +19,8 @@
         public const string Cancel = "Cancel";
         public const string DeleteImageSource = "delete.png";
         public const string DetailPageChanged = "DetailPageChanged";
+        public const string EmptyDotImage = "emptyDot.png";
+        public const string FilledDotImage = "filledDot.png";
         public const string Friends = "Friends";
         public const string FriendDeleteMessage = "Are you sure you want to delete this friend and all his data?";
         public const string High = "High";

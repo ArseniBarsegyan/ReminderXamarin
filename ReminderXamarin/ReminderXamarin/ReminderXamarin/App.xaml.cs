@@ -17,7 +17,15 @@ namespace ReminderXamarin
         public App()
         {
             InitializeComponent();
-            MainPage = new LoginPage();
+            bool.TryParse(Settings.UsePin, out bool shouldUsePin);
+            if (shouldUsePin)
+            {
+                MainPage = new PinPage();
+            }
+            else
+            {
+                MainPage = new LoginPage();
+            }
         }
 
         /// <summary>
