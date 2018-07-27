@@ -39,12 +39,6 @@
                                    VerticalTextAlignment="Center" 
                                    HorizontalOptions="Center" />
                         </StackLayout>
-
-                        <Image Source="logout.png" HorizontalOptions="EndAndExpand" HeightRequest="80">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Logout_OnTapped" NumberOfTapsRequired="1" />
-                            </Image.GestureRecognizers>
-                        </Image>
                         <!-- Separate user info section from list -->
                         <StackLayout HeightRequest="1" BackgroundColor="LightGray" />
                     </elements:GradientColorStack>
@@ -66,6 +60,18 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <StackLayout Spacing="16" Padding="10,0" Orientation="Horizontal">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Logout_OnTapped" NumberOfTapsRequired="1" />
+                        </StackLayout.GestureRecognizers>
+                        <Image Source="logout.png" HeightRequest="80" />
+                        <Label Text="Logout" 
+                               FontSize="Medium" 
+                               VerticalOptions="Center" 
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </ListView.Footer>
             </ListView>
         </ContentPage>
     </MasterDetailPage.Master>
