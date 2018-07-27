@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.PinPage"
              Padding="10"
@@ -10,21 +9,21 @@
         <viewModels:PinPageViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Spacing="10">
             <Label Text="Exit" FontSize="Medium" HorizontalOptions="Start" />
             <Label Text="Enter pin" FontSize="Medium" HorizontalOptions="Center" />
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Image x:Name="FirstNumber" Source="emptyDot.png" />
                 <Image x:Name="SecondNumber" Source="emptyDot.png" />
                 <Image x:Name="ThirdNumber" Source="emptyDot.png" />
                 <Image x:Name="FourthNumber" Source="emptyDot.png" />
             </StackLayout>
 
-            <Grid RowSpacing="0" ColumnSpacing="0">
+            <Grid RowSpacing="10" ColumnSpacing="10" HorizontalOptions="Center" VerticalOptions="Center">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -33,17 +32,17 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource PinPageButtonStyle}" Text="1" Clicked="Button_OnClicked" />
-                <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource PinPageButtonStyle}" Text="2" Clicked="Button_OnClicked" />
-                <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource PinPageButtonStyle}" Text="3" Clicked="Button_OnClicked" />
-                <Button Grid.Column="0" Grid.Row="1" Style="{StaticResource PinPageButtonStyle}" Text="4" Clicked="Button_OnClicked" />
-                <Button Grid.Column="1" Grid.Row="1" Style="{StaticResource PinPageButtonStyle}" Text="5" Clicked="Button_OnClicked" />
-                <Button Grid.Column="2" Grid.Row="1" Style="{StaticResource PinPageButtonStyle}" Text="6" Clicked="Button_OnClicked" />
-                <Button Grid.Column="0" Grid.Row="2" Style="{StaticResource PinPageButtonStyle}" Text="7" Clicked="Button_OnClicked" />
-                <Button Grid.Column="1" Grid.Row="2" Style="{StaticResource PinPageButtonStyle}" Text="8" Clicked="Button_OnClicked" />
-                <Button Grid.Column="2" Grid.Row="2" Style="{StaticResource PinPageButtonStyle}" Text="9" Clicked="Button_OnClicked" />
-                <Button Grid.Column="1" Grid.Row="3" Style="{StaticResource PinPageButtonStyle}" Text="0" Clicked="Button_OnClicked" />
-                <Button Grid.Column="2" Grid.Row="3" Style="{StaticResource PinPageButtonStyle}" Text="x" Clicked="Button_OnClicked" />
+                <Button Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="1" Clicked="Button_OnClicked" />
+                <Button Grid.Column="1" Grid.Row="0" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="2" Clicked="Button_OnClicked" />
+                <Button Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="3" Clicked="Button_OnClicked" />
+                <Button Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="4" Clicked="Button_OnClicked" />
+                <Button Grid.Column="1" Grid.Row="1" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="5" Clicked="Button_OnClicked" />
+                <Button Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="6" Clicked="Button_OnClicked" />
+                <Button Grid.Column="0" Grid.Row="2" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="7" Clicked="Button_OnClicked" />
+                <Button Grid.Column="1" Grid.Row="2" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="8" Clicked="Button_OnClicked" />
+                <Button Grid.Column="2" Grid.Row="2" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="9" Clicked="Button_OnClicked" />
+                <Button Grid.Column="1" Grid.Row="3" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="0" Clicked="Button_OnClicked" />
+                <Button Grid.Column="2" Grid.Row="3" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="x" Clicked="Button_OnClicked" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>

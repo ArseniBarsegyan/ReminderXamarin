@@ -39,6 +39,7 @@
             
             <Style x:Key="PinPageButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonWithImageStyle}">
                 <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="FontSize" Value="Medium" />
                 <Setter Property="BorderColor" Value="{StaticResource RoundButtonBackground}" />
                 <Setter Property="BorderWidth" Value="1" />
                 <Setter Property="TextColor" Value="{StaticResource RoundButtonBackground}" />
