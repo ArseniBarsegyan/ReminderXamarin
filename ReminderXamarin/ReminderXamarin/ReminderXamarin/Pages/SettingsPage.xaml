@@ -11,7 +11,13 @@
         <TableView Intent="Form">
             <TableRoot>
                 <TableSection Title="Login">
-                    <SwitchCell Text="Use pin" On="{Binding UsePin}" />
+                    <SwitchCell x:Name="UsePinSwitch" Text="Use pin" On="{Binding UsePin}" />
+                    <TextCell x:Name="PinLabel" Text="Specify pin" IsEnabled="{Binding Source={x:Reference UsePinSwitch}, Path=On}" />
+                    <EntryCell x:Name="PinEntry" 
+                               IsEnabled="{Binding Source={x:Reference UsePinSwitch}, Path=On}" 
+                               Keyboard="Numeric"
+                               Completed="PinEntry_OnCompleted">
+                    </EntryCell>
                 </TableSection>
             </TableRoot>
         </TableView>

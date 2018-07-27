@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace ReminderXamarin.Pages
@@ -15,6 +16,11 @@ namespace ReminderXamarin.Pages
         {
             base.OnDisappearing();
             ViewModel.SaveSettingsCommand.Execute(null);
+        }
+
+        private void PinEntry_OnCompleted(object sender, EventArgs e)
+        {
+            ViewModel.Pin = PinEntry.Text;
         }
     }
 }
