@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using ReminderXamarin.Helpers;
+using ReminderXamarin.Interfaces;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -101,6 +102,12 @@ namespace ReminderXamarin.Pages
             }
 
             _currentCount--;
+        }
+
+        private void Exit_OnTapped(object sender, EventArgs e)
+        {
+            var applicationService = DependencyService.Get<IApplicationService>();
+            applicationService.CloseApplication();
         }
     }
 }

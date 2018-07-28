@@ -10,7 +10,11 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout Spacing="10">
-            <Label Text="Exit" FontSize="Medium" HorizontalOptions="Start" />
+            <Label Text="Exit" FontSize="Medium" HorizontalOptions="Start">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Exit_OnTapped" NumberOfTapsRequired="1" />
+                </Label.GestureRecognizers>
+            </Label>
             <Label Text="Enter pin" FontSize="Medium" HorizontalOptions="Center" />
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Image x:Name="FirstNumber" Source="emptyDot.png" />
@@ -19,7 +23,7 @@
                 <Image x:Name="FourthNumber" Source="emptyDot.png" />
             </StackLayout>
 
-            <Grid RowSpacing="10" ColumnSpacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+            <Grid RowSpacing="10" ColumnSpacing="10" HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />

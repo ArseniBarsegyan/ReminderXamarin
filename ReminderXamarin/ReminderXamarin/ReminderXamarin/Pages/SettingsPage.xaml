@@ -12,7 +12,6 @@
             <TableRoot>
                 <TableSection Title="Login">
                     <SwitchCell x:Name="UsePinSwitch" Text="Use pin" On="{Binding UsePin}" />
-                    <TextCell x:Name="PinLabel" Text="Specify pin" IsEnabled="{Binding Source={x:Reference UsePinSwitch}, Path=On}" />
                     <EntryCell x:Name="PinEntry" 
                                IsEnabled="{Binding Source={x:Reference UsePinSwitch}, Path=On}" 
                                Keyboard="Numeric"
