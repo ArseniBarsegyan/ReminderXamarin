@@ -7,29 +7,42 @@
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <!-- Header with user name and photo -->
-            <StackLayout Spacing="4" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" >
-                <Image x:Name="UserProfileImage"
-                       HeightRequest="120"
-                       WidthRequest="120"
-                       Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}"
-                       Style="{StaticResource UserImageStyle}">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="UserProfileImage_OnTapped" NumberOfTapsRequired="1" />
-                    </Image.GestureRecognizers>
-                </Image>
-                
-                <!-- Clicking on this icon will open selection of image for user profile -->
-                <Image x:Name="EditUserProfilePhoto" 
-                       Source="edit.png" 
-                       WidthRequest="15"
-                       HeightRequest="15"
-                       HorizontalOptions="Center"
-                       BackgroundColor="LightBlue">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="EditUserProfilePhoto_OnTapped" NumberOfTapsRequired="1" />
-                    </Image.GestureRecognizers>
-                </Image>
-                <Label FontSize="Medium" HorizontalOptions="Center" Text="{Binding UserName}" />
+            <StackLayout Padding="10" Spacing="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout Spacing="4">
+                    <Image x:Name="UserProfileImage"
+                           HeightRequest="120"
+                           WidthRequest="120"
+                           Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}"
+                           Style="{StaticResource UserImageStyle}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="UserProfileImage_OnTapped" NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <!-- Clicking on this icon will open selection of image for user profile -->
+                    <Image x:Name="EditUserProfilePhoto" 
+                           Source="edit.png" 
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="Center"
+                           BackgroundColor="LightBlue">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="EditUserProfilePhoto_OnTapped" NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
+
+                <!-- User name -->
+                <StackLayout Spacing="4">
+                    <Label Text="User name" />
+                    <Entry Text="{Binding UserName}" />
+                </StackLayout>
+
+                <!-- User password -->
+                <StackLayout Spacing="4">
+                    <Label Text="Password" />
+                    <Entry Text="{Binding Password}" IsPassword="True" />
+                </StackLayout>
             </StackLayout>
 
             <Button AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 

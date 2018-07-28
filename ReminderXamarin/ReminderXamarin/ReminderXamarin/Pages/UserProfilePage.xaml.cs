@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using ReminderXamarin.Extensions;
-using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces.FilePickerService;
 using ReminderXamarin.ViewModels;
 using ReminderXamarin.Views;
