@@ -103,7 +103,17 @@ namespace ReminderXamarin.Pages
             }
         }
 
-        private async void PickPhoto_OnClicked(object sender, EventArgs e)
+        private void AddButton_OnClicked(object sender, EventArgs e)
+        {
+            AddItemsToNoteContentView.IsVisible = true;
+        }
+
+        private void AddItemsToNoteContentView_OnTakePhotoButtonClicked(object sender, EventArgs e)
+        {
+            ViewModel.TakePhotoCommand.Execute(null);
+        }
+
+        private async void AddItemsToNoteContentView_OnPickPhotoButtonClicked(object sender, EventArgs e)
         {
             ViewModel.IsLoading = true;
             var document = await DocumentPicker.DisplayImportAsync(this);

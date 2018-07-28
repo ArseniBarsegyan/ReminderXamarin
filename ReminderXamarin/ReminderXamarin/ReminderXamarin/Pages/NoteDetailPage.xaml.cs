@@ -16,15 +16,12 @@ namespace ReminderXamarin.Pages
     {
         private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
         private readonly NoteViewModel _noteViewModel;
-        private readonly ToolbarItem _confirmToolbarItem;
 
         public NoteDetailPage(NoteViewModel noteViewModel)
         {
             InitializeComponent();
             BindingContext = noteViewModel;
             _noteViewModel = noteViewModel;
-
-            _confirmToolbarItem = new ToolbarItem { Icon = "confirm.png" };
 
             Title = $"{noteViewModel.EditDate:d}";
             DescriptionEditor.Text = noteViewModel.Description;
@@ -34,7 +31,6 @@ namespace ReminderXamarin.Pages
         {
             base.OnAppearing();
             _noteViewModel.PhotosCollectionChanged += NoteViewModelOnPhotosCollectionChanged;
-            _confirmToolbarItem.Clicked += Confirm_OnClicked;
             MessagingCenter.Subscribe<ImageGallery, int>(this, ConstantHelper.ImageDeleted, (gallery, i) =>
             {
                 _noteViewModel.DeletePhotoCommand.Execute(i);
@@ -46,9 +42,9 @@ namespace ReminderXamarin.Pages
             ImageGallery.IsVisible = true;
             ImageGallery.Render();
 
-            if (!ToolbarItems.Contains(_confirmToolbarItem))
+            if (!ConfirmButton.IsVisible)
             {
-                ToolbarItems.Add(_confirmToolbarItem);
+                ConfirmButton.IsVisible = true;
             }
         }
 
@@ -56,7 +52,6 @@ namespace ReminderXamarin.Pages
         {
             base.OnDisappearing();
             _noteViewModel.PhotosCollectionChanged -= NoteViewModelOnPhotosCollectionChanged;
-            _confirmToolbarItem.Clicked -= Confirm_OnClicked;
             MessagingCenter.Unsubscribe<ImageGallery, int>(this, ConstantHelper.ImageDeleted);
         }
 
@@ -76,17 +71,17 @@ namespace ReminderXamarin.Pages
             _noteViewModel.Description = DescriptionEditor.Text;
             _noteViewModel.UpdateNoteCommand.Execute(null);
 
-            if (ToolbarItems.Contains(_confirmToolbarItem))
+            if (ConfirmButton.IsVisible)
             {
-                ToolbarItems.Remove(_confirmToolbarItem);
+                ConfirmButton.IsVisible = false;
             }
         }
 
         private void DescriptionEditor_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!ToolbarItems.Contains(_confirmToolbarItem))
+            if (!ConfirmButton.IsVisible)
             {
-                ToolbarItems.Add(_confirmToolbarItem);
+                ConfirmButton.IsVisible = true;
             }
         }
 
@@ -104,7 +99,12 @@ namespace ReminderXamarin.Pages
             }
         }
 
-        private async void PickPhoto_OnClicked(object sender, EventArgs e)
+        private void AddButton_OnClicked(object sender, EventArgs e)
+        {
+            AddItemsToNoteContentView.IsVisible = true;
+        }
+
+        private async void AddItemsToNoteContentView_OnPickPhotoButtonClicked(object sender, EventArgs e)
         {
             _noteViewModel.IsLoading = true;
 
@@ -115,6 +115,11 @@ namespace ReminderXamarin.Pages
                 return;
             }
             _noteViewModel.PickPhotoCommand.Execute(document);
+        }
+
+        private void AddItemsToNoteContentView_OnTakePhotoButtonClicked(object sender, EventArgs e)
+        {
+            _noteViewModel.TakePhotoCommand.Execute(null);
         }
     }
 }

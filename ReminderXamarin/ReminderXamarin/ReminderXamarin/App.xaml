@@ -14,6 +14,8 @@
             <Color x:Key="DeleteButtonBackground">#d9534f</Color>
             <!--<Color x:Key="RoundButtonBackground">#323232</Color>-->
             <Color x:Key="RoundButtonBackground">#005B96</Color>
+            <Color x:Key="FrameButtonBorder">#cdced2</Color>
+            <Color x:Key="FrameBackground">#cccccccc</Color>
 
             <!-- Images styles -->
             <Style x:Key="UserImageStyle" TargetType="abstractions:CircleImage">
@@ -56,6 +58,15 @@
             <Style x:Key="CancelButtonStyle" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource CancelButtonBackground}" />
                 <Setter Property="TextColor" Value="{StaticResource CancelButtonText}" />
+            </Style>
+            
+            <Style x:Key="FrameButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="BorderColor" Value="{StaticResource FrameButtonBorder}" />
+                <Setter Property="TextColor" Value="{StaticResource SubmitButtonBackground}" />
             </Style>
             
             <!-- Label styles -->
