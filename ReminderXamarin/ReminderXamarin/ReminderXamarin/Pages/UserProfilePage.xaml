@@ -1,23 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              x:Class="ReminderXamarin.Pages.UserProfilePage"
              BackgroundColor="White"
              Title="Profile">
     <ContentPage.Content>
-        <StackLayout>
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <!-- Header with user name and photo -->
-            <StackLayout Spacing="4">
-                <abstractions:CircleImage x:Name="UserProfileImage"
-                                          HeightRequest="120"
-                                          WidthRequest="120"
-                                          Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}"
-                                          Style="{StaticResource UserImageStyle}">
-                    <abstractions:CircleImage.GestureRecognizers>
+            <StackLayout Spacing="4" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" >
+                <Image x:Name="UserProfileImage"
+                       HeightRequest="120"
+                       WidthRequest="120"
+                       Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}"
+                       Style="{StaticResource UserImageStyle}">
+                    <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="UserProfileImage_OnTapped" NumberOfTapsRequired="1" />
-                    </abstractions:CircleImage.GestureRecognizers>
-                </abstractions:CircleImage>
+                    </Image.GestureRecognizers>
+                </Image>
                 
                 <!-- Clicking on this icon will open selection of image for user profile -->
                 <Image x:Name="EditUserProfilePhoto" 
@@ -32,11 +31,12 @@
                 </Image>
                 <Label FontSize="Medium" HorizontalOptions="Center" Text="{Binding UserName}" />
             </StackLayout>
-            
-            <Button VerticalOptions="EndAndExpand" 
-                    Style="{StaticResource SubmitButtonStyle}"
-                    Text="Save" 
+
+            <Button AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    Style="{StaticResource ButtonWithImageStyle}"
+                    Image="confirm.png"
                     Command="{Binding UpdateUserCommand}" />
-        </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
