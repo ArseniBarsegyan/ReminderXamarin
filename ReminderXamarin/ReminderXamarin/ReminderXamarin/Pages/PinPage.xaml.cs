@@ -31,38 +31,25 @@ namespace ReminderXamarin.Pages
                         FirstNumber.Source = ConstantHelper.FilledDotImage;
                         break;
                     case 2:
-                        FirstNumber.Source = ConstantHelper.FilledDotImage;
                         SecondNumber.Source = ConstantHelper.FilledDotImage;
                         break;
                     case 3:
-                        FirstNumber.Source = ConstantHelper.FilledDotImage;
-                        SecondNumber.Source = ConstantHelper.FilledDotImage;
                         ThirdNumber.Source = ConstantHelper.FilledDotImage;
                         break;
                     case 4:
-                        FirstNumber.Source = ConstantHelper.FilledDotImage;
-                        SecondNumber.Source = ConstantHelper.FilledDotImage;
-                        ThirdNumber.Source = ConstantHelper.FilledDotImage;
                         FourthNumber.Source = ConstantHelper.FilledDotImage;
                         break;
                 }
 
-                if (button.Text == "x")
-                {
-                    RemoveNumber();
-                }
-                else
-                {
-                    int.TryParse(button.Text, out var number);
-                    _pinBuilder.Append(number);
+                int.TryParse(button.Text, out var number);
+                _pinBuilder.Append(number);
 
-                    if (_currentCount == 4)
-                    {
-                        int.TryParse(_pinBuilder.ToString(), out int pin);
-                        ViewModel.Pin = pin;
-                        ResetImagesAndCount();
-                        ViewModel.LoginCommand.Execute(null);
-                    }
+                if (_currentCount == 4)
+                {
+                    int.TryParse(_pinBuilder.ToString(), out int pin);
+                    ViewModel.Pin = pin;
+                    ResetImagesAndCount();
+                    ViewModel.LoginCommand.Execute(null);
                 }
             }
         }
@@ -101,13 +88,21 @@ namespace ReminderXamarin.Pages
                     break;
             }
 
-            _currentCount--;
+            if (_currentCount > 0)
+            {
+                _currentCount--;
+            }
         }
 
         private void Exit_OnTapped(object sender, EventArgs e)
         {
             var applicationService = DependencyService.Get<IApplicationService>();
             applicationService.CloseApplication();
+        }
+
+        private void DeleteButton_OnClicked(object sender, EventArgs e)
+        {
+            RemoveNumber();
         }
     }
 }

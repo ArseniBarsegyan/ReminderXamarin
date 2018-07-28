@@ -64,6 +64,12 @@
                 <Setter Property="FontSize" Value="Small" />
                 <Setter Property="Margin" Value="25, 0" />
             </Style>
+            
+            <Style x:Key="PinPageLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource SubmitButtonBackground}" />
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+            </Style>
 
             <!-- Entry styles -->
             <Style x:Key="LoginEntryStyle" TargetType="elements:EntryWithBorder">

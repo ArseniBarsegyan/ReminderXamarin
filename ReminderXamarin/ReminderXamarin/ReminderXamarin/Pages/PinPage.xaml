@@ -10,12 +10,15 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout Spacing="10">
-            <Label Text="Exit" FontSize="Medium" HorizontalOptions="Start">
+            <!-- Exit application -->
+            <Label Text="Exit" Style="{StaticResource PinPageLabelStyle}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Tapped="Exit_OnTapped" NumberOfTapsRequired="1" />
                 </Label.GestureRecognizers>
             </Label>
-            <Label Text="Enter pin" FontSize="Medium" HorizontalOptions="Center" />
+            
+            <Label Text="Enter pin" Style="{StaticResource PinPageLabelStyle}" HorizontalOptions="Center" />
+            
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Image x:Name="FirstNumber" Source="emptyDot.png" />
                 <Image x:Name="SecondNumber" Source="emptyDot.png" />
@@ -46,7 +49,7 @@
                 <Button Grid.Column="1" Grid.Row="2" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="8" Clicked="Button_OnClicked" />
                 <Button Grid.Column="2" Grid.Row="2" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="9" Clicked="Button_OnClicked" />
                 <Button Grid.Column="1" Grid.Row="3" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="0" Clicked="Button_OnClicked" />
-                <Button Grid.Column="2" Grid.Row="3" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="x" Clicked="Button_OnClicked" />
+                <Button Grid.Column="2" Grid.Row="3" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="x" Clicked="DeleteButton_OnClicked" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>

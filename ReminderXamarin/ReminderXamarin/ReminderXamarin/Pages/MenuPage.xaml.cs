@@ -109,7 +109,14 @@ namespace ReminderXamarin.Pages
 
         private void Logout_OnTapped(object sender, EventArgs e)
         {
-            Application.Current.MainPage = new LoginPage();
+            if (bool.TryParse(Settings.UsePin, out var result))
+            {
+                Application.Current.MainPage = new PinPage();
+            }
+            else
+            {
+                Application.Current.MainPage = new LoginPage();
+            }
         }
     }
 }

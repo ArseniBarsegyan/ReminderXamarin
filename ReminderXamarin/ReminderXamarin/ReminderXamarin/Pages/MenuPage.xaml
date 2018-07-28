@@ -16,11 +16,12 @@
                       ItemSelected="MenuList_OnItemSelected">
                 <ListView.Header>
                     <!-- User profile information, photo and name -->
-                    <elements:GradientColorStack x:Name="UserProfileLink"
-                                                 HeightRequest="100" 
-                                                 Orientation="Horizontal" 
-                                                 Padding="5" 
-                                                 Spacing="16">
+                    <StackLayout x:Name="UserProfileLink"
+                                 HeightRequest="100" 
+                                 Orientation="Horizontal"
+                                 BackgroundColor="{StaticResource SubmitButtonBackground}"
+                                 Padding="5" 
+                                 Spacing="16">
                         <StackLayout Orientation="Horizontal"
                                      HorizontalOptions="FillAndExpand"
                                      Spacing="16">
@@ -36,12 +37,13 @@
                             </abstractions:CircleImage>
                             <Label Text="{Binding UserName}" 
                                    FontSize="Medium" 
+                                   TextColor="White"
                                    VerticalTextAlignment="Center" 
                                    HorizontalOptions="Center" />
                         </StackLayout>
                         <!-- Separate user info section from list -->
                         <StackLayout HeightRequest="1" BackgroundColor="LightGray" />
-                    </elements:GradientColorStack>
+                    </StackLayout>
                 </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
