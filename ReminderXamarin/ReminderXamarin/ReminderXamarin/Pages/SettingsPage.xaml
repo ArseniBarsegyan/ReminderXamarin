@@ -8,17 +8,27 @@
         <viewModels:SettingsPageViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <TableView Intent="Form">
-            <TableRoot>
-                <TableSection Title="Login">
-                    <SwitchCell x:Name="UsePinSwitch" Text="Use pin" On="{Binding UsePin}" />
-                    <EntryCell x:Name="PinEntry" 
-                               IsEnabled="{Binding Source={x:Reference UsePinSwitch}, Path=On}" 
-                               Keyboard="Numeric"
-                               Completed="PinEntry_OnCompleted">
-                    </EntryCell>
-                </TableSection>
-            </TableRoot>
-        </TableView>
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <TableView Intent="Form" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <TableRoot>
+                    <TableSection Title="Login">
+                        <SwitchCell x:Name="UsePinSwitch" Text="Use pin" On="{Binding UsePin}" />
+                        <EntryCell x:Name="PinEntry" 
+                                   Text="{Binding Pin}"
+                                   IsEnabled="{Binding Source={x:Reference UsePinSwitch}, Path=On}" 
+                                   Keyboard="Numeric">
+                        </EntryCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+
+            <Button x:Name="ConfirmButton"
+                    AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    Style="{StaticResource ButtonWithImageStyle}" 
+                    HorizontalOptions="EndAndExpand" 
+                    Clicked="ConfirmButton_OnClicked" 
+                    Image="confirm.png" />
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

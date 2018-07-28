@@ -12,15 +12,10 @@ namespace ReminderXamarin.Pages
             InitializeComponent();
         }
 
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-            ViewModel.SaveSettingsCommand.Execute(null);
-        }
-
-        private void PinEntry_OnCompleted(object sender, EventArgs e)
+        private void ConfirmButton_OnClicked(object sender, EventArgs e)
         {
             ViewModel.Pin = PinEntry.Text;
+            ViewModel.SaveSettingsCommand.Execute(null);
         }
     }
 }
