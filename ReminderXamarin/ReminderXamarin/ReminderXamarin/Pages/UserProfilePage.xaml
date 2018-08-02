@@ -37,12 +37,6 @@
                     <Label Text="User name" />
                     <Entry Text="{Binding UserName}" />
                 </StackLayout>
-
-                <!-- User password -->
-                <StackLayout Spacing="4">
-                    <Label Text="Password" />
-                    <Entry Text="{Binding Password}" IsPassword="True" />
-                </StackLayout>
             </StackLayout>
 
             <Button AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 

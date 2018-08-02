@@ -20,7 +20,6 @@ namespace ReminderXamarin.ViewModels
 
         public int Id { get; set; }
         public string UserName { get; set; }
-        public string Password { get; set; }
         public byte[] ImageContent { get; set; }
 
         public ICommand ChangeUserProfileCommand { get; set; }

@@ -46,7 +46,10 @@ namespace ReminderXamarin.Models
         {
             if (user.Id != 0)
             {
-                _db.Update(user);
+                var userToUpdate = _db.Get<UserModel>(user.Id);
+                userToUpdate.UserName = user.UserName;
+                userToUpdate.ImageContent = user.ImageContent;
+                _db.Update(userToUpdate);
             }
             else
             {

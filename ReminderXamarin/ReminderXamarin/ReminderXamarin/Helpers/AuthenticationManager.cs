@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using ReminderXamarin.Models;
 
 namespace ReminderXamarin.Helpers
@@ -21,8 +23,10 @@ namespace ReminderXamarin.Helpers
             {
                 return false;
             }
+            var passwordBytes = Encoding.Unicode.GetBytes(password);
+            var passwordHash = SHA256.Create().ComputeHash(passwordBytes);
 
-            if (userName == user.UserName && password == user.Password)
+            if (userName == user.UserName && passwordHash.SequenceEqual(user.Password))
             {
                 return true;
             }
@@ -42,11 +46,14 @@ namespace ReminderXamarin.Helpers
             {
                 return false;
             }
+            var passwordBytes = Encoding.Unicode.GetBytes(password);
+            var passwordHash = SHA256.Create().ComputeHash(passwordBytes);
+
             var userModel = new UserModel
             {
                 UserName = userName,
                 ImageContent = new byte[0],
-                Password = password
+                Password = passwordHash
             };
             App.UserRepository.Save(userModel);
             return true;

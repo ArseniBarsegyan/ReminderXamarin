@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Models;
 using ReminderXamarin.ViewModels;
@@ -331,8 +333,7 @@ namespace ReminderXamarin.Extensions
             {
                 Id = viewModel.Id,
                 ImageContent = viewModel.ImageContent,
-                UserName = viewModel.UserName,
-                Password = viewModel.Password
+                UserName = viewModel.UserName
             };
         }
 
@@ -342,8 +343,7 @@ namespace ReminderXamarin.Extensions
             {
                 Id = model.Id,
                 ImageContent = model.ImageContent,
-                UserName = model.UserName,
-                Password = model.Password
+                UserName = model.UserName
             };
         }
     }
