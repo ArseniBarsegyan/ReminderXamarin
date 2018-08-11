@@ -20,11 +20,10 @@ namespace ReminderXamarin.Helpers
         /// <returns>The async.</returns>
         /// <param name="filePath">File path.</param>
         /// <param name="photoModel">Photomodel.</param>
-        /// <param name="isHighQualityPhoto">True if current image of high quality.</param>
-        public async Task ResizeAsync(string filePath, PhotoModel photoModel, bool isHighQualityPhoto)
+        public async Task ResizeAsync(string filePath, PhotoModel photoModel)
         {
             _landscape = false;
-            var str = await ResizeAsync(filePath, isHighQualityPhoto);
+            var str = await ResizeAsync(filePath);
             photoModel.ResizedPath = str[0];
             photoModel.Thumbnail = str[1];
             photoModel.Landscape = _landscape;
@@ -36,7 +35,7 @@ namespace ReminderXamarin.Helpers
         /// </summary>
         /// <returns>The async.</returns>
         /// <param name="filePath">File path.</param>
-        private async Task<string[]> ResizeAsync(string filePath, bool IsHighQualityImage)
+        private async Task<string[]> ResizeAsync(string filePath)
         {
             var str = new string[2];
 
@@ -81,8 +80,8 @@ namespace ReminderXamarin.Helpers
                 thumbWidth = width / 7;
                 thumbHigh = height / 13;
             }
-            ImageServiceHelper.ResizeImage(filePath, img, width, height, IsHighQualityImage);
-            ImageServiceHelper.ResizeImage(filePath, thumb, thumbWidth, thumbHigh, IsHighQualityImage);
+            ImageServiceHelper.ResizeImage(filePath, img, width, height);
+            ImageServiceHelper.ResizeImage(filePath, thumb, thumbWidth, thumbHigh);
 
             str[0] = img;
             str[1] = thumb;

@@ -47,7 +47,7 @@ namespace ReminderXamarin.Helpers
             {
                 var pm = new PhotoModel();
 
-                await _transformHelper.ResizeAsync(file.Path, pm, false);
+                await _transformHelper.ResizeAsync(file.Path, pm);
                 await DeleteFileAsync(file.Path);
 
                 return pm;

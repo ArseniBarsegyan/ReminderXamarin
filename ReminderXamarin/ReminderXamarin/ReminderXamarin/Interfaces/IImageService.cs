@@ -12,7 +12,6 @@
         /// <param name="targetFile">Target file.</param>
         /// <param name="requiredWidth">Required width.</param>
         /// <param name="requiredHeight">Required height.</param>
-        /// <param name="isHighQualityImage">True if current image of high quality.</param>
-        void ResizeImage(string sourceFile, string targetFile, int requiredWidth, int requiredHeight, bool isHighQualityImage);
+        void ResizeImage(string sourceFile, string targetFile, int requiredWidth, int requiredHeight);
     }
 }

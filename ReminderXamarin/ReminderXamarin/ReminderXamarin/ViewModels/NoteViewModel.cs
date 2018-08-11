@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
+using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
 using ReminderXamarin.Models;
 using Xamarin.Forms;
@@ -77,7 +79,20 @@ namespace ReminderXamarin.ViewModels
                 {
                     NoteId = Id
                 };
-                await _transformHelper.ResizeAsync(document.Path, photoModel, true);
+
+                var mediaService = DependencyService.Get<IMediaService>();
+                var fileSystem = DependencyService.Get<IFileSystem>();
+                var imageContent = fileSystem.ReadAllBytes(document.Path);
+
+                var resizedImage = mediaService.ResizeImage(imageContent, 1360, 768);
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                string imagePath = Path.Combine(path, document.Name);
+
+                File.WriteAllBytes(imagePath, resizedImage);
+                photoModel.ResizedPath = imagePath;
+                photoModel.Thumbnail = imagePath;
+
+                await _transformHelper.ResizeAsync(imagePath, photoModel);
 
                 Photos.Add(photoModel.ToPhotoViewModel());
                 PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);

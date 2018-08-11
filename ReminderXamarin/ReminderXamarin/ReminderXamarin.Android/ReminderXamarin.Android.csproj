@@ -87,6 +87,7 @@
     <Compile Include="Interfaces\FilePickerService\PlatformDocumentPicker.cs" />
     <Compile Include="Interfaces\FileSystem.cs" />
     <Compile Include="Interfaces\ImageService.cs" />
+    <Compile Include="Interfaces\MediaService.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Renderers\ContentViewWithBorderRenderer.cs" />
