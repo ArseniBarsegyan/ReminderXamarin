@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using ReminderXamarin.Extensions;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
 using Xamarin.Forms;
@@ -8,7 +9,8 @@ namespace ReminderXamarin.ViewModels
 {
     public class UserProfileViewModel : BaseViewModel
     {
-        private static readonly IFileSystem FileSystemService = DependencyService.Get<IFileSystem>();
+        private static readonly IFileSystem FileService = DependencyService.Get<IFileSystem>();
+        private static readonly IMediaService MediaService = DependencyService.Get<IMediaService>();
 
         public UserProfileViewModel()
         {
@@ -34,7 +36,10 @@ namespace ReminderXamarin.ViewModels
             // Ensure that user downloads .png or .jpg file as profile icon.
             if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg"))
             {
-                ImageContent = FileSystemService.ReadAllBytes(document.Path);
+                var imageContent = FileService.ReadAllBytes(document.Path);
+                var resizedImage = MediaService.ResizeImage(imageContent, ConstantHelper.ResizedImageWidth, ConstantHelper.ResizedImageHeight);
+
+                ImageContent = resizedImage;
             }
         }
 

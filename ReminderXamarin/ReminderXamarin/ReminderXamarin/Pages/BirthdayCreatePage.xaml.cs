@@ -14,6 +14,7 @@ namespace ReminderXamarin.Pages
     {
         private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
         private static readonly IFileSystem FileService = DependencyService.Get<IFileSystem>();
+        private static readonly IMediaService MediaService = DependencyService.Get<IMediaService>();
         private bool _isPhotoSet;
 
         public BirthdayCreatePage()
@@ -30,11 +31,12 @@ namespace ReminderXamarin.Pages
                 return;
             }
             // Retrieve file content throught IFileService implementation.
-            byte[] fileContent = FileService.ReadAllBytes(document.Path);
+            var imageContent = FileService.ReadAllBytes(document.Path);
+            var resizedImage = MediaService.ResizeImage(imageContent, 1360, 768);
             _isPhotoSet = true;
 
-            FriendPhoto.Source = ImageSource.FromStream(() => new MemoryStream(fileContent));
-            ViewModel.ImageContent = fileContent;
+            FriendPhoto.Source = ImageSource.FromStream(() => new MemoryStream(resizedImage));
+            ViewModel.ImageContent = resizedImage;
         }
 
         private async void Save_OnClicked(object sender, EventArgs e)

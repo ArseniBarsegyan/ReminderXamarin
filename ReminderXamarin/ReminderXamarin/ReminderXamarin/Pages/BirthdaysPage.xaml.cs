@@ -37,8 +37,8 @@ namespace ReminderXamarin.Pages
             if (result)
             {
                 var menuItem = sender as MenuItem;
-                var noteViewModel = menuItem?.CommandParameter as NoteViewModel;
-                noteViewModel?.DeleteNoteCommand.Execute(noteViewModel);
+                var viewModel = menuItem?.CommandParameter as BirthdayViewModel;
+                viewModel?.DeleteBirthdayCommand.Execute(null);
                 ViewModel.OnAppearing();
             }
         }

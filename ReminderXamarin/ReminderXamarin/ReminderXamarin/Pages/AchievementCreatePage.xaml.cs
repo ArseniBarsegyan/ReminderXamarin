@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
 using Xamarin.Forms;
@@ -12,6 +13,7 @@ namespace ReminderXamarin.Pages
     {
         private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
         private static readonly IFileSystem FileService = DependencyService.Get<IFileSystem>();
+        private static readonly IMediaService MediaService = DependencyService.Get<IMediaService>();
 
         public AchievementCreatePage()
         {
@@ -40,14 +42,15 @@ namespace ReminderXamarin.Pages
                 return;
             }
             // Retrieve file content throught IFileService implementation.
-            byte[] fileContent = FileService.ReadAllBytes(document.Path);
+            var imageContent = FileService.ReadAllBytes(document.Path);
+            var resizedImage = MediaService.ResizeImage(imageContent, ConstantHelper.ResizedImageWidth, ConstantHelper.ResizedImageHeight);
 
             FileNameLabel.IsVisible = true;
             FileNameLabel.Text = document.Name;
             
             PreviewImage.IsVisible = true;
-            PreviewImage.Source = ImageSource.FromStream(() => new MemoryStream(fileContent));
-            ViewModel.ImageContent = fileContent;
+            PreviewImage.Source = ImageSource.FromStream(() => new MemoryStream(resizedImage));
+            ViewModel.ImageContent = resizedImage;
         }
     }
 }

@@ -48,5 +48,8 @@
         public const string Videos = "Videos";
         public const string Warning = "Warning";
         public const string Yes = "Yes";
+
+        public const int ResizedImageWidth = 1360;
+        public const int ResizedImageHeight = 768;
     }
 }

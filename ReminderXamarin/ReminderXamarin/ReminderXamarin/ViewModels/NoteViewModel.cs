@@ -84,7 +84,7 @@ namespace ReminderXamarin.ViewModels
                 var fileSystem = DependencyService.Get<IFileSystem>();
                 var imageContent = fileSystem.ReadAllBytes(document.Path);
 
-                var resizedImage = mediaService.ResizeImage(imageContent, 1360, 768);
+                var resizedImage = mediaService.ResizeImage(imageContent, ConstantHelper.ResizedImageWidth, ConstantHelper.ResizedImageHeight);
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                 string imagePath = Path.Combine(path, document.Name);
 

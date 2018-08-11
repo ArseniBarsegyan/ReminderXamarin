@@ -62,7 +62,8 @@
             
             <Style x:Key="FrameButtonStyle" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="White" />
-                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="WidthRequest" Value="200" />
                 <Setter Property="FontSize" Value="Small" />
                 <Setter Property="CornerRadius" Value="10" />
                 <Setter Property="BorderColor" Value="{StaticResource FrameButtonBorder}" />

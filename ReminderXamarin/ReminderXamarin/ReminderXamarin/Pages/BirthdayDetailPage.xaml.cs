@@ -16,6 +16,7 @@ namespace ReminderXamarin.Pages
     {
         private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
         private static readonly IFileSystem FileService = DependencyService.Get<IFileSystem>();
+        private static readonly IMediaService MediaService = DependencyService.Get<IMediaService>();
         private readonly BirthdayViewModel _viewModel;
 
         public BirthdayDetailPage(BirthdayViewModel viewModel)
@@ -39,9 +40,10 @@ namespace ReminderXamarin.Pages
                 return;
             }
             // Retrieve file content throught IFileService implementation.
-            byte[] fileContent = FileService.ReadAllBytes(document.Path);
-            FriendPhoto.Source = ImageSource.FromStream(() => new MemoryStream(fileContent));
-            _viewModel.ImageContent = fileContent;
+            var imageContent = FileService.ReadAllBytes(document.Path);
+            var resizedImage = MediaService.ResizeImage(imageContent, ConstantHelper.ResizedImageWidth, ConstantHelper.ResizedImageHeight);
+            FriendPhoto.Source = ImageSource.FromStream(() => new MemoryStream(resizedImage));
+            _viewModel.ImageContent = resizedImage;
         }
 
         private async void Delete_OnClicked(object sender, EventArgs e)
