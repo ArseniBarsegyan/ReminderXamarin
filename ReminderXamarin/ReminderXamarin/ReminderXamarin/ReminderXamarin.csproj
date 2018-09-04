@@ -11,6 +11,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Images\reminder_logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\reminder_logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ExifLib.PCL" Version="1.0.1" />
     <PackageReference Include="PCLStorage" Version="1.0.2" />
     <PackageReference Include="PropertyChanged.Fody" Version="2.5.7" />

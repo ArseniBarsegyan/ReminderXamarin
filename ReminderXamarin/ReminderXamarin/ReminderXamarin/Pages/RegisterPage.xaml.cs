@@ -10,6 +10,7 @@ namespace ReminderXamarin.Pages
         public RegisterPage()
         {
             InitializeComponent();
+            BackgroundImage.Source = ImageSource.FromResource("ReminderXamarin.Images.reminder_logo.png");
         }
 
         private void UserNameEntry_OnCompleted(object sender, EventArgs e)
