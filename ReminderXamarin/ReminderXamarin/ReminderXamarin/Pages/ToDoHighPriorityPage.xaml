@@ -1,14 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels"
+             xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
-             x:Class="ReminderXamarin.Pages.ToDoPage"
-             Title="To-do list">
+             x:Class="ReminderXamarin.Pages.ToDoHighPriorityPage"
+             Title="High">
     <ContentPage.BindingContext>
-        <viewModels1:ToDoPageViewModel x:Name="ViewModel" />
+        <viewModels:ToDoPageViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
-
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <StackLayout Padding="10"
@@ -18,7 +17,7 @@
                      VerticalOptions="FillAndExpand"
                      HorizontalOptions="FillAndExpand">
                 <ListView x:Name="ToDoList"
-                      ItemsSource="{Binding ToDoViewModels}"
+                      ItemsSource="{Binding HighPriorityModels}"
                       IsPullToRefreshEnabled="True"
                       HasUnevenRows="True"
                       CachingStrategy="RecycleElement"
@@ -47,14 +46,6 @@
                                                 <ColumnDefinition Width="2*" />
                                                 <ColumnDefinition Width="4*" />
                                             </Grid.ColumnDefinitions>
-
-                                            <Image Source="{Binding Priority, Converter={StaticResource PriorityToImageConverter}}"
-                                               Aspect="AspectFill"
-                                               Grid.Row="0"
-                                               Grid.Column="0"
-                                               HeightRequest="40"
-                                               WidthRequest="40"
-                                               VerticalOptions="Center" />
 
                                             <elements:ExtendedLabel Text="{Binding WhenHappens, StringFormat='{0:dd.MM.yy HH:mm}'}" 
                                                                    VerticalOptions="Center"

@@ -36,7 +36,7 @@ namespace ReminderXamarin.Pages
                         Navigation.PushAsync(new NotesPage());
                         break;
                     case MenuPageIndex.ToDoPage:
-                        Navigation.PushAsync(new ToDoPage());
+                        Navigation.PushAsync(new ToDoTabbedPage());
                         break;
                     case MenuPageIndex.BirthdaysPage:
                         Navigation.PushAsync(new BirthdaysPage());

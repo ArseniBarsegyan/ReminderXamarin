@@ -1,15 +1,20 @@
 ﻿using System;
 using ReminderXamarin.Helpers;
+using ReminderXamarin.Models;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace ReminderXamarin.Pages
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// Page contains to-do list of medium-level-priority to-do items.
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ToDoPage : ContentPage
+    public partial class ToDoMidPriorityPage : ContentPage
     {
-        public ToDoPage()
+        public ToDoMidPriorityPage()
         {
             InitializeComponent();
         }
@@ -31,7 +36,7 @@ namespace ReminderXamarin.Pages
                 toDoViewModel?.DeleteItemCommand.Execute(toDoViewModel);
                 ViewModel.OnAppearing();
             }
-        }        
+        }
 
         private async void ToDoList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -44,7 +49,7 @@ namespace ReminderXamarin.Pages
 
         private async void CreateToDoButton_OnClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ToDoCreatePage());
+            await Navigation.PushAsync(new ToDoCreatePage(ToDoPriority.Medium));
         }
     }
 }

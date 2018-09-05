@@ -24,7 +24,7 @@ namespace ReminderXamarin.Helpers
                 {
                     Title = ConstantHelper.ToDoSection,
                     IconSource = ConstantHelper.ToDoListIcon,
-                    TargetType = typeof(ToDoPage),
+                    TargetType = typeof(ToDoTabbedPage),
                     IsDisplayed = true
                 },
                 new MasterPageItem

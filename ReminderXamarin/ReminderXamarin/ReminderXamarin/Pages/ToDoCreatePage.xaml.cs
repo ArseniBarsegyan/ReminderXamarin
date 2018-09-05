@@ -8,8 +8,11 @@ namespace ReminderXamarin.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ToDoCreatePage : ContentPage
     {
-        public ToDoCreatePage()
+        private readonly ToDoPriority _priority;
+
+        public ToDoCreatePage(ToDoPriority priority)
         {
+            _priority = priority;
             InitializeComponent();
             TimePicker.Time = DateTime.Now.TimeOfDay;
         }
@@ -27,19 +30,12 @@ namespace ReminderXamarin.Pages
 
             var fullDate = eventDate.Add(eventTime);
 
+            ViewModel.Priority = _priority;
             ViewModel.WhenHappens = fullDate;
             ViewModel.Description = DescriptionEditor.Text;
             ViewModel.CreateToDoCommand.Execute(null);
 
             await Navigation.PopAsync();
-        }
-
-        private void PriorityPicker_OnSelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (PriorityPicker.SelectedItem is ToDoPriority priority)
-            {
-                ViewModel.Priority = priority;
-            }
         }
     }
 }
