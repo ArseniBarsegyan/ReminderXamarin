@@ -44,19 +44,18 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="2*" />
-                                                <ColumnDefinition Width="4*" />
                                             </Grid.ColumnDefinitions>
 
                                             <elements:ExtendedLabel Text="{Binding WhenHappens, StringFormat='{0:dd.MM.yy HH:mm}'}" 
                                                                    VerticalOptions="Center"
                                                                    Grid.Row="0"
-                                                                   Grid.Column="1" />
+                                                                   Grid.Column="0" />
 
                                             <elements:ExtendedLabel Lines="2"
                                                                    LineSpacing="1.1" 
                                                                    Grid.Row="0"
                                                                    LineBreakMode="TailTruncation"
-                                                                   Grid.Column="2"
+                                                                   Grid.Column="1"
                                                                    Text="{Binding Description}"
                                                                    VerticalOptions="Center" />
                                         </Grid>
