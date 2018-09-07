@@ -50,11 +50,9 @@ namespace ReminderXamarin.ViewModels
 
         private void LoadModelsFromDatabase()
         {
-            int.TryParse(Settings.CurrentUserId, out int userId);
-
             var allModels = App.ToDoRepository
                 .GetAll()
-                .Where(x => x.UserId == userId)
+                .Where(x => x.UserId == Settings.CurrentUserId)
                 .ToToDoViewModels();
 
             HighPriorityModels = allModels.Where(x => x.Priority == ToDoPriority.High)

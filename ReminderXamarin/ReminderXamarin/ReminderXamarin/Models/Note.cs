@@ -16,7 +16,7 @@ namespace ReminderXamarin.Models
         public DateTime EditDate { get; set; }
 
         [ForeignKey(typeof(UserModel))]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<PhotoModel> Photos { get; set; }

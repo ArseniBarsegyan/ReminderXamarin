@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
 
@@ -32,7 +33,7 @@ namespace ReminderXamarin.Models
         /// </summary>
         /// <param name="id">Id of the user</param>
         /// <returns></returns>
-        public UserModel GetUserAsync(int id)
+        public UserModel GetUserAsync(string id)
         {
             return _db.Get<UserModel>(id);
         }
@@ -44,7 +45,7 @@ namespace ReminderXamarin.Models
         /// <returns></returns>
         public void Save(UserModel user)
         {
-            if (user.Id != 0)
+            if (!string.IsNullOrEmpty(user.Id))
             {
                 var userToUpdate = _db.Get<UserModel>(user.Id);
                 userToUpdate.UserName = user.UserName;
@@ -53,6 +54,7 @@ namespace ReminderXamarin.Models
             }
             else
             {
+                user.Id = Guid.NewGuid().ToString();
                 _db.Insert(user);
             }
         }

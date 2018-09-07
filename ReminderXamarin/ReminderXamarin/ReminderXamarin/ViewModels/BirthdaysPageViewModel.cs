@@ -34,11 +34,9 @@ namespace ReminderXamarin.ViewModels
 
         private void LoadFriendsFromDatabase()
         {
-            int.TryParse(Settings.CurrentUserId, out int userId);
-
             BirthdayViewModels = App.BirthdaysRepository
                 .GetAll()
-                .Where(x => x.UserId == userId)
+                .Where(x => x.UserId == Settings.CurrentUserId)
                 .ToFriendViewModels()
                 .OrderByDescending(x => x.BirthDayDate)
                 .ToObservableCollection();

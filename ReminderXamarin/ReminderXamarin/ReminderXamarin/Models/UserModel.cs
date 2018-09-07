@@ -8,8 +8,8 @@ namespace ReminderXamarin.Models
     [Table(ConstantHelper.Users)]
     public class UserModel
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        [PrimaryKey]
+        public string Id { get; set; }
         public string UserName { get; set; }
         public byte[] Password { get; set; }
         public byte[] ImageContent { get; set; }

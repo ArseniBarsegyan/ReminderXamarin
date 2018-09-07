@@ -78,12 +78,10 @@ namespace ReminderXamarin.Extensions
 
         public static Note ToNoteModel(this NoteViewModel note)
         {
-            int.TryParse(Settings.CurrentUserId, out int userId);
-
             var model = new Note
             {
                 Id = note.Id,
-                UserId = userId,
+                UserId = Settings.CurrentUserId,
                 CreationDate = note.CreationDate,
                 EditDate = note.EditDate,
                 Description = note.Description,
@@ -121,12 +119,10 @@ namespace ReminderXamarin.Extensions
 
         public static ToDoModel ToToDoModel(this ToDoViewModel viewModel)
         {
-            int.TryParse(Settings.CurrentUserId, out int userId);
-
             return new ToDoModel
             {
                 Id = viewModel.Id,
-                UserId = userId,
+                UserId = Settings.CurrentUserId,
                 Priority = viewModel.Priority.ToString(),
                 WhenHappens = viewModel.WhenHappens,
                 Description = viewModel.Description
@@ -200,12 +196,10 @@ namespace ReminderXamarin.Extensions
 
         public static BirthdayModel ToBirthdayModel(this BirthdayViewModel viewModel)
         {
-            int.TryParse(Settings.CurrentUserId, out int userId);
-
             return new BirthdayModel
             {
                 Id = viewModel.Id,
-                UserId = userId,
+                UserId = Settings.CurrentUserId,
                 Name = viewModel.Name,
                 ImageContent = viewModel.ImageContent,
                 BirthDayDate = viewModel.BirthDayDate,
@@ -288,12 +282,10 @@ namespace ReminderXamarin.Extensions
 
         public static AchievementModel ToAchievementModel(this AchievementViewModel viewModel)
         {
-            int.TryParse(Settings.CurrentUserId, out int userId);
-
             return new AchievementModel
             {
                 Id = viewModel.Id,
-                UserId = userId,
+                UserId = Settings.CurrentUserId,
                 AchievementNotes = viewModel.AchievementNotes.ToAchievementNoteViewModels().ToList(),
                 Title = viewModel.Title,
                 GeneralDescription = viewModel.GeneralDescription,

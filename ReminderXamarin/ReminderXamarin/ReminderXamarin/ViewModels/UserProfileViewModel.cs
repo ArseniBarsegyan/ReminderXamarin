@@ -20,7 +20,7 @@ namespace ReminderXamarin.ViewModels
             UpdateUserCommand = new Command(UpdateUserCommandExecute);
         }
 
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string UserName { get; set; }
         public byte[] ImageContent { get; set; }
 

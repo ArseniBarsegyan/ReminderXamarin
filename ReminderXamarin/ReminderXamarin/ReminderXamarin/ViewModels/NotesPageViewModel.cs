@@ -51,12 +51,10 @@ namespace ReminderXamarin.ViewModels
 
         private void LoadNoteFromDatabase()
         {
-            int.TryParse(Settings.CurrentUserId, out int userId);
-
             // Fetch all note models from database.
             _allNotes = App.NoteRepository
                 .GetAll()
-                .Where(x => x.UserId == userId)
+                .Where(x => x.UserId == Settings.CurrentUserId)
                 .ToNoteViewModels()
                 .OrderByDescending(x => x.EditDate)
                 .ToList();
