@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using ReminderXamarin.EF.Models;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Models;
 using ReminderXamarin.ViewModels;
@@ -63,7 +62,7 @@ namespace ReminderXamarin.Extensions
             });
         }
 
-        public static NoteViewModel ToNoteViewModel(this NoteModel note)
+        public static NoteViewModel ToNoteViewModel(this Note note)
         {
             var viewModel = new NoteViewModel
             {
@@ -77,11 +76,11 @@ namespace ReminderXamarin.Extensions
             return viewModel;
         }
 
-        public static NoteModel ToNoteModel(this NoteViewModel note)
+        public static Note ToNoteModel(this NoteViewModel note)
         {
             int.TryParse(Settings.CurrentUserId, out int userId);
 
-            var model = new NoteModel
+            var model = new Note
             {
                 Id = note.Id,
                 UserId = userId,
@@ -93,7 +92,7 @@ namespace ReminderXamarin.Extensions
             return model;
         }
 
-        public static IEnumerable<NoteViewModel> ToNoteViewModels(this IEnumerable<NoteModel> models)
+        public static IEnumerable<NoteViewModel> ToNoteViewModels(this IEnumerable<Note> models)
         {
             return models.Select(model => new NoteViewModel
                 {
@@ -107,10 +106,10 @@ namespace ReminderXamarin.Extensions
                 .ToList();
         }
 
-        public static IEnumerable<NoteModel> ToNoteViewModels(this IEnumerable<NoteViewModel> viewModels)
+        public static IEnumerable<Note> ToNoteViewModels(this IEnumerable<NoteViewModel> viewModels)
         {
-            return viewModels.Select(viewModel => new NoteModel
-            {
+            return viewModels.Select(viewModel => new Note
+                {
                     Id = viewModel.Id,
                     CreationDate = viewModel.CreationDate,
                     EditDate = viewModel.EditDate,
@@ -251,9 +250,9 @@ namespace ReminderXamarin.Extensions
             return new Image { Source = viewModel.ResizedPath };
         }
 
-        public static AchievementNoteModel ToAchievementNote(this AchievementNoteViewModel viewModel)
+        public static AchievementNote ToAchievementNote(this AchievementNoteViewModel viewModel)
         {
-            return new AchievementNoteModel
+            return new AchievementNote
             {
                 Id = viewModel.Id,
                 Description = viewModel.Description,
@@ -263,7 +262,7 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static AchievementNoteViewModel ToAchievementNoteViewModel(this AchievementNoteModel model)
+        public static AchievementNoteViewModel ToAchievementNoteViewModel(this AchievementNote model)
         {
             return new AchievementNoteViewModel
             {
@@ -276,12 +275,12 @@ namespace ReminderXamarin.Extensions
         }
 
         public static ObservableCollection<AchievementNoteViewModel> ToAchievementNoteViewModels(
-            this IEnumerable<AchievementNoteModel> models)
+            this IEnumerable<AchievementNote> models)
         {
             return models.Select(model => model.ToAchievementNoteViewModel()).ToObservableCollection();
         }
 
-        public static IEnumerable<AchievementNoteModel> ToAchievementNoteViewModels(
+        public static IEnumerable<AchievementNote> ToAchievementNoteViewModels(
             this IEnumerable<AchievementNoteViewModel> viewModels)
         {
             return viewModels.Select(viewModel => viewModel.ToAchievementNote()).ToList();

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using ExifLib;
 using PCLStorage;
-using ReminderXamarin.EF.Models;
 using ReminderXamarin.Models;
 
 namespace ReminderXamarin.Helpers

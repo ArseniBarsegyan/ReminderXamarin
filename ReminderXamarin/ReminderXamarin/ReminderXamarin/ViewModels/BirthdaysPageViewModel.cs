@@ -37,7 +37,8 @@ namespace ReminderXamarin.ViewModels
             int.TryParse(Settings.CurrentUserId, out int userId);
 
             BirthdayViewModels = App.BirthdaysRepository
-                .GetAll(userId)
+                .GetAll()
+                .Where(x => x.UserId == userId)
                 .ToFriendViewModels()
                 .OrderByDescending(x => x.BirthDayDate)
                 .ToObservableCollection();

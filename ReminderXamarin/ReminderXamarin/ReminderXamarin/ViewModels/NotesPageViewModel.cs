@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
@@ -19,7 +18,7 @@ namespace ReminderXamarin.ViewModels
             Notes = new ObservableCollection<NoteViewModel>();
 
             RefreshListCommand = new Command(RefreshCommandExecute);
-            SelectNoteCommand = new Command<int>(async (id) => await SelectNoteCommandExecute(id));
+            SelectNoteCommand = new Command<int>(id => SelectNoteCommandExecute(id));
             SearchCommand = new Command<string>(SearchNotesByDescription);
         }
 
@@ -56,7 +55,8 @@ namespace ReminderXamarin.ViewModels
 
             // Fetch all note models from database.
             _allNotes = App.NoteRepository
-                .GetAll(userId)
+                .GetAll()
+                .Where(x => x.UserId == userId)
                 .ToNoteViewModels()
                 .OrderByDescending(x => x.EditDate)
                 .ToList();
@@ -66,9 +66,9 @@ namespace ReminderXamarin.ViewModels
             SearchNotesByDescription(_currentSearchText);
         }
 
-        private async Task<NoteViewModel> SelectNoteCommandExecute(int id)
+        private NoteViewModel SelectNoteCommandExecute(int id)
         {
-            return (await App.NoteRepository.GetByIdAsync(id)).ToNoteViewModel();
+            return App.NoteRepository.GetNoteAsync(id).ToNoteViewModel();
         }
     }
 }

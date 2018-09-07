@@ -50,7 +50,7 @@ namespace ReminderXamarin.ViewModels
         }
 
         // TODO - remove stub
-        private async void CreateAchievementCommandExecute()
+        private void CreateAchievementCommandExecute()
         {
             AchievementNotes.Add(new AchievementNoteViewModel
             {
@@ -59,8 +59,7 @@ namespace ReminderXamarin.ViewModels
                 Date = DateTime.Now,
                 AchievementId = Id
             });
-            await App.AchievementRepository.CreateAsync(this.ToAchievementModel());
-            await App.AchievementRepository.SaveAsync();
+            App.AchievementRepository.Save(this.ToAchievementModel());
         }
 
         private void CreateAchievementNoteCommandExecute(AchievementNoteViewModel achievementNoteViewModel)
@@ -72,12 +71,10 @@ namespace ReminderXamarin.ViewModels
             UpdateAchievementCommandExecute();
         }
 
-        private async void UpdateAchievementCommandExecute()
+        private void UpdateAchievementCommandExecute()
         {
             GeneralTimeSpent = AchievementNotes.Sum(x => x.HoursSpent);
-
-            App.AchievementRepository.Update(this.ToAchievementModel());
-            await App.AchievementRepository.SaveAsync();
+            App.AchievementRepository.Save(this.ToAchievementModel());
         }
 
         private void UpdateAchievementNoteCommandExecute(AchievementNoteViewModel achievementNoteViewModel)
@@ -89,10 +86,9 @@ namespace ReminderXamarin.ViewModels
             UpdateAchievementCommandExecute();
         }
 
-        private async void DeleteAchievementCommandExecute()
+        private int DeleteAchievementCommandExecute()
         {
-            await App.AchievementRepository.DeleteAsync(Id);
-            await App.AchievementRepository.SaveAsync();
+            return App.AchievementRepository.DeleteAchievement(this.ToAchievementModel());
         }
 
         private void DeleteAchievementNoteCommandExecute(AchievementNoteViewModel noteViewModel)
@@ -104,10 +100,10 @@ namespace ReminderXamarin.ViewModels
             UpdateAchievementCommandExecute();
         }
 
-        private async void LoadAchievementNotesFromDataBase()
+        private void LoadAchievementNotesFromDataBase()
         {
             // Fetch all note models from database, order by recent date, then by recent upload.
-            AchievementNotes = (await App.AchievementRepository.GetByIdAsync(Id))
+            AchievementNotes = App.AchievementRepository.GetAchievementAsync(Id)
                 .AchievementNotes
                 .OrderByDescending(x => x.Date)
                 .ThenByDescending(x => x.Id)

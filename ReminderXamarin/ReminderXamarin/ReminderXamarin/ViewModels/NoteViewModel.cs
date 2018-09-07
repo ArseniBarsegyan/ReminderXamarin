@@ -4,11 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ReminderXamarin.EF.Models;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
+using ReminderXamarin.Models;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -123,27 +123,24 @@ namespace ReminderXamarin.ViewModels
             IsLoading = false;
         }
 
-        private async void CreateNoteCommandExecute()
+        private void CreateNoteCommandExecute()
         {
-            await App.NoteRepository.CreateAsync(this.ToNoteModel());
-            await App.NoteRepository.SaveAsync();
+            App.NoteRepository.Save(this.ToNoteModel());
             IsLoading = false;
         }
 
-        private async void UpdateNoteCommandExecute()
+        private void UpdateNoteCommandExecute()
         {
             IsLoading = true;
             // Update edit date since user pressed confirm
             EditDate = DateTime.Now;
-            await App.NoteRepository.CreateAsync(this.ToNoteModel());
-            await App.NoteRepository.SaveAsync();
+            App.NoteRepository.Save(this.ToNoteModel());
             IsLoading = false;
         }
 
-        private async void DeleteNoteCommandExecute()
+        private int DeleteNoteCommandExecute()
         {
-            await App.NoteRepository.DeleteAsync(Id);
-            await App.NoteRepository.SaveAsync();
+            return App.NoteRepository.DeleteNote(this.ToNoteModel());
         }
     }
 }

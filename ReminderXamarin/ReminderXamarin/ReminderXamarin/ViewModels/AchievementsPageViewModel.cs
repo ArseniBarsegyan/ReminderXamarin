@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
@@ -15,7 +14,7 @@ namespace ReminderXamarin.ViewModels
             Achievements = new ObservableCollection<AchievementViewModel>();
 
             RefreshListCommand = new Command(RefreshCommandExecute);
-            SelectAchievementCommand = new Command<int>(async(id) => await SelectAchievementCommandExecute(id));
+            SelectAchievementCommand = new Command<int>(id => SelectAchievementCommandExecute(id));
         }
 
         public bool IsRefreshing { get; set; }
@@ -36,9 +35,9 @@ namespace ReminderXamarin.ViewModels
             IsRefreshing = false;
         }
 
-        private async Task<AchievementViewModel> SelectAchievementCommandExecute(int id)
+        private AchievementViewModel SelectAchievementCommandExecute(int id)
         {
-            return (await App.AchievementRepository.GetByIdAsync(id)).ToAchievementViewModel();
+            return App.AchievementRepository.GetAchievementAsync(id).ToAchievementViewModel();
         }
 
         private void LoadAchievementsFromDatabase()
@@ -46,7 +45,8 @@ namespace ReminderXamarin.ViewModels
             int.TryParse(Settings.CurrentUserId, out int userId);
 
             Achievements = App.AchievementRepository
-                .GetAll(userId)
+                .GetAll()
+                .Where(x => x.UserId == userId)
                 .ToAchievementViewModels()
                 .OrderByDescending(x => x.GeneralTimeSpent)
                 .ToObservableCollection();

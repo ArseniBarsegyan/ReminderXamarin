@@ -164,9 +164,6 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
-      <Version>2.1.2</Version>
-    </PackageReference>
     <PackageReference Include="PCLStorage">
       <Version>1.0.2</Version>
     </PackageReference>
