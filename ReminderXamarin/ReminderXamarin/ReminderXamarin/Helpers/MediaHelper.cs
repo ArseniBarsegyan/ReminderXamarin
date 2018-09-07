@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 using PCLStorage;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
-using ReminderXamarin.Models;
-using PhotoModel = ReminderXamarin.Models.PhotoModel;
+using ReminderXamarin.EF.Models;
 
 namespace ReminderXamarin.Helpers
 {

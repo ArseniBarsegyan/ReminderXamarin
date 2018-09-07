@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using ReminderXamarin.Models;
+using System.Threading.Tasks;
+using ReminderXamarin.EF.Models;
 
 namespace ReminderXamarin.Helpers
 {
@@ -39,7 +40,7 @@ namespace ReminderXamarin.Helpers
         /// <param name="userName">user name</param>
         /// <param name="password">password</param>
         /// <returns></returns>
-        public static bool Register(string userName, string password)
+        public static async Task<bool> Register(string userName, string password)
         {
             var user = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == userName);
             if (user != null)
@@ -55,7 +56,8 @@ namespace ReminderXamarin.Helpers
                 ImageContent = new byte[0],
                 Password = passwordHash
             };
-            App.UserRepository.Save(userModel);
+            await App.UserRepository.CreateAsync(userModel);
+            await App.UserRepository.SaveAsync();
             return true;
         }
     }

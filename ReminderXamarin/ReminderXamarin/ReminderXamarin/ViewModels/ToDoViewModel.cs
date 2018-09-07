@@ -29,20 +29,23 @@ namespace ReminderXamarin.ViewModels
         public ICommand UpdateItemCommand { get; set; }
         public ICommand DeleteItemCommand { get; set; }
 
-        private void CreateToDoCommandExecute()
+        private async void CreateToDoCommandExecute()
         {
-            App.ToDoRepository.Save(this.ToToDoModel());
+            await App.ToDoRepository.CreateAsync(this.ToToDoModel());
+            await App.ToDoRepository.SaveAsync();
         }
 
-        private void UpdateItemCommandExecute()
+        private async void UpdateItemCommandExecute()
         {
             // Update edit date since user pressed confirm
-            App.ToDoRepository.Save(this.ToToDoModel());
+            App.ToDoRepository.Update(this.ToToDoModel());
+            await App.ToDoRepository.SaveAsync();
         }
 
-        private int DeleteItemCommandExecute()
+        private async void DeleteItemCommandExecute()
         {
-            return App.ToDoRepository.DeleteModel(this.ToToDoModel());
+            await App.ToDoRepository.DeleteAsync(Id);
+            await App.ToDoRepository.SaveAsync();
         }
     }
 }

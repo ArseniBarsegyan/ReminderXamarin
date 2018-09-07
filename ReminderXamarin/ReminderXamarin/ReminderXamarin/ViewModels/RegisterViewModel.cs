@@ -19,7 +19,7 @@ namespace ReminderXamarin.ViewModels
 
         public ICommand RegisterCommand { get; set; }
 
-        public void RegisterCommandExecute()
+        public async void RegisterCommandExecute()
         {
             if (Password != ConfirmPassword)
             {
@@ -28,7 +28,7 @@ namespace ReminderXamarin.ViewModels
             }
             else
             {
-                var authResult = AuthenticationManager.Register(UserName, Password);
+                var authResult = await AuthenticationManager.Register(UserName, Password);
                 if (authResult)
                 {
                     Application.Current.MainPage = new LoginPage();

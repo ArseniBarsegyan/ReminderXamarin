@@ -43,9 +43,10 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private void UpdateUserCommandExecute()
+        private async void UpdateUserCommandExecute()
         {
-            App.UserRepository.Save(this.ToUserModel());
+            await App.UserRepository.CreateAsync(this.ToUserModel());
+            await App.UserRepository.SaveAsync();
         }
     }
 }

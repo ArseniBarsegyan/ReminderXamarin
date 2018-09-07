@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using ReminderXamarin.EF.Models;
 using ReminderXamarin.Helpers;
-using ReminderXamarin.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

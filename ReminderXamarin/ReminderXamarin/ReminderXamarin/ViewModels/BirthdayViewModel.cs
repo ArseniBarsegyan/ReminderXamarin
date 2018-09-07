@@ -25,19 +25,22 @@ namespace ReminderXamarin.ViewModels
         public ICommand UpdateBirthdayCommand { get; set; }
         public ICommand DeleteBirthdayCommand { get; set; }
 
-        private void CreateBirthdayCommandExecute()
+        private async void CreateBirthdayCommandExecute()
         {
-            App.BirthdaysRepository.Save(this.ToBirthdayModel());
+            await App.BirthdaysRepository.CreateAsync(this.ToBirthdayModel());
+            await App.AchievementRepository.SaveAsync();
         }
 
-        private void UpdateBirthdayCommandExecute()
+        private async void UpdateBirthdayCommandExecute()
         {
-            App.BirthdaysRepository.Save(this.ToBirthdayModel());
+            App.BirthdaysRepository.Update(this.ToBirthdayModel());
+            await App.AchievementRepository.SaveAsync();
         }
 
-        private void DeleteBirthdayCommandExecute()
+        private async void DeleteBirthdayCommandExecute()
         {
-            App.BirthdaysRepository.DeleteBirthday(this.ToBirthdayModel());
+            await App.BirthdaysRepository.DeleteAsync(Id);
+            await App.AchievementRepository.SaveAsync();
         }
     }
 }
