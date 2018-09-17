@@ -10,6 +10,7 @@
             <StackLayout Padding="10" Spacing="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout Spacing="0">
                     <abstractions:CircleImage x:Name="FriendPhoto"
+                                              Aspect="AspectFit"
                                               HeightRequest="120"
                                               WidthRequest="120"
                                               Source="{Binding ImageContent, Converter={StaticResource ByteToImageSourceConverter}}"

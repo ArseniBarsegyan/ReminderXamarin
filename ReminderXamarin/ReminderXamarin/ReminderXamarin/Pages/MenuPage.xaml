@@ -29,9 +29,9 @@
                             </StackLayout.GestureRecognizers>
                             
                             <abstractions:CircleImage x:Name="UserProfilePhoto"
-                                                      WidthRequest="60"
-                                                      HeightRequest="60" 
-                                                      Aspect="AspectFit"
+                                                      WidthRequest="80"
+                                                      HeightRequest="80" 
+                                                      Aspect="AspectFill"
                                                       Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}">
                             </abstractions:CircleImage>
                             <Label Text="{Binding UserName}" 

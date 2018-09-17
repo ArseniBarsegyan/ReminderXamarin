@@ -4,8 +4,12 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.NoteDetailPage"
              BackgroundColor="White">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="delete.png" Order="Primary" Clicked="Delete_OnClicked" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <!-- Image gallery and note text container -->
             <StackLayout Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <!-- Image gallery with all photos of current note. Visible if note contains not empty photo -->
                 <elements:HorizontalImageGallery x:Name="ImageGallery" 
@@ -41,33 +45,38 @@
                         HorizontalOptions="FillAndExpand"
                         HeightRequest="200" />
                 </ScrollView>
+
+                <Grid AbsoluteLayout.LayoutBounds="0,1,1,60" 
+                      AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <!-- Click on this button will open frame with buttons that will allow to add items to note -->
+                    <Button x:Name="AddButton"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Style="{StaticResource ButtonWithImageStyle}"
+                            Image="add.png"
+                            Clicked="AddButton_OnClicked" />
+
+                    <!-- Confirm changes -->
+                    <Button x:Name="ConfirmButton" 
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Style="{StaticResource ButtonWithImageStyle}" 
+                            Clicked="Confirm_OnClicked" 
+                            Image="confirm.png" />
+                </Grid>
             </StackLayout>
 
             <ActivityIndicator x:Name="ActivityIndicator"
                                IsRunning="{Binding IsLoading}"
                                AbsoluteLayout.LayoutBounds="0.5,0.5,50,50" 
                                AbsoluteLayout.LayoutFlags="PositionProportional" />
-
-            <!-- Click on this button will open frame with buttons that will allow to add items to note -->
-            <Button x:Name="AddButton"
-                    AbsoluteLayout.LayoutBounds="0.5,0.95,60,60" 
-                    AbsoluteLayout.LayoutFlags="PositionProportional"
-                    Style="{StaticResource ButtonWithImageStyle}"
-                    Image="add.png"
-                    Clicked="AddButton_OnClicked" />
-
-            <!-- Confirm and delete buttons -->
-            <StackLayout AbsoluteLayout.LayoutBounds="0.95,1,100,150" AbsoluteLayout.LayoutFlags="PositionProportional">
-                <Button Style="{StaticResource ButtonDangerStyle}" 
-                        HorizontalOptions="EndAndExpand" 
-                        Clicked="Delete_OnClicked" 
-                        Image="delete.png" />
-                <Button x:Name="ConfirmButton" 
-                        Style="{StaticResource ButtonWithImageStyle}" 
-                        HorizontalOptions="EndAndExpand" 
-                        Clicked="Confirm_OnClicked" 
-                        Image="confirm.png" />
-            </StackLayout>
 
             <elements:AddItemsToNoteContentView x:Name="AddItemsToNoteContentView" 
                                                 AbsoluteLayout.LayoutBounds="0,0,1,1"

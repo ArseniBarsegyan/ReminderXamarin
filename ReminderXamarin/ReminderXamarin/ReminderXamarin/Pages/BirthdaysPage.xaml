@@ -52,12 +52,13 @@
                                             </Grid.RowDefinitions>
 
                                             <abstractions:CircleImage Source="{Binding ImageContent, Converter={StaticResource ByteToImageSourceConverter}}"
-                                                                  Aspect="AspectFit"
+                                                                  Aspect="AspectFill"
                                                                   Grid.Column="0"
                                                                   Grid.RowSpan="2"
                                                                   VerticalOptions="Center"
                                                                   HorizontalOptions="Start"
-                                                                  HeightRequest="90" />
+                                                                  HeightRequest="90"
+                                                                  WidthRequest="90" />
 
                                             <StackLayout Orientation="Horizontal" 
                                                          Spacing="0"
