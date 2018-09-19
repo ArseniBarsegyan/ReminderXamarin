@@ -3,6 +3,7 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
+                 xmlns:elements1="clr-namespace:ReminderXamarin.Elements"
                  x:Class="ReminderXamarin.Elements.FullSizeImageGallery">
     <ContentPage.Content>
         <StackLayout Spacing="5">
@@ -13,11 +14,13 @@
                                   HeightRequest="300">
                 <elements:GalleryView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout VerticalOptions="Center">
-                            <Image Source="{Binding Source}" 
-                                   HeightRequest="300"
-                                   Aspect="AspectFit" />
-                        </StackLayout>
+                        <elements1:PinchToZoomContainer>
+                            <elements1:PinchToZoomContainer.Content>
+                                <Image Source="{Binding Source}" 
+                                       HeightRequest="300" 
+                                       Aspect="AspectFit" />
+                            </elements1:PinchToZoomContainer.Content>
+                        </elements1:PinchToZoomContainer>
                     </DataTemplate>
                 </elements:GalleryView.ItemTemplate>
             </elements:GalleryView>

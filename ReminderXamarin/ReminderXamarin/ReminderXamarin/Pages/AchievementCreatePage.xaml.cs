@@ -43,7 +43,7 @@ namespace ReminderXamarin.Pages
             }
             // Retrieve file content throught IFileService implementation.
             var imageContent = FileService.ReadAllBytes(document.Path);
-            var resizedImage = MediaService.ResizeImage(imageContent, ConstantHelper.ResizedImageWidth, ConstantHelper.ResizedImageHeight);
+            var resizedImage = MediaService.ResizeImage(imageContent, ConstantHelper.AchievementImageWidth, ConstantHelper.AchievementImageHeight);
 
             FileNameLabel.IsVisible = true;
             FileNameLabel.Text = document.Name;

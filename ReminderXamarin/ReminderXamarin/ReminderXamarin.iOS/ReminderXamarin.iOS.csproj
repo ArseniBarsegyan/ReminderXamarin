@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\AlertService.cs" />
     <Compile Include="Interfaces\ApplicationService.cs" />
+    <Compile Include="Interfaces\DeviceOrientation.cs" />
     <Compile Include="Interfaces\FileHelper.cs" />
     <Compile Include="Interfaces\FilePickerService\PageExtensions.cs" />
     <Compile Include="Interfaces\FilePickerService\PageRenderer.cs" />
@@ -164,6 +165,9 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DLToolkit.Forms.Controls.FlowListView">
+      <Version>2.0.11</Version>
+    </PackageReference>
     <PackageReference Include="PCLStorage">
       <Version>1.0.2</Version>
     </PackageReference>
@@ -391,5 +395,14 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\filledDot%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\filled_blue_circle%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\filled_blue_circle%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\filled_blue_circle%403x.png" />
   </ItemGroup>
 </Project>

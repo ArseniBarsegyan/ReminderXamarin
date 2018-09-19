@@ -51,5 +51,7 @@
 
         public const int ResizedImageWidth = 1360;
         public const int ResizedImageHeight = 768;
+        public const int AchievementImageWidth = 320;
+        public const int AchievementImageHeight = 240;
     }
 }

@@ -44,7 +44,10 @@
                 <Setter Property="FontSize" Value="Medium" />
                 <Setter Property="BorderColor" Value="White" />
                 <Setter Property="BorderWidth" Value="1" />
-                <Setter Property="TextColor" Value="White" />
+            </Style>
+            
+            <Style x:Key="PinPageExitButtonStyle" TargetType="Button" BasedOn="{StaticResource SubmitButtonStyle}">
+                <Setter Property="BackgroundColor" Value="{StaticResource DeleteButtonBackground}" />
             </Style>
 
             <Style x:Key="LoginButtonStyle" TargetType="Button" BasedOn="{StaticResource SubmitButtonStyle}">

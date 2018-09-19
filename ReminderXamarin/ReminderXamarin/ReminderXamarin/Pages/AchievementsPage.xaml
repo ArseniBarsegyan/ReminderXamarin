@@ -4,6 +4,7 @@
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              x:Class="ReminderXamarin.Pages.AchievementsPage"
              Title="Achievements">
     <ContentPage.BindingContext>
@@ -12,80 +13,53 @@
 
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                     AbsoluteLayout.LayoutFlags="All" 
-                     Padding="10" 
-                     Spacing="0" 
-                     VerticalOptions="FillAndExpand" 
-                     HorizontalOptions="FillAndExpand">
-                <ListView x:Name="AchievementsList"
-                      ItemsSource="{Binding Achievements}"
-                      IsPullToRefreshEnabled="True"
-                      HasUnevenRows="True"
-                      CachingStrategy="RecycleElement"
-                      RefreshCommand="{Binding RefreshListCommand}"
-                      IsRefreshing="{Binding IsRefreshing}"
-                      ItemSelected="AchievementsList_OnItemSelected"
-                      SeparatorVisibility="None">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell Height="120">
-                                <ViewCell.ContextActions>
-                                    <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
-                                </ViewCell.ContextActions>
-                                <StackLayout BackgroundColor="White">
-                                    <elements:ContentViewWithBorder HorizontalOptions="FillAndExpand" 
-                                                                VerticalOptions="FillAndExpand" 
-                                                                Padding="10" 
-                                                                BorderColor="DarkGray" 
-                                                                BorderWidth="1">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="3*" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
+            <controls:FlowListView x:Name="AchievementsList" 
+                                   AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                   AbsoluteLayout.LayoutFlags="All"
+                                   SeparatorVisibility="None"
+                                   HasUnevenRows="true"
+                                   FlowItemsSource="{Binding Achievements}"
+                                   FlowColumnCount="4"
+                                   BackgroundColor="White">
+                <controls:FlowListView.FlowColumnTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="5">
+                            <AbsoluteLayout x:Name="ImageViewLayout" 
+                                            AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                            AbsoluteLayout.LayoutFlags="All"  
+                                            HeightRequest="90"
+                                            Padding="5">
+                                <AbsoluteLayout.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="AchievementsList_OnItemSelected" />
+                                </AbsoluteLayout.GestureRecognizers>
+                                <!-- Hidden field for Id -->
+                                <Label IsVisible="False" Text="{Binding Id}" />
 
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="2*" />
-                                            </Grid.RowDefinitions>
+                                <abstractions:CircleImage Source="{Binding ImageContent, 
+                                                                   Converter={StaticResource ByteToImageSourceConverter}}"
+                                                          Aspect="AspectFit"
+                                                          AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                                          AbsoluteLayout.LayoutFlags="All"
+                                                          VerticalOptions="Center"
+                                                          HorizontalOptions="Start"
+                                                          HeightRequest="90">
+                                </abstractions:CircleImage>
 
-                                            <abstractions:CircleImage Source="{Binding ImageContent, Converter={StaticResource ByteToImageSourceConverter}}"
-                                                                  Aspect="AspectFit"
-                                                                  Grid.Column="0"
-                                                                  Grid.RowSpan="2"
-                                                                  VerticalOptions="Center"
-                                                                  HorizontalOptions="Start"
-                                                                  HeightRequest="90" />
-
-                                            <Label Text="{Binding Title}" 
-                                               Grid.Column="1"
-                                               Grid.Row="0"
-                                               FontSize="Medium" />
-
-                                            <elements:ExtendedLabel HorizontalTextAlignment="Start" 
-                                                                   Lines="3"
-                                                                   LineBreakMode="TailTruncation" 
-                                                                   Grid.Column="1"
-                                                                   Grid.Row="1"
-                                                                   LineSpacing="1.1" 
-                                                                   Text="{Binding GeneralDescription}"
-                                                                   VerticalOptions="Start" />
-
-                                            <Label Text="{Binding GeneralTimeSpent}" 
-                                               Grid.Column="2"
-                                               HorizontalOptions="Center"
-                                               Grid.RowSpan="2"
-                                               VerticalOptions="Center" />
-                                        </Grid>
-                                    </elements:ContentViewWithBorder>
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
+                                <Button AbsoluteLayout.LayoutBounds="1,1,35,35" 
+                                        TextColor="White"
+                                        BackgroundColor="{StaticResource RoundButtonBackground}"
+                                        AbsoluteLayout.LayoutFlags="PositionProportional" 
+                                        Text="{Binding GeneralTimeSpent}" 
+                                        HeightRequest="34" 
+                                        WidthRequest="34" 
+                                        CornerRadius="17"
+                                        FontSize="Micro" />
+                                
+                            </AbsoluteLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </controls:FlowListView.FlowColumnTemplate>
+            </controls:FlowListView>
 
             <Button x:Name="CreateAchievementButton"
                     AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 

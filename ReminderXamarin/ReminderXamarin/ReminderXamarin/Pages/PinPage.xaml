@@ -54,17 +54,14 @@
                     <Button Grid.Column="1" Grid.Row="3" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="0" Clicked="Button_OnClicked" />
                     <Button Grid.Column="2" Grid.Row="3" HorizontalOptions="Center" Style="{StaticResource PinPageButtonStyle}" Text="x" Clicked="DeleteButton_OnClicked" />
                 </Grid>
-            </StackLayout>
 
-            <!-- Exit application -->
-            <Label Text="Exit"
-                   Style="{StaticResource PinPageLabelStyle}"
-                   AbsoluteLayout.LayoutBounds="10,0,1,1" 
-                   AbsoluteLayout.LayoutFlags="YProportional, SizeProportional">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Exit_OnTapped" NumberOfTapsRequired="1" />
-                </Label.GestureRecognizers>
-            </Label>
+                <!-- Exit application -->
+                <Button Text="Exit" 
+                        Style="{StaticResource PinPageExitButtonStyle}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="End"
+                        Clicked="Exit_OnTapped" />
+            </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
