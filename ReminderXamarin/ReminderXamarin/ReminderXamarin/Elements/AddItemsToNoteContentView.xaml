@@ -22,7 +22,7 @@
           </Frame>
           <Button Clicked="CancelButton_OnClicked"
                   Style="{StaticResource FrameButtonStyle}"
-                  Text="Cancel" />
+                  Text="Close" />
         </StackLayout>
   </ContentView.Content>
 </ContentView>
