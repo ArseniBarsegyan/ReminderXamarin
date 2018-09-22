@@ -23,7 +23,7 @@ namespace ReminderXamarin.Pages
         private async void Delete_OnClicked(object sender, EventArgs e)
         {
             bool result = await DisplayAlert
-                (ConstantHelper.Warning, ConstantHelper.AchievementNoteDeleteMessage, ConstantHelper.Ok, ConstantHelper.Cancel);
+                (ConstantsHelper.Warning, ConstantsHelper.AchievementNoteDeleteMessage, ConstantsHelper.Ok, ConstantsHelper.Cancel);
             if (result)
             {
                 _achievementViewModel.DeleteAchievementNoteCommand.Execute(_achievementNoteViewModel);
@@ -46,7 +46,7 @@ namespace ReminderXamarin.Pages
             }
             else
             {
-                await DisplayAlert(ConstantHelper.Warning, ConstantHelper.TimeParsingError, ConstantHelper.Ok);
+                await DisplayAlert(ConstantsHelper.Warning, ConstantsHelper.TimeParsingError, ConstantsHelper.Ok);
             }
         }
 

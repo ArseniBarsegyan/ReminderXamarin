@@ -70,7 +70,7 @@ namespace ReminderXamarin.Pages
         {
             base.OnAppearing();
             ViewModel.PhotosCollectionChanged += ViewModel_OnPhotosCollectionChanged;
-            MessagingCenter.Subscribe<ImageGallery, int>(this, ConstantHelper.ImageDeleted, (gallery, i) =>
+            MessagingCenter.Subscribe<ImageGallery, int>(this, ConstantsHelper.ImageDeleted, (gallery, i) =>
             {
                 ViewModel.DeletePhotoCommand.Execute(i);
             });
@@ -80,7 +80,7 @@ namespace ReminderXamarin.Pages
         {
             base.OnDisappearing();
             ViewModel.PhotosCollectionChanged -= ViewModel_OnPhotosCollectionChanged;
-            MessagingCenter.Unsubscribe<ImageGallery, int>(this, ConstantHelper.ImageDeleted);
+            MessagingCenter.Unsubscribe<ImageGallery, int>(this, ConstantsHelper.ImageDeleted);
         }
 
         private void ViewModel_OnPhotosCollectionChanged(object sender, EventArgs e)

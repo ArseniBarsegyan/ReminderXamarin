@@ -29,16 +29,16 @@ namespace ReminderXamarin.Pages
                 switch (_currentCount)
                 {
                     case 1:
-                        FirstNumber.Source = ConstantHelper.FilledDotImage;
+                        FirstNumber.Source = ConstantsHelper.FilledDotImage;
                         break;
                     case 2:
-                        SecondNumber.Source = ConstantHelper.FilledDotImage;
+                        SecondNumber.Source = ConstantsHelper.FilledDotImage;
                         break;
                     case 3:
-                        ThirdNumber.Source = ConstantHelper.FilledDotImage;
+                        ThirdNumber.Source = ConstantsHelper.FilledDotImage;
                         break;
                     case 4:
-                        FourthNumber.Source = ConstantHelper.FilledDotImage;
+                        FourthNumber.Source = ConstantsHelper.FilledDotImage;
                         break;
                 }
 
@@ -60,10 +60,10 @@ namespace ReminderXamarin.Pages
             _pinBuilder.Length = 0;
             _currentCount = 0;
 
-            FirstNumber.Source = ConstantHelper.EmptyDotImage;
-            SecondNumber.Source = ConstantHelper.EmptyDotImage;
-            ThirdNumber.Source = ConstantHelper.EmptyDotImage;
-            FourthNumber.Source = ConstantHelper.EmptyDotImage;
+            FirstNumber.Source = ConstantsHelper.EmptyDotImage;
+            SecondNumber.Source = ConstantsHelper.EmptyDotImage;
+            ThirdNumber.Source = ConstantsHelper.EmptyDotImage;
+            FourthNumber.Source = ConstantsHelper.EmptyDotImage;
         }
 
         private void RemoveNumber()
@@ -76,16 +76,16 @@ namespace ReminderXamarin.Pages
             switch (_currentCount)
             {
                 case 1:
-                    FirstNumber.Source = ConstantHelper.EmptyDotImage;
+                    FirstNumber.Source = ConstantsHelper.EmptyDotImage;
                     break;
                 case 2:
-                    SecondNumber.Source = ConstantHelper.EmptyDotImage;
+                    SecondNumber.Source = ConstantsHelper.EmptyDotImage;
                     break;
                 case 3:
-                    ThirdNumber.Source = ConstantHelper.EmptyDotImage;
+                    ThirdNumber.Source = ConstantsHelper.EmptyDotImage;
                     break;
                 case 4:
-                    FourthNumber.Source = ConstantHelper.EmptyDotImage;
+                    FourthNumber.Source = ConstantsHelper.EmptyDotImage;
                     break;
             }
 

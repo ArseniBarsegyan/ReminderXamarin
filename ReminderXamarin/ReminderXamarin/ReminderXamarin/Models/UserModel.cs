@@ -5,7 +5,7 @@ using SQLiteNetExtensions.Attributes;
 
 namespace ReminderXamarin.Models
 {
-    [Table(ConstantHelper.Users)]
+    [Table(ConstantsHelper.Users)]
     public class UserModel
     {
         [PrimaryKey]

@@ -2,6 +2,7 @@
 
 namespace ReminderXamarin.Elements
 {
+    /// <inheritdoc />
     /// <summary>
     /// Entry with colored border.
     /// </summary>

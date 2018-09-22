@@ -3,7 +3,7 @@
     /// <summary>
     /// All constants of the app. Ordered by alphabet.
     /// </summary>
-    public static class ConstantHelper
+    public static class ConstantsHelper
     {
         public const string Achievements = "Achievements";
         public const string AchievementNotes = "AchievementNotes";

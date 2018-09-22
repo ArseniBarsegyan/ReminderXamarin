@@ -37,7 +37,7 @@ namespace ReminderXamarin.ViewModels
             if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg"))
             {
                 var imageContent = FileService.ReadAllBytes(document.Path);
-                var resizedImage = MediaService.ResizeImage(imageContent, ConstantHelper.ResizedImageWidth, ConstantHelper.ResizedImageHeight);
+                var resizedImage = MediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
 
                 ImageContent = resizedImage;
             }

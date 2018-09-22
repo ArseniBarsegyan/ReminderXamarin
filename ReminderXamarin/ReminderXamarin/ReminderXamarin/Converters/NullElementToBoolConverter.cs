@@ -7,6 +7,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.Converters
 {
+    /// <inheritdoc />
     /// <summary>
     /// If object exists returns true otherwise false.
     /// </summary>
@@ -15,11 +16,7 @@ namespace ReminderXamarin.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var vmList = (IEnumerable<PhotoViewModel>)value;
-            if (vmList.Any())
-            {
-                return true;
-            }
-            return false;
+            return vmList.Any();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

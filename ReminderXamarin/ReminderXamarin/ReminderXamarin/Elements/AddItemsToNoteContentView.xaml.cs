@@ -4,6 +4,10 @@ using Xamarin.Forms.Xaml;
 
 namespace ReminderXamarin.Elements
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// Contains frame with buttons "Take Photo", "Pick Photo", "Close".
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddItemsToNoteContentView : ContentView
     {

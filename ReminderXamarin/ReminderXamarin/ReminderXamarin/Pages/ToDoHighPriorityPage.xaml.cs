@@ -28,7 +28,7 @@ namespace ReminderXamarin.Pages
         private async void Delete_OnClicked(object sender, EventArgs e)
         {
             bool result = await DisplayAlert
-                (ConstantHelper.Warning, ConstantHelper.ToDoItemDeleteMessage, ConstantHelper.Ok, ConstantHelper.Cancel);
+                (ConstantsHelper.Warning, ConstantsHelper.ToDoItemDeleteMessage, ConstantsHelper.Ok, ConstantsHelper.Cancel);
             if (result)
             {
                 var menuItem = sender as MenuItem;

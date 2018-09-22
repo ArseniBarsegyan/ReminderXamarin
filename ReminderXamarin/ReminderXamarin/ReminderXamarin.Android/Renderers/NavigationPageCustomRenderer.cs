@@ -25,8 +25,8 @@ namespace ReminderXamarin.Droid.Renderers
             {
                 if (noteCreatePage.ShouldDisplayMessage())
                 {
-                    bool result = await noteCreatePage.DisplayAlert(ConstantHelper.Warning,
-                        ConstantHelper.PageCloseMessage, ConstantHelper.Ok, ConstantHelper.Cancel);
+                    bool result = await noteCreatePage.DisplayAlert(ConstantsHelper.Warning,
+                        ConstantsHelper.PageCloseMessage, ConstantsHelper.Ok, ConstantsHelper.Cancel);
 
                     if (result)
                     {

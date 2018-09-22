@@ -6,7 +6,7 @@ using SQLiteNetExtensions.Attributes;
 
 namespace ReminderXamarin.Models
 {
-    [Table(ConstantHelper.Notes)]
+    [Table(ConstantsHelper.Notes)]
     public class Note
     {
         [PrimaryKey, AutoIncrement]

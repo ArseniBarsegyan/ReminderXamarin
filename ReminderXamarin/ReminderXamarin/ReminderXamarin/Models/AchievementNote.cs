@@ -5,7 +5,7 @@ using SQLiteNetExtensions.Attributes;
 
 namespace ReminderXamarin.Models
 {
-    [Table(ConstantHelper.AchievementNotes)]
+    [Table(ConstantsHelper.AchievementNotes)]
     public class AchievementNote
     {
         [PrimaryKey, AutoIncrement]

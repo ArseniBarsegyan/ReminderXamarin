@@ -4,6 +4,10 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.Converters
 {
+    /// <inheritdoc />
+    /// <summary>
+    /// Convert byte array to image source. Set image to empty user if byte array is empty.
+    /// </summary>
     public class EmptyByteToImageSourceConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -13,14 +17,9 @@ namespace ReminderXamarin.Converters
             {
                 byte[] imageAsBytes = (byte[])value;
 
-                if (imageAsBytes.Length == 0)
-                {
-                    retSource = "https://www.cabe-africa.org/wp-content/uploads/2012/01/1.png";
-                }
-                else
-                {
-                    retSource = ImageSource.FromStream(() => new MemoryStream(imageAsBytes));
-                }
+                retSource = imageAsBytes.Length == 0 ? 
+                    "https://www.cabe-africa.org/wp-content/uploads/2012/01/1.png" 
+                    : ImageSource.FromStream(() => new MemoryStream(imageAsBytes));
             }
             return retSource;
         }

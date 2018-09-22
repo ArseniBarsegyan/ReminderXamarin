@@ -2,6 +2,7 @@
 
 namespace ReminderXamarin.Elements
 {
+    /// <inheritdoc />
     /// <summary>
     /// ContentView with properties: border color, corner radius and border width.
     /// </summary>

@@ -4,6 +4,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.Converters
 {
+    /// <inheritdoc />
     /// <summary>
     /// Convert string to bool. If string is null or empty returns false.
     /// </summary>

@@ -15,36 +15,36 @@ namespace ReminderXamarin.Helpers
             {
                 new MasterPageItem
                 {
-                    Title = ConstantHelper.Notes,
-                    IconSource = ConstantHelper.NotesListIcon,
+                    Title = ConstantsHelper.Notes,
+                    IconSource = ConstantsHelper.NotesListIcon,
                     TargetType = typeof(NotesPage),
                     IsDisplayed = true
                 },
                 new MasterPageItem
                 {
-                    Title = ConstantHelper.ToDoSection,
-                    IconSource = ConstantHelper.ToDoListIcon,
+                    Title = ConstantsHelper.ToDoSection,
+                    IconSource = ConstantsHelper.ToDoListIcon,
                     TargetType = typeof(ToDoTabbedPage),
                     IsDisplayed = true
                 },
                 new MasterPageItem
                 {
-                    Title = ConstantHelper.Birthdays,
-                    IconSource = ConstantHelper.BirthdaysIcon,
+                    Title = ConstantsHelper.Birthdays,
+                    IconSource = ConstantsHelper.BirthdaysIcon,
                     TargetType = typeof(BirthdaysPage),
                     IsDisplayed = true
                 },
                 new MasterPageItem
                 {
-                    Title = ConstantHelper.AchievementsSection,
-                    IconSource = ConstantHelper.AchievementsIcon,
+                    Title = ConstantsHelper.AchievementsSection,
+                    IconSource = ConstantsHelper.AchievementsIcon,
                     TargetType = typeof(AchievementsPage),
                     IsDisplayed = true
                 },
                 new MasterPageItem
                 {
-                    Title = ConstantHelper.Settings,
-                    IconSource = ConstantHelper.SettingsIcon,
+                    Title = ConstantsHelper.Settings,
+                    IconSource = ConstantsHelper.SettingsIcon,
                     TargetType = typeof(SettingsPage),
                     IsDisplayed = true
                 }

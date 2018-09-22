@@ -41,7 +41,7 @@ namespace ReminderXamarin.Pages
             }
             // Retrieve file content throught IFileService implementation.
             var imageContent = FileService.ReadAllBytes(document.Path);
-            var resizedImage = MediaService.ResizeImage(imageContent, ConstantHelper.ResizedImageWidth, ConstantHelper.ResizedImageHeight);
+            var resizedImage = MediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
             FriendPhoto.Source = ImageSource.FromStream(() => new MemoryStream(resizedImage));
             _viewModel.ImageContent = resizedImage;
         }
@@ -49,7 +49,7 @@ namespace ReminderXamarin.Pages
         private async void Delete_OnClicked(object sender, EventArgs e)
         {
             bool result = await DisplayAlert
-                (ConstantHelper.Warning, ConstantHelper.BirthdaysDeleteMessage, ConstantHelper.Ok, ConstantHelper.Cancel);
+                (ConstantsHelper.Warning, ConstantsHelper.BirthdaysDeleteMessage, ConstantsHelper.Ok, ConstantsHelper.Cancel);
 
             if (result)
             {

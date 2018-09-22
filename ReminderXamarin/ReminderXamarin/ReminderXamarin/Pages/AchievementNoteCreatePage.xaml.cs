@@ -35,7 +35,7 @@ namespace ReminderXamarin.Pages
             }
             else
             {
-                await DisplayAlert(ConstantHelper.Warning, ConstantHelper.TimeParsingError, ConstantHelper.Ok);
+                await DisplayAlert(ConstantsHelper.Warning, ConstantsHelper.TimeParsingError, ConstantsHelper.Ok);
             }
         }
 

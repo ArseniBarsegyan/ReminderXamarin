@@ -28,7 +28,7 @@ namespace ReminderXamarin.Pages
             var pages = MenuHelper.GetMenu().Where(x => x.IsDisplayed).ToList();
             MenuList.ItemsSource = pages;
 
-            MessagingCenter.Subscribe<NotesPage, MenuPageIndex>(this, ConstantHelper.DetailPageChanged, (sender, pageIndex) =>
+            MessagingCenter.Subscribe<NotesPage, MenuPageIndex>(this, ConstantsHelper.DetailPageChanged, (sender, pageIndex) =>
             {
                 switch (pageIndex)
                 {
@@ -97,8 +97,8 @@ namespace ReminderXamarin.Pages
 
         public void Dispose()
         {
-            MessagingCenter.Unsubscribe<NotesPage, MenuPageIndex>(this, ConstantHelper.DetailPageChanged);
-            MessagingCenter.Unsubscribe<UserProfilePage>(this, ConstantHelper.ProfileUpdated);
+            MessagingCenter.Unsubscribe<NotesPage, MenuPageIndex>(this, ConstantsHelper.DetailPageChanged);
+            MessagingCenter.Unsubscribe<UserProfilePage>(this, ConstantsHelper.ProfileUpdated);
         }
 
         private void UserProfile_OnTapped(object sender, EventArgs e)

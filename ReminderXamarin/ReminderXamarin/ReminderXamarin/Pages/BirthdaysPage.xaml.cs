@@ -32,7 +32,7 @@ namespace ReminderXamarin.Pages
         private async void Delete_OnClicked(object sender, EventArgs e)
         {
             bool result = await DisplayAlert
-                (ConstantHelper.Warning, ConstantHelper.FriendDeleteMessage, ConstantHelper.Ok, ConstantHelper.Cancel);
+                (ConstantsHelper.Warning, ConstantsHelper.FriendDeleteMessage, ConstantsHelper.Ok, ConstantsHelper.Cancel);
 
             if (result)
             {

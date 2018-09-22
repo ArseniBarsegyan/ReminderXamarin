@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Models;
 using ReminderXamarin.ViewModels;
@@ -140,10 +138,10 @@ namespace ReminderXamarin.Extensions
 
             switch (model.Priority)
             {
-                case ConstantHelper.High:
+                case ConstantsHelper.High:
                     viewModel.Priority = ToDoPriority.High;
                     break;
-                case ConstantHelper.Medium:
+                case ConstantsHelper.Medium:
                     viewModel.Priority = ToDoPriority.Medium;
                     break;
                 default:
@@ -179,10 +177,10 @@ namespace ReminderXamarin.Extensions
                 };
                 switch (model.Priority)
                 {
-                    case ConstantHelper.High:
+                    case ConstantsHelper.High:
                         viewModel.Priority = ToDoPriority.High;
                         break;
-                    case ConstantHelper.Medium:
+                    case ConstantsHelper.Medium:
                         viewModel.Priority = ToDoPriority.Medium;
                         break;
                     default:

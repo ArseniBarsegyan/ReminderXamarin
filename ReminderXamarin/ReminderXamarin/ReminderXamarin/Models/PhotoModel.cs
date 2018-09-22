@@ -7,7 +7,7 @@ namespace ReminderXamarin.Models
     /// <summary>
     /// Store filepath to pictures.
     /// </summary>
-    [Table(ConstantHelper.Photos)]
+    [Table(ConstantsHelper.Photos)]
     public class PhotoModel
     {
         [PrimaryKey, AutoIncrement]

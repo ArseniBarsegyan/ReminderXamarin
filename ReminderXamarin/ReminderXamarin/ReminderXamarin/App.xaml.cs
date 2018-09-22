@@ -11,7 +11,7 @@ namespace ReminderXamarin
         public App()
         {
             InitializeComponent();
-            string dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantHelper.SqLiteDataBaseName);
+            string dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantsHelper.SqLiteDataBaseName);
 
             NoteRepository = new NoteRepository(dbPath);
             ToDoRepository = new ToDoRepository(dbPath);

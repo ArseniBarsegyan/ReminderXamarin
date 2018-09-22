@@ -3,6 +3,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.Elements
 {
+    /// <inheritdoc />
     /// <summary>
     /// Scroll view that accepts images as ItemsSource and display them.
     /// </summary>

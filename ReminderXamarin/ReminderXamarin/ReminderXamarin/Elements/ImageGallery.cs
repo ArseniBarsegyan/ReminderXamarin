@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using Xamarin.Forms;
@@ -43,18 +42,18 @@ namespace ReminderXamarin.Elements
         {
             var deleteImage = new Image
             {
-                Source = ConstantHelper.DeleteImageSource,
+                Source = ConstantsHelper.DeleteImageSource,
                 HeightRequest = 20
             };
             var deleteGestureRecognizer = new TapGestureRecognizer();
             // Taping on "delete" image will delete current image after user confirm it.
             deleteGestureRecognizer.Tapped += async (sender, args) =>
             {
-                bool result = await AlertService.ShowYesNoAlert(ConstantHelper.AreYouSure, ConstantHelper.Yes, ConstantHelper.No);
+                bool result = await AlertService.ShowYesNoAlert(ConstantsHelper.AreYouSure, ConstantsHelper.Yes, ConstantsHelper.No);
                 if (result)
                 {
                     Images.RemoveAt(_currentPosition);
-                    MessagingCenter.Send(this, ConstantHelper.ImageDeleted, _currentPosition);
+                    MessagingCenter.Send(this, ConstantsHelper.ImageDeleted, _currentPosition);
                 }
             };
             deleteImage.GestureRecognizers.Add(deleteGestureRecognizer);

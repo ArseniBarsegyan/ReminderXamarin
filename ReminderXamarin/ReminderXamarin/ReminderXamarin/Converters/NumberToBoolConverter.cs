@@ -4,8 +4,9 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.Converters
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Convert positive integer value to bool. Return true if value > 0.
+    /// Convert positive integer value to bool. Return true if value &gt; 0.
     /// </summary>
     public class NumberToBoolConverter : IValueConverter
     {

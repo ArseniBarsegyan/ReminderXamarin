@@ -5,7 +5,7 @@ using SQLiteNetExtensions.Attributes;
 
 namespace ReminderXamarin.Models
 {
-    [Table(ConstantHelper.Birthdays)]
+    [Table(ConstantsHelper.Birthdays)]
     public class BirthdayModel
     {
         [PrimaryKey, AutoIncrement]

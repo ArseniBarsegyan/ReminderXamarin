@@ -7,7 +7,7 @@ namespace ReminderXamarin.Models
     /// <summary>
     /// Store filepath to videos.
     /// </summary>
-    [Table(ConstantHelper.Videos)]
+    [Table(ConstantsHelper.Videos)]
     public class VideoModel
     {
         [PrimaryKey, AutoIncrement]

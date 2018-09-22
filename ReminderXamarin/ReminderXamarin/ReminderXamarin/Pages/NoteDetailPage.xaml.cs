@@ -31,7 +31,7 @@ namespace ReminderXamarin.Pages
         {
             base.OnAppearing();
             _noteViewModel.PhotosCollectionChanged += NoteViewModelOnPhotosCollectionChanged;
-            MessagingCenter.Subscribe<ImageGallery, int>(this, ConstantHelper.ImageDeleted, (gallery, i) =>
+            MessagingCenter.Subscribe<ImageGallery, int>(this, ConstantsHelper.ImageDeleted, (gallery, i) =>
             {
                 _noteViewModel.DeletePhotoCommand.Execute(i);
             });
@@ -52,13 +52,13 @@ namespace ReminderXamarin.Pages
         {
             base.OnDisappearing();
             _noteViewModel.PhotosCollectionChanged -= NoteViewModelOnPhotosCollectionChanged;
-            MessagingCenter.Unsubscribe<ImageGallery, int>(this, ConstantHelper.ImageDeleted);
+            MessagingCenter.Unsubscribe<ImageGallery, int>(this, ConstantsHelper.ImageDeleted);
         }
 
         private async void Delete_OnClicked(object sender, EventArgs e)
         {
             bool result = await DisplayAlert
-                (ConstantHelper.Warning, ConstantHelper.NoteDeleteMessage, ConstantHelper.Ok, ConstantHelper.Cancel);
+                (ConstantsHelper.Warning, ConstantsHelper.NoteDeleteMessage, ConstantsHelper.Ok, ConstantsHelper.Cancel);
             if (result)
             {
                 _noteViewModel.DeleteNoteCommand.Execute(null);

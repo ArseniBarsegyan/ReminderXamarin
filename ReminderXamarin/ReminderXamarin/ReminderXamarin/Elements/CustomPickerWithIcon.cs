@@ -10,7 +10,7 @@ namespace ReminderXamarin.Elements
     public class CustomPickerWithIcon : Picker
     {
         public static readonly BindableProperty ImageProperty = BindableProperty.Create(nameof(Image),
-            typeof(string), typeof(CustomPickerWithIcon), ConstantHelper.ArrowForwardImage);
+            typeof(string), typeof(CustomPickerWithIcon), ConstantsHelper.ArrowForwardImage);
         public static BindableProperty PlaceholderColorProperty = BindableProperty.Create(nameof(PlaceholderColor),
             typeof(Color), typeof(CustomPickerWithIcon), Color.DodgerBlue, BindingMode.TwoWay);
         public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor),
