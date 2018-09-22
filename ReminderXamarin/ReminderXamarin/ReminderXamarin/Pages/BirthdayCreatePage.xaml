@@ -15,7 +15,9 @@
             <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Padding="10" Spacing="10">
                 <StackLayout Spacing="0">
                     <abstractions:CircleImage x:Name="FriendPhoto"
-                                              Aspect="AspectFit"
+                                              Aspect="AspectFill"
+                                              HorizontalOptions="Center"
+                                              VerticalOptions="Start"
                                               HeightRequest="120"
                                               WidthRequest="120"
                                               Source="https://www.cabe-africa.org/wp-content/uploads/2012/01/1.png"

@@ -16,8 +16,11 @@
                 <Label Text="Pick image for achievement" />
                 <Label x:Name="FileNameLabel" IsVisible="False" />
                 <abstractions:CircleImage x:Name="PreviewImage" 
-                                          HeightRequest="120" 
-                                          Aspect="AspectFit" 
+                                          Aspect="AspectFill"
+                                          HorizontalOptions="Center"
+                                          VerticalOptions="Start"
+                                          HeightRequest="120"
+                                          WidthRequest="120"
                                           IsVisible="False" />
                 <Button x:Name="PickImageButton" Text="Pick image" Clicked="PickImageButton_OnClicked" />
 
