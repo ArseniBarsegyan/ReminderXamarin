@@ -49,7 +49,7 @@ namespace ReminderXamarin.Models
             }
             else
             {
-                _db.InsertWithChildren(achievement);
+                _db.Insert(achievement);
             }
         }
 

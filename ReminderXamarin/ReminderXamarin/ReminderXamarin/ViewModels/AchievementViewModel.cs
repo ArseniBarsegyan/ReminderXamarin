@@ -49,16 +49,8 @@ namespace ReminderXamarin.ViewModels
             IsRefreshing = false;
         }
 
-        // TODO - remove stub
         private void CreateAchievementCommandExecute()
         {
-            AchievementNotes.Add(new AchievementNoteViewModel
-            {
-                Description = GeneralDescription,
-                HoursSpent = GeneralTimeSpent,
-                Date = DateTime.Now,
-                AchievementId = Id
-            });
             App.AchievementRepository.Save(this.ToAchievementModel());
         }
 
@@ -77,18 +69,20 @@ namespace ReminderXamarin.ViewModels
             App.AchievementRepository.Save(this.ToAchievementModel());
         }
 
+        // Insert updated achievement note instead of old.
         private void UpdateAchievementNoteCommandExecute(AchievementNoteViewModel achievementNoteViewModel)
         {
             var oldNote = AchievementNotes.FirstOrDefault(x => x.Id == achievementNoteViewModel.Id);
             int oldNoteIndex = AchievementNotes.IndexOf(oldNote);
+            AchievementNotes.RemoveAt(oldNoteIndex);
             AchievementNotes.Insert(oldNoteIndex, achievementNoteViewModel);
 
             UpdateAchievementCommandExecute();
         }
 
-        private int DeleteAchievementCommandExecute()
+        private void DeleteAchievementCommandExecute()
         {
-            return App.AchievementRepository.DeleteAchievement(this.ToAchievementModel());
+            App.AchievementRepository.DeleteAchievement(this.ToAchievementModel());
         }
 
         private void DeleteAchievementNoteCommandExecute(AchievementNoteViewModel noteViewModel)
