@@ -50,5 +50,17 @@ namespace ReminderXamarin.Pages
         {
             await Navigation.PushModalAsync(new AchievementNoteCreatePage(_viewModel));
         }
+
+        private async void DeleteAchievement_OnClicked(object sender, EventArgs e)
+        {
+            bool result = await DisplayAlert
+                (ConstantsHelper.Warning, ConstantsHelper.AchievementDeleteMessage, ConstantsHelper.Ok, ConstantsHelper.Cancel);
+
+            if (result)
+            {
+                _viewModel.DeleteAchievementCommand.Execute(null);
+                await Navigation.PopAsync();
+            }
+        }
     }
 }
