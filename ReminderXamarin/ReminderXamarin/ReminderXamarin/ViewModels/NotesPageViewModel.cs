@@ -8,6 +8,11 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
+    public class NotesGroup : ObservableCollection<NoteViewModel>
+    {
+        public string Title { get; set; }
+    }
+
     public class NotesPageViewModel : BaseViewModel
     {
         private List<NoteViewModel> _allNotes;
@@ -15,6 +20,7 @@ namespace ReminderXamarin.ViewModels
 
         public NotesPageViewModel()
         {
+            NotesGroups = new ObservableCollection<NotesGroup>();
             Notes = new ObservableCollection<NoteViewModel>();
 
             RefreshListCommand = new Command(RefreshCommandExecute);
@@ -23,6 +29,7 @@ namespace ReminderXamarin.ViewModels
         }
 
         public bool IsRefreshing { get; set; }
+        public ObservableCollection<NotesGroup> NotesGroups { get; set; }
         public ObservableCollection<NoteViewModel> Notes { get; set; }
         public ICommand RefreshListCommand { get; set; }
         public ICommand SelectNoteCommand { get; set; }
@@ -47,6 +54,7 @@ namespace ReminderXamarin.ViewModels
             Notes = _allNotes
                 .Where(x => x.FullDescription.Contains(text))
                 .ToObservableCollection();
+            DivideNotesIntoGroups();
         }
 
         private void LoadNoteFromDatabase()
@@ -62,6 +70,25 @@ namespace ReminderXamarin.ViewModels
             Notes = _allNotes.ToObservableCollection();
             // Save filtering.
             SearchNotesByDescription(_currentSearchText);
+        }
+        
+        private void DivideNotesIntoGroups()
+        {
+            NotesGroups = new ObservableCollection<NotesGroup>();
+            var noteGroups = Notes.GroupBy(g => g.CreationDate.ToString("d"));
+
+            foreach (var noteGroup in noteGroups)
+            {
+                var noteGroupObj = new NotesGroup
+                {
+                    Title = noteGroup.Key
+                };
+                foreach (var model in noteGroup)
+                {
+                    noteGroupObj.Add(model);
+                }
+                NotesGroups.Add(noteGroupObj);
+            }
         }
 
         private NoteViewModel SelectNoteCommandExecute(int id)

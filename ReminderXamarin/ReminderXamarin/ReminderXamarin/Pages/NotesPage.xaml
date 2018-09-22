@@ -26,14 +26,16 @@
             </elements:ContentViewWithBorder>
             <!-- List with notes -->
             <ListView x:Name="NotesList" 
-                  ItemsSource="{Binding Notes}"
-                  IsPullToRefreshEnabled="True"
-                  HasUnevenRows="True"
-                  CachingStrategy="RecycleElement"
-                  RefreshCommand="{Binding RefreshListCommand}"
-                  IsRefreshing="{Binding IsRefreshing}"
-                  ItemSelected="NotesList_OnItemSelected"
-                  SeparatorVisibility="None">
+                      ItemsSource="{Binding NotesGroups}"
+                      IsGroupingEnabled="True"
+                      GroupDisplayBinding="{Binding Title}"
+                      IsPullToRefreshEnabled="True"
+                      HasUnevenRows="True"
+                      CachingStrategy="RecycleElement"
+                      RefreshCommand="{Binding RefreshListCommand}"
+                      IsRefreshing="{Binding IsRefreshing}"
+                      ItemSelected="NotesList_OnItemSelected"
+                      SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell Height="100">
