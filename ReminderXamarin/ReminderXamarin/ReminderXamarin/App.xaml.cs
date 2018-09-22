@@ -8,15 +8,17 @@ namespace ReminderXamarin
 {
     public partial class App : Application
     {
-        private static NoteRepository _noteRepository;
-        private static ToDoRepository _toDoRepository;
-        private static AchievementRepository _achievementRepository;
-        private static UserRepository _userRepository;
-        private static BirthdaysRepository _birthdaysRepository;
-
         public App()
         {
             InitializeComponent();
+            string dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantHelper.SqLiteDataBaseName);
+
+            NoteRepository = new NoteRepository(dbPath);
+            ToDoRepository = new ToDoRepository(dbPath);
+            AchievementRepository = new AchievementRepository(dbPath);
+            UserRepository = new UserRepository(dbPath);
+            BirthdaysRepository = new BirthdaysRepository(dbPath);
+
             bool.TryParse(Settings.UsePin, out bool shouldUsePin);
             if (shouldUsePin)
             {
@@ -32,41 +34,31 @@ namespace ReminderXamarin
         /// Get Note repository with help dependency service.
         /// </summary>
         /// <value>The database.</value>
-        public static NoteRepository NoteRepository => _noteRepository ??
-                                                 (_noteRepository = new NoteRepository(DependencyService.Get<IFileHelper>()
-                                                     .GetLocalFilePath(ConstantHelper.SqLiteDataBaseName)));
+        public static NoteRepository NoteRepository { get; private set; }
 
         /// <summary>
         /// Get To-do models repository with help of dependency service.
         /// </summary>
         /// <value>The database.</value>
-        public static ToDoRepository ToDoRepository => _toDoRepository ??
-                                                       (_toDoRepository = new ToDoRepository(DependencyService.Get<IFileHelper>()
-                                                           .GetLocalFilePath(ConstantHelper.SqLiteDataBaseName)));
+        public static ToDoRepository ToDoRepository { get; private set; }
 
         /// <summary>
         /// Get achievement models repository with help dependency service.
         /// </summary>
         /// <value>The database.</value>
-        public static AchievementRepository AchievementRepository => _achievementRepository ??
-                                                       (_achievementRepository = new AchievementRepository(DependencyService.Get<IFileHelper>()
-                                                           .GetLocalFilePath(ConstantHelper.SqLiteDataBaseName)));
+        public static AchievementRepository AchievementRepository { get; private set; }
 
         /// <summary>
         /// Get users repository with help dependency service.
         /// </summary>
         /// <value>The database.</value>
-        public static UserRepository UserRepository => _userRepository ??
-                                                                     (_userRepository = new UserRepository(DependencyService.Get<IFileHelper>()
-                                                                         .GetLocalFilePath(ConstantHelper.SqLiteDataBaseName)));
+        public static UserRepository UserRepository { get; private set; }
 
         /// <summary>
         /// Get birthday repository with help dependency service.
         /// </summary>
         /// <value>The database.</value>
-        public static BirthdaysRepository BirthdaysRepository => _birthdaysRepository ??
-                                                       (_birthdaysRepository = new BirthdaysRepository(DependencyService.Get<IFileHelper>()
-                                                           .GetLocalFilePath(ConstantHelper.SqLiteDataBaseName)));
+        public static BirthdaysRepository BirthdaysRepository { get; private set; }
 
         protected override void OnStart()
         {
