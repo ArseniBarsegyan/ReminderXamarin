@@ -8,9 +8,10 @@
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <!-- Header with user name and photo -->
-            <StackLayout Padding="10" Spacing="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-                <StackLayout Spacing="4">
-                    <abstractions:CircleImage x:Name="UserProfileImage"
+            <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout Padding="10" Spacing="10" >
+                    <StackLayout Spacing="4">
+                        <abstractions:CircleImage x:Name="UserProfileImage"
                                               Aspect="AspectFill"
                                               HorizontalOptions="Center"
                                               VerticalOptions="Start"
@@ -18,31 +19,53 @@
                                               WidthRequest="120"
                                               Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}"
                                               Style="{StaticResource UserImageStyle}">
-                        <abstractions:CircleImage.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="UserProfileImage_OnTapped" NumberOfTapsRequired="1" />
-                        </abstractions:CircleImage.GestureRecognizers>
-                    </abstractions:CircleImage>
+                            <abstractions:CircleImage.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="UserProfileImage_OnTapped" NumberOfTapsRequired="1" />
+                            </abstractions:CircleImage.GestureRecognizers>
+                        </abstractions:CircleImage>
 
-                    <!-- Clicking on this icon will open selection of image for user profile -->
-                    <Image x:Name="EditUserProfilePhoto" 
+                        <!-- Clicking on this icon will open selection of image for user profile -->
+                        <Image x:Name="EditUserProfilePhoto" 
                            Source="edit.png" 
                            WidthRequest="15"
                            HeightRequest="15"
                            HorizontalOptions="Center"
                            BackgroundColor="LightBlue">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="EditUserProfilePhoto_OnTapped" NumberOfTapsRequired="1" />
-                        </Image.GestureRecognizers>
-                    </Image>
-                </StackLayout>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EditUserProfilePhoto_OnTapped" NumberOfTapsRequired="1" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
 
-                <!-- User name -->
-                <StackLayout Spacing="4">
-                    <Label Text="User name" />
-                    <Entry Text="{Binding UserName}" />
-                </StackLayout>
-            </StackLayout>
+                    <!-- User information -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
+                        <Label Grid.Row="0" Grid.Column="0" Text="User name" />
+                        <Entry Grid.Row="0" Grid.Column="1" Text="{Binding UserName}" />
+
+                        <Label Grid.Row="1" Grid.Column="0" Text="Notes count: " />
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding NotesCount}" />
+
+                        <Label Grid.Row="2" Grid.Column="0" Text="Achievements count" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding AchievementsCount}" />
+
+                        <Label Grid.Row="3" Grid.Column="0" Text="Friends Birthdays count" />
+                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding FriendBirthdaysCount}" />
+                    </Grid>
+
+                </StackLayout>
+            </ScrollView>
+            
             <Button AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     Style="{StaticResource ButtonWithImageStyle}"

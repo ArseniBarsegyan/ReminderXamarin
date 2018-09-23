@@ -15,14 +15,26 @@
             <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Padding="10">
                 <Label Text="Pick image for achievement" />
                 <Label x:Name="FileNameLabel" IsVisible="False" />
-                <abstractions:CircleImage x:Name="PreviewImage" 
-                                          Aspect="AspectFill"
-                                          HorizontalOptions="Center"
-                                          VerticalOptions="Start"
-                                          HeightRequest="120"
-                                          WidthRequest="120"
-                                          IsVisible="False" />
-                <Button x:Name="PickImageButton" Text="Pick image" Clicked="PickImageButton_OnClicked" />
+                <StackLayout Spacing="4">
+                    <abstractions:CircleImage x:Name="PreviewImage" 
+                                              Aspect="AspectFill"
+                                              HorizontalOptions="Center"
+                                              VerticalOptions="Start"
+                                              HeightRequest="120"
+                                              WidthRequest="120"
+                                              IsVisible="False" />
+                    <!-- Clicking on this icon will open selection of image for achievement -->
+                    <Image x:Name="EditUserProfilePhoto" 
+                           Source="edit.png" 
+                           WidthRequest="15"
+                           HeightRequest="15"
+                           HorizontalOptions="Center"
+                           BackgroundColor="LightBlue">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="PickImage_OnTapped" NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
 
                 <Label Text="Achievement name: " HorizontalOptions="Start" />
                 <Entry x:Name="TitleEntry"

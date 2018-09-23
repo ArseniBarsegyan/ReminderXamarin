@@ -28,7 +28,6 @@
             <ListView x:Name="NotesList" 
                       ItemsSource="{Binding NotesGroups}"
                       IsGroupingEnabled="True"
-                      GroupDisplayBinding="{Binding Title}"
                       IsPullToRefreshEnabled="True"
                       HasUnevenRows="True"
                       CachingStrategy="RecycleElement"
@@ -36,6 +35,12 @@
                       IsRefreshing="{Binding IsRefreshing}"
                       ItemSelected="NotesList_OnItemSelected"
                       SeparatorVisibility="None">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Title}"
+                                  TextColor="{StaticResource DarkFont}" />
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell Height="100">

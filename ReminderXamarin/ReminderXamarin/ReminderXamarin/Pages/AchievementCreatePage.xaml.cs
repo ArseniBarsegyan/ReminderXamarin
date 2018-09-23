@@ -33,7 +33,7 @@ namespace ReminderXamarin.Pages
             await Navigation.PopAsync();
         }
 
-        private async void PickImageButton_OnClicked(object sender, EventArgs e)
+        private async void PickImage_OnTapped(object sender, EventArgs e)
         {
             var document = await DocumentPicker.DisplayImportAsync(this);
 

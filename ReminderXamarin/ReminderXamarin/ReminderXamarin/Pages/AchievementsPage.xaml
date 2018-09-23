@@ -12,6 +12,7 @@
 
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <!-- List of achievements -->
             <controls:FlowListView x:Name="AchievementsList" 
                                    AbsoluteLayout.LayoutBounds="0,0,1,1" 
                                    AbsoluteLayout.LayoutFlags="All"
@@ -19,7 +20,7 @@
                                    HasUnevenRows="true"
                                    FlowItemsSource="{Binding Achievements}"
                                    FlowColumnCount="3"
-                                   BackgroundColor="White">
+                                   BackgroundColor="{StaticResource AchievementPageBackground}">
                 <controls:FlowListView.FlowColumnTemplate>
                     <DataTemplate>
                         <StackLayout Padding="5">
@@ -33,25 +34,25 @@
                                 </AbsoluteLayout.GestureRecognizers>
                                 <!-- Hidden field for Id -->
                                 <Label IsVisible="False" Text="{Binding Id}" />
-
                                 <abstractions:CircleImage Source="{Binding ImageContent, 
                                                                    Converter={StaticResource ByteToImageSourceConverter}}"
-                                                          Aspect="AspectFit"
-                                                          AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                                                          AbsoluteLayout.LayoutFlags="All"
+                                                          Aspect="AspectFill"
+                                                          AbsoluteLayout.LayoutBounds="0,0,90,90" 
+                                                          AbsoluteLayout.LayoutFlags="PositionProportional"
                                                           VerticalOptions="Center"
-                                                          HorizontalOptions="Start"
-                                                          HeightRequest="90">
+                                                          HorizontalOptions="Center"
+                                                          HeightRequest="90"
+                                                          WidthRequest="90">
                                 </abstractions:CircleImage>
 
-                                <Button AbsoluteLayout.LayoutBounds="1,1,35,35" 
+                                <Button AbsoluteLayout.LayoutBounds="1,1,50,50" 
                                         TextColor="White"
-                                        BackgroundColor="{StaticResource RoundButtonBackground}"
+                                        BackgroundColor="{Binding GeneralTimeSpent, Converter={StaticResource NumberToColorConverter}}"
                                         AbsoluteLayout.LayoutFlags="PositionProportional" 
-                                        Text="{Binding GeneralTimeSpent}" 
-                                        HeightRequest="34" 
-                                        WidthRequest="34" 
-                                        CornerRadius="17"
+                                        Text="{Binding GeneralTimeSpent, Converter={StaticResource SpentTimePresentationConverter}}" 
+                                        HeightRequest="50" 
+                                        WidthRequest="50" 
+                                        CornerRadius="25"
                                         FontSize="Micro" />
                                 
                             </AbsoluteLayout>

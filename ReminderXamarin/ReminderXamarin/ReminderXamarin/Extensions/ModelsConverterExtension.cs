@@ -333,7 +333,10 @@ namespace ReminderXamarin.Extensions
             {
                 Id = model.Id,
                 ImageContent = model.ImageContent,
-                UserName = model.UserName
+                UserName = model.UserName,
+                NotesCount = model.Notes.Count,
+                AchievementsCount = model.Achievements.Count,
+                FriendBirthdaysCount = model.Birthdays.Count
             };
         }
     }

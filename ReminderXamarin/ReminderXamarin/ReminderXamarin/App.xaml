@@ -8,6 +8,8 @@
 	<Application.Resources>
 		<!-- Application resource dictionary -->
         <ResourceDictionary>
+            <Color x:Key="DarkFont">#323232</Color>
+            <Color x:Key="AchievementPageBackground">#fafafa</Color>
             <Color x:Key="SubmitButtonBackground">#2196F3</Color>
             <Color x:Key="CancelButtonBackground">#FFADD8E6</Color>
             <Color x:Key="CancelButtonText">#2196F3</Color>
@@ -106,6 +108,8 @@
             <converters:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
             <converters:EmptyByteToImageSourceConverter x:Key="EmptyByteToImageSourceConverter" />
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <converters:NumberToColorConverter x:Key="NumberToColorConverter" />
+            <converters:AchievementSpentTimePresentationConverter x:Key="SpentTimePresentationConverter" />
         </ResourceDictionary>
 	</Application.Resources>
 </Application>
