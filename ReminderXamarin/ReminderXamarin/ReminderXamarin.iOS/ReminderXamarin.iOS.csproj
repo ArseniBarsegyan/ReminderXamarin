@@ -171,6 +171,9 @@
     <PackageReference Include="PCLStorage">
       <Version>1.0.2</Version>
     </PackageReference>
+    <PackageReference Include="Plugin.Multilingual">
+      <Version>1.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>1.0.4</Version>
     </PackageReference>

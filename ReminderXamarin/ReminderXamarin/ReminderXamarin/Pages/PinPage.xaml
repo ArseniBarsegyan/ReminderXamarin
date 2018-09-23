@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
+             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.PinPage"
              BackgroundColor="White">
     <ContentPage.BindingContext>
@@ -20,7 +21,7 @@
                          AbsoluteLayout.LayoutFlags="All" 
                          Spacing="10">
 
-                <Label Text="Enter pin" Style="{StaticResource PinPageLabelStyle}" HorizontalOptions="Center" />
+                <Label Text="{extensions:Translate EnterPin}" Style="{StaticResource PinPageLabelStyle}" HorizontalOptions="Center" />
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Image x:Name="FirstNumber" Source="emptyDot.png" />
@@ -56,7 +57,7 @@
                 </Grid>
 
                 <!-- Exit application -->
-                <Button Text="Exit" 
+                <Button Text="{extensions:Translate Exit}" 
                         Style="{StaticResource PinPageExitButtonStyle}"
                         HorizontalOptions="Center"
                         VerticalOptions="End"
