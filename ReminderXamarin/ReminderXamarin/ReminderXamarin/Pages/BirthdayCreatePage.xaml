@@ -4,6 +4,7 @@
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.BirthdayCreatePage"
              BackgroundColor="White">
     <ContentPage.BindingContext>
@@ -40,7 +41,7 @@
                 </StackLayout>
 
                 <StackLayout Spacing="0">
-                    <Label Text="Birthday: " />
+                    <Label Text="{extensions:Translate Birthday}" />
                     <DatePicker x:Name="DatePicker"
                             MinimumDate="01/01/2018"
                             MaximumDate="01/01/2100"
@@ -48,13 +49,13 @@
                 </StackLayout>
 
                 <StackLayout Spacing="0">
-                    <Label Text="Friend name: " />
+                    <Label Text="{extensions:Translate FriendName}" />
                     <Entry x:Name="NameEntry"
                        HorizontalOptions="FillAndExpand" />
                 </StackLayout>
 
                 <StackLayout Spacing="0">
-                    <Label Text="Preferences description: " HorizontalOptions="Start" />
+                    <Label Text="{extensions:Translate PreferencesDescription}" HorizontalOptions="Start" />
                     <Editor x:Name="GiftDescriptionEditor"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="FillAndExpand"

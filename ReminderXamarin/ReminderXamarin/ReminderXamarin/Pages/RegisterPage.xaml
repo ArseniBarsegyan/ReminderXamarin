@@ -4,6 +4,7 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels"
              xmlns:elements1="clr-namespace:ReminderXamarin.Elements"
+             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.RegisterPage">
     <ContentPage.BindingContext>
         <viewModels1:RegisterViewModel x:Name="ViewModel" />
@@ -22,13 +23,13 @@
                          AbsoluteLayout.LayoutFlags="All" 
                          Padding="10">
                 <Label FontSize="Large"
-                   Text="Register" 
+                   Text="{extensions:Translate Register}" 
                    HorizontalOptions="Center" 
                    TextColor="White" />
                 <StackLayout Spacing="10" VerticalOptions="CenterAndExpand">
                     <!-- User name -->
                     <StackLayout Spacing="0">
-                        <Label Text="User name:" Style="{StaticResource LoginLabelStyle}" />
+                        <Label Text="{extensions:Translate Username}" Style="{StaticResource LoginLabelStyle}" />
                         <elements:EntryWithBorder x:Name="UserNameEntry" 
                                               Style="{StaticResource LoginEntryStyle}"
                                               Completed="UserNameEntry_OnCompleted"/>
@@ -36,7 +37,7 @@
 
                     <!-- Password -->
                     <StackLayout Spacing="0">
-                        <Label Text="Password:" Style="{StaticResource LoginLabelStyle}" />
+                        <Label Text="{extensions:Translate Password}" Style="{StaticResource LoginLabelStyle}" />
                         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                             <elements:EntryWithBorder x:Name="PasswordEntry"
                                                   AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -59,7 +60,7 @@
 
                     <!-- Confirm password -->
                     <StackLayout Spacing="0">
-                        <Label Text="Confirm password:" Style="{StaticResource LoginLabelStyle}" />
+                        <Label Text="{extensions:Translate ConfirmPassword}" Style="{StaticResource LoginLabelStyle}" />
                         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                             <elements:EntryWithBorder x:Name="ConfirmPasswordEntry"
                                                   AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -83,18 +84,18 @@
                 <!-- Error message -->
                 <Label TextColor="White"
                    HorizontalOptions="Center"
-                   Text="Check your passwords match, or current user is already in use." 
+                   Text="{extensions:Translate CheckPasswordErrorMessage}" 
                    IsVisible="{Binding IsValid, Converter={StaticResource InverseBooleanConverter}}" />
                 <!-- Submit button -->
                 <Button x:Name="SubmitButton" 
                     Clicked="SubmitButton_OnClicked"
                     VerticalOptions="EndAndExpand"
                     Style="{StaticResource LoginButtonStyle}"
-                    Text="Register" />
+                    Text="{extensions:Translate Register}" />
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Label TextColor="White" Text="Already have an account?" />
-                    <elements1:ExtendedLabel TextColor="White" IsUnderlined="True" Text="Login">
+                    <Label TextColor="White" Text="{extensions:Translate AlreadyHaveAccountQuestion}" />
+                    <elements1:ExtendedLabel TextColor="White" IsUnderlined="True" Text="{extensions:Translate Login}">
                         <elements:ExtendedLabel.GestureRecognizers>
                             <TapGestureRecognizer Tapped="Login_OnTapped" NumberOfTapsRequired="1" />
                         </elements:ExtendedLabel.GestureRecognizers>

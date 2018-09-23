@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.BirthdayDetailPage"
              Title="{Binding Name}"
              BackgroundColor="White">
@@ -35,20 +36,19 @@
                 </StackLayout>
 
                 <StackLayout Spacing="0">
-                    <Label Text="Edit birthday date: " />
+                    <Label Text="{extensions:Translate EditBirthdayDate}" />
                     <DatePicker x:Name="DatePicker"
                                 MinimumDate="01/01/2018"
                                 MaximumDate="01/01/2100" />
                 </StackLayout>
 
                 <StackLayout Spacing="0">
-                    <Label Text="Edit name: " />
-                    <Entry x:Name="NameEntry"
-                           HorizontalOptions="FillAndExpand" />
+                    <Label Text="{extensions:Translate EditName}" />
+                    <Entry x:Name="NameEntry" HorizontalOptions="FillAndExpand" />
                 </StackLayout>
 
                 <StackLayout Spacing="0">
-                    <Label Text="Edit preferences description: " HorizontalOptions="Start" />
+                    <Label Text="{extensions:Translate EditPreferencesDescription}" HorizontalOptions="Start" />
                     <Editor x:Name="GiftDescriptionEditor"
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="FillAndExpand"

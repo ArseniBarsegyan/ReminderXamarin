@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.AchievementNoteCreatePage"
              BackgroundColor="White">
     <ContentPage.Content>
@@ -18,7 +19,7 @@
                        Text="0" 
                        Keyboard="Numeric"/>
 
-                <Label Text="Description: " />
+                <Label Text="{extensions:Translate Description}" />
                 <ScrollView>
                     <Editor x:Name="DescriptionEditor"
                             HeightRequest="200"
@@ -30,13 +31,13 @@
                     <Button x:Name="SubmitButton"
                             HorizontalOptions="FillAndExpand"
                             Style="{StaticResource SubmitButtonStyle}"
-                            Text="Add"
+                            Text="{extensions:Translate Add}"
                             Clicked="SubmitButton_OnClicked" />
 
                     <Button x:Name="CancelButton"
                             HorizontalOptions="FillAndExpand"
                             Style="{StaticResource CancelButtonStyle}"
-                            Text="Cancel"
+                            Text="{extensions:Translate Cancel}"
                             Clicked="CancelButton_OnClicked" />
                 </StackLayout>
             </StackLayout>

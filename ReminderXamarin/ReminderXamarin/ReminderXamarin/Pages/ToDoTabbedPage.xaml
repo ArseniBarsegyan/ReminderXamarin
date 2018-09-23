@@ -2,8 +2,9 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:pages="clr-namespace:ReminderXamarin.Pages;assembly=ReminderXamarin"
+            xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
             x:Class="ReminderXamarin.Pages.ToDoTabbedPage"
-            Title="To-do page">
+            Title="{extensions:Translate ToDoPageTitle}">
     <!--Pages can be added as references or inline-->
     <pages:ToDoHighPriorityPage />
     <pages:ToDoMidPriorityPage />

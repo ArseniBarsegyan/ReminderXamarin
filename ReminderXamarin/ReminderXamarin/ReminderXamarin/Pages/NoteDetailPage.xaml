@@ -46,8 +46,7 @@
                         HeightRequest="200" />
                 </ScrollView>
 
-                <Grid AbsoluteLayout.LayoutBounds="0,1,1,60" 
-                      AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
+                <Grid AbsoluteLayout.LayoutBounds="0,1,1,60" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />

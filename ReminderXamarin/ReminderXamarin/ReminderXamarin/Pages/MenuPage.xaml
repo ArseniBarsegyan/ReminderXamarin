@@ -3,10 +3,11 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
                   xmlns:pages="clr-namespace:ReminderXamarin.Pages;assembly=ReminderXamarin"
+                  xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
                   x:Class="ReminderXamarin.Pages.MenuPage"
                   MasterBehavior="Popover">
     <MasterDetailPage.Master>
-        <ContentPage Title="Menu">
+        <ContentPage Title="{extensions:Translate Menu}">
             <ListView x:Name="MenuList"
                       RowHeight="60"
                       HorizontalOptions="FillAndExpand"
@@ -21,9 +22,7 @@
                                  BackgroundColor="{StaticResource SubmitButtonBackground}"
                                  Padding="5" 
                                  Spacing="16">
-                        <StackLayout Orientation="Horizontal"
-                                     HorizontalOptions="FillAndExpand"
-                                     Spacing="16">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="16">
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="UserProfile_OnTapped" NumberOfTapsRequired="1" />
                             </StackLayout.GestureRecognizers>
@@ -51,9 +50,7 @@
                         <ViewCell>
                             <ViewCell.View>
                                 <StackLayout Orientation="Horizontal" Spacing="16" Padding="10,0">
-                                    <Image Source="{Binding IconSource}" 
-                                           HeightRequest="80" 
-                                           HorizontalOptions="Center" />
+                                    <Image Source="{Binding IconSource}" HeightRequest="80" HorizontalOptions="Center" />
                                     <Label Text="{Binding Title}" 
                                            FontSize="Medium"
                                            VerticalOptions="Center" 
@@ -69,7 +66,7 @@
                             <TapGestureRecognizer Tapped="Logout_OnTapped" NumberOfTapsRequired="1" />
                         </StackLayout.GestureRecognizers>
                         <Image Source="logout.png" HeightRequest="80" />
-                        <Label Text="Logout" 
+                        <Label Text="{extensions:Translate Logout}" 
                                FontSize="Medium" 
                                VerticalOptions="Center" 
                                HorizontalOptions="Center" />

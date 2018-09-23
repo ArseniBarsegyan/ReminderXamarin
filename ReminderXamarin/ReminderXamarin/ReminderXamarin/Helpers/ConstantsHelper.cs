@@ -7,7 +7,6 @@
     {
         public const string Achievements = "Achievements";
         public const string AchievementNotes = "AchievementNotes";
-        public const string AchievementsSection = "Achievements";
         public const string AchievementsIcon = "achievements_icon.png";
         public const string AchievementDeleteMessage = "Are you sure you want to delete this achievement?";
         public const string AchievementNoteDeleteMessage = "Are you sure you want to delete this achievement note?";
@@ -43,7 +42,6 @@
         public const string ToDoTextIsEmptyMessage = "To do text is empty. Creation cancelled";
         public const string ToDoListIcon = "todo_list.png";
         public const string ToDoModels = "ToDoModels";
-        public const string ToDoSection = "To-do";
         public const string Users = "Users";
         public const string Videos = "Videos";
         public const string Warning = "Warning";

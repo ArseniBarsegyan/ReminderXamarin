@@ -2,8 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
+             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.SettingsPage"
-             Title="Settings">
+             Title="{extensions:Translate Settings}">
     <ContentPage.BindingContext>
         <viewModels:SettingsPageViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
@@ -11,8 +12,8 @@
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <TableView Intent="Form" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <TableRoot>
-                    <TableSection Title="Login">
-                        <SwitchCell x:Name="UsePinSwitch" Text="Use pin" On="{Binding UsePin}" />
+                    <TableSection Title="{extensions:Translate SettingsLoginSectionName}">
+                        <SwitchCell x:Name="UsePinSwitch" Text="{extensions:Translate UsePin}" On="{Binding UsePin}" />
                         <EntryCell x:Name="PinEntry" 
                                    Text="{Binding Pin}"
                                    IsEnabled="{Binding Source={x:Reference UsePinSwitch}, Path=On}" 

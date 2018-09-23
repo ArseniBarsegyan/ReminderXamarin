@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ReminderXamarin.Pages;
+using ReminderXamarin.Resx;
 
 namespace ReminderXamarin.Helpers
 {
@@ -15,35 +16,35 @@ namespace ReminderXamarin.Helpers
             {
                 new MasterPageItem
                 {
-                    Title = ConstantsHelper.Notes,
+                    Title = AppResources.Notes,
                     IconSource = ConstantsHelper.NotesListIcon,
                     TargetType = typeof(NotesPage),
                     IsDisplayed = true
                 },
                 new MasterPageItem
                 {
-                    Title = ConstantsHelper.ToDoSection,
+                    Title = AppResources.ToDoSection,
                     IconSource = ConstantsHelper.ToDoListIcon,
                     TargetType = typeof(ToDoTabbedPage),
                     IsDisplayed = true
                 },
                 new MasterPageItem
                 {
-                    Title = ConstantsHelper.Birthdays,
+                    Title = AppResources.Birthdays,
                     IconSource = ConstantsHelper.BirthdaysIcon,
                     TargetType = typeof(BirthdaysPage),
                     IsDisplayed = true
                 },
                 new MasterPageItem
                 {
-                    Title = ConstantsHelper.AchievementsSection,
+                    Title = AppResources.Achievements,
                     IconSource = ConstantsHelper.AchievementsIcon,
                     TargetType = typeof(AchievementsPage),
                     IsDisplayed = true
                 },
                 new MasterPageItem
                 {
-                    Title = ConstantsHelper.Settings,
+                    Title = AppResources.Settings,
                     IconSource = ConstantsHelper.SettingsIcon,
                     TargetType = typeof(SettingsPage),
                     IsDisplayed = true

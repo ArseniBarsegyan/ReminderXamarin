@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.UserProfilePage"
              BackgroundColor="White"
-             Title="Profile">
+             Title="{extensions:Translate Profile}">
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <!-- Header with user name and photo -->
@@ -50,16 +51,16 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Text="User name" />
+                        <Label Grid.Row="0" Grid.Column="0" Text="{extensions:Translate Username}" />
                         <Entry Grid.Row="0" Grid.Column="1" Text="{Binding UserName}" />
 
-                        <Label Grid.Row="1" Grid.Column="0" Text="Notes count: " />
+                        <Label Grid.Row="1" Grid.Column="0" Text="{extensions:Translate NotesCount}" />
                         <Label Grid.Row="1" Grid.Column="1" Text="{Binding NotesCount}" />
 
-                        <Label Grid.Row="2" Grid.Column="0" Text="Achievements count" />
+                        <Label Grid.Row="2" Grid.Column="0" Text="{extensions:Translate AchievementsCount}" />
                         <Label Grid.Row="2" Grid.Column="1" Text="{Binding AchievementsCount}" />
 
-                        <Label Grid.Row="3" Grid.Column="0" Text="Friends Birthdays count" />
+                        <Label Grid.Row="3" Grid.Column="0" Text="{extensions:Translate FriendsBirthdaysCount}" />
                         <Label Grid.Row="3" Grid.Column="1" Text="{Binding FriendBirthdaysCount}" />
                     </Grid>
 

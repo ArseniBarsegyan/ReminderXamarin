@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
+             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.ToDoHighPriorityPage"
-             Title="High">
+             Title="{extensions:Translate High}">
     <ContentPage.BindingContext>
         <viewModels:ToDoPageViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
