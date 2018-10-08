@@ -15,9 +15,14 @@
             <Color x:Key="CancelButtonText">#2196F3</Color>
             <Color x:Key="DeleteButtonBackground">#d9534f</Color>
             <!--<Color x:Key="RoundButtonBackground">#323232</Color>-->
-            <Color x:Key="RoundButtonBackground">#2196F3</Color>
+            <Color x:Key="RoundButtonBackground">#4CAF50</Color>
             <Color x:Key="FrameButtonBorder">#cdced2</Color>
             <Color x:Key="FrameBackground">#cccccccc</Color>
+            
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarTextColor" Value="{StaticResource DarkFont}" />
+                <Setter Property="BarBackgroundColor" Value="#F0F8FF" />
+            </Style>
 
             <!-- Images styles -->
             <Style x:Key="UserImageStyle" TargetType="abstractions:CircleImage">
@@ -65,7 +70,7 @@
 
             <Style x:Key="CancelButtonStyle" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource CancelButtonBackground}" />
-                <Setter Property="TextColor" Value="{StaticResource CancelButtonText}" />
+                <Setter Property="TextColor" Value="{StaticResource DarkFont}" />
             </Style>
             
             <Style x:Key="FrameButtonStyle" TargetType="Button">
@@ -75,7 +80,7 @@
                 <Setter Property="FontSize" Value="Small" />
                 <Setter Property="CornerRadius" Value="10" />
                 <Setter Property="BorderColor" Value="{StaticResource FrameButtonBorder}" />
-                <Setter Property="TextColor" Value="{StaticResource SubmitButtonBackground}" />
+                <Setter Property="TextColor" Value="{StaticResource DarkFont}" />
             </Style>
             
             <!-- Label styles -->

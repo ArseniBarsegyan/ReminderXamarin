@@ -6,7 +6,8 @@
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.BirthdaysPage"
-             Title="{extensions:Translate Birthdays}">
+             Title="{extensions:Translate Birthdays}"
+             BackgroundColor="White">
     <ContentPage.BindingContext>
         <viewModels:BirthdaysPageViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>

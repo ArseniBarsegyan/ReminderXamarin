@@ -16,7 +16,7 @@ namespace ReminderXamarin.Pages
         public PinPage()
         {
             InitializeComponent();
-            BackgroundImage.Source = ImageSource.FromResource("ReminderXamarin.Images.reminder_logo.png");
+            BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
             _pinBuilder = new StringBuilder();
         }
 

@@ -8,7 +8,6 @@
              x:Class="ReminderXamarin.Pages.NoteCreatePage"
              Title="{extensions:Translate CreateNote}"
              BackgroundColor="White">
-
     <ContentPage.BindingContext>
         <viewModels:NoteViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>

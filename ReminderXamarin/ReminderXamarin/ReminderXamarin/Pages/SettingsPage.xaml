@@ -4,7 +4,8 @@
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.SettingsPage"
-             Title="{extensions:Translate Settings}">
+             Title="{extensions:Translate Settings}"
+             BackgroundColor="White">
     <ContentPage.BindingContext>
         <viewModels:SettingsPageViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>

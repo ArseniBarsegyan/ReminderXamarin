@@ -1,4 +1,5 @@
 ﻿using System;
+using ReminderXamarin.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +12,7 @@ namespace ReminderXamarin.Pages
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            BackgroundImage.Source = ImageSource.FromResource("ReminderXamarin.Images.reminder_logo.png");
+            BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
         }
 
         private void TogglePasswordVisibilityButton_OnTapped(object sender, EventArgs e)

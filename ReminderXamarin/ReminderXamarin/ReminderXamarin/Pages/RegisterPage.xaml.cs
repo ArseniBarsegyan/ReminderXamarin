@@ -1,4 +1,5 @@
 ﻿using System;
+using ReminderXamarin.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,7 @@ namespace ReminderXamarin.Pages
         public RegisterPage()
         {
             InitializeComponent();
-            BackgroundImage.Source = ImageSource.FromResource("ReminderXamarin.Images.reminder_logo.png");
+            BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
         }
 
         private void UserNameEntry_OnCompleted(object sender, EventArgs e)

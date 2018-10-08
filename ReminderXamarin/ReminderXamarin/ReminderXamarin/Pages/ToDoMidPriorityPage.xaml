@@ -5,7 +5,8 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.ToDoMidPriorityPage"
-             Title="{extensions:Translate Medium}">
+             Title="{extensions:Translate Medium}"
+             BackgroundColor="White">
     <ContentPage.BindingContext>
         <viewModels:ToDoPageViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>

@@ -6,7 +6,8 @@
              xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.AchievementsPage"
-             Title="{extensions:Translate Achievements}">
+             Title="{extensions:Translate Achievements}"
+             BackgroundColor="White">
     <ContentPage.BindingContext>
         <viewModels:AchievementsPageViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>

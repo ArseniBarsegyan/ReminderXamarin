@@ -12,6 +12,7 @@
         public const string AchievementNoteDeleteMessage = "Are you sure you want to delete this achievement note?";
         public const string ArrowForwardImage = "arrow_forward.png";
         public const string AreYouSure = "Are you sure?";
+        public const string BackgroundImageSource = "ReminderXamarin.Images.reminder_logo.png";
         public const string Birthdays = "Birthdays";
         public const string BirthdaysDeleteMessage = "Are you sure you want to delete this birthday?";
         public const string BirthdaysIcon = "birthday.png";
