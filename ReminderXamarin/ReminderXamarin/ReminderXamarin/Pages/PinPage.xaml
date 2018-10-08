@@ -20,6 +20,12 @@
                          AbsoluteLayout.LayoutBounds="0,0,1,1"
                          AbsoluteLayout.LayoutFlags="All" 
                          Spacing="10">
+                <StackLayout.Padding>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="Android" Value="0,0,0,0"/>
+                        <On Platform="iOS" Value="0,20,0,0"/>
+                    </OnPlatform>
+                </StackLayout.Padding>
 
                 <Label Text="{extensions:Translate EnterPin}" Style="{StaticResource PinPageLabelStyle}" HorizontalOptions="Center" />
 

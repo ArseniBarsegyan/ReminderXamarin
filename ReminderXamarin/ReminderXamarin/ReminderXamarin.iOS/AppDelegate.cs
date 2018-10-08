@@ -21,6 +21,7 @@ namespace ReminderXamarin.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            SQLitePCL.Batteries.Init();
             var cv = typeof(Xamarin.Forms.CarouselView);
             var assembly = Assembly.Load(cv.FullName);
             ImageCircleRenderer.Init();

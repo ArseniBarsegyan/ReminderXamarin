@@ -20,8 +20,13 @@
 
             <StackLayout BackgroundColor="Transparent" 
                          AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                         AbsoluteLayout.LayoutFlags="All" 
-                         Padding="10">
+                         AbsoluteLayout.LayoutFlags="All">
+                <StackLayout.Padding>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="Android" Value="10"/>
+                        <On Platform="iOS" Value="10,20,10,10"/>
+                    </OnPlatform>
+                </StackLayout.Padding>
                 <Label FontSize="Large"
                    Text="{extensions:Translate Register}" 
                    HorizontalOptions="Center" 
