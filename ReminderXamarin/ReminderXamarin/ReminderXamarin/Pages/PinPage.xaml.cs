@@ -22,10 +22,20 @@ namespace ReminderXamarin.Pages
 
         private void Button_OnClicked(object sender, EventArgs e)
         {
-            _currentCount++;
-
             if (sender is Button button)
             {
+                _currentCount++;
+
+                // Add selection effect
+                button.BackgroundColor = Color.White;
+                button.TextColor = Color.FromHex("#323232");
+                Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
+                {
+                    button.BackgroundColor = Color.Transparent;
+                    button.TextColor = Color.White;
+                    return false;
+                });
+
                 switch (_currentCount)
                 {
                     case 1:

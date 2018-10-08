@@ -44,23 +44,24 @@
                 </ListView.GroupHeaderTemplate>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell Height="100">
+                        <ViewCell Height="300">
                             <ViewCell.ContextActions>
                                 <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
                             </ViewCell.ContextActions>
-                            <StackLayout BackgroundColor="White">
+                            <StackLayout BackgroundColor="White" Margin="0,5">
                                 <elements:ContentViewWithBorder HorizontalOptions="FillAndExpand" 
-                                                             VerticalOptions="FillAndExpand" 
-                                                             Padding="10" 
-                                                             BorderColor="DarkGray" 
-                                                             BorderWidth="1">
-                                    <StackLayout Orientation="Horizontal">
-                                        <abstractions:CircleImage Source="{Binding Photos, Converter={StaticResource NullElementToImageSourceConverter}}" 
-                                                                  IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}" 
-                                                                  Aspect="AspectFill" 
-                                                                  HeightRequest="80"
-                                                                  WidthRequest="80" />
-                                        <StackLayout Spacing="10">
+                                                                CornerRadius="20"
+                                                                VerticalOptions="FillAndExpand" 
+                                                                Padding="0,10" 
+                                                                BorderColor="DarkGray" 
+                                                                BorderWidth="1">
+                                    <StackLayout>
+                                        <Image Source="{Binding Photos, Converter={StaticResource NullElementToImageSourceConverter}}" 
+                                               IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}" 
+                                               Aspect="AspectFill" 
+                                               HorizontalOptions="FillAndExpand"
+                                               HeightRequest="200" />
+                                        <StackLayout Spacing="10" Padding="10,0">
                                             <Label Text="{Binding EditDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" />
                                             <elements:ExtendedLabel HorizontalTextAlignment="Start" 
                                                                    Lines="3" 
