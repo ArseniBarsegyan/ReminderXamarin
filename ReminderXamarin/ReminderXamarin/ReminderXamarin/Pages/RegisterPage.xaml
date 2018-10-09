@@ -13,10 +13,10 @@
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <!-- Background image -->
-            <Image x:Name="BackgroundImage"
-                   Aspect="AspectFill"
-                   AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                   AbsoluteLayout.LayoutFlags="All" />
+            <elements:BlurredImage x:Name="BackgroundImage"
+                                   Aspect="AspectFill"
+                                   AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                   AbsoluteLayout.LayoutFlags="All" />
 
             <StackLayout BackgroundColor="Transparent" 
                          AbsoluteLayout.LayoutBounds="0,0,1,1" 

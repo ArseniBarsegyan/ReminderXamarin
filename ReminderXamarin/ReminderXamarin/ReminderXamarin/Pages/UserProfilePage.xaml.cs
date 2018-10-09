@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ReminderXamarin.Extensions;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces.FilePickerService;
 using ReminderXamarin.ViewModels;
 using ReminderXamarin.Views;
@@ -24,6 +25,7 @@ namespace ReminderXamarin.Pages
                 var viewModel = appUser.ToUserProfileViewModel();
                 BindingContext = viewModel;
             }
+            BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
         }
 
         protected override void OnAppearing()

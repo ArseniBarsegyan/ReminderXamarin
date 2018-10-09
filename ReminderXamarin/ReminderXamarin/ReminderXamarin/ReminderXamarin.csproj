@@ -11,11 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Images\reminder_logo.png" />
+    <None Remove="Images\login_background.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Images\reminder_logo.png" />
+    <EmbeddedResource Include="Images\login_background.png" />
   </ItemGroup>
 
   <ItemGroup>
