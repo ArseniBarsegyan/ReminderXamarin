@@ -34,6 +34,7 @@ namespace ReminderXamarin.Droid
             Platform.Init(this);
             CrossCurrentActivity.Current.Activity = this;
             ImageCircleRenderer.Init();
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(false);
             LoadApplication(new App());
         }
 

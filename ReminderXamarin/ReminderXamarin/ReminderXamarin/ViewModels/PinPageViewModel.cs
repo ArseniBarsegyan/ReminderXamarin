@@ -1,5 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using ReminderXamarin.Helpers;
+using ReminderXamarin.Interfaces;
 using ReminderXamarin.Pages;
 using Xamarin.Forms;
 
@@ -21,7 +23,14 @@ namespace ReminderXamarin.ViewModels
             var userPin = Settings.UserPinCode;
             if (Pin.ToString() == userPin)
             {
-                Application.Current.MainPage = new NavigationPage(new MenuPage(Settings.ApplicationUser));
+                var loadingService = DependencyService.Get<ILoadingService>();
+                loadingService.ShowLoading();
+                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                {
+                    Application.Current.MainPage = new NavigationPage(new MenuPage(Settings.ApplicationUser));
+                    loadingService.HideLoading();
+                    return false;
+                });
             }
         }
     }

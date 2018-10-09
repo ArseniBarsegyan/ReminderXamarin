@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              x:Class="ReminderXamarin.Pages.PinPage">
     <ContentPage.BindingContext>
         <viewModels:PinPageViewModel x:Name="ViewModel" />
@@ -10,10 +12,14 @@
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <!-- Background image -->
-            <Image x:Name="BackgroundImage"
-                   Aspect="AspectFill"
-                   AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                   AbsoluteLayout.LayoutFlags="All" />
+            <forms:CachedImage x:Name="BackgroundImage"
+                               Aspect="AspectFill"
+                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                               AbsoluteLayout.LayoutFlags="All">
+                <forms:CachedImage.Transformations>
+                    <transformations:BlurredTransformation Radius="10" />
+                </forms:CachedImage.Transformations>
+            </forms:CachedImage>
 
             <StackLayout BackgroundColor="Transparent" 
                          AbsoluteLayout.LayoutBounds="0,0,1,1"
