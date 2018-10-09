@@ -7,6 +7,7 @@ using Android.Graphics.Drawables;
 using Android.Renderscripts;
 using Android.Widget;
 using Java.IO;
+using Java.Lang;
 using ReminderXamarin.Droid.Renderers;
 using ReminderXamarin.Elements;
 using Xamarin.Forms;
@@ -34,7 +35,12 @@ namespace ReminderXamarin.Droid.Renderers
                 SetNativeControl(imageView);
             }
 
-            UpdateBitmap(e.OldElement);
+            for (int i = 1; i < 20; i+=4)
+            {
+                UpdateBitmap(i, e.OldElement);
+                Thread.Sleep(40);
+            }
+            
             UpdateAspect();
         }
 
@@ -44,7 +50,11 @@ namespace ReminderXamarin.Droid.Renderers
 
             if (e.PropertyName == Image.SourceProperty.PropertyName)
             {
-                UpdateBitmap(null);
+                for (int i = 1; i < 20; i+=4)
+                {
+                    UpdateBitmap(i, null);
+                    Thread.Sleep(40);
+                }
                 return;
             }
             if (e.PropertyName == Image.AspectProperty.PropertyName)
@@ -91,7 +101,7 @@ namespace ReminderXamarin.Droid.Renderers
             return ImageView.ScaleType.FitCenter;
         }
 
-        private async void UpdateBitmap(Image previous = null)
+        private async void UpdateBitmap(int radius, Image previous = null)
         {
             Bitmap bitmap = null;
             var source = Element.Source;
@@ -106,7 +116,7 @@ namespace ReminderXamarin.Droid.Renderers
                 {
                     try
                     {
-                        bitmap = await GetImageFromImageSource(source, Context);
+                        bitmap = await GetImageFromImageSource(source, Context, radius);
                     }
                     catch (TaskCanceledException)
                     {
@@ -131,7 +141,7 @@ namespace ReminderXamarin.Droid.Renderers
             }
         }
 
-        private async Task<Bitmap> GetImageFromImageSource(ImageSource imageSource, Context context)
+        private async Task<Bitmap> GetImageFromImageSource(ImageSource imageSource, Context context, int radius)
         {
             IImageSourceHandler handler;
 
@@ -154,7 +164,7 @@ namespace ReminderXamarin.Droid.Renderers
 
             var originalBitmap = await handler.LoadImageAsync(imageSource, context);
 
-            var blurredBitmap = await Task.Run(() => CreateBlurredImage(originalBitmap, 25));
+            var blurredBitmap = await Task.Run(() => CreateBlurredImage(originalBitmap, radius));
 
             return blurredBitmap;
         }

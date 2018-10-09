@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
+using FFImageLoading.Forms;
+using FFImageLoading.Transformations;
+using FFImageLoading.Work;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using ImageSource = Xamarin.Forms.ImageSource;
 
 namespace ReminderXamarin.Pages
 {
