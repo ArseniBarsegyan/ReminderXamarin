@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Resources;
 using Plugin.Multilingual;
+using ReminderXamarin.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,7 @@ namespace ReminderXamarin.Extensions
     [ContentProperty("Text")]
     public class TranslateExtension : IMarkupExtension
     {
-        private const string ResourceId = "ReminderXamarin.Resx.AppResources";
+        private const string ResourceId = ConstantsHelper.TranslationResourcePath;
         private static readonly Lazy<ResourceManager> Resmgr = new Lazy<ResourceManager>(() => new ResourceManager(ResourceId, typeof(TranslateExtension).GetTypeInfo().Assembly));
 
         public string Text { get; set; }

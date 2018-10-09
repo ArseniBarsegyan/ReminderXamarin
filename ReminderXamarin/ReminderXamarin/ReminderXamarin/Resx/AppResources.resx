@@ -198,6 +198,9 @@
   <data name="IncorrectData" xml:space="preserve">
     <value>Incorrect data</value>
   </data>
+  <data name="LoadingMessage" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Log in</value>
   </data>

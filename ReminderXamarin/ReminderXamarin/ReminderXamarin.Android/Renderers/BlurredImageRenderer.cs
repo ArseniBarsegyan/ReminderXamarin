@@ -35,12 +35,7 @@ namespace ReminderXamarin.Droid.Renderers
                 SetNativeControl(imageView);
             }
 
-            for (int i = 1; i < 20; i+=4)
-            {
-                UpdateBitmap(i, e.OldElement);
-                Thread.Sleep(40);
-            }
-            
+            UpdateBitmap(20, e.OldElement);
             UpdateAspect();
         }
 
@@ -50,11 +45,7 @@ namespace ReminderXamarin.Droid.Renderers
 
             if (e.PropertyName == Image.SourceProperty.PropertyName)
             {
-                for (int i = 1; i < 20; i+=4)
-                {
-                    UpdateBitmap(i, null);
-                    Thread.Sleep(40);
-                }
+                UpdateBitmap(20, null);
                 return;
             }
             if (e.PropertyName == Image.AspectProperty.PropertyName)

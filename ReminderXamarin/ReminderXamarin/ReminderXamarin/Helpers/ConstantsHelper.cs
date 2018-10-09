@@ -25,6 +25,7 @@
         public const string FriendDeleteMessage = "Are you sure you want to delete this friend and all his data?";
         public const string High = "High";
         public const string ImageDeleted = "ImageDeleted";
+        public const string LoadingMessage = "LoadingMessage";
         public const string Medium = "Medium";
         public const string No = "No";
         public const string Notes = "Notes";
@@ -43,6 +44,7 @@
         public const string ToDoTextIsEmptyMessage = "To do text is empty. Creation cancelled";
         public const string ToDoListIcon = "todo_list.png";
         public const string ToDoModels = "ToDoModels";
+        public const string TranslationResourcePath = "ReminderXamarin.Resx.AppResources";
         public const string Users = "Users";
         public const string Videos = "Videos";
         public const string Warning = "Warning";
