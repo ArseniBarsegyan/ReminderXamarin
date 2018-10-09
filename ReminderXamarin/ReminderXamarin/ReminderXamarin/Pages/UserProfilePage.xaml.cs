@@ -42,6 +42,7 @@ namespace ReminderXamarin.Pages
             {
                 return;
             }
+            UpdateUserButton.IsVisible = true;
             var viewModel = BindingContext as UserProfileViewModel;
             viewModel?.ChangeUserProfileCommand.Execute(document);
         }
@@ -49,6 +50,15 @@ namespace ReminderXamarin.Pages
         private async void UserProfileImage_OnTapped(object sender, EventArgs e)
         {
             await Navigation.PushPopupAsync(new FullSizeImageView(UserProfileImage.Source));
+        }
+
+        private void UpdateUserButton_OnClicked(object sender, EventArgs e)
+        {
+            if (BindingContext is UserProfileViewModel viewModel)
+            {
+                UpdateUserButton.IsVisible = false;
+                viewModel.UpdateUserCommand.Execute(null);
+            }
         }
     }
 }
