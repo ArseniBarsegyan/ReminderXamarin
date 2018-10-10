@@ -4,84 +4,92 @@
                   xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
                   xmlns:pages="clr-namespace:ReminderXamarin.Pages;assembly=ReminderXamarin"
                   xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+                  xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
                   x:Class="ReminderXamarin.Pages.MenuPage"
                   MasterBehavior="Popover">
     <MasterDetailPage.Master>
         <ContentPage Title="{extensions:Translate Menu}">
-            <ListView x:Name="MenuList"
-                      RowHeight="60"
-                      HorizontalOptions="FillAndExpand"
-                      VerticalOptions="FillAndExpand"
-                      BackgroundColor="White"
-                      ItemSelected="MenuList_OnItemSelected">
-                <ListView.Header>
-                    <!-- User profile information, photo and name -->
-                    <StackLayout x:Name="UserProfileLink"
-                                 HeightRequest="100" 
-                                 Orientation="Horizontal"
-                                 Spacing="16">
-                        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-                            <!-- Background image -->
-                            <Image x:Name="BackgroundImage"
-                                   Aspect="AspectFill"
-                                   AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                                   AbsoluteLayout.LayoutFlags="All" />
-
-                            <StackLayout Orientation="Horizontal" 
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <!-- Background image -->
+                <elements:BlurredImage x:Name="BackgroundImage"
+                                       Aspect="AspectFill"
+                                       AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                       AbsoluteLayout.LayoutFlags="All" />
+                
+                <ListView x:Name="MenuList"
+                          AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                          AbsoluteLayout.LayoutFlags="All"
+                          RowHeight="60"
+                          HorizontalOptions="FillAndExpand"
+                          VerticalOptions="FillAndExpand"
+                          BackgroundColor="White"
+                          Opacity="0.6"
+                          ItemSelected="MenuList_OnItemSelected">
+                    <ListView.Header>
+                        <!-- User profile information, photo and name -->
+                        <StackLayout x:Name="UserProfileLink"
+                                     BackgroundColor="White"
+                                     Opacity="1"
+                                     HeightRequest="100" 
+                                     Orientation="Horizontal"
+                                     Spacing="16">
+                            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                                <StackLayout Orientation="Horizontal" 
                                          HorizontalOptions="FillAndExpand" 
                                          Spacing="16" 
                                          BackgroundColor="Transparent"
                                          AbsoluteLayout.LayoutBounds="0,0,1,1" 
                                          AbsoluteLayout.LayoutFlags="All">
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="UserProfile_OnTapped" NumberOfTapsRequired="1" />
-                                </StackLayout.GestureRecognizers>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="UserProfile_OnTapped" NumberOfTapsRequired="1" />
+                                    </StackLayout.GestureRecognizers>
 
-                                <abstractions:CircleImage x:Name="UserProfilePhoto"
+                                    <abstractions:CircleImage x:Name="UserProfilePhoto"
                                                           WidthRequest="80"
                                                           HorizontalOptions="Start"
                                                           VerticalOptions="Center"
                                                           HeightRequest="80" 
                                                           Aspect="AspectFill"
                                                           Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}">
-                                </abstractions:CircleImage>
-                                <Label Text="{Binding UserName}" 
+                                    </abstractions:CircleImage>
+                                    <Label Text="{Binding UserName}" 
                                        FontSize="Medium" 
                                        TextColor="White"
                                        VerticalTextAlignment="Center" 
                                        HorizontalOptions="Center" />
-                            </StackLayout>
-                        </AbsoluteLayout>
-                    </StackLayout>
-                </ListView.Header>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.View>
-                                <StackLayout Orientation="Horizontal" Spacing="16" Padding="10,0">
-                                    <Image Source="{Binding IconSource}" HeightRequest="80" HorizontalOptions="Center" />
-                                    <Label Text="{Binding Title}" 
+                                </StackLayout>
+                            </AbsoluteLayout>
+                        </StackLayout>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <StackLayout Orientation="Horizontal" Spacing="16" Padding="10,0">
+                                        <Image Source="{Binding IconSource}" HeightRequest="80" HorizontalOptions="Center" />
+                                        <Label Text="{Binding Title}" 
                                            FontSize="Medium"
                                            VerticalOptions="Center" 
                                            HorizontalOptions="Center" />
-                                </StackLayout>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.Footer>
-                    <StackLayout Spacing="16" Padding="10,0" Orientation="Horizontal">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="Logout_OnTapped" NumberOfTapsRequired="1" />
-                        </StackLayout.GestureRecognizers>
-                        <Image Source="logout.png" HeightRequest="80" />
-                        <Label Text="{extensions:Translate Logout}" 
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Footer>
+                        <StackLayout Spacing="16" Padding="10,0" Orientation="Horizontal">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Logout_OnTapped" NumberOfTapsRequired="1" />
+                            </StackLayout.GestureRecognizers>
+                            <Image Source="logout.png" HeightRequest="80" />
+                            <Label Text="{extensions:Translate Logout}" 
                                FontSize="Medium" 
                                VerticalOptions="Center" 
                                HorizontalOptions="Center" />
-                    </StackLayout>
-                </ListView.Footer>
-            </ListView>
+                        </StackLayout>
+                    </ListView.Footer>
+                </ListView>
+            </AbsoluteLayout>
         </ContentPage>
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
