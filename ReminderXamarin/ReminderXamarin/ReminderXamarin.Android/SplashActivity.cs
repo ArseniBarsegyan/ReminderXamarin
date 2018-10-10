@@ -40,6 +40,7 @@ namespace ReminderXamarin.Droid
             await Task.Delay(2000); // Simulate a bit of startup work.
             Log.Debug(TAG, "Startup work is finished - starting MainActivity.");
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+            OverridePendingTransition(Resource.Animation.slide_in_from_middle, Resource.Animation.slide_out_from_middle);
         }
     }
 }

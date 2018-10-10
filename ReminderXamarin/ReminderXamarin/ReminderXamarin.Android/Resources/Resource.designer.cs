@@ -82,6 +82,12 @@ namespace ReminderXamarin.Droid
 			// aapt resource value: 0x7f05000f
 			public const int design_snackbar_out = 2131034127;
 			
+			// aapt resource value: 0x7f050010
+			public const int slide_in_from_middle = 2131034128;
+			
+			// aapt resource value: 0x7f050011
+			public const int slide_out_from_middle = 2131034129;
+			
 			static Animation()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
