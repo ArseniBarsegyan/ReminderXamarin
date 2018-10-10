@@ -15,6 +15,7 @@ namespace ReminderXamarin.Pages
     public partial class UserProfilePage : ContentPage
     {
         private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
+        private bool _isTranslated;
 
         public UserProfilePage(string username)
         {
@@ -59,6 +60,25 @@ namespace ReminderXamarin.Pages
                 UpdateUserButton.IsVisible = false;
                 viewModel.UpdateUserCommand.Execute(null);
             }
+        }
+
+        private void BackgroundImage_OnTapped(object sender, EventArgs e)
+        {
+            if (_isTranslated)
+            {
+                BackgroundImage.LayoutTo(new Rectangle(0, 0, 500, 100), 250, Easing.SpringIn);
+                UserProfileImage.TranslateTo(0, 0, 250, Easing.SpringIn);
+                PickUserPhotoImage.TranslateTo(0, 0, 250, Easing.SpringIn);
+                UserInfoLayout.TranslateTo(0, 0, 250, Easing.SpringIn);
+            }
+            else
+            {
+                BackgroundImage.LayoutTo(new Rectangle(0, 0, 500, 200), 250, Easing.SpringOut);
+                UserProfileImage.TranslateTo(0, 100, 250, Easing.SpringOut);
+                PickUserPhotoImage.TranslateTo(0, 100, 250, Easing.SpringOut);
+                UserInfoLayout.TranslateTo(0, 100, 250, Easing.SpringOut);
+            }
+            _isTranslated = !_isTranslated;
         }
     }
 }
