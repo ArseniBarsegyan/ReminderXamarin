@@ -63,9 +63,9 @@
                 </Grid>
 
                 <!-- Exit application -->
-                <Button Text="{extensions:Translate Exit}" 
-                        Style="{StaticResource PinPageExitButtonStyle}"
+                <Button Style="{StaticResource PinPageButtonStyle}"
                         HorizontalOptions="Center"
+                        Image="off.png"
                         VerticalOptions="End"
                         Clicked="Exit_OnTapped" />
             </StackLayout>

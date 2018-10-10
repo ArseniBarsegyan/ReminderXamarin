@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
-using FFImageLoading.Forms;
-using FFImageLoading.Transformations;
-using FFImageLoading.Work;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using Xamarin.Forms;
@@ -112,8 +108,20 @@ namespace ReminderXamarin.Pages
 
         private void Exit_OnTapped(object sender, EventArgs e)
         {
-            var applicationService = DependencyService.Get<IApplicationService>();
-            applicationService.CloseApplication();
+            if (sender is Button button)
+            {
+                button.BackgroundColor = Color.White;
+                button.TextColor = Color.FromHex("#323232");
+
+                Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
+                {
+                    button.BackgroundColor = Color.Transparent;
+                    button.TextColor = Color.White;
+                    var applicationService = DependencyService.Get<IApplicationService>();
+                    applicationService.CloseApplication();
+                    return false;
+                });
+            }
         }
 
         private void DeleteButton_OnClicked(object sender, EventArgs e)
