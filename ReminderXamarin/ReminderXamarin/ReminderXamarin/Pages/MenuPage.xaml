@@ -15,11 +15,11 @@
                                        Aspect="AspectFill"
                                        AbsoluteLayout.LayoutBounds="0,0,1,1" 
                                        AbsoluteLayout.LayoutFlags="All" />
-                
+                <!-- Side menu -->
                 <ListView x:Name="MenuList"
                           AbsoluteLayout.LayoutBounds="0,0,1,1" 
                           AbsoluteLayout.LayoutFlags="All"
-                          RowHeight="70"
+                          RowHeight="60"
                           SeparatorVisibility="None"
                           HorizontalOptions="FillAndExpand"
                           VerticalOptions="FillAndExpand"
@@ -27,41 +27,15 @@
                           Opacity="0.5"
                           ItemSelected="MenuList_OnItemSelected">
                     <ListView.Header>
-                        <!-- User profile information, photo and name -->
-                        <StackLayout x:Name="UserProfileLink"
-                                     BackgroundColor="Black"
-                                     Opacity="1"
-                                     HeightRequest="140" 
-                                     Orientation="Horizontal"
-                                     Spacing="10"
-                                     Padding="10">
-                            <StackLayout HorizontalOptions="FillAndExpand" Spacing="16" BackgroundColor="Transparent">
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="UserProfile_OnTapped" NumberOfTapsRequired="1" />
-                                </StackLayout.GestureRecognizers>
-
-                                <abstractions:CircleImage x:Name="UserProfilePhoto"
-                                                          WidthRequest="100"
-                                                          HorizontalOptions="Center"
-                                                          VerticalOptions="Center"
-                                                          HeightRequest="100" 
-                                                          Aspect="AspectFill"
-                                                          Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}">
-                                </abstractions:CircleImage>
-                                <Label Text="{Binding UserName}" 
-                                       FontSize="Large" 
-                                       TextColor="White"
-                                       VerticalOptions="End" 
-                                       HorizontalOptions="Center" />
-                            </StackLayout>
-                        </StackLayout>
+                        <!-- Reserving space for user photo and name -->
+                        <StackLayout HeightRequest="140" />
                     </ListView.Header>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.View>
                                     <StackLayout Orientation="Horizontal" Spacing="20" Padding="10,0">
-                                        <Image Source="{Binding IconSource}" HeightRequest="60" HorizontalOptions="Center" />
+                                        <Image Source="{Binding IconSource}" HeightRequest="50" HorizontalOptions="Center" />
                                         <Label Text="{Binding Title}"
                                                FontSize="Medium"
                                                TextColor="White"
@@ -77,7 +51,7 @@
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Logout_OnTapped" NumberOfTapsRequired="1" />
                             </StackLayout.GestureRecognizers>
-                            <Image Source="logout.png" HeightRequest="60" />
+                            <Image Source="logout.png" HeightRequest="50" />
                             <Label Text="{extensions:Translate Logout}" 
                                    FontSize="Medium" 
                                    TextColor="White"
@@ -86,6 +60,31 @@
                         </StackLayout>
                     </ListView.Footer>
                 </ListView>
+
+                <!-- User photo and name on top of list view -->
+                <StackLayout x:Name="UserProfileLink"
+                             AbsoluteLayout.LayoutBounds="0,0,1,140" 
+                             AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                             HeightRequest="140" 
+                             Spacing="10"
+                             Padding="10">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="UserProfile_OnTapped" NumberOfTapsRequired="1" />
+                    </StackLayout.GestureRecognizers>
+                    <abstractions:CircleImage x:Name="UserProfilePhoto"
+                                              WidthRequest="100"
+                                              HorizontalOptions="Center"
+                                              VerticalOptions="Center"
+                                              HeightRequest="100" 
+                                              Aspect="AspectFill"
+                                              Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}">
+                    </abstractions:CircleImage>
+                    <Label Text="{Binding UserName}" 
+                           FontSize="Large" 
+                           TextColor="White"
+                           VerticalOptions="End" 
+                           HorizontalOptions="Center" />
+                </StackLayout>
             </AbsoluteLayout>
         </ContentPage>
     </MasterDetailPage.Master>

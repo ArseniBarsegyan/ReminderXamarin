@@ -4,7 +4,6 @@
             xmlns:pages="clr-namespace:ReminderXamarin.Pages;assembly=ReminderXamarin"
             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
             x:Class="ReminderXamarin.Pages.ToDoTabbedPage"
-            BarTextColor="{StaticResource DarkFont}"
             Title="{extensions:Translate ToDoPageTitle}">
     <!--Pages can be added as references or inline-->
     <pages:ToDoHighPriorityPage />
