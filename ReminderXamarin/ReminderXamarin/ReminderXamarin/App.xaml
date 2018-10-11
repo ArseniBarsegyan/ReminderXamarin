@@ -10,18 +10,19 @@
         <ResourceDictionary>
             <Color x:Key="DarkFont">#323232</Color>
             <Color x:Key="AchievementPageBackground">#fafafa</Color>
-            <Color x:Key="SubmitButtonBackground">#2196F3</Color>
+            <Color x:Key="SubmitButtonBackground">#448AFF</Color>
             <Color x:Key="CancelButtonBackground">#FFADD8E6</Color>
-            <Color x:Key="CancelButtonText">#2196F3</Color>
-            <Color x:Key="DeleteButtonBackground">#d9534f</Color>
+            <Color x:Key="CancelButtonText">#448AFF</Color>
+            <Color x:Key="DeleteButtonBackground">#FF5252</Color>
             <!--<Color x:Key="RoundButtonBackground">#323232</Color>-->
-            <Color x:Key="RoundButtonBackground">#4CAF50</Color>
+            <Color x:Key="RoundButtonBackground">#448AFF</Color>
             <Color x:Key="FrameButtonBorder">#cdced2</Color>
             <Color x:Key="FrameBackground">#cccccccc</Color>
+            <Color x:Key="ListViewBackground">#323232</Color>
             
             <Style TargetType="NavigationPage">
-                <Setter Property="BarTextColor" Value="{StaticResource DarkFont}" />
-                <Setter Property="BarBackgroundColor" Value="#F0F8FF" />
+                <Setter Property="BarTextColor" Value="#fafafa" />
+                <Setter Property="BarBackgroundColor" Value="#323232" />
             </Style>
 
             <!-- Images styles -->

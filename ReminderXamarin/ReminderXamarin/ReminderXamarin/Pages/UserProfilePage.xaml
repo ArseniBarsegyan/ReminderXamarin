@@ -82,7 +82,7 @@
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     Style="{StaticResource ButtonWithImageStyle}"
                     Image="confirm.png"
-                    IsVisible="True"
+                    IsVisible="False"
                     Clicked="UpdateUserButton_OnClicked"
                     Command="{Binding UpdateUserCommand}" />
         </AbsoluteLayout>

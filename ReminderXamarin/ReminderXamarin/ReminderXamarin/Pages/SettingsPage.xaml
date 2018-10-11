@@ -14,7 +14,7 @@
             <TableView Intent="Form" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <TableRoot>
                     <TableSection Title="{extensions:Translate SettingsLoginSectionName}">
-                        <SwitchCell x:Name="UsePinSwitch" Text="{extensions:Translate UsePin}" On="{Binding UsePin}" />
+                        <SwitchCell x:Name="UsePinSwitch" Text="{extensions:Translate UsePin}" On="{Binding UsePin}" OnChanged="UsePinSwitch_OnOnChanged" />
                         <EntryCell x:Name="PinEntry" 
                                    Text="{Binding Pin}"
                                    IsEnabled="{Binding Source={x:Reference UsePinSwitch}, Path=On}" 
