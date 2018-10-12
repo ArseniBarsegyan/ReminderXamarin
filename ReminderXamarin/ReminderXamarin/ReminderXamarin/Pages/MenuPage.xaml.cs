@@ -28,7 +28,7 @@ namespace ReminderXamarin.Pages
             var pages = MenuHelper.GetMenu().Where(x => x.IsDisplayed).ToList();
             MenuList.ItemsSource = pages;
 
-            BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
+            BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.SideMenuBackground);
 
             MessagingCenter.Subscribe<NotesPage, MenuPageIndex>(this, ConstantsHelper.DetailPageChanged, (sender, pageIndex) =>
             {

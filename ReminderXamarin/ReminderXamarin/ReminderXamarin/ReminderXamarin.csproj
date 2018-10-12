@@ -12,10 +12,12 @@
 
   <ItemGroup>
     <None Remove="Images\login_background.png" />
+    <None Remove="Images\menu_background.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Images\login_background.png" />
+    <EmbeddedResource Include="Images\menu_background.png" />
   </ItemGroup>
 
   <ItemGroup>
