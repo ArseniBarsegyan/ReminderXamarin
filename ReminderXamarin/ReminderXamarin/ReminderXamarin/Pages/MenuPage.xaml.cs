@@ -58,7 +58,9 @@ namespace ReminderXamarin.Pages
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            
+
+            MessagingCenter.Subscribe<object, string>(this, App.NotificationReceivedKey, OnMessageReceived);
+
             if (_appUser != null)
             {
                 byte[] fileContent = _appUser.ImageContent;
@@ -76,6 +78,17 @@ namespace ReminderXamarin.Pages
                     }
                 }
             }
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            MessagingCenter.Unsubscribe<object>(this, App.NotificationReceivedKey);
+        }
+
+        private void OnMessageReceived(object sender, string msg)
+        {
+            Device.BeginInvokeOnMainThread(() => {});
         }
 
         private void MenuList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
