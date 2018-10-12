@@ -18,7 +18,7 @@
             <Color x:Key="RoundButtonBackground">#448AFF</Color>
             <Color x:Key="FrameButtonBorder">#cdced2</Color>
             <Color x:Key="FrameBackground">#cccccccc</Color>
-            <Color x:Key="ListViewBackground">#323232</Color>
+            <Color x:Key="ProfilePageTitleBackground">#323232</Color>
             
             <Style TargetType="NavigationPage">
                 <Setter Property="BarTextColor" Value="#fafafa" />

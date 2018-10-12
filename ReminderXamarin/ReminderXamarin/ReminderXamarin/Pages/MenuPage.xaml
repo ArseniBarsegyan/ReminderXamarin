@@ -4,7 +4,6 @@
                   xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
                   xmlns:pages="clr-namespace:ReminderXamarin.Pages;assembly=ReminderXamarin"
                   xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-                  xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
                   x:Class="ReminderXamarin.Pages.MenuPage"
                   MasterBehavior="Popover">
     <MasterDetailPage.Master>
