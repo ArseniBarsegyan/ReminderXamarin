@@ -37,7 +37,7 @@ namespace ReminderXamarin.Helpers
             var dt = DateTime.Now;
             var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
             {
-                PhotoSize = PhotoSize.Small,
+                PhotoSize = PhotoSize.Medium,
                 Directory = "Photos",
                 Name = $"{dt:yyyyMMdd}_{dt:HHmmss}.jpg",
                 SaveToAlbum = true

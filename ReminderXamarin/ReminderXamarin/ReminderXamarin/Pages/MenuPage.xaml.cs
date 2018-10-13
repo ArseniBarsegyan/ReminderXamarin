@@ -118,8 +118,11 @@ namespace ReminderXamarin.Pages
 
         private void UserProfile_OnTapped(object sender, EventArgs e)
         {
-            var userProfilePage = new UserProfilePage(_appUser.UserName);
-            NavigateTo(userProfilePage);
+            if (_appUser != null)
+            {
+                var userProfilePage = new UserProfilePage(_appUser.UserName);
+                NavigateTo(userProfilePage);
+            }
         }
 
         private void Logout_OnTapped(object sender, EventArgs e)

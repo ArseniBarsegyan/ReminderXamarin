@@ -51,8 +51,8 @@
         public const string Warning = "Warning";
         public const string Yes = "Yes";
 
-        public const int ResizedImageWidth = 1360;
-        public const int ResizedImageHeight = 768;
+        public const int ResizedImageWidth = 1920;
+        public const int ResizedImageHeight = 1080;
         public const int AchievementImageWidth = 320;
         public const int AchievementImageHeight = 240;
     }

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements"
-             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.NotesPage"
              Title="{extensions:Translate AllNotes}"
@@ -44,7 +43,7 @@
                 </ListView.GroupHeaderTemplate>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell Height="300">
+                        <ViewCell>
                             <ViewCell.ContextActions>
                                 <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
                             </ViewCell.ContextActions>
@@ -52,7 +51,7 @@
                                 <elements:ContentViewWithBorder HorizontalOptions="FillAndExpand" 
                                                                 CornerRadius="20"
                                                                 VerticalOptions="FillAndExpand" 
-                                                                Padding="0,10" 
+                                                                Padding="0,20,0,10" 
                                                                 BorderColor="DarkGray" 
                                                                 BorderWidth="1">
                                     <StackLayout>
@@ -62,7 +61,7 @@
                                                HorizontalOptions="FillAndExpand"
                                                HeightRequest="200" />
                                         <StackLayout Spacing="10" Padding="10,0">
-                                            <Label Text="{Binding EditDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" />
+                                            <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" />
                                             <elements:ExtendedLabel HorizontalTextAlignment="Start" 
                                                                    Lines="3" 
                                                                    LineSpacing="1.1" 
