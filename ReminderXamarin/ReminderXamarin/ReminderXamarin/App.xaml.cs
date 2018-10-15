@@ -1,8 +1,11 @@
-﻿using ReminderXamarin.Helpers;
+﻿using Microsoft.AppCenter;
+using Microsoft.AppCenter.Push;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Models;
 using ReminderXamarin.Pages;
 using Xamarin.Forms;
+using Device = Xamarin.Forms.Device;
 
 namespace ReminderXamarin
 {
@@ -30,6 +33,18 @@ namespace ReminderXamarin
             {
                 MainPage = new LoginPage();
             }
+
+            MessagingCenter.Subscribe<object, string>(this, NotificationReceivedKey, OnMessageReceived);
+        }
+
+        // TODO: implement notification logic here
+        private void OnMessageReceived(object sender, string msg)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                var alertService = DependencyService.Get<IAlertService>();
+                alertService.ShowYesNoAlert("Notification received", "Ok", "Cancel");
+            });
         }
 
         /// <summary>
@@ -65,6 +80,7 @@ namespace ReminderXamarin
         protected override void OnStart()
         {
             // Handle when your app starts
+            AppCenter.Start("dbcc1105-ebfa-4b6a-8fec-8ea02bd5454e", typeof(Push));
         }
 
         protected override void OnSleep()
