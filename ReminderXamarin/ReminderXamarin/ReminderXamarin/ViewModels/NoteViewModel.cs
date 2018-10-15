@@ -17,6 +17,7 @@ namespace ReminderXamarin.ViewModels
     {
         private readonly MediaHelper _mediaHelper;
         private readonly TransformHelper _transformHelper;
+        private static readonly IPermissionService PermissionService = DependencyService.Get<IPermissionService>();
 
         public NoteViewModel()
         {
@@ -61,14 +62,18 @@ namespace ReminderXamarin.ViewModels
 
         private async Task TakePhotoCommandExecute()
         {
-            IsLoading = true;
-            var photoModel = await _mediaHelper.TakePhotoAsync();
-            if (photoModel != null)
+            bool permissionResult = await PermissionService.AskPermission();
+            if (permissionResult)
             {
-                Photos.Add(photoModel.ToPhotoViewModel());
-                PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
+                IsLoading = true;
+                var photoModel = await _mediaHelper.TakePhotoAsync();
+                if (photoModel != null)
+                {
+                    Photos.Add(photoModel.ToPhotoViewModel());
+                    PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
+                }
+                IsLoading = false;
             }
-            IsLoading = false;
         }
 
         private async Task PickPhotoCommandExecute(PlatformDocument document)
@@ -114,13 +119,18 @@ namespace ReminderXamarin.ViewModels
         //TODO: implement video player
         private async Task TakeVideoCommandExecute()
         {
-            IsLoading = true;
-            var videoModel = await _mediaHelper.TakeVideoAsync();
-            if (videoModel != null)
+            bool permissionResult = await PermissionService.AskPermission();
+
+            if (permissionResult)
             {
-                Videos.Add(videoModel);
+                IsLoading = true;
+                var videoModel = await _mediaHelper.TakeVideoAsync();
+                if (videoModel != null)
+                {
+                    Videos.Add(videoModel);
+                }
+                IsLoading = false;
             }
-            IsLoading = false;
         }
 
         private void CreateNoteCommandExecute()

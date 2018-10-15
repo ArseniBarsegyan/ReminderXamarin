@@ -34,5 +34,9 @@
 	<string>ReminderXamarin</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>NSCameraUsageDescription</key>
+	<string>New Entry</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Reminder wants to access your gallery</string>
 </dict>
 </plist>

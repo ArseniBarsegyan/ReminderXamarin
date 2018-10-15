@@ -135,6 +135,7 @@
     <Compile Include="Interfaces\ImageService.cs" />
     <Compile Include="Interfaces\LoadingService.cs" />
     <Compile Include="Interfaces\MediaService.cs" />
+    <Compile Include="Interfaces\PermissionService.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="ReminderFirebaseMessagingService.cs" />
