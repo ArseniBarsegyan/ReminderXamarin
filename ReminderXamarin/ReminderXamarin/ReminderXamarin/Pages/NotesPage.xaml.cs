@@ -24,11 +24,12 @@ namespace ReminderXamarin.Pages
 
         private async void NotesList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (e.SelectedItem is NoteViewModel viewModel)
+            var viewModel = e.SelectedItem as NoteViewModel;
+            NotesList.SelectedItem = null;
+            if (viewModel != null)
             {
                 await Navigation.PushAsync(new NoteDetailPage(viewModel));
             }
-            NotesList.SelectedItem = null;
         }        
 
         private void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)

@@ -72,11 +72,8 @@ namespace ReminderXamarin.Droid
                 }
                 return false;
             }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("Play Services available.");
-                return true;
-            }
+            System.Diagnostics.Debug.WriteLine("Play Services available.");
+            return true;
         }
 
         /// <summary>
