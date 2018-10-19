@@ -11,13 +11,13 @@
             <elements:GalleryView x:Name="GalleryView"
                                   HorizontalOptions="FillAndExpand" 
                                   VerticalOptions="CenterAndExpand" 
-                                  HeightRequest="300">
+                                  HeightRequest="500">
                 <elements:GalleryView.ItemTemplate>
                     <DataTemplate>
                         <elements1:PinchToZoomContainer>
                             <elements1:PinchToZoomContainer.Content>
                                 <Image Source="{Binding Source}" 
-                                       HeightRequest="300" 
+                                       HeightRequest="500"
                                        Aspect="AspectFit" />
                             </elements1:PinchToZoomContainer.Content>
                         </elements1:PinchToZoomContainer>

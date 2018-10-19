@@ -1,8 +1,5 @@
-﻿using System;
-using System.Windows.Input;
-using Plugin.Multilingual;
+﻿using System.Windows.Input;
 using ReminderXamarin.Helpers;
-using ReminderXamarin.Interfaces;
 using ReminderXamarin.Pages;
 using Xamarin.Forms;
 
@@ -24,18 +21,7 @@ namespace ReminderXamarin.ViewModels
             var userPin = Settings.UserPinCode;
             if (Pin.ToString() == userPin)
             {
-                var ci = CrossMultilingual.Current.CurrentCultureInfo;
-                var loadingMessageLocalized =
-                    Resmgr.Value.GetString(ConstantsHelper.LoadingMessage, ci);
-
-                var loadingService = DependencyService.Get<ILoadingService>();
-                loadingService.ShowLoading(loadingMessageLocalized);
-                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-                {
-                    Application.Current.MainPage = new NavigationPage(new MenuPage(Settings.ApplicationUser));
-                    loadingService.HideLoading();
-                    return false;
-                });
+                Application.Current.MainPage = new NavigationPage(new MenuPage(Settings.ApplicationUser));
             }
         }
     }

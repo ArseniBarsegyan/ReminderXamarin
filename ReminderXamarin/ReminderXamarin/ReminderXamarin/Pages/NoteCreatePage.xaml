@@ -19,17 +19,17 @@
                 <elements:HorizontalImageGallery x:Name="ImageGallery" 
                                              Orientation="Horizontal" 
                                              ItemsSource="{Binding Photos}"
-                                             HeightRequest="100"
+                                             HeightRequest="200"
                                              IsVisible="False">
                     <elements:HorizontalImageGallery.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.View>
-                                    <AbsoluteLayout x:Name="ImageViewLayout" Padding="5" HeightRequest="80" WidthRequest="80">
+                                    <AbsoluteLayout x:Name="ImageViewLayout" Padding="2" HeightRequest="200" WidthRequest="200">
                                         <Image Source="{Binding ResizedPath}"
                                            Aspect="AspectFill"
-                                           HeightRequest="150"  
-                                           WidthRequest="150"
+                                           HeightRequest="250"  
+                                           WidthRequest="250"
                                            AbsoluteLayout.LayoutBounds="0,0,1,1"
                                            AbsoluteLayout.LayoutFlags="All">
                                             <Image.GestureRecognizers>
