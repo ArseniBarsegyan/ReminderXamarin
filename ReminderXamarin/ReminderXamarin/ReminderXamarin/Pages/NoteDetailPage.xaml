@@ -15,19 +15,19 @@
                 <elements:HorizontalImageGallery x:Name="ImageGallery" 
                                               Orientation="Horizontal" 
                                               ItemsSource="{Binding Photos}"
-                                              HeightRequest="200"
+                                              HeightRequest="120"
                                               IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}">
                     <elements:HorizontalImageGallery.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.View>
-                                    <AbsoluteLayout x:Name="ImageViewLayout" Padding="2" HeightRequest="200" WidthRequest="200">
+                                    <AbsoluteLayout x:Name="ImageViewLayout" Padding="2" HeightRequest="120" WidthRequest="120">
                                         <Image Source="{Binding ResizedPath}"
-                                           Aspect="AspectFill" 
-                                           HeightRequest="250" 
-                                           WidthRequest="250" 
-                                           AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                                           AbsoluteLayout.LayoutFlags="All">
+                                               Aspect="AspectFill" 
+                                               HeightRequest="120" 
+                                               WidthRequest="120" 
+                                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                               AbsoluteLayout.LayoutFlags="All">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="HorizontalImageGallery_OnItemTapped" />
                                             </Image.GestureRecognizers>

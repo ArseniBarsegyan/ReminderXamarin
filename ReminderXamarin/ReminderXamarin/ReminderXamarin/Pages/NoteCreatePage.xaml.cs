@@ -4,6 +4,7 @@ using ReminderXamarin.Elements;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces.FilePickerService;
+using ReminderXamarin.Views;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -91,15 +92,19 @@ namespace ReminderXamarin.Pages
 
         private async void HorizontalImageGallery_OnItemTapped(object sender, EventArgs e)
         {
+            //if (sender is Image tappedImage)
+            //{
+            //    FileImageSource fileImageSource = (FileImageSource)tappedImage.Source;
+            //    string filePath = fileImageSource.File;
+            //    ViewModel.SelectedPhoto = ViewModel.Photos.FirstOrDefault(x => x.ResizedPath == filePath);
+            //    var images = ViewModel.Photos.ToImages();
+            //    var currentImage = ViewModel.SelectedPhoto.ToImage();
+
+            //    await Navigation.PushPopupAsync(new FullSizeImageGallery(images, currentImage));
+            //}
             if (sender is Image tappedImage)
             {
-                FileImageSource fileImageSource = (FileImageSource)tappedImage.Source;
-                string filePath = fileImageSource.File;
-                ViewModel.SelectedPhoto = ViewModel.Photos.FirstOrDefault(x => x.ResizedPath == filePath);
-                var images = ViewModel.Photos.ToImages();
-                var currentImage = ViewModel.SelectedPhoto.ToImage();
-
-                await Navigation.PushPopupAsync(new FullSizeImageGallery(images, currentImage));
+                await Navigation.PushPopupAsync(new FullSizeImageView(tappedImage.Source));
             }
         }
 
