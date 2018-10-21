@@ -66,14 +66,14 @@ namespace ReminderXamarin.Pages
         {
             if (_isTranslated)
             {
-                BackgroundImage.LayoutTo(new Rectangle(0, 0, 500, 100), 250, Easing.SpringIn);
+                BackgroundImage.LayoutTo(new Rectangle(0, 0, Width, 100), 250, Easing.SpringIn);
                 UserProfileImage.TranslateTo(0, 0, 250, Easing.SpringIn);
                 PickUserPhotoImage.TranslateTo(0, 0, 250, Easing.SpringIn);
                 UserInfoLayout.TranslateTo(0, 0, 250, Easing.SpringIn);
             }
             else
             {
-                BackgroundImage.LayoutTo(new Rectangle(0, 0, 500, 200), 250, Easing.SpringOut);
+                BackgroundImage.LayoutTo(new Rectangle(0, 0, Width, 200), 250, Easing.SpringOut);
                 UserProfileImage.TranslateTo(0, 100, 250, Easing.SpringOut);
                 PickUserPhotoImage.TranslateTo(0, 100, 250, Easing.SpringOut);
                 UserInfoLayout.TranslateTo(0, 100, 250, Easing.SpringOut);
