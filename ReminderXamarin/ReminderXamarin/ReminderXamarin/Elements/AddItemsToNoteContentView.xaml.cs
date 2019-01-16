@@ -25,6 +25,11 @@ namespace ReminderXamarin.Elements
         /// </summary>
         public event EventHandler PickPhotoButtonClicked;
 
+        /// <summary>
+        /// Invokes when button TakeVideo is clicked.
+        /// </summary>
+        public event EventHandler TakeVideoButtonClicked;
+
         private void CancelButton_OnClicked(object sender, EventArgs e)
         {
             IsVisible = false;
@@ -38,6 +43,11 @@ namespace ReminderXamarin.Elements
         private void TakePhotoButton_OnClicked(object sender, EventArgs e)
         {
             TakePhotoButtonClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void TakeVideoButton_OnClicked(object sender, EventArgs e)
+        {
+            TakeVideoButtonClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

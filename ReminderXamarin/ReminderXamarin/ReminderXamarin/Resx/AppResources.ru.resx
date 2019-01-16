@@ -258,6 +258,9 @@
   <data name="TakePhoto" xml:space="preserve">
     <value>Сделать фото</value>
   </data>
+  <data name="TakeVideo" xml:space="preserve">
+    <value>Выбрать видео</value>
+  </data>
   <data name="Time" xml:space="preserve">
     <value>Время:</value>
   </data>

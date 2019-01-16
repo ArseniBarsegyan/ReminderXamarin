@@ -129,5 +129,11 @@ namespace ReminderXamarin.Pages
             }
             ViewModel.PickPhotoCommand.Execute(document);
         }
+
+        private void AddItemsToNoteContentView_OnTakeVideoButtonClicked(object sender, EventArgs e)
+        {
+            ViewModel.IsLoading = true;
+            ViewModel.TakeVideoCommand.Execute(null);
+        }
     }
 }

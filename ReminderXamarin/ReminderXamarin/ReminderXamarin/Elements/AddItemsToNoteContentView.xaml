@@ -19,6 +19,10 @@
                           Style="{StaticResource FrameButtonStyle}"
                           Clicked="PickPhotoButton_OnClicked"
                           Text="{extensions:Translate PickPhoto}" />
+                  <Button x:Name="TakeVideoButton" 
+                          Style="{StaticResource FrameButtonStyle}"
+                          Clicked="TakeVideoButton_OnClicked"
+                          Text="{extensions:Translate TakeVideo}" />
                 </StackLayout>
           </Frame>
           <Button Clicked="CancelButton_OnClicked"

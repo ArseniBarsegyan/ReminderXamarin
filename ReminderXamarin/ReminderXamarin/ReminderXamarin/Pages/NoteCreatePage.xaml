@@ -83,6 +83,7 @@
             <elements1:AddItemsToNoteContentView x:Name="AddItemsToNoteContentView" 
                                                  AbsoluteLayout.LayoutBounds="0,0,1,1"
                                                  AbsoluteLayout.LayoutFlags="All"
+                                                 TakeVideoButtonClicked="AddItemsToNoteContentView_OnTakeVideoButtonClicked"
                                                  PickPhotoButtonClicked="AddItemsToNoteContentView_OnPickPhotoButtonClicked"
                                                  TakePhotoButtonClicked="AddItemsToNoteContentView_OnTakePhotoButtonClicked"
                                                  IsVisible="False" />

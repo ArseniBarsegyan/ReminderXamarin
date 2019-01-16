@@ -69,7 +69,8 @@ namespace ReminderXamarin.Extensions
                 EditDate = note.EditDate,
                 Description = note.Description,
                 FullDescription = note.EditDate.ToString("dd.MM.yy") + " "+ note.Description,
-                Photos = note.Photos.ToPhotoViewModels()
+                Photos = note.Photos.ToPhotoViewModels(),
+                Videos = new ObservableCollection<VideoModel>(note.Videos)
             };
             return viewModel;
         }
@@ -83,7 +84,8 @@ namespace ReminderXamarin.Extensions
                 CreationDate = note.CreationDate,
                 EditDate = note.EditDate,
                 Description = note.Description,
-                Photos = note.Photos.ToPhotoModels().ToList()
+                Photos = note.Photos.ToPhotoModels().ToList(),
+                Videos = note.Videos.ToList()
             };
             return model;
         }
@@ -97,12 +99,13 @@ namespace ReminderXamarin.Extensions
                     EditDate = model.EditDate,
                     Description = model.Description,
                     FullDescription = model.EditDate.ToString("dd.MM.yy") + " " + model.Description,
-                    Photos = model.Photos.ToPhotoViewModels()
+                    Photos = model.Photos.ToPhotoViewModels(),
+                    Videos = new ObservableCollection<VideoModel>(model.Videos)
                 })
                 .ToList();
         }
 
-        public static IEnumerable<Note> ToNoteViewModels(this IEnumerable<NoteViewModel> viewModels)
+        public static IEnumerable<Note> ToNoteModels(this IEnumerable<NoteViewModel> viewModels)
         {
             return viewModels.Select(viewModel => new Note
                 {
@@ -110,7 +113,8 @@ namespace ReminderXamarin.Extensions
                     CreationDate = viewModel.CreationDate,
                     EditDate = viewModel.EditDate,
                     Description = viewModel.Description,
-                    Photos = viewModel.Photos.ToPhotoModels().ToList()
+                    Photos = viewModel.Photos.ToPhotoModels().ToList(),
+                    Videos = viewModel.Videos.ToList()
                 })
                 .ToList();
         }

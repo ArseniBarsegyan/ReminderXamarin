@@ -484,6 +484,15 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Take video.
+        /// </summary>
+        internal static string TakeVideo {
+            get {
+                return ResourceManager.GetString("TakeVideo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time:.
         /// </summary>
         internal static string Time {
