@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
 using ReminderXamarin.Elements;
-using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
+using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
 using ReminderXamarin.ViewModels;
 using ReminderXamarin.Views;
@@ -125,6 +124,12 @@ namespace ReminderXamarin.Pages
         private void AddItemsToNoteContentView_OnTakePhotoButtonClicked(object sender, EventArgs e)
         {
             _noteViewModel.TakePhotoCommand.Execute(null);
+        }
+
+        private void PlayVideoButton_OnClicked(object sender, EventArgs e)
+        {
+            var videoService = DependencyService.Get<IVideoService>();
+            videoService.PlayVideo(VideoPath.Text);
         }
     }
 }

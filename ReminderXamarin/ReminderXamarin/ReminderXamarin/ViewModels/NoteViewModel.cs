@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -116,7 +117,6 @@ namespace ReminderXamarin.ViewModels
             IsLoading = false;
         }
 
-        //TODO: implement video player
         private async Task TakeVideoCommandExecute()
         {
             bool permissionResult = await PermissionService.AskPermission();
@@ -127,6 +127,31 @@ namespace ReminderXamarin.ViewModels
                 var videoModel = await _mediaHelper.TakeVideoAsync();
                 if (videoModel != null)
                 {
+                    var photoModel = new PhotoModel
+                    {
+                        NoteId = Id,
+                        IsVideo = true
+                    };
+                    var videoName =
+                        videoModel.Path.Substring(videoModel.Path.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
+                    var imageName = videoName.Substring(0, videoName.Length - 4) + "_thumb.jpg";
+
+                    var mediaService = DependencyService.Get<IMediaService>();
+                    var imageContent = mediaService.GenerateThumbImage(videoModel.Path, ConstantsHelper.ThumbnailTimeFrame);
+
+                    var resizedImage = mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
+                    string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                    string imagePath = Path.Combine(path, imageName);
+
+                    File.WriteAllBytes(imagePath, resizedImage);
+                    photoModel.ResizedPath = imagePath;
+                    photoModel.Thumbnail = imagePath;
+
+                    await _transformHelper.ResizeAsync(imagePath, photoModel);
+
+                    Photos.Add(photoModel.ToPhotoViewModel());
+                    PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
+
                     Videos.Add(videoModel);
                 }
                 IsLoading = false;

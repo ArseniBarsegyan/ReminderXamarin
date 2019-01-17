@@ -101,6 +101,7 @@
     <Compile Include="Interfaces\LoadingService.cs" />
     <Compile Include="Interfaces\MediaService.cs" />
     <Compile Include="Interfaces\PermissionService.cs" />
+    <Compile Include="Interfaces\VideoService.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\BlurredImageRenderer.cs" />

@@ -38,6 +38,13 @@
                         </DataTemplate>
                     </elements:HorizontalImageGallery.ItemTemplate>
                 </elements:HorizontalImageGallery>
+               
+                <Label x:Name="VideoPath" 
+                       Text="{Binding Videos[0].Path}"
+                       FontSize="Medium" 
+                       HorizontalTextAlignment="Center" 
+                       VerticalTextAlignment="Center" />
+                <Button Text="PlayVideo" Clicked="PlayVideoButton_OnClicked" />
 
                 <ScrollView VerticalOptions="FillAndExpand">
                     <Editor x:Name="DescriptionEditor"

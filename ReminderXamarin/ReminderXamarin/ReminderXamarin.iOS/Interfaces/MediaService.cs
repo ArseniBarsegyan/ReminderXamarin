@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Drawing;
+using AVFoundation;
+using CoreGraphics;
+using CoreMedia;
 using Foundation;
 using ReminderXamarin.iOS.Interfaces;
 using ReminderXamarin.Interfaces;
 using UIKit;
+using Xamarin.Forms;
 
 [assembly: Xamarin.Forms.Dependency(typeof(MediaService))]
 namespace ReminderXamarin.iOS.Interfaces
@@ -49,6 +53,18 @@ namespace ReminderXamarin.iOS.Interfaces
             var bytesImagen = resizedImage.AsJPEG().ToArray();
             resizedImage.Dispose();
             return bytesImagen;
+        }
+
+        public byte[] GenerateThumbImage(string url, long second)
+        {
+            AVAssetImageGenerator imageGenerator = new AVAssetImageGenerator(AVAsset.FromUrl((new Foundation.NSUrl(url))));
+            imageGenerator.AppliesPreferredTrackTransform = true;
+            CMTime actualTime;
+            NSError error;
+            CGImage cgImage = imageGenerator.CopyCGImageAtTime(new CMTime(second, 1000000), out actualTime, out error);
+            return new UIImage(cgImage).AsPNG().ToArray();
+
+            // return ImageSource.FromStream(() => new UIImage(cgImage).AsPNG().ToArray());
         }
     }
 }

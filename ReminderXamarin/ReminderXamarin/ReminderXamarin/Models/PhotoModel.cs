@@ -15,6 +15,7 @@ namespace ReminderXamarin.Models
         public string ResizedPath { get; set; }
         public string Thumbnail { get; set; }
         public bool Landscape { get; set; }
+        public bool IsVideo { get; set; }
 
         [ForeignKey(typeof(Note))]
         public int NoteId { get; set; }

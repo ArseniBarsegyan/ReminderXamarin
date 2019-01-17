@@ -1,7 +1,11 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Android.Graphics;
+using Android.Media;
+using Java.IO;
 using ReminderXamarin.Droid.Interfaces;
 using ReminderXamarin.Interfaces;
+using Xamarin.Forms;
 
 [assembly: Xamarin.Forms.Dependency(typeof(MediaService))]
 namespace ReminderXamarin.Droid.Interfaces
@@ -47,6 +51,27 @@ namespace ReminderXamarin.Droid.Interfaces
                 resizedImage.Recycle();
                 return ms.ToArray();
             }
+        }
+
+        public byte[] GenerateThumbImage(string url, long second)
+        {
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            using (FileInputStream inputStream = new FileInputStream(url))
+            {
+                retriever.SetDataSource(inputStream.FD);
+            }
+            
+            // retriever.SetDataSource(url, new Dictionary<string, string>());
+            Bitmap bitmap = retriever.GetFrameAtTime(second);
+            if (bitmap != null)
+            {
+                MemoryStream stream = new MemoryStream();
+                bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
+                byte[] bitmapData = stream.ToArray();
+                return bitmapData;
+                // return ImageSource.FromStream(() => new MemoryStream(bitmapData));
+            }
+            return null;
         }
     }
 }

@@ -18,6 +18,7 @@ namespace ReminderXamarin.Extensions
                 NoteId = model.NoteId,
                 Landscape = model.Landscape,
                 ResizedPath = model.ResizedPath,
+                IsVideo = model.IsVideo,
                 Thumbnail = model.Thumbnail
             };
             return viewModel;
@@ -31,6 +32,7 @@ namespace ReminderXamarin.Extensions
                 NoteId = viewModel.NoteId,
                 Landscape = viewModel.Landscape,
                 ResizedPath = viewModel.ResizedPath,
+                IsVideo = viewModel.IsVideo,
                 Thumbnail = viewModel.Thumbnail
             };
             return model;
@@ -44,6 +46,7 @@ namespace ReminderXamarin.Extensions
                     Landscape = model.Landscape,
                     ResizedPath = model.ResizedPath,
                     Thumbnail = model.Thumbnail,
+                    IsVideo = model.IsVideo,
                     NoteId = model.NoteId
                 }).ToObservableCollection();
         }
@@ -56,6 +59,7 @@ namespace ReminderXamarin.Extensions
                 Landscape = viewModel.Landscape,
                 ResizedPath = viewModel.ResizedPath,
                 Thumbnail = viewModel.Thumbnail,
+                IsVideo = viewModel.IsVideo,
                 NoteId = viewModel.NoteId
             });
         }
