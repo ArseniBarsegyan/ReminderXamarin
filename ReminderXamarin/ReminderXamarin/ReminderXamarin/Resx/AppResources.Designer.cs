@@ -412,6 +412,15 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pick video.
+        /// </summary>
+        internal static string PickVideo {
+            get {
+                return ResourceManager.GetString("PickVideo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preferences description:.
         /// </summary>
         internal static string PreferencesDescription {

@@ -31,6 +31,7 @@ namespace ReminderXamarin.ViewModels
             DeletePhotoCommand = new Command<int>(DeletePhotoCommandExecute);
             TakeVideoCommand = new Command(async () => await TakeVideoCommandExecute());
             PickPhotoCommand = new Command<PlatformDocument>(async document => await PickPhotoCommandExecute(document));
+            PickVideoCommand = new Command<PlatformDocument>(async document => await PickVideoCommandExecute(document));
             CreateNoteCommand = new Command(CreateNoteCommandExecute);
             UpdateNoteCommand = new Command(UpdateNoteCommandExecute);
             DeleteNoteCommand = new Command(note => DeleteNoteCommandExecute());
@@ -52,6 +53,7 @@ namespace ReminderXamarin.ViewModels
         public ICommand TakePhotoCommand { get; set; }
         public ICommand TakeVideoCommand { get; set; }
         public ICommand PickPhotoCommand { get; set; }
+        public ICommand PickVideoCommand { get; set; }
         public ICommand CreateNoteCommand { get; set; }
         public ICommand UpdateNoteCommand { get; set; }
         public ICommand DeleteNoteCommand { get; set; }
@@ -156,6 +158,45 @@ namespace ReminderXamarin.ViewModels
                 }
                 IsLoading = false;
             }
+        }
+
+        private async Task PickVideoCommandExecute(PlatformDocument document)
+        {
+            if (document.Name.EndsWith(".mp4"))
+            {
+                var photoModel = new PhotoModel
+                {
+                    NoteId = Id,
+                    IsVideo = true
+                };
+                var videoModel = new VideoModel
+                {
+                    NoteId = Id,
+                    Path = document.Path
+                };
+                var videoName =
+                    document.Path.Substring(document.Path.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
+                var imageName = videoName.Substring(0, videoName.Length - 4) + "_thumb.jpg";
+
+                var mediaService = DependencyService.Get<IMediaService>();
+                var imageContent = mediaService.GenerateThumbImage(document.Path, ConstantsHelper.ThumbnailTimeFrame);
+
+                var resizedImage = mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                string imagePath = Path.Combine(path, imageName);
+
+                File.WriteAllBytes(imagePath, resizedImage);
+                photoModel.ResizedPath = imagePath;
+                photoModel.Thumbnail = imagePath;
+
+                await _transformHelper.ResizeAsync(imagePath, photoModel);
+
+                Photos.Add(photoModel.ToPhotoViewModel());
+                PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
+
+                Videos.Add(videoModel);
+            }
+            IsLoading = false;
         }
 
         private void CreateNoteCommandExecute()

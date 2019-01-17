@@ -7,7 +7,6 @@ using Foundation;
 using ReminderXamarin.iOS.Interfaces;
 using ReminderXamarin.Interfaces;
 using UIKit;
-using Xamarin.Forms;
 
 [assembly: Xamarin.Forms.Dependency(typeof(MediaService))]
 namespace ReminderXamarin.iOS.Interfaces
@@ -63,8 +62,6 @@ namespace ReminderXamarin.iOS.Interfaces
             NSError error;
             CGImage cgImage = imageGenerator.CopyCGImageAtTime(new CMTime(second, 1000000), out actualTime, out error);
             return new UIImage(cgImage).AsPNG().ToArray();
-
-            // return ImageSource.FromStream(() => new UIImage(cgImage).AsPNG().ToArray());
         }
     }
 }

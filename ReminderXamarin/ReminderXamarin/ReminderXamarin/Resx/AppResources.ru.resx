@@ -234,6 +234,9 @@
   <data name="PickPhoto" xml:space="preserve">
     <value>Выбрать фото</value>
   </data>
+  <data name="PickVideo" xml:space="preserve">
+    <value>Выбрать видео</value>
+  </data>
   <data name="PreferencesDescription" xml:space="preserve">
     <value>Предпочтения:</value>
   </data>
@@ -259,7 +262,7 @@
     <value>Сделать фото</value>
   </data>
   <data name="TakeVideo" xml:space="preserve">
-    <value>Выбрать видео</value>
+    <value>Снять видео</value>
   </data>
   <data name="Time" xml:space="preserve">
     <value>Время:</value>

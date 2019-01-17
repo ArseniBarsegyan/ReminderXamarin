@@ -38,13 +38,26 @@
                         </DataTemplate>
                     </elements:HorizontalImageGallery.ItemTemplate>
                 </elements:HorizontalImageGallery>
-               
-                <Label x:Name="VideoPath" 
-                       Text="{Binding Videos[0].Path}"
-                       FontSize="Medium" 
-                       HorizontalTextAlignment="Center" 
-                       VerticalTextAlignment="Center" />
-                <Button Text="PlayVideo" Clicked="PlayVideoButton_OnClicked" />
+
+                <ListView x:Name="VideoList" 
+                          HeightRequest="150" 
+                          ItemsSource="{Binding Videos}" 
+                          ItemSelected="VideoList_OnItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label x:Name="VideoPath" 
+                                           Text="{Binding Path}"
+                                           FontSize="Medium" 
+                                           HorizontalTextAlignment="Start" 
+                                           VerticalTextAlignment="Center" />
+                                    <Button Image="play.png" HorizontalOptions="EndAndExpand" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
                 <ScrollView VerticalOptions="FillAndExpand">
                     <Editor x:Name="DescriptionEditor"
@@ -89,6 +102,8 @@
                                                 AbsoluteLayout.LayoutFlags="All"
                                                 PickPhotoButtonClicked="AddItemsToNoteContentView_OnPickPhotoButtonClicked"
                                                 TakePhotoButtonClicked="AddItemsToNoteContentView_OnTakePhotoButtonClicked"
+                                                TakeVideoButtonClicked="AddItemsToNoteContentView_OnTakeVideoButtonClicked"
+                                                PickVideoButtonClicked="AddItemsToNoteContentView_OnPickVideoButtonClicked"
                                                 IsVisible="False" />
         </AbsoluteLayout>
     </ContentPage.Content>

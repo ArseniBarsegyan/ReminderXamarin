@@ -3,6 +3,7 @@ using ReminderXamarin.Elements;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
+using ReminderXamarin.Models;
 using ReminderXamarin.ViewModels;
 using ReminderXamarin.Views;
 using Rg.Plugins.Popup.Extensions;
@@ -126,10 +127,32 @@ namespace ReminderXamarin.Pages
             _noteViewModel.TakePhotoCommand.Execute(null);
         }
 
-        private void PlayVideoButton_OnClicked(object sender, EventArgs e)
+        private void AddItemsToNoteContentView_OnTakeVideoButtonClicked(object sender, EventArgs e)
         {
-            var videoService = DependencyService.Get<IVideoService>();
-            videoService.PlayVideo(VideoPath.Text);
+            _noteViewModel.TakeVideoCommand.Execute(null);
+        }
+
+        private async void AddItemsToNoteContentView_OnPickVideoButtonClicked(object sender, EventArgs e)
+        {
+            _noteViewModel.IsLoading = true;
+            var document = await DocumentPicker.DisplayImportAsync(this);
+            if (document == null)
+            {
+                _noteViewModel.IsLoading = false;
+                return;
+            }
+            _noteViewModel.PickVideoCommand.Execute(document);
+        }
+
+        private void VideoList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var viewModel = e.SelectedItem as VideoModel;
+            VideoList.SelectedItem = null;
+            if (viewModel != null)
+            {
+                var videoService = DependencyService.Get<IVideoService>();
+                videoService.PlayVideo(viewModel.Path);
+            }
         }
     }
 }

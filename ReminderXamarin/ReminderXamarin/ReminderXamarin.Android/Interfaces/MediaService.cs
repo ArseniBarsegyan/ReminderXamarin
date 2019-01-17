@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using Android.Graphics;
 using Android.Media;
 using Java.IO;
 using ReminderXamarin.Droid.Interfaces;
 using ReminderXamarin.Interfaces;
-using Xamarin.Forms;
 
 [assembly: Xamarin.Forms.Dependency(typeof(MediaService))]
 namespace ReminderXamarin.Droid.Interfaces
@@ -69,7 +67,6 @@ namespace ReminderXamarin.Droid.Interfaces
                 bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
                 byte[] bitmapData = stream.ToArray();
                 return bitmapData;
-                // return ImageSource.FromStream(() => new MemoryStream(bitmapData));
             }
             return null;
         }

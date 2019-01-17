@@ -3,7 +3,9 @@ using System.Linq;
 using ReminderXamarin.Elements;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
+using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
+using ReminderXamarin.Models;
 using ReminderXamarin.Views;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
@@ -132,8 +134,30 @@ namespace ReminderXamarin.Pages
 
         private void AddItemsToNoteContentView_OnTakeVideoButtonClicked(object sender, EventArgs e)
         {
-            ViewModel.IsLoading = true;
             ViewModel.TakeVideoCommand.Execute(null);
+        }
+
+        private async void AddItemsToNoteContentView_OnPickVideoButtonClicked(object sender, EventArgs e)
+        {
+            ViewModel.IsLoading = true;
+            var document = await DocumentPicker.DisplayImportAsync(this);
+            if (document == null)
+            {
+                ViewModel.IsLoading = false;
+                return;
+            }
+            ViewModel.PickVideoCommand.Execute(document);
+        }
+
+        private void VideoList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var viewModel = e.SelectedItem as VideoModel;
+            VideoList.SelectedItem = null;
+            if (viewModel != null)
+            {
+                var videoService = DependencyService.Get<IVideoService>();
+                videoService.PlayVideo(viewModel.Path);
+            }
         }
     }
 }

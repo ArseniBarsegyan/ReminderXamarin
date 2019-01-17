@@ -234,6 +234,9 @@
   <data name="PickPhoto" xml:space="preserve">
     <value>Pick photo</value>
   </data>
+  <data name="PickVideo" xml:space="preserve">
+    <value>Pick video</value>
+  </data>
   <data name="PreferencesDescription" xml:space="preserve">
     <value>Preferences description:</value>
   </data>
