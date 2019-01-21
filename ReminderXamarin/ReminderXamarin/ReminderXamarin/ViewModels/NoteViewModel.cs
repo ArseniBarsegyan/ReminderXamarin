@@ -5,12 +5,14 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using PCLStorage;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
 using ReminderXamarin.Models;
 using Xamarin.Forms;
+using IFileSystem = ReminderXamarin.Interfaces.IFileSystem;
 
 namespace ReminderXamarin.ViewModels
 {
@@ -169,23 +171,31 @@ namespace ReminderXamarin.ViewModels
                     NoteId = Id,
                     IsVideo = true
                 };
-                var videoModel = new VideoModel
-                {
-                    NoteId = Id,
-                    Path = document.Path
-                };
+                
                 var videoName =
                     document.Path.Substring(document.Path.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
                 var imageName = videoName.Substring(0, videoName.Length - 4) + "_thumb.jpg";
 
+                // Thumbnail
                 var mediaService = DependencyService.Get<IMediaService>();
                 var imageContent = mediaService.GenerateThumbImage(document.Path, ConstantsHelper.ThumbnailTimeFrame);
-
                 var resizedImage = mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                 string imagePath = Path.Combine(path, imageName);
-
                 File.WriteAllBytes(imagePath, resizedImage);
+
+                // Video
+                var fileSystem = DependencyService.Get<IFileSystem>();
+                var videoContent = fileSystem.ReadAllBytes(document.Path);
+                var videoPath = Path.Combine(path, document.Name);
+                File.WriteAllBytes(videoPath, videoContent);
+
+                var videoModel = new VideoModel
+                {
+                    NoteId = Id,
+                    Path = videoPath
+                };
+
                 photoModel.ResizedPath = imagePath;
                 photoModel.Thumbnail = imagePath;
 

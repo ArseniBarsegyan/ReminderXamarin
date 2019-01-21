@@ -70,7 +70,7 @@ namespace ReminderXamarin.Helpers
             }
 
             var dt = DateTime.Now;
-            var file = await CrossMedia.Current.TakeVideoAsync(new Plugin.Media.Abstractions.StoreVideoOptions
+            var file = await CrossMedia.Current.TakeVideoAsync(new StoreVideoOptions
             {
                 Quality = VideoQuality.High,
                 Directory = "Videos",
