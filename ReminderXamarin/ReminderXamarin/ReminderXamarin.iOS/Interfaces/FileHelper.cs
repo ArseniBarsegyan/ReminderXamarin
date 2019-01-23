@@ -14,5 +14,11 @@ namespace ReminderXamarin.iOS.Interfaces
             var path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             return Path.Combine(path, filename);
         }
+
+        public string GetVideoSavingPath(string videoName)
+        {
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            return Path.Combine(path, videoName);
+        }
     }
 }

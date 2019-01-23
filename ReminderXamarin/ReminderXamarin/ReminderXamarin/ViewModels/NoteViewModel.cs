@@ -176,18 +176,25 @@ namespace ReminderXamarin.ViewModels
                     document.Path.Substring(document.Path.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
                 var imageName = videoName.Substring(0, videoName.Length - 4) + "_thumb.jpg";
 
-                // Thumbnail
                 var mediaService = DependencyService.Get<IMediaService>();
+                var fileHelper = DependencyService.Get<IFileHelper>();
+                var fileSystem = DependencyService.Get<IFileSystem>();
+
+                // Thumbnail
                 var imageContent = mediaService.GenerateThumbImage(document.Path, ConstantsHelper.ThumbnailTimeFrame);
                 var resizedImage = mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
-                string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                string imagePath = Path.Combine(path, imageName);
+                //string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                //string imagePath = Path.Combine(path, imageName);
+                string imagePath = fileHelper.GetLocalFilePath(imageName);
                 File.WriteAllBytes(imagePath, resizedImage);
-
+                
                 // Video
-                var fileSystem = DependencyService.Get<IFileSystem>();
                 var videoContent = fileSystem.ReadAllBytes(document.Path);
-                var videoPath = Path.Combine(path, document.Name);
+                string videoPath = fileHelper.GetVideoSavingPath(document.Name);
+                if (string.IsNullOrEmpty(videoPath))
+                {
+                    videoPath = fileHelper.GetLocalFilePath(document.Path);
+                }
                 File.WriteAllBytes(videoPath, videoContent);
 
                 var videoModel = new VideoModel
