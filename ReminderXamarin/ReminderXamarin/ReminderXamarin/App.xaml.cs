@@ -1,4 +1,6 @@
 ﻿using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Push;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
@@ -81,6 +83,11 @@ namespace ReminderXamarin
         {
             // Handle when your app starts
             AppCenter.Start("dbcc1105-ebfa-4b6a-8fec-8ea02bd5454e", typeof(Push));
+            AppCenter.Start("android=dbcc1105-ebfa-4b6a-8fec-8ea02bd5454e;" 
+                + "uwp={Your UWP App secret here};"
+                + "ios={Your iOS App secret here}", 
+                typeof(Analytics), 
+                typeof(Crashes));
         }
 
         protected override void OnSleep()
