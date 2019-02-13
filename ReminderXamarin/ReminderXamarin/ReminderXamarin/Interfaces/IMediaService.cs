@@ -1,6 +1,4 @@
-﻿using Xamarin.Forms;
-
-namespace ReminderXamarin.Interfaces
+﻿namespace ReminderXamarin.Interfaces
 {
     /// <summary>
     /// Provide ability to resize images.

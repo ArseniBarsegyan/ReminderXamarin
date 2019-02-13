@@ -20,6 +20,7 @@ namespace ReminderXamarin.Converters
             }
             return retSource;
         }
+
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return value;

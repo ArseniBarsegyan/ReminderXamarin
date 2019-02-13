@@ -4,7 +4,7 @@ using Xamarin.Forms;
 namespace ReminderXamarin.Helpers
 {
     /// <summary>
-    /// Helper class, calling implementaion of the <see cref="T:MyDiary.Interfaces.IImageService"/>.
+    /// Helper class, calling implementation of the <see cref="T:MyDiary.Interfaces.IImageService"/>.
     /// </summary>
     public static class ImageServiceHelper
     {
