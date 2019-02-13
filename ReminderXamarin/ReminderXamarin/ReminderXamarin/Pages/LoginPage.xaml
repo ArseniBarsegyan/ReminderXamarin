@@ -4,6 +4,7 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+             xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.LoginPage">
     <ContentPage.BindingContext>
         <viewModels:LoginViewModel x:Name="ViewModel" />
@@ -48,9 +49,13 @@
                                                       AbsoluteLayout.LayoutBounds="0,0,1,1"
                                                       AbsoluteLayout.LayoutFlags="All"
                                                       Text="{Binding Password}" 
-                                                      IsPassword="True" 
-                                                      Style="{StaticResource LoginEntryStyle}"
-                                                      Completed="PasswordEntry_OnCompleted" />
+                                                      IsPassword="{Binding ShowPassword, 
+                                                                        Converter={StaticResource InverseBooleanConverter}}" 
+                                                      Style="{StaticResource LoginEntryStyle}">
+                                <elements:EntryWithBorder.Behaviors>
+                                    <behaviors:EventToCommandBehavior EventName="Completed" Command="{Binding LoginCommand}" />
+                                </elements:EntryWithBorder.Behaviors>
+                            </elements:EntryWithBorder>
 
                             <!-- Hide or show password -->
                             <Image x:Name="TogglePasswordVisibilityButton" 
@@ -58,7 +63,7 @@
                                    AbsoluteLayout.LayoutFlags="PositionProportional"
                                    Source="eye.png">
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TogglePasswordVisibilityButton_OnTapped" NumberOfTapsRequired="1" />
+                                    <TapGestureRecognizer Command="{Binding SwitchPasswordVisibilityCommand}" NumberOfTapsRequired="1" />
                                 </Image.GestureRecognizers>
                             </Image>
                         </AbsoluteLayout>

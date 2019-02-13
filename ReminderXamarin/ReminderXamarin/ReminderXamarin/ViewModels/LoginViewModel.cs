@@ -10,10 +10,12 @@ namespace ReminderXamarin.ViewModels
         public LoginViewModel()
         {
             LoginCommand = new Command(LoginCommandExecute);
+            SwitchPasswordVisibilityCommand = new Command(SwitchPasswordVisibilityCommandExecute);
         }
 
         public string UserName { get; set; }
         public string Password { get; set; }
+        public bool ShowPassword { get; set; }
 
         // Set this field to true to hide error message at LoginPage.
         // When user will press "Login" button and get error change this property
@@ -21,6 +23,7 @@ namespace ReminderXamarin.ViewModels
         public bool IsValid { get; set; } = true;
 
         public ICommand LoginCommand { get; set; }
+        public ICommand SwitchPasswordVisibilityCommand { get; set; }
 
         private void LoginCommandExecute()
         {
@@ -34,6 +37,11 @@ namespace ReminderXamarin.ViewModels
             {
                 IsValid = false;
             }
+        }
+
+        private void SwitchPasswordVisibilityCommandExecute()
+        {
+            ShowPassword = !ShowPassword;
         }
     }
 }

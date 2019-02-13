@@ -10,14 +10,20 @@ namespace ReminderXamarin.ViewModels
         public RegisterViewModel()
         {
             RegisterCommand = new Command(RegisterCommandExecute);
+            SwitchPasswordVisibilityCommand = new Command(SwitchPasswordVisibilityCommandExecute);
+            SwitchPasswordConfirmVisibilityCommand = new Command(SwitchConfirmPasswordVisibilityCommandExecute);
         }
 
         public string UserName { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
+        public bool ShowPassword { get; set; }
+        public bool ShowConfirmedPassword { get; set; }
         public bool IsValid { get; set; } = true;
 
         public ICommand RegisterCommand { get; set; }
+        public ICommand SwitchPasswordVisibilityCommand { get; set; }
+        public ICommand SwitchPasswordConfirmVisibilityCommand { get; set; }
 
         public void RegisterCommandExecute()
         {
@@ -40,6 +46,16 @@ namespace ReminderXamarin.ViewModels
                     IsValid = false;
                 }
             }
+        }
+
+        private void SwitchPasswordVisibilityCommandExecute()
+        {
+            ShowPassword = !ShowPassword;
+        }
+
+        private void SwitchConfirmPasswordVisibilityCommandExecute()
+        {
+            ShowConfirmedPassword = !ShowConfirmedPassword;
         }
     }
 }
