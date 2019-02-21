@@ -26,19 +26,17 @@ namespace ReminderXamarin.ViewModels
         public int NotesCount { get; set; }
         public int AchievementsCount { get; set; }
         public int FriendBirthdaysCount { get; set; }
+        public bool ViewModelChanged { get; set; }
 
         public ICommand ChangeUserProfileCommand { get; set; }
         public ICommand UpdateUserCommand { get; set; }
-
-        public void OnAppearing()
-        {
-        }
-
+        
         private void ChangeUserProfileCommandExecute(PlatformDocument document)
         {
             // Ensure that user downloads .png or .jpg file as profile icon.
             if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg"))
             {
+                ViewModelChanged = true;
                 var imageContent = FileService.ReadAllBytes(document.Path);
                 var resizedImage = MediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
 
@@ -49,6 +47,7 @@ namespace ReminderXamarin.ViewModels
         private void UpdateUserCommandExecute()
         {
             App.UserRepository.Save(this.ToUserModel());
+            ViewModelChanged = false;
         }
     }
 }
