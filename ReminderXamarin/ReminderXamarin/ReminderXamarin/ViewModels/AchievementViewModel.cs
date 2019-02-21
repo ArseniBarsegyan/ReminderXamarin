@@ -2,16 +2,23 @@
 using System.Linq;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
+using ReminderXamarin.Helpers;
+using ReminderXamarin.Interfaces;
+using ReminderXamarin.Interfaces.FilePickerService;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
     public class AchievementViewModel : BaseViewModel
     {
+        private static readonly IFileSystem FileSystem = DependencyService.Get<IFileSystem>();
+        private static readonly IMediaService MediaService = DependencyService.Get<IMediaService>();
+
         public AchievementViewModel()
         {
             AchievementNotes = new ObservableCollection<AchievementNoteViewModel>();
 
+            SetImageCommand = new Command<PlatformDocument>(SetImageCommandExecute);
             RefreshListCommand = new Command(RefreshCommandExecute);
             CreateAchievementCommand = new Command(CreateAchievementCommandExecute);
             CreateAchievementNoteCommand = new Command<AchievementNoteViewModel>(CreateAchievementNoteCommandExecute);
@@ -21,6 +28,9 @@ namespace ReminderXamarin.ViewModels
             DeleteAchievementNoteCommand = new Command<AchievementNoteViewModel>(DeleteAchievementNoteCommandExecute);
         }
 
+        public string FileName { get; set; }
+        public bool IsFileNameLabelVisible { get; set; }
+        public bool IsImageVisible { get; set; }
         public bool IsRefreshing { get; set; }
         public int Id { get; set; }
         public byte[] ImageContent { get; set; }
@@ -29,6 +39,7 @@ namespace ReminderXamarin.ViewModels
         public int GeneralTimeSpent { get; set; }
         public ObservableCollection<AchievementNoteViewModel> AchievementNotes { get; set; }
 
+        public ICommand SetImageCommand { get; set; }
         public ICommand RefreshListCommand { get; set; }
         public ICommand CreateAchievementCommand { get; set; }
         public ICommand CreateAchievementNoteCommand { get; set; }
@@ -37,10 +48,22 @@ namespace ReminderXamarin.ViewModels
         public ICommand DeleteAchievementCommand { get; set; }
         public ICommand DeleteAchievementNoteCommand { get; set; }
 
+        private void SetImageCommandExecute(PlatformDocument document)
+        {
+            // Retrieve file content through IFileService implementation.
+            FileName = document.Name;
+            IsFileNameLabelVisible = true;
+
+            var imageContent = FileSystem.ReadAllBytes(document.Path);
+            ImageContent = MediaService.ResizeImage(imageContent, ConstantsHelper.AchievementImageWidth, ConstantsHelper.AchievementImageHeight);
+            IsImageVisible = true;
+        }
+
         public void OnAppearing()
         {
             LoadAchievementNotesFromDataBase();
         }
+
         private void RefreshCommandExecute()
         {
             IsRefreshing = true;
