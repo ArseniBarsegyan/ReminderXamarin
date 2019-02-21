@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using Xamarin.Forms;
@@ -9,9 +10,9 @@ namespace ReminderXamarin.ViewModels
     {
         public BirthdayViewModel()
         {
-            CreateBirthdayCommand = new Command(CreateBirthdayCommandExecute);
-            UpdateBirthdayCommand = new Command(UpdateBirthdayCommandExecute);
-            DeleteBirthdayCommand = new Command(DeleteBirthdayCommandExecute);
+            CreateBirthdayCommand = new Command(async() => await CreateBirthdayCommandExecute());
+            UpdateBirthdayCommand = new Command(async() => await UpdateBirthdayCommandExecute());
+            DeleteBirthdayCommand = new Command(async() => await DeleteBirthdayCommandExecute());
         }
 
         public int Id { get; set; }
@@ -25,19 +26,23 @@ namespace ReminderXamarin.ViewModels
         public ICommand UpdateBirthdayCommand { get; set; }
         public ICommand DeleteBirthdayCommand { get; set; }
 
-        private void CreateBirthdayCommandExecute()
+        private async Task CreateBirthdayCommandExecute()
         {
-            App.BirthdaysRepository.Save(this.ToBirthdayModel());
+            await App.BirthdaysRepository.CreateAsync(this.ToBirthdayModel());
+            await App.BirthdaysRepository.SaveAsync();
         }
 
-        private void UpdateBirthdayCommandExecute()
+        private async Task UpdateBirthdayCommandExecute()
         {
-            App.BirthdaysRepository.Save(this.ToBirthdayModel());
+            App.BirthdaysRepository.Update(this.ToBirthdayModel());
+            await App.BirthdaysRepository.SaveAsync();
         }
 
-        private void DeleteBirthdayCommandExecute()
+        private async Task DeleteBirthdayCommandExecute()
         {
-            App.BirthdaysRepository.DeleteBirthday(this.ToBirthdayModel());
+            await App.BirthdaysRepository.DeleteAsync(this.Id);
+            await App.BirthdaysRepository.SaveAsync();
+            // App.BirthdaysRepository.DeleteBirthday(this.ToBirthdayModel());
         }
     }
 }

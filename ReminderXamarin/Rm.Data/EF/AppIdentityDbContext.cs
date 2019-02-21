@@ -8,15 +8,20 @@ namespace Rm.Data.EF
     /// </summary>
     public class AppIdentityDbContext : DbContext
     {
+        private readonly string _databasePath;
+
         /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the <see cref="AppIdentityDbContext"/> class.
         /// </summary>
         /// <param name="dbContextOptions">The database context options.</param>
         /// <param name="schemaName">Name of the schema.</param>
-        public AppIdentityDbContext(DbContextOptions dbContextOptions, string schemaName)
+        /// <param name="databasePath">Path to database.</param>
+        public AppIdentityDbContext(DbContextOptions dbContextOptions, string schemaName, string databasePath)
             : base(dbContextOptions)
         {
+            Database.EnsureCreated();
+            _databasePath = databasePath;
             SchemaName = schemaName;
         }
 
@@ -40,7 +45,16 @@ namespace Rm.Data.EF
             modelBuilder.ApplyConfiguration(new AppIdentityTypeConfiguration<PhotoModel>("Photos", SchemaName));
             modelBuilder.ApplyConfiguration(new AppIdentityTypeConfiguration<ToDoModel>("ToDoModels", SchemaName));
             modelBuilder.ApplyConfiguration(new AppIdentityTypeConfiguration<VideoModel>("Videos", SchemaName));
-            modelBuilder.ApplyConfiguration(new AppIdentityTypeConfiguration<AppUser>("Users", SchemaName));
+            modelBuilder.ApplyConfiguration(new AppIdentityTypeConfiguration<AppUser>("AppUsers", SchemaName));
+        }
+
+        /// <summary>
+        /// Setup context to use SQLite database.
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite($"Filename={_databasePath}");
         }
     }
 }

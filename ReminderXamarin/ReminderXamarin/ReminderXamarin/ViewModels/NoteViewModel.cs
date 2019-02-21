@@ -10,7 +10,7 @@ using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
-using ReminderXamarin.Models;
+using Rm.Data.Entities;
 using Xamarin.Forms;
 using IFileSystem = ReminderXamarin.Interfaces.IFileSystem;
 
@@ -27,21 +27,21 @@ namespace ReminderXamarin.ViewModels
             _mediaHelper = new MediaHelper();
             _transformHelper = new TransformHelper();
             Photos = new ObservableCollection<PhotoViewModel>();
-            Videos = new ObservableCollection<VideoModel>();
+            Videos = new ObservableCollection<VideoViewModel>();
 
             TakePhotoCommand = new Command(async () => await TakePhotoCommandExecute());
             DeletePhotoCommand = new Command<int>(DeletePhotoCommandExecute);
             TakeVideoCommand = new Command(async () => await TakeVideoCommandExecute());
             PickPhotoCommand = new Command<PlatformDocument>(async document => await PickPhotoCommandExecute(document));
             PickVideoCommand = new Command<PlatformDocument>(async document => await PickVideoCommandExecute(document));
-            CreateNoteCommand = new Command(CreateNoteCommandExecute);
+            CreateNoteCommand = new Command(async() => await CreateNoteCommandExecute());
             UpdateNoteCommand = new Command(UpdateNoteCommandExecute);
-            DeleteNoteCommand = new Command(note => DeleteNoteCommandExecute());
+            DeleteNoteCommand = new Command(async() => await DeleteNoteCommandExecute());
         }
 
         public PhotoViewModel SelectedPhoto { get; set; }
         public ObservableCollection<PhotoViewModel> Photos { get; set; }
-        public ObservableCollection<VideoModel> Videos { get; set; }
+        public ObservableCollection<VideoViewModel> Videos { get; set; }
 
         public int Id { get; set; }
         public bool ShouldDisplayMessageWhenLeaving { get; set; }
@@ -156,7 +156,7 @@ namespace ReminderXamarin.ViewModels
                     Photos.Add(photoModel.ToPhotoViewModel());
                     PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
 
-                    Videos.Add(videoModel);
+                    Videos.Add(videoModel.ToVideoViewModel());
                 }
                 IsLoading = false;
             }
@@ -211,14 +211,15 @@ namespace ReminderXamarin.ViewModels
                 Photos.Add(photoModel.ToPhotoViewModel());
                 PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
 
-                Videos.Add(videoModel);
+                Videos.Add(videoModel.ToVideoViewModel());
             }
             IsLoading = false;
         }
 
-        private void CreateNoteCommandExecute()
+        private async Task CreateNoteCommandExecute()
         {
-            App.NoteRepository.Save(this.ToNoteModel());
+            await App.NoteRepository.CreateAsync(this.ToNoteModel());
+            // App.NoteRepository.Save(this.ToNoteModel());
             IsLoading = false;
         }
 
@@ -227,13 +228,15 @@ namespace ReminderXamarin.ViewModels
             IsLoading = true;
             // Update edit date since user pressed confirm
             EditDate = DateTime.Now;
-            App.NoteRepository.Save(this.ToNoteModel());
+            App.NoteRepository.Update(this.ToNoteModel());
+            // App.NoteRepository.Save(this.ToNoteModel());
             IsLoading = false;
         }
 
-        private int DeleteNoteCommandExecute()
+        private async Task DeleteNoteCommandExecute()
         {
-            return App.NoteRepository.DeleteNote(this.ToNoteModel());
+            await App.NoteRepository.DeleteAsync(this.Id);
+            // return App.NoteRepository.DeleteNote(this.ToNoteModel());
         }
     }
 }

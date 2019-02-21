@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
@@ -17,7 +18,7 @@ namespace ReminderXamarin.ViewModels
             ImageContent = new byte[0];
 
             ChangeUserProfileCommand = new Command<PlatformDocument>(ChangeUserProfileCommandExecute);
-            UpdateUserCommand = new Command(UpdateUserCommandExecute);
+            UpdateUserCommand = new Command(async () => await UpdateUserCommandExecute());
         }
 
         public string Id { get; set; }
@@ -44,9 +45,11 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private void UpdateUserCommandExecute()
+        private async Task UpdateUserCommandExecute()
         {
-            App.UserRepository.Save(this.ToUserModel());
+            App.UserRepository.Update(this.ToUserModel());
+            await App.UserRepository.SaveAsync();
+            // App.UserRepository.Save(this.ToUserModel());
             ViewModelChanged = false;
         }
     }

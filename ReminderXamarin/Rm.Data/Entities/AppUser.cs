@@ -3,7 +3,7 @@ using Rm.Data.Core;
 
 namespace Rm.Data.Entities
 {
-    public class AppUser : IEntity<string>
+    public class AppUser : Entity
     {
         public AppUser()
         {

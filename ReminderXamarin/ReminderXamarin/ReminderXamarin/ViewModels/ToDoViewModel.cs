@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Models;
@@ -12,9 +13,9 @@ namespace ReminderXamarin.ViewModels
     {
         public ToDoViewModel()
         {
-            CreateToDoCommand = new Command(CreateToDoCommandExecute);
-            UpdateItemCommand = new Command(UpdateItemCommandExecute);
-            DeleteItemCommand = new Command(result => DeleteItemCommandExecute());
+            CreateToDoCommand = new Command(async () => await CreateToDoCommandExecute());
+            UpdateItemCommand = new Command(async () => await UpdateItemCommandExecute());
+            DeleteItemCommand = new Command(async result => await DeleteItemCommandExecute());
         }
 
         public int Id { get; set; }
@@ -29,20 +30,24 @@ namespace ReminderXamarin.ViewModels
         public ICommand UpdateItemCommand { get; set; }
         public ICommand DeleteItemCommand { get; set; }
 
-        private void CreateToDoCommandExecute()
+        private async Task CreateToDoCommandExecute()
         {
-            App.ToDoRepository.Save(this.ToToDoModel());
+            await App.ToDoRepository.CreateAsync(this.ToToDoModel());
+            await App.ToDoRepository.SaveAsync();
         }
 
-        private void UpdateItemCommandExecute()
+        private async Task UpdateItemCommandExecute()
         {
             // Update edit date since user pressed confirm
-            App.ToDoRepository.Save(this.ToToDoModel());
+            App.ToDoRepository.Update(this.ToToDoModel());
+            await App.ToDoRepository.SaveAsync();
+            // App.ToDoRepository.Save(this.ToToDoModel());
         }
 
-        private int DeleteItemCommandExecute()
+        private async Task DeleteItemCommandExecute()
         {
-            return App.ToDoRepository.DeleteModel(this.ToToDoModel());
+            await App.ToDoRepository.DeleteAsync(this.Id);
+           // return App.ToDoRepository.DeleteModel(this.ToToDoModel());
         }
     }
 }

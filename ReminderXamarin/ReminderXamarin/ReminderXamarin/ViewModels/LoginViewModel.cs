@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Pages;
 using Xamarin.Forms;
@@ -9,7 +10,7 @@ namespace ReminderXamarin.ViewModels
     {
         public LoginViewModel()
         {
-            LoginCommand = new Command(LoginCommandExecute);
+            LoginCommand = new Command(async () => await LoginCommandExecute());
             SwitchPasswordVisibilityCommand = new Command(SwitchPasswordVisibilityCommandExecute);
         }
 
@@ -25,9 +26,9 @@ namespace ReminderXamarin.ViewModels
         public ICommand LoginCommand { get; set; }
         public ICommand SwitchPasswordVisibilityCommand { get; set; }
 
-        private void LoginCommandExecute()
+        private async Task LoginCommandExecute()
         {
-            if (AuthenticationManager.Authenticate(UserName, Password))
+            if (await AuthenticationManager.Authenticate(UserName, Password))
             {
                 Settings.ApplicationUser = UserName;
                 Application.Current.MainPage = new NavigationPage(new MenuPage(UserName));

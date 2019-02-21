@@ -2,12 +2,20 @@
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Push;
+using Microsoft.EntityFrameworkCore;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Models;
 using ReminderXamarin.Pages;
+using Rm.Data.EF;
+using Rm.Data.Entities;
+using Rm.Data.Repositories;
 using Xamarin.Forms;
+using AchievementModel = Rm.Data.Entities.AchievementModel;
+using BirthdayModel = Rm.Data.Entities.BirthdayModel;
 using Device = Xamarin.Forms.Device;
+using Note = Rm.Data.Entities.Note;
+using ToDoModel = Rm.Data.Entities.ToDoModel;
 
 namespace ReminderXamarin
 {
@@ -18,13 +26,26 @@ namespace ReminderXamarin
         public App()
         {
             InitializeComponent();
-            string dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantsHelper.SqLiteDataBaseName);
+            string dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantsHelper.EFConnectionString);
 
-            NoteRepository = new NoteRepository(dbPath);
-            ToDoRepository = new ToDoRepository(dbPath);
-            AchievementRepository = new AchievementRepository(dbPath);
-            UserRepository = new UserRepository(dbPath);
-            BirthdaysRepository = new BirthdaysRepository(dbPath);
+            var options = new DbContextOptionsBuilder<AppIdentityDbContext>();
+            options.UseSqlite($"Data Source={dbPath}");
+
+            var context = new AppIdentityDbContext(options.Options, 
+                "dbo",
+                dbPath);
+
+            //NoteRepository = new NoteRepository(dbPath);
+            //ToDoRepository = new ToDoRepository(dbPath);
+            //AchievementRepository = new AchievementRepository(dbPath);
+            //UserRepository = new UserRepository(dbPath);
+            //BirthdaysRepository = new BirthdaysRepository(dbPath);
+
+            NoteRepository = new EntityFrameworkRepository<AppIdentityDbContext, Note>(context);
+            ToDoRepository = new EntityFrameworkRepository<AppIdentityDbContext, ToDoModel>(context);
+            AchievementRepository = new EntityFrameworkRepository<AppIdentityDbContext, AchievementModel>(context);
+            UserRepository = new EntityFrameworkRepository<AppIdentityDbContext, AppUser>(context);
+            BirthdaysRepository = new EntityFrameworkRepository<AppIdentityDbContext, BirthdayModel>(context);
 
             bool.TryParse(Settings.UsePin, out bool shouldUsePin);
             if (shouldUsePin)
@@ -49,35 +70,41 @@ namespace ReminderXamarin
             });
         }
 
-        /// <summary>
-        /// Get Note repository with help dependency service.
-        /// </summary>
-        /// <value>The database.</value>
-        public static NoteRepository NoteRepository { get; private set; }
+        public static EntityFrameworkRepository<AppIdentityDbContext, Note> NoteRepository { get; private set; }
+        public static EntityFrameworkRepository<AppIdentityDbContext, ToDoModel> ToDoRepository { get; private set; }
+        public static EntityFrameworkRepository<AppIdentityDbContext, AchievementModel> AchievementRepository { get; private set; }
+        public static EntityFrameworkRepository<AppIdentityDbContext, AppUser> UserRepository { get; private set; }
+        public static EntityFrameworkRepository<AppIdentityDbContext, BirthdayModel> BirthdaysRepository { get; private set; }
 
-        /// <summary>
-        /// Get To-do models repository with help of dependency service.
-        /// </summary>
-        /// <value>The database.</value>
-        public static ToDoRepository ToDoRepository { get; private set; }
+        ///// <summary>
+        ///// Get Note repository with help dependency service.
+        ///// </summary>
+        ///// <value>The database.</value>
+        //public static NoteRepository NoteRepository { get; private set; }
 
-        /// <summary>
-        /// Get achievement models repository with help dependency service.
-        /// </summary>
-        /// <value>The database.</value>
-        public static AchievementRepository AchievementRepository { get; private set; }
+        ///// <summary>
+        ///// Get To-do models repository with help of dependency service.
+        ///// </summary>
+        ///// <value>The database.</value>
+        //public static ToDoRepository ToDoRepository { get; private set; }
 
-        /// <summary>
-        /// Get users repository with help dependency service.
-        /// </summary>
-        /// <value>The database.</value>
-        public static UserRepository UserRepository { get; private set; }
+        ///// <summary>
+        ///// Get achievement models repository with help dependency service.
+        ///// </summary>
+        ///// <value>The database.</value>
+        //public static AchievementRepository AchievementRepository { get; private set; }
 
-        /// <summary>
-        /// Get birthday repository with help dependency service.
-        /// </summary>
-        /// <value>The database.</value>
-        public static BirthdaysRepository BirthdaysRepository { get; private set; }
+        ///// <summary>
+        ///// Get users repository with help dependency service.
+        ///// </summary>
+        ///// <value>The database.</value>
+        //public static UserRepository UserRepository { get; private set; }
+
+        ///// <summary>
+        ///// Get birthday repository with help dependency service.
+        ///// </summary>
+        ///// <value>The database.</value>
+        //public static BirthdaysRepository BirthdaysRepository { get; private set; }
 
         protected override void OnStart()
         {

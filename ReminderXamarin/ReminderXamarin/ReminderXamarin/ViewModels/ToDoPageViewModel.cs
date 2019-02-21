@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
@@ -17,7 +18,7 @@ namespace ReminderXamarin.ViewModels
             LowPriorityModels = new ObservableCollection<ToDoViewModel>();
 
             RefreshListCommand = new Command(RefreshCommandExecute);
-            SelectItemCommand = new Command<int>(id => SelectItemCommandExecute(id));
+            SelectItemCommand = new Command<int>(async id => await SelectItemCommandExecute(id));
         }
 
         public void OnAppearing()
@@ -43,9 +44,10 @@ namespace ReminderXamarin.ViewModels
             IsRefreshing = false;
         }
 
-        private ToDoViewModel SelectItemCommandExecute(int id)
+        private async Task<ToDoViewModel> SelectItemCommandExecute(int id)
         {
-            return App.ToDoRepository.GetToDoAsync(id).ToToDoViewModel();
+            var model = await App.ToDoRepository.GetByIdAsync(id);
+            return model.ToToDoViewModel();
         }
 
         private void LoadModelsFromDatabase()
