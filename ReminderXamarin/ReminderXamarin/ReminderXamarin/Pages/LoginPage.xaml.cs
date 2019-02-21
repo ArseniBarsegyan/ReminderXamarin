@@ -15,20 +15,10 @@ namespace ReminderXamarin.Pages
             BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
         }
 
-        //private void TogglePasswordVisibilityButton_OnTapped(object sender, EventArgs e)
-        //{
-        //    PasswordEntry.IsPassword = !PasswordEntry.IsPassword;
-        //}
-
         private void UserNameEntry_OnCompleted(object sender, EventArgs e)
         {
             PasswordEntry.Focus();
         }
-
-        //private void PasswordEntry_OnCompleted(object sender, EventArgs e)
-        //{
-        //    ViewModel.LoginCommand.Execute(null);
-        //}
 
         private void RegisterLink_OnTapped(object sender, EventArgs e)
         {

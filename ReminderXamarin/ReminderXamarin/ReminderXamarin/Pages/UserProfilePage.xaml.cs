@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces.FilePickerService;
 using ReminderXamarin.ViewModels;
@@ -17,15 +15,10 @@ namespace ReminderXamarin.Pages
         private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
         private bool _isTranslated;
 
-        public UserProfilePage(string username)
+        public UserProfilePage(UserProfileViewModel viewModel)
         {
             InitializeComponent();
-            var appUser = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == username);
-            if (appUser != null)
-            {
-                var viewModel = appUser.ToUserProfileViewModel();
-                BindingContext = viewModel;
-            }
+            BindingContext = viewModel;
             BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
         }
 

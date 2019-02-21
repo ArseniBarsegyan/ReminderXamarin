@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
-using ReminderXamarin.Models;
+using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +12,7 @@ namespace ReminderXamarin.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage : MasterDetailPage, IDisposable
     {
-        private readonly UserModel _appUser;
+        private readonly UserProfileViewModel _appUser;
 
         public MenuPage(string userName)
         {
@@ -19,7 +20,7 @@ namespace ReminderXamarin.Pages
             var user = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == userName);
             if (user != null)
             {
-                _appUser = user;
+                _appUser = user.ToUserProfileViewModel();
                 Settings.CurrentUserId = user.Id;
             }
             BindingContext = _appUser;
@@ -107,7 +108,7 @@ namespace ReminderXamarin.Pages
         {
             if (_appUser != null)
             {
-                var userProfilePage = new UserProfilePage(_appUser.UserName);
+                var userProfilePage = new UserProfilePage(_appUser);
                 NavigateTo(userProfilePage);
             }
         }
