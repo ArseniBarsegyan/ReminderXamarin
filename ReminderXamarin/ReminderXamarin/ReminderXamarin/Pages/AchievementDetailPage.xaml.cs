@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Linq;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
@@ -16,6 +17,38 @@ namespace ReminderXamarin.Pages
             InitializeComponent();
             BindingContext = viewModel;
             _viewModel = viewModel;
+
+            Observable.FromEventPattern(x => SaveNoteButton.Clicked += x, x => SaveNoteButton.Clicked -= x)
+                .Subscribe(async _ =>
+                {
+                    await Navigation.PushModalAsync(new AchievementNoteCreatePage(_viewModel));
+                });
+
+            Observable.FromEventPattern<SelectedItemChangedEventArgs>(x => AchievementNotes.ItemSelected += x,
+                    x => AchievementNotes.ItemSelected -= x)
+                .Subscribe(async item =>
+                {
+                    if (item.EventArgs.SelectedItem is AchievementNoteViewModel achievementNoteViewModel)
+                    {
+                        await Navigation.PushAsync(new AchievementNoteEditPage(_viewModel, achievementNoteViewModel));
+                    }
+                    AchievementNotes.SelectedItem = null;
+                });
+
+            Observable.FromEventPattern(x => DeleteAchievementLink.Clicked += x,
+                    x => DeleteAchievementLink.Clicked -= x)
+                .Subscribe(async _ =>
+                {
+                    bool result = await DisplayAlert
+                    (ConstantsHelper.Warning, ConstantsHelper.AchievementDeleteMessage, ConstantsHelper.Ok,
+                        ConstantsHelper.Cancel);
+
+                    if (result)
+                    {
+                        _viewModel.DeleteAchievementCommand.Execute(null);
+                        await Navigation.PopAsync();
+                    }
+                });
         }
 
         protected override void OnAppearing()
@@ -37,19 +70,14 @@ namespace ReminderXamarin.Pages
             }
         }
 
-        private async void AchievementNotes_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            if (e.SelectedItem is AchievementNoteViewModel achievementNoteViewModel)
-            {
-                await Navigation.PushAsync(new AchievementNoteEditPage(_viewModel, achievementNoteViewModel));
-            }
-            AchievementNotes.SelectedItem = null;
-        }
-
-        private async void AddNoteButton_OnClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new AchievementNoteCreatePage(_viewModel));
-        }
+        //private async void AchievementNotes_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        //{
+        //    if (e.SelectedItem is AchievementNoteViewModel achievementNoteViewModel)
+        //    {
+        //        await Navigation.PushAsync(new AchievementNoteEditPage(_viewModel, achievementNoteViewModel));
+        //    }
+        //    AchievementNotes.SelectedItem = null;
+        //}
 
         private async void DeleteAchievement_OnClicked(object sender, EventArgs e)
         {
