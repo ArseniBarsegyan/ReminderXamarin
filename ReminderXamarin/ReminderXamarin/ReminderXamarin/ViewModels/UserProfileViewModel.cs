@@ -47,7 +47,8 @@ namespace ReminderXamarin.ViewModels
 
         private async Task UpdateUserCommandExecute()
         {
-            App.UserRepository.Update(this.ToUserModel());
+            var user = await App.UserRepository.GetByIdAsync(this.Id);
+            App.UserRepository.Update(this.UpdateUserModel(user));
             await App.UserRepository.SaveAsync();
             // App.UserRepository.Save(this.ToUserModel());
             ViewModelChanged = false;
