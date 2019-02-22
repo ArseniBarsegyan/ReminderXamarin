@@ -8,7 +8,7 @@ namespace Rm.Data.EF
     /// </summary>
     public class AppIdentityDbContext : DbContext
     {
-        private readonly string _databasePath;
+        private string _databasePath;
 
         /// <inheritdoc />
         /// <summary>
@@ -20,8 +20,8 @@ namespace Rm.Data.EF
         public AppIdentityDbContext(DbContextOptions dbContextOptions, string schemaName, string databasePath)
             : base(dbContextOptions)
         {
-            Database.EnsureCreated();
             _databasePath = databasePath;
+            Database.EnsureCreated();
             SchemaName = schemaName;
         }
 

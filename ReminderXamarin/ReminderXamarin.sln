@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReminderXamarin.iOS", "Remi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReminderXamarin", "ReminderXamarin\ReminderXamarin\ReminderXamarin.csproj", "{980352AD-B1CA-4E5F-9DCA-A1E657748375}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rm.Data", "Rm.Data\Rm.Data.csproj", "{733F92F9-9437-4C74-9AA4-8DE619F12842}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rm.Data", "Rm.Data\Rm.Data.csproj", "{733F92F9-9437-4C74-9AA4-8DE619F12842}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rm.Data.Core", "Rm.Data.Core\Rm.Data.Core.csproj", "{FE8EE9ED-38A6-46E7-A289-6F4C3C417AB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rm.Data.Core", "Rm.Data.Core\Rm.Data.Core.csproj", "{FE8EE9ED-38A6-46E7-A289-6F4C3C417AB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

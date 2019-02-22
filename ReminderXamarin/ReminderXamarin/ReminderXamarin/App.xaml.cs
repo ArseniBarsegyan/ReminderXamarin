@@ -5,7 +5,6 @@ using Microsoft.AppCenter.Push;
 using Microsoft.EntityFrameworkCore;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
-using ReminderXamarin.Models;
 using ReminderXamarin.Pages;
 using Rm.Data.EF;
 using Rm.Data.Entities;
@@ -29,17 +28,11 @@ namespace ReminderXamarin
             string dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantsHelper.EFConnectionString);
 
             var options = new DbContextOptionsBuilder<AppIdentityDbContext>();
-            options.UseSqlite($"Data Source={dbPath}");
+            options.UseSqlite($"Filename={dbPath}");
 
             var context = new AppIdentityDbContext(options.Options, 
                 "dbo",
                 dbPath);
-
-            //NoteRepository = new NoteRepository(dbPath);
-            //ToDoRepository = new ToDoRepository(dbPath);
-            //AchievementRepository = new AchievementRepository(dbPath);
-            //UserRepository = new UserRepository(dbPath);
-            //BirthdaysRepository = new BirthdaysRepository(dbPath);
 
             NoteRepository = new EntityFrameworkRepository<AppIdentityDbContext, Note>(context);
             ToDoRepository = new EntityFrameworkRepository<AppIdentityDbContext, ToDoModel>(context);

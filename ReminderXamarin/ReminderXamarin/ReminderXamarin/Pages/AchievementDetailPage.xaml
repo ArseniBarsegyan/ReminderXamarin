@@ -22,7 +22,7 @@
                         <DataTemplate>
                             <ViewCell Height="80">
                                 <ViewCell.ContextActions>
-                                    <MenuItem Icon="delete.png" IsDestructive="True" Clicked="DeleteAchievement_OnClicked" CommandParameter="{Binding .}" />
+                                    <MenuItem Icon="delete.png" IsDestructive="True" Clicked="DeleteAchievementNote_OnClicked" CommandParameter="{Binding .}" />
                                 </ViewCell.ContextActions>
                                 <ViewCell.View>
                                     <Grid>

@@ -13,7 +13,6 @@ namespace Rm.Data.Entities
             ToDoModels = new List<ToDoModel>();
         }
 
-        public string Id { get; set; }
         public string UserName { get; set; }
         public byte[] Password { get; set; }
         public byte[] ImageContent { get; set; }

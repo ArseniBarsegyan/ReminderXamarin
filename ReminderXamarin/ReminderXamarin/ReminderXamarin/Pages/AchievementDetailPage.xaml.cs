@@ -51,13 +51,13 @@ namespace ReminderXamarin.Pages
                 });
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
+            await _viewModel.OnAppearing();
             base.OnAppearing();
-            _viewModel.OnAppearing();
         }
 
-        private async void Delete_OnClicked(object sender, EventArgs e)
+        private async void DeleteAchievementNote_OnClicked(object sender, EventArgs e)
         {
             bool result = await DisplayAlert
                 (ConstantsHelper.Warning, ConstantsHelper.AchievementNoteDeleteMessage, ConstantsHelper.Ok, ConstantsHelper.Cancel);
@@ -66,28 +66,7 @@ namespace ReminderXamarin.Pages
                 var menuItem = sender as MenuItem;
                 var achievementNoteViewModel = menuItem?.CommandParameter as AchievementNoteViewModel;
                 _viewModel.DeleteAchievementNoteCommand.Execute(achievementNoteViewModel);
-                _viewModel.OnAppearing();
-            }
-        }
-
-        //private async void AchievementNotes_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-        //{
-        //    if (e.SelectedItem is AchievementNoteViewModel achievementNoteViewModel)
-        //    {
-        //        await Navigation.PushAsync(new AchievementNoteEditPage(_viewModel, achievementNoteViewModel));
-        //    }
-        //    AchievementNotes.SelectedItem = null;
-        //}
-
-        private async void DeleteAchievement_OnClicked(object sender, EventArgs e)
-        {
-            bool result = await DisplayAlert
-                (ConstantsHelper.Warning, ConstantsHelper.AchievementDeleteMessage, ConstantsHelper.Ok, ConstantsHelper.Cancel);
-
-            if (result)
-            {
-                _viewModel.DeleteAchievementCommand.Execute(null);
-                await Navigation.PopAsync();
+                await _viewModel.OnAppearing();
             }
         }
     }
