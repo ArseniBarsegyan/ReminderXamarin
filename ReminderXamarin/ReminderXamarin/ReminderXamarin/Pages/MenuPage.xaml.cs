@@ -21,7 +21,7 @@ namespace ReminderXamarin.Pages
             if (user != null)
             {
                 _appUser = user.ToUserProfileViewModel();
-                Settings.CurrentUserId = user.Id;
+                Settings.CurrentUserId = user.Id.ToString();
             }
             BindingContext = _appUser;
 

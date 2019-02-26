@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ReminderXamarin.Extensions;
+using ReminderXamarin.Helpers;
+using Rm.Data.Entities;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -15,7 +16,7 @@ namespace ReminderXamarin.ViewModels
             DeleteBirthdayCommand = new Command(async() => await DeleteBirthdayCommandExecute());
         }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public byte[] ImageContent { get; set; }
         public string Name { get; set; }
         public DateTime BirthDayDate { get; set; }
@@ -28,21 +29,35 @@ namespace ReminderXamarin.ViewModels
 
         private async Task CreateBirthdayCommandExecute()
         {
-            await App.BirthdaysRepository.CreateAsync(this.ToBirthdayModel());
+            var model = new BirthdayModel
+            {
+                UserId = Settings.CurrentUserId,
+                BirthDayDate = BirthDayDate,
+                GiftDescription = GiftDescription,
+                ImageContent = ImageContent,
+                Name = Name
+            };
+            await App.BirthdaysRepository.CreateAsync(model);
             await App.BirthdaysRepository.SaveAsync();
         }
 
         private async Task UpdateBirthdayCommandExecute()
         {
-            App.BirthdaysRepository.Update(this.ToBirthdayModel());
+            var model = await App.BirthdaysRepository.GetByIdAsync(Id);
+            model.UserId = Settings.CurrentUserId;
+            model.Name = Name;
+            model.ImageContent = ImageContent;
+            model.BirthDayDate = BirthDayDate;
+            model.GiftDescription = GiftDescription;
+
+            App.BirthdaysRepository.Update(model);
             await App.BirthdaysRepository.SaveAsync();
         }
 
         private async Task DeleteBirthdayCommandExecute()
         {
-            await App.BirthdaysRepository.DeleteAsync(this.Id);
+            await App.BirthdaysRepository.DeleteAsync(Id);
             await App.BirthdaysRepository.SaveAsync();
-            // App.BirthdaysRepository.DeleteBirthday(this.ToBirthdayModel());
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Rm.Data.Core;
+﻿using System;
+using Rm.Data.Core;
 
 namespace Rm.Data.Entities
 {
@@ -9,7 +10,7 @@ namespace Rm.Data.Entities
         public bool Landscape { get; set; }
         public bool IsVideo { get; set; }
 
-        public int NoteId { get; set; }
+        public Guid NoteId { get; set; }
         public Note Note { get; set; }
     }
 }

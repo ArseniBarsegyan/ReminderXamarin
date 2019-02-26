@@ -15,7 +15,7 @@ namespace ReminderXamarin.ViewModels
             Achievements = new ObservableCollection<AchievementViewModel>();
 
             RefreshListCommand = new Command(RefreshCommandExecute);
-            SelectAchievementCommand = new Command<int>(id => SelectAchievementCommandExecute(id));
+            SelectAchievementCommand = new Command<int>(async id => await SelectAchievementCommandExecute(id));
         }
 
         public bool IsRefreshing { get; set; }
@@ -40,7 +40,6 @@ namespace ReminderXamarin.ViewModels
         {
             var achievement = await App.AchievementRepository.GetByIdAsync(id);
             return achievement.ToAchievementViewModel();
-            // return App.AchievementRepository.GetAchievementAsync(id).ToAchievementViewModel();
         }
 
         private void LoadAchievementsFromDatabase()

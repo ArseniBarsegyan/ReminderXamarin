@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -6,6 +8,7 @@ using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
+using Rm.Data.Entities;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -33,7 +36,7 @@ namespace ReminderXamarin.ViewModels
         public bool IsFileNameLabelVisible { get; set; }
         public bool IsImageVisible { get; set; }
         public bool IsRefreshing { get; set; }
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public byte[] ImageContent { get; set; }
         public string Title { get; set; }
         public string GeneralDescription { get; set; }
@@ -72,11 +75,32 @@ namespace ReminderXamarin.ViewModels
             IsRefreshing = false;
         }
 
+        // TODO: refactor this
         private async Task CreateAchievementCommandExecute()
         {
-            await App.AchievementRepository.CreateAsync(this.ToAchievementModel());
+            var achievement = new AchievementModel
+            {
+                GeneralDescription = GeneralDescription,
+                GeneralTimeSpent = GeneralTimeSpent,
+                ImageContent = ImageContent,
+                Title = Title,
+                AchievementNotes = new List<AchievementNote>(),
+                UserId = Settings.CurrentUserId
+            };
+
+            foreach (var achievementNoteViewModel in AchievementNotes)
+            {
+                var model = new AchievementNote
+                {
+                    AchievementId = achievementNoteViewModel.AchievementId,
+                    Date = achievementNoteViewModel.Date,
+                    Description = achievementNoteViewModel.Description,
+                    HoursSpent = achievementNoteViewModel.HoursSpent
+                };
+                achievement.AchievementNotes.Add(model);
+            }
+            await App.AchievementRepository.CreateAsync(achievement);
             await App.AchievementRepository.SaveAsync();
-            // App.AchievementRepository.Save(this.ToAchievementModel());
         }
 
         private async Task CreateAchievementNoteCommandExecute(AchievementNoteViewModel achievementNoteViewModel)
@@ -91,26 +115,50 @@ namespace ReminderXamarin.ViewModels
         private async Task UpdateAchievementCommandExecute()
         {
             GeneralTimeSpent = AchievementNotes.Sum(x => x.HoursSpent);
-            App.AchievementRepository.Update(this.ToAchievementModel());
+            var entity = await App.AchievementRepository.GetByIdAsync(Id);
+
+            entity.UserId = Settings.CurrentUserId;
+            entity.Title = Title;
+            entity.GeneralDescription = GeneralDescription;
+            entity.GeneralTimeSpent = GeneralTimeSpent;
+            entity.ImageContent = ImageContent;
+            entity.AchievementNotes = new List<AchievementNote>();
+
+            foreach (var viewModel in AchievementNotes)
+            {
+                var model = new AchievementNote
+                {
+                    AchievementId = viewModel.AchievementId,
+                    Date = viewModel.Date,
+                    Description = viewModel.Description,
+                    HoursSpent = viewModel.HoursSpent
+                };
+                entity.AchievementNotes.Add(model);
+            }
+
+            App.AchievementRepository.Update(entity);
             await App.AchievementRepository.SaveAsync();
-            // App.AchievementRepository.Save(this.ToAchievementModel());
         }
 
         // Insert updated achievement note instead of old.
         private async Task UpdateAchievementNoteCommandExecute(AchievementNoteViewModel achievementNoteViewModel)
         {
             var oldNote = AchievementNotes.FirstOrDefault(x => x.Id == achievementNoteViewModel.Id);
-            int oldNoteIndex = AchievementNotes.IndexOf(oldNote);
-            AchievementNotes.RemoveAt(oldNoteIndex);
-            AchievementNotes.Insert(oldNoteIndex, achievementNoteViewModel);
+            if (oldNote != null)
+            {
+                oldNote.AchievementId = Id;
+                oldNote.Date = achievementNoteViewModel.Date;
+                oldNote.Description = achievementNoteViewModel.Description;
+                oldNote.HoursSpent = achievementNoteViewModel.HoursSpent;
+            }
 
             await UpdateAchievementCommandExecute();
         }
 
         private async Task DeleteAchievementCommandExecute()
         {
-            await App.AchievementRepository.DeleteAsync(this.Id);
-            // App.AchievementRepository.DeleteAchievement(this.ToAchievementModel());
+            await App.AchievementRepository.DeleteAsync(Id);
+            await App.AchievementRepository.SaveAsync();
         }
 
         private async Task DeleteAchievementNoteCommandExecute(AchievementNoteViewModel noteViewModel)

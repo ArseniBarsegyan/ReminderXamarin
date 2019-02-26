@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
-using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
@@ -21,7 +21,7 @@ namespace ReminderXamarin.ViewModels
             UpdateUserCommand = new Command(async () => await UpdateUserCommandExecute());
         }
 
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string UserName { get; set; }
         public byte[] ImageContent { get; set; }
         public int NotesCount { get; set; }
@@ -47,10 +47,11 @@ namespace ReminderXamarin.ViewModels
 
         private async Task UpdateUserCommandExecute()
         {
-            var user = await App.UserRepository.GetByIdAsync(this.Id);
-            App.UserRepository.Update(this.UpdateUserModel(user));
+            var user = await App.UserRepository.GetByIdAsync(Id);
+            user.ImageContent = ImageContent;
+            user.UserName = UserName;
+            App.UserRepository.Update(user);
             await App.UserRepository.SaveAsync();
-            // App.UserRepository.Save(this.ToUserModel());
             ViewModelChanged = false;
         }
     }

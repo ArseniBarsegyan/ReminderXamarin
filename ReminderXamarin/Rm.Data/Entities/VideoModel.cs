@@ -1,4 +1,5 @@
-﻿using Rm.Data.Core;
+﻿using System;
+using Rm.Data.Core;
 
 namespace Rm.Data.Entities
 {
@@ -6,7 +7,7 @@ namespace Rm.Data.Entities
     {
         public string Path { get; set; }
 
-        public int NoteId { get; set; }
+        public Guid NoteId { get; set; }
         public Note Note { get; set; }
     }
 }

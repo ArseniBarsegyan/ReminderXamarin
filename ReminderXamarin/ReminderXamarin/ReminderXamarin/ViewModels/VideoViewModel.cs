@@ -1,9 +1,11 @@
-﻿namespace ReminderXamarin.ViewModels
+﻿using System;
+
+namespace ReminderXamarin.ViewModels
 {
     public class VideoViewModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Path { get; set; }
-        public int NoteId { get; set; }
+        public Guid NoteId { get; set; }
     }
 }

@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using PCLStorage;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
@@ -35,7 +34,7 @@ namespace ReminderXamarin.ViewModels
             PickPhotoCommand = new Command<PlatformDocument>(async document => await PickPhotoCommandExecute(document));
             PickVideoCommand = new Command<PlatformDocument>(async document => await PickVideoCommandExecute(document));
             CreateNoteCommand = new Command(async() => await CreateNoteCommandExecute());
-            UpdateNoteCommand = new Command(UpdateNoteCommandExecute);
+            UpdateNoteCommand = new Command(async() => await UpdateNoteCommandExecute());
             DeleteNoteCommand = new Command(async() => await DeleteNoteCommandExecute());
         }
 
@@ -43,8 +42,7 @@ namespace ReminderXamarin.ViewModels
         public ObservableCollection<PhotoViewModel> Photos { get; set; }
         public ObservableCollection<VideoViewModel> Videos { get; set; }
 
-        public int Id { get; set; }
-        public bool ShouldDisplayMessageWhenLeaving { get; set; }
+        public Guid Id { get; set; }
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime EditDate { get; set; }
@@ -218,25 +216,70 @@ namespace ReminderXamarin.ViewModels
 
         private async Task CreateNoteCommandExecute()
         {
-            await App.NoteRepository.CreateAsync(this.ToNoteModel());
-            // App.NoteRepository.Save(this.ToNoteModel());
+            var model = new Note
+            {
+                Id = Id,
+                UserId = Settings.CurrentUserId,
+                CreationDate = CreationDate,
+                EditDate = EditDate,
+                Description = Description,
+                Photos = Photos.ToPhotoModels().ToList(),
+                Videos = Videos.ToVideoModels().ToList()
+            };
+
+            await App.NoteRepository.CreateAsync(model);
+            await App.NoteRepository.SaveAsync();
             IsLoading = false;
         }
 
-        private void UpdateNoteCommandExecute()
+        private async Task UpdateNoteCommandExecute()
         {
             IsLoading = true;
             // Update edit date since user pressed confirm
             EditDate = DateTime.Now;
-            App.NoteRepository.Update(this.ToNoteModel());
-            // App.NoteRepository.Save(this.ToNoteModel());
+
+            var note = await App.NoteRepository.GetByIdAsync(Id);
+            note.UserId = Settings.CurrentUserId;
+            note.CreationDate = CreationDate;
+            note.EditDate = EditDate;
+            note.Description = Description;
+
+            note.Photos = new List<PhotoModel>();
+            note.Videos = new List<VideoModel>();
+
+            foreach (var photoViewModel in Photos)
+            {
+                var photoModel = new PhotoModel
+                {
+                    IsVideo = photoViewModel.IsVideo,
+                    Landscape = photoViewModel.Landscape,
+                    NoteId = photoViewModel.NoteId,
+                    ResizedPath = photoViewModel.ResizedPath,
+                    Thumbnail = photoViewModel.Thumbnail
+                };
+                note.Photos.Add(photoModel);
+            }
+
+            foreach (var videoViewModel in Videos)
+            {
+                var videoModel = new VideoModel
+                {
+                    NoteId = videoViewModel.NoteId,
+                    Path = videoViewModel.Path
+                };
+                note.Videos.Add(videoModel);
+            }
+
+            App.NoteRepository.Update(note);
+            await App.NoteRepository.SaveAsync();
+            
             IsLoading = false;
         }
 
         private async Task DeleteNoteCommandExecute()
         {
-            await App.NoteRepository.DeleteAsync(this.Id);
-            // return App.NoteRepository.DeleteNote(this.ToNoteModel());
+            await App.NoteRepository.DeleteAsync(Id);
+            await App.NoteRepository.SaveAsync();
         }
     }
 }

@@ -35,7 +35,7 @@
                                     <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="AchievementsList_OnItemSelected" />
                                 </AbsoluteLayout.GestureRecognizers>
                                 <!-- Hidden field for Id -->
-                                <Label IsVisible="False" Text="{Binding Id}" />
+                                <Label IsVisible="False" Text="{Binding Id, StringFormat='{0}'}" />
                                 <abstractions:CircleImage Source="{Binding ImageContent, 
                                                                    Converter={StaticResource ByteToImageSourceConverter}}"
                                                           Aspect="AspectFill"
