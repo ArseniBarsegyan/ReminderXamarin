@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using ReminderXamarin.Extensions;
+using System.Reactive.Linq;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces.FilePickerService;
 using ReminderXamarin.ViewModels;
@@ -17,49 +17,28 @@ namespace ReminderXamarin.Pages
         private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
         private bool _isTranslated;
 
-        public UserProfilePage(string username)
+        public UserProfilePage(UserProfileViewModel viewModel)
         {
             InitializeComponent();
-            var appUser = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == username);
-            if (appUser != null)
-            {
-                var viewModel = appUser.ToUserProfileViewModel();
-                BindingContext = viewModel;
-            }
+            BindingContext = viewModel;
             BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
-        }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            var viewModel = BindingContext as UserProfileViewModel;
-            viewModel?.OnAppearing();
-        }
-
-        private async void EditUserProfilePhoto_OnTapped(object sender, EventArgs e)
-        {
-            var document = await DocumentPicker.DisplayImportAsync(this);
-            if (document == null)
-            {
-                return;
-            }
-            UpdateUserButton.IsVisible = true;
-            var viewModel = BindingContext as UserProfileViewModel;
-            viewModel?.ChangeUserProfileCommand.Execute(document);
+            Observable.FromEventPattern(x => PickUserPhotoImage.Clicked += x,
+                    x => PickUserPhotoImage.Clicked -= x)
+                .Subscribe(async _ =>
+                {
+                    var document = await DocumentPicker.DisplayImportAsync(this);
+                    if (document == null)
+                    {
+                        return;
+                    }
+                    viewModel?.ChangeUserProfileCommand.Execute(document);
+                });
         }
 
         private async void UserProfileImage_OnTapped(object sender, EventArgs e)
         {
             await Navigation.PushPopupAsync(new FullSizeImageView(UserProfileImage.Source));
-        }
-
-        private void UpdateUserButton_OnClicked(object sender, EventArgs e)
-        {
-            if (BindingContext is UserProfileViewModel viewModel)
-            {
-                UpdateUserButton.IsVisible = false;
-                viewModel.UpdateUserCommand.Execute(null);
-            }
         }
 
         private void BackgroundImage_OnTapped(object sender, EventArgs e)

@@ -47,7 +47,8 @@
                             <elements:EntryWithBorder x:Name="PasswordEntry"
                                                   AbsoluteLayout.LayoutBounds="0,0,1,1"
                                                   AbsoluteLayout.LayoutFlags="All"
-                                                  IsPassword="True" 
+                                                  IsPassword="{Binding ShowPassword, 
+                                                                        Converter={StaticResource InverseBooleanConverter}}" 
                                                   Style="{StaticResource LoginEntryStyle}"
                                                   Completed="PasswordEntry_OnCompleted" />
 
@@ -57,7 +58,7 @@
                                AbsoluteLayout.LayoutFlags="PositionProportional"
                                Source="eye.png">
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TogglePasswordVisibilityButton_OnTapped" NumberOfTapsRequired="1" />
+                                    <TapGestureRecognizer Command="{Binding SwitchPasswordVisibilityCommand}" NumberOfTapsRequired="1" />
                                 </Image.GestureRecognizers>
                             </Image>
                         </AbsoluteLayout>
@@ -70,7 +71,8 @@
                             <elements:EntryWithBorder x:Name="ConfirmPasswordEntry"
                                                   AbsoluteLayout.LayoutBounds="0,0,1,1"
                                                   AbsoluteLayout.LayoutFlags="All"
-                                                  IsPassword="True" 
+                                                  IsPassword="{Binding ShowConfirmedPassword, 
+                                                                        Converter={StaticResource InverseBooleanConverter}}" 
                                                   Style="{StaticResource LoginEntryStyle}" />
 
                             <!-- Hide or show password -->
@@ -79,7 +81,7 @@
                                AbsoluteLayout.LayoutFlags="PositionProportional"
                                Source="eye.png">
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="ToggleConfirmPassword_OnTapped" NumberOfTapsRequired="1" />
+                                    <TapGestureRecognizer Command="{Binding SwitchPasswordConfirmVisibilityCommand}" NumberOfTapsRequired="1" />
                                 </Image.GestureRecognizers>
                             </Image>
                         </AbsoluteLayout>

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
-using ReminderXamarin.Extensions;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.Models;
+using Rm.Data.Entities;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -12,12 +14,12 @@ namespace ReminderXamarin.ViewModels
     {
         public ToDoViewModel()
         {
-            CreateToDoCommand = new Command(CreateToDoCommandExecute);
-            UpdateItemCommand = new Command(UpdateItemCommandExecute);
-            DeleteItemCommand = new Command(result => DeleteItemCommandExecute());
+            CreateToDoCommand = new Command(async () => await CreateToDoCommandExecute());
+            UpdateItemCommand = new Command(async () => await UpdateItemCommandExecute());
+            DeleteItemCommand = new Command(async result => await DeleteItemCommandExecute());
         }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public IList<string> AvailablePriorities => 
             Enum.GetNames(typeof(ToDoPriority)).Select(x => x.ToString()).ToList();
 
@@ -29,20 +31,35 @@ namespace ReminderXamarin.ViewModels
         public ICommand UpdateItemCommand { get; set; }
         public ICommand DeleteItemCommand { get; set; }
 
-        private void CreateToDoCommandExecute()
+        private async Task CreateToDoCommandExecute()
         {
-            App.ToDoRepository.Save(this.ToToDoModel());
+            var model = new ToDoModel
+            {
+                Description = Description,
+                Priority = Priority.ToString(),
+                WhenHappens = WhenHappens,
+                UserId = Settings.CurrentUserId
+            };
+
+            await App.ToDoRepository.CreateAsync(model);
+            await App.ToDoRepository.SaveAsync();
         }
 
-        private void UpdateItemCommandExecute()
+        private async Task UpdateItemCommandExecute()
         {
-            // Update edit date since user pressed confirm
-            App.ToDoRepository.Save(this.ToToDoModel());
+            var model = await App.ToDoRepository.GetByIdAsync(Id);
+            model.Description = Description;
+            model.Priority = Priority.ToString();
+            model.UserId = Settings.CurrentUserId;
+            model.WhenHappens = WhenHappens;
+           
+            App.ToDoRepository.Update(model);
+            await App.ToDoRepository.SaveAsync();
         }
 
-        private int DeleteItemCommandExecute()
+        private async Task DeleteItemCommandExecute()
         {
-            return App.ToDoRepository.DeleteModel(this.ToToDoModel());
+            await App.ToDoRepository.DeleteAsync(Id);
         }
     }
 }

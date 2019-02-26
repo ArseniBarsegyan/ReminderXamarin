@@ -15,7 +15,7 @@
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Padding="10">
                 <Label Text="{extensions:Translate PickImageForAchievement}" />
-                <Label x:Name="FileNameLabel" IsVisible="False" />
+                <Label x:Name="FileNameLabel" Text="{Binding FileName}" IsVisible="{Binding IsFileNameLabelVisible}" />
                 <StackLayout Spacing="4">
                     <abstractions:CircleImage x:Name="PreviewImage" 
                                               Aspect="AspectFill"
@@ -23,7 +23,8 @@
                                               VerticalOptions="Start"
                                               HeightRequest="120"
                                               WidthRequest="120"
-                                              IsVisible="False" />
+                                              Source="{Binding Path=ImageContent, Converter={StaticResource ByteToImageSourceConverter}}"
+                                              IsVisible="{Binding IsImageVisible}" />
                     <!-- Clicking on this icon will open selection of image for achievement -->
                     <Image x:Name="EditUserProfilePhoto" 
                            Source="edit.png" 
@@ -50,8 +51,7 @@
                     AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     Style="{StaticResource ButtonWithImageStyle}"
-                    Image="confirm.png"
-                    Clicked="Save_OnClicked" />
+                    Image="confirm.png" />
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

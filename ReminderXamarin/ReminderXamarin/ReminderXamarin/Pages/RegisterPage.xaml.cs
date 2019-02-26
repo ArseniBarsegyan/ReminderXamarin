@@ -24,16 +24,6 @@ namespace ReminderXamarin.Pages
             ConfirmPasswordEntry.Focus();
         }
 
-        private void TogglePasswordVisibilityButton_OnTapped(object sender, EventArgs e)
-        {
-            PasswordEntry.IsPassword = !PasswordEntry.IsPassword;
-        }
-
-        private void ToggleConfirmPassword_OnTapped(object sender, EventArgs e)
-        {
-            ConfirmPasswordEntry.IsPassword = !ConfirmPasswordEntry.IsPassword;
-        }
-
         private void SubmitButton_OnClicked(object sender, EventArgs e)
         {
             ViewModel.UserName = UserNameEntry.Text;

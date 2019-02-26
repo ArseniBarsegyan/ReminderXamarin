@@ -7,6 +7,7 @@ using ReminderXamarin.Models;
 using ReminderXamarin.ViewModels;
 using ReminderXamarin.Views;
 using Rg.Plugins.Popup.Extensions;
+using Rm.Data.Entities;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

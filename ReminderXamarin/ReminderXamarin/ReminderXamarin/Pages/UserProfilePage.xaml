@@ -40,8 +40,7 @@
                     WidthRequest="50"
                     HeightRequest="50"
                     CornerRadius="25"
-                    AbsoluteLayout.LayoutFlags="XProportional"
-                    Clicked="EditUserProfilePhoto_OnTapped" />
+                    AbsoluteLayout.LayoutFlags="XProportional" />
 
             <StackLayout x:Name="UserInfoLayout" 
                          AbsoluteLayout.LayoutBounds="0.5,180,1,1"
@@ -82,8 +81,7 @@
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     Style="{StaticResource ButtonWithImageStyle}"
                     Image="confirm.png"
-                    IsVisible="False"
-                    Clicked="UpdateUserButton_OnClicked"
+                    IsVisible="{Binding ViewModelChanged}"
                     Command="{Binding UpdateUserCommand}" />
         </AbsoluteLayout>
     </ContentPage.Content>

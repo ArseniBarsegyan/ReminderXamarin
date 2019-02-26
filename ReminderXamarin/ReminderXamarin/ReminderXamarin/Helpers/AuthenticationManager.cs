@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using ReminderXamarin.Models;
+using System.Threading.Tasks;
+using Rm.Data.Entities;
 
 namespace ReminderXamarin.Helpers
 {
@@ -16,9 +17,10 @@ namespace ReminderXamarin.Helpers
         /// <param name="userName">user name.</param>
         /// <param name="password">password.</param>
         /// <returns></returns>
-        public static bool Authenticate(string userName, string password)
+        public static async Task<bool> Authenticate(string userName, string password)
         {
-            var user = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == userName);
+            var user = (await App.UserRepository.GetAsync(x => x.UserName == userName)).FirstOrDefault();
+            // var user = App.UserRepository.GetAllAsync().FirstOrDefault(x => x.UserName == userName);
             if (user == null)
             {
                 return false;
@@ -39,7 +41,7 @@ namespace ReminderXamarin.Helpers
         /// <param name="userName">user name</param>
         /// <param name="password">password</param>
         /// <returns></returns>
-        public static bool Register(string userName, string password)
+        public static async Task<bool> Register(string userName, string password)
         {
             var user = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == userName);
             if (user != null)
@@ -49,13 +51,15 @@ namespace ReminderXamarin.Helpers
             var passwordBytes = Encoding.Unicode.GetBytes(password);
             var passwordHash = SHA256.Create().ComputeHash(passwordBytes);
 
-            var userModel = new UserModel
+            var userModel = new AppUser
             {
                 UserName = userName,
                 ImageContent = new byte[0],
                 Password = passwordHash
             };
-            App.UserRepository.Save(userModel);
+            await App.UserRepository.CreateAsync(userModel);
+            await App.UserRepository.SaveAsync();
+            // App.UserRepository.Save(userModel);
             return true;
         }
     }

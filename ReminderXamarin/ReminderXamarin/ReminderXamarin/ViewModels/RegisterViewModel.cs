@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Pages;
 using Xamarin.Forms;
@@ -9,17 +10,23 @@ namespace ReminderXamarin.ViewModels
     {
         public RegisterViewModel()
         {
-            RegisterCommand = new Command(RegisterCommandExecute);
+            RegisterCommand = new Command(async () => await RegisterCommandExecute());
+            SwitchPasswordVisibilityCommand = new Command(SwitchPasswordVisibilityCommandExecute);
+            SwitchPasswordConfirmVisibilityCommand = new Command(SwitchConfirmPasswordVisibilityCommandExecute);
         }
 
         public string UserName { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
+        public bool ShowPassword { get; set; }
+        public bool ShowConfirmedPassword { get; set; }
         public bool IsValid { get; set; } = true;
 
         public ICommand RegisterCommand { get; set; }
+        public ICommand SwitchPasswordVisibilityCommand { get; set; }
+        public ICommand SwitchPasswordConfirmVisibilityCommand { get; set; }
 
-        public void RegisterCommandExecute()
+        public async Task RegisterCommandExecute()
         {
             if (Password != ConfirmPassword)
             {
@@ -28,11 +35,19 @@ namespace ReminderXamarin.ViewModels
             }
             else
             {
-                var authResult = AuthenticationManager.Register(UserName, Password);
+                var authResult = await AuthenticationManager.Register(UserName, Password);
                 if (authResult)
                 {
-                    Application.Current.MainPage = new LoginPage();
-                    IsValid = true;
+                    if (await AuthenticationManager.Authenticate(UserName, Password))
+                    {
+                        Settings.ApplicationUser = UserName;
+                        Application.Current.MainPage = new NavigationPage(new MenuPage(UserName));
+                        IsValid = true;
+                    }
+                    else
+                    {
+                        IsValid = false;
+                    }
                 }
                 else
                 {
@@ -40,6 +55,16 @@ namespace ReminderXamarin.ViewModels
                     IsValid = false;
                 }
             }
+        }
+
+        private void SwitchPasswordVisibilityCommandExecute()
+        {
+            ShowPassword = !ShowPassword;
+        }
+
+        private void SwitchConfirmPasswordVisibilityCommandExecute()
+        {
+            ShowConfirmedPassword = !ShowConfirmedPassword;
         }
     }
 }

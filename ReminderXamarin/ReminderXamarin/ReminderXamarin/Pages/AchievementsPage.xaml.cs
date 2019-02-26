@@ -1,11 +1,9 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using ImageCircle.Forms.Plugin.Abstractions;
 
 namespace ReminderXamarin.Pages
 {
@@ -49,8 +47,8 @@ namespace ReminderXamarin.Pages
             {
                 return;
             }
-               
-            int.TryParse(hiddenIdLabel.Text, out int id);
+
+            var id = Guid.Parse(hiddenIdLabel.Text);
 
             var viewModel = ViewModel.Achievements.FirstOrDefault(x => x.Id == id);
             if (viewModel != null)

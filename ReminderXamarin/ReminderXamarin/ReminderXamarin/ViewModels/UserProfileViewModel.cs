@@ -1,5 +1,6 @@
-﻿using System.Windows.Input;
-using ReminderXamarin.Extensions;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
@@ -17,28 +18,26 @@ namespace ReminderXamarin.ViewModels
             ImageContent = new byte[0];
 
             ChangeUserProfileCommand = new Command<PlatformDocument>(ChangeUserProfileCommandExecute);
-            UpdateUserCommand = new Command(UpdateUserCommandExecute);
+            UpdateUserCommand = new Command(async () => await UpdateUserCommandExecute());
         }
 
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string UserName { get; set; }
         public byte[] ImageContent { get; set; }
         public int NotesCount { get; set; }
         public int AchievementsCount { get; set; }
         public int FriendBirthdaysCount { get; set; }
+        public bool ViewModelChanged { get; set; }
 
         public ICommand ChangeUserProfileCommand { get; set; }
         public ICommand UpdateUserCommand { get; set; }
-
-        public void OnAppearing()
-        {
-        }
-
+        
         private void ChangeUserProfileCommandExecute(PlatformDocument document)
         {
             // Ensure that user downloads .png or .jpg file as profile icon.
             if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg"))
             {
+                ViewModelChanged = true;
                 var imageContent = FileService.ReadAllBytes(document.Path);
                 var resizedImage = MediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
 
@@ -46,9 +45,14 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private void UpdateUserCommandExecute()
+        private async Task UpdateUserCommandExecute()
         {
-            App.UserRepository.Save(this.ToUserModel());
+            var user = await App.UserRepository.GetByIdAsync(Id);
+            user.ImageContent = ImageContent;
+            user.UserName = UserName;
+            App.UserRepository.Update(user);
+            await App.UserRepository.SaveAsync();
+            ViewModelChanged = false;
         }
     }
 }

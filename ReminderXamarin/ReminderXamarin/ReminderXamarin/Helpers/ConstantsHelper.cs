@@ -40,6 +40,7 @@
         public const string SettingsIcon = "settings.png";
         public const string SideMenuBackground = "ReminderXamarin.Images.menu_background.png";
         public const string SqLiteDataBaseName = "ReminderDB.db3";
+        public const string EFConnectionString = "RmDB.db";
         public const string TimeParsingError = "Enter a valid number";
         public const string ToDoItemDeleteMessage = "Are you sure you want to delete this to-do?";
         public const string ToDoTextIsEmptyMessage = "To do text is empty. Creation cancelled";
