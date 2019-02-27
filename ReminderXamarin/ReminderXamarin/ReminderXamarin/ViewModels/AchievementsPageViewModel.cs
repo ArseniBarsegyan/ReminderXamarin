@@ -45,7 +45,7 @@ namespace ReminderXamarin.ViewModels
         private void LoadAchievementsFromDatabase()
         {
             Achievements = App.AchievementRepository
-                .GetAll()
+                .GetAll(null, "AchievementNotes")
                 .Where(x => x.UserId == Settings.CurrentUserId)
                 .ToAchievementViewModels()
                 .OrderByDescending(x => x.GeneralTimeSpent)
