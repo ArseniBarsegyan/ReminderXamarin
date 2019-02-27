@@ -62,7 +62,7 @@ namespace ReminderXamarin.ViewModels
         {
             // Fetch all note models from database.
             _allNotes = App.NoteRepository
-                .GetAll()
+                .GetAll(null, "Photos,Videos")
                 .Where(x => x.UserId == Settings.CurrentUserId)
                 .ToNoteViewModels()
                 .OrderByDescending(x => x.EditDate)
