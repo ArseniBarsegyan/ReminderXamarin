@@ -27,17 +27,12 @@
                             <TapGestureRecognizer Tapped="FriendPhoto_OnTapped" NumberOfTapsRequired="1" />
                         </abstractions:CircleImage.GestureRecognizers>
                     </abstractions:CircleImage>
-                    
-                    <Image x:Name="PhotoPickerButton" 
-                           Source="edit.png" 
-                           WidthRequest="15"
-                           HeightRequest="15"
-                           HorizontalOptions="Center"
-                           BackgroundColor="LightBlue">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="PhotoPickerButton_OnClicked" NumberOfTapsRequired="1" />
-                        </Image.GestureRecognizers>
-                    </Image>
+
+                    <Button x:Name="PhotoPickButton" 
+                            Image="edit.png" 
+                            WidthRequest="50"
+                            HeightRequest="50"
+                            CornerRadius="25" />
                 </StackLayout>
 
                 <StackLayout Spacing="0">

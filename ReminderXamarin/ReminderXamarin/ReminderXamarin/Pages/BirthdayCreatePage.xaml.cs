@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reactive.Linq;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
 using ReminderXamarin.Views;
@@ -20,23 +21,25 @@ namespace ReminderXamarin.Pages
         public BirthdayCreatePage()
         {
             InitializeComponent();
-        }
 
-        private async void PhotoPickerButton_OnClicked(object sender, EventArgs e)
-        {
-            var document = await DocumentPicker.DisplayImportAsync(this);
+            Observable.FromEventPattern(x => PhotoPickButton.Clicked += x,
+                    x => PhotoPickButton.Clicked -= x)
+                .Subscribe(async _ =>
+                {
+                    var document = await DocumentPicker.DisplayImportAsync(this);
 
-            if (document == null)
-            {
-                return;
-            }
-            // Retrieve file content throught IFileService implementation.
-            var imageContent = FileService.ReadAllBytes(document.Path);
-            var resizedImage = MediaService.ResizeImage(imageContent, 1360, 768);
-            _isPhotoSet = true;
+                    if (document == null)
+                    {
+                        return;
+                    }
+                    // Retrieve file content throught IFileService implementation.
+                    var imageContent = FileService.ReadAllBytes(document.Path);
+                    var resizedImage = MediaService.ResizeImage(imageContent, 1360, 768);
+                    _isPhotoSet = true;
 
-            FriendPhoto.Source = ImageSource.FromStream(() => new MemoryStream(resizedImage));
-            ViewModel.ImageContent = resizedImage;
+                    FriendPhoto.Source = ImageSource.FromStream(() => new MemoryStream(resizedImage));
+                    ViewModel.ImageContent = resizedImage;
+                });
         }
 
         private async void Save_OnClicked(object sender, EventArgs e)

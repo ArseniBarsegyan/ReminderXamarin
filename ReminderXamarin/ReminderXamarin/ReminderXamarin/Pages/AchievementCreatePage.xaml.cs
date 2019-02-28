@@ -29,16 +29,18 @@ namespace ReminderXamarin.Pages
                     ViewModel.CreateAchievementCommand.Execute(null);
                     await Navigation.PopAsync();
                 });
-        }
 
-        private async void PickImage_OnTapped(object sender, EventArgs e)
-        {
-            var document = await DocumentPicker.DisplayImportAsync(this);
-            if (document == null)
-            {
-                return;
-            }
-            ViewModel.SetImageCommand.Execute(document);
+            Observable.FromEventPattern(x => PickAchievementImageButton.Clicked += x,
+                    x => PickAchievementImageButton.Clicked -= x)
+                .Subscribe(async _ =>
+                {
+                    var document = await DocumentPicker.DisplayImportAsync(this);
+                    if (document == null)
+                    {
+                        return;
+                    }
+                    ViewModel.SetImageCommand.Execute(document);
+                });
         }
     }
 }
