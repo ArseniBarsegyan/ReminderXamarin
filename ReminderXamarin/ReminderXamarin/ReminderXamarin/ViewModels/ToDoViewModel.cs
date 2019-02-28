@@ -60,6 +60,7 @@ namespace ReminderXamarin.ViewModels
         private async Task DeleteItemCommandExecute()
         {
             await App.ToDoRepository.DeleteAsync(Id);
+            await App.ToDoRepository.SaveAsync();
         }
     }
 }
