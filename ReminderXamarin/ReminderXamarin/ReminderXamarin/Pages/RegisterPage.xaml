@@ -86,6 +86,13 @@
                             </Image>
                         </AbsoluteLayout>
                     </StackLayout>
+
+                    <!-- Submit button -->
+                    <Button x:Name="SubmitButton" 
+                            Clicked="SubmitButton_OnClicked"
+                            VerticalOptions="EndAndExpand"
+                            Style="{StaticResource LoginButtonStyle}"
+                            Text="{extensions:Translate Register}" />
                 </StackLayout>
 
                 <!-- Error message -->
@@ -93,12 +100,6 @@
                    HorizontalOptions="Center"
                    Text="{extensions:Translate CheckPasswordErrorMessage}" 
                    IsVisible="{Binding IsValid, Converter={StaticResource InverseBooleanConverter}}" />
-                <!-- Submit button -->
-                <Button x:Name="SubmitButton" 
-                    Clicked="SubmitButton_OnClicked"
-                    VerticalOptions="EndAndExpand"
-                    Style="{StaticResource LoginButtonStyle}"
-                    Text="{extensions:Translate Register}" />
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Label TextColor="White" Text="{extensions:Translate AlreadyHaveAccountQuestion}" />

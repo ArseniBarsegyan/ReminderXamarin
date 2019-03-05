@@ -3,8 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+             xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.ToDoDetailPage"
              BackgroundColor="White">
+    <ContentPage.Resources>
+      <ResourceDictionary>
+          <converters:IntEnumConverter x:Key="IntEnumConverter" />
+      </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <StackLayout Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">

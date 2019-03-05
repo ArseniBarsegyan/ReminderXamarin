@@ -4,12 +4,18 @@
              xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+             xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Pages.NotesPage"
              Title="{extensions:Translate AllNotes}"
              BackgroundColor="White">
     <ContentPage.BindingContext>
         <viewModels1:NotesPageViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NullElementToImageSourceConverter x:Key="NullElementToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
         <StackLayout Padding="10" 

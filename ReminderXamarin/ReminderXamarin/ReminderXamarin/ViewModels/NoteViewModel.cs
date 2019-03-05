@@ -10,6 +10,7 @@ using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
 using Rm.Data.Entities;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using IFileSystem = ReminderXamarin.Interfaces.IFileSystem;
 
@@ -36,6 +37,7 @@ namespace ReminderXamarin.ViewModels
             CreateNoteCommand = new Command(async() => await CreateNoteCommandExecute());
             UpdateNoteCommand = new Command(async() => await UpdateNoteCommandExecute());
             DeleteNoteCommand = new Command(async() => await DeleteNoteCommandExecute());
+            CopyTextToClipboardCommand = new Command<string>(async text => await CopyTextToClipboardCommandExecute(text));
         }
 
         public PhotoViewModel SelectedPhoto { get; set; }
@@ -57,6 +59,7 @@ namespace ReminderXamarin.ViewModels
         public ICommand CreateNoteCommand { get; set; }
         public ICommand UpdateNoteCommand { get; set; }
         public ICommand DeleteNoteCommand { get; set; }
+        public ICommand CopyTextToClipboardCommand { get; set; }
 
         /// <summary>
         /// Invokes when Photos collection changing.
@@ -280,6 +283,11 @@ namespace ReminderXamarin.ViewModels
         {
             await App.NoteRepository.DeleteAsync(Id);
             await App.NoteRepository.SaveAsync();
+        }
+
+        private async Task CopyTextToClipboardCommandExecute(string text)
+        {
+            await Clipboard.SetTextAsync(text);
         }
     }
 }

@@ -68,6 +68,13 @@
                             </Image>
                         </AbsoluteLayout>
                     </StackLayout>
+
+                    <!-- Submit button -->
+                    <Button x:Name="SubmitButton" 
+                            Command="{Binding LoginCommand}" 
+                            VerticalOptions="EndAndExpand"
+                            Style="{StaticResource LoginButtonStyle}"
+                            Text="{extensions:Translate Login}" />
                 </StackLayout>
 
                 <!-- Error message -->
@@ -75,12 +82,6 @@
                    HorizontalOptions="Center"
                    Text="{extensions:Translate IncorrectData}" 
                    IsVisible="{Binding IsValid, Converter={StaticResource InverseBooleanConverter}}" />
-                <!-- Submit button -->
-                <Button x:Name="SubmitButton" 
-                    Command="{Binding LoginCommand}" 
-                    VerticalOptions="EndAndExpand"
-                    Style="{StaticResource LoginButtonStyle}"
-                    Text="{extensions:Translate Login}" />
 
                 <StackLayout BackgroundColor="Transparent" Orientation="Horizontal" HorizontalOptions="Center" Spacing="2">
                     <Label TextColor="White" Text="{extensions:Translate DontHaveAccountQuestion}" />

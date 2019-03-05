@@ -46,22 +46,9 @@
                 <Setter Property="CornerRadius" Value="30" />
                 <Setter Property="Opacity" Value="0.8" />
             </Style>
-            
-            <Style x:Key="PinPageButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonWithImageStyle}">
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="FontSize" Value="Medium" />
-                <Setter Property="BorderColor" Value="White" />
-                <Setter Property="BorderWidth" Value="1" />
-            </Style>
-            
-            <Style x:Key="PinPageExitButtonStyle" TargetType="Button" BasedOn="{StaticResource SubmitButtonStyle}">
-                <Setter Property="BackgroundColor" Value="{StaticResource DeleteButtonBackground}" />
-                <Setter Property="WidthRequest" Value="100" />
-                <Setter Property="CornerRadius" Value="0" />
-            </Style>
 
             <Style x:Key="LoginButtonStyle" TargetType="Button" BasedOn="{StaticResource SubmitButtonStyle}">
-                <Setter Property="Margin" Value="25, 0" />
+                <Setter Property="Margin" Value="25, 10" />
                 <Setter Property="CornerRadius" Value="0" />
             </Style>
 
@@ -74,27 +61,11 @@
                 <Setter Property="TextColor" Value="{StaticResource DarkFont}" />
             </Style>
             
-            <Style x:Key="FrameButtonStyle" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="White" />
-                <Setter Property="HeightRequest" Value="50" />
-                <Setter Property="WidthRequest" Value="200" />
-                <Setter Property="FontSize" Value="Small" />
-                <Setter Property="CornerRadius" Value="10" />
-                <Setter Property="BorderColor" Value="{StaticResource FrameButtonBorder}" />
-                <Setter Property="TextColor" Value="{StaticResource DarkFont}" />
-            </Style>
-            
             <!-- Label styles -->
             <Style x:Key="LoginLabelStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontSize" Value="Small" />
                 <Setter Property="Margin" Value="25, 0" />
-            </Style>
-            
-            <Style x:Key="PinPageLabelStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="FontSize" Value="Medium" />
-                <Setter Property="HorizontalOptions" Value="Start" />
             </Style>
 
             <!-- Entry styles -->
@@ -107,17 +78,11 @@
             </Style>
             
             <!-- Converters -->
-            <converters:NumberToBoolConverter x:Key="NumberToBoolConverter" />
-            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
             <converters:NullElementToBoolConverter x:Key="NullElementToBoolConverter" />
-            <converters:NullElementToImageSourceConverter x:Key="NullElementToImageSourceConverter" />
             <converters:PriorityToImageConverter x:Key="PriorityToImageConverter" />
-            <converters:IntEnumConverter x:Key="IntEnumConverter" />
             <converters:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
             <converters:EmptyByteToImageSourceConverter x:Key="EmptyByteToImageSourceConverter" />
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-            <converters:NumberToColorConverter x:Key="NumberToColorConverter" />
-            <converters:AchievementSpentTimePresentationConverter x:Key="SpentTimePresentationConverter" />
         </ResourceDictionary>
 	</Application.Resources>
 </Application>

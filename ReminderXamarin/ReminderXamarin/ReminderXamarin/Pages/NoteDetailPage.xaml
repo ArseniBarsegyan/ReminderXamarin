@@ -6,6 +6,10 @@
              BackgroundColor="White">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="delete.png" Order="Primary" Clicked="Delete_OnClicked" />
+        <ToolbarItem Text="Copy"
+                     Order="Primary" 
+                     Command="{Binding CopyTextToClipboardCommand}" 
+                     CommandParameter="{Binding Source={x:Reference DescriptionEditor}, Path=Text}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
