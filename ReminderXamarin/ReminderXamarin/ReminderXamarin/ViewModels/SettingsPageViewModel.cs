@@ -4,9 +4,9 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class SettingsPageViewModel : BaseViewModel
+    public class SettingsViewViewModel : BaseViewModel
     {
-        public SettingsPageViewModel()
+        public SettingsViewViewModel()
         {
             bool.TryParse(Settings.UsePin, out bool shouldUsePin);
             UsePin = shouldUsePin;

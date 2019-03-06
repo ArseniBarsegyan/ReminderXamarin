@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Resources;
 using ReminderXamarin.Helpers;
+using System.Threading.Tasks;
 
 namespace ReminderXamarin.ViewModels
 {
@@ -12,5 +13,10 @@ namespace ReminderXamarin.ViewModels
             () => new ResourceManager(ConstantsHelper.TranslationResourcePath, typeof(BaseViewModel).GetTypeInfo().Assembly));
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public virtual Task InitializeAsync(object navigationData)
+        {
+            return Task.FromResult(false);
+        }
     }
 }

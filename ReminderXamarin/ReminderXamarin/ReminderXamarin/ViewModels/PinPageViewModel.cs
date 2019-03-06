@@ -1,13 +1,13 @@
 ﻿using System.Windows.Input;
 using ReminderXamarin.Helpers;
-using ReminderXamarin.Pages;
+using ReminderXamarin.Views;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class PinPageViewModel : BaseViewModel
+    public class PinViewViewModel : BaseViewModel
     {
-        public PinPageViewModel()
+        public PinViewViewModel()
         {
             LoginCommand = new Command(LoginCommandExecute);
         }
@@ -21,7 +21,7 @@ namespace ReminderXamarin.ViewModels
             var userPin = Settings.UserPinCode;
             if (Pin.ToString() == userPin)
             {
-                Application.Current.MainPage = new NavigationPage(new MenuPage(Settings.ApplicationUser));
+                Application.Current.MainPage = new NavigationPage(new MenuView(Settings.ApplicationUser));
             }
         }
     }

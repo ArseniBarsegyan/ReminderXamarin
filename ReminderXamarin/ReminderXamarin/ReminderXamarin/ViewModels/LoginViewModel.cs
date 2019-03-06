@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Helpers;
-using ReminderXamarin.Pages;
+using ReminderXamarin.Views;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -18,9 +18,9 @@ namespace ReminderXamarin.ViewModels
         public string Password { get; set; }
         public bool ShowPassword { get; set; }
 
-        // Set this field to true to hide error message at LoginPage.
+        // Set this field to true to hide error message at LoginView.
         // When user will press "Login" button and get error change this property
-        // will show error at LoginPage.
+        // will show error at LoginView.
         public bool IsValid { get; set; } = true;
 
         public ICommand LoginCommand { get; set; }
@@ -31,7 +31,7 @@ namespace ReminderXamarin.ViewModels
             if (await AuthenticationManager.Authenticate(UserName, Password))
             {
                 Settings.ApplicationUser = UserName;
-                Application.Current.MainPage = new NavigationPage(new MenuPage(UserName));
+                Application.Current.MainPage = new NavigationPage(new MenuView(UserName));
                 IsValid = true;
             }
             else

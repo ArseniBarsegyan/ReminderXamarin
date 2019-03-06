@@ -14,12 +14,12 @@ namespace ReminderXamarin.ViewModels
         public string Title { get; set; }
     }
 
-    public class NotesPageViewModel : BaseViewModel
+    public class NotesViewViewModel : BaseViewModel
     {
         private List<NoteViewModel> _allNotes;
         private string _currentSearchText = string.Empty;
 
-        public NotesPageViewModel()
+        public NotesViewViewModel()
         {
             NotesGroups = new ObservableCollection<NotesGroup>();
             Notes = new ObservableCollection<NoteViewModel>();

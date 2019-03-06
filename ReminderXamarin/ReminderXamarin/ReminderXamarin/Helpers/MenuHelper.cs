@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using ReminderXamarin.Pages;
+using ReminderXamarin.Views;
 using ReminderXamarin.Resx;
 
 namespace ReminderXamarin.Helpers
 {
     /// <summary>
-    /// Helper class. Provide list of MasterPageItem for MenuPage.
+    /// Helper class. Provide list of MasterPageItem for MenuView.
     /// </summary>
     public static class MenuHelper
     {
@@ -18,35 +18,35 @@ namespace ReminderXamarin.Helpers
                 {
                     Title = AppResources.Notes,
                     IconSource = ConstantsHelper.NotesListIcon,
-                    TargetType = typeof(NotesPage),
+                    TargetType = typeof(NotesView),
                     IsDisplayed = true
                 },
                 new MasterPageItem
                 {
                     Title = AppResources.ToDoSection,
                     IconSource = ConstantsHelper.ToDoListIcon,
-                    TargetType = typeof(ToDoTabbedPage),
+                    TargetType = typeof(ToDoTabbedView),
                     IsDisplayed = true
                 },
                 new MasterPageItem
                 {
                     Title = AppResources.Birthdays,
                     IconSource = ConstantsHelper.BirthdaysIcon,
-                    TargetType = typeof(BirthdaysPage),
+                    TargetType = typeof(BirthdaysView),
                     IsDisplayed = true
                 },
                 new MasterPageItem
                 {
                     Title = AppResources.Achievements,
                     IconSource = ConstantsHelper.AchievementsIcon,
-                    TargetType = typeof(AchievementsPage),
+                    TargetType = typeof(AchievementsView),
                     IsDisplayed = true
                 },
                 new MasterPageItem
                 {
                     Title = AppResources.Settings,
                     IconSource = ConstantsHelper.SettingsIcon,
-                    TargetType = typeof(SettingsPage),
+                    TargetType = typeof(SettingsView),
                     IsDisplayed = true
                 }
             };
@@ -74,12 +74,12 @@ namespace ReminderXamarin.Helpers
         public bool IsDisplayed { get; set; }
     }
 
-    public enum MenuPageIndex
+    public enum MenuViewIndex
     {
-        NotesPage,
+        NotesView,
         ToDoPage,
-        BirthdaysPage,
-        AchievementsPage,
-        SettingsPage
+        BirthdaysView,
+        AchievementsView,
+        SettingsView
     }
 }

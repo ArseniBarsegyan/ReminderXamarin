@@ -7,9 +7,9 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class BirthdaysPageViewModel : BaseViewModel
+    public class BirthdaysViewViewModel : BaseViewModel
     {
-        public BirthdaysPageViewModel()
+        public BirthdaysViewViewModel()
         {
             BirthdayViewModels = new ObservableCollection<BirthdayViewModel>();
             RefreshListCommand = new Command(RefreshCommandExecute);

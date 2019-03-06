@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Helpers;
-using ReminderXamarin.Pages;
+using ReminderXamarin.Views;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -41,7 +41,7 @@ namespace ReminderXamarin.ViewModels
                     if (await AuthenticationManager.Authenticate(UserName, Password))
                     {
                         Settings.ApplicationUser = UserName;
-                        Application.Current.MainPage = new NavigationPage(new MenuPage(UserName));
+                        Application.Current.MainPage = new NavigationPage(new MenuView(UserName));
                         IsValid = true;
                     }
                     else

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.iOS.Renderers;
-using ReminderXamarin.Pages;
+using ReminderXamarin.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
@@ -17,7 +17,7 @@ namespace ReminderXamarin.iOS.Renderers
     {
         protected override async Task<bool> OnPopViewAsync(Page page, bool animated)
         {
-            if (page.Navigation.NavigationStack.LastOrDefault() is NoteCreatePage noteCreatePage)
+            if (page.Navigation.NavigationStack.LastOrDefault() is NoteCreateView noteCreatePage)
             {
                 if (noteCreatePage.ShouldDisplayMessage())
                 {

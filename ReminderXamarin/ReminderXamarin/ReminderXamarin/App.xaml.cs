@@ -5,7 +5,7 @@ using Microsoft.AppCenter.Push;
 using Microsoft.EntityFrameworkCore;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
-using ReminderXamarin.Pages;
+using ReminderXamarin.Views;
 using Rm.Data.EF;
 using Rm.Data.Entities;
 using Rm.Data.Repositories;
@@ -43,11 +43,11 @@ namespace ReminderXamarin
             bool.TryParse(Settings.UsePin, out bool shouldUsePin);
             if (shouldUsePin)
             {
-                MainPage = new PinPage();
+                MainPage = new PinView();
             }
             else
             {
-                MainPage = new LoginPage();
+                MainPage = new LoginView();
             }
 
             MessagingCenter.Subscribe<object, string>(this, NotificationReceivedKey, OnMessageReceived);
