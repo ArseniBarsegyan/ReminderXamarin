@@ -5,10 +5,14 @@ using Microsoft.AppCenter.Push;
 using Microsoft.EntityFrameworkCore;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
+using ReminderXamarin.Interfaces.Navigation;
+using ReminderXamarin.IoC;
+using ReminderXamarin.ViewModels;
 using ReminderXamarin.Views;
 using Rm.Data.EF;
 using Rm.Data.Entities;
 using Rm.Data.Repositories;
+using RmApp.Core.DependencyResolver;
 using Xamarin.Forms;
 using AchievementModel = Rm.Data.Entities.AchievementModel;
 using BirthdayModel = Rm.Data.Entities.BirthdayModel;
@@ -20,11 +24,14 @@ namespace ReminderXamarin
 {
     public partial class App : Application
     {
+        private readonly INavigationService _navigationService;
         public const string NotificationReceivedKey = "NotificationReceived";
 
         public App()
         {
             InitializeComponent();
+            Bootstrapper.Initialize();
+            _navigationService = ComponentFactory.Resolve<INavigationService>();
             string dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantsHelper.EFConnectionString);
 
             var options = new DbContextOptionsBuilder<AppIdentityDbContext>();
@@ -47,7 +54,7 @@ namespace ReminderXamarin
             }
             else
             {
-                MainPage = new LoginView();
+                _navigationService.InitializeAsync<LoginViewModel>();
             }
 
             MessagingCenter.Subscribe<object, string>(this, NotificationReceivedKey, OnMessageReceived);

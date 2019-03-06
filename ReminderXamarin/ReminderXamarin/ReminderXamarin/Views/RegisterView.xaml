@@ -5,7 +5,9 @@
              xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels"
              xmlns:elements1="clr-namespace:ReminderXamarin.Elements"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             x:Class="ReminderXamarin.Views.RegisterView">
+             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+             x:Class="ReminderXamarin.Views.RegisterView"
+             base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.BindingContext>
         <viewModels1:RegisterViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>

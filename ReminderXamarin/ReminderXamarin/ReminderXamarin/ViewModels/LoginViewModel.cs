@@ -11,8 +11,9 @@ namespace ReminderXamarin.ViewModels
     {
         public LoginViewModel()
         {
-            LoginCommand = new Command(async () => await LoginCommandExecute());
-            SwitchPasswordVisibilityCommand = new Command(SwitchPasswordVisibilityCommandExecute);
+            LoginCommand = new Command(async () => await Login());
+            SwitchPasswordVisibilityCommand = new Command(SwitchPasswordVisibility);
+            NavigateToRegisterPageCommand = new Command(async() => await NavigateToRegisterPage());
         }
 
         public string UserName { get; set; }
@@ -26,8 +27,9 @@ namespace ReminderXamarin.ViewModels
 
         public ICommand LoginCommand { get; set; }
         public ICommand SwitchPasswordVisibilityCommand { get; set; }
+        public ICommand NavigateToRegisterPageCommand { get; set; }
 
-        private async Task LoginCommandExecute()
+        private async Task Login()
         {
             if (await AuthenticationManager.Authenticate(UserName, Password))
             {
@@ -41,7 +43,12 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private void SwitchPasswordVisibilityCommandExecute()
+        private async Task NavigateToRegisterPage()
+        {
+            await NavigationService.InitializeAsync<RegisterViewModel>();
+        }
+
+        private void SwitchPasswordVisibility()
         {
             ShowPassword = !ShowPassword;
         }

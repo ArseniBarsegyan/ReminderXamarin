@@ -117,10 +117,7 @@ namespace ReminderXamarin.Interfaces.Navigation
 
             if (_rootViewModelType == viewModelType)
             {
-                Application.Current.MainPage = new NavigationPage(page)
-                {
-                    // TODO: set colors here
-                };
+                Application.Current.MainPage = page;
             }
             else
             {

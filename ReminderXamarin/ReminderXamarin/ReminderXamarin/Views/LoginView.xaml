@@ -5,7 +5,9 @@
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors;assembly=ReminderXamarin"
-             x:Class="ReminderXamarin.Views.LoginView">
+             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+             x:Class="ReminderXamarin.Views.LoginView"
+             base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.BindingContext>
         <viewModels:LoginViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>

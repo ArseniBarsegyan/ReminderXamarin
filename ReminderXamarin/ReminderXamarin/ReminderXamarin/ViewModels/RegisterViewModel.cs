@@ -11,6 +11,7 @@ namespace ReminderXamarin.ViewModels
     {
         public RegisterViewModel()
         {
+            NavigateToLoginViewCommand = new Command(async () => await NavigateToLoginView());
             RegisterCommand = new Command(async () => await RegisterCommandExecute());
             SwitchPasswordVisibilityCommand = new Command(SwitchPasswordVisibilityCommandExecute);
             SwitchPasswordConfirmVisibilityCommand = new Command(SwitchConfirmPasswordVisibilityCommandExecute);
@@ -23,6 +24,7 @@ namespace ReminderXamarin.ViewModels
         public bool ShowConfirmedPassword { get; set; }
         public bool IsValid { get; set; } = true;
 
+        public ICommand NavigateToLoginViewCommand { get; set; }
         public ICommand RegisterCommand { get; set; }
         public ICommand SwitchPasswordVisibilityCommand { get; set; }
         public ICommand SwitchPasswordConfirmVisibilityCommand { get; set; }
@@ -56,6 +58,11 @@ namespace ReminderXamarin.ViewModels
                     IsValid = false;
                 }
             }
+        }
+
+        private async Task NavigateToLoginView()
+        {
+            await NavigationService.InitializeAsync<LoginViewModel>();
         }
 
         private void SwitchPasswordVisibilityCommandExecute()
