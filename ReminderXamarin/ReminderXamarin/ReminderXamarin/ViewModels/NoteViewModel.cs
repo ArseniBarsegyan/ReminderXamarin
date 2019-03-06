@@ -9,6 +9,7 @@ using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
+using ReminderXamarin.ViewModels.Base;
 using Rm.Data.Entities;
 using Xamarin.Essentials;
 using Xamarin.Forms;

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Models;
+using ReminderXamarin.ViewModels.Base;
 using Rm.Data.Entities;
 using Xamarin.Forms;
 

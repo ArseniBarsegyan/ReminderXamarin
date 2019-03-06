@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using ReminderXamarin.Helpers;
+using ReminderXamarin.ViewModels.Base;
 using ReminderXamarin.Views;
 using Xamarin.Forms;
 

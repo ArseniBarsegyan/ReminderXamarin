@@ -4,6 +4,7 @@ using System.Windows.Input;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
+using ReminderXamarin.ViewModels.Base;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels

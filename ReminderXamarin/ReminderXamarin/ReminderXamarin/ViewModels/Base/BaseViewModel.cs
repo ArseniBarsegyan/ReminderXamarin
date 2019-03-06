@@ -2,10 +2,10 @@
 using System.ComponentModel;
 using System.Reflection;
 using System.Resources;
-using ReminderXamarin.Helpers;
 using System.Threading.Tasks;
+using ReminderXamarin.Helpers;
 
-namespace ReminderXamarin.ViewModels
+namespace ReminderXamarin.ViewModels.Base
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

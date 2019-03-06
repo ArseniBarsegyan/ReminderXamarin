@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using ReminderXamarin.ViewModels;
+using ReminderXamarin.ViewModels.Base;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Interfaces.Navigation

@@ -1,4 +1,5 @@
 ﻿using System;
+using ReminderXamarin.ViewModels.Base;
 
 namespace ReminderXamarin.ViewModels
 {
