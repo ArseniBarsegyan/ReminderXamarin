@@ -3,11 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.SettingsView"
              Title="{extensions:Translate Settings}"
-             BackgroundColor="White">
+             BackgroundColor="White"
+             base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.BindingContext>
-        <viewModels:SettingsViewViewModel x:Name="ViewModel" />
+        <viewModels:SettingsViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">

@@ -15,10 +15,9 @@ namespace ReminderXamarin.Views
         private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
         private bool _isTranslated;
 
-        public UserProfileView(UserProfileViewModel viewModel)
+        public UserProfileView()
         {
             InitializeComponent();
-            BindingContext = viewModel;
             BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
 
             Observable.FromEventPattern(x => PickUserPhotoImage.Clicked += x,
@@ -30,7 +29,10 @@ namespace ReminderXamarin.Views
                     {
                         return;
                     }
-                    viewModel?.ChangeUserProfileCommand.Execute(document);
+                    if (this.BindingContext is UserProfileViewModel viewModel)
+                    {
+                        viewModel.ChangeUserProfileCommand.Execute(document);
+                    }
                 });
         }
 

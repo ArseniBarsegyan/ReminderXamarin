@@ -5,6 +5,7 @@ using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
 using ReminderXamarin.ViewModels.Base;
+using Rm.Data.Entities;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -20,6 +21,20 @@ namespace ReminderXamarin.ViewModels
 
             ChangeUserProfileCommand = new Command<PlatformDocument>(ChangeUserProfileCommandExecute);
             UpdateUserCommand = new Command(async () => await UpdateUserCommandExecute());
+        }
+
+        public override Task InitializeAsync(object navigationData)
+        {
+            if (navigationData is AppUser appUser)
+            {
+                Id = appUser.Id;
+                UserName = appUser.UserName;
+                ImageContent = appUser.ImageContent;
+                NotesCount = appUser.Notes.Count;
+                AchievementsCount = appUser.Achievements.Count;
+                FriendBirthdaysCount = appUser.Birthdays.Count;
+            }
+            return base.InitializeAsync(navigationData);
         }
 
         public Guid Id { get; set; }
@@ -48,12 +63,15 @@ namespace ReminderXamarin.ViewModels
 
         private async Task UpdateUserCommandExecute()
         {
-            var user = await App.UserRepository.GetByIdAsync(Id);
-            user.ImageContent = ImageContent;
-            user.UserName = UserName;
-            App.UserRepository.Update(user);
-            await App.UserRepository.SaveAsync();
-            ViewModelChanged = false;
+            var user = await App.UserRepository.GetOneAsync(x => x.Id == Id);
+            if (user != null)
+            {
+                user.ImageContent = ImageContent;
+                user.UserName = UserName;
+                App.UserRepository.Update(user);
+                await App.UserRepository.SaveAsync();
+                ViewModelChanged = false;
+            }
         }
     }
 }

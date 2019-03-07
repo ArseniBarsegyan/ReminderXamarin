@@ -19,35 +19,40 @@ namespace ReminderXamarin.Helpers
                     Title = AppResources.Notes,
                     IconSource = ConstantsHelper.NotesListIcon,
                     TargetType = typeof(NotesView),
-                    IsDisplayed = true
+                    IsDisplayed = true,
+                    Index = MenuViewIndex.NotesView
                 },
                 new MasterPageItem
                 {
                     Title = AppResources.ToDoSection,
                     IconSource = ConstantsHelper.ToDoListIcon,
                     TargetType = typeof(ToDoTabbedView),
-                    IsDisplayed = true
+                    IsDisplayed = true,
+                    Index = MenuViewIndex.ToDoPage
                 },
                 new MasterPageItem
                 {
                     Title = AppResources.Birthdays,
                     IconSource = ConstantsHelper.BirthdaysIcon,
                     TargetType = typeof(BirthdaysView),
-                    IsDisplayed = true
+                    IsDisplayed = true,
+                    Index = MenuViewIndex.BirthdaysView
                 },
                 new MasterPageItem
                 {
                     Title = AppResources.Achievements,
                     IconSource = ConstantsHelper.AchievementsIcon,
                     TargetType = typeof(AchievementsView),
-                    IsDisplayed = true
+                    IsDisplayed = true,
+                    Index = MenuViewIndex.AchievementsView
                 },
                 new MasterPageItem
                 {
                     Title = AppResources.Settings,
                     IconSource = ConstantsHelper.SettingsIcon,
                     TargetType = typeof(SettingsView),
-                    IsDisplayed = true
+                    IsDisplayed = true,
+                    Index = MenuViewIndex.SettingsView
                 }
             };
             return masterPageItems;
@@ -72,6 +77,11 @@ namespace ReminderXamarin.Helpers
         /// Show this item in side menu or not.
         /// </summary>
         public bool IsDisplayed { get; set; }
+
+        /// <summary>
+        /// Display item index.
+        /// </summary>
+        public MenuViewIndex Index { get; set; }
     }
 
     public enum MenuViewIndex

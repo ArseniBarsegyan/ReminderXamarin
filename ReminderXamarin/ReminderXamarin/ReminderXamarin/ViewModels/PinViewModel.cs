@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
@@ -22,7 +23,8 @@ namespace ReminderXamarin.ViewModels
 
             QuitAppCommand = new Command(QuitApp);
             DeleteNumberCommand = new Command(DeletePinNumber);
-            PinCommand = new Command<string>(CheckPin);
+            PinCommand = new Command<string>(async pin => await CheckPin(pin));
+            LoginCommand = new Command(async task => await Login());
             _pinBuilder = new StringBuilder();
         }
 
@@ -38,7 +40,7 @@ namespace ReminderXamarin.ViewModels
         public ICommand PinCommand { get; set; }
         public ICommand LoginCommand { get; set; }
 
-        private void CheckPin(string text)
+        private async Task CheckPin(string text)
         {
             _currentCount++;
 
@@ -66,7 +68,7 @@ namespace ReminderXamarin.ViewModels
                 int.TryParse(_pinBuilder.ToString(), out int pin);
                 Pin = pin;
                 ResetImagesAndCount();
-                Login();
+                await Login();
             }
         }
 
@@ -116,12 +118,13 @@ namespace ReminderXamarin.ViewModels
             applicationService.CloseApplication();
         }
 
-        private void Login()
+        private async Task Login()
         {
             var userPin = Settings.UserPinCode;
             if (Pin.ToString() == userPin)
             {
-                Application.Current.MainPage = new NavigationPage(new MenuView(Settings.ApplicationUser));
+                // Application.Current.MainPage = new NavigationPage(new MenuView(Settings.ApplicationUser));
+                await NavigationService.InitializeAsync<MenuViewModel>();
             }
         }
     }

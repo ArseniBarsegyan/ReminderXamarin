@@ -123,8 +123,16 @@ namespace ReminderXamarin.Interfaces.Navigation
             {
                 if (Application.Current.MainPage is NavigationPage navigationPage)
                 {
-                    if (navigationPage.Navigation.NavigationStack.Last().GetType() == page.GetType()) return;
+                    if (navigationPage.Navigation.NavigationStack.Last().GetType() == page.GetType())
+                    {
+                        return;
+                    }
                     await navigationPage.PushAsync(page);
+                }
+                else if (Application.Current.MainPage is MasterDetailPage detailPage)
+                {
+                    detailPage.IsPresented = false;
+                    detailPage.Detail = new NavigationPage(page);
                 }
                 else
                 {
@@ -151,8 +159,16 @@ namespace ReminderXamarin.Interfaces.Navigation
                 throw new Exception($"Cannot locate page type for {viewModelType}");
             }
 
-            Page page = Activator.CreateInstance(pageType) as Page;
-            return page;
+            try
+            {
+                Page page = Activator.CreateInstance(pageType) as Page;
+                return page;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
         }
     }
 }
