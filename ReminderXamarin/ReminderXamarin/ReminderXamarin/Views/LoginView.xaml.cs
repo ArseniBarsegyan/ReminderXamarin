@@ -11,7 +11,6 @@ namespace ReminderXamarin.Views
         public LoginView()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
             BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
         }
 

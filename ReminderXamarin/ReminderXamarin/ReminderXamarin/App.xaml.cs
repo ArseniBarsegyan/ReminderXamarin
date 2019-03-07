@@ -8,17 +8,11 @@ using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.Navigation;
 using ReminderXamarin.IoC;
 using ReminderXamarin.ViewModels;
-using ReminderXamarin.Views;
 using Rm.Data.EF;
 using Rm.Data.Entities;
 using Rm.Data.Repositories;
 using RmApp.Core.DependencyResolver;
 using Xamarin.Forms;
-using AchievementModel = Rm.Data.Entities.AchievementModel;
-using BirthdayModel = Rm.Data.Entities.BirthdayModel;
-using Device = Xamarin.Forms.Device;
-using Note = Rm.Data.Entities.Note;
-using ToDoModel = Rm.Data.Entities.ToDoModel;
 
 namespace ReminderXamarin
 {
@@ -31,7 +25,7 @@ namespace ReminderXamarin
         {
             InitializeComponent();
             Bootstrapper.Initialize();
-            _navigationService = ComponentFactory.Resolve<INavigationService>();
+            _navigationService= ComponentFactory.Resolve<INavigationService>();
             string dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantsHelper.EFConnectionString);
 
             var options = new DbContextOptionsBuilder<AppIdentityDbContext>();
@@ -50,7 +44,8 @@ namespace ReminderXamarin
             bool.TryParse(Settings.UsePin, out bool shouldUsePin);
             if (shouldUsePin)
             {
-                MainPage = new PinView();
+                // MainPage = new PinView();
+                _navigationService.InitializeAsync<PinViewModel>();
             }
             else
             {
@@ -63,7 +58,7 @@ namespace ReminderXamarin
         // TODO: implement notification logic here
         private void OnMessageReceived(object sender, string msg)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
             {
                 var alertService = DependencyService.Get<IAlertService>();
                 alertService.ShowYesNoAlert("Notification received", "Ok", "Cancel");

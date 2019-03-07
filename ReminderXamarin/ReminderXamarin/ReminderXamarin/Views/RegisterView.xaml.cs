@@ -1,5 +1,6 @@
 ﻿using System;
 using ReminderXamarin.Helpers;
+using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -26,16 +27,14 @@ namespace ReminderXamarin.Views
 
         private void SubmitButton_OnClicked(object sender, EventArgs e)
         {
-            ViewModel.UserName = UserNameEntry.Text;
-            ViewModel.Password = PasswordEntry.Text;
-            ViewModel.ConfirmPassword = ConfirmPasswordEntry.Text;
-
-            ViewModel.RegisterCommand.Execute(null);
-        }
-
-        private void Login_OnTapped(object sender, EventArgs e)
-        {
-            Application.Current.MainPage = new LoginView();
+            if (this.BindingContext is RegisterViewModel viewModel)
+            {
+                viewModel.UserName = UserNameEntry.Text;
+                viewModel.Password = PasswordEntry.Text;
+                viewModel.ConfirmPassword = ConfirmPasswordEntry.Text;
+                
+                viewModel.RegisterCommand.Execute(null);
+            }
         }
     }
 }

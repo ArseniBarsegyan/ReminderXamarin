@@ -111,10 +111,12 @@ namespace ReminderXamarin.Views
             bool.TryParse(Settings.UsePin, out var result);
             if (result)
             {
+                // App.NavigationService.InitializeAsync<PinViewModel>();
                 Application.Current.MainPage = new PinView();
             }
             else
             {
+                // App.NavigationService.InitializeAsync<LoginViewModel>();
                 Application.Current.MainPage = new LoginView();
             }
         }

@@ -448,4 +448,5 @@
   <ItemGroup>
     <BundleResource Include="Resources\play%403x.png" />
   </ItemGroup>
+  <ItemGroup />
 </Project>

@@ -1,13 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
-             x:Class="ReminderXamarin.Views.PinView">
-    <ContentPage.BindingContext>
-        <viewModels:PinViewViewModel x:Name="ViewModel" />
-    </ContentPage.BindingContext>
+             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+             x:Class="ReminderXamarin.Views.PinView"
+             base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="PinViewButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonWithImageStyle}">
@@ -17,7 +15,7 @@
                 <Setter Property="BorderWidth" Value="1" />
             </Style>
 
-          <Style x:Key="PinViewLabelStyle" TargetType="Label">
+            <Style x:Key="PinViewLabelStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontSize" Value="Medium" />
                 <Setter Property="HorizontalOptions" Value="Start" />
@@ -46,10 +44,10 @@
                 <Label Text="{extensions:Translate EnterPin}" Style="{StaticResource PinViewLabelStyle}" HorizontalOptions="Center" />
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Image x:Name="FirstNumber" Source="emptyDot.png" />
-                    <Image x:Name="SecondNumber" Source="emptyDot.png" />
-                    <Image x:Name="ThirdNumber" Source="emptyDot.png" />
-                    <Image x:Name="FourthNumber" Source="emptyDot.png" />
+                    <Image x:Name="FirstNumber" Source="{Binding FirstNumberImageSource.Source}" />
+                    <Image x:Name="SecondNumber" Source="{Binding SecondNumberImageSource.Source}" />
+                    <Image x:Name="ThirdNumber" Source="{Binding ThirdNumberImageSource.Source}" />
+                    <Image x:Name="FourthNumber" Source="{Binding FourthNumberImageSource.Source}" />
                 </StackLayout>
 
                 <Grid RowSpacing="10" ColumnSpacing="10" HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
@@ -65,17 +63,104 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" Style="{StaticResource PinViewButtonStyle}" Text="1" Clicked="Button_OnClicked" />
-                    <Button Grid.Column="1" Grid.Row="0" HorizontalOptions="Center" Style="{StaticResource PinViewButtonStyle}" Text="2" Clicked="Button_OnClicked" />
-                    <Button Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" Style="{StaticResource PinViewButtonStyle}" Text="3" Clicked="Button_OnClicked" />
-                    <Button Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" Style="{StaticResource PinViewButtonStyle}" Text="4" Clicked="Button_OnClicked" />
-                    <Button Grid.Column="1" Grid.Row="1" HorizontalOptions="Center" Style="{StaticResource PinViewButtonStyle}" Text="5" Clicked="Button_OnClicked" />
-                    <Button Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" Style="{StaticResource PinViewButtonStyle}" Text="6" Clicked="Button_OnClicked" />
-                    <Button Grid.Column="0" Grid.Row="2" HorizontalOptions="Center" Style="{StaticResource PinViewButtonStyle}" Text="7" Clicked="Button_OnClicked" />
-                    <Button Grid.Column="1" Grid.Row="2" HorizontalOptions="Center" Style="{StaticResource PinViewButtonStyle}" Text="8" Clicked="Button_OnClicked" />
-                    <Button Grid.Column="2" Grid.Row="2" HorizontalOptions="Center" Style="{StaticResource PinViewButtonStyle}" Text="9" Clicked="Button_OnClicked" />
-                    <Button Grid.Column="1" Grid.Row="3" HorizontalOptions="Center" Style="{StaticResource PinViewButtonStyle}" Text="0" Clicked="Button_OnClicked" />
-                    <Button Grid.Column="2" Grid.Row="3" HorizontalOptions="Center" Style="{StaticResource PinViewButtonStyle}" Text="x" Clicked="DeleteButton_OnClicked" />
+                    <Button x:Name="Button1" 
+                            Grid.Column="0" 
+                            Grid.Row="0" 
+                            HorizontalOptions="Center" 
+                            Style="{StaticResource PinViewButtonStyle}"
+                            Text="1" 
+                            Pressed="Button_OnPressed"
+                            Command="{Binding PinCommand}"
+                            CommandParameter="{Binding Source={x:Reference Button1}, Path=Text}" />
+                    <Button x:Name="Button2" 
+                            Grid.Column="1" 
+                            Grid.Row="0" 
+                            HorizontalOptions="Center" 
+                            Style="{StaticResource PinViewButtonStyle}" 
+                            Text="2" 
+                            Pressed="Button_OnPressed"
+                            Command="{Binding PinCommand}"
+                            CommandParameter="{Binding Source={x:Reference Button2}, Path=Text}" />
+                    <Button x:Name="Button3" 
+                            Grid.Column="2" 
+                            Grid.Row="0" 
+                            HorizontalOptions="Center" 
+                            Style="{StaticResource PinViewButtonStyle}" 
+                            Text="3" 
+                            Pressed="Button_OnPressed"
+                            Command="{Binding PinCommand}"
+                            CommandParameter="{Binding Source={x:Reference Button3}, Path=Text}" />
+                    <Button x:Name="Button4" 
+                            Grid.Column="0" 
+                            Grid.Row="1"
+                            HorizontalOptions="Center"
+                            Style="{StaticResource PinViewButtonStyle}" 
+                            Text="4" 
+                            Pressed="Button_OnPressed"
+                            Command="{Binding PinCommand}"
+                            CommandParameter="{Binding Source={x:Reference Button4}, Path=Text}" />
+                    <Button x:Name="Button5" 
+                            Grid.Column="1" 
+                            Grid.Row="1" 
+                            HorizontalOptions="Center" 
+                            Style="{StaticResource PinViewButtonStyle}" 
+                            Text="5"
+                            Pressed="Button_OnPressed"
+                            Command="{Binding PinCommand}"
+                            CommandParameter="{Binding Source={x:Reference Button5}, Path=Text}" />
+                    <Button x:Name="Button6" 
+                            Grid.Column="2" 
+                            Grid.Row="1" 
+                            HorizontalOptions="Center"
+                            Style="{StaticResource PinViewButtonStyle}" 
+                            Text="6" 
+                            Pressed="Button_OnPressed"
+                            Command="{Binding PinCommand}"
+                            CommandParameter="{Binding Source={x:Reference Button6}, Path=Text}"/>
+                    <Button x:Name="Button7"
+                            Grid.Column="0" 
+                            Grid.Row="2" 
+                            HorizontalOptions="Center" 
+                            Style="{StaticResource PinViewButtonStyle}" 
+                            Text="7" 
+                            Pressed="Button_OnPressed"
+                            Command="{Binding PinCommand}"
+                            CommandParameter="{Binding Source={x:Reference Button7}, Path=Text}"/>
+                    <Button x:Name="Button8" 
+                            Grid.Column="1" 
+                            Grid.Row="2" 
+                            HorizontalOptions="Center" 
+                            Style="{StaticResource PinViewButtonStyle}" 
+                            Text="8"
+                            Pressed="Button_OnPressed"
+                            Command="{Binding PinCommand}"
+                            CommandParameter="{Binding Source={x:Reference Button8}, Path=Text}" />
+                    <Button x:Name="Button9" 
+                            Grid.Column="2" 
+                            Grid.Row="2" 
+                            HorizontalOptions="Center"
+                            Style="{StaticResource PinViewButtonStyle}"
+                            Text="9" 
+                            Pressed="Button_OnPressed"
+                            Command="{Binding PinCommand}"
+                            CommandParameter="{Binding Source={x:Reference Button9}, Path=Text}" />
+                    <Button x:Name="Button0" 
+                            Grid.Column="1"
+                            Grid.Row="3" 
+                            HorizontalOptions="Center" 
+                            Style="{StaticResource PinViewButtonStyle}" 
+                            Text="0"
+                            Pressed="Button_OnPressed"
+                            Command="{Binding PinCommand}"
+                            CommandParameter="{Binding Source={x:Reference Button0}, Path=Text}" />
+                    <Button x:Name="ButtonX" 
+                            Grid.Column="2"
+                            Grid.Row="3" 
+                            HorizontalOptions="Center" 
+                            Style="{StaticResource PinViewButtonStyle}"
+                            Text="x"
+                            Pressed="Button_OnPressed"
+                            Command="{Binding DeleteNumberCommand}" />
                 </Grid>
 
                 <!-- Exit application -->
@@ -83,7 +168,7 @@
                         HorizontalOptions="Center"
                         Image="off.png"
                         VerticalOptions="End"
-                        Clicked="Exit_OnTapped" />
+                        Command="{Binding QuitAppCommand}" />
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
