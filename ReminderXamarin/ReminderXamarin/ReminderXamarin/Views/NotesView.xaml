@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels1="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
+             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+             xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors"
              x:Class="ReminderXamarin.Views.NotesView"
              Title="{extensions:Translate AllNotes}"
-             BackgroundColor="White">
-    <ContentPage.BindingContext>
-        <viewModels1:NotesViewViewModel x:Name="ViewModel" />
-    </ContentPage.BindingContext>
+             BackgroundColor="White"
+             base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:NullElementToImageSourceConverter x:Key="NullElementToImageSourceConverter" />
@@ -27,9 +26,13 @@
             <!-- Search bar with border -->
             <elements:ContentViewWithBorder BorderColor="Gray">
                 <SearchBar x:Name="SearchBar" 
-                       BackgroundColor="White"
-                       Placeholder="Search..." 
-                       TextChanged="SearchBar_OnTextChanged" />
+                           BackgroundColor="White"
+                           Placeholder="Search..."
+                           Text="{Binding SearchText}">
+                    <SearchBar.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchCommand}" />
+                    </SearchBar.Behaviors>
+                </SearchBar>
             </elements:ContentViewWithBorder>
             <!-- List with notes -->
             <ListView x:Name="NotesList" 

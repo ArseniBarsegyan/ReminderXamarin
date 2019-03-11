@@ -15,21 +15,22 @@ namespace ReminderXamarin.ViewModels
         public string Title { get; set; }
     }
 
-    public class NotesViewViewModel : BaseViewModel
+    public class NotesViewModel : BaseViewModel
     {
         private List<NoteViewModel> _allNotes;
-        private string _currentSearchText = string.Empty;
 
-        public NotesViewViewModel()
+        public NotesViewModel()
         {
             NotesGroups = new ObservableCollection<NotesGroup>();
             Notes = new ObservableCollection<NoteViewModel>();
 
+            SearchText = string.Empty;
             RefreshListCommand = new Command(RefreshCommandExecute);
             SelectNoteCommand = new Command<int>(async id => await SelectNoteCommandExecute(id));
-            SearchCommand = new Command<string>(SearchNotesByDescription);
+            SearchCommand = new Command(SearchNotesByDescription);
         }
 
+        public string SearchText { get; set; }
         public bool IsRefreshing { get; set; }
         public ObservableCollection<NotesGroup> NotesGroups { get; set; }
         public ObservableCollection<NoteViewModel> Notes { get; set; }
@@ -50,11 +51,10 @@ namespace ReminderXamarin.ViewModels
             IsRefreshing = false;
         }
 
-        private void SearchNotesByDescription(string text)
+        private void SearchNotesByDescription()
         {
-            _currentSearchText = text;
             Notes = _allNotes
-                .Where(x => x.FullDescription.Contains(text))
+                .Where(x => x.FullDescription.Contains(SearchText))
                 .ToObservableCollection();
             DivideNotesIntoGroups();
         }
@@ -71,7 +71,7 @@ namespace ReminderXamarin.ViewModels
             // Show recently edited notes at the top of the list.
             Notes = _allNotes.ToObservableCollection();
             // Save filtering.
-            SearchNotesByDescription(_currentSearchText);
+            SearchNotesByDescription();
         }
         
         private void DivideNotesIntoGroups()

@@ -9,9 +9,9 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class AchievementsViewViewModel : BaseViewModel
+    public class AchievementsViewModel : BaseViewModel
     {
-        public AchievementsViewViewModel()
+        public AchievementsViewModel()
         {
             Achievements = new ObservableCollection<AchievementViewModel>();
 

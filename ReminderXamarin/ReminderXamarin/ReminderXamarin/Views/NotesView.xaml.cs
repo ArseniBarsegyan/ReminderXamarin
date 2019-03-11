@@ -19,7 +19,10 @@ namespace ReminderXamarin.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ViewModel.OnAppearing();
+            if (this.BindingContext is NotesViewModel viewModel)
+            {
+                viewModel.OnAppearing();
+            }            
         }
 
         private async void NotesList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -30,11 +33,6 @@ namespace ReminderXamarin.Views
             {
                 await Navigation.PushAsync(new NoteDetailView(viewModel));
             }
-        }        
-
-        private void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            ViewModel.SearchCommand.Execute(SearchBar.Text);
         }
 
         private async void Delete_OnClicked(object sender, EventArgs e)
@@ -46,7 +44,11 @@ namespace ReminderXamarin.Views
                 var menuItem = sender as MenuItem;
                 var noteViewModel = menuItem?.CommandParameter as NoteViewModel;
                 noteViewModel?.DeleteNoteCommand.Execute(null);
-                ViewModel.OnAppearing();
+
+                if (this.BindingContext is NotesViewModel viewModel)
+                {
+                    viewModel.OnAppearing();
+                }
             }
         }
 

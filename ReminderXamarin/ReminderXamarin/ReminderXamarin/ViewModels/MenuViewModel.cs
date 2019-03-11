@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
-using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels.Base;
-using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {

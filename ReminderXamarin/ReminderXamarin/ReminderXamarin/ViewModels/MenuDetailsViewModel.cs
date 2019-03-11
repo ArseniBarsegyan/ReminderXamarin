@@ -13,7 +13,7 @@ namespace ReminderXamarin.ViewModels
                 switch (pageIndex)
                 {
                     case MenuViewIndex.NotesView:
-                        NavigationService.NavigateToAsync<NoteViewModel>();
+                        NavigationService.NavigateToAsync<NotesViewModel>();
                         break;
                     case MenuViewIndex.ToDoPage:
                         NavigationService.NavigateToAsync<ToDoViewModel>();
@@ -22,7 +22,7 @@ namespace ReminderXamarin.ViewModels
                         NavigationService.NavigateToAsync<BirthdaysViewViewModel>();
                         break;
                     case MenuViewIndex.AchievementsView:
-                        NavigationService.NavigateToAsync<AchievementsViewViewModel>();
+                        NavigationService.NavigateToAsync<AchievementsViewModel>();
                         break;
                     case MenuViewIndex.SettingsView:
                         NavigationService.NavigateToAsync<SettingsViewModel>();

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using ReminderXamarin.Helpers;
+﻿using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
+using System;
 using Xamarin.Forms.Xaml;
+using System.Linq;
 
 namespace ReminderXamarin.Views
 {
@@ -18,7 +18,10 @@ namespace ReminderXamarin.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ViewModel.OnAppearing();
+            if (this.BindingContext is AchievementsViewModel vm)
+            {
+                vm.OnAppearing();
+            }
         }
 
         private async void Delete_OnClicked(object sender, EventArgs e)
@@ -30,7 +33,11 @@ namespace ReminderXamarin.Views
                 var menuItem = sender as MenuItem;
                 var viewModel = menuItem?.CommandParameter as AchievementViewModel;
                 viewModel?.DeleteAchievementCommand.Execute(viewModel);
-                ViewModel.OnAppearing();
+
+                if (this.BindingContext is AchievementsViewModel vm)
+                {
+                    vm.OnAppearing();
+                }                    
             }
         }
 
@@ -50,12 +57,15 @@ namespace ReminderXamarin.Views
 
             var id = Guid.Parse(hiddenIdLabel.Text);
 
-            var viewModel = ViewModel.Achievements.FirstOrDefault(x => x.Id == id);
-            if (viewModel != null)
+            if (this.BindingContext is AchievementsViewModel viewModel)
             {
-                var achievementDetailPage = new AchievementDetailView(viewModel);
-                await Navigation.PushAsync(achievementDetailPage);
-            }
+                var vm = viewModel.Achievements.FirstOrDefault(x => x.Id == id);
+                if (vm != null)
+                {
+                    var achievementDetailPage = new AchievementDetailView(vm);
+                    await Navigation.PushAsync(achievementDetailPage);
+                }
+            }            
         }
     }
 }
