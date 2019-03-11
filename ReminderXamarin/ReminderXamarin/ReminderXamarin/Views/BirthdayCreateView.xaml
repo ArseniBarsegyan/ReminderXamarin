@@ -30,6 +30,7 @@
 
                     <Button x:Name="PhotoPickButton" 
                             Image="edit.png" 
+                            HorizontalOptions="Center"
                             WidthRequest="50"
                             HeightRequest="50"
                             CornerRadius="25" />

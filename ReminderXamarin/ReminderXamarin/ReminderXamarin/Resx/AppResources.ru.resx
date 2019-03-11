@@ -180,6 +180,9 @@
   <data name="EditPreferencesDescription" xml:space="preserve">
     <value>Ред. предпочтения:</value>
   </data>
+  <data name="EnterDescription" xml:space="preserve">
+    <value>Введите описание</value>
+  </data>
   <data name="EnterPin" xml:space="preserve">
     <value>Введите PIN</value>
   </data>

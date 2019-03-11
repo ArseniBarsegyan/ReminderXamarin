@@ -5,6 +5,7 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:elements1="clr-namespace:ReminderXamarin.Elements"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+             xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors"
              x:Class="ReminderXamarin.Views.NoteCreateView"
              Title="{extensions:Translate CreateNote}"
              BackgroundColor="White">
@@ -64,10 +65,15 @@
                 </ListView>
 
                 <ScrollView VerticalOptions="FillAndExpand">
-                    <Editor x:Name="DescriptionEditor"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand"
-                        HeightRequest="200" />
+                    <elements1:EditorWithBorder x:Name="DescriptionEditor"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="FillAndExpand"
+                                                HeightRequest="200"
+                                                Placeholder="{extensions:Translate EnterDescription}">
+                        <elements1:EditorWithBorder.Behaviors>
+                            <behaviors:EditorWithPlaceholderBehavior />
+                        </elements1:EditorWithBorder.Behaviors>
+                    </elements1:EditorWithBorder>
                 </ScrollView>
 
                 <Grid AbsoluteLayout.LayoutBounds="0,1,1,60" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">

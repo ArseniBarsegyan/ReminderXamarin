@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reactive.Linq;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
@@ -28,22 +29,24 @@ namespace ReminderXamarin.Views
 
             _viewModel = viewModel;
             BindingContext = viewModel;
-        }
 
-        private async void PhotoPickerButton_OnClicked(object sender, EventArgs e)
-        {
-            var document = await DocumentPicker.DisplayImportAsync(this);
+            Observable.FromEventPattern(x => PhotoPickButton.Clicked += x,
+                    x => PhotoPickButton.Clicked -= x)
+                .Subscribe(async _ =>
+                {
+                    var document = await DocumentPicker.DisplayImportAsync(this);
 
-            if (document == null)
-            {
-                return;
-            }
-            // Retrieve file content throught IFileService implementation.
-            var imageContent = FileService.ReadAllBytes(document.Path);
-            var resizedImage = MediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
-            FriendPhoto.Source = ImageSource.FromStream(() => new MemoryStream(resizedImage));
-            _viewModel.ImageContent = resizedImage;
-        }
+                    if (document == null)
+                    {
+                        return;
+                    }
+                    // Retrieve file content throught IFileService implementation.
+                    var imageContent = FileService.ReadAllBytes(document.Path);
+                    var resizedImage = MediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
+                    FriendPhoto.Source = ImageSource.FromStream(() => new MemoryStream(resizedImage));
+                    _viewModel.ImageContent = resizedImage;
+                });
+        }        
 
         private async void Delete_OnClicked(object sender, EventArgs e)
         {
