@@ -12,7 +12,7 @@
     <MasterDetailPage.Detail>
         <NavigationPage>
             <x:Arguments>
-                <views:MenuDetailsView x:Name="MenuDetailsView" />
+                <views:NotesView x:Name="MenuDetailsView" />
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>

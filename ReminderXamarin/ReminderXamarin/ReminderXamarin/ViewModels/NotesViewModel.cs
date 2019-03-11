@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
-using ReminderXamarin.ViewModels.Base;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -15,17 +15,18 @@ namespace ReminderXamarin.ViewModels
         public string Title { get; set; }
     }
 
-    public class NotesViewModel : BaseViewModel
+    public class NotesViewModel : MenuDetailsViewModel
     {
         private List<NoteViewModel> _allNotes;
 
-        public NotesViewModel()
+        public NotesViewModel() : base()
         {
             NotesGroups = new ObservableCollection<NotesGroup>();
             Notes = new ObservableCollection<NoteViewModel>();
 
             SearchText = string.Empty;
-            RefreshListCommand = new Command(RefreshCommandExecute);
+            DeleteNoteCommand = new Command<Guid>(async(id) => await DeleteNote(id));
+            RefreshListCommand = new Command(async() => await Refresh());
             SelectNoteCommand = new Command<int>(async id => await SelectNoteCommandExecute(id));
             SearchCommand = new Command(SearchNotesByDescription);
         }
@@ -34,20 +35,28 @@ namespace ReminderXamarin.ViewModels
         public bool IsRefreshing { get; set; }
         public ObservableCollection<NotesGroup> NotesGroups { get; set; }
         public ObservableCollection<NoteViewModel> Notes { get; set; }
+        public ICommand DeleteNoteCommand { get; set; }
         public ICommand RefreshListCommand { get; set; }
         public ICommand SelectNoteCommand { get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand FilterNotesByDateCommand { get; set; }
 
-        public void OnAppearing()
+        public async Task OnAppearing()
         {
-            LoadNoteFromDatabase();
+            await LoadNotesFromDatabase();
         }
 
-        private void RefreshCommandExecute()
+        private async Task DeleteNote(Guid noteId)
+        {
+            await App.NoteRepository.DeleteAsync(noteId);
+            await App.NoteRepository.SaveAsync();
+            await OnAppearing();
+        }
+
+        private async Task Refresh()
         {
             IsRefreshing = true;
-            LoadNoteFromDatabase();
+            await LoadNotesFromDatabase();
             IsRefreshing = false;
         }
 
@@ -59,11 +68,11 @@ namespace ReminderXamarin.ViewModels
             DivideNotesIntoGroups();
         }
 
-        private void LoadNoteFromDatabase()
+        private async Task LoadNotesFromDatabase()
         {
             // Fetch all note models from database.
-            _allNotes = App.NoteRepository
-                .GetAll(null, "Photos,Videos")
+            _allNotes = (await App.NoteRepository
+                .GetAllAsync(null, "Photos,Videos"))
                 .Where(x => x.UserId == Settings.CurrentUserId)
                 .ToNoteViewModels()
                 .OrderByDescending(x => x.EditDate)

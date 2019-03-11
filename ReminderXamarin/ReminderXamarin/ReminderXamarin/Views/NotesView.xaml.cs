@@ -43,11 +43,11 @@ namespace ReminderXamarin.Views
             {
                 var menuItem = sender as MenuItem;
                 var noteViewModel = menuItem?.CommandParameter as NoteViewModel;
-                noteViewModel?.DeleteNoteCommand.Execute(null);
 
                 if (this.BindingContext is NotesViewModel viewModel)
                 {
-                    viewModel.OnAppearing();
+                    viewModel.DeleteNoteCommand.Execute(noteViewModel?.Id);
+                    await viewModel.OnAppearing();
                 }
             }
         }
