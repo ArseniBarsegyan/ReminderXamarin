@@ -16,10 +16,10 @@ namespace ReminderXamarin.ViewModels
                         NavigationService.NavigateToAsync<NotesViewModel>();
                         break;
                     case MenuViewIndex.ToDoPage:
-                        NavigationService.NavigateToAsync<ToDoViewModel>();
+                        NavigationService.NavigateToAsync<ToDoTabbedViewModel>();
                         break;
                     case MenuViewIndex.BirthdaysView:
-                        NavigationService.NavigateToAsync<BirthdaysViewViewModel>();
+                        NavigationService.NavigateToAsync<BirthdaysViewModel>();
                         break;
                     case MenuViewIndex.AchievementsView:
                         NavigationService.NavigateToAsync<AchievementsViewModel>();

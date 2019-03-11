@@ -8,7 +8,7 @@
              Title="{extensions:Translate Medium}"
              BackgroundColor="White">
     <ContentPage.BindingContext>
-        <viewModels:ToDoPageViewModel x:Name="ViewModel" />
+      <viewModels:ToDoTabbedViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">

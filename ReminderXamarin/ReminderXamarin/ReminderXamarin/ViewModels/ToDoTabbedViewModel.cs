@@ -10,9 +10,9 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class ToDoPageViewModel : BaseViewModel
+    public class ToDoTabbedViewModel : BaseViewModel
     {
-        public ToDoPageViewModel()
+        public ToDoTabbedViewModel()
         {
             HighPriorityModels = new ObservableCollection<ToDoViewModel>();
             MidPriorityModels = new ObservableCollection<ToDoViewModel>();

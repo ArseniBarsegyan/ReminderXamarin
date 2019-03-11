@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:pages="clr-namespace:ReminderXamarin.Views;assembly=ReminderXamarin"
+            xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+            xmlns:views="clr-namespace:ReminderXamarin.Views;assembly=ReminderXamarin"
             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
             x:Class="ReminderXamarin.Views.ToDoTabbedView"
-            Title="{extensions:Translate ToDoPageTitle}">
+            Title="{extensions:Translate ToDoPageTitle}"
+            base:ViewModelHelper.AutoWireViewModel="True">
     <!--Pages can be added as references or inline-->
-    <pages:ToDoHighPriorityView />
-    <pages:ToDoMidPriorityView />
-    <pages:ToDoLowPriorityView />
+    <views:ToDoHighPriorityView />
+    <views:ToDoMidPriorityView />
+    <views:ToDoLowPriorityView />
 </TabbedPage>

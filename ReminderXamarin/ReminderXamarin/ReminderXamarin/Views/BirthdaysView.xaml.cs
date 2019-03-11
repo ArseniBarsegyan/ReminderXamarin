@@ -17,7 +17,10 @@ namespace ReminderXamarin.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ViewModel.OnAppearing();
+            if (this.BindingContext is BirthdaysViewModel viewModel)
+            {
+                viewModel.OnAppearing();
+            }
         }
 
         private async void FriendsList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -39,7 +42,11 @@ namespace ReminderXamarin.Views
                 var menuItem = sender as MenuItem;
                 var viewModel = menuItem?.CommandParameter as BirthdayViewModel;
                 viewModel?.DeleteBirthdayCommand.Execute(null);
-                ViewModel.OnAppearing();
+
+                if (this.BindingContext is BirthdaysViewModel vm)
+                {
+                    vm.OnAppearing();
+                }
             }
         }
 
