@@ -1,8 +1,7 @@
-﻿using System;
-using ReminderXamarin.Helpers;
+﻿using ReminderXamarin.Views.Base;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using ImageSource = Xamarin.Forms.ImageSource;
 
 namespace ReminderXamarin.Views
 {
@@ -12,7 +11,6 @@ namespace ReminderXamarin.Views
         public PinView()
         {
             InitializeComponent();
-            BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
         }
 
         private void Button_OnPressed(object sender, EventArgs e)

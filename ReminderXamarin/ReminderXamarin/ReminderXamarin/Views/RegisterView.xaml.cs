@@ -1,8 +1,7 @@
 ﻿using System;
-using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Forms;
 
 namespace ReminderXamarin.Views
 {
@@ -12,7 +11,6 @@ namespace ReminderXamarin.Views
         public RegisterView()
         {
             InitializeComponent();
-            BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
         }
 
         private void UserNameEntry_OnCompleted(object sender, EventArgs e)

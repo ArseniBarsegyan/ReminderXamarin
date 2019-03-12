@@ -1,6 +1,7 @@
 ﻿using System;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
+using ReminderXamarin.Views.Base;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Views
@@ -16,12 +17,12 @@ namespace ReminderXamarin.Views
             InitializeComponent();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
             if (this.BindingContext is NotesViewModel viewModel)
             {
-                viewModel.OnAppearing();
+                await viewModel.OnAppearing();
             }            
         }
 

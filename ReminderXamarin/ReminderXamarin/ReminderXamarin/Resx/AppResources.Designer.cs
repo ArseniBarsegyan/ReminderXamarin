@@ -223,6 +223,15 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit achievement.
+        /// </summary>
+        internal static string EditAchievement {
+            get {
+                return ResourceManager.GetString("EditAchievement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit birthday date:.
         /// </summary>
         internal static string EditBirthdayDate {

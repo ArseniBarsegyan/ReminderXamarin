@@ -4,6 +4,8 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using ReminderXamarin.ViewModels.Base;
+using ReminderXamarin.Views;
+using ReminderXamarin.Views.Base;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Interfaces.Navigation
@@ -115,30 +117,57 @@ namespace ReminderXamarin.Interfaces.Navigation
                 await viewModel.InitializeAsync(parameter);
             }
 
-            if (_rootViewModelType == viewModelType)
+            //if (_rootViewModelType == viewModelType)
+            //{
+            //    Application.Current.MainPage = page;
+            //}
+            if (page is RootView)
             {
                 Application.Current.MainPage = page;
             }
-            else
+
+            if (page is MenuView || page is LoginView || page is PinView || page is RegisterView)
             {
-                if (Application.Current.MainPage is NavigationPage navigationPage)
-                {
-                    if (navigationPage.Navigation.NavigationStack.Last().GetType() == page.GetType())
-                    {
-                        return;
-                    }
-                    await navigationPage.PushAsync(page);
-                }
-                else if (Application.Current.MainPage is MasterDetailPage detailPage)
+                Application.Current.MainPage = page;
+            }
+
+            else if (page is UserProfileView || page is NotesView || page is AchievementsView || page is BirthdaysView || page is ToDoTabbedView || page is SettingsView)
+            {
+                if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {
                     detailPage.IsPresented = false;
                     detailPage.Detail = new NavigationPage(page);
                 }
-                else
+            }
+            else
+            {
+                if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {
-                    Application.Current.MainPage = new NavigationPage(page);
+                    detailPage.IsPresented = false;
+                    await detailPage.Detail.Navigation.PushAsync(page);
                 }
             }
+                        
+            //else
+            //{
+            //    if (Application.Current.MainPage is NavigationPage navigationPage)
+            //    {
+            //        if (navigationPage.Navigation.NavigationStack.Last().GetType() == page.GetType())
+            //        {
+            //            return;
+            //        }
+            //        await navigationPage.PushAsync(page);
+            //    }
+            //    else if (Application.Current.MainPage is MasterDetailPage detailPage)
+            //    {
+            //        detailPage.IsPresented = false;
+            //        detailPage.Detail = new NavigationPage(page);
+            //    }
+            //    else
+            //    {
+            //        Application.Current.MainPage = new NavigationPage(page);
+            //    }
+            //}
         }
 
         private Type GetPageTypeForViewModel(Type viewModelType)

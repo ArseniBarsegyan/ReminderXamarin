@@ -5,7 +5,7 @@ using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels.Base;
-using Rm.Data.Entities;
+using ReminderXamarin.Data.Entities;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -23,7 +23,6 @@ namespace ReminderXamarin.ViewModels
                 ImageContent = _appUser.ImageContent;
                 Settings.CurrentUserId = _appUser.Id.ToString();
             }
-            BackgroundImageSource = ImageSource.FromResource(ConstantsHelper.SideMenuBackground);
             MasterPageItems = MenuHelper.GetMenu().Where(x => x.IsDisplayed).ToObservableCollection();
             LogoutCommand = new Command(async task => await Logout());
             NavigateToUserProfileCommand = new Command(async task => await NavigateToUserProfile());
@@ -31,7 +30,6 @@ namespace ReminderXamarin.ViewModels
 
         public string UserName { get; set; }
         public byte[] ImageContent { get; set; }
-        public ImageSource BackgroundImageSource { get; set; }
         public ObservableCollection<MasterPageItem> MasterPageItems { get; set; }
         public ICommand LogoutCommand { get; set; }
         public ICommand NavigateToUserProfileCommand { get; set; }

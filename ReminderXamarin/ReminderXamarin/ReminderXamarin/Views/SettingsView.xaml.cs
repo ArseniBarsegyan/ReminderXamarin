@@ -1,4 +1,5 @@
 ﻿using ReminderXamarin.ViewModels;
+using ReminderXamarin.Views.Base;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

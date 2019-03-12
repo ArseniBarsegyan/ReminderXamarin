@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using RmApp.Core.Enums;
+using ReminderXamarin.Enums;
 using SimpleInjector;
 
-namespace RmApp.Core.Services.IoC
+namespace ReminderXamarin.IoC
 {
     public class SimpleInjectorContainerService : IContainerService
     {

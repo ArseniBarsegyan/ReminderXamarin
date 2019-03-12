@@ -6,7 +6,7 @@ namespace ReminderXamarin.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ToDoTabbedView : TabbedPage
     {
-        public ToDoTabbedView ()
+        public ToDoTabbedView()
         {
             InitializeComponent();
         }

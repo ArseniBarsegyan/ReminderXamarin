@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using ExifLib;
 using PCLStorage;
-using Rm.Data.Entities;
+using ReminderXamarin.Data.Entities;
 
 namespace ReminderXamarin.Helpers
 {

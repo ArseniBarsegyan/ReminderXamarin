@@ -1,4 +1,4 @@
-﻿namespace RmApp.Core.Enums
+﻿namespace ReminderXamarin.Enums
 {
     /// <summary>
     /// Container object lifestyle

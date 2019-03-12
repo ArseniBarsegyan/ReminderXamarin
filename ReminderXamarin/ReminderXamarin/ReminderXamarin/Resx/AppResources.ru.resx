@@ -171,6 +171,9 @@
   <data name="DontHaveAccountQuestion" xml:space="preserve">
     <value>Нет аккаунта?</value>
   </data>
+  <data name="EditAchievement" xml:space="preserve">
+    <value>Редактировать достижение</value>
+  </data>
   <data name="EditBirthdayDate" xml:space="preserve">
     <value>Ред. День рождения:</value>
   </data>

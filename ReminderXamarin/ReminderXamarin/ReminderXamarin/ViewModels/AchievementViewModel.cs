@@ -9,7 +9,7 @@ using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.FilePickerService;
 using ReminderXamarin.ViewModels.Base;
-using Rm.Data.Entities;
+using ReminderXamarin.Data.Entities;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -23,6 +23,7 @@ namespace ReminderXamarin.ViewModels
         {
             AchievementNotes = new ObservableCollection<AchievementNoteViewModel>();
 
+            NavigateToEditAchievementCommand = new Command(async () => await NavigateToEditAchievement());
             SetImageCommand = new Command<PlatformDocument>(SetImageCommandExecute);
             RefreshListCommand = new Command(async () => await RefreshCommandExecute());
             CreateAchievementCommand = new Command(async () => await CreateAchievementCommandExecute());
@@ -44,6 +45,7 @@ namespace ReminderXamarin.ViewModels
         public int GeneralTimeSpent { get; set; }
         public ObservableCollection<AchievementNoteViewModel> AchievementNotes { get; set; }
 
+        public ICommand NavigateToEditAchievementCommand { get; set; }
         public ICommand SetImageCommand { get; set; }
         public ICommand RefreshListCommand { get; set; }
         public ICommand CreateAchievementCommand { get; set; }
@@ -52,6 +54,11 @@ namespace ReminderXamarin.ViewModels
         public ICommand UpdateAchievementNoteCommand { get; set; }
         public ICommand DeleteAchievementCommand { get; set; }
         public ICommand DeleteAchievementNoteCommand { get; set; }
+
+        private async Task NavigateToEditAchievement()
+        {
+            await NavigationService.NavigateToAsync<AchievementDetailsViewModel>();
+        }
 
         private void SetImageCommandExecute(PlatformDocument document)
         {

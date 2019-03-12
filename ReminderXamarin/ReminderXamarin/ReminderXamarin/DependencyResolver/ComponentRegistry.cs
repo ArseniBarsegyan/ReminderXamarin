@@ -1,8 +1,8 @@
 ﻿using System;
-using RmApp.Core.Enums;
-using RmApp.Core.Services.IoC;
+using ReminderXamarin.Enums;
+using ReminderXamarin.IoC;
 
-namespace RmApp.Core.DependencyResolver
+namespace ReminderXamarin.DependencyResolver
 {
     public static class ComponentRegistry
     {

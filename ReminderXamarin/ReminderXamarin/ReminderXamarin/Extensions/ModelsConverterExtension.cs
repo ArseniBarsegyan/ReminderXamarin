@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
-using Rm.Data.Entities;
+using ReminderXamarin.Data.Entities;
 using ToDoPriority = ReminderXamarin.Models.ToDoPriority;
 
 namespace ReminderXamarin.Extensions

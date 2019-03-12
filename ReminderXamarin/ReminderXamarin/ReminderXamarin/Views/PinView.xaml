@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
-             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
-             x:Class="ReminderXamarin.Views.PinView"
-             base:ViewModelHelper.AutoWireViewModel="True">
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+                xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+                x:Class="ReminderXamarin.Views.PinView"
+                base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="PinViewButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonWithImageStyle}">
@@ -23,13 +22,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <!-- Background image -->
-            <elements:BlurredImage x:Name="BackgroundImage"
-                                   Aspect="AspectFill"
-                                   AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                                   AbsoluteLayout.LayoutFlags="All" />
-
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="{StaticResource DarkBackground}">
             <StackLayout BackgroundColor="Transparent" 
                          AbsoluteLayout.LayoutBounds="0,0,1,1"
                          AbsoluteLayout.LayoutFlags="All" 

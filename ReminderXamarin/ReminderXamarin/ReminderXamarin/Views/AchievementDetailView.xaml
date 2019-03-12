@@ -6,6 +6,7 @@
              Title="{Binding Title}"
              BackgroundColor="White">
     <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="EditAchievementLink" Order="Primary" Icon="edit.png" Command="{Binding NavigateToEditAchievementCommand}" />
         <ToolbarItem x:Name="DeleteAchievementLink" Order="Primary" Icon="delete.png" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>

@@ -3,15 +3,15 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Push;
 using Microsoft.EntityFrameworkCore;
+using ReminderXamarin.Data.EF;
+using ReminderXamarin.Data.Entities;
+using ReminderXamarin.Data.Repositories;
+using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces;
 using ReminderXamarin.Interfaces.Navigation;
 using ReminderXamarin.IoC;
 using ReminderXamarin.ViewModels;
-using Rm.Data.EF;
-using Rm.Data.Entities;
-using Rm.Data.Repositories;
-using RmApp.Core.DependencyResolver;
 using Xamarin.Forms;
 
 namespace ReminderXamarin

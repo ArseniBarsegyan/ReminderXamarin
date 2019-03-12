@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RmApp.Core.DependencyResolver
+namespace ReminderXamarin.DependencyResolver
 {
     public static class ComponentFactory
     {

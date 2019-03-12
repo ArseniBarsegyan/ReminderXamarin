@@ -5,14 +5,13 @@ using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Models;
-using ReminderXamarin.ViewModels.Base;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class ToDoTabbedViewModel : BaseViewModel
+    public class ToDoTabbedViewModel : MenuDetailsViewModel
     {
-        public ToDoTabbedViewModel()
+        public ToDoTabbedViewModel() : base()
         {
             HighPriorityModels = new ObservableCollection<ToDoViewModel>();
             MidPriorityModels = new ObservableCollection<ToDoViewModel>();

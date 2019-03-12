@@ -171,6 +171,9 @@
   <data name="DontHaveAccountQuestion" xml:space="preserve">
     <value>Don't have an account?</value>
   </data>
+  <data name="EditAchievement" xml:space="preserve">
+    <value>Edit achievement</value>
+  </data>
   <data name="EditBirthdayDate" xml:space="preserve">
     <value>Edit birthday date:</value>
   </data>

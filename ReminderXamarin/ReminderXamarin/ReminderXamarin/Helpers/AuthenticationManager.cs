@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Rm.Data.Entities;
+using ReminderXamarin.Data.Entities;
 
 namespace ReminderXamarin.Helpers
 {

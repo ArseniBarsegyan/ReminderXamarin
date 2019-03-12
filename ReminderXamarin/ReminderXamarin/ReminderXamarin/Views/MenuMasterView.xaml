@@ -8,13 +8,7 @@
              base:ViewModelHelper.AutoWireViewModel="True"
              Title="{extensions:Translate Menu}">
     <ContentPage.Content>
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <!-- Background image -->
-            <Image x:Name="BackgroundImage"
-                   Aspect="AspectFill"
-                   Source="{Binding BackgroundImageSource}"
-                   AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                   AbsoluteLayout.LayoutFlags="All" />
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="{StaticResource DarkFont}">            
             <!-- Side menu -->
             <ListView x:Name="MenuList"
                       ItemsSource="{Binding MasterPageItems}"

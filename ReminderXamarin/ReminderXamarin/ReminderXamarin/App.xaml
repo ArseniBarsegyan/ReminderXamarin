@@ -9,6 +9,7 @@
 		<!-- Application resource dictionary -->
         <ResourceDictionary>
             <Color x:Key="DarkFont">#323232</Color>
+            <Color x:Key="DarkBackground">#323232</Color>
             <Color x:Key="AchievementPageBackground">#fafafa</Color>
             <Color x:Key="SubmitButtonBackground">#448AFF</Color>
             <Color x:Key="CancelButtonBackground">#FFADD8E6</Color>

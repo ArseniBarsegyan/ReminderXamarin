@@ -1,7 +1,7 @@
-﻿using System;
+﻿using ReminderXamarin.DependencyResolver;
+using System;
 using System.Globalization;
 using System.Reflection;
-using RmApp.Core.DependencyResolver;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels.Base
@@ -37,7 +37,7 @@ namespace ReminderXamarin.ViewModels.Base
             var viewType = view.GetType();
             var viewName = viewType.FullName?.Replace(".Views.", ".ViewModels.");
             var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
-            var viewModelName = string.Format(CultureInfo.InvariantCulture, "{0}Model, {1}", viewName, viewAssemblyName);
+            var viewModelName = string.Format(CultureInfo.InvariantCulture, $"{viewName}Model, {viewAssemblyName}");
 
             var viewModelType = Type.GetType(viewModelName);
             if (viewModelType == null)

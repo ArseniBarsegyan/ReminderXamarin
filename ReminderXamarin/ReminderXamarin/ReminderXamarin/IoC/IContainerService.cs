@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ReminderXamarin.Enums;
+using System;
 using System.Collections.Generic;
-using RmApp.Core.Enums;
 
-namespace RmApp.Core.Services.IoC
+namespace ReminderXamarin.IoC
 {
     public interface IContainerService
     {

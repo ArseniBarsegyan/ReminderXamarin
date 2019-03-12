@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ReminderXamarin.ViewModels.Base;
+using System;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class VideoViewModel
+    public class VideoViewModel : BaseViewModel
     {
         public Guid Id { get; set; }
         public string Path { get; set; }

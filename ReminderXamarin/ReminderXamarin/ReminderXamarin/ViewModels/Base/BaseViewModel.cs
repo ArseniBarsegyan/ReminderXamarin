@@ -3,9 +3,9 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Resources;
 using System.Threading.Tasks;
+using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Interfaces.Navigation;
-using RmApp.Core.DependencyResolver;
 
 namespace ReminderXamarin.ViewModels.Base
 {

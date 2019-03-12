@@ -1,5 +1,4 @@
 ﻿using System;
-using ReminderXamarin.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +10,6 @@ namespace ReminderXamarin.Views
         public LoginView()
         {
             InitializeComponent();
-            BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
         }
 
         private void UserNameEntry_OnCompleted(object sender, EventArgs e)
