@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using ReminderXamarin.Helpers;
-using ReminderXamarin.Interfaces;
+using ReminderXamarin.Services;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Elements

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Android.Graphics;
 using ReminderXamarin.Droid.Interfaces;
-using ReminderXamarin.Interfaces;
+using ReminderXamarin.Services;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(ImageService))]

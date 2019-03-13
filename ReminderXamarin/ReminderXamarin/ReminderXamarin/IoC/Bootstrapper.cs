@@ -1,4 +1,4 @@
-﻿using ReminderXamarin.Interfaces.Navigation;
+﻿using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.DependencyResolver;
 
 namespace ReminderXamarin.IoC

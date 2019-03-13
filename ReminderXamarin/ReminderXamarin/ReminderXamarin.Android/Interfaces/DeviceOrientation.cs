@@ -2,7 +2,7 @@
 using Android.Views;
 using Android.Content;
 using ReminderXamarin.Droid.Interfaces;
-using ReminderXamarin.Interfaces;
+using ReminderXamarin.Services;
 
 [assembly: Xamarin.Forms.Dependency(typeof(DeviceOrientation))]
 namespace ReminderXamarin.Droid.Interfaces

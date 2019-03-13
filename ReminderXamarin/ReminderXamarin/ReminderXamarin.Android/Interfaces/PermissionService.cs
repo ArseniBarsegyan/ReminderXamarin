@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using ReminderXamarin.Droid.Interfaces;
-using ReminderXamarin.Interfaces;
+using ReminderXamarin.Services;
 
 [assembly: Xamarin.Forms.Dependency(typeof(PermissionService))]
 namespace ReminderXamarin.Droid.Interfaces

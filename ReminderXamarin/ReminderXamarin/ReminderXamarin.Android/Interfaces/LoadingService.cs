@@ -3,7 +3,7 @@ using Android.Views;
 using Android.Widget;
 using ReminderXamarin.Droid.Interfaces;
 using Plugin.CurrentActivity;
-using ReminderXamarin.Interfaces;
+using ReminderXamarin.Services;
 
 [assembly: Xamarin.Forms.Dependency(typeof(LoadingService))]
 namespace ReminderXamarin.Droid.Interfaces

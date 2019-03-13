@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Helpers;
-using ReminderXamarin.Interfaces;
+using ReminderXamarin.Services;
 using ReminderXamarin.ViewModels.Base;
 using ReminderXamarin.Views;
 using Xamarin.Forms;

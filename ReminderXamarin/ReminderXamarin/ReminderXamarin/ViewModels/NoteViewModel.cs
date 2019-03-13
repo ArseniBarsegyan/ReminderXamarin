@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
-using ReminderXamarin.Interfaces;
-using ReminderXamarin.Interfaces.FilePickerService;
+using ReminderXamarin.Services;
+using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels.Base;
 using ReminderXamarin.Data.Entities;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IFileSystem = ReminderXamarin.Interfaces.IFileSystem;
+using IFileSystem = ReminderXamarin.Services.IFileSystem;
 
 namespace ReminderXamarin.ViewModels
 {

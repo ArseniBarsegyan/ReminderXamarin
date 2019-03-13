@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Android.Content;
 using Android.Provider;
 using ReminderXamarin.Droid.Interfaces.FilePickerService;
-using ReminderXamarin.Interfaces.FilePickerService;
+using ReminderXamarin.Services.FilePickerService;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(PlatformDocumentPicker))]

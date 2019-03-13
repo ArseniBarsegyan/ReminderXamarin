@@ -2,8 +2,8 @@
 using System.IO;
 using System.Reactive.Linq;
 using ReminderXamarin.Helpers;
-using ReminderXamarin.Interfaces;
-using ReminderXamarin.Interfaces.FilePickerService;
+using ReminderXamarin.Services;
+using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;

@@ -2,7 +2,7 @@
 using System.IO;
 using Plugin.CurrentActivity;
 using ReminderXamarin.Droid.Interfaces;
-using ReminderXamarin.Interfaces;
+using ReminderXamarin.Services;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(FileHelper))]

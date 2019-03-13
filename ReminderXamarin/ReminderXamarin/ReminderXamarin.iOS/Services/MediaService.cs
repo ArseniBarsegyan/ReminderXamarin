@@ -13,7 +13,7 @@ namespace ReminderXamarin.iOS.Services
 {
     /// <inheritdoc />
     /// <summary>
-    /// Implementation of <see cref="T:ReminderXamarin.Interfaces.IMediaService" /> for iOS.
+    /// Implementation of <see cref="T:ReminderXamarin.Services.IMediaService" /> for iOS.
     /// </summary>
     public class MediaService : IMediaService
     {

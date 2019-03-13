@@ -5,7 +5,7 @@ using Android.Support.V4.Content;
 using Android.Widget;
 using Plugin.CurrentActivity;
 using ReminderXamarin.Droid.Interfaces;
-using ReminderXamarin.Interfaces;
+using ReminderXamarin.Services;
 
 [assembly: Xamarin.Forms.Dependency(typeof(AlertService))]
 namespace ReminderXamarin.Droid.Interfaces

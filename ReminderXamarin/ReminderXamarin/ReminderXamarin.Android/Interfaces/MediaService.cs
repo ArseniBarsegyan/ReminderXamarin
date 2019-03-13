@@ -3,14 +3,14 @@ using Android.Graphics;
 using Android.Media;
 using Java.IO;
 using ReminderXamarin.Droid.Interfaces;
-using ReminderXamarin.Interfaces;
+using ReminderXamarin.Services;
 
 [assembly: Xamarin.Forms.Dependency(typeof(MediaService))]
 namespace ReminderXamarin.Droid.Interfaces
 {
     /// <inheritdoc />
     /// <summary>
-    /// Implementation of <see cref="T:ReminderXamarin.Interfaces.IMediaService" /> for Android.
+    /// Implementation of <see cref="T:ReminderXamarin.Services.IMediaService" /> for Android.
     /// </summary>
     public class MediaService : IMediaService
     {
