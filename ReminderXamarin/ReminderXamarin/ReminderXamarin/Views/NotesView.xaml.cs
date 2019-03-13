@@ -1,7 +1,6 @@
 ﻿using System;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
-using ReminderXamarin.Views.Base;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Views

@@ -31,8 +31,7 @@ namespace ReminderXamarin.ViewModels
         public async Task RegisterCommandExecute()
         {
             if (Password != ConfirmPassword)
-            {
-                // AlertService.DisplayAlert("");
+            {   
                 IsValid = false;
             }
             else
@@ -43,7 +42,7 @@ namespace ReminderXamarin.ViewModels
                     if (await AuthenticationManager.Authenticate(UserName, Password))
                     {
                         Settings.ApplicationUser = UserName;
-                        // Application.Current.MainPage = new NavigationPage(new MenuView(UserName));
+                        await Task.Delay(250);
                         await NavigationService.InitializeAsync<MenuViewModel>();
                         IsValid = true;
                     }
@@ -54,7 +53,6 @@ namespace ReminderXamarin.ViewModels
                 }
                 else
                 {
-                    // AlertService.DisplayAlert("");
                     IsValid = false;
                 }
             }

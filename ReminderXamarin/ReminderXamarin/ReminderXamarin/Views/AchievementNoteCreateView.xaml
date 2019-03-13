@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+             xmlns:elements="clr-namespace:ReminderXamarin.Elements"
              x:Class="ReminderXamarin.Views.AchievementNoteCreateView"
              BackgroundColor="White">
     <ContentPage.Content>
@@ -15,16 +16,16 @@
                             Date="{x:Static sys:DateTime.Now}" />
 
                 <Label Text="Time spent: " />
-                <Entry x:Name="TimeSpentEditor" 
-                       Text="0" 
-                       Keyboard="Numeric"/>
+                <elements:EntryWithBorder x:Name="TimeSpentEditor" 
+                                          Text="0" 
+                                          Keyboard="Numeric"/>
 
                 <Label Text="{extensions:Translate Description}" />
                 <ScrollView>
-                    <Editor x:Name="DescriptionEditor"
-                            HeightRequest="200"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand" />
+                    <elements:EditorWithBorder x:Name="DescriptionEditor"
+                                               HeightRequest="200"
+                                               HorizontalOptions="FillAndExpand"
+                                               VerticalOptions="FillAndExpand" />
                 </ScrollView>
 
                 <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">

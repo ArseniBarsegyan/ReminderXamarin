@@ -22,7 +22,7 @@
             <controls:FlowListView x:Name="AchievementsList" 
                                    AbsoluteLayout.LayoutBounds="0,0,1,1" 
                                    AbsoluteLayout.LayoutFlags="All"
-                                   SeparatorVisibility="None"
+                                   SeparatorVisibility="None"                                   
                                    HasUnevenRows="true"
                                    FlowItemsSource="{Binding Achievements}"
                                    FlowColumnCount="3"

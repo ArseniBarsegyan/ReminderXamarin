@@ -21,7 +21,6 @@ namespace ReminderXamarin.ViewModels
             ThirdNumberImageSource = new Image { Source = ConstantsHelper.EmptyDotImage };
             FourthNumberImageSource = new Image { Source = ConstantsHelper.EmptyDotImage };
 
-            QuitAppCommand = new Command(QuitApp);
             DeleteNumberCommand = new Command(DeletePinNumber);
             PinCommand = new Command<string>(async pin => await CheckPin(pin));
             LoginCommand = new Command(async task => await Login());
@@ -35,7 +34,6 @@ namespace ReminderXamarin.ViewModels
 
         public int Pin { get; set; }
 
-        public ICommand QuitAppCommand { get; set; }
         public ICommand DeleteNumberCommand { get; set; }
         public ICommand PinCommand { get; set; }
         public ICommand LoginCommand { get; set; }
@@ -67,6 +65,7 @@ namespace ReminderXamarin.ViewModels
             {
                 int.TryParse(_pinBuilder.ToString(), out int pin);
                 Pin = pin;
+                await Task.Delay(250);
                 ResetImagesAndCount();
                 await Login();
             }
@@ -110,12 +109,6 @@ namespace ReminderXamarin.ViewModels
             SecondNumberImageSource.Source = ConstantsHelper.EmptyDotImage;
             ThirdNumberImageSource.Source = ConstantsHelper.EmptyDotImage;
             FourthNumberImageSource.Source = ConstantsHelper.EmptyDotImage;
-        }
-
-        private void QuitApp()
-        {
-            var applicationService = DependencyService.Get<IApplicationService>();
-            applicationService.CloseApplication();
         }
 
         private async Task Login()

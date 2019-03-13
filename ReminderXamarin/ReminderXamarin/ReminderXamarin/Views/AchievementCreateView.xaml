@@ -4,6 +4,7 @@
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+             xmlns:elements="clr-namespace:ReminderXamarin.Elements"
              x:Class="ReminderXamarin.Views.AchievementCreateView"
              Title="{extensions:Translate CreateAchievement}"
              BackgroundColor="White">
@@ -35,12 +36,12 @@
                 </StackLayout>
 
                 <Label Text="{extensions:Translate AchievementName}" HorizontalOptions="Start" />
-                <Entry x:Name="TitleEntry" HorizontalOptions="FillAndExpand" />
+                <elements:EntryWithBorder x:Name="TitleEntry" HorizontalOptions="FillAndExpand" />
 
                 <Label Text="{extensions:Translate Description}" HorizontalOptions="Start" />
-                <Editor x:Name="DescriptionEditor"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand" />
+                <elements:EditorWithBorder x:Name="DescriptionEditor"
+                                           HorizontalOptions="FillAndExpand"
+                                           VerticalOptions="FillAndExpand" />
             </StackLayout>
 
             <Button x:Name="AchievementCreateButton"

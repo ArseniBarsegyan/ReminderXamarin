@@ -142,7 +142,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\AlertService.cs" />
-    <Compile Include="Interfaces\ApplicationService.cs" />
     <Compile Include="Interfaces\DeviceOrientation.cs" />
     <Compile Include="Interfaces\FileHelper.cs" />
     <Compile Include="Interfaces\FilePickerService\Platform.cs" />

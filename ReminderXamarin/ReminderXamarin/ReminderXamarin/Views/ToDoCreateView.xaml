@@ -4,6 +4,7 @@
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+             xmlns:elements="clr-namespace:ReminderXamarin.Elements"
              x:Class="ReminderXamarin.Views.ToDoCreateView"
              Title="{extensions:Translate CreateToDo}"
              BackgroundColor="White">
@@ -26,9 +27,9 @@
                         <TimePicker x:Name="TimePicker" Format="HH:mm" />
 
                         <Label Text="{extensions:Translate Description}" />
-                        <Editor x:Name="DescriptionEditor"
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="FillAndExpand" />
+                        <elements:EditorWithBorder x:Name="DescriptionEditor"
+                                                   HorizontalOptions="FillAndExpand"
+                                                   VerticalOptions="FillAndExpand" />
                     </StackLayout>
                 </ScrollView>
             </StackLayout>

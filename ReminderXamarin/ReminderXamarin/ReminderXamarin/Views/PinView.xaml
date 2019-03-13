@@ -155,13 +155,6 @@
                             Pressed="Button_OnPressed"
                             Command="{Binding DeleteNumberCommand}" />
                 </Grid>
-
-                <!-- Exit application -->
-                <Button Style="{StaticResource PinViewButtonStyle}"
-                        HorizontalOptions="Center"
-                        Image="off.png"
-                        VerticalOptions="End"
-                        Command="{Binding QuitAppCommand}" />
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>
