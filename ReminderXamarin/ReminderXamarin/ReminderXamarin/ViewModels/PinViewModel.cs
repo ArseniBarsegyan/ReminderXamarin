@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Helpers;
@@ -65,7 +66,7 @@ namespace ReminderXamarin.ViewModels
             {
                 int.TryParse(_pinBuilder.ToString(), out int pin);
                 Pin = pin;
-                await Task.Delay(250);
+                await Task.Delay(25);
                 ResetImagesAndCount();
                 await Login();
             }
@@ -116,6 +117,7 @@ namespace ReminderXamarin.ViewModels
             var userPin = Settings.UserPinCode;
             if (Pin.ToString() == userPin)
             {
+                Console.WriteLine($"{DateTime.Now} BEFORE PUSHING VIEW !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 // Application.Current.MainPage = new NavigationPage(new MenuView(Settings.ApplicationUser));
                 await NavigationService.InitializeAsync<MenuViewModel>();
             }

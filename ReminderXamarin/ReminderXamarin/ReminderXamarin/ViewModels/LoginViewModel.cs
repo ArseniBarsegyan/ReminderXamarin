@@ -33,7 +33,6 @@ namespace ReminderXamarin.ViewModels
             if (await AuthenticationManager.Authenticate(UserName, Password))
             {
                 Settings.ApplicationUser = UserName;
-                await Task.Delay(250);
                 // Application.Current.MainPage = new NavigationPage(new MenuView(UserName));
                 await NavigationService.InitializeAsync<MenuViewModel>();
                 IsValid = true;

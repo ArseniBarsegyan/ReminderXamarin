@@ -109,7 +109,11 @@ namespace ReminderXamarin.Services.Navigation
 
         private async Task InternalNavigateToAsync(Type viewModelType, object parameter)
         {
+            DateTime pageCreationPoint = DateTime.Now;
             Page page = CreatePage(viewModelType, parameter);
+            DateTime afterPageCreationPoint = DateTime.Now;
+            TimeSpan difference = afterPageCreationPoint - pageCreationPoint;
+            Console.WriteLine($"{difference.Milliseconds} VIEW CREATION TIME !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
             if (page.BindingContext is BaseViewModel viewModel)
             {
@@ -131,7 +135,6 @@ namespace ReminderXamarin.Services.Navigation
                 if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {                    
                     detailPage.Detail = new NavigationPage(page);
-                    await Task.Delay(250);
                     detailPage.IsPresented = false;
                 }
             }
@@ -140,7 +143,6 @@ namespace ReminderXamarin.Services.Navigation
                 if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {                    
                     await detailPage.Detail.Navigation.PushAsync(page);
-                    await Task.Delay(250);
                     detailPage.IsPresented = false;
                 }
             }

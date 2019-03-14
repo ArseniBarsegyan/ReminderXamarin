@@ -1,4 +1,5 @@
-﻿using Microsoft.AppCenter;
+﻿using System;
+using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Push;
@@ -23,6 +24,9 @@ namespace ReminderXamarin
 
         public App()
         {
+            var time = DateTime.Now;
+            Console.WriteLine("!!!!!!!!!!!!!!!!!!Initialization: 0!!!!!!!!!!!!!!!!!!");
+
             InitializeComponent();
             Bootstrapper.Initialize();
             _navigationService= ComponentFactory.Resolve<INavigationService>();
@@ -31,15 +35,26 @@ namespace ReminderXamarin
             var options = new DbContextOptionsBuilder<AppIdentityDbContext>();
             options.UseSqlite($"Filename={dbPath}");
 
+            var contextTimeMark = DateTime.Now;
+            TimeSpan difference = DateTime.Now - time;
+            Console.WriteLine("!!!!!!!!!!!!!!!!!!Before context creation: " + difference.TotalMilliseconds);
+
             var context = new AppIdentityDbContext(options.Options, 
                 "dbo",
                 dbPath);
+
+            DateTime repoCreationTimeMark = DateTime.Now;
+            difference = repoCreationTimeMark - contextTimeMark;
+            Console.WriteLine("!!!!!!!!!!!!!!!!!!After context creation: " + difference.TotalMilliseconds);
 
             NoteRepository = new EntityFrameworkRepository<AppIdentityDbContext, Note>(context);
             ToDoRepository = new EntityFrameworkRepository<AppIdentityDbContext, ToDoModel>(context);
             AchievementRepository = new EntityFrameworkRepository<AppIdentityDbContext, AchievementModel>(context);
             UserRepository = new EntityFrameworkRepository<AppIdentityDbContext, AppUser>(context);
             BirthdaysRepository = new EntityFrameworkRepository<AppIdentityDbContext, BirthdayModel>(context);
+
+            difference = DateTime.Now - contextTimeMark;
+            Console.WriteLine("!!!!!!!!!!!!!!!!!!After REPOS creation: " + difference.TotalMilliseconds);
 
             bool.TryParse(Settings.UsePin, out bool shouldUsePin);
             if (shouldUsePin)

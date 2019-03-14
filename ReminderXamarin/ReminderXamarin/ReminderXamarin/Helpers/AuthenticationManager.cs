@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +20,9 @@ namespace ReminderXamarin.Helpers
         /// <returns></returns>
         public static async Task<bool> Authenticate(string userName, string password)
         {
+            Console.WriteLine($"{DateTime.Now} BEFORE AUTHENTICATION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             var user = (await App.UserRepository.GetAsync(x => x.UserName == userName)).FirstOrDefault();
-            // var user = App.UserRepository.GetAllAsync().FirstOrDefault(x => x.UserName == userName);
+            Console.WriteLine($"{DateTime.Now} AFTER AUTHENTICATION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             if (user == null)
             {
                 return false;

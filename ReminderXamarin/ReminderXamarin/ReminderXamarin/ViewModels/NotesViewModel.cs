@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
+using ReminderXamarin.ViewModels.Base;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -15,11 +16,11 @@ namespace ReminderXamarin.ViewModels
         public string Title { get; set; }
     }
 
-    public class NotesViewModel : MenuDetailsViewModel
+    public class NotesViewModel : BaseViewModel
     {
         private List<NoteViewModel> _allNotes;
 
-        public NotesViewModel() : base()
+        public NotesViewModel()
         {
             NotesGroups = new ObservableCollection<NotesGroup>();
             Notes = new ObservableCollection<NoteViewModel>();
