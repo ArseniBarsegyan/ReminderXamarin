@@ -38,27 +38,27 @@ namespace ReminderXamarin.ViewModels
                 ImageContent = ImageContent,
                 Name = Name
             };
-            await BirthdaysRepository.Value.CreateAsync(model);
-            await BirthdaysRepository.Value.SaveAsync();
+            await App.BirthdaysRepository.CreateAsync(model);
+            await App.BirthdaysRepository.SaveAsync();
         }
 
         private async Task UpdateBirthdayCommandExecute()
         {
-            var model = await BirthdaysRepository.Value.GetByIdAsync(Id);
+            var model = await App.BirthdaysRepository.GetByIdAsync(Id);
             model.UserId = Settings.CurrentUserId;
             model.Name = Name;
             model.ImageContent = ImageContent;
             model.BirthDayDate = BirthDayDate;
             model.GiftDescription = GiftDescription;
 
-            BirthdaysRepository.Value.Update(model);
-            await BirthdaysRepository.Value.SaveAsync();
+            App.BirthdaysRepository.Update(model);
+            await App.BirthdaysRepository.SaveAsync();
         }
 
         private async Task DeleteBirthdayCommandExecute()
         {
-            await BirthdaysRepository.Value.DeleteAsync(Id);
-            await BirthdaysRepository.Value.SaveAsync();
+            await App.BirthdaysRepository.DeleteAsync(Id);
+            await App.BirthdaysRepository.SaveAsync();
         }
     }
 }

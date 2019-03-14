@@ -2,6 +2,10 @@
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Push;
+using Microsoft.EntityFrameworkCore;
+using ReminderXamarin.Data.EF;
+using ReminderXamarin.Data.Entities;
+using ReminderXamarin.Data.Repositories;
 using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Services;
@@ -14,7 +18,6 @@ namespace ReminderXamarin
 {
     public partial class App : Application
     {
-        //private readonly AppIdentityDbContext _dbContext;
         private readonly INavigationService _navigationService;
         public const string NotificationReceivedKey = "NotificationReceived";
 
@@ -23,6 +26,20 @@ namespace ReminderXamarin
             InitializeComponent();
             Bootstrapper.Initialize();
             _navigationService= ComponentFactory.Resolve<INavigationService>();
+            string dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantsHelper.EFConnectionString);
+
+            var options = new DbContextOptionsBuilder<AppIdentityDbContext>();
+            options.UseSqlite($"Filename={dbPath}");
+
+            var context = new AppIdentityDbContext(options.Options, 
+                "dbo",
+                dbPath);
+
+            NoteRepository = new EntityFrameworkRepository<AppIdentityDbContext, Note>(context);
+            ToDoRepository = new EntityFrameworkRepository<AppIdentityDbContext, ToDoModel>(context);
+            AchievementRepository = new EntityFrameworkRepository<AppIdentityDbContext, AchievementModel>(context);
+            UserRepository = new EntityFrameworkRepository<AppIdentityDbContext, AppUser>(context);
+            BirthdaysRepository = new EntityFrameworkRepository<AppIdentityDbContext, BirthdayModel>(context);
 
             bool.TryParse(Settings.UsePin, out bool shouldUsePin);
             if (shouldUsePin)
@@ -48,6 +65,12 @@ namespace ReminderXamarin
             });
         }
 
+        public static EntityFrameworkRepository<AppIdentityDbContext, Note> NoteRepository { get; private set; }
+        public static EntityFrameworkRepository<AppIdentityDbContext, ToDoModel> ToDoRepository { get; private set; }
+        public static EntityFrameworkRepository<AppIdentityDbContext, AchievementModel> AchievementRepository { get; private set; }
+        public static EntityFrameworkRepository<AppIdentityDbContext, AppUser> UserRepository { get; private set; }
+        public static EntityFrameworkRepository<AppIdentityDbContext, BirthdayModel> BirthdaysRepository { get; private set; }
+        
         protected override void OnStart()
         {
             // Handle when your app starts

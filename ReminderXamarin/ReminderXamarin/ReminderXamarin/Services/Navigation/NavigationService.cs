@@ -75,9 +75,7 @@ namespace ReminderXamarin.Services.Navigation
             if (Application.Current.MainPage is NavigationPage mainPage)
             {
                 if (!mainPage.Navigation.NavigationStack.Any())
-                {
                     return;
-                }
 
                 _rootViewModelType = mainPage.CurrentPage.BindingContext?.GetType();
                 var lastPage = mainPage.Navigation.NavigationStack.Last();
@@ -118,6 +116,11 @@ namespace ReminderXamarin.Services.Navigation
                 await viewModel.InitializeAsync(parameter);
             }
 
+            //if (_rootViewModelType == viewModelType)
+            //{
+            //    Application.Current.MainPage = page;
+            //}
+
             if (page is MenuView || page is LoginView || page is PinView || page is RegisterView)
             {                
                 Application.Current.MainPage = page;
@@ -128,7 +131,7 @@ namespace ReminderXamarin.Services.Navigation
                 if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {                    
                     detailPage.Detail = new NavigationPage(page);
-                    await Task.Delay(50);
+                    await Task.Delay(250);
                     detailPage.IsPresented = false;
                 }
             }
@@ -137,10 +140,31 @@ namespace ReminderXamarin.Services.Navigation
                 if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {                    
                     await detailPage.Detail.Navigation.PushAsync(page);
-                    await Task.Delay(50);
+                    await Task.Delay(250);
                     detailPage.IsPresented = false;
                 }
             }
+
+            //else
+            //{
+            //    if (Application.Current.MainPage is NavigationPage navigationPage)
+            //    {
+            //        if (navigationPage.Navigation.NavigationStack.Last().GetType() == page.GetType())
+            //        {
+            //            return;
+            //        }
+            //        await navigationPage.PushAsync(page);
+            //    }
+            //    else if (Application.Current.MainPage is MasterDetailPage detailPage)
+            //    {
+            //        detailPage.IsPresented = false;
+            //        detailPage.Detail = new NavigationPage(page);
+            //    }
+            //    else
+            //    {
+            //        Application.Current.MainPage = new NavigationPage(page);
+            //    }
+            //}
         }
 
         private Type GetPageTypeForViewModel(Type viewModelType)

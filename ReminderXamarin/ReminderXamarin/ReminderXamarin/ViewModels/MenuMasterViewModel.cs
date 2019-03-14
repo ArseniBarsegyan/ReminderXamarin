@@ -12,11 +12,11 @@ namespace ReminderXamarin.ViewModels
 {
     public class MenuMasterViewModel : BaseViewModel
     {
-        private readonly AppUser _appUser;
+        private AppUser _appUser;
 
         public MenuMasterViewModel()
         {
-            _appUser = UserRepository.Value.Get(x => x.UserName == Settings.ApplicationUser).FirstOrDefault();
+            _appUser = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == Settings.ApplicationUser);
             if (_appUser != null)
             {
                 UserName = _appUser.UserName;
@@ -39,12 +39,12 @@ namespace ReminderXamarin.ViewModels
             bool.TryParse(Settings.UsePin, out var result);
             if (result)
             {
-                await Task.Delay(50);
+                await Task.Delay(250);
                 await NavigationService.InitializeAsync<PinViewModel>();
             }
             else
             {
-                await Task.Delay(50);
+                await Task.Delay(250);
                 await NavigationService.InitializeAsync<LoginViewModel>();
             }
         }

@@ -231,8 +231,8 @@ namespace ReminderXamarin.ViewModels
                 Videos = Videos.ToVideoModels().ToList()
             };
 
-            await NoteRepository.Value.CreateAsync(model);
-            await NoteRepository.Value.SaveAsync();
+            await App.NoteRepository.CreateAsync(model);
+            await App.NoteRepository.SaveAsync();
             IsLoading = false;
         }
 
@@ -242,7 +242,7 @@ namespace ReminderXamarin.ViewModels
             // Update edit date since user pressed confirm
             EditDate = DateTime.Now;
 
-            var note = await NoteRepository.Value.GetByIdAsync(Id);
+            var note = await App.NoteRepository.GetByIdAsync(Id);
             note.UserId = Settings.CurrentUserId;
             note.CreationDate = CreationDate;
             note.EditDate = EditDate;
@@ -274,16 +274,16 @@ namespace ReminderXamarin.ViewModels
                 note.Videos.Add(videoModel);
             }
 
-            NoteRepository.Value.Update(note);
-            await NoteRepository.Value.SaveAsync();
+            App.NoteRepository.Update(note);
+            await App.NoteRepository.SaveAsync();
             
             IsLoading = false;
         }
 
         private async Task DeleteNoteCommandExecute()
         {
-            await NoteRepository.Value.DeleteAsync(Id);
-            await NoteRepository.Value.SaveAsync();
+            await App.NoteRepository.DeleteAsync(Id);
+            await App.NoteRepository.SaveAsync();
         }
 
         private async Task CopyTextToClipboardCommandExecute(string text)

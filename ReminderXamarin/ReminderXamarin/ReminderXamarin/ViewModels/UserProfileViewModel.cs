@@ -63,13 +63,13 @@ namespace ReminderXamarin.ViewModels
 
         private async Task UpdateUserCommandExecute()
         {
-            var user = await UserRepository.Value.GetOneAsync(x => x.Id == Id);
+            var user = await App.UserRepository.GetOneAsync(x => x.Id == Id);
             if (user != null)
             {
                 user.ImageContent = ImageContent;
                 user.UserName = UserName;
-                UserRepository.Value.Update(user);
-                await UserRepository.Value.SaveAsync();
+                App.UserRepository.Update(user);
+                await App.UserRepository.SaveAsync();
                 ViewModelChanged = false;
             }
         }
