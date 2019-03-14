@@ -39,7 +39,6 @@ namespace ReminderXamarin.ViewModels
         public ICommand RefreshListCommand { get; set; }
         public ICommand SelectNoteCommand { get; set; }
         public ICommand SearchCommand { get; set; }
-        public ICommand FilterNotesByDateCommand { get; set; }
 
         public async Task OnAppearing()
         {
@@ -48,8 +47,8 @@ namespace ReminderXamarin.ViewModels
 
         private async Task DeleteNote(Guid noteId)
         {
-            await App.NoteRepository.DeleteAsync(noteId);
-            await App.NoteRepository.SaveAsync();
+            await NoteRepository.Value.DeleteAsync(noteId);
+            await NoteRepository.Value.SaveAsync();
             await OnAppearing();
         }
 
@@ -71,8 +70,9 @@ namespace ReminderXamarin.ViewModels
         private async Task LoadNotesFromDatabase()
         {
             // Fetch all note models from database.
-            _allNotes = (await App.NoteRepository
-                .GetAllAsync(null, "Photos,Videos"))
+            _allNotes = (await NoteRepository
+                    .Value
+                    .GetAllAsync(null, "Photos,Videos"))
                 .Where(x => x.UserId == Settings.CurrentUserId)
                 .ToNoteViewModels()
                 .OrderByDescending(x => x.EditDate)
@@ -104,7 +104,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task<NoteViewModel> SelectNoteCommandExecute(int id)
         {
-            var note = await App.NoteRepository.GetByIdAsync(id);
+            var note = await NoteRepository.Value.GetByIdAsync(id);
             return note.ToNoteViewModel();
         }
     }

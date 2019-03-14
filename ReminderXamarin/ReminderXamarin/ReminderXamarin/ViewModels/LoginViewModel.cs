@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels.Base;
@@ -30,10 +33,10 @@ namespace ReminderXamarin.ViewModels
 
         private async Task Login()
         {
-            if (await AuthenticationManager.Authenticate(UserName, Password))
+            if (await Authenticate(UserName, Password))
             {
                 Settings.ApplicationUser = UserName;
-                await Task.Delay(250);
+                await Task.Delay(50);
                 // Application.Current.MainPage = new NavigationPage(new MenuView(UserName));
                 await NavigationService.InitializeAsync<MenuViewModel>();
                 IsValid = true;
@@ -42,6 +45,24 @@ namespace ReminderXamarin.ViewModels
             {
                 IsValid = false;
             }
+        }
+
+        private static async Task<bool> Authenticate(string userName, string password)
+        {
+            var user = (await UserRepository.Value.GetAsync(x => x.UserName == userName)).FirstOrDefault();
+            // var user = UserRepository.Value.GetAllAsync().FirstOrDefault(x => x.UserName == userName);
+            if (user == null)
+            {
+                return false;
+            }
+            var passwordBytes = Encoding.Unicode.GetBytes(password);
+            var passwordHash = SHA256.Create().ComputeHash(passwordBytes);
+
+            if (userName == user.UserName && passwordHash.SequenceEqual(user.Password))
+            {
+                return true;
+            }
+            return false;
         }
 
         private async Task NavigateToRegisterPage()

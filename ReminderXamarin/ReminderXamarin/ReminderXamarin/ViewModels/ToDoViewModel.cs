@@ -42,26 +42,26 @@ namespace ReminderXamarin.ViewModels
                 UserId = Settings.CurrentUserId
             };
 
-            await App.ToDoRepository.CreateAsync(model);
-            await App.ToDoRepository.SaveAsync();
+            await ToDoRepository.Value.CreateAsync(model);
+            await ToDoRepository.Value.SaveAsync();
         }
 
         private async Task UpdateItemCommandExecute()
         {
-            var model = await App.ToDoRepository.GetByIdAsync(Id);
+            var model = await ToDoRepository.Value.GetByIdAsync(Id);
             model.Description = Description;
             model.Priority = Priority.ToString();
             model.UserId = Settings.CurrentUserId;
             model.WhenHappens = WhenHappens;
            
-            App.ToDoRepository.Update(model);
-            await App.ToDoRepository.SaveAsync();
+            ToDoRepository.Value.Update(model);
+            await ToDoRepository.Value.SaveAsync();
         }
 
         private async Task DeleteItemCommandExecute()
         {
-            await App.ToDoRepository.DeleteAsync(Id);
-            await App.ToDoRepository.SaveAsync();
+            await ToDoRepository.Value.DeleteAsync(Id);
+            await ToDoRepository.Value.SaveAsync();
         }
     }
 }

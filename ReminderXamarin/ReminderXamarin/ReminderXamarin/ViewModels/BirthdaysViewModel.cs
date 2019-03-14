@@ -35,7 +35,8 @@ namespace ReminderXamarin.ViewModels
 
         private void LoadFriendsFromDatabase()
         {
-            BirthdayViewModels = App.BirthdaysRepository
+            BirthdayViewModels = BirthdaysRepository
+                .Value
                 .GetAll()
                 .Where(x => x.UserId == Settings.CurrentUserId)
                 .ToFriendViewModels()

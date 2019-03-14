@@ -39,13 +39,14 @@ namespace ReminderXamarin.ViewModels
 
         private async Task<AchievementViewModel> SelectAchievementCommandExecute(int id)
         {
-            var achievement = await App.AchievementRepository.GetByIdAsync(id);
+            var achievement = await AchievementRepository.Value.GetByIdAsync(id);
             return achievement.ToAchievementViewModel();
         }
 
         private void LoadAchievementsFromDatabase()
         {
-            Achievements = App.AchievementRepository
+            Achievements = AchievementRepository
+                .Value
                 .GetAll(null, "AchievementNotes")
                 .Where(x => x.UserId == Settings.CurrentUserId)
                 .ToAchievementViewModels()

@@ -107,8 +107,8 @@ namespace ReminderXamarin.ViewModels
                 };
                 achievement.AchievementNotes.Add(model);
             }
-            await App.AchievementRepository.CreateAsync(achievement);
-            await App.AchievementRepository.SaveAsync();
+            await AchievementRepository.Value.CreateAsync(achievement);
+            await AchievementRepository.Value.SaveAsync();
         }
 
         private async Task CreateAchievementNoteCommandExecute(AchievementNoteViewModel achievementNoteViewModel)
@@ -123,7 +123,7 @@ namespace ReminderXamarin.ViewModels
         private async Task UpdateAchievementCommandExecute()
         {
             GeneralTimeSpent = AchievementNotes.Sum(x => x.HoursSpent);
-            var entity = await App.AchievementRepository.GetByIdAsync(Id);
+            var entity = await AchievementRepository.Value.GetByIdAsync(Id);
 
             entity.UserId = Settings.CurrentUserId;
             entity.Title = Title;
@@ -144,8 +144,8 @@ namespace ReminderXamarin.ViewModels
                 entity.AchievementNotes.Add(model);
             }
 
-            App.AchievementRepository.Update(entity);
-            await App.AchievementRepository.SaveAsync();
+            AchievementRepository.Value.Update(entity);
+            await AchievementRepository.Value.SaveAsync();
         }
 
         // Insert updated achievement note instead of old.
@@ -165,8 +165,8 @@ namespace ReminderXamarin.ViewModels
 
         private async Task DeleteAchievementCommandExecute()
         {
-            await App.AchievementRepository.DeleteAsync(Id);
-            await App.AchievementRepository.SaveAsync();
+            await AchievementRepository.Value.DeleteAsync(Id);
+            await AchievementRepository.Value.SaveAsync();
         }
 
         private async Task DeleteAchievementNoteCommandExecute(AchievementNoteViewModel noteViewModel)
@@ -181,7 +181,7 @@ namespace ReminderXamarin.ViewModels
         private async Task LoadAchievementNotesFromDataBase()
         {
             // Fetch all note models from database, order by recent date, then by recent upload.
-            AchievementNotes = (await App.AchievementRepository.GetByIdAsync(Id))
+            AchievementNotes = (await AchievementRepository.Value.GetByIdAsync(Id))
                 .AchievementNotes
                 .OrderByDescending(x => x.Date)
                 .ThenByDescending(x => x.Id)
