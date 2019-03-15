@@ -1,21 +1,25 @@
-﻿using System.Collections.Generic;
-using Rm.Data.Core;
+﻿using System;
+using System.Collections.Generic;
+using Realms;
+using RI.Data.Data.Core;
 
-namespace Rm.Data.Entities
+namespace RI.Data.Data.Entities
 {
-    public class AchievementModel : Entity
+    public class AchievementModel : RealmObject, IEntity
     {
         public AchievementModel()
         {
             AchievementNotes = new List<AchievementNote>();
         }
 
+        [PrimaryKey]
+        public string Id { get; set; }
         public byte[] ImageContent { get; set; }
         public string Title { get; set; }
         public string GeneralDescription { get; set; }
         public int GeneralTimeSpent { get; set; }
 
         public string UserId { get; set; }
-        public List<AchievementNote> AchievementNotes { get; set; }
+        public IList<AchievementNote> AchievementNotes { get; }
     }
 }

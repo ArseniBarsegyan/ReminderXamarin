@@ -117,7 +117,7 @@ namespace ReminderXamarin.ViewModels
             var userPin = Settings.UserPinCode;
             if (Pin.ToString() == userPin)
             {
-                Console.WriteLine($"{DateTime.Now} BEFORE PUSHING VIEW !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                Console.WriteLine($"Warning: Warning '{DateTime.Now} BEFORE PUSHING VIEW !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'");
                 // Application.Current.MainPage = new NavigationPage(new MenuView(Settings.ApplicationUser));
                 await NavigationService.InitializeAsync<MenuViewModel>();
             }

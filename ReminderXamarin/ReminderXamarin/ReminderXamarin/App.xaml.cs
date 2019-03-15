@@ -14,6 +14,7 @@ using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.IoC;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
+using RI.Data.Data.Repositories;
 
 namespace ReminderXamarin
 {
@@ -25,11 +26,11 @@ namespace ReminderXamarin
         public App()
         {
             var time = DateTime.Now;
-            Console.WriteLine("!!!!!!!!!!!!!!!!!!Initialization: 0!!!!!!!!!!!!!!!!!!");
 
             InitializeComponent();
             Bootstrapper.Initialize();
             _navigationService= ComponentFactory.Resolve<INavigationService>();
+
             string dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantsHelper.EFConnectionString);
 
             var options = new DbContextOptionsBuilder<AppIdentityDbContext>();
@@ -37,7 +38,7 @@ namespace ReminderXamarin
 
             var contextTimeMark = DateTime.Now;
             TimeSpan difference = DateTime.Now - time;
-            Console.WriteLine("!!!!!!!!!!!!!!!!!!Before context creation: " + difference.TotalMilliseconds);
+            Console.WriteLine($"Warning: Warning '!!!!!!!!!!!!!!!!!!Before context creation: '" + difference.TotalMilliseconds);
 
             var context = new AppIdentityDbContext(options.Options, 
                 "dbo",
@@ -45,7 +46,7 @@ namespace ReminderXamarin
 
             DateTime repoCreationTimeMark = DateTime.Now;
             difference = repoCreationTimeMark - contextTimeMark;
-            Console.WriteLine("!!!!!!!!!!!!!!!!!!After context creation: " + difference.TotalMilliseconds);
+            Console.WriteLine("Warning: Warning '!!!!!!!!!!!!!!!!!!After context creation:' " + difference.TotalMilliseconds);
 
             NoteRepository = new EntityFrameworkRepository<AppIdentityDbContext, Note>(context);
             ToDoRepository = new EntityFrameworkRepository<AppIdentityDbContext, ToDoModel>(context);
@@ -53,13 +54,10 @@ namespace ReminderXamarin
             UserRepository = new EntityFrameworkRepository<AppIdentityDbContext, AppUser>(context);
             BirthdaysRepository = new EntityFrameworkRepository<AppIdentityDbContext, BirthdayModel>(context);
 
-            difference = DateTime.Now - contextTimeMark;
-            Console.WriteLine("!!!!!!!!!!!!!!!!!!After REPOS creation: " + difference.TotalMilliseconds);
-
             bool.TryParse(Settings.UsePin, out bool shouldUsePin);
+            _navigationService.InitializeMainPage();
             if (shouldUsePin)
             {
-                // MainPage = new PinView();
                 _navigationService.InitializeAsync<PinViewModel>();
             }
             else
@@ -85,7 +83,13 @@ namespace ReminderXamarin
         public static EntityFrameworkRepository<AppIdentityDbContext, AchievementModel> AchievementRepository { get; private set; }
         public static EntityFrameworkRepository<AppIdentityDbContext, AppUser> UserRepository { get; private set; }
         public static EntityFrameworkRepository<AppIdentityDbContext, BirthdayModel> BirthdaysRepository { get; private set; }
-        
+
+        //public RealmRepository<RI.Data.Data.Entities.Note> NoteRepository { get; private set; }
+        //public RealmRepository<RI.Data.Data.Entities.ToDoModel> ToDoRepository { get; private set; }
+        //public RealmRepository<RI.Data.Data.Entities.AchievementModel> AchievementRepository { get; private set; }
+        //public RealmRepository<RI.Data.Data.Entities.AppUser> UserRepository { get; private set; }
+        //public RealmRepository<RI.Data.Data.Entities.BirthdayModel> BirthdaysRepository { get; private set; }
+
         protected override void OnStart()
         {
             // Handle when your app starts

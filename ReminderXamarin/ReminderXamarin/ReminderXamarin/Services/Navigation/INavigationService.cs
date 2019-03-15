@@ -7,6 +7,8 @@ namespace ReminderXamarin.Services.Navigation
     {
         BaseViewModel PreviousPageViewModel { get; }
 
+        Task InitializeMainPage();
+
         /// <summary>
         /// Performs navigation to one of two pages when the app is launched.
         /// </summary>

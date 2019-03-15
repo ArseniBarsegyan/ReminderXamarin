@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using ReminderXamarin.ViewModels;
 using ReminderXamarin.ViewModels.Base;
 using ReminderXamarin.Views;
 using Xamarin.Forms;
@@ -12,6 +13,16 @@ namespace ReminderXamarin.Services.Navigation
     public class NavigationService : INavigationService
     {
         private Type _rootViewModelType;
+        private Page _mainPage;
+
+        public async Task InitializeMainPage()
+        {
+            await Task.Run(() =>
+            {
+                var pageType = GetPageTypeForViewModel(typeof(MenuViewModel));
+                _mainPage = CreatePage(pageType, null);
+            });
+        }
 
         public BaseViewModel PreviousPageViewModel
         {
@@ -109,21 +120,25 @@ namespace ReminderXamarin.Services.Navigation
 
         private async Task InternalNavigateToAsync(Type viewModelType, object parameter)
         {
+            Page page;
+            if (viewModelType != typeof(MenuViewModel))
+            {
+                page = CreatePage(viewModelType, parameter);
+            }
+            else
+            {
+                page = _mainPage;
+            }
             DateTime pageCreationPoint = DateTime.Now;
-            Page page = CreatePage(viewModelType, parameter);
+            
             DateTime afterPageCreationPoint = DateTime.Now;
             TimeSpan difference = afterPageCreationPoint - pageCreationPoint;
-            Console.WriteLine($"{difference.Milliseconds} VIEW CREATION TIME !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            Console.WriteLine($"Warning: Warning '{difference.Milliseconds} VIEW CREATION TIME !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'");
 
             if (page.BindingContext is BaseViewModel viewModel)
             {
                 await viewModel.InitializeAsync(parameter);
             }
-
-            //if (_rootViewModelType == viewModelType)
-            //{
-            //    Application.Current.MainPage = page;
-            //}
 
             if (page is MenuView || page is LoginView || page is PinView || page is RegisterView)
             {                
@@ -135,6 +150,7 @@ namespace ReminderXamarin.Services.Navigation
                 if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {                    
                     detailPage.Detail = new NavigationPage(page);
+                    await Task.Delay(50);
                     detailPage.IsPresented = false;
                 }
             }
@@ -143,30 +159,10 @@ namespace ReminderXamarin.Services.Navigation
                 if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {                    
                     await detailPage.Detail.Navigation.PushAsync(page);
+                    await Task.Delay(50);
                     detailPage.IsPresented = false;
                 }
             }
-
-            //else
-            //{
-            //    if (Application.Current.MainPage is NavigationPage navigationPage)
-            //    {
-            //        if (navigationPage.Navigation.NavigationStack.Last().GetType() == page.GetType())
-            //        {
-            //            return;
-            //        }
-            //        await navigationPage.PushAsync(page);
-            //    }
-            //    else if (Application.Current.MainPage is MasterDetailPage detailPage)
-            //    {
-            //        detailPage.IsPresented = false;
-            //        detailPage.Detail = new NavigationPage(page);
-            //    }
-            //    else
-            //    {
-            //        Application.Current.MainPage = new NavigationPage(page);
-            //    }
-            //}
         }
 
         private Type GetPageTypeForViewModel(Type viewModelType)

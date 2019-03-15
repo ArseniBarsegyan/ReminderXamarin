@@ -1,16 +1,18 @@
 ﻿using System;
-using Rm.Data.Core;
+using Realms;
+using RI.Data.Data.Core;
 
-namespace Rm.Data.Entities
+namespace RI.Data.Data.Entities
 {
-    public class PhotoModel : Entity
+    public class PhotoModel : RealmObject, IEntity
     {
+        [PrimaryKey]
+        public string Id { get; set; }
         public string ResizedPath { get; set; }
         public string Thumbnail { get; set; }
         public bool Landscape { get; set; }
         public bool IsVideo { get; set; }
 
-        public Guid NoteId { get; set; }
         public Note Note { get; set; }
     }
 }
