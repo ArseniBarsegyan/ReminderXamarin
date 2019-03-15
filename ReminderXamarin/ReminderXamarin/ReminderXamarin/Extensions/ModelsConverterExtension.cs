@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
-using ReminderXamarin.Data.Entities;
+using RI.Data.Data.Entities;
 using ToDoPriority = ReminderXamarin.Models.ToDoPriority;
 
 namespace ReminderXamarin.Extensions
@@ -52,12 +53,12 @@ namespace ReminderXamarin.Extensions
         {
             return viewModels.Select(viewModel => new PhotoModel
             {
-                Id = viewModel.Id,
+                Id = viewModel.Id.ToString(),
                 Landscape = viewModel.Landscape,
                 ResizedPath = viewModel.ResizedPath,
                 Thumbnail = viewModel.Thumbnail,
                 IsVideo = viewModel.IsVideo,
-                NoteId = viewModel.NoteId
+                NoteId = viewModel.NoteId.ToString()
             });
         }
 
@@ -75,8 +76,8 @@ namespace ReminderXamarin.Extensions
         {
             return viewModels.Select(model => new VideoModel
             {
-                Id = model.Id,
-                NoteId = model.NoteId,
+                Id = model.Id.ToString(),
+                NoteId = model.NoteId.ToString(),
                 Path = model.Path
             });
         }
@@ -86,8 +87,8 @@ namespace ReminderXamarin.Extensions
             var viewModel = new NoteViewModel
             {
                 Id = model.Id,
-                CreationDate = model.CreationDate,
-                EditDate = model.EditDate,
+                CreationDate = model.CreationDate.DateTime,
+                EditDate = model.EditDate.DateTime,
                 Description = model.Description,
                 FullDescription = model.EditDate.ToString("dd.MM.yy") + " "+ model.Description,
                 Photos = model.Photos.ToPhotoViewModels(),
@@ -101,8 +102,8 @@ namespace ReminderXamarin.Extensions
             return models.Select(model => new NoteViewModel
                 {
                     Id = model.Id,
-                    CreationDate = model.CreationDate,
-                    EditDate = model.EditDate,
+                    CreationDate = model.CreationDate.DateTime,
+                    EditDate = model.EditDate.DateTime,
                     Description = model.Description,
                     FullDescription = model.EditDate.ToString("dd.MM.yy") + " " + model.Description,
                     Photos = model.Photos.ToPhotoViewModels(),
@@ -116,7 +117,7 @@ namespace ReminderXamarin.Extensions
             var viewModel = new ToDoViewModel
             {
                 Id = model.Id,
-                WhenHappens = model.WhenHappens,
+                WhenHappens = model.WhenHappens.DateTime,
                 Description = model.Description
             };
 
@@ -144,7 +145,7 @@ namespace ReminderXamarin.Extensions
                 var viewModel = new ToDoViewModel
                 {
                     Id = model.Id,
-                    WhenHappens = model.WhenHappens,
+                    WhenHappens = model.WhenHappens.DateTime,
                     Description = model.Description
                 };
                 switch (model.Priority)
@@ -171,7 +172,7 @@ namespace ReminderXamarin.Extensions
                 Id = model.Id,
                 Name = model.Name,
                 ImageContent = model.ImageContent,
-                BirthDayDate = model.BirthDayDate,
+                BirthDayDate = model.BirthDayDate.DateTime,
                 GiftDescription = model.GiftDescription
             };
         }
@@ -187,9 +188,9 @@ namespace ReminderXamarin.Extensions
             {
                 Id = model.Id,
                 Description = model.Description,
-                Date = model.Date,
+                Date = model.Date.DateTime,
                 HoursSpent = model.HoursSpent,
-                AchievementId = model.AchievementId
+                AchievementId = model.Achievement.Id
             };
         }
 

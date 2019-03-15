@@ -4,9 +4,9 @@ using System.Windows.Input;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
-using ReminderXamarin.Data.Entities;
 using Xamarin.Forms;
 using ReminderXamarin.ViewModels.Base;
+using RI.Data.Data.Entities;
 
 namespace ReminderXamarin.ViewModels
 {
@@ -37,7 +37,7 @@ namespace ReminderXamarin.ViewModels
             return base.InitializeAsync(navigationData);
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string UserName { get; set; }
         public byte[] ImageContent { get; set; }
         public int NotesCount { get; set; }
@@ -63,13 +63,15 @@ namespace ReminderXamarin.ViewModels
 
         private async Task UpdateUserCommandExecute()
         {
-            var user = await App.UserRepository.GetOneAsync(x => x.Id == Id);
+            var user = App.UserRepository.GetOne(x => x.Id == Id.ToString());
             if (user != null)
             {
-                user.ImageContent = ImageContent;
-                user.UserName = UserName;
-                App.UserRepository.Update(user);
-                await App.UserRepository.SaveAsync();
+                App.UserRepository.RealmInstance.Write(() =>
+                {
+                    user.ImageContent = ImageContent;
+                    user.UserName = UserName;
+                });
+                MessagingCenter.Send(this, ConstantsHelper.ProfileUpdated);
                 ViewModelChanged = false;
             }
         }

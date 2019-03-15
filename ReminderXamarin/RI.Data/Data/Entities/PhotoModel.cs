@@ -1,5 +1,4 @@
-﻿using System;
-using Realms;
+﻿using Realms;
 using RI.Data.Data.Core;
 
 namespace RI.Data.Data.Entities
@@ -13,6 +12,6 @@ namespace RI.Data.Data.Entities
         public bool Landscape { get; set; }
         public bool IsVideo { get; set; }
 
-        public Note Note { get; set; }
+        public string NoteId { get; set; }
     }
 }

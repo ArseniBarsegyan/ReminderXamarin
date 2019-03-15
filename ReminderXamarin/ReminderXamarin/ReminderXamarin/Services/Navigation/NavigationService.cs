@@ -121,14 +121,9 @@ namespace ReminderXamarin.Services.Navigation
         private async Task InternalNavigateToAsync(Type viewModelType, object parameter)
         {
             Page page;
-            if (viewModelType != typeof(MenuViewModel))
-            {
-                page = CreatePage(viewModelType, parameter);
-            }
-            else
-            {
-                page = _mainPage;
-            }
+
+            page = CreatePage(viewModelType, parameter);
+
             DateTime pageCreationPoint = DateTime.Now;
             
             DateTime afterPageCreationPoint = DateTime.Now;

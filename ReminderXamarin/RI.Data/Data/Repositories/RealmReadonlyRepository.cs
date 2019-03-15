@@ -10,7 +10,7 @@ namespace RI.Data.Data.Repositories
     public class RealmReadonlyRepository<TEntity> : IReadOnlyRepository<TEntity>
         where TEntity : RealmObject, IEntity
     {
-        protected readonly Realm RealmInstance;
+        public readonly Realm RealmInstance;
 
         public RealmReadonlyRepository(Realm realmInstance)
         {

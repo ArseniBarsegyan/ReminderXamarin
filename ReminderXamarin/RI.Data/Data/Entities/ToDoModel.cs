@@ -12,6 +12,6 @@ namespace RI.Data.Data.Entities
         public string Description { get; set; }
         public DateTimeOffset WhenHappens { get; set; }
 
-        public AppUser AppUser { get; set; }
+        public string UserId { get; set; }
     }
 }
