@@ -16,6 +16,7 @@ namespace ReminderXamarin.ViewModels
 
         public MenuMasterViewModel()
         {
+            MessagingCenter.Subscribe<UserProfileViewModel>(this, ConstantsHelper.ProfileUpdated, vm => ProfileUpdated());
             _appUser = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == Settings.ApplicationUser);
             if (_appUser != null)
             {
@@ -26,6 +27,16 @@ namespace ReminderXamarin.ViewModels
             MasterPageItems = MenuHelper.GetMenu().Where(x => x.IsDisplayed).ToObservableCollection();
             LogoutCommand = new Command(async task => await Logout());
             NavigateToUserProfileCommand = new Command(async task => await NavigateToUserProfile());
+        }
+
+        private void ProfileUpdated()
+        {
+            _appUser = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == Settings.ApplicationUser);
+            if (_appUser != null)
+            {
+                UserName = _appUser.UserName;
+                ImageContent = _appUser.ImageContent;
+            }
         }
 
         public string UserName { get; set; }

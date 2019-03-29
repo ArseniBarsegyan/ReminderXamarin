@@ -70,6 +70,7 @@ namespace ReminderXamarin.ViewModels
                 user.UserName = UserName;
                 App.UserRepository.Update(user);
                 await App.UserRepository.SaveAsync();
+                MessagingCenter.Send(this, ConstantsHelper.ProfileUpdated);
                 ViewModelChanged = false;
             }
         }
