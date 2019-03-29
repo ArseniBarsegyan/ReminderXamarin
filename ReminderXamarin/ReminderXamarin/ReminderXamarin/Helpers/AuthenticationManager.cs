@@ -20,9 +20,9 @@ namespace ReminderXamarin.Helpers
         /// <returns></returns>
         public static async Task<bool> Authenticate(string userName, string password)
         {
-            Console.WriteLine($"Warning: Warning '{DateTime.Now} BEFORE AUTHENTICATION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'");
+            Console.WriteLine($"{DateTime.Now} BEFORE AUTHENTICATION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             var user = (await App.UserRepository.GetAsync(x => x.UserName == userName)).FirstOrDefault();
-            Console.WriteLine($"Warning: Warning '{DateTime.Now} AFTER AUTHENTICATION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'");
+            Console.WriteLine($"{DateTime.Now} AFTER AUTHENTICATION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             if (user == null)
             {
                 return false;

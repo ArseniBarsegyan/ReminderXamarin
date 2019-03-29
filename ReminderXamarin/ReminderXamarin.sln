@@ -9,10 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReminderXamarin.iOS", "Remi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReminderXamarin", "ReminderXamarin\ReminderXamarin\ReminderXamarin.csproj", "{980352AD-B1CA-4E5F-9DCA-A1E657748375}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RI.Data", "RI.Data\RI.Data.csproj", "{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F22B18BB-674B-406C-B5E9-3A92130B80B2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -137,36 +133,9 @@ Global
 		{980352AD-B1CA-4E5F-9DCA-A1E657748375}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{980352AD-B1CA-4E5F-9DCA-A1E657748375}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{980352AD-B1CA-4E5F-9DCA-A1E657748375}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Ad-Hoc|Any CPU.ActiveCfg = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Ad-Hoc|Any CPU.Build.0 = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Ad-Hoc|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.AppStore|Any CPU.Build.0 = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.AppStore|iPhone.Build.0 = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.AppStore|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.AppStore|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Release|iPhone.Build.0 = Release|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{EFA2C90C-A7FD-4162-BB53-7BB823F167E1} = {F22B18BB-674B-406C-B5E9-3A92130B80B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE1DBB5E-66A5-4BF8-8804-2CB0FD351685}
