@@ -6,7 +6,7 @@ using System.Windows.Input;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Models;
 using ReminderXamarin.ViewModels.Base;
-using RI.Data.Data.Entities;
+using ReminderXamarin.Data.Entities;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -20,7 +20,7 @@ namespace ReminderXamarin.ViewModels
             DeleteItemCommand = new Command(async result => await DeleteItemCommandExecute());
         }
 
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public IList<string> AvailablePriorities => 
             Enum.GetNames(typeof(ToDoPriority)).Select(x => x.ToString()).ToList();
 
@@ -42,24 +42,26 @@ namespace ReminderXamarin.ViewModels
                 UserId = Settings.CurrentUserId
             };
 
-            App.ToDoRepository.Create(model);
+            await App.ToDoRepository.CreateAsync(model);
+            await App.ToDoRepository.SaveAsync();
         }
 
         private async Task UpdateItemCommandExecute()
         {
-            var model = App.ToDoRepository.GetById(Id);
-            App.ToDoRepository.RealmInstance.Write(() =>
-            {
-                model.Description = Description;
-                model.Priority = Priority.ToString();
-                model.UserId = Settings.CurrentUserId;
-                model.WhenHappens = WhenHappens;
-            });
+            var model = await App.ToDoRepository.GetByIdAsync(Id);
+            model.Description = Description;
+            model.Priority = Priority.ToString();
+            model.UserId = Settings.CurrentUserId;
+            model.WhenHappens = WhenHappens;
+           
+            App.ToDoRepository.Update(model);
+            await App.ToDoRepository.SaveAsync();
         }
 
         private async Task DeleteItemCommandExecute()
         {
-            App.ToDoRepository.Delete(Id);
+            await App.ToDoRepository.DeleteAsync(Id);
+            await App.ToDoRepository.SaveAsync();
         }
     }
 }

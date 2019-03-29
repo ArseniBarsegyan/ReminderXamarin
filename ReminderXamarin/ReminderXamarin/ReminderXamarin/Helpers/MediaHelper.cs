@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using PCLStorage;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
-using RI.Data.Data.Entities;
+using ReminderXamarin.Data.Entities;
 
 namespace ReminderXamarin.Helpers
 {

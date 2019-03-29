@@ -1,4 +1,5 @@
-﻿using Realms;
+﻿using System;
+using Realms;
 using RI.Data.Data.Core;
 
 namespace RI.Data.Data.Entities
@@ -8,6 +9,6 @@ namespace RI.Data.Data.Entities
         [PrimaryKey]
         public string Id { get; set; }
         public string Path { get; set; }
-        public string NoteId { get; set; }
+        public Note Note { get; set; }
     }
 }

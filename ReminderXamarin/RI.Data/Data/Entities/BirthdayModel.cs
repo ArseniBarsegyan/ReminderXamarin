@@ -12,6 +12,7 @@ namespace RI.Data.Data.Entities
         public string Name { get; set; }
         public DateTimeOffset BirthDayDate { get; set; }
         public string GiftDescription { get; set; }
-        public string UserId { get; set; }
+
+        public AppUser AppUser { get; set; }
     }
 }

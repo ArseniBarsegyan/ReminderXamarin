@@ -1,9 +1,9 @@
-﻿using RI.Data.Data.Entities;
-using System;
+﻿using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using ReminderXamarin.Data.Entities;
 
 namespace ReminderXamarin.Helpers
 {
@@ -21,7 +21,7 @@ namespace ReminderXamarin.Helpers
         public static async Task<bool> Authenticate(string userName, string password)
         {
             Console.WriteLine($"Warning: Warning '{DateTime.Now} BEFORE AUTHENTICATION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'");
-            var user = App.UserRepository.Get(x => x.UserName == userName).FirstOrDefault();
+            var user = (await App.UserRepository.GetAsync(x => x.UserName == userName)).FirstOrDefault();
             Console.WriteLine($"Warning: Warning '{DateTime.Now} AFTER AUTHENTICATION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'");
             if (user == null)
             {
@@ -55,13 +55,12 @@ namespace ReminderXamarin.Helpers
 
             var userModel = new AppUser
             {
-                Id = Guid.NewGuid().ToString(),
                 UserName = userName,
                 ImageContent = new byte[0],
                 Password = passwordHash
             };
-            App.UserRepository.Create(userModel);
-            // App.UserRepository.Save();
+            await App.UserRepository.CreateAsync(userModel);
+            await App.UserRepository.SaveAsync();
             // App.UserRepository.Save(userModel);
             return true;
         }
