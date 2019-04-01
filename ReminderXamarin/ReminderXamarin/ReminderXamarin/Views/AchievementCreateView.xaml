@@ -39,9 +39,9 @@
                 <elements:EntryWithBorder x:Name="TitleEntry" HorizontalOptions="FillAndExpand" />
 
                 <Label Text="{extensions:Translate Description}" HorizontalOptions="Start" />
-                <elements:EditorWithBorder x:Name="DescriptionEditor"
-                                           HorizontalOptions="FillAndExpand"
-                                           VerticalOptions="FillAndExpand" />
+                <Editor x:Name="DescriptionEditor"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand" />
             </StackLayout>
 
             <Button x:Name="AchievementCreateButton"

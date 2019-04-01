@@ -22,10 +22,10 @@
 
                 <Label Text="{extensions:Translate Description}" />
                 <ScrollView>
-                    <elements:EditorWithBorder x:Name="DescriptionEditor"
-                                               HeightRequest="200"
-                                               HorizontalOptions="FillAndExpand"
-                                               VerticalOptions="FillAndExpand" />
+                    <Editor x:Name="DescriptionEditor"
+                            HeightRequest="200"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand" />
                 </ScrollView>
 
                 <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">

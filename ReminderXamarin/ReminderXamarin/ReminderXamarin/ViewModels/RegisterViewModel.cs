@@ -30,6 +30,12 @@ namespace ReminderXamarin.ViewModels
 
         public async Task RegisterCommandExecute()
         {
+            if (UserName == null || Password == null || ConfirmPassword == null)
+            {
+                IsValid = false;
+                return;
+            }
+
             if (Password != ConfirmPassword)
             {   
                 IsValid = false;

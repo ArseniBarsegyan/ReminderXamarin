@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ReminderXamarin.Data.Entities;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
@@ -8,11 +9,13 @@ namespace ReminderXamarin.Data.Repositories
     public class ToDoRepository
     {
         private readonly SQLiteConnection _db;
+        private readonly List<ToDoModel> _toDoModels;
 
         public ToDoRepository(string dbPath)
         {
             _db = new SQLiteConnection(dbPath);
             _db.CreateTable<ToDoModel>();
+            _toDoModels = new List<ToDoModel>(_db.GetAllWithChildren<ToDoModel>());
         }
 
         /// <summary>
@@ -21,7 +24,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public IEnumerable<ToDoModel> GetAll()
         {
-            return _db.GetAllWithChildren<ToDoModel>();
+            return _toDoModels;
         }
 
         /// <summary>
@@ -31,7 +34,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public ToDoModel GetToDoAsync(int id)
         {
-            return _db.GetWithChildren<ToDoModel>(id);
+            return _toDoModels.FirstOrDefault(x => x.Id == id);
         }
 
         /// <summary>
@@ -43,10 +46,12 @@ namespace ReminderXamarin.Data.Repositories
         {
             if (model.Id != 0)
             {
+                _toDoModels.Insert(model.Id, model);
                 _db.InsertOrReplaceWithChildren(model);
             }
             else
             {
+                _toDoModels.Add(model);
                 _db.InsertWithChildren(model);
             }
         }
@@ -58,6 +63,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public int DeleteModel(ToDoModel model)
         {
+            _toDoModels.Remove(model);
             return _db.Delete(model);
         }
     }

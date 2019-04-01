@@ -2,19 +2,20 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:ReminderXamarin.Converters"
-             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              x:Class="ReminderXamarin.App">
 	<Application.Resources>
 		<!-- Application resource dictionary -->
         <ResourceDictionary>
             <Color x:Key="DarkFont">#323232</Color>
+            <Color x:Key="LoginBackground">#fafafa</Color>
             <Color x:Key="DarkBackground">#323232</Color>
             <Color x:Key="AchievementPageBackground">#fafafa</Color>
-            <Color x:Key="SubmitButtonBackground">#448AFF</Color>
-            <Color x:Key="CancelButtonBackground">#FFADD8E6</Color>
+            <Color x:Key="SubmitButtonBackground">#006666</Color>
+            <Color x:Key="CancelButtonBackground">#fafafa</Color>
             <Color x:Key="CancelButtonText">#448AFF</Color>
             <Color x:Key="DeleteButtonBackground">#FF5252</Color>
+            <Color x:Key="ErrorTextColor">#FF5252</Color>
             <!--<Color x:Key="RoundButtonBackground">#323232</Color>-->
             <Color x:Key="RoundButtonBackground">#448AFF</Color>
             <Color x:Key="FrameButtonBorder">#cdced2</Color>
@@ -64,17 +65,16 @@
             
             <!-- Label styles -->
             <Style x:Key="LoginLabelStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="White" />
+                <Setter Property="TextColor" Value="{StaticResource DarkFont}" />
                 <Setter Property="FontSize" Value="Small" />
                 <Setter Property="Margin" Value="25, 0" />
             </Style>
 
             <!-- Entry styles -->
-            <Style x:Key="LoginEntryStyle" TargetType="elements:EntryWithBorder">
+            <Style x:Key="LoginEntryStyle" TargetType="Entry">
                 <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="TextColor" Value="White" />
+                <Setter Property="TextColor" Value="{StaticResource DarkFont}" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
-                <Setter Property="BorderColor" Value="White" />
                 <Setter Property="Margin" Value="25, 0" />
             </Style>
             

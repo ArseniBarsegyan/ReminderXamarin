@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             xmlns:elements="clr-namespace:ReminderXamarin.Elements"
              x:Class="ReminderXamarin.Views.AchievementNoteEditView"
              Title="Edit note"
              BackgroundColor="White">
@@ -19,17 +18,17 @@
                             Date="{Binding Date}" />
 
                 <Label Text="{extensions:Translate TimeSpent}" />
-                <elements:EntryWithBorder x:Name="TimeSpentEditor" 
-                                          Text="{Binding HoursSpent}" 
-                                          Keyboard="Numeric" />
+                <Entry x:Name="TimeSpentEditor" 
+                       Text="{Binding HoursSpent}" 
+                       Keyboard="Numeric" />
 
                 <Label Text="{extensions:Translate Description}" />
                 <ScrollView>
-                    <elements:EditorWithBorder x:Name="DescriptionEditor"
-                                               HeightRequest="200"
-                                               Text="{Binding Description}"
-                                               HorizontalOptions="FillAndExpand"
-                                               VerticalOptions="FillAndExpand" />
+                    <Editor x:Name="DescriptionEditor"
+                            HeightRequest="200"
+                            Text="{Binding Description}"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand" />
                 </ScrollView>
 
                 <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">

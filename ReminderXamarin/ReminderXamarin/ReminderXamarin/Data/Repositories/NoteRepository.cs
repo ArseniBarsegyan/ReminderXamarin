@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ReminderXamarin.Data.Entities;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
@@ -8,6 +9,7 @@ namespace ReminderXamarin.Data.Repositories
     public class NoteRepository
     {
         private readonly SQLiteConnection _db;
+        private readonly List<Note> _notes;
 
         public NoteRepository(string dbPath)
         {
@@ -15,6 +17,7 @@ namespace ReminderXamarin.Data.Repositories
             _db.CreateTable<Note>();
             _db.CreateTable<PhotoModel>();
             _db.CreateTable<VideoModel>();
+            _notes = new List<Note>(_db.GetAllWithChildren<Note>());
         }
 
         /// <summary>
@@ -23,7 +26,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public IEnumerable<Note> GetAll()
         {
-            return _db.GetAllWithChildren<Note>();
+            return _notes;
         }
 
         /// <summary>
@@ -33,7 +36,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public Note GetNoteAsync(int id)
         {
-            return _db.GetWithChildren<Note>(id);
+            return _notes.FirstOrDefault(x => x.Id == id);
         }
 
         /// <summary>
@@ -45,10 +48,12 @@ namespace ReminderXamarin.Data.Repositories
         {
             if (note.Id != 0)
             {
+                _notes.Insert(note.Id, note);
                 _db.InsertOrReplaceWithChildren(note);
             }
             else
             {
+                _notes.Add(note);
                 _db.InsertWithChildren(note);
             }
         }
@@ -60,6 +65,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public int DeleteNote(Note note)
         {
+            _notes.Remove(note);
             return _db.Delete(note);
         }
     }
