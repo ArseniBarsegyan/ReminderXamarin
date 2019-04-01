@@ -55,7 +55,7 @@ namespace ReminderXamarin.Views
                 return;
             }
 
-            var id = Guid.Parse(hiddenIdLabel.Text);
+            int.TryParse(hiddenIdLabel.Text, out int id);
 
             if (this.BindingContext is AchievementsViewModel viewModel)
             {

@@ -3,9 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Helpers;
-using ReminderXamarin.Services;
 using ReminderXamarin.ViewModels.Base;
-using ReminderXamarin.Views;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -117,8 +115,6 @@ namespace ReminderXamarin.ViewModels
             var userPin = Settings.UserPinCode;
             if (Pin.ToString() == userPin)
             {
-                Console.WriteLine($"{DateTime.Now} BEFORE PUSHING VIEW !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                // Application.Current.MainPage = new NavigationPage(new MenuView(Settings.ApplicationUser));
                 await NavigationService.InitializeAsync<MenuViewModel>();
             }
         }

@@ -1,25 +1,27 @@
-﻿using ReminderXamarin.Data.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using ReminderXamarin.Helpers;
+using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace ReminderXamarin.Data.Entities
 {
-    public class Note : Entity
+    [Table(ConstantsHelper.Notes)]
+    public class Note
     {
-        public Note()
-        {
-            Photos = new List<PhotoModel>();
-            Videos = new List<VideoModel>();
-        }
-
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime EditDate { get; set; }
 
+        [ForeignKey(typeof(UserModel))]
         public string UserId { get; set; }
-        public AppUser AppUser { get; set; }
 
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<PhotoModel> Photos { get; set; }
+
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<VideoModel> Videos { get; set; }
     }
 }

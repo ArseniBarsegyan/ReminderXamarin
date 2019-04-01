@@ -1,16 +1,23 @@
-﻿using ReminderXamarin.Data.Core;
-using System;
+﻿using ReminderXamarin.Helpers;
+using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace ReminderXamarin.Data.Entities
 {
-    public class PhotoModel : Entity
+    /// <summary>
+    /// Store filepath to pictures.
+    /// </summary>
+    [Table(ConstantsHelper.Photos)]
+    public class PhotoModel
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
         public string ResizedPath { get; set; }
         public string Thumbnail { get; set; }
         public bool Landscape { get; set; }
         public bool IsVideo { get; set; }
 
-        public Guid NoteId { get; set; }
-        public Note Note { get; set; }
+        [ForeignKey(typeof(Note))]
+        public int NoteId { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace ReminderXamarin.ViewModels
 {
     public class MenuMasterViewModel : BaseViewModel
     {
-        private AppUser _appUser;
+        private UserModel _appUser;
 
         public MenuMasterViewModel()
         {
@@ -22,7 +22,7 @@ namespace ReminderXamarin.ViewModels
             {
                 UserName = _appUser.UserName;
                 ImageContent = _appUser.ImageContent;
-                Settings.CurrentUserId = _appUser.Id.ToString();
+                Settings.CurrentUserId = _appUser.Id;
             }
             MasterPageItems = MenuHelper.GetMenu().Where(x => x.IsDisplayed).ToObservableCollection();
             LogoutCommand = new Command(async task => await Logout());

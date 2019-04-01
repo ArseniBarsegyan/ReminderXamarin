@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels.Base;
-using ReminderXamarin.Data.Entities;
+using ReminderXamarin.Extensions;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -12,12 +10,12 @@ namespace ReminderXamarin.ViewModels
     {
         public BirthdayViewModel()
         {
-            CreateBirthdayCommand = new Command(async() => await CreateBirthdayCommandExecute());
-            UpdateBirthdayCommand = new Command(async() => await UpdateBirthdayCommandExecute());
-            DeleteBirthdayCommand = new Command(async() => await DeleteBirthdayCommandExecute());
+            CreateBirthdayCommand = new Command(CreateBirthdayCommandExecute);
+            UpdateBirthdayCommand = new Command(UpdateBirthdayCommandExecute);
+            DeleteBirthdayCommand = new Command(DeleteBirthdayCommandExecute);
         }
 
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public byte[] ImageContent { get; set; }
         public string Name { get; set; }
         public DateTime BirthDayDate { get; set; }
@@ -28,37 +26,19 @@ namespace ReminderXamarin.ViewModels
         public ICommand UpdateBirthdayCommand { get; set; }
         public ICommand DeleteBirthdayCommand { get; set; }
 
-        private async Task CreateBirthdayCommandExecute()
+        private void CreateBirthdayCommandExecute()
         {
-            var model = new BirthdayModel
-            {
-                UserId = Settings.CurrentUserId,
-                BirthDayDate = BirthDayDate,
-                GiftDescription = GiftDescription,
-                ImageContent = ImageContent,
-                Name = Name
-            };
-            await App.BirthdaysRepository.CreateAsync(model);
-            await App.BirthdaysRepository.SaveAsync();
+            App.BirthdaysRepository.Save(this.ToBirthdayModel());
         }
 
-        private async Task UpdateBirthdayCommandExecute()
+        private void UpdateBirthdayCommandExecute()
         {
-            var model = await App.BirthdaysRepository.GetByIdAsync(Id);
-            model.UserId = Settings.CurrentUserId;
-            model.Name = Name;
-            model.ImageContent = ImageContent;
-            model.BirthDayDate = BirthDayDate;
-            model.GiftDescription = GiftDescription;
-
-            App.BirthdaysRepository.Update(model);
-            await App.BirthdaysRepository.SaveAsync();
+            App.BirthdaysRepository.Save(this.ToBirthdayModel());
         }
 
-        private async Task DeleteBirthdayCommandExecute()
+        private void DeleteBirthdayCommandExecute()
         {
-            await App.BirthdaysRepository.DeleteAsync(Id);
-            await App.BirthdaysRepository.SaveAsync();
+            App.BirthdaysRepository.DeleteBirthday(this.ToBirthdayModel());
         }
     }
 }

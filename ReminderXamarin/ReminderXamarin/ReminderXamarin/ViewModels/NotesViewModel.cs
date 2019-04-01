@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,7 +25,7 @@ namespace ReminderXamarin.ViewModels
             Notes = new ObservableCollection<NoteViewModel>();
 
             SearchText = string.Empty;
-            DeleteNoteCommand = new Command<Guid>(async(id) => await DeleteNote(id));
+            DeleteNoteCommand = new Command<int>(async(id) => await DeleteNote(id));
             RefreshListCommand = new Command(async() => await Refresh());
             SelectNoteCommand = new Command<int>(async id => await SelectNoteCommandExecute(id));
             SearchCommand = new Command(SearchNotesByDescription);
@@ -47,10 +46,10 @@ namespace ReminderXamarin.ViewModels
             await LoadNotesFromDatabase();
         }
 
-        private async Task DeleteNote(Guid noteId)
+        private async Task DeleteNote(int noteId)
         {
-            await App.NoteRepository.DeleteAsync(noteId);
-            await App.NoteRepository.SaveAsync();
+            var noteToDelete = App.NoteRepository.GetNoteAsync(noteId);
+            App.NoteRepository.DeleteNote(noteToDelete);
             await OnAppearing();
         }
 
@@ -72,8 +71,8 @@ namespace ReminderXamarin.ViewModels
         private async Task LoadNotesFromDatabase()
         {
             // Fetch all note models from database.
-            _allNotes = (await App.NoteRepository
-                .GetAllAsync(null, "Photos,Videos"))
+            _allNotes = App.NoteRepository
+                .GetAll()
                 .Where(x => x.UserId == Settings.CurrentUserId)
                 .ToNoteViewModels()
                 .OrderByDescending(x => x.EditDate)
@@ -105,7 +104,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task<NoteViewModel> SelectNoteCommandExecute(int id)
         {
-            var note = await App.NoteRepository.GetByIdAsync(id);
+            var note = App.NoteRepository.GetNoteAsync(id);
             return note.ToNoteViewModel();
         }
     }

@@ -1,16 +1,21 @@
-﻿using ReminderXamarin.Data.Core;
-using System;
+﻿using System;
+using ReminderXamarin.Helpers;
+using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace ReminderXamarin.Data.Entities
 {
-    public class BirthdayModel : Entity
+    [Table(ConstantsHelper.Birthdays)]
+    public class BirthdayModel
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
         public byte[] ImageContent { get; set; }
         public string Name { get; set; }
         public DateTime BirthDayDate { get; set; }
         public string GiftDescription { get; set; }
 
+        [ForeignKey(typeof(UserModel))]
         public string UserId { get; set; }
-        public AppUser AppUser { get; set; }
     }
 }

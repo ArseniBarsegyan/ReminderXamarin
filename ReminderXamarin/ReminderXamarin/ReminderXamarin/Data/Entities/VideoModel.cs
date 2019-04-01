@@ -1,13 +1,20 @@
-﻿using ReminderXamarin.Data.Core;
-using System;
+﻿using ReminderXamarin.Helpers;
+using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace ReminderXamarin.Data.Entities
 {
-    public class VideoModel : Entity
+    /// <summary>
+    /// Store filepath to videos.
+    /// </summary>
+    [Table(ConstantsHelper.Videos)]
+    public class VideoModel
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
         public string Path { get; set; }
 
-        public Guid NoteId { get; set; }
-        public Note Note { get; set; }
+        [ForeignKey(typeof(Note))]
+        public int NoteId { get; set; }
     }
 }

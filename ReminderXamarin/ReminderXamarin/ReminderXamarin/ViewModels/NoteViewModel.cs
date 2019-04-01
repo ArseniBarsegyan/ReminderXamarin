@@ -45,7 +45,7 @@ namespace ReminderXamarin.ViewModels
         public ObservableCollection<PhotoViewModel> Photos { get; set; }
         public ObservableCollection<VideoViewModel> Videos { get; set; }
 
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime EditDate { get; set; }
@@ -220,19 +220,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task CreateNoteCommandExecute()
         {
-            var model = new Note
-            {
-                Id = Id,
-                UserId = Settings.CurrentUserId,
-                CreationDate = CreationDate,
-                EditDate = EditDate,
-                Description = Description,
-                Photos = Photos.ToPhotoModels().ToList(),
-                Videos = Videos.ToVideoModels().ToList()
-            };
-
-            await App.NoteRepository.CreateAsync(model);
-            await App.NoteRepository.SaveAsync();
+            App.NoteRepository.Save(this.ToNoteModel());
             IsLoading = false;
         }
 
@@ -241,49 +229,13 @@ namespace ReminderXamarin.ViewModels
             IsLoading = true;
             // Update edit date since user pressed confirm
             EditDate = DateTime.Now;
-
-            var note = await App.NoteRepository.GetByIdAsync(Id);
-            note.UserId = Settings.CurrentUserId;
-            note.CreationDate = CreationDate;
-            note.EditDate = EditDate;
-            note.Description = Description;
-
-            note.Photos = new List<PhotoModel>();
-            note.Videos = new List<VideoModel>();
-
-            foreach (var photoViewModel in Photos)
-            {
-                var photoModel = new PhotoModel
-                {
-                    IsVideo = photoViewModel.IsVideo,
-                    Landscape = photoViewModel.Landscape,
-                    NoteId = photoViewModel.NoteId,
-                    ResizedPath = photoViewModel.ResizedPath,
-                    Thumbnail = photoViewModel.Thumbnail
-                };
-                note.Photos.Add(photoModel);
-            }
-
-            foreach (var videoViewModel in Videos)
-            {
-                var videoModel = new VideoModel
-                {
-                    NoteId = videoViewModel.NoteId,
-                    Path = videoViewModel.Path
-                };
-                note.Videos.Add(videoModel);
-            }
-
-            App.NoteRepository.Update(note);
-            await App.NoteRepository.SaveAsync();
-            
+            App.NoteRepository.Save(this.ToNoteModel());
             IsLoading = false;
         }
 
         private async Task DeleteNoteCommandExecute()
         {
-            await App.NoteRepository.DeleteAsync(Id);
-            await App.NoteRepository.SaveAsync();
+            App.NoteRepository.DeleteNote(this.ToNoteModel());
         }
 
         private async Task CopyTextToClipboardCommandExecute(string text)

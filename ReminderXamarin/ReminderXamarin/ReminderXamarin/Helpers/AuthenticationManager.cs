@@ -20,9 +20,7 @@ namespace ReminderXamarin.Helpers
         /// <returns></returns>
         public static async Task<bool> Authenticate(string userName, string password)
         {
-            Console.WriteLine($"{DateTime.Now} BEFORE AUTHENTICATION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            var user = (await App.UserRepository.GetAsync(x => x.UserName == userName)).FirstOrDefault();
-            Console.WriteLine($"{DateTime.Now} AFTER AUTHENTICATION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            var user = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == userName);
             if (user == null)
             {
                 return false;
@@ -53,15 +51,13 @@ namespace ReminderXamarin.Helpers
             var passwordBytes = Encoding.Unicode.GetBytes(password);
             var passwordHash = SHA256.Create().ComputeHash(passwordBytes);
 
-            var userModel = new AppUser
+            var userModel = new UserModel
             {
                 UserName = userName,
                 ImageContent = new byte[0],
                 Password = passwordHash
             };
-            await App.UserRepository.CreateAsync(userModel);
-            await App.UserRepository.SaveAsync();
-            // App.UserRepository.Save(userModel);
+            App.UserRepository.Save(userModel);
             return true;
         }
     }

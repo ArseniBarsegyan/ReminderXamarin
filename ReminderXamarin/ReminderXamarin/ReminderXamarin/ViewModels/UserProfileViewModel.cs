@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Services;
@@ -25,7 +24,7 @@ namespace ReminderXamarin.ViewModels
 
         public override Task InitializeAsync(object navigationData)
         {
-            if (navigationData is AppUser appUser)
+            if (navigationData is UserModel appUser)
             {
                 Id = appUser.Id;
                 UserName = appUser.UserName;
@@ -37,7 +36,7 @@ namespace ReminderXamarin.ViewModels
             return base.InitializeAsync(navigationData);
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string UserName { get; set; }
         public byte[] ImageContent { get; set; }
         public int NotesCount { get; set; }
@@ -63,13 +62,12 @@ namespace ReminderXamarin.ViewModels
 
         private async Task UpdateUserCommandExecute()
         {
-            var user = await App.UserRepository.GetOneAsync(x => x.Id == Id);
+            var user = App.UserRepository.GetUserAsync(Id);
             if (user != null)
             {
                 user.ImageContent = ImageContent;
                 user.UserName = UserName;
-                App.UserRepository.Update(user);
-                await App.UserRepository.SaveAsync();
+                App.UserRepository.Save(user);
                 MessagingCenter.Send(this, ConstantsHelper.ProfileUpdated);
                 ViewModelChanged = false;
             }
