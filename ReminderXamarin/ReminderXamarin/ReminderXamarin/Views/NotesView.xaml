@@ -8,7 +8,7 @@
              xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors"
              x:Class="ReminderXamarin.Views.NotesView"
              Title="{extensions:Translate AllNotes}"
-             BackgroundColor="White"
+             BackgroundColor="#ECECEC"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -56,41 +56,34 @@
                             <ViewCell.ContextActions>
                                 <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
                             </ViewCell.ContextActions>
-                            <StackLayout BackgroundColor="White" Margin="0,5">
-                                <elements:ContentViewWithBorder HorizontalOptions="FillAndExpand" 
-                                                                CornerRadius="20"
-                                                                VerticalOptions="FillAndExpand" 
-                                                                Padding="0,20,0,10" 
-                                                                BorderColor="DarkGray" 
-                                                                BorderWidth="1">
-                                    <StackLayout>
-                                        <Image Source="{Binding Photos, Converter={StaticResource NullElementToImageSourceConverter}}" 
-                                               IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}" 
-                                               Aspect="AspectFill" 
-                                               HorizontalOptions="FillAndExpand"
-                                               HeightRequest="200" />
-                                        <StackLayout Spacing="10" Padding="10,0">
-                                            <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" />
-                                            <elements:ExtendedLabel HorizontalTextAlignment="Start" 
-                                                                   Lines="3" 
-                                                                   LineSpacing="1.1" 
-                                                                   LineBreakMode="TailTruncation" 
-                                                                   Text="{Binding Description}" />
-                                        </StackLayout>
+                            <Frame MinimumHeightRequest="60" HasShadow="True" Padding="0,0,0,10" Margin="0,5">
+                                <StackLayout>
+                                    <Image Source="{Binding Photos, Converter={StaticResource NullElementToImageSourceConverter}}" 
+                                           IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}" 
+                                           Aspect="AspectFill" 
+                                           HorizontalOptions="FillAndExpand"
+                                           HeightRequest="200" />
+                                    <StackLayout Spacing="10" Padding="10,0">
+                                        <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" />
+                                        <elements:ExtendedLabel HorizontalTextAlignment="Start" 
+                                                                Lines="3" 
+                                                                LineSpacing="1.1" 
+                                                                LineBreakMode="TailTruncation" 
+                                                                Text="{Binding Description}" />
                                     </StackLayout>
-                                </elements:ContentViewWithBorder>
-                            </StackLayout>
+                                </StackLayout>
+                            </Frame>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
 
-        <Button x:Name="CreateNoteButton"
-                AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
-                AbsoluteLayout.LayoutFlags="PositionProportional"
-                Style="{StaticResource ButtonWithImageStyle}"
-                Image="add.png"
-                Clicked="CreateNoteButton_OnClicked" />
+        <elements:FloatingActionButton x:Name="CreateNoteButton"
+                                       AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
+                                       AbsoluteLayout.LayoutFlags="PositionProportional" 
+                                       Image="add.png"
+                                       Clicked="CreateNoteButton_OnClicked" />
+
     </AbsoluteLayout>
 </ContentPage>

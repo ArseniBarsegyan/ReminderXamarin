@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using ReminderXamarin.Data.Entities;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
@@ -9,13 +8,11 @@ namespace ReminderXamarin.Data.Repositories
     public class BirthdaysRepository
     {
         private readonly SQLiteConnection _db;
-        private readonly List<BirthdayModel> _birthdays;
 
         public BirthdaysRepository(string dbPath)
         {
             _db = new SQLiteConnection(dbPath);
             _db.CreateTable<BirthdayModel>();
-            _birthdays = new List<BirthdayModel>(_db.GetAllWithChildren<BirthdayModel>());
         }
 
         /// <summary>
@@ -24,7 +21,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public IEnumerable<BirthdayModel> GetAll()
         {
-            return _birthdays;
+            return _db.GetAllWithChildren<BirthdayModel>();
         }
 
         /// <summary>
@@ -34,7 +31,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public BirthdayModel GetBirthdayAsync(int id)
         {
-            return _birthdays.FirstOrDefault(x => x.Id == id);
+            return _db.Get<BirthdayModel>(x => x.Id == id);
         }
 
         /// <summary>
@@ -46,12 +43,10 @@ namespace ReminderXamarin.Data.Repositories
         {
             if (model.Id != 0)
             {
-                _birthdays.Insert(model.Id, model);
                 _db.InsertOrReplaceWithChildren(model);
             }
             else
             {
-                _birthdays.Add(model);
                 _db.InsertWithChildren(model);
             }
         }
@@ -63,7 +58,6 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public int DeleteBirthday(BirthdayModel model)
         {
-            _birthdays.Remove(model);
             return _db.Delete(model);
         }
     }

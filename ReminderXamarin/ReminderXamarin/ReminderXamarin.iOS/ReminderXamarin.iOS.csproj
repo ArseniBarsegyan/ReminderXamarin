@@ -89,6 +89,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Renderers\FloatingActionButtonRenderer.cs" />
     <Compile Include="Services\AlertService.cs" />
     <Compile Include="Services\DeviceOrientation.cs" />
     <Compile Include="Services\FileHelper.cs" />

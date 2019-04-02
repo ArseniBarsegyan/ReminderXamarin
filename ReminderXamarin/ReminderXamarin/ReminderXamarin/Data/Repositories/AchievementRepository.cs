@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using ReminderXamarin.Data.Entities;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
@@ -9,14 +8,12 @@ namespace ReminderXamarin.Data.Repositories
     public class AchievementRepository
     {
         private readonly SQLiteConnection _db;
-        private readonly List<AchievementModel> _achievementModels;
 
         public AchievementRepository(string dbPath)
         {
             _db = new SQLiteConnection(dbPath);
             _db.CreateTable<AchievementModel>();
             _db.CreateTable<AchievementNote>();
-            _achievementModels = new List<AchievementModel>(_db.GetAllWithChildren<AchievementModel>());
         }
 
         /// <summary>
@@ -25,7 +22,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public IEnumerable<AchievementModel> GetAll()
         {
-            return _achievementModels;
+            return _db.GetAllWithChildren<AchievementModel>();
         }
 
         /// <summary>
@@ -35,7 +32,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public AchievementModel GetAchievementAsync(int id)
         {
-            return _achievementModels.FirstOrDefault(x => x.Id == id);
+            return _db.Get<AchievementModel>(x => x.Id == id);
         }
 
         /// <summary>
@@ -47,12 +44,10 @@ namespace ReminderXamarin.Data.Repositories
         {
             if (achievement.Id != 0)
             {
-                _achievementModels.Insert(achievement.Id, achievement);
                 _db.InsertOrReplaceWithChildren(achievement);
             }
             else
             {
-                _achievementModels.Add(achievement);
                 _db.Insert(achievement);
             }
         }
@@ -64,7 +59,6 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public int DeleteAchievement(AchievementModel achievement)
         {
-            _achievementModels.Remove(achievement);
             return _db.Delete(achievement);
         }
     }
