@@ -8,7 +8,7 @@
              base:ViewModelHelper.AutoWireViewModel="True"
              Title="{extensions:Translate Menu}">
     <ContentPage.Content>
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="{StaticResource DarkFont}">            
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#FAFAFA">            
             <!-- Side menu -->
             <ListView x:Name="MenuList"
                       ItemsSource="{Binding MasterPageItems}"
@@ -21,27 +21,38 @@
                       ItemSelected="MenuList_OnItemSelected">
                 <ListView.Header>
                     <!-- User photo and name on top of list view -->
-                    <StackLayout x:Name="UserProfileLink"
+                    <AbsoluteLayout>
+                        <Image x:Name="HeaderBackgroundImage"
+                               Aspect="AspectFill"
+                               AbsoluteLayout.LayoutBounds="0,0,1,180"
+                               AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" />
+
+                        <StackLayout x:Name="UserProfileLink"
                                      HeightRequest="140"
+                                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                     AbsoluteLayout.LayoutFlags="All"
                                      Spacing="10"
                                      Padding="10">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding NavigateToUserProfileCommand}" NumberOfTapsRequired="1" />
-                        </StackLayout.GestureRecognizers>
-                        <abstractions:CircleImage x:Name="UserProfilePhoto"
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NavigateToUserProfileCommand}" NumberOfTapsRequired="1" />
+                            </StackLayout.GestureRecognizers>
+                            <abstractions:CircleImage x:Name="UserProfilePhoto"
                                                       WidthRequest="100"
                                                       HorizontalOptions="Center"
                                                       VerticalOptions="Center"
                                                       HeightRequest="100" 
                                                       Aspect="AspectFill"
                                                       Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}">
-                        </abstractions:CircleImage>
-                        <Label Text="{Binding UserName}" 
+                            </abstractions:CircleImage>
+                            <Label Text="{Binding UserName}" 
                                    FontSize="Large" 
                                    TextColor="White"
                                    VerticalOptions="End" 
                                    HorizontalOptions="Center" />
-                    </StackLayout>
+                        </StackLayout>
+                    </AbsoluteLayout>
+
+                    
                 </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -53,7 +64,7 @@
                                     <Image Source="{Binding IconSource}" HeightRequest="50" />
                                     <Label Text="{Binding Title}"
                                                FontSize="Medium"
-                                               TextColor="White"
+                                               TextColor="{StaticResource DarkFont}"
                                                VerticalOptions="Center" 
                                                HorizontalOptions="Start" />
                                 </StackLayout>
@@ -72,7 +83,7 @@
                         <Image Source="logout.png" HeightRequest="50" HorizontalOptions="Start" />
                         <Label Text="{extensions:Translate Logout}" 
                                    FontSize="Medium" 
-                                   TextColor="White"
+                                   TextColor="{StaticResource DarkFont}"
                                    VerticalOptions="Center" 
                                    HorizontalOptions="Center" />
                     </StackLayout>

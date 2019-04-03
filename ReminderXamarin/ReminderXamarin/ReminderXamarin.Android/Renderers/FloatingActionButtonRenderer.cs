@@ -21,13 +21,18 @@ namespace ReminderXamarin.Droid.Renderers
             base.OnElementChanged(e);
 
             if (e.NewElement == null)
+            {
                 return;
+            }
+
+            if (Element == null)
+            {
+                return;
+            }
 
             var fab = new FAB(Context);
-            // set the bg
             fab.BackgroundTintList = ColorStateList.ValueOf(Element.ButtonColor.ToAndroid());
 
-            // set the icon
             var elementImage = Element.Image;
             var imageFile = elementImage?.File;
 

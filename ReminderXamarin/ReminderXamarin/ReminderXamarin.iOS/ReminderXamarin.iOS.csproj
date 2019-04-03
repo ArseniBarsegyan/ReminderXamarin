@@ -381,15 +381,6 @@
     <BundleResource Include="Resources\birthday%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\profile_icon%401x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\profile_icon%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\profile_icon%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\logout%401x.png" />
   </ItemGroup>
   <ItemGroup>
@@ -452,5 +443,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\play%403x.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Resources\user_profile.png" />
+  </ItemGroup>
 </Project>

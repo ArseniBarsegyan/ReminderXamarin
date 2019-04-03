@@ -11,6 +11,7 @@ namespace ReminderXamarin.Views
         public MenuMasterView()
         {
             InitializeComponent();
+            HeaderBackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.SideMenuBackground);
         }
 
         private void MenuList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)

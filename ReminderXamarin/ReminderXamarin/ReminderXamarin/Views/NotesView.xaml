@@ -8,7 +8,7 @@
              xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors"
              x:Class="ReminderXamarin.Views.NotesView"
              Title="{extensions:Translate AllNotes}"
-             BackgroundColor="#ECECEC"
+             BackgroundColor="#FBFBFB"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -21,7 +21,7 @@
                      AbsoluteLayout.LayoutBounds="0,0,1,1" 
                      AbsoluteLayout.LayoutFlags="All" 
                      Spacing="0" 
-                     VerticalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand" 
                      HorizontalOptions="FillAndExpand">
             <!-- Search bar with border -->
             <elements:ContentViewWithBorder BorderColor="Gray">
@@ -56,17 +56,17 @@
                             <ViewCell.ContextActions>
                                 <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
                             </ViewCell.ContextActions>
-                            <Frame MinimumHeightRequest="60" HasShadow="True" Padding="0,0,0,10" Margin="0,5">
+                            <Frame MinimumHeightRequest="200" HasShadow="True" Padding="0,10" Margin="0,5" BorderColor="LightGray">
                                 <StackLayout>
                                     <Image Source="{Binding Photos, Converter={StaticResource NullElementToImageSourceConverter}}" 
                                            IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}" 
                                            Aspect="AspectFill" 
                                            HorizontalOptions="FillAndExpand"
                                            HeightRequest="200" />
-                                    <StackLayout Spacing="10" Padding="10,0">
+                                    <StackLayout Spacing="10" Padding="10,10,10,30">
                                         <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" />
                                         <elements:ExtendedLabel HorizontalTextAlignment="Start" 
-                                                                Lines="3" 
+                                                                Lines="5" 
                                                                 LineSpacing="1.1" 
                                                                 LineBreakMode="TailTruncation" 
                                                                 Text="{Binding Description}" />

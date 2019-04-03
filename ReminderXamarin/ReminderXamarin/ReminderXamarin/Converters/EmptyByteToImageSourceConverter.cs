@@ -18,7 +18,7 @@ namespace ReminderXamarin.Converters
                 byte[] imageAsBytes = (byte[])value;
 
                 retSource = imageAsBytes.Length == 0 ? 
-                    "https://www.cabe-africa.org/wp-content/uploads/2012/01/1.png" 
+                    "user_profile.png" 
                     : ImageSource.FromStream(() => new MemoryStream(imageAsBytes));
             }
             return retSource;
