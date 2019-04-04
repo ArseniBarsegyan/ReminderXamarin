@@ -74,11 +74,14 @@
                                              HeightRequest="200" />
                 </ScrollView>
 
-                <Button x:Name="AddButton"
-                        Margin="-10"
-                        Style="{StaticResource SubmitButtonStyle}"
-                        Image="add.png"
-                        Clicked="AddButton_OnClicked" />
+                <ImageButton Aspect="AspectFit" 
+                             Source="add.png" 
+                             Padding="10" 
+                             Margin="-10"
+                             HeightRequest="50" 
+                             CornerRadius="0" 
+                             BackgroundColor="{StaticResource SubmitButtonBackground}"
+                             Clicked="AddButton_OnClicked" />
             </StackLayout>
 
             <ActivityIndicator x:Name="ActivityIndicator"

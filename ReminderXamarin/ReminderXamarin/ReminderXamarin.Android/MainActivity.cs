@@ -30,15 +30,14 @@ namespace ReminderXamarin.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
-            Xamarin.Essentials.Platform.Init(this, bundle);
+            Rg.Plugins.Popup.Popup.Init(this, bundle);
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            var cv = typeof(Xamarin.Forms.CarouselView);
-            var assembly = Assembly.Load(cv.FullName);
+            //var cv = typeof(Xamarin.Forms.CarouselView);
+            //var assembly = Assembly.Load(cv.FullName);
             CrossCurrentActivity.Current.Init(this, bundle);
             Platform.Init(this);
             CrossCurrentActivity.Current.Activity = this;
             ImageCircleRenderer.Init();
-            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(false);
             LoadApplication(new App());
 
             // TODO deal with availability
@@ -87,7 +86,6 @@ namespace ReminderXamarin.Droid
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }

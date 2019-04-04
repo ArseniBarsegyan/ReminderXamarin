@@ -20,12 +20,13 @@ namespace ReminderXamarin.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Rg.Plugins.Popup.Popup.Init();
+
             global::Xamarin.Forms.Forms.Init();
             SQLitePCL.Batteries.Init();
-            var cv = typeof(Xamarin.Forms.CarouselView);
-            var assembly = Assembly.Load(cv.FullName);
+            //var cv = typeof(Xamarin.Forms.CarouselView);
+            //var assembly = Assembly.Load(cv.FullName);
             ImageCircleRenderer.Init();
-            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

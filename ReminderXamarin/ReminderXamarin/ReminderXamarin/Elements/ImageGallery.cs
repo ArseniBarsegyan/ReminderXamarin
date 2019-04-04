@@ -8,7 +8,7 @@ namespace ReminderXamarin.Elements
 {
     /// <inheritdoc />
     /// <summary>
-    /// <see cref="ImageGallery"/> extends <see cref="StackLayout"/> and takes collection of <see cref="Image"/> in
+    /// <see cref="ImageGallery"/> extends <see cref="Xamarin.Forms.StackLayout"/> and takes collection of <see cref="Image"/> in
     /// constructor as parameter. This class uses <see cref="CarouselView"/> to draw horizontal set of images
     /// that could be changed by swipe.
     /// </summary>
@@ -32,7 +32,7 @@ namespace ReminderXamarin.Elements
 
             Images = images;
             _carousel.ItemsSource = images;
-            _carousel.PositionSelected += OnImageChanged;
+            //_carousel.PositionSelected += OnImageChanged;
 
             Children.Add(_carousel);
             AddOptionsToAllImages();
@@ -86,7 +86,7 @@ namespace ReminderXamarin.Elements
         /// <param name="position">number of element to be displayed.</param>
         public void SetCurrentPosition(int position)
         {
-            _carousel.Position = position;
+            //_carousel.Position = position;
             _currentPosition = position;
         }
 

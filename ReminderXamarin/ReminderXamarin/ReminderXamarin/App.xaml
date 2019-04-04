@@ -21,6 +21,7 @@
             <Color x:Key="FrameButtonBorder">#cdced2</Color>
             <Color x:Key="FrameBackground">#cccccccc</Color>
             <Color x:Key="ProfilePageTitleBackground">#323232</Color>
+            <Color x:Key="PullToRefreshColor">#448AFF</Color>
             
             <Style TargetType="NavigationPage">
                 <Setter Property="BarTextColor" Value="#fafafa" />

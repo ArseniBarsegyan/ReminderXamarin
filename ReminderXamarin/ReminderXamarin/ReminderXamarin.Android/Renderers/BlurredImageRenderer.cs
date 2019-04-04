@@ -7,7 +7,6 @@ using Android.Graphics.Drawables;
 using Android.Renderscripts;
 using Android.Widget;
 using Java.IO;
-using Java.Lang;
 using ReminderXamarin.Droid.Renderers;
 using ReminderXamarin.Elements;
 using Xamarin.Forms;

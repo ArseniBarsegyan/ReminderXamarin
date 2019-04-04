@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -11,7 +10,6 @@ using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels.Base;
 using ReminderXamarin.Data.Entities;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using IFileSystem = ReminderXamarin.Services.IFileSystem;
 
