@@ -4,7 +4,6 @@
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             xmlns:elements="clr-namespace:ReminderXamarin.Elements"
              x:Class="ReminderXamarin.Views.AchievementCreateView"
              Title="{extensions:Translate CreateAchievement}"
              BackgroundColor="White">
@@ -32,11 +31,12 @@
                             HorizontalOptions="Center"
                             WidthRequest="50"
                             HeightRequest="50"
-                            CornerRadius="25" />
+                            CornerRadius="25"
+                            Clicked="PickAchievementImageButton_OnClicked" />
                 </StackLayout>
 
                 <Label Text="{extensions:Translate AchievementName}" HorizontalOptions="Start" />
-                <elements:EntryWithBorder x:Name="TitleEntry" HorizontalOptions="FillAndExpand" />
+                <Entry x:Name="TitleEntry" HorizontalOptions="FillAndExpand" />
 
                 <Label Text="{extensions:Translate Description}" HorizontalOptions="Start" />
                 <Editor x:Name="DescriptionEditor"
@@ -45,6 +45,7 @@
             </StackLayout>
 
             <Button x:Name="AchievementCreateButton"
+                    Clicked="AchievementCreateButton_Clicked"
                     AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
                     AbsoluteLayout.LayoutFlags="PositionProportional"
                     Style="{StaticResource ButtonWithImageStyle}"

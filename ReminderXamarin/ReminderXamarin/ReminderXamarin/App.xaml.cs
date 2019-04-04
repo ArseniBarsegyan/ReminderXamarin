@@ -55,34 +55,10 @@ namespace ReminderXamarin
             });
         }
 
-        /// <summary>
-        /// Get Note repository with help dependency service.
-        /// </summary>
-        /// <value>The database.</value>
         public static NoteRepository NoteRepository { get; private set; }
-
-        /// <summary>
-        /// Get To-do models repository with help of dependency service.
-        /// </summary>
-        /// <value>The database.</value>
         public static ToDoRepository ToDoRepository { get; private set; }
-
-        /// <summary>
-        /// Get achievement models repository with help dependency service.
-        /// </summary>
-        /// <value>The database.</value>
         public static AchievementRepository AchievementRepository { get; private set; }
-
-        /// <summary>
-        /// Get users repository with help dependency service.
-        /// </summary>
-        /// <value>The database.</value>
         public static UserRepository UserRepository { get; private set; }
-
-        /// <summary>
-        /// Get birthday repository with help dependency service.
-        /// </summary>
-        /// <value>The database.</value>
         public static BirthdaysRepository BirthdaysRepository { get; private set; }
 
         protected override void OnStart()

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reactive.Linq;
 using ReminderXamarin.Services.FilePickerService;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,33 +13,29 @@ namespace ReminderXamarin.Views
         public AchievementCreateView()
         {
             InitializeComponent();
+        }
 
-            Observable.FromEventPattern(x => AchievementCreateButton.Clicked += x,
-                x => AchievementCreateButton.Clicked -= x)
-                .Subscribe(async _ =>
-                {
-                    if (string.IsNullOrWhiteSpace(TitleEntry.Text))
-                    {
-                        await Navigation.PopAsync();
-                        return;
-                    }
-                    ViewModel.Title = TitleEntry.Text;
-                    ViewModel.GeneralDescription = DescriptionEditor.Text;
-                    ViewModel.CreateAchievementCommand.Execute(null);
-                    await Navigation.PopAsync();
-                });
+        private async void AchievementCreateButton_Clicked(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TitleEntry.Text))
+            {
+                await Navigation.PopAsync();
+                return;
+            }
+            ViewModel.Title = TitleEntry.Text;
+            ViewModel.GeneralDescription = DescriptionEditor.Text;
+            ViewModel.CreateAchievementCommand.Execute(null);
+            await Navigation.PopAsync();
+        }
 
-            Observable.FromEventPattern(x => PickAchievementImageButton.Clicked += x,
-                    x => PickAchievementImageButton.Clicked -= x)
-                .Subscribe(async _ =>
-                {
-                    var document = await DocumentPicker.DisplayImportAsync(this);
-                    if (document == null)
-                    {
-                        return;
-                    }
-                    ViewModel.SetImageCommand.Execute(document);
-                });
+        private async void PickAchievementImageButton_OnClicked(object sender, EventArgs e)
+        {
+            var document = await DocumentPicker.DisplayImportAsync(this);
+            if (document == null)
+            {
+                return;
+            }
+            ViewModel.SetImageCommand.Execute(document);
         }
     }
 }

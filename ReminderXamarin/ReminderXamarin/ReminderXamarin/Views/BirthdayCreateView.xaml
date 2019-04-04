@@ -29,6 +29,7 @@
                     </abstractions:CircleImage>
 
                     <Button x:Name="PhotoPickButton" 
+                            Clicked="PhotoPickButton_OnClicked"
                             Image="edit.png" 
                             HorizontalOptions="Center"
                             WidthRequest="50"

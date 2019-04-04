@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reactive.Linq;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
@@ -19,21 +18,6 @@ namespace ReminderXamarin.Views
         {
             InitializeComponent();
             BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
-
-            Observable.FromEventPattern(x => PickUserPhotoImage.Clicked += x,
-                    x => PickUserPhotoImage.Clicked -= x)
-                .Subscribe(async _ =>
-                {
-                    var document = await DocumentPicker.DisplayImportAsync(this);
-                    if (document == null)
-                    {
-                        return;
-                    }
-                    if (this.BindingContext is UserProfileViewModel viewModel)
-                    {
-                        viewModel.ChangeUserProfileCommand.Execute(document);
-                    }
-                });
         }
 
         private async void UserProfileImage_OnTapped(object sender, EventArgs e)
@@ -58,6 +42,19 @@ namespace ReminderXamarin.Views
                 UserInfoLayout.TranslateTo(0, 100, 250, Easing.SpringOut);
             }
             _isTranslated = !_isTranslated;
+        }
+
+        private async void PickUserPhotoImage_OnClicked(object sender, EventArgs e)
+        {
+            var document = await DocumentPicker.DisplayImportAsync(this);
+            if (document == null)
+            {
+                return;
+            }
+            if (this.BindingContext is UserProfileViewModel viewModel)
+            {
+                viewModel.ChangeUserProfileCommand.Execute(document);
+            }
         }
     }
 }
