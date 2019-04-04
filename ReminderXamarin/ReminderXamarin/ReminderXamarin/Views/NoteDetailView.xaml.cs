@@ -16,6 +16,7 @@ namespace ReminderXamarin.Views
     {
         private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
         private readonly NoteViewModel _noteViewModel;
+        private readonly ToolbarItem _confirmToolbarItem;
 
         public NoteDetailView(NoteViewModel noteViewModel)
         {
@@ -24,12 +25,15 @@ namespace ReminderXamarin.Views
             _noteViewModel = noteViewModel;
 
             Title = $"{noteViewModel.EditDate:d}";
-            DescriptionEditor.Text = noteViewModel.Description;
+            _confirmToolbarItem = new ToolbarItem {Order = ToolbarItemOrder.Primary, Icon = "confirm.png"};
+            _confirmToolbarItem.Clicked += Confirm_OnClicked;
+            ToolbarItems.Add(_confirmToolbarItem);
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            DescriptionEditor.Text = _noteViewModel.Description;
             _noteViewModel.PhotosCollectionChanged += NoteViewModelOnPhotosCollectionChanged;
             MessagingCenter.Subscribe<ImageGallery, int>(this, ConstantsHelper.ImageDeleted, (gallery, i) =>
             {
@@ -42,10 +46,15 @@ namespace ReminderXamarin.Views
             ImageGallery.IsVisible = true;
             ImageGallery.Render();
 
-            if (!ConfirmButton.IsVisible)
+            if (!ToolbarItems.Contains(_confirmToolbarItem))
             {
-                ConfirmButton.IsVisible = true;
+                ToolbarItems.Add(_confirmToolbarItem);
             }
+
+            //if (!ConfirmButton.IsVisible)
+            //{
+            //    ConfirmButton.IsVisible = true;
+            //}
         }
 
         protected override void OnDisappearing()
@@ -71,18 +80,27 @@ namespace ReminderXamarin.Views
             _noteViewModel.Description = DescriptionEditor.Text;
             _noteViewModel.UpdateNoteCommand.Execute(null);
 
-            if (ConfirmButton.IsVisible)
+            if (ToolbarItems.Contains(_confirmToolbarItem))
             {
-                ConfirmButton.IsVisible = false;
+                ToolbarItems.Remove(_confirmToolbarItem);
             }
+            //if (ConfirmButton.IsVisible)
+            //{
+            //    ConfirmButton.IsVisible = false;
+            //}
         }
 
         private void DescriptionEditor_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!ConfirmButton.IsVisible)
+            if (!ToolbarItems.Contains(_confirmToolbarItem))
             {
-                ConfirmButton.IsVisible = true;
+                ToolbarItems.Add(_confirmToolbarItem);
             }
+
+            //if (!ConfirmToolbarItem.IsVisible)
+            //{
+            //    ConfirmButton.IsVisible = true;
+            //}
         }
 
         private async void HorizontalImageGallery_OnItemTapped(object sender, EventArgs e)

@@ -11,7 +11,7 @@
             <Color x:Key="LoginBackground">#fafafa</Color>
             <Color x:Key="DarkBackground">#323232</Color>
             <Color x:Key="AchievementPageBackground">#fafafa</Color>
-            <Color x:Key="SubmitButtonBackground">#006666</Color>
+            <Color x:Key="SubmitButtonBackground">#448AFF</Color>
             <Color x:Key="CancelButtonBackground">#fafafa</Color>
             <Color x:Key="CancelButtonText">#448AFF</Color>
             <Color x:Key="DeleteButtonBackground">#FF5252</Color>
@@ -36,7 +36,7 @@
             <!-- Buttons styles -->
             <Style x:Key="SubmitButtonStyle" TargetType="Button">
                 <Setter Property="TextColor" Value="White" />
-                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="CornerRadius" Value="0" />
                 <Setter Property="BackgroundColor" Value="{StaticResource SubmitButtonBackground}" />
             </Style>
             

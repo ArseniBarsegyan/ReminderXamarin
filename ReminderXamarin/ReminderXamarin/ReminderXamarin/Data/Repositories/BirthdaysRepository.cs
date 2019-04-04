@@ -31,7 +31,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public BirthdayModel GetBirthdayAsync(int id)
         {
-            return _db.Get<BirthdayModel>(x => x.Id == id);
+            return _db.GetWithChildren<BirthdayModel>(id);
         }
 
         /// <summary>

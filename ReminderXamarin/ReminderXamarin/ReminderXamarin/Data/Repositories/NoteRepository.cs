@@ -33,7 +33,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public Note GetNoteAsync(int id)
         {
-            return _db.Get<Note>(x => x.Id == id);
+            return _db.GetWithChildren<Note>(id);
         }
 
         /// <summary>

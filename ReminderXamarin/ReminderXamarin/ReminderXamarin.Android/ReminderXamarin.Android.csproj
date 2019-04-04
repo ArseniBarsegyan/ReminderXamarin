@@ -163,9 +163,8 @@
     <Compile Include="ReminderFirebaseMessagingService.cs" />
     <Compile Include="Renderers\BlurredImageRenderer.cs" />
     <Compile Include="Renderers\ContentViewWithBorderRenderer.cs" />
-    <Compile Include="Renderers\CustomEditorRenderer.cs" />
     <Compile Include="Renderers\CustomPickerWithIconRenderer.cs" />
-    <Compile Include="Renderers\EditorWithBorderRenderer.cs" />
+    <Compile Include="Renderers\ExtendedEditorRenderer.cs" />
     <Compile Include="Renderers\EntryWithBorderRenderer.cs" />
     <Compile Include="Renderers\FloatingActionButtonRenderer.cs" />
     <Compile Include="Renderers\GradientColorStackRenderer.cs" />

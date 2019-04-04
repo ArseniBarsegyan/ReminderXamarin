@@ -5,10 +5,12 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:elements1="clr-namespace:ReminderXamarin.Elements"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors"
              x:Class="ReminderXamarin.Views.NoteCreateView"
              Title="{extensions:Translate CreateNote}"
              BackgroundColor="White">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="confirm.png" Order="Primary" Clicked="Save_OnClicked" />
+    </ContentPage.ToolbarItems>
     <ContentPage.BindingContext>
         <viewModels:NoteViewModel x:Name="ViewModel" />
     </ContentPage.BindingContext>
@@ -65,35 +67,18 @@
                 </ListView>
 
                 <ScrollView VerticalOptions="FillAndExpand">
-                    <Editor x:Name="DescriptionEditor"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand"
-                            HeightRequest="200" />
+                    <elements:ExtendedEditor x:Name="DescriptionEditor"
+                                             Placeholder="{extensions:Translate EnterDescription}"
+                                             HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="FillAndExpand"
+                                             HeightRequest="200" />
                 </ScrollView>
 
-                <Grid AbsoluteLayout.LayoutBounds="0,1,1,60" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <!-- Click on this button will open frame with buttons that will allow to add items to note -->
-                    <Button x:Name="AddButton"
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Style="{StaticResource ButtonWithImageStyle}"
-                            Image="add.png"
-                            Clicked="AddButton_OnClicked" />
-
-                    <Button x:Name="SaveButton"
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Style="{StaticResource ButtonWithImageStyle}"
-                            Image="confirm.png"
-                            Clicked="Save_OnClicked" />
-                </Grid>
+                <Button x:Name="AddButton"
+                        Margin="-10"
+                        Style="{StaticResource SubmitButtonStyle}"
+                        Image="add.png"
+                        Clicked="AddButton_OnClicked" />
             </StackLayout>
 
             <ActivityIndicator x:Name="ActivityIndicator"

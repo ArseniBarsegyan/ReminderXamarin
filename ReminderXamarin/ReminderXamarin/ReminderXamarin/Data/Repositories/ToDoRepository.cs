@@ -31,7 +31,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public ToDoModel GetToDoAsync(int id)
         {
-            return _db.Get<ToDoModel>(x => x.Id == id);
+            return _db.GetWithChildren<ToDoModel>(id);
         }
 
         /// <summary>

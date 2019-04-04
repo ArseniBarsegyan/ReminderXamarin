@@ -39,7 +39,6 @@ namespace ReminderXamarin.ViewModels
         public ICommand RefreshListCommand { get; set; }
         public ICommand SelectNoteCommand { get; set; }
         public ICommand SearchCommand { get; set; }
-        public ICommand FilterNotesByDateCommand { get; set; }
 
         public async Task OnAppearing()
         {
@@ -75,7 +74,7 @@ namespace ReminderXamarin.ViewModels
                 .GetAll()
                 .Where(x => x.UserId == Settings.CurrentUserId)
                 .ToNoteViewModels()
-                .OrderByDescending(x => x.EditDate)
+                .OrderByDescending(x => x.CreationDate)
                 .ToList();
             // Show recently edited notes at the top of the list.
             Notes = _allNotes.ToObservableCollection();

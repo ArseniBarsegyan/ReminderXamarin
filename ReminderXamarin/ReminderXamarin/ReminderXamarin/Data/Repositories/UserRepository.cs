@@ -36,7 +36,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public UserModel GetUserAsync(string id)
         {
-            return _db.Get<UserModel>(id);
+            return _db.GetWithChildren<UserModel>(id);
         }
 
         /// <summary>

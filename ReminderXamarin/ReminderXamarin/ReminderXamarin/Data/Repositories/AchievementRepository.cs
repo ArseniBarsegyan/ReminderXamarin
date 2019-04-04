@@ -32,7 +32,7 @@ namespace ReminderXamarin.Data.Repositories
         /// <returns></returns>
         public AchievementModel GetAchievementAsync(int id)
         {
-            return _db.Get<AchievementModel>(x => x.Id == id);
+            return _db.GetWithChildren<AchievementModel>(id);
         }
 
         /// <summary>

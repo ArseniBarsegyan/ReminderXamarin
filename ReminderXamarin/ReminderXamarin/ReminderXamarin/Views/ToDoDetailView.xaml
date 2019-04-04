@@ -30,7 +30,7 @@
 
                 <Label Text="{extensions:Translate Description}" />
                 <ScrollView VerticalOptions="FillAndExpand">
-                    <elements:EditorWithBorder x:Name="DescriptionEditor"
+                    <elements:ExtendedEditor x:Name="DescriptionEditor"
                                                Margin="0,0,70,0"
                                                HorizontalOptions="FillAndExpand"
                                                VerticalOptions="FillAndExpand" />
