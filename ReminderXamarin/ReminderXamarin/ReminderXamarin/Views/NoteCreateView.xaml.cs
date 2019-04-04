@@ -6,6 +6,7 @@ using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
 using Rg.Plugins.Popup.Extensions;
 using ReminderXamarin.Data.Entities;
+using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -149,7 +150,7 @@ namespace ReminderXamarin.Views
 
         private void VideoList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var viewModel = e.SelectedItem as VideoModel;
+            var viewModel = e.SelectedItem as VideoViewModel;
             VideoList.SelectedItem = null;
             if (viewModel != null)
             {

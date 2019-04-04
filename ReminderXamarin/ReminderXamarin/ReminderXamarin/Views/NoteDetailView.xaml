@@ -60,17 +60,14 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <ScrollView VerticalOptions="FillAndExpand">
-                    <elements:ExtendedEditor x:Name="DescriptionEditor"
-                                             Placeholder="{extensions:Translate EnterDescription}"
-                                             TextChanged="DescriptionEditor_OnTextChanged"
-                                             HorizontalOptions="FillAndExpand"
-                                             HeightRequest="200" />
-                </ScrollView>
-
+                <elements:ExtendedEditor x:Name="DescriptionEditor"
+                                         Placeholder="{extensions:Translate EnterDescription}"
+                                         TextChanged="DescriptionEditor_OnTextChanged"
+                                         HorizontalOptions="FillAndExpand"
+                                         HeightRequest="200" />
               <ImageButton Aspect="AspectFit"
                            Source="add.png"
-                           Padding="10"
+                           Padding="20"
                            Margin="-10"
                            HeightRequest="50"
                            CornerRadius="0"

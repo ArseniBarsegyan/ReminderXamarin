@@ -163,7 +163,7 @@ namespace ReminderXamarin.Views
 
         private void VideoList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var viewModel = e.SelectedItem as VideoModel;
+            var viewModel = e.SelectedItem as VideoViewModel;
             VideoList.SelectedItem = null;
             if (viewModel != null)
             {
