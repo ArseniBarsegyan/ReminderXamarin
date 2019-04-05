@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Reflection;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -38,6 +38,7 @@ namespace ReminderXamarin.Droid
             Platform.Init(this);
             CrossCurrentActivity.Current.Activity = this;
             ImageCircleRenderer.Init();
+            UserDialogs.Init(this);
             LoadApplication(new App());
 
             // TODO deal with availability

@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
@@ -47,16 +49,24 @@ namespace ReminderXamarin.ViewModels
         public ICommand ChangeUserProfileCommand { get; set; }
         public ICommand UpdateUserCommand { get; set; }
         
-        private void ChangeUserProfileCommandExecute(PlatformDocument document)
+        private async void ChangeUserProfileCommandExecute(PlatformDocument document)
         {
             // Ensure that user downloads .png or .jpg file as profile icon.
             if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg"))
             {
-                ViewModelChanged = true;
-                var imageContent = FileService.ReadAllBytes(document.Path);
-                var resizedImage = MediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
+                try
+                {
+                    ViewModelChanged = true;
+                    var imageContent = FileService.ReadAllBytes(document.Path);
+                    var resizedImage = MediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
+                        ConstantsHelper.ResizedImageHeight);
 
-                ImageContent = resizedImage;
+                    ImageContent = resizedImage;
+                }
+                catch (Exception ex)
+                {
+                    await UserDialogs.Instance.AlertAsync(ex.Message);
+                }
             }
         }
 
