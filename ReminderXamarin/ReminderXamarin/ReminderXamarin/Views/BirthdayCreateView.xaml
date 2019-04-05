@@ -5,6 +5,7 @@
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.BirthdayCreateView"
              BackgroundColor="White">
     <ContentPage.BindingContext>
@@ -60,12 +61,11 @@
 
             </StackLayout>
 
-            <Button x:Name="BirthDayCreateButton"
-                AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
-                AbsoluteLayout.LayoutFlags="PositionProportional"
-                Style="{StaticResource ButtonWithImageStyle}"
-                Image="confirm.png"
-                Clicked="Save_OnClicked" />
+            <elements:FloatingActionButton x:Name="BirthDayCreateButton" 
+                                           Clicked="Save_OnClicked"
+                                           Image="confirm.png" 
+                                           AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
+                                           AbsoluteLayout.LayoutFlags="PositionProportional" />
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

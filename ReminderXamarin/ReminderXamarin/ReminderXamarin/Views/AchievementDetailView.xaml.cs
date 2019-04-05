@@ -39,7 +39,7 @@ namespace ReminderXamarin.Views
 
         private async void SaveNoteButton_OnClicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new AchievementNoteCreateView(_viewModel));
+            await Navigation.PushAsync(new AchievementNoteCreateView(_viewModel));
         }
 
         private async void AchievementNotes_OnItemSelected(object sender, SelectedItemChangedEventArgs e)

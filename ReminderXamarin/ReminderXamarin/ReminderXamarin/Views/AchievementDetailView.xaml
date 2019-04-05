@@ -58,12 +58,11 @@
             </StackLayout>
 
             <!-- Add achievement note button -->
-            <Button x:Name="SaveNoteButton" 
-                    Clicked="SaveNoteButton_OnClicked"
-                    AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
-                    AbsoluteLayout.LayoutFlags="PositionProportional"
-                    Style="{StaticResource ButtonWithImageStyle}" 
-                    Image="add.png" />
+            <elements:FloatingActionButton x:Name="SaveNoteButton" 
+                                           Clicked="SaveNoteButton_OnClicked"
+                                           Image="add.png" 
+                                           AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
+                                           AbsoluteLayout.LayoutFlags="PositionProportional" />
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

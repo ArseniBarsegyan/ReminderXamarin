@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Services;
@@ -58,14 +59,21 @@ namespace ReminderXamarin.ViewModels
             await NavigationService.NavigateToAsync<AchievementDetailsViewModel>();
         }
 
-        private void SetImageCommandExecute(PlatformDocument document)
+        private async void SetImageCommandExecute(PlatformDocument document)
         {
             // Retrieve file content through IFileService implementation.
             FileName = document.Name;
             IsFileNameLabelVisible = true;
-
-            var imageContent = FileSystem.ReadAllBytes(document.Path);
-            ImageContent = MediaService.ResizeImage(imageContent, ConstantsHelper.AchievementImageWidth, ConstantsHelper.AchievementImageHeight);
+            try
+            {
+                var imageContent = FileSystem.ReadAllBytes(document.Path);
+                ImageContent = MediaService.ResizeImage(imageContent, ConstantsHelper.AchievementImageWidth,
+                    ConstantsHelper.AchievementImageHeight);
+            }
+            catch (Exception ex)
+            {
+                await UserDialogs.Instance.AlertAsync(ex.Message);
+            }
             IsImageVisible = true;
         }
 

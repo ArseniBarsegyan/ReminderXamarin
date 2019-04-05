@@ -69,28 +69,29 @@ namespace ReminderXamarin.ViewModels
             bool permissionResult = await PermissionService.AskPermission();
             if (permissionResult)
             {
+                IsLoading = true;
                 try
                 {
-                    IsLoading = true;
                     var photoModel = await _mediaHelper.TakePhotoAsync();
                     if (photoModel != null)
                     {
                         Photos.Add(photoModel.ToPhotoViewModel());
                         PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
                     }
-                    IsLoading = false;
                 }
                 catch (Exception ex)
                 {
                     await UserDialogs.Instance.AlertAsync(ex.Message);
                 }
             }
+            IsLoading = false;
         }
 
         private async Task PickPhotoCommandExecute(PlatformDocument document)
         {
             if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg"))
             {
+                IsLoading = true;
                 try
                 {
                     var photoModel = new PhotoModel
@@ -186,6 +187,7 @@ namespace ReminderXamarin.ViewModels
         {
             if (document.Name.EndsWith(".mp4"))
             {
+                IsLoading = true;
                 try
                 {
                     var photoModel = new PhotoModel
@@ -245,6 +247,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task CreateNoteCommandExecute()
         {
+            IsLoading = true;
             App.NoteRepository.Save(this.ToNoteModel());
             IsLoading = false;
         }

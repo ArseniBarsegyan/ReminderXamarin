@@ -41,7 +41,7 @@ namespace ReminderXamarin.Views
 
         private async void CancelButton_OnClicked(object sender, EventArgs e)
         {
-            await Navigation.PopModalAsync();
+            await Navigation.PopAsync();
         }
     }
 }
