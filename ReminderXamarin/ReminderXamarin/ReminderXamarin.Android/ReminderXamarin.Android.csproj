@@ -28,7 +28,7 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidLinkMode>Full</AndroidLinkMode>
     <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
     <AotAssemblies>false</AotAssemblies>
@@ -37,6 +37,8 @@
     <AndroidEnableSGenConcurrent>false</AndroidEnableSGenConcurrent>
     <EnableProguard>false</EnableProguard>
     <AndroidSupportedAbis />
+    <AndroidLinkSkip>SQLite-net;ReminderXamarin;ReminderXamarin.Android</AndroidLinkSkip>
+    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -57,7 +59,8 @@
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     <AndroidTlsProvider>btls</AndroidTlsProvider>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidLinkMode>Full</AndroidLinkMode>
+    <AndroidLinkSkip>SQLite-net;ReminderXamarin;ReminderXamarin.Android</AndroidLinkSkip>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -104,32 +107,32 @@
       <Version>3.0.0.5</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Annotations">
-      <Version>26.0.2</Version>
+      <Version>28.0.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Compat">
-      <Version>26.0.2</Version>
+      <Version>28.0.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Core.UI">
-      <Version>26.0.2</Version>
+      <Version>28.0.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Core.Utils">
-      <Version>26.0.2</Version>
+      <Version>28.0.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Fragment">
-      <Version>26.0.2</Version>
+      <Version>28.0.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Media.Compat">
-      <Version>26.0.2</Version>
+      <Version>28.0.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Messaging">
       <Version>60.1142.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.6.0.293080" />
-    <PackageReference Include="Xamarin.Android.Support.Design" Version="25.4.0.2" />
-    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="25.4.0.2" />
-    <PackageReference Include="Xamarin.Android.Support.v4" Version="25.4.0.2" />
-    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="25.4.0.2" />
-    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="25.4.0.2" />
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="28.0.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.GooglePlayServices.Base">
       <Version>60.1142.1</Version>
     </PackageReference>

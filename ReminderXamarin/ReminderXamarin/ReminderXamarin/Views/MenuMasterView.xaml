@@ -24,11 +24,11 @@
                     <AbsoluteLayout>
                         <Image x:Name="HeaderBackgroundImage"
                                Aspect="AspectFill"
-                               AbsoluteLayout.LayoutBounds="0,0,1,180"
+                               AbsoluteLayout.LayoutBounds="0,0,1,160"
                                AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" />
 
                         <StackLayout x:Name="UserProfileLink"
-                                     HeightRequest="140"
+                                     HeightRequest="160"
                                      AbsoluteLayout.LayoutBounds="0,0,1,1"
                                      AbsoluteLayout.LayoutFlags="All"
                                      Spacing="10"
@@ -51,9 +51,8 @@
                                    HorizontalOptions="Center" />
                         </StackLayout>
                     </AbsoluteLayout>
-
-                    
                 </ListView.Header>
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -72,11 +71,12 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+
                 <ListView.Footer>
                     <StackLayout Spacing="20" 
-                                     Padding="30,5" 
-                                     Orientation="Horizontal" 
-                                     VerticalOptions="FillAndExpand">
+                                 Padding="30,5" 
+                                 Orientation="Horizontal" 
+                                 VerticalOptions="FillAndExpand">
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding LogoutCommand}" NumberOfTapsRequired="1" />
                         </StackLayout.GestureRecognizers>

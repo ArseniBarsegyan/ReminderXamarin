@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Elements.AddItemsToNoteContentView"
-             BackgroundColor="{StaticResource FrameBackground}">
+             BackgroundColor="#cccccccc">
     <ContentView.Resources>
         <ResourceDictionary>
             <Style x:Key="FrameButtonStyle" TargetType="Button">
@@ -12,7 +12,7 @@
                 <Setter Property="WidthRequest" Value="200" />
                 <Setter Property="FontSize" Value="Small" />
                 <Setter Property="CornerRadius" Value="10" />
-                <Setter Property="BorderColor" Value="{StaticResource FrameButtonBorder}" />
+                <Setter Property="BorderColor" Value="#cdced2" />
                 <Setter Property="TextColor" Value="{StaticResource DarkFont}" />
             </Style>
         </ResourceDictionary>

@@ -1,8 +1,10 @@
 ﻿using System.Threading.Tasks;
 using ReminderXamarin.ViewModels.Base;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Services.Navigation
 {
+    [Preserve(AllMembers = true)]
     public interface INavigationService
     {
         BaseViewModel PreviousPageViewModel { get; }

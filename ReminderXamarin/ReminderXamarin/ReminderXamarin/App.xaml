@@ -16,12 +16,6 @@
             <Color x:Key="CancelButtonText">#448AFF</Color>
             <Color x:Key="DeleteButtonBackground">#FF5252</Color>
             <Color x:Key="ErrorTextColor">#FF5252</Color>
-            <!--<Color x:Key="RoundButtonBackground">#323232</Color>-->
-            <Color x:Key="RoundButtonBackground">#448AFF</Color>
-            <Color x:Key="FrameButtonBorder">#cdced2</Color>
-            <Color x:Key="FrameBackground">#cccccccc</Color>
-            <Color x:Key="ProfilePageTitleBackground">#323232</Color>
-            <Color x:Key="PullToRefreshColor">#448AFF</Color>
             
             <Style TargetType="NavigationPage">
                 <Setter Property="BarTextColor" Value="#fafafa" />
@@ -42,7 +36,7 @@
             </Style>
             
             <Style x:Key="ButtonWithImageStyle" TargetType="Button" BasedOn="{StaticResource SubmitButtonStyle}">
-                <Setter Property="BackgroundColor" Value="{StaticResource RoundButtonBackground}" />
+                <Setter Property="BackgroundColor" Value="#448AFF" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="WidthRequest" Value="60" />
                 <Setter Property="HeightRequest" Value="60" />
@@ -52,7 +46,6 @@
 
             <Style x:Key="LoginButtonStyle" TargetType="Button" BasedOn="{StaticResource SubmitButtonStyle}">
                 <Setter Property="Margin" Value="25, 10" />
-                <Setter Property="CornerRadius" Value="0" />
             </Style>
 
             <Style x:Key="ButtonDangerStyle" TargetType="Button" BasedOn="{StaticResource ButtonWithImageStyle}">

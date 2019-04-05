@@ -10,18 +10,12 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class NotesGroup : ObservableCollection<NoteViewModel>
-    {
-        public string Title { get; set; }
-    }
-
     public class NotesViewModel : BaseViewModel
     {
         private List<NoteViewModel> _allNotes;
 
         public NotesViewModel()
         {
-            NotesGroups = new ObservableCollection<NotesGroup>();
             Notes = new ObservableCollection<NoteViewModel>();
 
             SearchText = string.Empty;
@@ -33,7 +27,6 @@ namespace ReminderXamarin.ViewModels
 
         public string SearchText { get; set; }
         public bool IsRefreshing { get; set; }
-        public ObservableCollection<NotesGroup> NotesGroups { get; set; }
         public ObservableCollection<NoteViewModel> Notes { get; set; }
         public ICommand DeleteNoteCommand { get; set; }
         public ICommand RefreshListCommand { get; set; }
@@ -64,7 +57,6 @@ namespace ReminderXamarin.ViewModels
             Notes = _allNotes
                 .Where(x => x.FullDescription.Contains(SearchText))
                 .ToObservableCollection();
-            DivideNotesIntoGroups();
         }
 
         private async Task LoadNotesFromDatabase()
@@ -80,25 +72,6 @@ namespace ReminderXamarin.ViewModels
             Notes = _allNotes.ToObservableCollection();
             // Save filtering.
             SearchNotesByDescription();
-        }
-        
-        private void DivideNotesIntoGroups()
-        {
-            NotesGroups = new ObservableCollection<NotesGroup>();
-            var noteGroups = Notes.GroupBy(g => g.CreationDate.ToString("d"));
-
-            foreach (var noteGroup in noteGroups)
-            {
-                var noteGroupObj = new NotesGroup
-                {
-                    Title = noteGroup.Key
-                };
-                foreach (var model in noteGroup)
-                {
-                    noteGroupObj.Add(model);
-                }
-                NotesGroups.Add(noteGroupObj);
-            }
         }
 
         private async Task<NoteViewModel> SelectNoteCommandExecute(int id)

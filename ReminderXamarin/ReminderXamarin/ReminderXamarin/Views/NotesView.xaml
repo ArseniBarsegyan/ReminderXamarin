@@ -17,7 +17,7 @@
     </ContentPage.Resources>
 
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-        <StackLayout Padding="10" 
+        <StackLayout Padding="5" 
                      AbsoluteLayout.LayoutBounds="0,0,1,1" 
                      AbsoluteLayout.LayoutFlags="All" 
                      Spacing="0" 
@@ -36,10 +36,9 @@
             </elements:ContentViewWithBorder>
             <!-- List with notes -->
             <ListView x:Name="NotesList" 
-                      ItemsSource="{Binding NotesGroups}"
-                      IsGroupingEnabled="True"
+                      ItemsSource="{Binding Notes}"
                       IsPullToRefreshEnabled="True"
-                      RefreshControlColor="{StaticResource PullToRefreshColor}"
+                      RefreshControlColor="#00C853"
                       HasUnevenRows="True"
                       VerticalScrollBarVisibility="Never"
                       CachingStrategy="RecycleElement"
@@ -47,11 +46,6 @@
                       IsRefreshing="{Binding IsRefreshing}"
                       ItemSelected="NotesList_OnItemSelected"
                       SeparatorVisibility="None">
-                <ListView.GroupHeaderTemplate>
-                    <DataTemplate>
-                        <TextCell Text="{Binding Title}" TextColor="{StaticResource DarkFont}" />
-                    </DataTemplate>
-                </ListView.GroupHeaderTemplate>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -66,11 +60,12 @@
                                            HorizontalOptions="FillAndExpand"
                                            HeightRequest="200" />
                                     <StackLayout Spacing="10" Padding="10,10,10,30">
-                                        <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" />
+                                        <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" TextColor="{StaticResource DarkFont}" />
                                         <elements:ExtendedLabel HorizontalTextAlignment="Start" 
                                                                 Lines="5" 
                                                                 LineSpacing="1.1" 
                                                                 LineBreakMode="TailTruncation" 
+                                                                TextColor="{StaticResource DarkFont}"
                                                                 Text="{Binding Description}" />
                                     </StackLayout>
                                 </StackLayout>
