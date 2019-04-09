@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
+using Plugin.LocalNotifications;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels.Base;
 using Xamarin.Forms;

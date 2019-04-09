@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Android.App;
 using Firebase.Messaging;
+using Plugin.LocalNotifications;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Droid

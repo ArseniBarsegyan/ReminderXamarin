@@ -110,6 +110,9 @@
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle">
       <Version>3.0.0.5</Version>
     </PackageReference>
+    <PackageReference Include="Xam.Plugins.Notifier">
+      <Version>3.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Annotations">
       <Version>28.0.0.1</Version>
     </PackageReference>
@@ -155,6 +158,7 @@
     <Compile Include="Interfaces\VideoService.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
+    <Compile Include="NotificationService.cs" />
     <Compile Include="ReminderFirebaseMessagingService.cs" />
     <Compile Include="Renderers\BlurredImageRenderer.cs" />
     <Compile Include="Renderers\ContentViewWithBorderRenderer.cs" />

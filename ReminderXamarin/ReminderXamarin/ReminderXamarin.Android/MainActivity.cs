@@ -54,6 +54,9 @@ namespace ReminderXamarin.Droid
                 System.Diagnostics.Debug.WriteLine("Forced token: " + FirebaseInstanceId.Instance.Token);
             });
 #endif
+
+            var intent = new Intent(ApplicationContext, typeof(NotificationService));
+            StartService(intent);
         }
 
         public override void OnBackPressed()
