@@ -38,7 +38,7 @@
             <ListView x:Name="NotesList" 
                       ItemsSource="{Binding Notes}"
                       IsPullToRefreshEnabled="True"
-                      RefreshControlColor="#00C853"
+                      RefreshControlColor="{StaticResource SubmitButtonBackground}"
                       HasUnevenRows="True"
                       VerticalScrollBarVisibility="Never"
                       CachingStrategy="RecycleElement"

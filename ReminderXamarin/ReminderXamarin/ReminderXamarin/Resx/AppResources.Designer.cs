@@ -313,6 +313,15 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Images:.
+        /// </summary>
+        internal static string Images {
+            get {
+                return ResourceManager.GetString("Images", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Incorrect data.
         /// </summary>
         internal static string IncorrectData {
@@ -381,6 +390,15 @@ namespace ReminderXamarin.Resx {
         internal static string Menu {
             get {
                 return ResourceManager.GetString("Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note:.
+        /// </summary>
+        internal static string Note {
+            get {
+                return ResourceManager.GetString("Note", resourceCulture);
             }
         }
         
@@ -570,6 +588,15 @@ namespace ReminderXamarin.Resx {
         internal static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Videos:.
+        /// </summary>
+        internal static string Videos {
+            get {
+                return ResourceManager.GetString("Videos", resourceCulture);
             }
         }
     }

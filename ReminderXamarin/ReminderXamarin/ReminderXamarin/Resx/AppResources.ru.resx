@@ -201,6 +201,9 @@
   <data name="High" xml:space="preserve">
     <value>Высокий</value>
   </data>
+  <data name="Images" xml:space="preserve">
+    <value>Изображения:</value>
+  </data>
   <data name="IncorrectData" xml:space="preserve">
     <value>Неправильные данные</value>
   </data>
@@ -224,6 +227,9 @@
   </data>
   <data name="Menu" xml:space="preserve">
     <value>Меню</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Заметка:</value>
   </data>
   <data name="Notes" xml:space="preserve">
     <value>Заметки</value>
@@ -287,5 +293,8 @@
   </data>
   <data name="Username" xml:space="preserve">
     <value>Имя пользователя:</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Видео:</value>
   </data>
 </root>

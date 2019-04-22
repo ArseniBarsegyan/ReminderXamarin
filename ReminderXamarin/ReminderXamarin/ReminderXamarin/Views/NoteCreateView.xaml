@@ -18,12 +18,14 @@
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <StackLayout Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Label Text="{extensions:Translate Note}" FontSize="Small" />
                 <elements:ExtendedEditor x:Name="DescriptionEditor"
                                          Placeholder="{extensions:Translate EnterDescription}"
                                          HorizontalOptions="FillAndExpand"
                                          VerticalOptions="FillAndExpand"
                                          HeightRequest="200" />
 
+                <Label Text="{extensions:Translate Images}" FontSize="Small" />
                 <!-- Image gallery with all photos of current note -->
                 <elements:HorizontalImageGallery x:Name="ImageGallery" 
                                                  Orientation="Horizontal" 
@@ -52,6 +54,7 @@
                     </elements:HorizontalImageGallery.ItemTemplate>
                 </elements:HorizontalImageGallery>
 
+                <Label Text="{extensions:Translate Videos}" FontSize="Small" />
                 <ListView x:Name="VideoList" 
                           HeightRequest="150" 
                           ItemsSource="{Binding Videos}" 
