@@ -34,7 +34,6 @@ namespace ReminderXamarin.ViewModels
         private async Task CreateToDoCommandExecute()
         {
             App.ToDoRepository.Save(this.ToToDoModel());
-            MessagingCenter.Send(this, "ToDoCreated", new KeyValuePair<DateTime, string>(WhenHappens, Description));
         }
 
         private async Task UpdateItemCommandExecute()

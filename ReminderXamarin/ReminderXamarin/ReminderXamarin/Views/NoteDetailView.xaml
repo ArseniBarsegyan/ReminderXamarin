@@ -12,6 +12,12 @@
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <!-- Image gallery and note text container -->
             <StackLayout Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <elements:ExtendedEditor x:Name="DescriptionEditor"
+                                         Placeholder="{extensions:Translate EnterDescription}"
+                                         TextChanged="DescriptionEditor_OnTextChanged"
+                                         HorizontalOptions="FillAndExpand"
+                                         HeightRequest="200" />
+
                 <!-- Image gallery with all photos of current note. Visible if note contains not empty photo -->
                 <elements:HorizontalImageGallery x:Name="ImageGallery" 
                                               Orientation="Horizontal" 
@@ -59,12 +65,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
-                <elements:ExtendedEditor x:Name="DescriptionEditor"
-                                         Placeholder="{extensions:Translate EnterDescription}"
-                                         TextChanged="DescriptionEditor_OnTextChanged"
-                                         HorizontalOptions="FillAndExpand"
-                                         HeightRequest="200" />
+                
               <ImageButton Aspect="AspectFit"
                            Source="add.png"
                            Padding="20"

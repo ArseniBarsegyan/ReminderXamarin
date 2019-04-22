@@ -48,6 +48,7 @@
         public const string ToDoModels = "ToDoModels";
         public const string TranslationResourcePath = "ReminderXamarin.Resx.AppResources";
         public const string Users = "Users";
+        public const string UpdateUI = "UpdateUI";
         public const string Videos = "Videos";
         public const string Warning = "Warning";
         public const string Yes = "Yes";

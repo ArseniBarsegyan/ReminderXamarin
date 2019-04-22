@@ -20,6 +20,11 @@ namespace ReminderXamarin.ViewModels
 
             RefreshListCommand = new Command(RefreshCommandExecute);
             SelectItemCommand = new Command<int>(async id => await SelectItemCommandExecute(id));
+
+            MessagingCenter.Subscribe<App>(this, ConstantsHelper.UpdateUI, _ =>
+            {
+                LoadModelsFromDatabase();
+            });
         }
 
         public void OnAppearing()

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
 using Plugin.LocalNotifications;
+using ReminderXamarin.Data.Entities;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.ViewModels;
 using UIKit;
 using UserNotifications;
@@ -17,9 +20,6 @@ namespace ReminderXamarin.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
-        private NSTimer _timer;
-        private readonly List<KeyValuePair<DateTime, string>> _toDoList = new List<KeyValuePair<DateTime, string>>();
-
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -55,37 +55,32 @@ namespace ReminderXamarin.iOS
                 UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
             }
 
-            MessagingCenter.Subscribe<ToDoViewModel, KeyValuePair<DateTime, string>>(this, "ToDoCreated",
-                (model, pair) =>
-                {
-                    _toDoList.Add(pair);
-                });
-            _timer = NSTimer.CreateRepeatingScheduledTimer(TimeSpan.FromSeconds(5), delegate { SendNotification(); });
+            NSTimer.CreateRepeatingScheduledTimer(TimeSpan.FromSeconds(5), delegate { CheckNotifications(); });
             return base.FinishedLaunching(app, options);
         }
 
         public override void DidEnterBackground(UIApplication uiApplication)
         {
-            _timer = NSTimer.CreateRepeatingScheduledTimer(TimeSpan.FromSeconds(5), delegate { SendNotification(); });
+            NSTimer.CreateRepeatingScheduledTimer(TimeSpan.FromSeconds(5), delegate { CheckNotifications(); });
         }
 
-        public void SendNotification()
+        public void CheckNotifications()
         {
             var currentDate = DateTime.Now;
-            for (int i = 0; i < _toDoList.Count; i++)
+
+            var allToDoModels = App.ToDoRepository.GetAll()
+                .Where(x => x.WhenHappens.ToString("dd.MM.yyyy HH:mm") == currentDate.ToString("dd.MM.yyyy HH:mm"))
+                .ToList();
+
+            allToDoModels.ForEach(model =>
             {
-                var pair = _toDoList[i];
-                var dateString = currentDate.ToString("dd.MM.yyyy HH:mm");
-                var pairDateString = pair.Key.ToString("dd.MM.yyyy HH:mm");
-                if (dateString == pairDateString)
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        CrossLocalNotifications.Current.Show(pair.Key.ToString("D"), pair.Value);
-                    });
-                    _toDoList.Remove(pair);
-                }
-            }
+                    CrossLocalNotifications.Current.Show(model.WhenHappens.ToString("D"), model.Description);
+                });
+                App.ToDoRepository.DeleteModel(model);
+                MessagingCenter.Send((App)App.Current, ConstantsHelper.UpdateUI);
+            });
         }
     }
 }
