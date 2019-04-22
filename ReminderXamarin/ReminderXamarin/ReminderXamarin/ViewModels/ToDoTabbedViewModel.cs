@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ReminderXamarin.Enums;
 using ReminderXamarin.Extensions;
-using ReminderXamarin.Models;
 using Rm.Helpers;
 using ReminderXamarin.ViewModels.Base;
 using Xamarin.Forms;

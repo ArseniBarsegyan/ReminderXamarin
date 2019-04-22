@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using ReminderXamarin.Enums;
 using Rm.Helpers;
 using ReminderXamarin.ViewModels;
 using Rm.Data.Data.Entities;
-using ReminderXamarin.Models;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Extensions

@@ -4,6 +4,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Plugin.LocalNotifications;
+using ReminderXamarin.Enums;
 using Rm.Helpers;
 using Xamarin.Forms;
 
@@ -33,7 +34,8 @@ namespace ReminderXamarin.Droid
                     {
                         CrossLocalNotifications.Current.Show(model.WhenHappens.ToString("D"), model.Description);
                     });
-                    App.ToDoRepository.DeleteModel(model);
+                    model.Status = ToDoStatus.Completed.ToString();
+                    App.ToDoRepository.Save(model);
                     MessagingCenter.Send((App)App.Current, ConstantsHelper.UpdateUI);
                 });
                 return true;

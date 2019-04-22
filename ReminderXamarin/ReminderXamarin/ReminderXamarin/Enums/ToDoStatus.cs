@@ -1,4 +1,4 @@
-﻿namespace ReminderXamarin.Models
+﻿namespace ReminderXamarin.Enums
 {
     public enum ToDoStatus
     {

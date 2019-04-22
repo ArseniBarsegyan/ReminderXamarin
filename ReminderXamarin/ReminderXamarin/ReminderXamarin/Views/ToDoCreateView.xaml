@@ -27,9 +27,9 @@
                         <TimePicker x:Name="TimePicker" Format="HH:mm" />
 
                         <Label Text="{extensions:Translate Description}" />
-                        <elements:ExtendedEditor x:Name="DescriptionEditor"
-                                                   HorizontalOptions="FillAndExpand"
-                                                   VerticalOptions="FillAndExpand" />
+                        <Editor x:Name="DescriptionEditor"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand" />
                     </StackLayout>
                 </ScrollView>
             </StackLayout>

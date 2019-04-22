@@ -1,5 +1,5 @@
 ﻿using System;
-using ReminderXamarin.Models;
+using ReminderXamarin.Enums;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

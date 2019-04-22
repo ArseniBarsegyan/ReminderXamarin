@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ReminderXamarin.Models;
+using ReminderXamarin.Enums;
 using ReminderXamarin.ViewModels.Base;
 using ReminderXamarin.Extensions;
 using Xamarin.Forms;

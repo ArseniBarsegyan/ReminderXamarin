@@ -3,6 +3,7 @@ using System.Linq;
 using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
 using Plugin.LocalNotifications;
+using ReminderXamarin.Enums;
 using Rm.Helpers;
 using UIKit;
 using UserNotifications;
@@ -74,7 +75,8 @@ namespace ReminderXamarin.iOS
                 {
                     CrossLocalNotifications.Current.Show(model.WhenHappens.ToString("D"), model.Description);
                 });
-                App.ToDoRepository.DeleteModel(model);
+                model.Status = ToDoStatus.Completed.ToString();
+                App.ToDoRepository.Save(model);
                 MessagingCenter.Send((App)App.Current, ConstantsHelper.UpdateUI);
             });
         }

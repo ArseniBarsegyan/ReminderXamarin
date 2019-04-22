@@ -1,6 +1,6 @@
 ﻿using System;
+using ReminderXamarin.Enums;
 using Rm.Helpers;
-using ReminderXamarin.Models;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
