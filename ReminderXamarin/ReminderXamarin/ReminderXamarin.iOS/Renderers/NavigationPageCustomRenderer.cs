@@ -11,7 +11,7 @@ namespace ReminderXamarin.iOS.Renderers
 {
     /// <summary>
     /// Overrided <see cref="NavigationRenderer"/>. Handle hardware and program "back" button press.
-    /// If current page is <see cref="NoteCreatePage"/>, ask user about leaving this page.
+    /// If current page is <see cref="NoteCreateView"/>, ask user about leaving this page.
     /// </summary>
     public class NavigationPageCustomRenderer : NavigationRenderer
     {

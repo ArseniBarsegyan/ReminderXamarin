@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
 using Plugin.LocalNotifications;
-using ReminderXamarin.Data.Entities;
 using ReminderXamarin.Helpers;
-using ReminderXamarin.ViewModels;
 using UIKit;
 using UserNotifications;
 using Xamarin.Forms;

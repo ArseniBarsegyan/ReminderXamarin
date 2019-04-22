@@ -84,6 +84,17 @@ namespace ReminderXamarin.Views
             MessagingCenter.Unsubscribe<ImageGallery, int>(this, ConstantsHelper.ImageDeleted);
         }
 
+        // Tap on back should close popup first
+        protected override bool OnBackButtonPressed()
+        {
+            if (AddItemsToNoteContentView.IsVisible)
+            {
+                AddItemsToNoteContentView.IsVisible = false;
+                return true;
+            }
+            return base.OnBackButtonPressed();
+        }
+
         private void ViewModel_OnPhotosCollectionChanged(object sender, EventArgs e)
         {
             ImageGallery.IsVisible = true;
