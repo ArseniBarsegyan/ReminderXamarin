@@ -4,7 +4,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Plugin.LocalNotifications;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Droid

@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using ExifLib;
 using PCLStorage;
-using ReminderXamarin.Data.Entities;
+using Rm.Data.Data.Entities;
 
-namespace ReminderXamarin.Helpers
+namespace Rm.Helpers
 {
     /// <summary>
     /// Provide functionality to resizing images.

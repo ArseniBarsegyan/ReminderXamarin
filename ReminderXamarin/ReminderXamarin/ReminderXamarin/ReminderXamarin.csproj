@@ -41,10 +41,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Rm.Data\Rm.Data.csproj" />
+    <ProjectReference Include="..\..\Rm.Helpers\Rm.Helpers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Resx\AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ToDoActiveView.xaml.cs">
+      <DependentUpon>ToDoActiveView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ToDoCompletedView.xaml.cs">
+      <DependentUpon>ToDoCompletedView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

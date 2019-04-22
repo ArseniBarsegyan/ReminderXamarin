@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Android.Content;
 using ReminderXamarin.Droid.Renderers;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using ReminderXamarin.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android.AppCompat;

@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
-using ReminderXamarin.Helpers;
 using ReminderXamarin.Models;
+using Rm.Helpers;
 using ReminderXamarin.ViewModels.Base;
 using Xamarin.Forms;
 
@@ -14,9 +14,8 @@ namespace ReminderXamarin.ViewModels
     {
         public ToDoTabbedViewModel()
         {
-            HighPriorityModels = new ObservableCollection<ToDoViewModel>();
-            MidPriorityModels = new ObservableCollection<ToDoViewModel>();
-            LowPriorityModels = new ObservableCollection<ToDoViewModel>();
+            ActiveModels = new ObservableCollection<ToDoViewModel>();
+            CompletedModels = new ObservableCollection<ToDoViewModel>();
 
             RefreshListCommand = new Command(RefreshCommandExecute);
             SelectItemCommand = new Command<int>(async id => await SelectItemCommandExecute(id));
@@ -35,9 +34,8 @@ namespace ReminderXamarin.ViewModels
         public bool IsLoading { get; set; }
         public bool IsRefreshing { get; set; }
 
-        public ObservableCollection<ToDoViewModel> HighPriorityModels { get; set; }
-        public ObservableCollection<ToDoViewModel> MidPriorityModels { get; set; }
-        public ObservableCollection<ToDoViewModel> LowPriorityModels { get; set; }
+        public ObservableCollection<ToDoViewModel> ActiveModels { get; set; }
+        public ObservableCollection<ToDoViewModel> CompletedModels { get; set; }
 
         public ICommand RefreshListCommand { get; set; }
         public ICommand ShowDetailsCommand { get; set; }
@@ -60,17 +58,14 @@ namespace ReminderXamarin.ViewModels
             var allModels = App.ToDoRepository
                 .GetAll()
                 .Where(x => x.UserId == Settings.CurrentUserId)
-                .ToToDoViewModels();
+                .ToToDoViewModels()
+                .ToList();
 
-            HighPriorityModels = allModels.Where(x => x.Priority == ToDoPriority.High)
+            ActiveModels = allModels.Where(x => x.Status == ToDoStatus.Active)
                 .OrderByDescending(x => x.WhenHappens)
                 .ToObservableCollection();
 
-            MidPriorityModels = allModels.Where(x => x.Priority == ToDoPriority.Medium)
-                .OrderByDescending(x => x.WhenHappens)
-                .ToObservableCollection();
-
-            LowPriorityModels = allModels.Where(x => x.Priority == ToDoPriority.Low)
+            CompletedModels = allModels.Where(x => x.Status == ToDoStatus.Completed)
                 .OrderByDescending(x => x.WhenHappens)
                 .ToObservableCollection();
         }

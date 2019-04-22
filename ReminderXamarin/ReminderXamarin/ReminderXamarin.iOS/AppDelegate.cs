@@ -3,7 +3,7 @@ using System.Linq;
 using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
 using Plugin.LocalNotifications;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using UIKit;
 using UserNotifications;
 using Xamarin.Forms;

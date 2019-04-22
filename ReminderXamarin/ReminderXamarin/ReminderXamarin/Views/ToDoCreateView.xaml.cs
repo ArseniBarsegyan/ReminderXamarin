@@ -8,11 +8,11 @@ namespace ReminderXamarin.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ToDoCreateView : ContentPage
     {
-        private readonly ToDoPriority _priority;
+        private readonly ToDoStatus _toDoStatus;
 
-        public ToDoCreateView(ToDoPriority priority)
+        public ToDoCreateView(ToDoStatus toDoStatus)
         {
-            _priority = priority;
+            _toDoStatus = toDoStatus;
             InitializeComponent();
             TimePicker.Time = DateTime.Now.TimeOfDay;
         }
@@ -30,7 +30,7 @@ namespace ReminderXamarin.Views
 
             var fullDate = eventDate.Add(eventTime);
 
-            ViewModel.Priority = _priority;
+            ViewModel.Status = _toDoStatus;
             ViewModel.WhenHappens = fullDate;
             ViewModel.Description = DescriptionEditor.Text;
             ViewModel.CreateToDoCommand.Execute(null);

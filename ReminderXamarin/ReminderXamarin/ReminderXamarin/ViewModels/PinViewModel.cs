@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using ReminderXamarin.ViewModels.Base;
 using Xamarin.Forms;
 

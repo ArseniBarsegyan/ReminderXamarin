@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using ReminderXamarin.Data.Entities;
+using ReminderXamarin;
+using Rm.Data.Data.Entities;
 
-namespace ReminderXamarin.Helpers
+namespace Rm.Helpers
 {
     /// <summary>
     /// Class for test purposes. Implements authentication logic of the app.

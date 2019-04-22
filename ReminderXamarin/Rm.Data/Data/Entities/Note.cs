@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 
-namespace ReminderXamarin.Data.Entities
+namespace Rm.Data.Data.Entities
 {
     [Table(ConstantsHelper.Notes)]
     public class Note

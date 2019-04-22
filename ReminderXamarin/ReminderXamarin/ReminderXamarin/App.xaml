@@ -74,7 +74,6 @@
             
             <!-- Converters -->
             <converters:NullElementToBoolConverter x:Key="NullElementToBoolConverter" />
-            <converters:PriorityToImageConverter x:Key="PriorityToImageConverter" />
             <converters:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
             <converters:EmptyByteToImageSourceConverter x:Key="EmptyByteToImageSourceConverter" />
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />

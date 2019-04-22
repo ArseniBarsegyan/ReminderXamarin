@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using ReminderXamarin.ViewModels;
-using ReminderXamarin.Data.Entities;
+using Rm.Data.Data.Entities;
+using ReminderXamarin.Models;
 using Xamarin.Forms;
-using ToDoPriority = ReminderXamarin.Models.ToDoPriority;
 
 namespace ReminderXamarin.Extensions
 {
@@ -124,7 +124,7 @@ namespace ReminderXamarin.Extensions
             {
                 Id = viewModel.Id,
                 UserId = Settings.CurrentUserId,
-                Priority = viewModel.Priority.ToString(),
+                Status = viewModel.Status.ToString(),
                 WhenHappens = viewModel.WhenHappens,
                 Description = viewModel.Description
             };
@@ -139,16 +139,16 @@ namespace ReminderXamarin.Extensions
                 Description = model.Description
             };
 
-            switch (model.Priority)
+            switch (model.Status)
             {
-                case ConstantsHelper.High:
-                    viewModel.Priority = ToDoPriority.High;
+                case ConstantsHelper.Active:
+                    viewModel.Status = ToDoStatus.Active;
                     break;
-                case ConstantsHelper.Medium:
-                    viewModel.Priority = ToDoPriority.Medium;
+                case ConstantsHelper.Completed:
+                    viewModel.Status = ToDoStatus.Completed;
                     break;
                 default:
-                    viewModel.Priority = ToDoPriority.Low;
+                    viewModel.Status = ToDoStatus.Active;
                     break;
             }
             return viewModel;
@@ -159,7 +159,7 @@ namespace ReminderXamarin.Extensions
             return viewModels.Select(viewModel => new ToDoModel
             {
                 Id = viewModel.Id,
-                Priority = viewModel.Priority.ToString(),
+                Status = viewModel.Status.ToString(),
                 WhenHappens = viewModel.WhenHappens,
                 Description = viewModel.Description
             })
@@ -178,16 +178,16 @@ namespace ReminderXamarin.Extensions
                     WhenHappens = model.WhenHappens,
                     Description = model.Description
                 };
-                switch (model.Priority)
+                switch (model.Status)
                 {
-                    case ConstantsHelper.High:
-                        viewModel.Priority = ToDoPriority.High;
+                    case ConstantsHelper.Active:
+                        viewModel.Status = ToDoStatus.Active;
                         break;
-                    case ConstantsHelper.Medium:
-                        viewModel.Priority = ToDoPriority.Medium;
+                    case ConstantsHelper.Completed:
+                        viewModel.Status = ToDoStatus.Completed;
                         break;
                     default:
-                        viewModel.Priority = ToDoPriority.Low;
+                        viewModel.Status = ToDoStatus.Active;
                         break;
                 }
                 viewModels.Add(viewModel);

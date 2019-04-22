@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ReminderXamarin.Views;
 using ReminderXamarin.Resx;
 
-namespace ReminderXamarin.Helpers
+namespace Rm.Helpers
 {
     /// <summary>
     /// Helper class. Provide list of MasterPageItem for MenuView.

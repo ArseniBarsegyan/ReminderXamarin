@@ -190,6 +190,14 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Rm.Data\Rm.Data.csproj">
+      <Project>{7d972519-5c7a-4275-a74a-e69a7a981104}</Project>
+      <Name>Rm.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Rm.Helpers\Rm.Helpers.csproj">
+      <Project>{bc8b0265-b1fd-42dd-ad25-ca9f804a56ae}</Project>
+      <Name>Rm.Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ReminderXamarin\ReminderXamarin.csproj">
       <Project>{10FDABC7-061B-4B19-9819-DA9D5F1DAB63}</Project>
       <Name>ReminderXamarin</Name>

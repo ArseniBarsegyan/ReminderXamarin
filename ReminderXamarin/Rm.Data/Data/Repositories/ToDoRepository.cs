@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using ReminderXamarin.Data.Entities;
+using Rm.Data.Data.Entities;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
 
-namespace ReminderXamarin.Data.Repositories
+namespace Rm.Data.Data.Repositories
 {
     public class ToDoRepository
     {

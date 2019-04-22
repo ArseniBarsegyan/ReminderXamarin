@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using ReminderXamarin.Services;
 using Xamarin.Forms;
 

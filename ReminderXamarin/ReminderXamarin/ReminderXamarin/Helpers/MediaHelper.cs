@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using PCLStorage;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
-using ReminderXamarin.Data.Entities;
+using Rm.Data.Data.Entities;
 
-namespace ReminderXamarin.Helpers
+namespace Rm.Helpers
 {
     /// <summary>
     /// Provide helper methods for taking photos and videos.

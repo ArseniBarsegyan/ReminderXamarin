@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Resources;
 using Plugin.Multilingual;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

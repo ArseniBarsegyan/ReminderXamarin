@@ -126,6 +126,9 @@
   <data name="AchievementsCount" xml:space="preserve">
     <value>Число достижений:</value>
   </data>
+  <data name="Active" xml:space="preserve">
+    <value>Активные</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>Добавить</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="Close" xml:space="preserve">
     <value>Закрыть</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Завершенные</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Повторите пароль:</value>

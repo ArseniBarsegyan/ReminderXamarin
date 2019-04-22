@@ -1,7 +1,7 @@
 ﻿using ReminderXamarin.Services;
 using Xamarin.Forms;
 
-namespace ReminderXamarin.Helpers
+namespace Rm.Helpers
 {
     /// <summary>
     /// Helper class, calling implementation of the <see cref="T:MyDiary.Interfaces.IImageService"/>.

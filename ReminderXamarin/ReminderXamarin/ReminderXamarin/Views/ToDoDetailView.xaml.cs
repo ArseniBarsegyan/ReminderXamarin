@@ -1,5 +1,5 @@
 ﻿using System;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using ReminderXamarin.Models;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
@@ -44,9 +44,9 @@ namespace ReminderXamarin.Views
             var fullDate = eventDate.Add(eventTime);
             _viewModel.WhenHappens = fullDate;
 
-            if (PriorityPicker.SelectedItem is ToDoPriority priority)
+            if (PriorityPicker.SelectedItem is ToDoStatus status)
             {
-                _viewModel.Priority = priority;
+                _viewModel.Status = status;
             }
             _viewModel.UpdateItemCommand.Execute(_viewModel);
 

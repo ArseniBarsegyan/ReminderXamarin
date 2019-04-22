@@ -4,8 +4,8 @@
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             x:Class="ReminderXamarin.Views.ToDoLowPriorityView"
-             Title="{extensions:Translate Low}"
+             x:Class="ReminderXamarin.Views.ToDoActiveView"
+             Title="{extensions:Translate Active}"
              BackgroundColor="White">
     <ContentPage.BindingContext>
       <viewModels:ToDoTabbedViewModel x:Name="ViewModel" />
@@ -19,7 +19,7 @@
                      VerticalOptions="FillAndExpand"
                      HorizontalOptions="FillAndExpand">
                 <ListView x:Name="ToDoList"
-                      ItemsSource="{Binding LowPriorityModels}"
+                      ItemsSource="{Binding ActiveModels}"
                       IsPullToRefreshEnabled="True"
                       HasUnevenRows="True"
                       CachingStrategy="RecycleElement"
@@ -49,17 +49,17 @@
                                             </Grid.ColumnDefinitions>
 
                                             <elements:ExtendedLabel Text="{Binding WhenHappens, StringFormat='{0:dd.MM.yy HH:mm}'}" 
-                                                                    VerticalOptions="Center"
-                                                                    Grid.Row="0"
-                                                                    Grid.Column="0" />
+                                                                   VerticalOptions="Center"
+                                                                   Grid.Row="0"
+                                                                   Grid.Column="0" />
 
                                             <elements:ExtendedLabel Lines="2"
-                                                                    LineSpacing="1.1" 
-                                                                    Grid.Row="0"
-                                                                    LineBreakMode="TailTruncation"
-                                                                    Grid.Column="1"
-                                                                    Text="{Binding Description}"
-                                                                    VerticalOptions="Center" />
+                                                                   LineSpacing="1.1" 
+                                                                   Grid.Row="0"
+                                                                   LineBreakMode="TailTruncation"
+                                                                   Grid.Column="1"
+                                                                   Text="{Binding Description}"
+                                                                   VerticalOptions="Center" />
                                         </Grid>
                                     </elements:ContentViewWithBorder>
                                 </StackLayout>

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using ReminderXamarin.Data.Repositories;
+using Rm.Data.Data.Repositories;
 using ReminderXamarin.DependencyResolver;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.IoC;

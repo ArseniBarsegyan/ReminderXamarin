@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ReminderXamarin.Extensions;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using ReminderXamarin.ViewModels.Base;
-using ReminderXamarin.Data.Entities;
+using Rm.Data.Data.Entities;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels

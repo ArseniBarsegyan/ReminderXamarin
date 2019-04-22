@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using ReminderXamarin.iOS.Renderers;
 using ReminderXamarin.Views;
 using Xamarin.Forms;

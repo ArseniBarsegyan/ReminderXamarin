@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
-using ReminderXamarin.Data.Entities;
+using Rm.Data.Data.Entities;
 using Xamarin.Forms;
 using ReminderXamarin.ViewModels.Base;
 

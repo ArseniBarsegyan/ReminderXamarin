@@ -88,6 +88,15 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        internal static string Active {
+            get {
+                return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         internal static string Add {
@@ -156,6 +165,15 @@ namespace ReminderXamarin.Resx {
         internal static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed.
+        /// </summary>
+        internal static string Completed {
+            get {
+                return ResourceManager.GetString("Completed", resourceCulture);
             }
         }
         
@@ -466,7 +484,7 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Priority:.
+        ///   Looks up a localized string similar to Status:.
         /// </summary>
         internal static string Priority {
             get {

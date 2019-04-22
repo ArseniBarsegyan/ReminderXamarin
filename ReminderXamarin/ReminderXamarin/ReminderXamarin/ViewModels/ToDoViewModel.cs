@@ -21,9 +21,9 @@ namespace ReminderXamarin.ViewModels
 
         public int Id { get; set; }
         public IList<string> AvailablePriorities => 
-            Enum.GetNames(typeof(ToDoPriority)).Select(x => x.ToString()).ToList();
+            Enum.GetNames(typeof(ToDoStatus)).Select(x => x.ToString()).ToList();
 
-        public ToDoPriority Priority { get; set; } = ToDoPriority.High;
+        public ToDoStatus Status { get; set; } = ToDoStatus.Active;
         public string Description { get; set; }
         public DateTime WhenHappens { get; set; }
 

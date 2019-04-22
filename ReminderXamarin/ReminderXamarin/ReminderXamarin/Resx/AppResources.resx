@@ -126,6 +126,9 @@
   <data name="AchievementsCount" xml:space="preserve">
     <value>Achievements count:</value>
   </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Completed</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm password:</value>
@@ -253,7 +259,7 @@
     <value>Preferences description:</value>
   </data>
   <data name="Priority" xml:space="preserve">
-    <value>Priority:</value>
+    <value>Status:</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>

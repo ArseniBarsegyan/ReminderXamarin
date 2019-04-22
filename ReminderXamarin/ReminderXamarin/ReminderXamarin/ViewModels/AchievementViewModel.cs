@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using ReminderXamarin.Extensions;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels.Base;

@@ -1,5 +1,5 @@
 ﻿using System;
-using ReminderXamarin.Helpers;
+using Rm.Helpers;
 using ReminderXamarin.Models;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
@@ -9,12 +9,12 @@ namespace ReminderXamarin.Views
 {
     /// <inheritdoc />
     /// <summary>
-    /// Page contains to-do list of low-priority to-do items.
+    /// Page contains to-do list of medium-level-priority to-do items.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ToDoLowPriorityView : ContentPage
+    public partial class ToDoCompletedView : ContentPage
     {
-        public ToDoLowPriorityView()
+        public ToDoCompletedView()
         {
             InitializeComponent();
         }
@@ -49,7 +49,7 @@ namespace ReminderXamarin.Views
 
         private async void CreateToDoButton_OnClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ToDoCreateView(ToDoPriority.Low));
+            await Navigation.PushAsync(new ToDoCreateView(ToDoStatus.Completed));
         }
     }
 }
