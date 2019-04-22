@@ -116,7 +116,7 @@ namespace ReminderXamarin.Services.Navigation
                 await viewModel.InitializeAsync(parameter);
             }
 
-            if (page is MenuView || page is LoginView || page is PinView || page is RegisterView)
+            if (page is MenuView || page is LoginView || page is PinView)
             {                
                 Application.Current.MainPage = page;
             }

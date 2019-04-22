@@ -538,6 +538,15 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SignIn.
+        /// </summary>
+        internal static string SignIn {
+            get {
+                return ResourceManager.GetString("SignIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Take photo.
         /// </summary>
         internal static string TakePhoto {

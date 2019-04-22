@@ -276,6 +276,9 @@
   <data name="SettingsLoginSectionName" xml:space="preserve">
     <value>Настройки входа</value>
   </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Войти</value>
+  </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Сделать фото</value>
   </data>
