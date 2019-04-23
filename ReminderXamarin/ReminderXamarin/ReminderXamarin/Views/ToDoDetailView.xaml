@@ -14,10 +14,10 @@
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <StackLayout Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-                <Label Text="{extensions:Translate Priority}" />
+                <Label Text="{extensions:Translate Status}" />
                 <elements:CustomPickerWithIcon x:Name="PriorityPicker"
-                                               ItemsSource="{Binding AvailablePriorities}"
-                                               SelectedIndex="{Binding Priority, Converter={StaticResource IntEnumConverter}}" />
+                                               ItemsSource="{Binding AvailableStatuses}"
+                                               SelectedIndex="{Binding Status, Converter={StaticResource IntEnumConverter}}" />
 
                 <Label Text="{extensions:Translate Date}" />
                 <DatePicker x:Name="DatePicker"

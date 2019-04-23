@@ -20,7 +20,7 @@ namespace ReminderXamarin.ViewModels
         }
 
         public int Id { get; set; }
-        public IList<string> AvailablePriorities => 
+        public IList<string> AvailableStatuses => 
             Enum.GetNames(typeof(ToDoStatus)).Select(x => x.ToString()).ToList();
 
         public ToDoStatus Status { get; set; } = ToDoStatus.Active;

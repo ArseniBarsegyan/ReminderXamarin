@@ -25,6 +25,7 @@ namespace ReminderXamarin.Droid
                 var currentDate = DateTime.Now;
 
                 var allToDoModels = App.ToDoRepository.GetAll()
+                    .Where(x => x.Status == ConstantsHelper.Active)
                     .Where(x => x.WhenHappens.ToString("dd.MM.yyyy HH:mm") == currentDate.ToString("dd.MM.yyyy HH:mm"))
                     .ToList();
 

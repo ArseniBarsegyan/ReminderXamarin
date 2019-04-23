@@ -258,9 +258,6 @@
   <data name="PreferencesDescription" xml:space="preserve">
     <value>Preferences description:</value>
   </data>
-  <data name="Priority" xml:space="preserve">
-    <value>Status:</value>
-  </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
   </data>
@@ -278,6 +275,9 @@
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>SignIn</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status:</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Take photo</value>

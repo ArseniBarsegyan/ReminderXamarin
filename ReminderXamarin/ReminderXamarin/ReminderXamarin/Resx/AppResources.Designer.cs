@@ -484,15 +484,6 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Status:.
-        /// </summary>
-        internal static string Priority {
-            get {
-                return ResourceManager.GetString("Priority", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Profile.
         /// </summary>
         internal static string Profile {
@@ -543,6 +534,15 @@ namespace ReminderXamarin.Resx {
         internal static string SignIn {
             get {
                 return ResourceManager.GetString("SignIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status:.
+        /// </summary>
+        internal static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
             }
         }
         
