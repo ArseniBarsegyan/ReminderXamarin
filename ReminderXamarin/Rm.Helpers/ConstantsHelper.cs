@@ -10,6 +10,7 @@
         public const string AchievementsIcon = "achievements_icon.png";
         public const string AchievementDeleteMessage = "Are you sure you want to delete this achievement?";
         public const string AchievementNoteDeleteMessage = "Are you sure you want to delete this achievement note?";
+        public const string AlreadyHaveAccountQuestion = "AlreadyHaveAccountQuestion";
         public const string ArrowForwardImage = "arrow_forward.png";
         public const string AreYouSure = "Are you sure?";
         public const string BackgroundImageSource = "ReminderXamarin.Images.login_background.png";
@@ -19,6 +20,7 @@
         public const string Cancel = "Cancel";
         public const string DeleteImageSource = "delete.png";
         public const string DetailPageChanged = "DetailPageChanged";
+        public const string DontHaveAccountQuestion = "DontHaveAccountQuestion";
         public const string EmptyDotImage = "emptyDot.png";
         public const string FilledDotImage = "filledDot.png";
         public const string Friends = "Friends";
@@ -27,6 +29,7 @@
         public const string ImageDeleted = "ImageDeleted";
         public const string LoadingMessage = "LoadingMessage";
         public const string Completed = "Completed";
+        public const string Login = "Login";
         public const string No = "No";
         public const string Notes = "Notes";
         public const string NoteTextIsEmptyMessage = "Note text is empty. Creation cancelled";
@@ -36,6 +39,7 @@
         public const string Photos = "Photos";
         public const string PageCloseMessage = "Are you sure you want to close this page?";
         public const string ProfileUpdated = "ProfileUpdated";
+        public const string Register = "Register";
         public const string Settings = "Settings";
         public const string SettingsIcon = "settings.png";
         public const string SideMenuBackground = "ReminderXamarin.Images.menu_background.png";

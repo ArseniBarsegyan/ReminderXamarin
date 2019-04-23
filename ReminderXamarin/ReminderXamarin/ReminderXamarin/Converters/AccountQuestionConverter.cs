@@ -1,23 +1,30 @@
 ﻿using System;
 using System.Globalization;
+using System.Reflection;
+using System.Resources;
+using ReminderXamarin.Extensions;
+using Rm.Helpers;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Converters
 {
     public class AccountQuestionConverter : IValueConverter
     {
+        public static readonly Lazy<ResourceManager> Resmgr = new Lazy<ResourceManager>(
+            () => new ResourceManager(ConstantsHelper.TranslationResourcePath, typeof(TranslateExtension).GetTypeInfo().Assembly));
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if ((bool)value)
             {
-                return "Already have account?";
+                return Resmgr.Value.GetString(ConstantsHelper.AlreadyHaveAccountQuestion, culture);
             }
-            return "Don't have account?";
+            return Resmgr.Value.GetString(ConstantsHelper.DontHaveAccountQuestion, culture);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((string)value == "Already have account?")
+            if ((string)value == Resmgr.Value.GetString(ConstantsHelper.AlreadyHaveAccountQuestion, culture))
             {
                 return true;
             }
