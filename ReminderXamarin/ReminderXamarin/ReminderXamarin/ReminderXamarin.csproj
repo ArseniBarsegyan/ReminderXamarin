@@ -32,7 +32,6 @@
     <PackageReference Include="Plugin.Multilingual" Version="1.0.2" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />
     <PackageReference Include="SimpleInjector" Version="4.5.1" />
-    <PackageReference Include="SQLiteNetExtensions" Version="2.0.0" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
     <PackageReference Include="Xam.Plugins.Notifier" Version="3.0.1" />
