@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
-using ReminderXamarin.Droid.Interfaces;
+using ReminderXamarin.Droid.Services;
 using ReminderXamarin.Services;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(FileSystem))]
-namespace ReminderXamarin.Droid.Interfaces
+namespace ReminderXamarin.Droid.Services
 {
     /// <inheritdoc />
     /// <summary>

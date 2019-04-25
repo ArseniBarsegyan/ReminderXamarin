@@ -8,7 +8,7 @@ using Android.Runtime;
 using ImageCircle.Forms.Plugin.Droid;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
-using ReminderXamarin.Droid.Interfaces.FilePickerService;
+using ReminderXamarin.Droid.Services.FilePickerService;
 
 namespace ReminderXamarin.Droid
 {

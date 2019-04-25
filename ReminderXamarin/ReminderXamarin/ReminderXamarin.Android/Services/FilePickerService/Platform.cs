@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 
-namespace ReminderXamarin.Droid.Interfaces.FilePickerService
+namespace ReminderXamarin.Droid.Services.FilePickerService
 {
     /// <summary>
     /// Android platform management. Required for PlatformDocumentPicker class.
@@ -28,7 +28,7 @@ namespace ReminderXamarin.Droid.Interfaces.FilePickerService
         /// </remarks>
         public static void Init(MainActivity mainActivity)
         {
-            Platform._mainActivity = mainActivity;
+            _mainActivity = mainActivity;
         }
 
         /// <summary>

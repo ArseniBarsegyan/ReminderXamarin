@@ -1,14 +1,13 @@
-﻿
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Android.App;
 using Android.Support.V4.Content;
 using Android.Widget;
 using Plugin.CurrentActivity;
-using ReminderXamarin.Droid.Interfaces;
+using ReminderXamarin.Droid.Services;
 using ReminderXamarin.Services;
 
 [assembly: Xamarin.Forms.Dependency(typeof(AlertService))]
-namespace ReminderXamarin.Droid.Interfaces
+namespace ReminderXamarin.Droid.Services
 {
     /// <summary>
     /// Implementation of <see cref="IAlertService"/>
