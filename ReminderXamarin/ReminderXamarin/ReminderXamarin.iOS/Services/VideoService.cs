@@ -47,7 +47,8 @@ namespace ReminderXamarin.iOS.Services
 
     public class QLPreviewItemFileSystem : QLPreviewItem
     {
-        string _fileName, _filePath;
+        private readonly string _fileName;
+        private readonly string _filePath;
 
         public QLPreviewItemFileSystem(string fileName, string filePath)
         {
@@ -55,20 +56,8 @@ namespace ReminderXamarin.iOS.Services
             _filePath = filePath;
         }
 
-        public override string ItemTitle
-        {
-            get
-            {
-                return _fileName;
-            }
-        }
-        public override NSUrl ItemUrl
-        {
-            get
-            {
-                return NSUrl.FromFilename(_filePath);
-            }
-        }
+        public override string ItemTitle => _fileName;
 
+        public override NSUrl ItemUrl => NSUrl.FromFilename(_filePath);
     }
 }

@@ -3,12 +3,12 @@ using System.IO;
 using System.Threading.Tasks;
 using Android.Content;
 using Android.Provider;
-using ReminderXamarin.Droid.Interfaces.FilePickerService;
+using ReminderXamarin.Droid.Services.FilePickerService;
 using ReminderXamarin.Services.FilePickerService;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(PlatformDocumentPicker))]
-namespace ReminderXamarin.Droid.Interfaces.FilePickerService
+namespace ReminderXamarin.Droid.Services.FilePickerService
 {
     /// <inheritdoc />
     /// <summary>

@@ -1,11 +1,11 @@
-﻿using Android.Runtime;
+﻿using Android.Content;
+using Android.Runtime;
 using Android.Views;
-using Android.Content;
-using ReminderXamarin.Droid.Interfaces;
+using ReminderXamarin.Droid.Services;
 using ReminderXamarin.Services;
 
 [assembly: Xamarin.Forms.Dependency(typeof(DeviceOrientation))]
-namespace ReminderXamarin.Droid.Interfaces
+namespace ReminderXamarin.Droid.Services
 {
     /// <inheritdoc />
     /// <summary>

@@ -80,10 +80,10 @@ namespace ReminderXamarin.iOS.Services
         /// </summary>
         public void Hide()
         {
-            UIView.Animate(
+            Animate(
                 0.5, // duration
                 () => { Alpha = 0; },
-                () => { RemoveFromSuperview(); }
+                RemoveFromSuperview
             );
         }
     };
