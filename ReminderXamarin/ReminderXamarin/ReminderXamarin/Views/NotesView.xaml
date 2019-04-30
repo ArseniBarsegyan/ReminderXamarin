@@ -40,7 +40,6 @@
                       IsPullToRefreshEnabled="True"
                       RefreshControlColor="{StaticResource SubmitButtonBackground}"
                       HasUnevenRows="True"
-                      VerticalScrollBarVisibility="Never"
                       CachingStrategy="RecycleElement"
                       RefreshCommand="{Binding RefreshListCommand}"
                       IsRefreshing="{Binding IsRefreshing}"

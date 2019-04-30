@@ -87,9 +87,9 @@ namespace ReminderXamarin.Views
         // Tap on back should close popup first
         protected override bool OnBackButtonPressed()
         {
-            if (AddItemsToNoteContentView.IsVisible)
+            if (AdditionalItemsContentView.IsVisible)
             {
-                AddItemsToNoteContentView.IsVisible = false;
+                AdditionalItemsContentView.IsVisible = false;
                 return true;
             }
             return base.OnBackButtonPressed();
@@ -121,15 +121,15 @@ namespace ReminderXamarin.Views
 
         private void AddButton_OnClicked(object sender, EventArgs e)
         {
-            AddItemsToNoteContentView.IsVisible = true;
+            AdditionalItemsContentView.IsVisible = true;
         }
 
-        private void AddItemsToNoteContentView_OnTakePhotoButtonClicked(object sender, EventArgs e)
+        private void AdditionalItemsContentView_OnTakePhotoButtonClicked(object sender, EventArgs e)
         {
             ViewModel.TakePhotoCommand.Execute(null);
         }
 
-        private async void AddItemsToNoteContentView_OnPickPhotoButtonClicked(object sender, EventArgs e)
+        private async void AdditionalItemsContentView_OnPickPhotoButtonClicked(object sender, EventArgs e)
         {
             ViewModel.IsLoading = true;
             var document = await DocumentPicker.DisplayImportAsync(this);
@@ -141,12 +141,12 @@ namespace ReminderXamarin.Views
             ViewModel.PickPhotoCommand.Execute(document);
         }
 
-        private void AddItemsToNoteContentView_OnTakeVideoButtonClicked(object sender, EventArgs e)
+        private void AdditionalItemsContentView_OnTakeVideoButtonClicked(object sender, EventArgs e)
         {
             ViewModel.TakeVideoCommand.Execute(null);
         }
 
-        private async void AddItemsToNoteContentView_OnPickVideoButtonClicked(object sender, EventArgs e)
+        private async void AdditionalItemsContentView_OnPickVideoButtonClicked(object sender, EventArgs e)
         {
             ViewModel.IsLoading = true;
             var document = await DocumentPicker.DisplayImportAsync(this);

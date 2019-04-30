@@ -9,9 +9,9 @@ namespace ReminderXamarin.Elements
     /// Contains frame with buttons "Take Photo", "Pick Photo", "Close".
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddItemsToNoteContentView : ContentView
+    public partial class AdditionalItemsContentView : ContentView
     {
-        public AddItemsToNoteContentView()
+        public AdditionalItemsContentView()
         {
             InitializeComponent();
         }

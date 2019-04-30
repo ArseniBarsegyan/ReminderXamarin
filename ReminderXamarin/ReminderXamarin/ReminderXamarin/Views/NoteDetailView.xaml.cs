@@ -49,11 +49,6 @@ namespace ReminderXamarin.Views
             {
                 ToolbarItems.Add(_confirmToolbarItem);
             }
-
-            //if (!ConfirmButton.IsVisible)
-            //{
-            //    ConfirmButton.IsVisible = true;
-            //}
         }
 
         protected override void OnDisappearing()
@@ -66,9 +61,9 @@ namespace ReminderXamarin.Views
         // Tap on back should close popup first
         protected override bool OnBackButtonPressed()
         {
-            if (AddItemsToNoteContentView.IsVisible)
+            if (AdditionalItemsContentView.IsVisible)
             {
-                AddItemsToNoteContentView.IsVisible = false;
+                AdditionalItemsContentView.IsVisible = false;
                 return true;
             }
             return base.OnBackButtonPressed();
@@ -94,10 +89,6 @@ namespace ReminderXamarin.Views
             {
                 ToolbarItems.Remove(_confirmToolbarItem);
             }
-            //if (ConfirmButton.IsVisible)
-            //{
-            //    ConfirmButton.IsVisible = false;
-            //}
         }
 
         private void DescriptionEditor_OnTextChanged(object sender, TextChangedEventArgs e)
@@ -106,25 +97,10 @@ namespace ReminderXamarin.Views
             {
                 ToolbarItems.Add(_confirmToolbarItem);
             }
-
-            //if (!ConfirmToolbarItem.IsVisible)
-            //{
-            //    ConfirmButton.IsVisible = true;
-            //}
         }
 
         private async void HorizontalImageGallery_OnItemTapped(object sender, EventArgs e)
         {
-            //if (sender is Image tappedImage)
-            //{
-            //    FileImageSource fileImageSource = (FileImageSource)tappedImage.Source;
-            //    string filePath = fileImageSource.File;
-            //    _noteViewModel.SelectedPhoto = _noteViewModel.Photos.FirstOrDefault(x => x.ResizedPath == filePath);
-            //    var images = _noteViewModel.Photos.ToImages();
-            //    var currentImage = _noteViewModel.SelectedPhoto.ToImage();
-
-            //    await Navigation.PushPopupAsync(new FullSizeImageGallery(images, currentImage));
-            //}
             if (sender is Image tappedImage)
             {
                 await Navigation.PushPopupAsync(new FullSizeImageView(tappedImage.Source));
@@ -133,10 +109,10 @@ namespace ReminderXamarin.Views
 
         private void AddButton_OnClicked(object sender, EventArgs e)
         {
-            AddItemsToNoteContentView.IsVisible = true;
+            AdditionalItemsContentView.IsVisible = true;
         }
 
-        private async void AddItemsToNoteContentView_OnPickPhotoButtonClicked(object sender, EventArgs e)
+        private async void AdditionalItemsContentView_OnPickPhotoButtonClicked(object sender, EventArgs e)
         {
             _noteViewModel.IsLoading = true;
 
@@ -149,17 +125,17 @@ namespace ReminderXamarin.Views
             _noteViewModel.PickPhotoCommand.Execute(document);
         }
 
-        private void AddItemsToNoteContentView_OnTakePhotoButtonClicked(object sender, EventArgs e)
+        private void AdditionalItemsContentView_OnTakePhotoButtonClicked(object sender, EventArgs e)
         {
             _noteViewModel.TakePhotoCommand.Execute(null);
         }
 
-        private void AddItemsToNoteContentView_OnTakeVideoButtonClicked(object sender, EventArgs e)
+        private void AdditionalItemsContentView_OnTakeVideoButtonClicked(object sender, EventArgs e)
         {
             _noteViewModel.TakeVideoCommand.Execute(null);
         }
 
-        private async void AddItemsToNoteContentView_OnPickVideoButtonClicked(object sender, EventArgs e)
+        private async void AdditionalItemsContentView_OnPickVideoButtonClicked(object sender, EventArgs e)
         {
             _noteViewModel.IsLoading = true;
             var document = await DocumentPicker.DisplayImportAsync(this);

@@ -2,7 +2,7 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             x:Class="ReminderXamarin.Elements.AddItemsToNoteContentView"
+             x:Class="ReminderXamarin.Elements.AdditionalItemsContentView"
              BackgroundColor="#cccccccc">
     <ContentView.Resources>
         <ResourceDictionary>

@@ -19,7 +19,7 @@ namespace ReminderXamarin.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            if (this.BindingContext is NotesViewModel viewModel)
+            if (BindingContext is NotesViewModel viewModel)
             {
                 await viewModel.OnAppearing();
             }            
@@ -44,7 +44,7 @@ namespace ReminderXamarin.Views
                 var menuItem = sender as MenuItem;
                 var noteViewModel = menuItem?.CommandParameter as NoteViewModel;
 
-                if (this.BindingContext is NotesViewModel viewModel)
+                if (BindingContext is NotesViewModel viewModel)
                 {
                     viewModel.DeleteNoteCommand.Execute(noteViewModel?.Id);
                     await viewModel.OnAppearing();
