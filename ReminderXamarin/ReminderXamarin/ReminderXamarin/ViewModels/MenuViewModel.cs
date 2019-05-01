@@ -12,24 +12,24 @@ namespace ReminderXamarin.ViewModels
 
         public MenuViewModel()
         {
-            MessagingCenter.Subscribe<MenuMasterViewModel, MenuViewIndex>(this, ConstantsHelper.DetailPageChanged, (sender, pageIndex) =>
+            MessagingCenter.Subscribe<MenuMasterViewModel, MenuViewIndex>(this, ConstantsHelper.DetailPageChanged, async (sender, pageIndex) =>
             {
                 switch (pageIndex)
                 {
                     case MenuViewIndex.NotesView:
-                        NavigationService.NavigateToAsync<NotesViewModel>();
+                        await NavigationService.NavigateToAsync<NotesViewModel>();
                         break;
                     case MenuViewIndex.ToDoPage:
-                        NavigationService.NavigateToAsync<ToDoTabbedViewModel>();
+                        await NavigationService.NavigateToAsync<ToDoTabbedViewModel>();
                         break;
                     case MenuViewIndex.BirthdaysView:
-                        NavigationService.NavigateToAsync<BirthdaysViewModel>();
+                        await NavigationService.NavigateToAsync<BirthdaysViewModel>();
                         break;
                     case MenuViewIndex.AchievementsView:
-                        NavigationService.NavigateToAsync<AchievementsViewModel>();
+                        await NavigationService.NavigateToAsync<AchievementsViewModel>();
                         break;
                     case MenuViewIndex.SettingsView:
-                        NavigationService.NavigateToAsync<SettingsViewModel>();
+                        await NavigationService.NavigateToAsync<SettingsViewModel>();
                         break;
                     default:
                         break;

@@ -1,6 +1,4 @@
-﻿using System;
-using Rm.Helpers;
-using ReminderXamarin.ViewModels;
+﻿using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Views
@@ -16,45 +14,27 @@ namespace ReminderXamarin.Views
             InitializeComponent();
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             if (BindingContext is NotesViewModel viewModel)
             {
-                await viewModel.OnAppearing();
+                viewModel.OnAppearing();
             }            
         }
 
-        private async void NotesList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void NotesList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var viewModel = e.SelectedItem as NoteViewModel;
+            var noteViewModel = e.SelectedItem as NoteViewModel;
             NotesList.SelectedItem = null;
-            if (viewModel != null)
+            if (noteViewModel != null)
             {
-                await Navigation.PushAsync(new NoteDetailView(viewModel));
-            }
-        }
-
-        private async void Delete_OnClicked(object sender, EventArgs e)
-        {
-            bool result = await DisplayAlert
-                (ConstantsHelper.Warning, ConstantsHelper.NoteDeleteMessage, ConstantsHelper.Ok, ConstantsHelper.Cancel);
-            if (result)
-            {
-                var menuItem = sender as MenuItem;
-                var noteViewModel = menuItem?.CommandParameter as NoteViewModel;
-
+                // await Navigation.PushAsync(new NoteDetailView(viewModel));
                 if (BindingContext is NotesViewModel viewModel)
                 {
-                    viewModel.DeleteNoteCommand.Execute(noteViewModel?.Id);
-                    await viewModel.OnAppearing();
+                    viewModel.NavigateToEditViewCommand.Execute(noteViewModel.Id);
                 }
             }
-        }
-
-        private async void CreateNoteButton_OnClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new NoteCreateView());
         }
     }
 }

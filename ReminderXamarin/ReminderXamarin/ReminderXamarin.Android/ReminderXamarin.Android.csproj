@@ -155,7 +155,6 @@
     <Compile Include="Renderers\GradientColorStackRenderer.cs" />
     <Compile Include="Renderers\HorizontalImageGalleryRenderer.cs" />
     <Compile Include="Renderers\ExtendedLabelRenderer.cs" />
-    <Compile Include="Renderers\NavigationPageCustomRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

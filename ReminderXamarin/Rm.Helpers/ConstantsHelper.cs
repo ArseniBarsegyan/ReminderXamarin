@@ -18,6 +18,7 @@
         public const string BirthdaysDeleteMessage = "Are you sure you want to delete this birthday?";
         public const string BirthdaysIcon = "birthday.png";
         public const string Cancel = "Cancel";
+        public const string CreateNote = "CreateNote";
         public const string DeleteImageSource = "delete.png";
         public const string DetailPageChanged = "DetailPageChanged";
         public const string DontHaveAccountQuestion = "DontHaveAccountQuestion";

@@ -111,7 +111,6 @@
     <Compile Include="Renderers\GradientColorStackRenderer.cs" />
     <Compile Include="Renderers\HorizontalImageGalleryRenderer.cs" />
     <Compile Include="Renderers\ExtendedLabelRenderer.cs" />
-    <Compile Include="Renderers\NavigationPageCustomRenderer.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />

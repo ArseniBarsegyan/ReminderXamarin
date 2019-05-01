@@ -7,6 +7,7 @@
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
              xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors"
              x:Class="ReminderXamarin.Views.NotesView"
+             x:Name="NotesViewReference"
              Title="{extensions:Translate AllNotes}"
              BackgroundColor="#FBFBFB"
              base:ViewModelHelper.AutoWireViewModel="True">
@@ -49,7 +50,9 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
-                                <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
+                                <MenuItem Icon="delete.png" IsDestructive="True" 
+                                          Command="{Binding Path=BindingContext.DeleteNoteCommand, Source = {x:Reference NotesViewReference}}"
+                                          CommandParameter="{Binding Id}" />
                             </ViewCell.ContextActions>
                             <Frame MinimumHeightRequest="200" HasShadow="True" Padding="0,10" Margin="0,5" BorderColor="LightGray">
                                 <StackLayout>
@@ -79,7 +82,10 @@
                                        AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
                                        AbsoluteLayout.LayoutFlags="PositionProportional" 
                                        Image="add.png"
-                                       Clicked="CreateNoteButton_OnClicked" />
-
+                                       Command="{Binding NavigateToEditViewCommand}">
+            <elements:FloatingActionButton.CommandParameter>
+                <x:Int32>0</x:Int32>
+            </elements:FloatingActionButton.CommandParameter>
+        </elements:FloatingActionButton>
     </AbsoluteLayout>
 </ContentPage>

@@ -19,10 +19,10 @@ namespace ReminderXamarin.ViewModels
             Notes = new ObservableCollection<NoteViewModel>();
 
             SearchText = string.Empty;
-            DeleteNoteCommand = new Command<int>(async(id) => await DeleteNote(id));
-            RefreshListCommand = new Command(async() => await Refresh());
-            SelectNoteCommand = new Command<int>(async id => await SelectNoteCommandExecute(id));
+            DeleteNoteCommand = new Command<int>(async id => await DeleteNote(id));
+            RefreshListCommand = new Command(Refresh);
             SearchCommand = new Command(SearchNotesByDescription);
+            NavigateToEditViewCommand = new Command<int>(async id => await NavigateToEditView(id));
         }
 
         public string SearchText { get; set; }
@@ -30,25 +30,31 @@ namespace ReminderXamarin.ViewModels
         public ObservableCollection<NoteViewModel> Notes { get; set; }
         public ICommand DeleteNoteCommand { get; set; }
         public ICommand RefreshListCommand { get; set; }
-        public ICommand SelectNoteCommand { get; set; }
         public ICommand SearchCommand { get; set; }
+        public ICommand NavigateToEditViewCommand { get; set; }
 
-        public async Task OnAppearing()
+        public void OnAppearing()
         {
-            await LoadNotesFromDatabase();
+            LoadNotesFromDatabase();
         }
 
         private async Task DeleteNote(int noteId)
         {
-            var noteToDelete = App.NoteRepository.GetNoteAsync(noteId);
-            App.NoteRepository.DeleteNote(noteToDelete);
-            await OnAppearing();
+            bool result = await Acr.UserDialogs.UserDialogs.Instance.ConfirmAsync(ConstantsHelper.NoteDeleteMessage,
+                ConstantsHelper.Warning, ConstantsHelper.Ok, ConstantsHelper.No);
+
+            if (result)
+            {
+                var noteToDelete = App.NoteRepository.GetNoteAsync(noteId);
+                App.NoteRepository.DeleteNote(noteToDelete);
+                OnAppearing();
+            }
         }
 
-        private async Task Refresh()
+        private void Refresh()
         {
             IsRefreshing = true;
-            await LoadNotesFromDatabase();
+            LoadNotesFromDatabase();
             IsRefreshing = false;
         }
 
@@ -59,7 +65,7 @@ namespace ReminderXamarin.ViewModels
                 .ToObservableCollection();
         }
 
-        private async Task LoadNotesFromDatabase()
+        private void LoadNotesFromDatabase()
         {
             // Fetch all note models from database.
             _allNotes = App.NoteRepository
@@ -74,10 +80,9 @@ namespace ReminderXamarin.ViewModels
             SearchNotesByDescription();
         }
 
-        private async Task<NoteViewModel> SelectNoteCommandExecute(int id)
+        private async Task NavigateToEditView(int id)
         {
-            var note = App.NoteRepository.GetNoteAsync(id);
-            return note.ToNoteViewModel();
+            await NavigationService.NavigateToAsync<NoteEditViewModel>(id);
         }
     }
 }
