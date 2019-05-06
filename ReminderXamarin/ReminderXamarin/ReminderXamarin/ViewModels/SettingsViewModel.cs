@@ -12,7 +12,7 @@ namespace ReminderXamarin.ViewModels
             bool.TryParse(Settings.UsePin, out bool shouldUsePin);
             UsePin = shouldUsePin;
             Pin = Settings.UserPinCode;
-            SaveSettingsCommand = new Command(SaveCommandExecute);
+            SaveSettingsCommand = new Command(SaveSettings);
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace ReminderXamarin.ViewModels
 
         public ICommand SaveSettingsCommand { get; set; }
 
-        private void SaveCommandExecute()
+        private void SaveSettings()
         {
             Settings.UserPinCode = int.TryParse(Pin, out var pin) ? Pin : "1111";
             Settings.UsePin = UsePin.ToString();

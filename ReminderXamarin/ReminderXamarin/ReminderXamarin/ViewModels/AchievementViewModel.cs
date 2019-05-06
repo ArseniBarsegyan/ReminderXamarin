@@ -23,14 +23,14 @@ namespace ReminderXamarin.ViewModels
             AchievementNotes = new ObservableCollection<AchievementNoteViewModel>();
 
             NavigateToEditAchievementCommand = new Command(async () => await NavigateToEditAchievement());
-            SetImageCommand = new Command<PlatformDocument>(SetImageCommandExecute);
-            RefreshListCommand = new Command(async () => await RefreshCommandExecute());
-            CreateAchievementCommand = new Command(async () => await CreateAchievementCommandExecute());
-            CreateAchievementNoteCommand = new Command<AchievementNoteViewModel>(async (viewModel) => await CreateAchievementNoteCommandExecute(viewModel));
-            UpdateAchievementCommand = new Command(async () => await UpdateAchievementCommandExecute());
-            UpdateAchievementNoteCommand = new Command<AchievementNoteViewModel>(async (viewModel) => await UpdateAchievementNoteCommandExecute(viewModel));
-            DeleteAchievementCommand = new Command(async viewModel => await DeleteAchievementCommandExecute());
-            DeleteAchievementNoteCommand = new Command<AchievementNoteViewModel>(async(viewModel) => await DeleteAchievementNoteCommandExecute(viewModel));
+            SetImageCommand = new Command<PlatformDocument>(SetImage);
+            RefreshListCommand = new Command(async () => await Refresh());
+            CreateAchievementCommand = new Command(async () => await CreateAchievement());
+            CreateAchievementNoteCommand = new Command<AchievementNoteViewModel>(async (viewModel) => await CreateAchievementNote(viewModel));
+            UpdateAchievementCommand = new Command(async () => await UpdateAchievement());
+            UpdateAchievementNoteCommand = new Command<AchievementNoteViewModel>(async (viewModel) => await UpdateAchievementNote(viewModel));
+            DeleteAchievementCommand = new Command(async viewModel => await DeleteAchievement());
+            DeleteAchievementNoteCommand = new Command<AchievementNoteViewModel>(async(viewModel) => await DeleteAchievementNote(viewModel));
         }
 
         public string FileName { get; set; }
@@ -59,7 +59,7 @@ namespace ReminderXamarin.ViewModels
             await NavigationService.NavigateToAsync<AchievementDetailsViewModel>();
         }
 
-        private async void SetImageCommandExecute(PlatformDocument document)
+        private async void SetImage(PlatformDocument document)
         {
             // Retrieve file content through IFileService implementation.
             FileName = document.Name;
@@ -82,35 +82,35 @@ namespace ReminderXamarin.ViewModels
             await LoadAchievementNotesFromDataBase();
         }
 
-        private async Task RefreshCommandExecute()
+        private async Task Refresh()
         {
             IsRefreshing = true;
             await LoadAchievementNotesFromDataBase();
             IsRefreshing = false;
         }
 
-        private async Task CreateAchievementCommandExecute()
+        private async Task CreateAchievement()
         {
             App.AchievementRepository.Save(this.ToAchievementModel());
         }
 
-        private async Task CreateAchievementNoteCommandExecute(AchievementNoteViewModel achievementNoteViewModel)
+        private async Task CreateAchievementNote(AchievementNoteViewModel achievementNoteViewModel)
         {
             if (!AchievementNotes.Contains(achievementNoteViewModel))
             {
                 AchievementNotes.Add(achievementNoteViewModel);
             }
-            await UpdateAchievementCommandExecute();
+            await UpdateAchievement();
         }
 
-        private async Task UpdateAchievementCommandExecute()
+        private async Task UpdateAchievement()
         {
             GeneralTimeSpent = AchievementNotes.Sum(x => x.HoursSpent);
             App.AchievementRepository.Save(this.ToAchievementModel());
         }
 
         // Insert updated achievement note instead of old.
-        private async Task UpdateAchievementNoteCommandExecute(AchievementNoteViewModel achievementNoteViewModel)
+        private async Task UpdateAchievementNote(AchievementNoteViewModel achievementNoteViewModel)
         {
             var oldNote = AchievementNotes.FirstOrDefault(x => x.Id == achievementNoteViewModel.Id);
             if (oldNote != null)
@@ -121,21 +121,21 @@ namespace ReminderXamarin.ViewModels
                 oldNote.HoursSpent = achievementNoteViewModel.HoursSpent;
             }
 
-            await UpdateAchievementCommandExecute();
+            await UpdateAchievement();
         }
 
-        private async Task DeleteAchievementCommandExecute()
+        private async Task DeleteAchievement()
         {
             App.AchievementRepository.DeleteAchievement(this.ToAchievementModel());
         }
 
-        private async Task DeleteAchievementNoteCommandExecute(AchievementNoteViewModel noteViewModel)
+        private async Task DeleteAchievementNote(AchievementNoteViewModel noteViewModel)
         {
             if (AchievementNotes.Contains(noteViewModel))
             {
                 AchievementNotes.Remove(noteViewModel);
             }
-            await UpdateAchievementCommandExecute();
+            await UpdateAchievement();
         }
 
         private async Task LoadAchievementNotesFromDataBase()

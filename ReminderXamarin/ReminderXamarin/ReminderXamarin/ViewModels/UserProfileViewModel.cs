@@ -20,8 +20,8 @@ namespace ReminderXamarin.ViewModels
         {
             ImageContent = new byte[0];
 
-            ChangeUserProfileCommand = new Command<PlatformDocument>(ChangeUserProfileCommandExecute);
-            UpdateUserCommand = new Command(async () => await UpdateUserCommandExecute());
+            ChangeUserProfileCommand = new Command<PlatformDocument>(ChangeUserProfile);
+            UpdateUserCommand = new Command(async () => await UpdateUser());
         }
 
         public override Task InitializeAsync(object navigationData)
@@ -49,7 +49,7 @@ namespace ReminderXamarin.ViewModels
         public ICommand ChangeUserProfileCommand { get; set; }
         public ICommand UpdateUserCommand { get; set; }
         
-        private async void ChangeUserProfileCommandExecute(PlatformDocument document)
+        private async void ChangeUserProfile(PlatformDocument document)
         {
             // Ensure that user downloads .png or .jpg file as profile icon.
             if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg"))
@@ -70,7 +70,7 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private async Task UpdateUserCommandExecute()
+        private async Task UpdateUser()
         {
             var user = App.UserRepository.GetUserAsync(Id);
             if (user != null)

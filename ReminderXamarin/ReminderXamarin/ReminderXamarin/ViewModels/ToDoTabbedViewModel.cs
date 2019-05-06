@@ -18,7 +18,7 @@ namespace ReminderXamarin.ViewModels
             CompletedModels = new ObservableCollection<ToDoViewModel>();
 
             RefreshListCommand = new Command(RefreshCommandExecute);
-            SelectItemCommand = new Command<int>(async id => await SelectItemCommandExecute(id));
+            SelectItemCommand = new Command<int>(async id => await SelectItem(id));
 
             MessagingCenter.Subscribe<App>(this, ConstantsHelper.UpdateUI, _ =>
             {
@@ -48,7 +48,7 @@ namespace ReminderXamarin.ViewModels
             IsRefreshing = false;
         }
 
-        private async Task<ToDoViewModel> SelectItemCommandExecute(int id)
+        private async Task<ToDoViewModel> SelectItem(int id)
         {
             return App.ToDoRepository.GetToDoAsync(id).ToToDoViewModel();
         }

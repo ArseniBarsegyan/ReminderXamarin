@@ -10,9 +10,9 @@ namespace ReminderXamarin.ViewModels
     {
         public BirthdayViewModel()
         {
-            CreateBirthdayCommand = new Command(CreateBirthdayCommandExecute);
-            UpdateBirthdayCommand = new Command(UpdateBirthdayCommandExecute);
-            DeleteBirthdayCommand = new Command(DeleteBirthdayCommandExecute);
+            CreateBirthdayCommand = new Command(CreateBirthday);
+            UpdateBirthdayCommand = new Command(UpdateBirthday);
+            DeleteBirthdayCommand = new Command(DeleteBirthday);
         }
 
         public int Id { get; set; }
@@ -26,17 +26,17 @@ namespace ReminderXamarin.ViewModels
         public ICommand UpdateBirthdayCommand { get; set; }
         public ICommand DeleteBirthdayCommand { get; set; }
 
-        private void CreateBirthdayCommandExecute()
+        private void CreateBirthday()
         {
             App.BirthdaysRepository.Save(this.ToBirthdayModel());
         }
 
-        private void UpdateBirthdayCommandExecute()
+        private void UpdateBirthday()
         {
             App.BirthdaysRepository.Save(this.ToBirthdayModel());
         }
 
-        private void DeleteBirthdayCommandExecute()
+        private void DeleteBirthday()
         {
             App.BirthdaysRepository.DeleteBirthday(this.ToBirthdayModel());
         }

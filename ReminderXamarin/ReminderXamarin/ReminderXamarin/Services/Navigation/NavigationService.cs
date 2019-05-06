@@ -127,7 +127,7 @@ namespace ReminderXamarin.Services.Navigation
                 if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {
                     detailPage.Detail = new NavigationPage(page);
-                    //await Task.Delay(100);
+                    await Task.Delay(50);
                     detailPage.IsPresented = false;
                 }
             }
@@ -136,7 +136,7 @@ namespace ReminderXamarin.Services.Navigation
                 if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {
                     await detailPage.Detail.Navigation.PushAsync(page, true);
-                    //await Task.Delay(100);
+                    await Task.Delay(50);
                     detailPage.IsPresented = false;
                 }
             }

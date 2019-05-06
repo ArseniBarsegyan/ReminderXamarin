@@ -13,7 +13,7 @@ namespace ReminderXamarin.ViewModels
             SignInCommand = new Command(async() => await SignIn());
             SwitchPasswordVisibilityCommand = new Command(SwitchPasswordVisibility);
             ToggleRegisterOrLoginViewCommand = new Command(async() => await ToggleRegisterOrLoginView());
-            SwitchPasswordConfirmVisibilityCommand = new Command(SwitchConfirmPasswordVisibilityCommandExecute);
+            SwitchPasswordConfirmVisibilityCommand = new Command(SwitchConfirmPasswordVisibility);
         }
 
         public bool IsRegister { get; set; }
@@ -106,7 +106,7 @@ namespace ReminderXamarin.ViewModels
             ShowPassword = !ShowPassword;
         }
 
-        private void SwitchConfirmPasswordVisibilityCommandExecute()
+        private void SwitchConfirmPasswordVisibility()
         {
             ShowConfirmedPassword = !ShowConfirmedPassword;
         }

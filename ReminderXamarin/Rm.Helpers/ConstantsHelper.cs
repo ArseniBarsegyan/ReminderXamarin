@@ -40,7 +40,7 @@
         public const string Photos = "Photos";
         public const string PageCloseMessage = "Are you sure you want to close this page?";
         public const string ProfileUpdated = "ProfileUpdated";
-        public const string ProfileIcon = "profile_icon.png";
+        public const string ProfileIcon = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-q5v2BGStemmkYiDlmRWs0jCoEDmMjEWvG9C3uWXj_V3pCKLD";
         public const string Register = "Register";
         public const string Settings = "Settings";
         public const string SettingsIcon = "settings.png";

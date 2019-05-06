@@ -13,7 +13,7 @@ namespace ReminderXamarin.ViewModels
         public BirthdaysViewModel()
         {
             BirthdayViewModels = new ObservableCollection<BirthdayViewModel>();
-            RefreshListCommand = new Command(RefreshCommandExecute);
+            RefreshListCommand = new Command(Refresh);
         }
 
         public bool IsRefreshing { get; set; }
@@ -26,7 +26,7 @@ namespace ReminderXamarin.ViewModels
             LoadFriendsFromDatabase();
         }
 
-        private void RefreshCommandExecute()
+        private void Refresh()
         {
             IsRefreshing = true;
             LoadFriendsFromDatabase();

@@ -61,7 +61,8 @@
     <AndroidTlsProvider>btls</AndroidTlsProvider>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidLinkMode>Full</AndroidLinkMode>
-    <AndroidLinkSkip>SQLite-net;ReminderXamarin;ReminderXamarin.Android</AndroidLinkSkip>
+    <AndroidLinkSkip>
+    </AndroidLinkSkip>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
