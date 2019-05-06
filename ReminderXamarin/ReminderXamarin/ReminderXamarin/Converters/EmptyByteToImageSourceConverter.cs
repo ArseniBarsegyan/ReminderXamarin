@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Rm.Helpers;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Converters
@@ -18,7 +19,7 @@ namespace ReminderXamarin.Converters
                 byte[] imageAsBytes = (byte[])value;
 
                 retSource = imageAsBytes.Length == 0 ? 
-                    "user_profile.png" 
+                    ConstantsHelper.ProfileIcon
                     : ImageSource.FromStream(() => new MemoryStream(imageAsBytes));
             }
             return retSource;

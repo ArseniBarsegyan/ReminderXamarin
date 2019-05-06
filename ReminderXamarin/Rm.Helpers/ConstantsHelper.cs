@@ -40,6 +40,7 @@
         public const string Photos = "Photos";
         public const string PageCloseMessage = "Are you sure you want to close this page?";
         public const string ProfileUpdated = "ProfileUpdated";
+        public const string ProfileIcon = "profile_icon.png";
         public const string Register = "Register";
         public const string Settings = "Settings";
         public const string SettingsIcon = "settings.png";

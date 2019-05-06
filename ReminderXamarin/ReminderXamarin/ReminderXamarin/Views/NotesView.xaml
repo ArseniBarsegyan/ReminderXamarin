@@ -25,16 +25,14 @@
                      VerticalOptions="FillAndExpand" 
                      HorizontalOptions="FillAndExpand">
             <!-- Search bar with border -->
-            <elements:ContentViewWithBorder BorderColor="Gray">
-                <SearchBar x:Name="SearchBar" 
-                           BackgroundColor="White"
-                           Placeholder="Search..."
-                           Text="{Binding SearchText}">
-                    <SearchBar.Behaviors>
-                        <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchCommand}" />
-                    </SearchBar.Behaviors>
-                </SearchBar>
-            </elements:ContentViewWithBorder>
+            <SearchBar x:Name="SearchBar" 
+                       BackgroundColor="White"
+                       Placeholder="Search..."
+                       Text="{Binding SearchText}">
+                <SearchBar.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchCommand}" />
+                </SearchBar.Behaviors>
+            </SearchBar>
             <!-- List with notes -->
             <ListView x:Name="NotesList" 
                       ItemsSource="{Binding Notes}"
@@ -54,7 +52,7 @@
                                           Command="{Binding Path=BindingContext.DeleteNoteCommand, Source = {x:Reference NotesViewReference}}"
                                           CommandParameter="{Binding Id}" />
                             </ViewCell.ContextActions>
-                            <Frame MinimumHeightRequest="200" HasShadow="True" Padding="0,10" Margin="0,5" BorderColor="LightGray">
+                            <Frame MinimumHeightRequest="200" HasShadow="True" Padding="0,10" BorderColor="LightGray">
                                 <StackLayout>
                                     <Image Source="{Binding Photos, Converter={StaticResource NullElementToImageSourceConverter}}" 
                                            IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}" 

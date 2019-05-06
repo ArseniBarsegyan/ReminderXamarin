@@ -278,6 +278,7 @@ namespace ReminderXamarin.ViewModels
                     UserId = Settings.CurrentUserId
                 };
                 App.NoteRepository.Save(note);
+                await NavigationService.NavigateBackAsync();
             }
             else
             {
