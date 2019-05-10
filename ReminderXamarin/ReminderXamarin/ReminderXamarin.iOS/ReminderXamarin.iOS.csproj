@@ -90,6 +90,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Renderers\FloatingActionButtonRenderer.cs" />
+    <Compile Include="Renderers\NavigationPageCustomRenderer.cs" />
     <Compile Include="Services\AlertService.cs" />
     <Compile Include="Services\DeviceOrientation.cs" />
     <Compile Include="Services\FileHelper.cs" />

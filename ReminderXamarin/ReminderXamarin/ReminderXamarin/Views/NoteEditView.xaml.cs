@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using ReminderXamarin.Elements;
-using ReminderXamarin.Extensions;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
@@ -26,14 +26,7 @@ namespace ReminderXamarin.Views
             ToolbarItems.Add(_confirmToolbarItem);
         }
 
-        public bool ShouldDisplayMessage()
-        {
-            if (string.IsNullOrWhiteSpace(DescriptionEditor.Text))
-            {
-                return true;
-            }
-            return false;
-        }
+        public bool ShouldPromptUser { get; private set; }
 
         protected override void OnAppearing()
         {
@@ -173,6 +166,26 @@ namespace ReminderXamarin.Views
                     return;
                 }
                 viewModel.PickVideoCommand.Execute(document);
+            }
+        }
+
+        private void DescriptionEditor_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (BindingContext is NoteEditViewModel viewModel)
+            {
+                // Prompt only if create new note
+                if (!viewModel.IsEditMode)
+                {
+                    if (DescriptionEditor.Text != string.Empty)
+                    {
+                        ShouldPromptUser = true;
+                    }
+                }
+                
+                if (!ToolbarItems.Contains(_confirmToolbarItem))
+                {
+                    ToolbarItems.Add(_confirmToolbarItem);
+                }
             }
         }
     }

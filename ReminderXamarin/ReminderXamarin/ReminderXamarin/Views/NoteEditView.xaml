@@ -17,6 +17,7 @@
                 <Label Text="{extensions:Translate Note}" FontSize="Small" />
                 <Editor x:Name="DescriptionEditor"
                         Placeholder="{extensions:Translate EnterDescription}"
+                        TextChanged="DescriptionEditor_OnTextChanged"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="FillAndExpand"
                         HeightRequest="200" />

@@ -134,6 +134,7 @@
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Renderers\NavigationPageCustomRenderer.cs" />
     <Compile Include="Services\AlertService.cs" />
     <Compile Include="Services\DeviceOrientation.cs" />
     <Compile Include="Services\FileHelper.cs" />
