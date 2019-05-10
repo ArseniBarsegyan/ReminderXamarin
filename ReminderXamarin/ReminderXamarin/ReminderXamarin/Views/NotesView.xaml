@@ -9,7 +9,7 @@
              x:Class="ReminderXamarin.Views.NotesView"
              x:Name="NotesViewReference"
              Title="{extensions:Translate AllNotes}"
-             BackgroundColor="#FBFBFB"
+             BackgroundColor="#fafafa"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
