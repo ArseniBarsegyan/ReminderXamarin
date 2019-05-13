@@ -204,6 +204,9 @@
   <data name="FriendsBirthdaysCount" xml:space="preserve">
     <value>Число Дней рождений друзей:</value>
   </data>
+  <data name="Gallery" xml:space="preserve">
+    <value>Галерея:</value>
+  </data>
   <data name="High" xml:space="preserve">
     <value>Высокий</value>
   </data>

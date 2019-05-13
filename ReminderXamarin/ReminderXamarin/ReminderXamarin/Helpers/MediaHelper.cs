@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using PCLStorage;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
+using ReminderXamarin.Helpers;
 using Rm.Data.Data.Entities;
 
 namespace Rm.Helpers
@@ -24,7 +25,7 @@ namespace Rm.Helpers
         /// Launches the camera using Plugin.Media and lets the user take one photo.
         /// Store photo data in PhotoModel.
         /// </summary>
-        public async Task<PhotoModel> TakePhotoAsync()
+        public async Task<GalleryItemModel> TakePhotoAsync()
         {
             bool b = await CrossMedia.Current.Initialize();
 
@@ -44,12 +45,12 @@ namespace Rm.Helpers
 
             if (file != null)
             {
-                var pm = new PhotoModel();
+                var model = new GalleryItemModel();
 
-                await _transformHelper.ResizeAsync(file.Path, pm);
+                await _transformHelper.ResizeAsync(file.Path, model);
                 await DeleteFileAsync(file.Path);
 
-                return pm;
+                return model;
             }
             return null;
         }
@@ -59,7 +60,7 @@ namespace Rm.Helpers
         /// Returns VideoModel that contains path to the video.
         /// </summary>
         /// <returns></returns>
-        public async Task<VideoModel> TakeVideoAsync()
+        public async Task<GalleryItemModel> TakeVideoAsync()
         {
             bool b = await CrossMedia.Current.Initialize();
 
@@ -79,11 +80,11 @@ namespace Rm.Helpers
 
             if (file != null)
             {
-                var vm = new VideoModel
+                var model = new GalleryItemModel
                 {
-                    Path = file.Path
+                    VideoPath = file.Path
                 };
-                return vm;
+                return model;
             }
             return null;
         }
@@ -92,10 +93,10 @@ namespace Rm.Helpers
         /// Deletes the PhotoModel and its pictures using PCLStorage.
         /// </summary>
         /// <param name="pm">The PhotoModel to be deleted</param>
-        public async Task DeletePhotoModelAsync(PhotoModel pm)
+        public async Task DeletePhotoModelAsync(GalleryItemModel galleryItemModel)
         {
-            await DeleteFileAsync(pm.ResizedPath);
-            await DeleteFileAsync(pm.Thumbnail);
+            await DeleteFileAsync(galleryItemModel.ImagePath);
+            await DeleteFileAsync(galleryItemModel.Thumbnail);
         }
 
         /// <summary>

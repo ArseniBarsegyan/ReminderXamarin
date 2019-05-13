@@ -10,11 +10,13 @@ namespace ReminderXamarin.ViewModels
         {
             Photos = new ObservableCollection<PhotoViewModel>();
             Videos = new ObservableCollection<VideoViewModel>();
+            GalleryItemsViewModels = new ObservableCollection<GalleryItemViewModel>();
         }
 
         public PhotoViewModel SelectedPhoto { get; set; }
         public ObservableCollection<PhotoViewModel> Photos { get; set; }
         public ObservableCollection<VideoViewModel> Videos { get; set; }
+        public ObservableCollection<GalleryItemViewModel> GalleryItemsViewModels { get; set; }
 
         public int Id { get; set; }
         public string Description { get; set; }

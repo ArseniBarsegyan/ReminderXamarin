@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
 using ReminderXamarin.Elements;
-using ReminderXamarin.Services;
+using ReminderXamarin.Resx;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
-using Rg.Plugins.Popup.Extensions;
 using Rm.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -60,17 +57,6 @@ namespace ReminderXamarin.Views
             MessagingCenter.Unsubscribe<ImageGallery, int>(this, ConstantsHelper.ImageDeleted);
         }
 
-        // Tap on back should close popup first
-        protected override bool OnBackButtonPressed()
-        {
-            if (AdditionalItemsContentView.IsVisible)
-            {
-                AdditionalItemsContentView.IsVisible = false;
-                return true;
-            }
-            return base.OnBackButtonPressed();
-        }
-
         private void Confirm_OnClicked(object sender, EventArgs e)
         {
             if (BindingContext is NoteEditViewModel editViewModel)
@@ -96,33 +82,7 @@ namespace ReminderXamarin.Views
             }
         }
 
-        // TODO: replace with photo view model and ability to delete it
-        private async void HorizontalImageGallery_OnItemTapped(object sender, EventArgs e)
-        {
-            if (sender is Image tappedImage)
-            {
-                await Navigation.PushPopupAsync(new FullSizeImageView(tappedImage.Source));
-            }
-        }
-
-        private void VideoList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            var viewModel = e.SelectedItem as VideoViewModel;
-            VideoList.SelectedItem = null;
-            if (viewModel != null)
-            {
-                var videoService = DependencyService.Get<IVideoService>();
-                videoService.PlayVideo(viewModel.Path);
-            }
-        }
-
-        private void AddButton_OnClicked(object sender, EventArgs e)
-        {
-            AdditionalItemsContentView.IsVisible = true;
-        }
-
-        // TODO: replace events with commands
-        private async void AdditionalItemsContentView_OnPickPhotoButtonClicked(object sender, EventArgs e)
+        private async void OnPickMediaButtonClicked(object sender, EventArgs e)
         {
             if (BindingContext is NoteEditViewModel viewModel)
             {
@@ -134,38 +94,7 @@ namespace ReminderXamarin.Views
                     viewModel.IsLoading = false;
                     return;
                 }
-                viewModel.PickPhotoCommand.Execute(document);
-            }
-        }
-
-        private void AdditionalItemsContentView_OnTakePhotoButtonClicked(object sender, EventArgs e)
-        {
-            if (BindingContext is NoteEditViewModel viewModel)
-            {
-                viewModel.TakePhotoCommand.Execute(null);
-            }
-        }
-
-        private void AdditionalItemsContentView_OnTakeVideoButtonClicked(object sender, EventArgs e)
-        {
-            if (BindingContext is NoteEditViewModel viewModel)
-            {
-                viewModel.TakeVideoCommand.Execute(null);
-            }
-        }
-
-        private async void AdditionalItemsContentView_OnPickVideoButtonClicked(object sender, EventArgs e)
-        {
-            if (BindingContext is NoteEditViewModel viewModel)
-            {
-                viewModel.IsLoading = true;
-                var document = await DocumentPicker.DisplayImportAsync(this);
-                if (document == null)
-                {
-                    viewModel.IsLoading = false;
-                    return;
-                }
-                viewModel.PickVideoCommand.Execute(document);
+                viewModel.PickMediaCommand.Execute(document);
             }
         }
 
@@ -187,6 +116,49 @@ namespace ReminderXamarin.Views
                     ToolbarItems.Add(_confirmToolbarItem);
                 }
             }
+        }
+
+        private void ImageButton_OnClicked(object sender, EventArgs e)
+        {
+            if (sender is ImageButton button)
+            {
+                ResetButtons();
+                button.BackgroundColor = Color.FromHex("#448AFF");
+
+                //if (button == VideoButton)
+                //{
+                //    VideoButton.Source = "video.png";
+                //}
+                //else if (button == CameraButton)
+                //{
+                //    CameraButton.Source = "camera.png";
+                //}
+                //else
+                //{
+                //    PickButton.Source = "add.png";
+                //}
+
+                if (BindingContext is NoteEditViewModel viewModel)
+                {
+
+                }
+                Device.StartTimer(TimeSpan.FromSeconds(0.5), () =>
+                {
+                    ResetButtons();
+                    return false;
+                });
+            }
+        }
+
+        private void ResetButtons()
+        {
+            VideoButton.BackgroundColor = Color.Transparent;
+            CameraButton.BackgroundColor = Color.Transparent;
+            PickButton.BackgroundColor = Color.Transparent;
+
+            //VideoButton.Source = "video_dark.png";
+            //CameraButton.Source = "camera_dark.png";
+            //PickButton.Source = "add_dark.png";
         }
     }
 }

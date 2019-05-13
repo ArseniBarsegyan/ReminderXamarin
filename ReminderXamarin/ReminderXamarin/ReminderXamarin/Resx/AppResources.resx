@@ -204,6 +204,9 @@
   <data name="FriendsBirthdaysCount" xml:space="preserve">
     <value>Friends Birthdays count:</value>
   </data>
+  <data name="Gallery" xml:space="preserve">
+    <value>Gallery:</value>
+  </data>
   <data name="High" xml:space="preserve">
     <value>High</value>
   </data>

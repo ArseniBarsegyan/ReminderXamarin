@@ -7,6 +7,7 @@ using ReminderXamarin.Extensions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels.Base;
@@ -31,14 +32,31 @@ namespace ReminderXamarin.ViewModels
             
             Photos = new ObservableCollection<PhotoViewModel>();
             Videos = new ObservableCollection<VideoViewModel>();
+            GalleryItemsViewModels = new ObservableCollection<GalleryItemViewModel>();
 
             TakePhotoCommand = new Command(async () => await TakePhoto());
             DeletePhotoCommand = new Command<int>(DeletePhoto);
             TakeVideoCommand = new Command(async () => await TakeVideo());
-            PickPhotoCommand = new Command<PlatformDocument>(async document => await PickPhoto(document));
-            PickVideoCommand = new Command<PlatformDocument>(async document => await PickVideo(document));
+            PickMediaCommand = new Command<PlatformDocument>(async document => await PickDocument(document));
             SaveNoteCommand = new Command(async() => await SaveNote());
             DeleteNoteCommand = new Command(async () => await DeleteNote());
+            SelectImageCommand = new Command<GalleryItemViewModel>(async (viewModel) => await SelectImage(viewModel));
+        }
+
+        private async Task SelectImage(GalleryItemViewModel viewModel)
+        {
+            if (viewModel.IsVideo)
+            {
+                if (!string.IsNullOrWhiteSpace(viewModel.VideoPath))
+                {
+                    var videoService = DependencyService.Get<IVideoService>();
+                    videoService.PlayVideo(viewModel.VideoPath);
+                }
+            }
+            else
+            {
+                await NavigationService.NavigateToPopupAsync<GalleryItemViewModel>(viewModel);
+            }
         }
 
         public override Task InitializeAsync(object navigationData)
@@ -57,6 +75,7 @@ namespace ReminderXamarin.ViewModels
                 Description = _note.Description;
                 Photos = _note.Photos.ToPhotoViewModels();
                 Videos = _note.Videos.ToVideoViewModels();
+                GalleryItemsViewModels = _note.GalleryItems.ToViewModels();
                 PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
             }
             return base.InitializeAsync(navigationData);
@@ -68,14 +87,17 @@ namespace ReminderXamarin.ViewModels
         public string Description { get; set; }
         public ObservableCollection<PhotoViewModel> Photos { get; set; }
         public ObservableCollection<VideoViewModel> Videos { get; set; }
+        public ObservableCollection<GalleryItemViewModel> GalleryItemsViewModels { get; set; }
         
         public ICommand DeletePhotoCommand { get; set; }
         public ICommand TakePhotoCommand { get; set; }
         public ICommand TakeVideoCommand { get; set; }
         public ICommand PickPhotoCommand { get; set; }
+        public ICommand PickMediaCommand { get; set; }
         public ICommand PickVideoCommand { get; set; }
         public ICommand SaveNoteCommand { get; set; }
         public ICommand DeleteNoteCommand { get; set; }
+        public ICommand SelectImageCommand { get; set; }
 
         /// <summary>
         /// Invokes when Photos collection changing.
@@ -93,7 +115,7 @@ namespace ReminderXamarin.ViewModels
                     var photoModel = await _mediaHelper.TakePhotoAsync();
                     if (photoModel != null)
                     {
-                        Photos.Add(photoModel.ToPhotoViewModel());
+                        GalleryItemsViewModels.Add(photoModel.ToViewModel());
                         PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
                     }
                 }
@@ -105,41 +127,54 @@ namespace ReminderXamarin.ViewModels
             IsLoading = false;
         }
 
+        private async Task PickDocument(PlatformDocument document)
+        {
+            if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg") || document.Name.EndsWith(".jpeg"))
+            {
+                await PickPhoto(document);
+            }
+            else if (document.Name.EndsWith(".mp4"))
+            {
+                await PickVideo(document);
+            }
+        }
+
         private async Task PickPhoto(PlatformDocument document)
         {
-            if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg"))
+            IsLoading = true;
+            try
             {
-                IsLoading = true;
-                try
+                var galleryItemModel = new GalleryItemModel
                 {
-                    var photoModel = new PhotoModel
-                    {
-                        NoteId = _noteId
-                    };
+                    NoteId = _noteId
+                };
 
-                    var mediaService = DependencyService.Get<IMediaService>();
-                    var fileSystem = DependencyService.Get<IFileSystem>();
-                    var imageContent = fileSystem.ReadAllBytes(document.Path);
+                var mediaService = DependencyService.Get<IMediaService>();
+                var fileSystem = DependencyService.Get<IFileSystem>();
+                var imageContent = fileSystem.ReadAllBytes(document.Path);
 
-                    var resizedImage = mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
-                    string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                    string imagePath = Path.Combine(path, document.Name);
+                var resizedImage = mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
+                    ConstantsHelper.ResizedImageHeight);
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                string imagePath = Path.Combine(path, document.Name);
 
-                    File.WriteAllBytes(imagePath, resizedImage);
-                    photoModel.ResizedPath = imagePath;
-                    photoModel.Thumbnail = imagePath;
+                File.WriteAllBytes(imagePath, resizedImage);
+                galleryItemModel.ImagePath = imagePath;
+                galleryItemModel.Thumbnail = imagePath;
 
-                    await _transformHelper.ResizeAsync(imagePath, photoModel);
+                await _transformHelper.ResizeAsync(imagePath, galleryItemModel);
 
-                    Photos.Add(photoModel.ToPhotoViewModel());
-                    PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
-                }
-                catch (Exception ex)
-                {
-                    await UserDialogs.Instance.AlertAsync(ex.Message);
-                }
+                GalleryItemsViewModels.Add(galleryItemModel.ToViewModel());
+                PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
             }
-            IsLoading = false;
+            catch (Exception ex)
+            {
+                await UserDialogs.Instance.AlertAsync(ex.Message);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         private void DeletePhoto(int position)
@@ -165,102 +200,94 @@ namespace ReminderXamarin.ViewModels
                 {
                     try
                     {
-                        var photoModel = new PhotoModel
-                        {
-                            NoteId = _noteId,
-                            IsVideo = true
-                        };
+                        videoModel.NoteId = _noteId;
+                        videoModel.IsVideo = true;
+
                         var videoName =
-                            videoModel.Path.Substring(videoModel.Path.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
+                            videoModel.VideoPath.Substring(
+                                videoModel.VideoPath.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
                         var imageName = videoName.Substring(0, videoName.Length - 4) + "_thumb.jpg";
 
                         var mediaService = DependencyService.Get<IMediaService>();
-                        var imageContent = mediaService.GenerateThumbImage(videoModel.Path, ConstantsHelper.ThumbnailTimeFrame);
+                        var imageContent =
+                            mediaService.GenerateThumbImage(videoModel.VideoPath, ConstantsHelper.ThumbnailTimeFrame);
 
-                        var resizedImage = mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
+                        var resizedImage = mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
+                            ConstantsHelper.ResizedImageHeight);
                         string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                         string imagePath = Path.Combine(path, imageName);
 
                         File.WriteAllBytes(imagePath, resizedImage);
-                        photoModel.ResizedPath = imagePath;
-                        photoModel.Thumbnail = imagePath;
+                        videoModel.ImagePath = imagePath;
+                        videoModel.Thumbnail = imagePath;
 
-                        await _transformHelper.ResizeAsync(imagePath, photoModel);
+                        await _transformHelper.ResizeAsync(imagePath, videoModel);
 
-                        Photos.Add(photoModel.ToPhotoViewModel());
+                        GalleryItemsViewModels.Add(videoModel.ToViewModel());
                         PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
-
-                        Videos.Add(videoModel.ToVideoViewModel());
                     }
                     catch (Exception ex)
                     {
                         await UserDialogs.Instance.AlertAsync(ex.Message);
                     }
                 }
-                IsLoading = false;
             }
+            IsLoading = false;
         }
 
         private async Task PickVideo(PlatformDocument document)
         {
-            if (document.Name.EndsWith(".mp4"))
+            IsLoading = true;
+            try
             {
-                IsLoading = true;
-                try
+                var galleryItemModel = new GalleryItemModel
                 {
-                    var photoModel = new PhotoModel
-                    {
-                        NoteId = _noteId,
-                        IsVideo = true
-                    };
+                    NoteId = _noteId,
+                    IsVideo = true
+                };
 
-                    var videoName =
-                        document.Path.Substring(document.Path.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
-                    var imageName = videoName.Substring(0, videoName.Length - 4) + "_thumb.jpg";
+                var videoName =
+                    document.Path.Substring(document.Path.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
+                var imageName = videoName.Substring(0, videoName.Length - 4) + "_thumb.jpg";
 
-                    var mediaService = DependencyService.Get<IMediaService>();
-                    var fileHelper = DependencyService.Get<IFileHelper>();
-                    var fileSystem = DependencyService.Get<IFileSystem>();
+                var mediaService = DependencyService.Get<IMediaService>();
+                var fileHelper = DependencyService.Get<IFileHelper>();
+                var fileSystem = DependencyService.Get<IFileSystem>();
 
-                    // Thumbnail
-                    var imageContent = mediaService.GenerateThumbImage(document.Path, ConstantsHelper.ThumbnailTimeFrame);
-                    var resizedImage = mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
-                    //string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                    //string imagePath = Path.Combine(path, imageName);
-                    string imagePath = fileHelper.GetLocalFilePath(imageName);
-                    File.WriteAllBytes(imagePath, resizedImage);
+                // Thumbnail
+                var imageContent = mediaService.GenerateThumbImage(document.Path, ConstantsHelper.ThumbnailTimeFrame);
+                var resizedImage = mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
+                //string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                //string imagePath = Path.Combine(path, imageName);
+                string imagePath = fileHelper.GetLocalFilePath(imageName);
+                File.WriteAllBytes(imagePath, resizedImage);
 
-                    // Video
-                    var videoContent = fileSystem.ReadAllBytes(document.Path);
-                    string videoPath = fileHelper.GetVideoSavingPath(document.Name);
-                    if (string.IsNullOrEmpty(videoPath))
-                    {
-                        videoPath = fileHelper.GetLocalFilePath(document.Path);
-                    }
-                    File.WriteAllBytes(videoPath, videoContent);
-
-                    var videoModel = new VideoModel
-                    {
-                        NoteId = _noteId,
-                        Path = videoPath
-                    };
-
-                    photoModel.ResizedPath = imagePath;
-                    photoModel.Thumbnail = imagePath;
-
-                    await _transformHelper.ResizeAsync(imagePath, photoModel);
-
-                    Photos.Add(photoModel.ToPhotoViewModel());
-                    PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
-
-                    Videos.Add(videoModel.ToVideoViewModel());
-                }
-                catch (Exception ex)
+                // Video
+                var videoContent = fileSystem.ReadAllBytes(document.Path);
+                string videoPath = fileHelper.GetVideoSavingPath(document.Name);
+                if (string.IsNullOrEmpty(videoPath))
                 {
-                    await UserDialogs.Instance.AlertAsync(ex.Message);
+                    videoPath = fileHelper.GetLocalFilePath(document.Path);
                 }
+                File.WriteAllBytes(videoPath, videoContent);
+
+                galleryItemModel.VideoPath = videoPath;
+                galleryItemModel.ImagePath = imagePath;
+                galleryItemModel.Thumbnail = imagePath;
+
+                await _transformHelper.ResizeAsync(imagePath, galleryItemModel);
+                
+                GalleryItemsViewModels.Add(galleryItemModel.ToViewModel());
+                PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
             }
-            IsLoading = false;
+            catch (Exception ex)
+            {
+                await UserDialogs.Instance.AlertAsync(ex.Message);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         private async Task SaveNote()
@@ -273,8 +300,7 @@ namespace ReminderXamarin.ViewModels
                     CreationDate = DateTime.Now,
                     EditDate = DateTime.Now,
                     Description = Description,
-                    Photos = Photos.ToPhotoModels().ToList(),
-                    Videos = Videos.ToVideoModels().ToList(),
+                    GalleryItems = GalleryItemsViewModels.ToModels().ToList(),
                     UserId = Settings.CurrentUserId
                 };
                 App.NoteRepository.Save(note);
@@ -285,8 +311,7 @@ namespace ReminderXamarin.ViewModels
                 var note = App.NoteRepository.GetNoteAsync(_noteId);
                 note.Description = Description;
                 note.EditDate = DateTime.Now;
-                note.Photos = Photos.ToPhotoModels().ToList();
-                note.Videos = Videos.ToVideoModels().ToList();
+                note.GalleryItems = GalleryItemsViewModels.ToModels().ToList();
                 App.NoteRepository.Save(note);
             }
             IsLoading = false;

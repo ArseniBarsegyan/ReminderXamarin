@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using ReminderXamarin.ViewModels.Base;
 using ReminderXamarin.Views;
+using Rg.Plugins.Popup.Extensions;
+using Rg.Plugins.Popup.Pages;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Services.Navigation
@@ -51,6 +53,21 @@ namespace ReminderXamarin.Services.Navigation
         public Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : BaseViewModel
         {
             return InternalNavigateToAsync(typeof(TViewModel), parameter);
+        }
+
+        public Task NavigateToPopupAsync<TViewModel>(object parameter) where TViewModel : BaseViewModel
+        {
+            return InternalNavigateToPopupAsync(typeof(TViewModel), parameter);
+        }
+
+        private async Task InternalNavigateToPopupAsync(Type viewModelType, object parameter)
+        {
+            PopupPage popupPage = CreatePopupPage(viewModelType, parameter);
+
+            if (Application.Current.MainPage is MasterDetailPage masterDetailPage)
+            {
+                await masterDetailPage.Navigation.PushPopupAsync(popupPage);
+            }
         }
 
         public async Task RemoveLastFromBackStackAsync()
@@ -107,6 +124,13 @@ namespace ReminderXamarin.Services.Navigation
             }
         }
 
+        public async Task NavigatePopupBackAsync()
+        {
+            if (Application.Current.MainPage is MasterDetailPage detailPage)
+            {
+                await detailPage.Detail.Navigation.PopPopupAsync(true);
+            }
+        }
 
         private async Task InternalNavigateToAsync(Type viewModelType, object parameter)
         {
@@ -163,6 +187,27 @@ namespace ReminderXamarin.Services.Navigation
             try
             {
                 Page page = Activator.CreateInstance(pageType) as Page;
+                return page;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        private PopupPage CreatePopupPage(Type viewModelType, object parameter)
+        {
+            Type popupPageType = GetPageTypeForViewModel(viewModelType);
+
+            if (popupPageType == null)
+            {
+                throw new Exception($"Cannot locate page type for {viewModelType}");
+            }
+
+            try
+            {
+                var page = Activator.CreateInstance(popupPageType, args:parameter) as GalleryItemView;
                 return page;
             }
             catch (Exception ex)

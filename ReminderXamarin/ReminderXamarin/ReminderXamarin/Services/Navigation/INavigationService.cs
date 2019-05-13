@@ -24,6 +24,8 @@ namespace ReminderXamarin.Services.Navigation
         /// </summary>
         Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : BaseViewModel;
 
+        Task NavigateToPopupAsync<TViewModel>(object parameter) where TViewModel : BaseViewModel;
+
         /// <summary>
         /// Removes the previous page from the navigation stack.
         /// </summary>
@@ -37,5 +39,6 @@ namespace ReminderXamarin.Services.Navigation
         Task NavigateToRootAsync();
 
         Task NavigateBackAsync();
+        Task NavigatePopupBackAsync();
     }
 }

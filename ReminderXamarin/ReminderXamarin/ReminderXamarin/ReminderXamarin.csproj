@@ -45,9 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Elements\AdditionalItemsContentView.xaml.cs">
-      <DependentUpon>AdditionalItemsContentView.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Resx\AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -62,9 +59,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Elements\AdditionalItemsContentView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Elements\FullSizeImageGallery.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -76,6 +70,9 @@
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\AchievementDetailsView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\GalleryItemView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MenuMasterView.xaml">

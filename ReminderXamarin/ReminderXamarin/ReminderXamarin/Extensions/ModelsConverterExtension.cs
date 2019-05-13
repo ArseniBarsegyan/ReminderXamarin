@@ -11,6 +11,60 @@ namespace ReminderXamarin.Extensions
 {
     public static class ModelsConverterExtension
     {
+        public static GalleryItemModel ToModel(this GalleryItemViewModel viewModel)
+        {
+            var model = new GalleryItemModel
+            {
+                Id = viewModel.Id,
+                ImagePath = viewModel.ImagePath,
+                IsVideo = viewModel.IsVideo,
+                NoteId = viewModel.NoteId,
+                Thumbnail = viewModel.Thumbnail,
+                VideoPath = viewModel.VideoPath
+            };
+            return model;
+        }
+
+        public static GalleryItemViewModel ToViewModel(this GalleryItemModel model)
+        {
+            var viewModel = new GalleryItemViewModel
+            {
+                Id = model.Id,
+                ImagePath = model.ImagePath,
+                IsVideo = model.IsVideo,
+                NoteId = model.NoteId,
+                Thumbnail = model.Thumbnail,
+                VideoPath = model.VideoPath
+            };
+            return viewModel;
+        }
+
+        public static ObservableCollection<GalleryItemViewModel> ToViewModels(this IEnumerable<GalleryItemModel> models)
+        {
+            return models.Select(model => new GalleryItemViewModel
+            {
+                Id = model.Id,
+                ImagePath = model.ImagePath,
+                IsVideo = model.IsVideo,
+                NoteId = model.NoteId,
+                Thumbnail = model.Thumbnail,
+                VideoPath = model.VideoPath
+            }).ToObservableCollection();
+        }
+
+        public static IEnumerable<GalleryItemModel> ToModels(this IEnumerable<GalleryItemViewModel> viewModels)
+        {
+            return viewModels.Select(viewModel => new GalleryItemModel
+            {
+                Id = viewModel.Id,
+                ImagePath = viewModel.ImagePath,
+                IsVideo = viewModel.IsVideo,
+                NoteId = viewModel.NoteId,
+                Thumbnail = viewModel.Thumbnail,
+                VideoPath = viewModel.VideoPath
+            });
+        }
+
         public static PhotoViewModel ToPhotoViewModel(this PhotoModel model)
         {
             var viewModel = new PhotoViewModel
@@ -19,7 +73,8 @@ namespace ReminderXamarin.Extensions
                 NoteId = model.NoteId,
                 Landscape = model.Landscape,
                 ResizedPath = model.ResizedPath,
-                Thumbnail = model.Thumbnail
+                Thumbnail = model.Thumbnail,
+                IsVideo = model.IsVideo
             };
             return viewModel;
         }
@@ -32,7 +87,8 @@ namespace ReminderXamarin.Extensions
                 NoteId = viewModel.NoteId,
                 Landscape = viewModel.Landscape,
                 ResizedPath = viewModel.ResizedPath,
-                Thumbnail = viewModel.Thumbnail
+                Thumbnail = viewModel.Thumbnail,
+                IsVideo = viewModel.IsVideo
             };
             return model;
         }
@@ -45,7 +101,8 @@ namespace ReminderXamarin.Extensions
                 Landscape = model.Landscape,
                 ResizedPath = model.ResizedPath,
                 Thumbnail = model.Thumbnail,
-                NoteId = model.NoteId
+                NoteId = model.NoteId,
+                IsVideo = model.IsVideo
             }).ToObservableCollection();
         }
 
@@ -57,7 +114,8 @@ namespace ReminderXamarin.Extensions
                 Landscape = viewModel.Landscape,
                 ResizedPath = viewModel.ResizedPath,
                 Thumbnail = viewModel.Thumbnail,
-                NoteId = viewModel.NoteId
+                NoteId = viewModel.NoteId,
+                IsVideo = viewModel.IsVideo
             });
         }
 
@@ -71,7 +129,8 @@ namespace ReminderXamarin.Extensions
                 Description = note.Description,
                 FullDescription = note.EditDate.ToString("dd.MM.yy") + " " + note.Description,
                 Photos = note.Photos.ToPhotoViewModels(),
-                Videos = note.Videos.ToVideoViewModels()
+                Videos = note.Videos.ToVideoViewModels(),
+                GalleryItemsViewModels = note.GalleryItems.ToViewModels()
             };
             return viewModel;
         }
@@ -86,7 +145,8 @@ namespace ReminderXamarin.Extensions
                 EditDate = note.EditDate,
                 Description = note.Description,
                 Photos = note.Photos.ToPhotoModels().ToList(),
-                Videos = note.Videos.ToVideoModels().ToList()
+                Videos = note.Videos.ToVideoModels().ToList(),
+                GalleryItems = note.GalleryItemsViewModels.ToModels().ToList()
             };
             return model;
         }
@@ -101,7 +161,8 @@ namespace ReminderXamarin.Extensions
                 Description = model.Description,
                 FullDescription = model.EditDate.ToString("dd.MM.yy") + " " + model.Description,
                 Photos = model.Photos.ToPhotoViewModels(),
-                Videos = model.Videos.ToVideoViewModels()
+                Videos = model.Videos.ToVideoViewModels(),
+                GalleryItemsViewModels = model.GalleryItems.ToViewModels()
             }).ToList();
         }
 
@@ -114,7 +175,8 @@ namespace ReminderXamarin.Extensions
                 EditDate = viewModel.EditDate,
                 Description = viewModel.Description,
                 Photos = viewModel.Photos.ToPhotoModels().ToList(),
-                Videos = viewModel.Videos.ToVideoModels().ToList()
+                Videos = viewModel.Videos.ToVideoModels().ToList(),
+                GalleryItems = viewModel.GalleryItemsViewModels.ToModels().ToList()
             }).ToList();
         }
 

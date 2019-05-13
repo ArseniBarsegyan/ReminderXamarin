@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 using ExifLib;
 using PCLStorage;
 using Rm.Data.Data.Entities;
+using Rm.Helpers;
 
-namespace Rm.Helpers
+namespace ReminderXamarin.Helpers
 {
     /// <summary>
     /// Provide functionality to resizing images.
@@ -20,13 +21,14 @@ namespace Rm.Helpers
         /// <returns>The async.</returns>
         /// <param name="filePath">File path.</param>
         /// <param name="photoModel">Photomodel.</param>
-        public async Task ResizeAsync(string filePath, PhotoModel photoModel)
+        public async Task ResizeAsync(string filePath, GalleryItemModel galleryItemModel)
         {
             _landscape = false;
             var str = await ResizeAsync(filePath);
-            photoModel.ResizedPath = str[0];
-            photoModel.Thumbnail = str[1];
-            photoModel.Landscape = _landscape;
+            galleryItemModel.ImagePath = str[0];
+            galleryItemModel.Thumbnail = str[1];
+            galleryItemModel.Landscape = _landscape;
+            // photoModel.Landscape = _landscape;
         }
 
         /// <summary>

@@ -3,14 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
-             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+             xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.NoteEditView"
              Title="{Binding Title}"
-             BackgroundColor="White"
-             base:ViewModelHelper.AutoWireViewModel="True">
+             BackgroundColor="White">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="PickerButtonStyle" TargetType="ImageButton">
+                <Setter Property="Padding" Value="20" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="WidthRequest" Value="70" />
+                <Setter Property="HeightRequest" Value="70" />
+                <Setter Property="CornerRadius" Value="0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="DeleteOption" Icon="delete.png" Order="Primary" Command="{Binding DeleteNoteCommand}" />
     </ContentPage.ToolbarItems>
+    <ContentPage.BindingContext>
+        <viewModels:NoteEditViewModel x:Name="ViewModel" />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <StackLayout Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
@@ -22,26 +35,42 @@
                         VerticalOptions="FillAndExpand"
                         HeightRequest="200" />
 
-                <Label Text="{extensions:Translate Images}" FontSize="Small" />
+                <Label Text="{extensions:Translate Gallery}" FontSize="Small" />
                 <!-- Image gallery with all photos of current note -->
                 <elements:HorizontalImageGallery x:Name="ImageGallery" 
                                                  Orientation="Horizontal" 
                                                  HorizontalScrollBarVisibility="Never"
-                                                 ItemsSource="{Binding Photos}"
+                                                 ItemsSource="{Binding GalleryItemsViewModels}"
                                                  HeightRequest="120">
                     <elements:HorizontalImageGallery.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.View>
                                     <AbsoluteLayout x:Name="ImageViewLayout" Padding="2" HeightRequest="120" WidthRequest="120">
-                                        <Image Source="{Binding ResizedPath}"
-                                               Aspect="AspectFill"
-                                               HeightRequest="120"  
-                                               WidthRequest="120"
-                                               AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                        <Image Source="{Binding ImagePath}" 
+                                               Aspect="AspectFill" 
+                                               HeightRequest="120" 
+                                               WidthRequest="120" 
+                                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
                                                AbsoluteLayout.LayoutFlags="All">
                                             <Image.GestureRecognizers>
-                                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="HorizontalImageGallery_OnItemTapped" />
+                                                <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                                                      Command="{Binding Source={x:Reference ViewModel}, Path=SelectImageCommand}"
+                                                                      CommandParameter="{Binding .}" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                        <!-- Overlay for video -->
+                                        <Image Source="play.png" 
+                                               IsVisible="{Binding IsVideo}"
+                                               Aspect="AspectFit"
+                                               HeightRequest="60"
+                                               WidthRequest="60"
+                                               AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5"
+                                               AbsoluteLayout.LayoutFlags="All">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                                                      Command="{Binding Source={x:Reference ViewModel}, Path=SelectImageCommand}"
+                                                                      CommandParameter="{Binding .}" />
                                             </Image.GestureRecognizers>
                                         </Image>
                                     </AbsoluteLayout>
@@ -51,35 +80,29 @@
                     </elements:HorizontalImageGallery.ItemTemplate>
                 </elements:HorizontalImageGallery>
 
-                <Label Text="{extensions:Translate Videos}" FontSize="Small" />
-                <ListView x:Name="VideoList" 
-                          HeightRequest="150" 
-                          ItemsSource="{Binding Videos}" 
-                          ItemSelected="VideoList_OnItemSelected">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label x:Name="VideoPath" 
-                                           Text="{Binding Path}"
-                                           FontSize="Medium" 
-                                           HorizontalTextAlignment="Start" 
-                                           VerticalTextAlignment="Center" />
-                                    <Button Image="play.png" HorizontalOptions="EndAndExpand" />
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-
-                <ImageButton Aspect="AspectFit"
-                             Source="add.png"
-                             Padding="20"
+                <StackLayout HorizontalOptions="FillAndExpand"
+                             Orientation="Horizontal"
+                             Spacing="0"
                              Margin="-10"
-                             HeightRequest="50"
-                             CornerRadius="0"
-                             BackgroundColor="{StaticResource SubmitButtonBackground}"
-                             Clicked="AddButton_OnClicked" />
+                             BackgroundColor="{StaticResource DarkBackground}">
+                    <ImageButton x:Name="PickButton" 
+                                 Source="add.png"
+                                 Style="{StaticResource PickerButtonStyle}"
+                                 Pressed="ImageButton_OnClicked"
+                                 Clicked="OnPickMediaButtonClicked" />
+
+                    <ImageButton x:Name="CameraButton" 
+                                 Source="camera.png"
+                                 Style="{StaticResource PickerButtonStyle}"
+                                 Pressed="ImageButton_OnClicked"
+                                 Command="{Binding TakePhotoCommand}" />
+
+                    <ImageButton x:Name="VideoButton" 
+                                 Source="video.png"
+                                 Style="{StaticResource PickerButtonStyle}"
+                                 Pressed="ImageButton_OnClicked"
+                                 Command="{Binding TakeVideoCommand}" />
+                </StackLayout>
 
             </StackLayout>
 
@@ -87,15 +110,6 @@
                                IsRunning="{Binding IsLoading}"
                                AbsoluteLayout.LayoutBounds="0.5,0.5,50,50" 
                                AbsoluteLayout.LayoutFlags="PositionProportional" />
-
-            <elements:AdditionalItemsContentView x:Name="AdditionalItemsContentView" 
-                                                 AbsoluteLayout.LayoutBounds="0,0,1,1"
-                                                 AbsoluteLayout.LayoutFlags="All"
-                                                 PickPhotoButtonClicked="AdditionalItemsContentView_OnPickPhotoButtonClicked"
-                                                 TakePhotoButtonClicked="AdditionalItemsContentView_OnTakePhotoButtonClicked"
-                                                 TakeVideoButtonClicked="AdditionalItemsContentView_OnTakeVideoButtonClicked"
-                                                 PickVideoButtonClicked="AdditionalItemsContentView_OnPickVideoButtonClicked"
-                                                 IsVisible="False" />
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

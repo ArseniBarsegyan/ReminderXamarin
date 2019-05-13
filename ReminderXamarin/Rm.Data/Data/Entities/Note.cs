@@ -23,5 +23,8 @@ namespace Rm.Data.Data.Entities
 
         [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<VideoModel> Videos { get; set; }
+
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public List<GalleryItemModel> GalleryItems { get; set; }
     }
 }

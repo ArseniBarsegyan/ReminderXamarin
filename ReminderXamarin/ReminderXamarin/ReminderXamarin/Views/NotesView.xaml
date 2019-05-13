@@ -54,8 +54,8 @@
                             </ViewCell.ContextActions>
                             <Frame MinimumHeightRequest="200" HasShadow="True" Padding="0,10" BorderColor="LightGray" CornerRadius="5" Margin="0,5">
                                 <StackLayout>
-                                    <Image Source="{Binding Photos, Converter={StaticResource NullElementToImageSourceConverter}}" 
-                                           IsVisible="{Binding Photos, Converter={StaticResource NullElementToBoolConverter}}" 
+                                    <Image Source="{Binding GalleryItemsViewModels, Converter={StaticResource NullElementToImageSourceConverter}}" 
+                                           IsVisible="{Binding GalleryItemsViewModels, Converter={StaticResource NullElementToBoolConverter}}" 
                                            Aspect="AspectFill" 
                                            HorizontalOptions="FillAndExpand"
                                            HeightRequest="200" />
