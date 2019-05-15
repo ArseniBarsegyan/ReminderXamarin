@@ -31,7 +31,7 @@ namespace ReminderXamarin.Views
                     HoursSpent = timeSpent
                 };
                 _viewModel.CreateAchievementNoteCommand.Execute(achievementNoteViewModel);
-                await Navigation.PopModalAsync();
+                await Navigation.PopAsync();
             }
             else
             {
