@@ -21,6 +21,7 @@ namespace ReminderXamarin.ViewModels
         public AchievementViewModel()
         {
             AchievementNotes = new ObservableCollection<AchievementNoteViewModel>();
+            AchievementStepViewModels = new ObservableCollection<AchievementStepViewModel>();
 
             NavigateToEditAchievementCommand = new Command(async () => await NavigateToEditAchievement());
             SetImageCommand = new Command<PlatformDocument>(SetImage);
@@ -31,6 +32,7 @@ namespace ReminderXamarin.ViewModels
             UpdateAchievementNoteCommand = new Command<AchievementNoteViewModel>(async (viewModel) => await UpdateAchievementNote(viewModel));
             DeleteAchievementCommand = new Command(async viewModel => await DeleteAchievement());
             DeleteAchievementNoteCommand = new Command<AchievementNoteViewModel>(async(viewModel) => await DeleteAchievementNote(viewModel));
+            AddStepCommand = new Command(async () => await AddStep());
         }
 
         public string FileName { get; set; }
@@ -43,6 +45,7 @@ namespace ReminderXamarin.ViewModels
         public string GeneralDescription { get; set; }
         public int GeneralTimeSpent { get; set; }
         public ObservableCollection<AchievementNoteViewModel> AchievementNotes { get; set; }
+        public ObservableCollection<AchievementStepViewModel> AchievementStepViewModels { get; set; }
 
         public ICommand NavigateToEditAchievementCommand { get; set; }
         public ICommand SetImageCommand { get; set; }
@@ -53,6 +56,12 @@ namespace ReminderXamarin.ViewModels
         public ICommand UpdateAchievementNoteCommand { get; set; }
         public ICommand DeleteAchievementCommand { get; set; }
         public ICommand DeleteAchievementNoteCommand { get; set; }
+        public ICommand AddStepCommand { get; set; }
+
+        private async Task AddStep()
+        {
+            await UserDialogs.Instance.ConfirmAsync("Step added", "Step", "Ok");
+        }
 
         private async Task NavigateToEditAchievement()
         {
@@ -80,6 +89,7 @@ namespace ReminderXamarin.ViewModels
         public async Task OnAppearing()
         {
             await LoadAchievementNotesFromDataBase();
+            await LoadAchievementStepsFromDataBase();
         }
 
         private async Task Refresh()
@@ -146,6 +156,14 @@ namespace ReminderXamarin.ViewModels
                 .OrderByDescending(x => x.Date)
                 .ThenByDescending(x => x.Id)
                 .ToAchievementNoteViewModels()
+                .ToObservableCollection();
+        }
+
+        private async Task LoadAchievementStepsFromDataBase()
+        {
+            AchievementStepViewModels = App.AchievementRepository.GetAchievementAsync(Id)
+                .AchievementSteps
+                .ToViewModels()
                 .ToObservableCollection();
         }
     }

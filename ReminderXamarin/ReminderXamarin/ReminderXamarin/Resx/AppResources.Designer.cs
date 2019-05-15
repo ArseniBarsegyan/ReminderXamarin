@@ -187,7 +187,7 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create achievement.
+        ///   Looks up a localized string similar to New achievement.
         /// </summary>
         internal static string CreateAchievement {
             get {
@@ -196,7 +196,7 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create note.
+        ///   Looks up a localized string similar to New note.
         /// </summary>
         internal static string CreateNote {
             get {

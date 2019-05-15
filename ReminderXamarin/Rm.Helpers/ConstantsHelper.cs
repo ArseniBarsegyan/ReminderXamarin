@@ -11,6 +11,7 @@
         public const string AchievementsIcon = "achievements_icon.png";
         public const string AchievementDeleteMessage = "Are you sure you want to delete this achievement?";
         public const string AchievementNoteDeleteMessage = "Are you sure you want to delete this achievement note?";
+        public const string AchievementSteps = "AchievementSteps";
         public const string AlreadyHaveAccountQuestion = "AlreadyHaveAccountQuestion";
         public const string ArrowForwardImage = "arrow_forward.png";
         public const string AreYouSure = "Are you sure?";
@@ -20,6 +21,7 @@
         public const string BirthdaysIcon = "birthday.png";
         public const string Cancel = "Cancel";
         public const string CreateNote = "CreateNote";
+        public const string CreateAchievement = "CreateAchievement";
         public const string Completed = "Completed";
         public const string DeleteImageSource = "delete.png";
         public const string DetailPageChanged = "DetailPageChanged";
@@ -65,5 +67,6 @@
         public const int ResizedImageWidth = 1920;
         public const int ResizedImageHeight = 1080;
         public const long ThumbnailTimeFrame = 1;
+        
     }
 }

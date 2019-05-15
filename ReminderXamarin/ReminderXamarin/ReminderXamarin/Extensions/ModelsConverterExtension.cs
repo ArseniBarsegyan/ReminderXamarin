@@ -52,7 +52,7 @@ namespace ReminderXamarin.Extensions
             }).ToObservableCollection();
         }
 
-        public static IEnumerable<GalleryItemModel> ToModels(this IEnumerable<GalleryItemViewModel> viewModels)
+        public static List<GalleryItemModel> ToModels(this IEnumerable<GalleryItemViewModel> viewModels)
         {
             return viewModels.Select(viewModel => new GalleryItemModel
             {
@@ -62,7 +62,7 @@ namespace ReminderXamarin.Extensions
                 NoteId = viewModel.NoteId,
                 Thumbnail = viewModel.Thumbnail,
                 VideoPath = viewModel.VideoPath
-            });
+            }).ToList();
         }
 
         public static PhotoViewModel ToPhotoViewModel(this PhotoModel model)
@@ -106,7 +106,7 @@ namespace ReminderXamarin.Extensions
             }).ToObservableCollection();
         }
 
-        public static IEnumerable<PhotoModel> ToPhotoModels(this IEnumerable<PhotoViewModel> viewModels)
+        public static List<PhotoModel> ToPhotoModels(this IEnumerable<PhotoViewModel> viewModels)
         {
             return viewModels.Select(viewModel => new PhotoModel
             {
@@ -116,7 +116,7 @@ namespace ReminderXamarin.Extensions
                 Thumbnail = viewModel.Thumbnail,
                 NoteId = viewModel.NoteId,
                 IsVideo = viewModel.IsVideo
-            });
+            }).ToList();
         }
 
         public static NoteViewModel ToNoteViewModel(this Note note)
@@ -151,7 +151,7 @@ namespace ReminderXamarin.Extensions
             return model;
         }
 
-        public static IEnumerable<NoteViewModel> ToNoteViewModels(this IEnumerable<Note> models)
+        public static ObservableCollection<NoteViewModel> ToNoteViewModels(this IEnumerable<Note> models)
         {
             return models.Select(model => new NoteViewModel
             {
@@ -163,10 +163,10 @@ namespace ReminderXamarin.Extensions
                 Photos = model.Photos.ToPhotoViewModels(),
                 Videos = model.Videos.ToVideoViewModels(),
                 GalleryItemsViewModels = model.GalleryItems.ToViewModels()
-            }).ToList();
+            }).ToObservableCollection();
         }
 
-        public static IEnumerable<Note> ToNoteViewModels(this IEnumerable<NoteViewModel> viewModels)
+        public static List<Note> ToNoteModels(this IEnumerable<NoteViewModel> viewModels)
         {
             return viewModels.Select(viewModel => new Note
             {
@@ -216,7 +216,7 @@ namespace ReminderXamarin.Extensions
             return viewModel;
         }
 
-        public static IEnumerable<ToDoModel> ToToDoModels(this IEnumerable<ToDoViewModel> viewModels)
+        public static List<ToDoModel> ToToDoModels(this IEnumerable<ToDoViewModel> viewModels)
         {
             return viewModels.Select(viewModel => new ToDoModel
             {
@@ -228,9 +228,9 @@ namespace ReminderXamarin.Extensions
             .ToList();
         }
 
-        public static IEnumerable<ToDoViewModel> ToToDoViewModels(this IEnumerable<ToDoModel> models)
+        public static ObservableCollection<ToDoViewModel> ToToDoViewModels(this IEnumerable<ToDoModel> models)
         {
-            var viewModels = new List<ToDoViewModel>();
+            var viewModels = new ObservableCollection<ToDoViewModel>();
 
             foreach (var model in models)
             {
@@ -282,17 +282,17 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static IEnumerable<BirthdayModel> ToBirthdayModels(this IEnumerable<BirthdayViewModel> viewModels)
+        public static List<BirthdayModel> ToBirthdayModels(this IEnumerable<BirthdayViewModel> viewModels)
         {
-            return viewModels.Select(viewModel => viewModel.ToBirthdayModel()).ToObservableCollection();
+            return viewModels.Select(viewModel => viewModel.ToBirthdayModel()).ToList();
         }
 
-        public static IEnumerable<BirthdayViewModel> ToFriendViewModels(this IEnumerable<BirthdayModel> models)
+        public static ObservableCollection<BirthdayViewModel> ToFriendViewModels(this IEnumerable<BirthdayModel> models)
         {
             return models.Select(model => model.ToBirthdayViewModel()).ToObservableCollection();
         }
 
-        public static IEnumerable<Image> ToImages(this IEnumerable<PhotoViewModel> viewModels)
+        public static ObservableCollection<Image> ToImages(this IEnumerable<PhotoViewModel> viewModels)
         {
             var images = new ObservableCollection<Image>();
             foreach (var viewModel in viewModels)
@@ -319,6 +319,34 @@ namespace ReminderXamarin.Extensions
             };
         }
 
+        public static AchievementStep ToModel(this AchievementStepViewModel viewModel)
+        {
+            return new AchievementStep
+            {
+                Id = viewModel.Id,
+                AchievementId = viewModel.AchievementId,
+                Image = viewModel.Image,
+                Title = viewModel.Title,
+                Description = viewModel.Description,
+                TimeSpent = viewModel.TimeSpent,
+                TimeEstimation = viewModel.TimeEstimation
+            };
+        }
+
+        public static AchievementStepViewModel ToViewModel(this AchievementStep model)
+        {
+            return new AchievementStepViewModel
+            {
+                Id = model.Id,
+                AchievementId = model.AchievementId,
+                Image = model.Image,
+                Title = model.Title,
+                Description = model.Description,
+                TimeSpent = model.TimeSpent,
+                TimeEstimation = model.TimeEstimation
+            };
+        }
+
         public static AchievementNoteViewModel ToAchievementNoteViewModel(this AchievementNote model)
         {
             return new AchievementNoteViewModel
@@ -331,13 +359,24 @@ namespace ReminderXamarin.Extensions
             };
         }
 
+        public static ObservableCollection<AchievementStepViewModel> ToViewModels(
+            this IEnumerable<AchievementStep> models)
+        {
+            return models.Select(model => model.ToViewModel()).ToObservableCollection();
+        }
+
+        public static List<AchievementStep> ToModels(this IEnumerable<AchievementStepViewModel> viewModels)
+        {
+            return viewModels.Select(model => model.ToModel()).ToList();
+        }
+
         public static ObservableCollection<AchievementNoteViewModel> ToAchievementNoteViewModels(
             this IEnumerable<AchievementNote> models)
         {
             return models.Select(model => model.ToAchievementNoteViewModel()).ToObservableCollection();
         }
 
-        public static IEnumerable<AchievementNote> ToAchievementNoteViewModels(
+        public static List<AchievementNote> ToAchievementNoteViewModels(
             this IEnumerable<AchievementNoteViewModel> viewModels)
         {
             return viewModels.Select(viewModel => viewModel.ToAchievementNote()).ToList();
@@ -349,7 +388,8 @@ namespace ReminderXamarin.Extensions
             {
                 Id = viewModel.Id,
                 UserId = Settings.CurrentUserId,
-                AchievementNotes = viewModel.AchievementNotes.ToAchievementNoteViewModels().ToList(),
+                AchievementNotes = viewModel.AchievementNotes.ToAchievementNoteViewModels(),
+                AchievementSteps = viewModel.AchievementStepViewModels.ToModels(),
                 Title = viewModel.Title,
                 GeneralDescription = viewModel.GeneralDescription,
                 GeneralTimeSpent = viewModel.GeneralTimeSpent,
@@ -363,6 +403,7 @@ namespace ReminderXamarin.Extensions
             {
                 Id = model.Id,
                 AchievementNotes = model.AchievementNotes.ToAchievementNoteViewModels(),
+                AchievementStepViewModels = model.AchievementSteps.ToViewModels(),
                 Title = model.Title,
                 GeneralDescription = model.GeneralDescription,
                 GeneralTimeSpent = model.GeneralTimeSpent,
@@ -370,16 +411,16 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static IEnumerable<AchievementModel> ToAchievementModels(
+        public static List<AchievementModel> ToAchievementModels(
             this IEnumerable<AchievementViewModel> viewModels)
         {
             return viewModels.Select(viewModel => viewModel.ToAchievementModel()).ToList();
         }
 
-        public static IEnumerable<AchievementViewModel> ToAchievementViewModels(
+        public static ObservableCollection<AchievementViewModel> ToAchievementViewModels(
             this IEnumerable<AchievementModel> models)
         {
-            return models.Select(model => model.ToAchievementViewModel()).ToList();
+            return models.Select(model => model.ToAchievementViewModel()).ToObservableCollection();
         }
 
         public static UserModel ToUserModel(this UserProfileViewModel viewModel)
@@ -425,7 +466,7 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static IEnumerable<VideoModel> ToVideoModels(
+        public static List<VideoModel> ToVideoModels(
             this IEnumerable<VideoViewModel> viewModels)
         {
             return viewModels.Select(viewModel => viewModel.ToVideoModel()).ToList();

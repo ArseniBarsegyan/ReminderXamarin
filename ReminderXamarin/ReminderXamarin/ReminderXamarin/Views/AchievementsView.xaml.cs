@@ -18,7 +18,7 @@ namespace ReminderXamarin.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (this.BindingContext is AchievementsViewModel vm)
+            if (BindingContext is AchievementsViewModel vm)
             {
                 vm.OnAppearing();
             }
@@ -34,19 +34,14 @@ namespace ReminderXamarin.Views
                 var viewModel = menuItem?.CommandParameter as AchievementViewModel;
                 viewModel?.DeleteAchievementCommand.Execute(viewModel);
 
-                if (this.BindingContext is AchievementsViewModel vm)
+                if (BindingContext is AchievementsViewModel vm)
                 {
                     vm.OnAppearing();
                 }                    
             }
         }
 
-        private async void CreateAchievementButton_OnClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new AchievementCreateView());
-        }
-
-        private async void AchievementsList_OnItemSelected(object sender, EventArgs e)
+        private void AchievementsList_OnItemSelected(object sender, EventArgs e)
         {
             var container = sender as AbsoluteLayout;
             var hiddenIdLabel = container?.Children.FirstOrDefault(x => x.GetType() == typeof(Label)) as Label;
@@ -57,14 +52,9 @@ namespace ReminderXamarin.Views
 
             int.TryParse(hiddenIdLabel.Text, out int id);
 
-            if (this.BindingContext is AchievementsViewModel viewModel)
+            if (BindingContext is AchievementsViewModel viewModel)
             {
-                var vm = viewModel.Achievements.FirstOrDefault(x => x.Id == id);
-                if (vm != null)
-                {
-                    var achievementDetailPage = new AchievementDetailView(vm);
-                    await Navigation.PushAsync(achievementDetailPage);
-                }
+                viewModel.NavigateToAchievementEditViewCommand.Execute(id);
             }            
         }
     }

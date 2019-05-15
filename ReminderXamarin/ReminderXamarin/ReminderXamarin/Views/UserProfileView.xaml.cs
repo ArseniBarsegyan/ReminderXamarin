@@ -51,7 +51,7 @@ namespace ReminderXamarin.Views
             {
                 return;
             }
-            if (this.BindingContext is UserProfileViewModel viewModel)
+            if (BindingContext is UserProfileViewModel viewModel)
             {
                 viewModel.ChangeUserProfileCommand.Execute(document);
             }

@@ -44,6 +44,12 @@
                 <Editor x:Name="DescriptionEditor"
                        HorizontalOptions="FillAndExpand"
                        VerticalOptions="FillAndExpand" />
+                <Label Text="Steps" />
+                <ListView x:Name="StepsListView">
+                    <ListView.Footer>
+                        <Button Text="Add step" Command="{Binding AddStepCommand}" />
+                    </ListView.Footer>
+                </ListView>
             </StackLayout>
 
             <elements:FloatingActionButton x:Name="AchievementCreateButton" 

@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace ReminderXamarin.Views
@@ -9,6 +10,10 @@ namespace ReminderXamarin.Views
         public AchievementDetailsView()
         {
             InitializeComponent();
+        }
+
+        private async void AddAchievementStepButton_OnClicked(object sender, EventArgs e)
+        {
         }
     }
 }

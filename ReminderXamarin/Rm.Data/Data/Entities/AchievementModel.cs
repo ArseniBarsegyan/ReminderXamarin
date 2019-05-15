@@ -20,5 +20,8 @@ namespace Rm.Data.Data.Entities
 
         [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<AchievementNote> AchievementNotes { get; set; }
+
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public List<AchievementStep> AchievementSteps { get; set; }
     }
 }

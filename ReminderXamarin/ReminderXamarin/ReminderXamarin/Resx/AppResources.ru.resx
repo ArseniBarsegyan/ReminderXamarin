@@ -160,10 +160,10 @@
     <value>Повторите пароль:</value>
   </data>
   <data name="CreateAchievement" xml:space="preserve">
-    <value>Создать достижение</value>
+    <value>Новое достижение</value>
   </data>
   <data name="CreateNote" xml:space="preserve">
-    <value>Создать заметку</value>
+    <value>Новая заметка</value>
   </data>
   <data name="CreateToDo" xml:space="preserve">
     <value>Создать напоминание</value>

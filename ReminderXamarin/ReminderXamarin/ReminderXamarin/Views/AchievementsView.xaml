@@ -69,10 +69,14 @@
             </controls:FlowListView>
 
             <elements:FloatingActionButton x:Name="CreateAchievementButton" 
-                                           Clicked="CreateAchievementButton_OnClicked"
+                                           Command="{Binding NavigateToAchievementEditViewCommand}"
                                            Image="add.png" 
                                            AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
-                                           AbsoluteLayout.LayoutFlags="PositionProportional" />
+                                           AbsoluteLayout.LayoutFlags="PositionProportional">
+                <elements:FloatingActionButton.CommandParameter>
+                    <x:Int32>0</x:Int32>
+                </elements:FloatingActionButton.CommandParameter>
+            </elements:FloatingActionButton>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,6 +1,5 @@
 ﻿using System;
 using ReminderXamarin.Elements;
-using ReminderXamarin.Resx;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
 using Rm.Helpers;
@@ -125,19 +124,6 @@ namespace ReminderXamarin.Views
                 ResetButtons();
                 button.BackgroundColor = Color.FromHex("#448AFF");
 
-                //if (button == VideoButton)
-                //{
-                //    VideoButton.Source = "video.png";
-                //}
-                //else if (button == CameraButton)
-                //{
-                //    CameraButton.Source = "camera.png";
-                //}
-                //else
-                //{
-                //    PickButton.Source = "add.png";
-                //}
-
                 if (BindingContext is NoteEditViewModel viewModel)
                 {
 
@@ -155,10 +141,6 @@ namespace ReminderXamarin.Views
             VideoButton.BackgroundColor = Color.Transparent;
             CameraButton.BackgroundColor = Color.Transparent;
             PickButton.BackgroundColor = Color.Transparent;
-
-            //VideoButton.Source = "video_dark.png";
-            //CameraButton.Source = "camera_dark.png";
-            //PickButton.Source = "add_dark.png";
         }
     }
 }
