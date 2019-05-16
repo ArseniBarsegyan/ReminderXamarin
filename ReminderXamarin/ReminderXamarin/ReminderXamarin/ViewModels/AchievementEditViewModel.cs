@@ -31,6 +31,7 @@ namespace ReminderXamarin.ViewModels
             ChangeImageCommand = new Command<PlatformDocument>(async document => await ChangeImage(document));
             SaveAchievementCommand = new Command(async() => await SaveAchievement());
             DeleteAchievementCommand = new Command(async () => await DeleteAchievement());
+            AddStepCommand = new Command(async() => await AddStep());
         }
 
         public int Id { get; set; }
@@ -46,6 +47,7 @@ namespace ReminderXamarin.ViewModels
         public ICommand ChangeImageCommand { get; set; }
         public ICommand SaveAchievementCommand { get; set; }
         public ICommand DeleteAchievementCommand { get; set; }
+        public ICommand AddStepCommand { get; set; }
 
         private async Task ChangeImage(PlatformDocument document)
         {
@@ -133,6 +135,11 @@ namespace ReminderXamarin.ViewModels
                     await NavigationService.NavigateBackAsync();
                 }
             }
+        }
+
+        private async Task AddStep()
+        {
+            await NavigationService.NavigateToAsync<AchievementStepViewModel>();
         }
     }
 }

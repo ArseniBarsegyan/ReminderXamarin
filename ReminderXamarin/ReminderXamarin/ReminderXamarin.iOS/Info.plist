@@ -38,5 +38,9 @@
 	<string>Reminder wants to access your gallery</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Reminder wants to access your camera</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

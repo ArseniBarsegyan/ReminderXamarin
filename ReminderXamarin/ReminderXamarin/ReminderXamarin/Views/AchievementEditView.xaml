@@ -51,7 +51,7 @@
 
                 <ListView x:Name="AchievementSteps">
                     <ListView.Footer>
-                        <Button Text="Add step" />
+                        <Button Text="Add step" Command="{Binding AddStepCommand}" />
                     </ListView.Footer>
                 </ListView>
             </StackLayout>
