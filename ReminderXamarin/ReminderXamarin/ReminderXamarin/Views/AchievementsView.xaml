@@ -9,7 +9,7 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.AchievementsView"
              Title="{extensions:Translate Achievements}"
-             BackgroundColor="White"
+             BackgroundColor="{StaticResource AchievementPageBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
       <ResourceDictionary>

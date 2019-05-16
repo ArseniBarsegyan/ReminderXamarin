@@ -13,7 +13,7 @@ namespace Rm.Data.Data.Repositories
         {
             _db = new SQLiteConnection(dbPath);
             _db.CreateTable<AchievementModel>();
-            _db.CreateTable<AchievementNote>();
+            _db.DropTable<AchievementNote>();
             _db.CreateTable<AchievementStep>();
         }
 

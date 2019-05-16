@@ -19,9 +19,6 @@ namespace Rm.Data.Data.Entities
         public string UserId { get; set; }
 
         [OneToMany(CascadeOperations = CascadeOperation.All)]
-        public List<AchievementNote> AchievementNotes { get; set; }
-
-        [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<AchievementStep> AchievementSteps { get; set; }
     }
 }

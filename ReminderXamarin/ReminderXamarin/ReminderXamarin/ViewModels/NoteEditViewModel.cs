@@ -30,12 +30,10 @@ namespace ReminderXamarin.ViewModels
             _mediaHelper = new MediaHelper();
             _transformHelper = new TransformHelper();
             
-            Photos = new ObservableCollection<PhotoViewModel>();
-            Videos = new ObservableCollection<VideoViewModel>();
             GalleryItemsViewModels = new ObservableCollection<GalleryItemViewModel>();
 
             TakePhotoCommand = new Command(async () => await TakePhoto());
-            DeletePhotoCommand = new Command<int>(DeletePhoto);
+            DeletePhotoCommand = new Command<GalleryItemViewModel>(DeletePhoto);
             TakeVideoCommand = new Command(async () => await TakeVideo());
             PickMediaCommand = new Command<PlatformDocument>(async document => await PickDocument(document));
             SaveNoteCommand = new Command(async() => await SaveNote());
@@ -73,8 +71,6 @@ namespace ReminderXamarin.ViewModels
                 _note = App.NoteRepository.GetNoteAsync(_noteId);
                 Title = _note.EditDate.ToString("d");
                 Description = _note.Description;
-                Photos = _note.Photos.ToPhotoViewModels();
-                Videos = _note.Videos.ToVideoViewModels();
                 GalleryItemsViewModels = _note.GalleryItems.ToViewModels();
                 PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -85,8 +81,6 @@ namespace ReminderXamarin.ViewModels
         public string Title { get; set; }
         public bool IsLoading { get; set; }
         public string Description { get; set; }
-        public ObservableCollection<PhotoViewModel> Photos { get; set; }
-        public ObservableCollection<VideoViewModel> Videos { get; set; }
         public ObservableCollection<GalleryItemViewModel> GalleryItemsViewModels { get; set; }
         
         public ICommand DeletePhotoCommand { get; set; }
@@ -177,12 +171,12 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private void DeletePhoto(int position)
+        private void DeletePhoto(GalleryItemViewModel viewModel)
         {
             IsLoading = true;
-            if (Photos.Any())
+            if (GalleryItemsViewModels.Any())
             {
-                Photos.RemoveAt(position);
+                GalleryItemsViewModels.Remove(viewModel);
                 PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
             }
             IsLoading = false;

@@ -13,8 +13,8 @@ namespace Rm.Data.Data.Repositories
         {
             _db = new SQLiteConnection(dbPath);
             _db.CreateTable<Note>();
-            _db.CreateTable<PhotoModel>();
-            _db.CreateTable<VideoModel>();
+            _db.DropTable<PhotoModel>();
+            _db.DropTable<VideoModel>();
             _db.CreateTable<GalleryItemModel>();
         }
 

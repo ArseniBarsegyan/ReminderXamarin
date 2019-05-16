@@ -23,7 +23,6 @@ namespace ReminderXamarin.ViewModels
         public ObservableCollection<AchievementViewModel> Achievements { get; set; }
 
         public ICommand RefreshListCommand { get; set; }
-        public ICommand SelectAchievementCommand { get; set; }
         public ICommand NavigateToAchievementEditViewCommand { get; set; }
 
         public void OnAppearing()

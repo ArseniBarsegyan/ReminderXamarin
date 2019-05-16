@@ -1,5 +1,4 @@
-﻿using Rm.Helpers;
-using ReminderXamarin.ViewModels;
+﻿using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using System;
 using Xamarin.Forms.Xaml;
@@ -21,23 +20,6 @@ namespace ReminderXamarin.Views
             if (BindingContext is AchievementsViewModel vm)
             {
                 vm.OnAppearing();
-            }
-        }
-
-        private async void Delete_OnClicked(object sender, EventArgs e)
-        {
-            bool result = await DisplayAlert
-                (ConstantsHelper.Warning, ConstantsHelper.AchievementDeleteMessage, ConstantsHelper.Ok, ConstantsHelper.Cancel);
-            if (result)
-            {
-                var menuItem = sender as MenuItem;
-                var viewModel = menuItem?.CommandParameter as AchievementViewModel;
-                viewModel?.DeleteAchievementCommand.Execute(viewModel);
-
-                if (BindingContext is AchievementsViewModel vm)
-                {
-                    vm.OnAppearing();
-                }                    
             }
         }
 

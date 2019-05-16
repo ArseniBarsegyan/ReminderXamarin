@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
@@ -35,6 +36,7 @@ namespace ReminderXamarin.ViewModels
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public int GeneralTimeSpent { get; set; }
         public byte[] ImageContent { get; set; }
         public bool ViewModelChanged { get; set; }
         public bool IsEditMode { get; set; }
@@ -93,6 +95,7 @@ namespace ReminderXamarin.ViewModels
                 {
                     AchievementSteps = AchievementStepViewModels.ToModels(),
                     GeneralDescription = Description,
+                    GeneralTimeSpent = 0,
                     ImageContent = ImageContent,
                     Title = Title,
                     UserId = Settings.CurrentUserId
@@ -102,10 +105,16 @@ namespace ReminderXamarin.ViewModels
             }
             else
             {
+                if (AchievementStepViewModels.Any())
+                {
+                    GeneralTimeSpent = AchievementStepViewModels.Sum(x => x.TimeSpent);
+                }
+
                 var achievement = App.AchievementRepository.GetAchievementAsync(_achievementId);
                 achievement.GeneralDescription = Description;
                 achievement.ImageContent = ImageContent;
                 achievement.Title = Title;
+                achievement.GeneralTimeSpent = GeneralTimeSpent;
                 achievement.AchievementSteps = AchievementStepViewModels.ToModels();
                 App.AchievementRepository.Save(achievement);
             }
