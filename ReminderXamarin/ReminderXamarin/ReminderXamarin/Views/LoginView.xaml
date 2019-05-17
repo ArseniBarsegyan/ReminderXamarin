@@ -9,13 +9,38 @@
                 base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <Style x:Key="LoginLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource DarkFont}" />
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="Margin" Value="25, 0" />
+            </Style>
+
+            <Style x:Key="LoginEntryStyle" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource DarkFont}" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="Margin" Value="25, 0" />
+            </Style>
+
+            <Style x:Key="CancelButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#fafafa" />
+                <Setter Property="TextColor" Value="{StaticResource DarkFont}" />
+            </Style>
+
+            <Style x:Key="LoginButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="BackgroundColor" Value="{StaticResource SubmitButtonBackground}" />
+                <Setter Property="Margin" Value="25, 10" />
+            </Style>
+
             <converters:AccountQuestionConverter x:Key="AccountQuestionConverter" />
             <converters:RegisterLoginTextConverter x:Key="RegisterLoginTextConverter" />
             <converters:InverseRegisterLoginTextConverter x:Key="InverseRegisterLoginTextConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="{StaticResource LoginBackground}">
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#fafafa">
             <StackLayout BackgroundColor="Transparent" 
                          AbsoluteLayout.LayoutBounds="0,0,1,1"
                          AbsoluteLayout.LayoutFlags="All">

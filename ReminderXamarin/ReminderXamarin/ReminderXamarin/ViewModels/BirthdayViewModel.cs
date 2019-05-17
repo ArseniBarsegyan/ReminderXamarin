@@ -28,17 +28,17 @@ namespace ReminderXamarin.ViewModels
 
         private void CreateBirthday()
         {
-            App.BirthdaysRepository.Save(this.ToBirthdayModel());
+            App.BirthdaysRepository.Value.Save(this.ToBirthdayModel());
         }
 
         private void UpdateBirthday()
         {
-            App.BirthdaysRepository.Save(this.ToBirthdayModel());
+            App.BirthdaysRepository.Value.Save(this.ToBirthdayModel());
         }
 
         private void DeleteBirthday()
         {
-            App.BirthdaysRepository.DeleteBirthday(this.ToBirthdayModel());
+            App.BirthdaysRepository.Value.DeleteBirthday(this.ToBirthdayModel());
         }
     }
 }

@@ -60,6 +60,7 @@ namespace ReminderXamarin.Views
         {
             if (BindingContext is NoteEditViewModel editViewModel)
             {
+                ShouldPromptUser = false;
                 editViewModel.Description = DescriptionEditor.Text;
                 editViewModel.SaveNoteCommand.Execute(null);
 

@@ -20,7 +20,7 @@ namespace Rm.Helpers
         /// <returns></returns>
         public static async Task<bool> Authenticate(string userName, string password)
         {
-            var user = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == userName);
+            var user = App.UserRepository.Value.GetAll().FirstOrDefault(x => x.UserName == userName);
             if (user == null)
             {
                 return false;
@@ -43,7 +43,7 @@ namespace Rm.Helpers
         /// <returns></returns>
         public static async Task<bool> Register(string userName, string password)
         {
-            var user = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == userName);
+            var user = App.UserRepository.Value.GetAll().FirstOrDefault(x => x.UserName == userName);
             if (user != null)
             {
                 return false;
@@ -57,7 +57,7 @@ namespace Rm.Helpers
                 ImageContent = new byte[0],
                 Password = passwordHash
             };
-            App.UserRepository.Save(userModel);
+            App.UserRepository.Value.Save(userModel);
             return true;
         }
     }

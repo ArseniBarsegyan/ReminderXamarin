@@ -6,48 +6,48 @@
              xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.ToDoDetailView"
              BackgroundColor="White">
-    <ContentPage.Resources>
-      <ResourceDictionary>
-          <converters:IntEnumConverter x:Key="IntEnumConverter" />
-      </ResourceDictionary>
-    </ContentPage.Resources>
-    <ContentPage.Content>
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <StackLayout Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-                <Label Text="{extensions:Translate Status}" />
-                <elements:CustomPickerWithIcon x:Name="PriorityPicker"
-                                               ItemsSource="{Binding AvailableStatuses}"
-                                               SelectedIndex="{Binding Status, Converter={StaticResource IntEnumConverter}}" />
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:IntEnumConverter x:Key="IntEnumConverter" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <ContentPage.Content>
+    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+      <StackLayout Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+        <Label Text="{extensions:Translate Status}" />
+        <elements:CustomPickerWithIcon x:Name="PriorityPicker"
+                                       ItemsSource="{Binding AvailableStatuses}"
+                                       SelectedIndex="{Binding Status, Converter={StaticResource IntEnumConverter}}" />
 
-                <Label Text="{extensions:Translate Date}" />
-                <DatePicker x:Name="DatePicker"
-                            MinimumDate="01/01/2018"
-                            MaximumDate="01/01/2100"
-                            Date="{Binding WhenHappens}" />
+        <Label Text="{extensions:Translate Date}" />
+        <DatePicker x:Name="DatePicker"
+                    MinimumDate="01/01/2018"
+                    MaximumDate="01/01/2100"
+                    Date="{Binding WhenHappens}" />
 
-                <Label Text="{extensions:Translate Time}" />
-                <TimePicker x:Name="TimePicker" Format="HH:mm" />
+        <Label Text="{extensions:Translate Time}" />
+        <TimePicker x:Name="TimePicker" Format="HH:mm" />
 
-                <Label Text="{extensions:Translate Description}" />
-                <ScrollView VerticalOptions="FillAndExpand">
-                    <Editor x:Name="DescriptionEditor"
-                            Margin="0,0,70,0"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand" />
-                </ScrollView>
-            </StackLayout>
+        <Label Text="{extensions:Translate Description}" />
+        <ScrollView VerticalOptions="FillAndExpand">
+          <Editor x:Name="DescriptionEditor"
+                  Margin="0,0,70,0"
+                  HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand" />
+        </ScrollView>
+      </StackLayout>
 
-            <!-- Confirm and delete buttons -->
-            <StackLayout AbsoluteLayout.LayoutBounds="0.95,1,100,150" AbsoluteLayout.LayoutFlags="PositionProportional">
-                <Button Style="{StaticResource ButtonDangerStyle}" 
-                        HorizontalOptions="EndAndExpand" 
-                        Clicked="Delete_OnClicked" 
-                        Image="delete.png" />
-                <Button Style="{StaticResource ButtonWithImageStyle}" 
-                        HorizontalOptions="EndAndExpand" 
-                        Clicked="Confirm_OnClicked" 
-                        Image="confirm.png" />
-            </StackLayout>
-        </AbsoluteLayout>
-    </ContentPage.Content>
+      <!-- Confirm and delete buttons -->
+      <StackLayout AbsoluteLayout.LayoutBounds="0.95,1,100,150" AbsoluteLayout.LayoutFlags="PositionProportional">
+        <elements:FloatingActionButton HorizontalOptions="EndAndExpand"
+                                       Clicked="Delete_OnClicked"
+                                       Image="delete.png"
+                                       ButtonColor="{StaticResource ErrorTextColor}" />
+        <elements:FloatingActionButton HorizontalOptions="EndAndExpand"
+                                       Clicked="Confirm_OnClicked"
+                                       Image="confirm.png"
+                                       ButtonColor="{StaticResource SubmitButtonBackground}"></elements:FloatingActionButton>
+      </StackLayout>
+    </AbsoluteLayout>
+  </ContentPage.Content>
 </ContentPage>

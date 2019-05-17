@@ -38,6 +38,9 @@ namespace ReminderXamarin.Droid
             UserDialogs.Init(this);
             LoadApplication(new App());
 
+            App.ScreenHeight = (int)(Resources.DisplayMetrics.HeightPixels / Resources.DisplayMetrics.Density);
+            App.ScreenWidth = (int)(Resources.DisplayMetrics.WidthPixels / Resources.DisplayMetrics.Density);
+
             var intent = new Intent(ApplicationContext, typeof(NotificationService));
             StartService(intent);
         }

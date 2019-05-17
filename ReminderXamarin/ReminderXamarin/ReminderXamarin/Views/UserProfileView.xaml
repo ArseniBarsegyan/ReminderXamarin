@@ -54,6 +54,7 @@
                                             AbsoluteLayout.LayoutFlags="PositionProportional" 
                                             IsVisible="{Binding ViewModelChanged}"
                                             Command="{Binding UpdateUserCommand}"
+                                            ButtonColor="{StaticResource SubmitButtonBackground}"
                                             Image="confirm.png" />
         </AbsoluteLayout>
     </ContentPage.Content>

@@ -72,12 +72,12 @@ namespace ReminderXamarin.ViewModels
 
         private async Task UpdateUser()
         {
-            var user = App.UserRepository.GetUserAsync(Id);
+            var user = App.UserRepository.Value.GetUserAsync(Id);
             if (user != null)
             {
                 user.ImageContent = ImageContent;
                 user.UserName = UserName;
-                App.UserRepository.Save(user);
+                App.UserRepository.Value.Save(user);
                 MessagingCenter.Send(this, ConstantsHelper.ProfileUpdated);
                 ViewModelChanged = false;
             }

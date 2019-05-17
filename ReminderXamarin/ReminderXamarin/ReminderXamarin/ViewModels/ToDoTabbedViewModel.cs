@@ -50,12 +50,12 @@ namespace ReminderXamarin.ViewModels
 
         private async Task<ToDoViewModel> SelectItem(int id)
         {
-            return App.ToDoRepository.GetToDoAsync(id).ToToDoViewModel();
+            return App.ToDoRepository.Value.GetToDoAsync(id).ToToDoViewModel();
         }
 
         private void LoadModelsFromDatabase()
         {
-            var allModels = App.ToDoRepository
+            var allModels = App.ToDoRepository.Value
                 .GetAll()
                 .Where(x => x.UserId == Settings.CurrentUserId)
                 .ToToDoViewModels()

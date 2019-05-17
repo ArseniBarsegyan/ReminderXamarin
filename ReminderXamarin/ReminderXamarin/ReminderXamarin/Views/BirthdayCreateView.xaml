@@ -63,6 +63,7 @@
 
             <elements:FloatingActionButton x:Name="BirthDayCreateButton" 
                                            Clicked="Save_OnClicked"
+                                           ButtonColor="{StaticResource SubmitButtonBackground}"
                                            Image="confirm.png" 
                                            AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
                                            AbsoluteLayout.LayoutFlags="PositionProportional" />

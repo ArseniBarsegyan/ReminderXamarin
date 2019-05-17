@@ -108,10 +108,16 @@
     <None Update="Views\AchievementDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <None Update="Views\AchievementEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <None Update="Views\AchievementNoteCreateView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Views\AchievementNoteEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\AchievementStepView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Views\AchievementsView.xaml">
@@ -129,6 +135,9 @@
     <None Update="Views\FullSizeImageView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <None Update="Views\GalleryItemView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <None Update="Views\LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
@@ -144,6 +153,9 @@
     <None Update="Views\NoteDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <None Update="Views\NoteEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <None Update="Views\NotesView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
@@ -154,6 +166,12 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Views\SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\ToDoActiveView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\ToDoCompletedView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Views\ToDoCreateView.xaml">

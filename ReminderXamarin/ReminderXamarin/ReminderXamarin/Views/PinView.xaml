@@ -8,7 +8,12 @@
                 base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="PinViewButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonWithImageStyle}">
+            <Style x:Key="PinViewButtonStyle" TargetType="Button">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="WidthRequest" Value="60" />
+                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="CornerRadius" Value="30" />
+                <Setter Property="Opacity" Value="0.8" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="FontSize" Value="Medium" />
                 <Setter Property="BorderColor" Value="White" />

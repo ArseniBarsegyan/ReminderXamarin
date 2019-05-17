@@ -45,8 +45,8 @@ namespace ReminderXamarin.ViewModels
 
             if (result)
             {
-                var noteToDelete = App.NoteRepository.GetNoteAsync(noteId);
-                App.NoteRepository.DeleteNote(noteToDelete);
+                var noteToDelete = App.NoteRepository.Value.GetNoteAsync(noteId);
+                App.NoteRepository.Value.DeleteNote(noteToDelete);
                 OnAppearing();
             }
         }
@@ -68,7 +68,7 @@ namespace ReminderXamarin.ViewModels
         private void LoadNotesFromDatabase()
         {
             // Fetch all note models from database.
-            _allNotes = App.NoteRepository
+            _allNotes = App.NoteRepository.Value
                 .GetAll()
                 .Where(x => x.UserId == Settings.CurrentUserId)
                 .ToNoteViewModels()

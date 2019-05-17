@@ -1,4 +1,5 @@
-﻿using Microsoft.AppCenter;
+﻿using System;
+using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Rm.Data.Data.Repositories;
@@ -19,18 +20,17 @@ namespace ReminderXamarin
             InitializeComponent();
             Bootstrapper.Initialize();
             var navigationService = ComponentFactory.Resolve<INavigationService>();
-            string dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantsHelper.SqLiteDataBaseName);
+            var dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantsHelper.SqLiteDataBaseName);
 
-            NoteRepository = new NoteRepository(dbPath);
-            ToDoRepository = new ToDoRepository(dbPath);
-            AchievementRepository = new AchievementRepository(dbPath);
-            UserRepository = new UserRepository(dbPath);
-            BirthdaysRepository = new BirthdaysRepository(dbPath);
+            NoteRepository = new Lazy<NoteRepository>(() => new NoteRepository(dbPath));
+            ToDoRepository = new Lazy<ToDoRepository>(() => new ToDoRepository(dbPath));
+            AchievementRepository = new Lazy<AchievementRepository>(() => new AchievementRepository(dbPath));
+            UserRepository = new Lazy<UserRepository>(() => new UserRepository(dbPath));
+            BirthdaysRepository = new Lazy<BirthdaysRepository>(() => new BirthdaysRepository(dbPath));
 
-            bool.TryParse(Settings.UsePin, out bool shouldUsePin);
+            bool.TryParse(Settings.UsePin, out var shouldUsePin);
             if (shouldUsePin)
             {
-                // MainPage = new PinView();
                 navigationService.InitializeAsync<PinViewModel>();
             }
             else
@@ -39,11 +39,14 @@ namespace ReminderXamarin
             }
         }
 
-        public static NoteRepository NoteRepository { get; private set; }
-        public static ToDoRepository ToDoRepository { get; private set; }
-        public static AchievementRepository AchievementRepository { get; private set; }
-        public static UserRepository UserRepository { get; private set; }
-        public static BirthdaysRepository BirthdaysRepository { get; private set; }
+        public static int ScreenWidth { get; set; }
+        public static int ScreenHeight { get; set; }
+
+        public static Lazy<NoteRepository> NoteRepository { get; private set; }
+        public static Lazy<ToDoRepository> ToDoRepository { get; private set; }
+        public static Lazy<AchievementRepository> AchievementRepository { get; private set; }
+        public static Lazy<UserRepository> UserRepository { get; private set; }
+        public static Lazy<BirthdaysRepository> BirthdaysRepository { get; private set; }
 
         protected override void OnStart()
         {

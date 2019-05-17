@@ -80,6 +80,7 @@
                                        AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
                                        AbsoluteLayout.LayoutFlags="PositionProportional" 
                                        Image="add.png"
+                                       ButtonColor="{StaticResource SubmitButtonBackground}"
                                        Command="{Binding NavigateToEditViewCommand}">
             <elements:FloatingActionButton.CommandParameter>
                 <x:Int32>0</x:Int32>

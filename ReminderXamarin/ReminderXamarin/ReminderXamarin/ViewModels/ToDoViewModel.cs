@@ -33,18 +33,18 @@ namespace ReminderXamarin.ViewModels
 
         private async Task CreateToDo()
         {
-            App.ToDoRepository.Save(this.ToToDoModel());
+            App.ToDoRepository.Value.Save(this.ToToDoModel());
         }
 
         private async Task UpdateItem()
         {
             // Update edit date since user pressed confirm
-            App.ToDoRepository.Save(this.ToToDoModel());
+            App.ToDoRepository.Value.Save(this.ToToDoModel());
         }
 
         private async Task DeleteItem()
         {
-            App.ToDoRepository.DeleteModel(this.ToToDoModel());
+            App.ToDoRepository.Value.DeleteModel(this.ToToDoModel());
         }
     }
 }

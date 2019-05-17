@@ -80,7 +80,7 @@ namespace ReminderXamarin.ViewModels
             else
             {
                 IsEditMode = true;
-                _achievement = App.AchievementRepository.GetAchievementAsync(_achievementId);
+                _achievement = App.AchievementRepository.Value.GetAchievementAsync(_achievementId);
                 Title = _achievement.Title;
                 Description = _achievement.GeneralDescription;
                 ImageContent = _achievement.ImageContent;
@@ -102,7 +102,7 @@ namespace ReminderXamarin.ViewModels
                     Title = Title,
                     UserId = Settings.CurrentUserId
                 };
-                App.AchievementRepository.Save(achievement);
+                App.AchievementRepository.Value.Save(achievement);
                 await NavigationService.NavigateBackAsync();
             }
             else
@@ -112,13 +112,13 @@ namespace ReminderXamarin.ViewModels
                     GeneralTimeSpent = AchievementStepViewModels.Sum(x => x.TimeSpent);
                 }
 
-                var achievement = App.AchievementRepository.GetAchievementAsync(_achievementId);
+                var achievement = App.AchievementRepository.Value.GetAchievementAsync(_achievementId);
                 achievement.GeneralDescription = Description;
                 achievement.ImageContent = ImageContent;
                 achievement.Title = Title;
                 achievement.GeneralTimeSpent = GeneralTimeSpent;
                 achievement.AchievementSteps = AchievementStepViewModels.ToModels();
-                App.AchievementRepository.Save(achievement);
+                App.AchievementRepository.Value.Save(achievement);
             }
         }
 
@@ -130,8 +130,8 @@ namespace ReminderXamarin.ViewModels
                     ConstantsHelper.Warning, ConstantsHelper.Ok, ConstantsHelper.Cancel);
                 if (result)
                 {
-                    var achievementToDelete = App.AchievementRepository.GetAchievementAsync(_achievementId);
-                    App.AchievementRepository.DeleteAchievement(achievementToDelete);
+                    var achievementToDelete = App.AchievementRepository.Value.GetAchievementAsync(_achievementId);
+                    App.AchievementRepository.Value.DeleteAchievement(achievementToDelete);
                     await NavigationService.NavigateBackAsync();
                 }
             }

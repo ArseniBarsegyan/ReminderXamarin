@@ -68,7 +68,7 @@ namespace ReminderXamarin.ViewModels
             else
             {
                 IsEditMode = true;
-                _note = App.NoteRepository.GetNoteAsync(_noteId);
+                _note = App.NoteRepository.Value.GetNoteAsync(_noteId);
                 Title = _note.EditDate.ToString("d");
                 Description = _note.Description;
                 GalleryItemsViewModels = _note.GalleryItems.ToViewModels();
@@ -297,16 +297,16 @@ namespace ReminderXamarin.ViewModels
                     GalleryItems = GalleryItemsViewModels.ToModels().ToList(),
                     UserId = Settings.CurrentUserId
                 };
-                App.NoteRepository.Save(note);
+                App.NoteRepository.Value.Save(note);
                 await NavigationService.NavigateBackAsync();
             }
             else
             {
-                var note = App.NoteRepository.GetNoteAsync(_noteId);
+                var note = App.NoteRepository.Value.GetNoteAsync(_noteId);
                 note.Description = Description;
                 note.EditDate = DateTime.Now;
                 note.GalleryItems = GalleryItemsViewModels.ToModels().ToList();
-                App.NoteRepository.Save(note);
+                App.NoteRepository.Value.Save(note);
             }
             IsLoading = false;
         }
@@ -319,8 +319,8 @@ namespace ReminderXamarin.ViewModels
                     ConstantsHelper.Warning, ConstantsHelper.Ok, ConstantsHelper.Cancel);
                 if (result)
                 {
-                    var noteToDelete = App.NoteRepository.GetNoteAsync(_noteId);
-                    App.NoteRepository.DeleteNote(noteToDelete);
+                    var noteToDelete = App.NoteRepository.Value.GetNoteAsync(_noteId);
+                    App.NoteRepository.Value.DeleteNote(noteToDelete);
                     await NavigationService.NavigateBackAsync();
                 }
             }

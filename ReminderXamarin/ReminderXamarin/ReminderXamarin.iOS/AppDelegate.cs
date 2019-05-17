@@ -53,6 +53,10 @@ namespace ReminderXamarin.iOS
             }
 
             NSTimer.CreateRepeatingScheduledTimer(TimeSpan.FromSeconds(5), delegate { CheckNotifications(); });
+
+            App.ScreenHeight = (int)UIScreen.MainScreen.Bounds.Height;
+            App.ScreenWidth = (int)UIScreen.MainScreen.Bounds.Width;
+
             return base.FinishedLaunching(app, options);
         }
 
@@ -65,7 +69,7 @@ namespace ReminderXamarin.iOS
         {
             var currentDate = DateTime.Now;
 
-            var allToDoModels = App.ToDoRepository.GetAll()
+            var allToDoModels = App.ToDoRepository.Value.GetAll()
                 .Where(x => x.Status == ConstantsHelper.Active)
                 .Where(x => x.WhenHappens.ToString("dd.MM.yyyy HH:mm") == currentDate.ToString("dd.MM.yyyy HH:mm"))
                 .ToList();
@@ -77,7 +81,7 @@ namespace ReminderXamarin.iOS
                     CrossLocalNotifications.Current.Show(model.WhenHappens.ToString("D"), model.Description);
                 });
                 model.Status = ToDoStatus.Completed.ToString();
-                App.ToDoRepository.Save(model);
+                App.ToDoRepository.Value.Save(model);
                 MessagingCenter.Send((App)App.Current, ConstantsHelper.UpdateUI);
             });
         }

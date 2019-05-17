@@ -17,7 +17,7 @@ namespace ReminderXamarin.ViewModels
         public MenuMasterViewModel()
         {
             MessagingCenter.Subscribe<UserProfileViewModel>(this, ConstantsHelper.ProfileUpdated, vm => ProfileUpdated());
-            _appUser = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == Settings.ApplicationUser);
+            _appUser = App.UserRepository.Value.GetAll().FirstOrDefault(x => x.UserName == Settings.ApplicationUser);
             if (_appUser != null)
             {
                 UserName = _appUser.UserName;
@@ -31,7 +31,7 @@ namespace ReminderXamarin.ViewModels
 
         private void ProfileUpdated()
         {
-            _appUser = App.UserRepository.GetAll().FirstOrDefault(x => x.UserName == Settings.ApplicationUser);
+            _appUser = App.UserRepository.Value.GetAll().FirstOrDefault(x => x.UserName == Settings.ApplicationUser);
             if (_appUser != null)
             {
                 UserName = _appUser.UserName;

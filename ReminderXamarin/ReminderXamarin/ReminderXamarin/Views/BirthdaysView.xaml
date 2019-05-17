@@ -86,6 +86,7 @@
             </StackLayout>
 
             <elements:FloatingActionButton x:Name="AddFriendButton" 
+                                           ButtonColor="{StaticResource SubmitButtonBackground}"
                                            Clicked="AddFriendButton_OnClicked"
                                            Image="add.png" 
                                            AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
