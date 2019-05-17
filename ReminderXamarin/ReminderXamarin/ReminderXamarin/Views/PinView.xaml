@@ -18,6 +18,7 @@
                 <Setter Property="FontSize" Value="Medium" />
                 <Setter Property="BorderColor" Value="White" />
                 <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="TextColor" Value="White" />
             </Style>
 
             <Style x:Key="PinViewLabelStyle" TargetType="Label">
