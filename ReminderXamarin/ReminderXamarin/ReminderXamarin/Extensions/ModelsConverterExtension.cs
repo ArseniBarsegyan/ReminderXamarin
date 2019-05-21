@@ -162,7 +162,7 @@ namespace ReminderXamarin.Extensions
             {
                 Id = viewModel.Id,
                 AchievementId = viewModel.AchievementId,
-                Image = viewModel.Image,
+                ImageContent = viewModel.ImageContent,
                 Title = viewModel.Title,
                 Description = viewModel.Description,
                 TimeSpent = viewModel.TimeSpent,
@@ -176,7 +176,7 @@ namespace ReminderXamarin.Extensions
             {
                 Id = model.Id,
                 AchievementId = model.AchievementId,
-                Image = model.Image,
+                ImageContent = model.ImageContent,
                 Title = model.Title,
                 Description = model.Description,
                 TimeSpent = model.TimeSpent,

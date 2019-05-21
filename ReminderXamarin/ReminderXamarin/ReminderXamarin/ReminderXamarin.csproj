@@ -50,6 +50,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\AchievementStepView.xaml.cs">
+      <DependentUpon>AchievementStepView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ToDoActiveView.xaml.cs">
       <DependentUpon>ToDoActiveView.xaml</DependentUpon>
     </Compile>

@@ -237,6 +237,9 @@
   <data name="Menu" xml:space="preserve">
     <value>Menu</value>
   </data>
+  <data name="NewStep" xml:space="preserve">
+    <value>New step</value>
+  </data>
   <data name="Note" xml:space="preserve">
     <value>Note:</value>
   </data>

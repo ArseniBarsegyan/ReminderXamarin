@@ -27,6 +27,7 @@ namespace ReminderXamarin
             AchievementRepository = new Lazy<AchievementRepository>(() => new AchievementRepository(dbPath));
             UserRepository = new Lazy<UserRepository>(() => new UserRepository(dbPath));
             BirthdaysRepository = new Lazy<BirthdaysRepository>(() => new BirthdaysRepository(dbPath));
+            AchievementStepRepository = new Lazy<AchievementStepRepository>(() => new AchievementStepRepository(dbPath));
 
             bool.TryParse(Settings.UsePin, out var shouldUsePin);
             if (shouldUsePin)
@@ -47,6 +48,7 @@ namespace ReminderXamarin
         public static Lazy<AchievementRepository> AchievementRepository { get; private set; }
         public static Lazy<UserRepository> UserRepository { get; private set; }
         public static Lazy<BirthdaysRepository> BirthdaysRepository { get; private set; }
+        public static Lazy<AchievementStepRepository> AchievementStepRepository { get; private set; }
 
         protected override void OnStart()
         {

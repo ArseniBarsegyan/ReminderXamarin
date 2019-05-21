@@ -10,7 +10,7 @@ namespace Rm.Data.Data.Entities
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        public byte[] Image { get; set; }
+        public byte[] ImageContent { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public int TimeSpent { get; set; }

@@ -12,6 +12,7 @@
         public const string AchievementDeleteMessage = "Are you sure you want to delete this achievement?";
         public const string AchievementNoteDeleteMessage = "Are you sure you want to delete this achievement note?";
         public const string AchievementSteps = "AchievementSteps";
+        public const string AchievementStepEditComplete = "AchievementStepEditComplete";
         public const string AlreadyHaveAccountQuestion = "AlreadyHaveAccountQuestion";
         public const string ArrowForwardImage = "arrow_forward.png";
         public const string AreYouSure = "Are you sure?";
@@ -35,6 +36,7 @@
         public const string ImageDeleted = "ImageDeleted";
         public const string LoadingMessage = "LoadingMessage";
         public const string Login = "Login";
+        public const string NewStep = "NewStep";
         public const string No = "No";
         public const string Notes = "Notes";
         public const string NoteTextIsEmptyMessage = "Note text is empty. Creation cancelled";

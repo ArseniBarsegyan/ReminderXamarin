@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -32,6 +33,19 @@ namespace ReminderXamarin.ViewModels
             SaveAchievementCommand = new Command(async() => await SaveAchievement());
             DeleteAchievementCommand = new Command(async () => await DeleteAchievement());
             AddStepCommand = new Command(async() => await AddStep());
+            NavigateToAchievementStepEditViewCommand = new Command<KeyValuePair<int, int>>(async (pair) => await NavigateToAchievementStepEditView(pair));
+
+            MessagingCenter.Subscribe<AchievementStepViewModel>(this, ConstantsHelper.AchievementStepEditComplete, AddViewModel);
+        }
+
+        public void OnDisappearing()
+        {
+            MessagingCenter.Unsubscribe<AchievementStepViewModel>(this, ConstantsHelper.AchievementStepEditComplete);
+        }
+
+        private void AddViewModel(AchievementStepViewModel viewModel)
+        {
+            AchievementStepViewModels.Add(viewModel);
         }
 
         public int Id { get; set; }
@@ -48,6 +62,8 @@ namespace ReminderXamarin.ViewModels
         public ICommand SaveAchievementCommand { get; set; }
         public ICommand DeleteAchievementCommand { get; set; }
         public ICommand AddStepCommand { get; set; }
+
+        public ICommand NavigateToAchievementStepEditViewCommand { get; set; }
 
         private async Task ChangeImage(PlatformDocument document)
         {
@@ -69,6 +85,11 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
+        private async Task NavigateToAchievementStepEditView(KeyValuePair<int, int> pair)
+        {
+            await NavigationService.NavigateToAsync<AchievementStepViewModel>(pair);
+        }
+
         public override Task InitializeAsync(object navigationData)
         {
             _achievementId = (int)navigationData;
@@ -81,6 +102,7 @@ namespace ReminderXamarin.ViewModels
             {
                 IsEditMode = true;
                 _achievement = App.AchievementRepository.Value.GetAchievementAsync(_achievementId);
+                Id = _achievement.Id;
                 Title = _achievement.Title;
                 Description = _achievement.GeneralDescription;
                 ImageContent = _achievement.ImageContent;
