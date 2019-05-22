@@ -26,10 +26,12 @@ namespace ReminderXamarin.ViewModels
         {
             SaveAchievementStepCommand = new Command(async() => await Save());
             ChangeImageCommand = new Command<PlatformDocument>(async document => await ChangeImage(document));
+            IncreaseProgressCommand = new Command<string>(async amount => await IncreaseProgress(amount));
         }
 
         public ICommand SaveAchievementStepCommand { get; set; }
         public ICommand ChangeImageCommand { get; set; }
+        public ICommand IncreaseProgressCommand { get; set; }
 
         public IList<string> AvailableStepTypes =>
             Enum.GetNames(typeof(AchievementStepType)).Select(x => x.ToString()).ToList();
@@ -43,8 +45,10 @@ namespace ReminderXamarin.ViewModels
         public int TimeSpent { get; set; }
         public int TimeEstimation { get; set; }
         public bool IsEditMode { get; set; }
-        public float Progress => (TimeSpent / (float)TimeEstimation);
+        public double Progress => TimeSpent / (double)TimeEstimation;
         public bool ViewModelChanged { get; set; }
+
+        public bool IsAchieved => Progress >= 1.0;
 
         public int AchievementId { get; set; }
 
@@ -102,6 +106,12 @@ namespace ReminderXamarin.ViewModels
             }
             MessagingCenter.Send(this, ConstantsHelper.AchievementStepEditComplete);
             await NavigationService.NavigateBackAsync();
+        }
+
+        private async Task IncreaseProgress(string amount)
+        {
+            int.TryParse(amount, out int result);
+            TimeSpent += result;
         }
     }
 

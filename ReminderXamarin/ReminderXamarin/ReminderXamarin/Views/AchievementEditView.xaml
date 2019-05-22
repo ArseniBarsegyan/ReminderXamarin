@@ -12,60 +12,93 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Order="Primary" Icon="delete.png" Command="{Binding DeleteAchievementCommand}" />
     </ContentPage.ToolbarItems>
-    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-        <elements:BlurredImage x:Name="BackgroundImage"
-                                   Aspect="AspectFill"
-                                   AbsoluteLayout.LayoutBounds="0,0,1,100" 
-                                   AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" />
+    <ListView x:Name="AchievementStepsListView" HasUnevenRows="True"
+              ItemSelected="ListView_OnItemSelected"
+              ItemsSource="{Binding AchievementStepViewModels}">
+        <ListView.Header>
+            <AbsoluteLayout>
+                <elements:BlurredImage x:Name="BackgroundImage"
+                                               Aspect="AspectFill"
+                                               AbsoluteLayout.LayoutBounds="0,0,1,100" 
+                                               AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" />
 
-        <abstractions:CircleImage x:Name="AchievementImage"
-                                      Aspect="AspectFill"
-                                      HorizontalOptions="Center"
-                                      VerticalOptions="Start"
-                                      HeightRequest="120"
-                                      WidthRequest="120"
-                                      AbsoluteLayout.LayoutBounds="0.5,40,120,120" 
-                                      AbsoluteLayout.LayoutFlags="XProportional"
-                                      Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}"
-                                      Style="{StaticResource UserImageStyle}">
-            <abstractions:CircleImage.GestureRecognizers>
-                <TapGestureRecognizer Tapped="AchievementImage_OnTapped" NumberOfTapsRequired="1" />
-            </abstractions:CircleImage.GestureRecognizers>
-        </abstractions:CircleImage>
+                <abstractions:CircleImage x:Name="AchievementImage"
+                                          Aspect="AspectFill"
+                                          HorizontalOptions="Center"
+                                          VerticalOptions="Start"
+                                          HeightRequest="120"
+                                          WidthRequest="120"
+                                          AbsoluteLayout.LayoutBounds="0.5,40,120,120" 
+                                          AbsoluteLayout.LayoutFlags="XProportional"
+                                          Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}"
+                                          Style="{StaticResource UserImageStyle}">
+                    <abstractions:CircleImage.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="AchievementImage_OnTapped" NumberOfTapsRequired="1" />
+                    </abstractions:CircleImage.GestureRecognizers>
+                </abstractions:CircleImage>
 
-        <StackLayout x:Name="AchievementInfoLayout" 
-                         AbsoluteLayout.LayoutBounds="0.5,180,1,1"
-                         AbsoluteLayout.LayoutFlags="XProportional, SizeProportional">
-            <Label Text="{Binding Title}" FontSize="Medium" HorizontalOptions="Center" />
+                <StackLayout AbsoluteLayout.LayoutBounds="0.5,180,1,1"
+                             Padding="10"
+                             AbsoluteLayout.LayoutFlags="XProportional, SizeProportional">
+                    <Label Text="{Binding Title}" FontSize="Medium" HorizontalOptions="Center" />
 
-            <Label Text="{extensions:Translate AchievementName}" HorizontalOptions="Start" />
-            <Entry x:Name="TitleEntry" Text="{Binding Title}" HorizontalOptions="FillAndExpand" />
+                    <Label Text="{extensions:Translate AchievementName}" HorizontalOptions="Start" />
+                    <Entry x:Name="TitleEntry" Text="{Binding Title}" HorizontalOptions="FillAndExpand" />
 
-            <Label Text="{extensions:Translate Description}" HorizontalOptions="Start" />
-            <Editor x:Name="DescriptionEditor"
-                    Text="{Binding Description}"
-                    TextChanged="DescriptionEditor_OnTextChanged"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand" />
+                    <Label Text="{extensions:Translate Description}" HorizontalOptions="Start" />
+                    <Editor x:Name="DescriptionEditor"
+                                    Text="{Binding Description}"
+                                    TextChanged="DescriptionEditor_OnTextChanged"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand" />
+                </StackLayout>
+            </AbsoluteLayout>
 
-            <ListView x:Name="AchievementSteps" 
-                      ItemsSource="{Binding AchievementStepViewModels}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Vertical">
-                                <StackLayout Orientation="Horizontal">
-                                    <Image Source="{Binding ImageContent}" HorizontalOptions="StartAndExpand" HeightRequest="100" WidthRequest="100" />
-                                    <Label Text="{Binding Title}" HorizontalOptions="CenterAndExpand" />
-                                </StackLayout>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell Height="160">
+                    <Grid Padding="10,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="3*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="2*" />
+                        </Grid.RowDefinitions>
+
+                        <abstractions:CircleImage Source="{Binding ImageContent, Converter={StaticResource ByteToImageSourceConverter}}"
+                                                  Aspect="AspectFill"
+                                                  Grid.Column="0"
+                                                  Grid.RowSpan="2"
+                                                  VerticalOptions="Center"
+                                                  HorizontalOptions="Start"
+                                                  HeightRequest="90"
+                                                  WidthRequest="90" />
+
+                        <Label Text="{Binding Title}" Grid.Row="0" Grid.Column="1" FontSize="Medium" />
+                        <StackLayout Grid.Row="1" Grid.Column="1">
+                            <elements:ExtendedLabel HorizontalTextAlignment="Start" 
+                                                    Lines="3"
+                                                    LineBreakMode="TailTruncation" 
+                                                    LineSpacing="1.1" 
+                                                    Text="{Binding Description}"
+                                                    VerticalOptions="Start" />
+                            <ProgressBar Progress="{Binding Progress}" ProgressColor="BlueViolet" />
+                            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsAchieved, Converter={StaticResource InverseBooleanConverter}}">
+                                <Button Text="+1" Command="{Binding IncreaseProgressCommand}" CommandParameter="1" />
+                                <Button Text="+5" Command="{Binding IncreaseProgressCommand}" CommandParameter="5" />
+                                <Button Text="+10" Command="{Binding IncreaseProgressCommand}" CommandParameter="10" />
                             </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.Footer>
-                    <Button Text="Add step" Command="{Binding AddStepCommand}" />
-                </ListView.Footer>
-            </ListView>
-        </StackLayout>
-    </AbsoluteLayout>
+                        </StackLayout>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        <ListView.Footer>
+            <Button Text="Add step" Command="{Binding AddStepCommand}" />
+        </ListView.Footer>
+    </ListView>
 </ContentPage>

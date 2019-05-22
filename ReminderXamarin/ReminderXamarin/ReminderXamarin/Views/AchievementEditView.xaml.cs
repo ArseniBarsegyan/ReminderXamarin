@@ -57,5 +57,10 @@ namespace ReminderXamarin.Views
                 viewModel.ChangeImageCommand.Execute(document);
             }
         }
+
+        private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            AchievementStepsListView.SelectedItem = null;
+        }
     }
 }
