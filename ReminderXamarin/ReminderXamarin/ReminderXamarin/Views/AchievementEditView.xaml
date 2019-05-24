@@ -5,10 +5,16 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+             xmlns:converters="clr-namespace:ReminderXamarin.Converters"
              x:Class="ReminderXamarin.Views.AchievementEditView"
              Title="{Binding Title}"
              BackgroundColor="White"
              base:ViewModelHelper.AutoWireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:AchievementStepTypeToBoolConverter x:Key="AchievementStepTypeToBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Order="Primary" Icon="delete.png" Command="{Binding DeleteAchievementCommand}" />
     </ContentPage.ToolbarItems>
@@ -89,9 +95,17 @@
                                                     VerticalOptions="Start" />
                             <ProgressBar Progress="{Binding Progress}" ProgressColor="BlueViolet" />
                             <StackLayout Orientation="Horizontal" IsVisible="{Binding IsAchieved, Converter={StaticResource InverseBooleanConverter}}">
-                                <Button Text="+1" Command="{Binding IncreaseProgressCommand}" CommandParameter="1" />
-                                <Button Text="+5" Command="{Binding IncreaseProgressCommand}" CommandParameter="5" />
-                                <Button Text="+10" Command="{Binding IncreaseProgressCommand}" CommandParameter="10" />
+                                <Button Text="+1"
+                                        Command="{Binding IncreaseProgressCommand}" 
+                                        CommandParameter="1" />
+                                <Button Text="+5" 
+                                        IsVisible="{Binding StepType, Converter={StaticResource AchievementStepTypeToBoolConverter}}"
+                                        Command="{Binding IncreaseProgressCommand}" 
+                                        CommandParameter="5" />
+                                <Button Text="+10" 
+                                        IsVisible="{Binding StepType, Converter={StaticResource AchievementStepTypeToBoolConverter}}"
+                                        Command="{Binding IncreaseProgressCommand}" 
+                                        CommandParameter="10" />
                             </StackLayout>
                         </StackLayout>
                     </Grid>
