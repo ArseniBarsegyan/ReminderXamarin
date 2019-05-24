@@ -285,6 +285,15 @@
   <data name="Status" xml:space="preserve">
     <value>Status:</value>
   </data>
+  <data name="StepName" xml:space="preserve">
+    <value>Step name:</value>
+  </data>
+  <data name="StepTimeEstimation" xml:space="preserve">
+    <value>Time for complete estimation:</value>
+  </data>
+  <data name="StepType" xml:space="preserve">
+    <value>Step type:</value>
+  </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Take photo</value>
   </data>

@@ -565,6 +565,33 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Step name:.
+        /// </summary>
+        internal static string StepName {
+            get {
+                return ResourceManager.GetString("StepName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time for complete estimation:.
+        /// </summary>
+        internal static string StepTimeEstimation {
+            get {
+                return ResourceManager.GetString("StepTimeEstimation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step type:.
+        /// </summary>
+        internal static string StepType {
+            get {
+                return ResourceManager.GetString("StepType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Take photo.
         /// </summary>
         internal static string TakePhoto {

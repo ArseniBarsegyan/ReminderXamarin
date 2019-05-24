@@ -48,7 +48,7 @@ namespace Rm.Data.Data.Repositories
             }
             else
             {
-                _db.Insert(achievement);
+                _db.InsertWithChildren(achievement);
             }
         }
 

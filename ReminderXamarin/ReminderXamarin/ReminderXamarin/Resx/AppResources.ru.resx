@@ -238,7 +238,7 @@
     <value>Меню</value>
   </data>
   <data name="NewStep" xml:space="preserve">
-    <value>Новый шаг</value>
+    <value>Новый этап</value>
   </data>
   <data name="Note" xml:space="preserve">
     <value>Заметка:</value>
@@ -284,6 +284,15 @@
   </data>
   <data name="Status" xml:space="preserve">
     <value>Статус:</value>
+  </data>
+  <data name="StepName" xml:space="preserve">
+    <value>Название этапа:</value>
+  </data>
+  <data name="StepTimeEstimation" xml:space="preserve">
+    <value>Оценка времени до завершения:</value>
+  </data>
+  <data name="StepType" xml:space="preserve">
+    <value>Тип этапа:</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Сделать фото</value>

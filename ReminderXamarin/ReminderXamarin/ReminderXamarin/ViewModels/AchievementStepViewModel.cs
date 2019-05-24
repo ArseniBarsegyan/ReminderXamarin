@@ -24,6 +24,7 @@ namespace ReminderXamarin.ViewModels
 
         public AchievementStepViewModel()
         {
+            ImageContent = new byte[0];
             SaveAchievementStepCommand = new Command(async() => await Save());
             ChangeImageCommand = new Command<PlatformDocument>(async document => await ChangeImage(document));
             IncreaseProgressCommand = new Command<string>(async amount => await IncreaseProgress(amount));
@@ -100,6 +101,11 @@ namespace ReminderXamarin.ViewModels
         
         private async Task Save()
         {
+            if (string.IsNullOrEmpty(Title))
+            {
+                await NavigationService.NavigateBackAsync();
+                return;
+            }
             if (StepType == AchievementStepType.Single)
             {
                 TimeEstimation = 1;

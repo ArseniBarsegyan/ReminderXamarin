@@ -14,7 +14,8 @@
     </ContentPage.ToolbarItems>
     <ListView x:Name="AchievementStepsListView" HasUnevenRows="True"
               ItemSelected="ListView_OnItemSelected"
-              ItemsSource="{Binding AchievementStepViewModels}">
+              ItemsSource="{Binding AchievementStepViewModels}"
+              CachingStrategy="RecycleElement">
         <ListView.Header>
             <AbsoluteLayout>
                 <elements:BlurredImage x:Name="BackgroundImage"
@@ -57,7 +58,7 @@
         </ListView.Header>
         <ListView.ItemTemplate>
             <DataTemplate>
-                <ViewCell Height="160">
+                <ViewCell Height="200">
                     <Grid Padding="10,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />

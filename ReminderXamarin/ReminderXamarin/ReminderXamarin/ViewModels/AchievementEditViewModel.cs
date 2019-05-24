@@ -96,7 +96,7 @@ namespace ReminderXamarin.ViewModels
 
             if (_achievementId == 0)
             {
-                Title = Resmgr.Value.GetString(ConstantsHelper.CreateNote, CultureInfo.CurrentCulture);
+                Title = Resmgr.Value.GetString(ConstantsHelper.CreateAchievement, CultureInfo.CurrentCulture);
             }
             else
             {
