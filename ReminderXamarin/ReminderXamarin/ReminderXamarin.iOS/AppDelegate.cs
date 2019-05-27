@@ -27,7 +27,7 @@ namespace ReminderXamarin.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Rg.Plugins.Popup.Popup.Init();
-
+            Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
             SQLitePCL.Batteries.Init();
             //var cv = typeof(Xamarin.Forms.CarouselView);

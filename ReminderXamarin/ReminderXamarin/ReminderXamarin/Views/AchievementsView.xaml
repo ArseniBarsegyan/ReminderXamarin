@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
-             xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
@@ -20,15 +19,15 @@
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <!-- List of achievements -->
-            <controls:FlowListView x:Name="AchievementsList" 
-                                   AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                                   AbsoluteLayout.LayoutFlags="All"
-                                   SeparatorVisibility="None"                                   
-                                   HasUnevenRows="true"
-                                   FlowItemsSource="{Binding Achievements}"
-                                   FlowColumnCount="3"
-                                   BackgroundColor="#fafafa">
-                <controls:FlowListView.FlowColumnTemplate>
+            <CollectionView x:Name="AchievementsCollectionView"
+                            AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                            AbsoluteLayout.LayoutFlags="All"
+                            ItemsSource="{Binding Achievements}" 
+                            ItemSizingStrategy="MeasureFirstItem">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="3" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Padding="5">
                             <AbsoluteLayout x:Name="ImageViewLayout" 
@@ -61,12 +60,12 @@
                                         WidthRequest="50" 
                                         CornerRadius="25"
                                         FontSize="Micro" />
-                                
+
                             </AbsoluteLayout>
                         </StackLayout>
                     </DataTemplate>
-                </controls:FlowListView.FlowColumnTemplate>
-            </controls:FlowListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
             <elements:FloatingActionButton x:Name="CreateAchievementButton" 
                                            Command="{Binding NavigateToAchievementEditViewCommand}"

@@ -9,6 +9,7 @@ using ImageCircle.Forms.Plugin.Droid;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
 using ReminderXamarin.Droid.Services.FilePickerService;
+using Xamarin.Forms;
 
 namespace ReminderXamarin.Droid
 {
@@ -28,6 +29,7 @@ namespace ReminderXamarin.Droid
 
             base.OnCreate(bundle);
             Rg.Plugins.Popup.Popup.Init(this, bundle);
+            Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init(this, bundle);
             //var cv = typeof(Xamarin.Forms.CarouselView);
             //var assembly = Assembly.Load(cv.FullName);
