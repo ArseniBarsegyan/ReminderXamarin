@@ -55,7 +55,7 @@
                                             IsVisible="{Binding ViewModelChanged}"
                                             Command="{Binding UpdateUserCommand}"
                                             ButtonColor="{StaticResource SubmitButtonBackground}"
-                                            Image="confirm.png" />
+                                            ImageSource="confirm.png" />
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

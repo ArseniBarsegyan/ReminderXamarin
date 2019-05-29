@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.NoteEditView"
              Title="{Binding Title}"
@@ -19,7 +18,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="DeleteOption" Icon="delete.png" Order="Primary" Command="{Binding DeleteNoteCommand}" />
+        <ToolbarItem x:Name="DeleteOption" IconImageSource="delete.png" Order="Primary" Command="{Binding DeleteNoteCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.BindingContext>
         <viewModels:NoteEditViewModel x:Name="ViewModel" />
@@ -36,49 +35,45 @@
                         HeightRequest="200" />
 
                 <Label Text="{extensions:Translate Gallery}" FontSize="Small" />
-                <!-- Image gallery with all photos of current note -->
-                <elements:HorizontalImageGallery x:Name="ImageGallery" 
-                                                 Orientation="Horizontal" 
-                                                 HorizontalScrollBarVisibility="Never"
-                                                 ItemsSource="{Binding GalleryItemsViewModels}"
-                                                 HeightRequest="120">
-                    <elements:HorizontalImageGallery.ItemTemplate>
+
+                <CollectionView ItemsSource="{Binding GalleryItemsViewModels}"
+                                ItemSizingStrategy="MeasureFirstItem">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="3" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
-                                    <AbsoluteLayout x:Name="ImageViewLayout" Padding="2" HeightRequest="120" WidthRequest="120">
-                                        <Image Source="{Binding ImagePath}" 
-                                               Aspect="AspectFill" 
-                                               HeightRequest="120" 
-                                               WidthRequest="120" 
-                                               AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                                               AbsoluteLayout.LayoutFlags="All">
-                                            <Image.GestureRecognizers>
-                                                <TapGestureRecognizer NumberOfTapsRequired="1" 
-                                                                      Command="{Binding Source={x:Reference ViewModel}, Path=SelectImageCommand}"
-                                                                      CommandParameter="{Binding .}" />
-                                            </Image.GestureRecognizers>
-                                        </Image>
-                                        <!-- Overlay for video -->
-                                        <Image Source="play.png" 
+                            <AbsoluteLayout Padding="2" HeightRequest="120" WidthRequest="120">
+                                <Image Source="{Binding ImagePath}" 
+                                       Aspect="AspectFill" 
+                                       HeightRequest="120" 
+                                       WidthRequest="120" 
+                                       AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                       AbsoluteLayout.LayoutFlags="All">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                                              Command="{Binding Source={x:Reference ViewModel}, Path=SelectImageCommand}"
+                                                              CommandParameter="{Binding .}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                                <!-- Overlay for video -->
+                                <Image Source="play.png" 
                                                IsVisible="{Binding IsVideo}"
                                                Aspect="AspectFit"
                                                HeightRequest="60"
                                                WidthRequest="60"
                                                AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5"
                                                AbsoluteLayout.LayoutFlags="All">
-                                            <Image.GestureRecognizers>
-                                                <TapGestureRecognizer NumberOfTapsRequired="1" 
-                                                                      Command="{Binding Source={x:Reference ViewModel}, Path=SelectImageCommand}"
-                                                                      CommandParameter="{Binding .}" />
-                                            </Image.GestureRecognizers>
-                                        </Image>
-                                    </AbsoluteLayout>
-                                </ViewCell.View>
-                            </ViewCell>
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                                              Command="{Binding Source={x:Reference ViewModel}, Path=SelectImageCommand}"
+                                                              CommandParameter="{Binding .}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </AbsoluteLayout>
                         </DataTemplate>
-                    </elements:HorizontalImageGallery.ItemTemplate>
-                </elements:HorizontalImageGallery>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
                 <StackLayout HorizontalOptions="FillAndExpand"
                              Orientation="Horizontal"

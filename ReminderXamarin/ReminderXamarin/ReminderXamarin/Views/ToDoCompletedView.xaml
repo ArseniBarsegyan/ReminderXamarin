@@ -31,7 +31,7 @@
                         <DataTemplate>
                             <ViewCell Height="60">
                                 <ViewCell.ContextActions>
-                                    <MenuItem Icon="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
+                                    <MenuItem IconImageSource="delete.png" IsDestructive="True" Clicked="Delete_OnClicked" CommandParameter="{Binding .}" />
                                 </ViewCell.ContextActions>
                                 <StackLayout BackgroundColor="White">
                                     <elements:ContentViewWithBorder HorizontalOptions="FillAndExpand" 

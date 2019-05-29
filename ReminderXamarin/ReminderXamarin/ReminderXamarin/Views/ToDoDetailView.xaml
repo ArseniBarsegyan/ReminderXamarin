@@ -41,11 +41,11 @@
       <StackLayout AbsoluteLayout.LayoutBounds="0.95,1,100,150" AbsoluteLayout.LayoutFlags="PositionProportional">
         <elements:FloatingActionButton HorizontalOptions="EndAndExpand"
                                        Clicked="Delete_OnClicked"
-                                       Image="delete.png"
+                                       ImageSource="delete.png"
                                        ButtonColor="{StaticResource ErrorTextColor}" />
         <elements:FloatingActionButton HorizontalOptions="EndAndExpand"
                                        Clicked="Confirm_OnClicked"
-                                       Image="confirm.png"
+                                       ImageSource="confirm.png"
                                        ButtonColor="{StaticResource SubmitButtonBackground}"></elements:FloatingActionButton>
       </StackLayout>
     </AbsoluteLayout>

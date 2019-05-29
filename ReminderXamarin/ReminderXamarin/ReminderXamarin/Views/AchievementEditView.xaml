@@ -16,7 +16,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" Icon="delete.png" Command="{Binding DeleteAchievementCommand}" />
+        <ToolbarItem Order="Primary" IconImageSource="delete.png" Command="{Binding DeleteAchievementCommand}" />
     </ContentPage.ToolbarItems>
     <ListView x:Name="AchievementStepsListView" HasUnevenRows="True"
               ItemSelected="ListView_OnItemSelected"

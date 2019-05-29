@@ -16,7 +16,7 @@ namespace ReminderXamarin.Views
         public AchievementEditView()
         {
             InitializeComponent();
-            _confirmToolbarItem = new ToolbarItem { Order = ToolbarItemOrder.Primary, Icon = "confirm.png" };
+            _confirmToolbarItem = new ToolbarItem { Order = ToolbarItemOrder.Primary, IconImageSource = ConstantsHelper.ConfirmIcon };
             _confirmToolbarItem.Clicked += Confirm_OnClicked;
             ToolbarItems.Add(_confirmToolbarItem);
             BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);

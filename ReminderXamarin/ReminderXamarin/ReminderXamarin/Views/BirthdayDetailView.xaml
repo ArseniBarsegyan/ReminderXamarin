@@ -56,7 +56,7 @@
 
       <!-- Confirm and delete buttons -->
       <StackLayout AbsoluteLayout.LayoutBounds="0.95,1,100,150" AbsoluteLayout.LayoutFlags="PositionProportional">
-        <elements:FloatingActionButton Image="delete.png"
+        <elements:FloatingActionButton ImageSource="delete.png"
                                        HorizontalOptions="EndAndExpand"
                                        ButtonColor="{StaticResource Error}"
                                        Clicked="Delete_OnClicked" >
@@ -64,7 +64,7 @@
         </elements:FloatingActionButton>
 
         <elements:FloatingActionButton ButtonColor="{StaticResource SubmitButtonBackground}"
-                                       Image="confirm.png"
+                                       ImageSource="confirm.png"
                                        HorizontalOptions="EndAndExpand"
                                        Clicked="Confirm_OnClicked" >
         </elements:FloatingActionButton>

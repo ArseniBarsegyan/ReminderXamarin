@@ -48,7 +48,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
-                                <MenuItem Icon="delete.png" IsDestructive="True" 
+                                <MenuItem IconImageSource="delete.png" IsDestructive="True" 
                                           Command="{Binding Path=BindingContext.DeleteNoteCommand, Source = {x:Reference NotesViewReference}}"
                                           CommandParameter="{Binding Id}" />
                             </ViewCell.ContextActions>

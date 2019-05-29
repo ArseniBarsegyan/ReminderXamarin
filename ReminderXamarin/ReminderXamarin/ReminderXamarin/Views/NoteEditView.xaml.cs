@@ -17,7 +17,7 @@ namespace ReminderXamarin.Views
         public NoteEditView()
         {
             InitializeComponent();
-            _confirmToolbarItem = new ToolbarItem { Order = ToolbarItemOrder.Primary, Icon = "confirm.png" };
+            _confirmToolbarItem = new ToolbarItem { Order = ToolbarItemOrder.Primary, IconImageSource = ConstantsHelper.ConfirmIcon };
             _confirmToolbarItem.Clicked += Confirm_OnClicked;
             ToolbarItems.Add(_confirmToolbarItem);
         }
@@ -73,8 +73,8 @@ namespace ReminderXamarin.Views
 
         private void NoteViewModelOnPhotosCollectionChanged(object sender, EventArgs eventArgs)
         {
-            ImageGallery.IsVisible = true;
-            ImageGallery.Render();
+            //ImageGallery.IsVisible = true;
+            //ImageGallery.Render();
 
             if (!ToolbarItems.Contains(_confirmToolbarItem))
             {
@@ -124,11 +124,7 @@ namespace ReminderXamarin.Views
             {
                 ResetButtons();
                 button.BackgroundColor = Color.FromHex("#448AFF");
-
-                if (BindingContext is NoteEditViewModel viewModel)
-                {
-
-                }
+                
                 Device.StartTimer(TimeSpan.FromSeconds(0.5), () =>
                 {
                     ResetButtons();

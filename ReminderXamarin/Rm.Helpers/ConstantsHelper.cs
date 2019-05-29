@@ -21,6 +21,7 @@
         public const string BirthdaysDeleteMessage = "Are you sure you want to delete this birthday?";
         public const string BirthdaysIcon = "birthday.png";
         public const string Cancel = "Cancel";
+        public const string ConfirmIcon = "confirm.png";
         public const string CreateNote = "CreateNote";
         public const string CreateAchievement = "CreateAchievement";
         public const string Completed = "Completed";
