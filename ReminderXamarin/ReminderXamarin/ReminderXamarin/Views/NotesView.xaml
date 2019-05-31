@@ -43,6 +43,7 @@
                       RefreshCommand="{Binding RefreshListCommand}"
                       IsRefreshing="{Binding IsRefreshing}"
                       ItemSelected="NotesList_OnItemSelected"
+                      ItemAppearing="NotesList_OnItemAppearing"
                       SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>

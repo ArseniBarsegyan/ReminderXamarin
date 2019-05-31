@@ -1,4 +1,5 @@
-﻿using ReminderXamarin.ViewModels;
+﻿using System.Linq;
+using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Views
@@ -33,6 +34,17 @@ namespace ReminderXamarin.Views
                 if (BindingContext is NotesViewModel viewModel)
                 {
                     viewModel.NavigateToEditViewCommand.Execute(noteViewModel.Id);
+                }
+            }
+        }
+
+        private void NotesList_OnItemAppearing(object sender, ItemVisibilityEventArgs e)
+        {
+            if (BindingContext is NotesViewModel viewModel)
+            {
+                if ((NoteViewModel)e.Item == viewModel.Notes.ElementAt(viewModel.Notes.Count - 1))
+                {
+                    viewModel.LoadMoreNotesCommand.Execute(null);
                 }
             }
         }

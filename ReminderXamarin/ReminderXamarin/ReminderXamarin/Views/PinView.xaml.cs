@@ -1,4 +1,5 @@
 ﻿using System;
+using ReminderXamarin.Extensions;
 using Rm.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,19 +15,14 @@ namespace ReminderXamarin.Views
             BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
         }
 
-        private void Button_OnPressed(object sender, EventArgs e)
+        private async void Button_OnPressed(object sender, EventArgs e)
         {
             if (sender is Button button)
             {
-                button.BackgroundColor = Color.White;
-                button.TextColor = Color.FromHex("#323232");
-
-                Device.StartTimer(TimeSpan.FromSeconds(0.05), () =>
-                {
-                    button.BackgroundColor = Color.Transparent;
-                    button.TextColor = Color.White;
-                    return false;
-                });
+                await button.ColorTo(Color.Transparent, Color.White, c => button.BackgroundColor = c, 25);
+                await button.ColorTo(Color.White, Color.FromHex("#323232"), c => button.TextColor = c, 25);
+                await button.ColorTo(Color.White, Color.Transparent, c => button.BackgroundColor = c, 25);
+                await button.ColorTo(Color.FromHex("#323232"), Color.White, c => button.TextColor = c, 25);
             }
         }
     }

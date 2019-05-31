@@ -16,6 +16,10 @@ namespace ReminderXamarin.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var vmList = (IEnumerable<GalleryItemViewModel>)value;
+            if (vmList == null)
+            {
+                return false;
+            }
             return vmList.Any();
         }
 

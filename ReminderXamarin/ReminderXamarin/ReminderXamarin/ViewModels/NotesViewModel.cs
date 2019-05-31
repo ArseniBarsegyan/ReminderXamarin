@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -12,6 +14,8 @@ namespace ReminderXamarin.ViewModels
 {
     public class NotesViewModel : BaseViewModel
     {
+        private int _notesPerLoad = 10;
+        private int _currentSkipCounter = 10;
         private List<NoteViewModel> _allNotes;
 
         public NotesViewModel()
@@ -23,6 +27,7 @@ namespace ReminderXamarin.ViewModels
             RefreshListCommand = new Command(Refresh);
             SearchCommand = new Command(SearchNotesByDescription);
             NavigateToEditViewCommand = new Command<int>(async id => await NavigateToEditView(id));
+            LoadMoreNotesCommand = new Command(async () => await LoadMoreNotes());
         }
 
         public string SearchText { get; set; }
@@ -32,6 +37,7 @@ namespace ReminderXamarin.ViewModels
         public ICommand RefreshListCommand { get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand NavigateToEditViewCommand { get; set; }
+        public ICommand LoadMoreNotesCommand { get; set; }
 
         public void OnAppearing()
         {
@@ -60,13 +66,21 @@ namespace ReminderXamarin.ViewModels
 
         private void SearchNotesByDescription()
         {
-            Notes = _allNotes
-                .Where(x => x.FullDescription.Contains(SearchText))
-                .ToObservableCollection();
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                LoadNotesFromDatabase();
+            }
+            else
+            {
+                Notes = _allNotes
+                    .Where(x => x.FullDescription.Contains(SearchText))
+                    .ToObservableCollection();
+            }
         }
 
         private void LoadNotesFromDatabase()
         {
+            _currentSkipCounter = 10;
             // Fetch all note models from database.
             _allNotes = App.NoteRepository.Value
                 .GetAll()
@@ -74,10 +88,51 @@ namespace ReminderXamarin.ViewModels
                 .ToNoteViewModels()
                 .OrderByDescending(x => x.CreationDate)
                 .ToList();
-            // Show recently edited notes at the top of the list.
-            Notes = _allNotes.ToObservableCollection();
+
+            if (_allNotes.Count > _notesPerLoad)
+            {
+                Notes = _allNotes.Take(_notesPerLoad).ToObservableCollection();
+            }
+            else
+            {
+                Notes = _allNotes.ToObservableCollection();
+            }
             // Save filtering.
-            SearchNotesByDescription();
+            // SearchNotesByDescription();
+            Notes = Notes.Where(x => x.FullDescription.Contains(SearchText))
+                .ToObservableCollection();
+        }
+
+        private async Task LoadMoreNotes()
+        {
+            try
+            {
+                List<NoteViewModel> notesToAdd;
+                var remainingCount = _allNotes.Count - _allNotes.Skip(_currentSkipCounter).Count();
+                if (remainingCount > _notesPerLoad)
+                {
+                    notesToAdd = _allNotes
+                        .Skip(_currentSkipCounter)
+                        .Take(_notesPerLoad)
+                        .ToList();
+                }
+                else
+                {
+                    notesToAdd = _allNotes
+                        .Skip(_currentSkipCounter)
+                        .Take(remainingCount)
+                        .ToList();
+                }
+                foreach (var noteViewModel in notesToAdd)
+                {
+                    Notes.Add(noteViewModel);
+                }
+                _currentSkipCounter += 10;
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine($"Collection is too small: {ex.Message}");
+            }
         }
 
         private async Task NavigateToEditView(int id)
