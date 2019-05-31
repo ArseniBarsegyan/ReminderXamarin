@@ -111,17 +111,39 @@ namespace ReminderXamarin.ViewModels
                 var remainingCount = _allNotes.Count - _allNotes.Skip(_currentSkipCounter).Count();
                 if (remainingCount > _notesPerLoad)
                 {
-                    notesToAdd = _allNotes
-                        .Skip(_currentSkipCounter)
-                        .Take(_notesPerLoad)
-                        .ToList();
+                    if (string.IsNullOrWhiteSpace(SearchText))
+                    {
+                        notesToAdd = _allNotes
+                            .Skip(_currentSkipCounter)
+                            .Take(_notesPerLoad)
+                            .ToList();
+                    }
+                    else
+                    {
+                        notesToAdd = _allNotes
+                            .Skip(_currentSkipCounter)
+                            .Take(_notesPerLoad)
+                            .Where(x => x.FullDescription.Contains(SearchText))
+                            .ToList();
+                    }
                 }
                 else
                 {
-                    notesToAdd = _allNotes
-                        .Skip(_currentSkipCounter)
-                        .Take(remainingCount)
-                        .ToList();
+                    if (string.IsNullOrWhiteSpace(SearchText))
+                    {
+                        notesToAdd = _allNotes
+                            .Skip(_currentSkipCounter)
+                            .Take(remainingCount)
+                            .ToList();
+                    }
+                    else
+                    {
+                        notesToAdd = _allNotes
+                            .Skip(_currentSkipCounter)
+                            .Take(remainingCount)
+                            .Where(x => x.FullDescription.Contains(SearchText))
+                            .ToList();
+                    }
                 }
                 foreach (var noteViewModel in notesToAdd)
                 {
