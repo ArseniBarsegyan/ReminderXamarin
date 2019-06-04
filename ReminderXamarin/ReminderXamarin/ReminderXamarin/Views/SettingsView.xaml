@@ -13,12 +13,15 @@
             <TableView Intent="Form" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <TableRoot>
                     <TableSection Title="{extensions:Translate SettingsLoginSectionName}">
-                        <SwitchCell x:Name="UsePinSwitch" Text="{extensions:Translate UsePin}" On="{Binding UsePin}" OnChanged="UsePinSwitch_OnOnChanged" />
+                        <SwitchCell x:Name="UsePinSwitch" Text="{extensions:Translate UsePin}" On="{Binding UsePin}" OnChanged="Switch_OnValueChanged" />
                         <EntryCell x:Name="PinEntry" 
-                                   Text="{Binding Pin}"
+                                   Text="{Binding Pin}" 
                                    IsEnabled="{Binding Source={x:Reference UsePinSwitch}, Path=On}" 
                                    Keyboard="Numeric">
                         </EntryCell>
+                    </TableSection>
+                    <TableSection Title="{extensions:Translate SettingsThemeSectionName}">
+                        <SwitchCell x:Name="ThemeSwitcher" Text="{extensions:Translate UseColorTheme}" OnChanged="Switch_OnValueChanged" />
                     </TableSection>
                 </TableRoot>
             </TableView>

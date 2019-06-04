@@ -279,6 +279,9 @@
   <data name="SettingsLoginSectionName" xml:space="preserve">
     <value>Login settings</value>
   </data>
+  <data name="SettingsThemeSectionName" xml:space="preserve">
+    <value>Theme:</value>
+  </data>
   <data name="SignIn" xml:space="preserve">
     <value>SignIn</value>
   </data>
@@ -311,6 +314,9 @@
   </data>
   <data name="ToDoSection" xml:space="preserve">
     <value>To-do</value>
+  </data>
+  <data name="UseColorTheme" xml:space="preserve">
+    <value>Use dark theme:</value>
   </data>
   <data name="UsePin" xml:space="preserve">
     <value>Use PIN</value>

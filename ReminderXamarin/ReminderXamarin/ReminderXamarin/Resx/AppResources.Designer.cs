@@ -547,6 +547,15 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Theme:.
+        /// </summary>
+        internal static string SettingsThemeSectionName {
+            get {
+                return ResourceManager.GetString("SettingsThemeSectionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SignIn.
         /// </summary>
         internal static string SignIn {
@@ -642,6 +651,15 @@ namespace ReminderXamarin.Resx {
         internal static string ToDoSection {
             get {
                 return ResourceManager.GetString("ToDoSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use dark theme:.
+        /// </summary>
+        internal static string UseColorTheme {
+            get {
+                return ResourceManager.GetString("UseColorTheme", resourceCulture);
             }
         }
         

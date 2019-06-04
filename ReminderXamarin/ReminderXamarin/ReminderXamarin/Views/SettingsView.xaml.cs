@@ -21,7 +21,7 @@ namespace ReminderXamarin.Views
 
         private void ConfirmButton_OnClicked(object sender, EventArgs e)
         {
-            if (this.BindingContext is SettingsViewModel viewModel)
+            if (BindingContext is SettingsViewModel viewModel)
             {
                 viewModel.Pin = PinEntry.Text;
                 viewModel.SaveSettingsCommand.Execute(null);
@@ -29,7 +29,7 @@ namespace ReminderXamarin.Views
             }            
         }
 
-        private void UsePinSwitch_OnOnChanged(object sender, ToggledEventArgs e)
+        private void Switch_OnValueChanged(object sender, ToggledEventArgs e)
         {
             ConfirmButton.IsVisible = true;
         }

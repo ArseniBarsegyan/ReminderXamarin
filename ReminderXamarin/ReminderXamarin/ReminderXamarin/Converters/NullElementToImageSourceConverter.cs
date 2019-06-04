@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using ReminderXamarin.Extensions;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 
@@ -16,7 +17,7 @@ namespace ReminderXamarin.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var vmList = (IEnumerable<GalleryItemViewModel>) value;
-            if (vmList == null)
+            if (vmList.IsNullOrEmpty())
             {
                 return string.Empty;
             }
