@@ -9,105 +9,74 @@ namespace ReminderXamarin.Elements
     /// </summary>
     public class ZoomImage : Image
     {
-        private const double MinScale = 1;
-        private const double MaxScale = 4;
-        private const double Overshoot = 0.15;
-        private double _startScale;
-        private double _startX, _startY;
+        private double _currentScale = 1;
+        private double _startScale = 1;
+        private double _maxScale = 3;
 
         public ZoomImage()
         {
             var pinch = new PinchGestureRecognizer();
-            pinch.PinchUpdated += OnPinchUpdated;
+            pinch.PinchUpdated += PinchGestureRecognizer_PinchUpdated;
             GestureRecognizers.Add(pinch);
 
             var pan = new PanGestureRecognizer();
-            pan.PanUpdated += OnPanUpdated;
+            pan.PanUpdated += PanGestureRecognizer_PanUpdated;
             GestureRecognizers.Add(pan);
 
             var tap = new TapGestureRecognizer { NumberOfTapsRequired = 2 };
-            tap.Tapped += OnTapped;
+            tap.Tapped += TapGestureRecognizer_Tapped;
             GestureRecognizers.Add(tap);
 
-            Scale = MinScale;
+            Scale = _startScale;
             TranslationX = TranslationY = 0;
             AnchorX = AnchorY = 0;
         }
 
-        protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
+        private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
         {
-            Scale = MinScale;
-            TranslationX = TranslationY = 0;
-            AnchorX = AnchorY = 0;
-            return base.OnMeasure(widthConstraint, heightConstraint);
-        }
-
-        private void OnTapped(object sender, EventArgs e)
-        {
-            if (Scale > MinScale)
+            if (e.StatusType == GestureStatus.Running)
             {
-                this.ScaleTo(MinScale, 250, Easing.CubicInOut);
-                this.TranslateTo(0, 0, 250, Easing.CubicInOut);
+                this.TranslateTo(e.TotalX * _currentScale, e.TotalY * _currentScale, 70, Easing.Linear);
+            }
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            if (_currentScale < _maxScale)
+            {
+                _currentScale = _maxScale;
+                this.ScaleTo(_currentScale, 70, Easing.CubicIn);
             }
             else
             {
-                AnchorX = AnchorY = 0.5; //TODO tapped position
-                this.ScaleTo(MaxScale, 250, Easing.CubicInOut);
+                _currentScale = _startScale;
+                this.ScaleTo(_currentScale, 70, Easing.CubicOut);
             }
         }
 
-        private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+        private void PinchGestureRecognizer_PinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
         {
-            switch (e.StatusType)
+            if (e.Status == GestureStatus.Started)
             {
-                case GestureStatus.Started:
-                    _startX = (1 - AnchorX) * Width;
-                    _startY = (1 - AnchorY) * Height;
-                    break;
-                case GestureStatus.Running:
-                    AnchorX = Clamp(1 - (_startX + e.TotalX) / Width, 0, 1);
-                    AnchorY = Clamp(1 - (_startY + e.TotalY) / Height, 0, 1);
-                    break;
+                AnchorX = e.ScaleOrigin.X;
+                AnchorY = e.ScaleOrigin.Y;
             }
-        }
-
-        private void OnPinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
-        {
-            switch (e.Status)
+            if (e.Status == GestureStatus.Running)
             {
-                case GestureStatus.Started:
-                    _startScale = Scale;
-                    AnchorX = e.ScaleOrigin.X;
-                    AnchorY = e.ScaleOrigin.Y;
-                    break;
-                case GestureStatus.Running:
-                    double current = Scale + (e.Scale - 1) * _startScale;
-                    Scale = Clamp(current, MinScale * (1 - Overshoot), MaxScale * (1 + Overshoot));
-                    break;
-                case GestureStatus.Completed:
-                    if (Scale > MaxScale)
-                    {
-                        this.ScaleTo(MaxScale, 250, Easing.SpringOut);
-                    }
-                    else if (Scale < MinScale)
-                    {
-                        this.ScaleTo(MinScale, 250, Easing.SpringOut);
-                    }
-                    break;
             }
-        }
-
-        private T Clamp<T>(T value, T minimum, T maximum) where T : IComparable
-        {
-            if (value.CompareTo(minimum) < 0)
+            if (e.Status == GestureStatus.Completed)
             {
-                return minimum;
+                _currentScale = e.Scale;
+                if (_currentScale > _maxScale)
+                {
+                    _currentScale = _maxScale;
+                }
+                if (_currentScale < _startScale)
+                {
+                    _currentScale = _startScale;
+                }
+                this.RelScaleTo(Scale * _currentScale, 70, Easing.Linear);
             }
-            if (value.CompareTo(maximum) > 0)
-            {
-                return maximum;
-            }
-            return value;
         }
     }
 }
