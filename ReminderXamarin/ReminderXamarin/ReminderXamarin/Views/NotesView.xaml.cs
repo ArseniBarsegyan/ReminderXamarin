@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 
@@ -15,13 +16,16 @@ namespace ReminderXamarin.Views
             InitializeComponent();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
             if (BindingContext is NotesViewModel viewModel)
             {
                 viewModel.OnAppearing();
-            }            
+            }
+            CreateNoteButton.Scale = 0;
+            await Task.Delay(200);
+            await CreateNoteButton.ScaleTo(1, 300);
         }
 
         private void NotesList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -38,8 +42,9 @@ namespace ReminderXamarin.Views
             }
         }
 
-        private void NotesList_OnItemAppearing(object sender, ItemVisibilityEventArgs e)
+        private async void NotesList_OnItemAppearing(object sender, ItemVisibilityEventArgs e)
         {
+            CreateNoteButton.Scale = 0;
             if (BindingContext is NotesViewModel viewModel)
             {
                 if ((NoteViewModel)e.Item == viewModel.Notes.ElementAt(viewModel.Notes.Count - 1))
@@ -47,6 +52,8 @@ namespace ReminderXamarin.Views
                     viewModel.LoadMoreNotesCommand.Execute(null);
                 }
             }
+            await Task.Delay(300);
+            await CreateNoteButton.ScaleTo(1, 300);
         }
     }
 }

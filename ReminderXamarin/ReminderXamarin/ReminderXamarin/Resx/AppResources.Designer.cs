@@ -178,7 +178,7 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirm password:.
+        ///   Looks up a localized string similar to Confirm password.
         /// </summary>
         internal static string ConfirmPassword {
             get {
@@ -457,7 +457,7 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password:.
+        ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string Password {
             get {
@@ -673,7 +673,7 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User name:.
+        ///   Looks up a localized string similar to User name.
         /// </summary>
         internal static string Username {
             get {

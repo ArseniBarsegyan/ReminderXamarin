@@ -157,7 +157,7 @@
     <value>Completed</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
-    <value>Confirm password:</value>
+    <value>Confirm password</value>
   </data>
   <data name="CreateAchievement" xml:space="preserve">
     <value>New achievement</value>
@@ -250,7 +250,7 @@
     <value>Notes сount:</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Password:</value>
+    <value>Password</value>
   </data>
   <data name="PickImageForAchievement" xml:space="preserve">
     <value>Pick image for achievement</value>
@@ -322,7 +322,7 @@
     <value>Use PIN</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>User name:</value>
+    <value>User name</value>
   </data>
   <data name="Videos" xml:space="preserve">
     <value>Videos:</value>
