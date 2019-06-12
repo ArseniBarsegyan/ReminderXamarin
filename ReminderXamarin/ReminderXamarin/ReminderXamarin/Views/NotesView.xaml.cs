@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
@@ -14,18 +15,23 @@ namespace ReminderXamarin.Views
         public NotesView()
         {
             InitializeComponent();
+            SearchBar.FadeTo(0, 0);
+            NotesList.FadeTo(0, 0);
+            CreateNoteButton.Scale = 0;
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            
             if (BindingContext is NotesViewModel viewModel)
             {
                 viewModel.OnAppearing();
             }
-            CreateNoteButton.Scale = 0;
             await Task.Delay(200);
-            await CreateNoteButton.ScaleTo(1, 300);
+            await SearchBar.FadeTo(1, 500, Easing.CubicInOut);
+            await NotesList.FadeTo(1, 500, Easing.CubicInOut);
+            await CreateNoteButton.ScaleTo(1, 400);
         }
 
         private void NotesList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Rm.Helpers;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
@@ -29,19 +30,29 @@ namespace ReminderXamarin.Views
         {
             if (_isTranslated)
             {
-                BackgroundImage.LayoutTo(new Rectangle(0, 0, Width, 100), 250, Easing.SpringIn);
-                UserProfileImage.TranslateTo(0, 0, 250, Easing.SpringIn);
-                PickUserPhotoImage.TranslateTo(0, 0, 250, Easing.SpringIn);
-                UserInfoLayout.TranslateTo(0, 0, 250, Easing.SpringIn);
+                AnimateOut();
             }
             else
             {
-                BackgroundImage.LayoutTo(new Rectangle(0, 0, Width, 200), 250, Easing.SpringOut);
-                UserProfileImage.TranslateTo(0, 100, 250, Easing.SpringOut);
-                PickUserPhotoImage.TranslateTo(0, 100, 250, Easing.SpringOut);
-                UserInfoLayout.TranslateTo(0, 100, 250, Easing.SpringOut);
+                AnimateIn();
             }
             _isTranslated = !_isTranslated;
+        }
+
+        private void AnimateIn()
+        {
+            BackgroundImage.LayoutTo(new Rectangle(0, 0, Width, 200), 250, Easing.SpringOut);
+            UserProfileImage.TranslateTo(0, 100, 250, Easing.SpringOut);
+            PickUserPhotoImage.TranslateTo(0, 100, 250, Easing.SpringOut);
+            UserInfoLayout.TranslateTo(0, 100, 250, Easing.SpringOut);
+        }
+
+        private void AnimateOut()
+        {
+            BackgroundImage.LayoutTo(new Rectangle(0, 0, Width, 100), 250, Easing.SpringIn);
+            UserProfileImage.TranslateTo(0, 0, 250, Easing.SpringIn);
+            PickUserPhotoImage.TranslateTo(0, 0, 250, Easing.SpringIn);
+            UserInfoLayout.TranslateTo(0, 0, 250, Easing.SpringIn);
         }
 
         private async void PickUserPhotoImage_OnClicked(object sender, EventArgs e)

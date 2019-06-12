@@ -15,14 +15,12 @@ namespace ReminderXamarin.Views
             InitializeComponent();
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             Entry_OnUnfocused(UserNameEntry, new FocusEventArgs(UserNameEntry, false));
             Entry_OnUnfocused(PasswordEntry, new FocusEventArgs(PasswordEntry, false));
             Entry_OnUnfocused(ConfirmPasswordEntry, new FocusEventArgs(ConfirmPasswordEntry, false));
-            await Task.Delay(500);
-            await RegisterLayout.TranslateTo(0, 100, 500);
         }
 
         private void Entry_OnCompleted(object sender, EventArgs e)

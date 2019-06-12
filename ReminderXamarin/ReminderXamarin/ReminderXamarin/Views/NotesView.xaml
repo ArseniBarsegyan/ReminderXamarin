@@ -18,7 +18,7 @@
     </ContentPage.Resources>
 
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-        <StackLayout Padding="5" 
+        <StackLayout x:Name="StackLayout" Padding="5" 
                      AbsoluteLayout.LayoutBounds="0,0,1,1" 
                      AbsoluteLayout.LayoutFlags="All" 
                      Spacing="0" 
