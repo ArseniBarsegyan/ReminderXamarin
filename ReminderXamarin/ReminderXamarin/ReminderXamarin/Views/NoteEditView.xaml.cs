@@ -1,5 +1,4 @@
 ﻿using System;
-using ReminderXamarin.Elements;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
 using Rm.Helpers;
@@ -39,10 +38,7 @@ namespace ReminderXamarin.Views
                     DescriptionEditor.Text = noteEditViewModel.Description;
                 }
                 noteEditViewModel.PhotosCollectionChanged += NoteViewModelOnPhotosCollectionChanged;
-                MessagingCenter.Subscribe<ImageGallery, int>(this, ConstantsHelper.ImageDeleted, (gallery, i) =>
-                {
-                    noteEditViewModel.DeletePhotoCommand.Execute(i);
-                });
+                noteEditViewModel.OnAppearing();
             }
         }
 
@@ -52,8 +48,8 @@ namespace ReminderXamarin.Views
             if (BindingContext is NoteEditViewModel noteEditViewModel)
             {
                 noteEditViewModel.PhotosCollectionChanged -= NoteViewModelOnPhotosCollectionChanged;
+                noteEditViewModel.OnDissapearing();
             }
-            MessagingCenter.Unsubscribe<ImageGallery, int>(this, ConstantsHelper.ImageDeleted);
         }
 
         private void Confirm_OnClicked(object sender, EventArgs e)
@@ -73,9 +69,6 @@ namespace ReminderXamarin.Views
 
         private void NoteViewModelOnPhotosCollectionChanged(object sender, EventArgs eventArgs)
         {
-            //ImageGallery.IsVisible = true;
-            //ImageGallery.Render();
-
             if (!ToolbarItems.Contains(_confirmToolbarItem))
             {
                 ToolbarItems.Add(_confirmToolbarItem);

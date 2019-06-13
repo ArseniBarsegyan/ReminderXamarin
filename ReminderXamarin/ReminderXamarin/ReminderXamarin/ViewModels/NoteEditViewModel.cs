@@ -33,13 +33,24 @@ namespace ReminderXamarin.ViewModels
             GalleryItemsViewModels = new ObservableCollection<GalleryItemViewModel>();
 
             TakePhotoCommand = new Command(async () => await TakePhoto());
-            DeletePhotoCommand = new Command<GalleryItemViewModel>(DeletePhoto);
+            DeletePhotoCommand = new Command<GalleryItemViewModel>(vm => DeletePhoto(vm));
             TakeVideoCommand = new Command(async () => await TakeVideo());
             PickMediaCommand = new Command<PlatformDocument>(async document => await PickDocument(document));
             SaveNoteCommand = new Command(async() => await SaveNote());
             DeleteNoteCommand = new Command(async () => await DeleteNote());
-            SelectImageCommand = new Command<GalleryItemViewModel>(async (viewModel) => await SelectImage(viewModel));
+            SelectImageCommand = new Command<GalleryItemViewModel>(async viewModel => await SelectImage(viewModel));
         }
+
+        public void OnAppearing()
+        {
+            MessagingCenter.Subscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted, (vm) => DeletePhoto(vm));
+        }
+
+        public void OnDissapearing()
+        {
+            MessagingCenter.Unsubscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted);
+        }
+
 
         private async Task SelectImage(GalleryItemViewModel viewModel)
         {
@@ -97,6 +108,17 @@ namespace ReminderXamarin.ViewModels
         /// Invokes when Photos collection changing.
         /// </summary>
         public event EventHandler PhotosCollectionChanged;
+
+        private void DeletePhoto(GalleryItemViewModel viewModel)
+        {
+            IsLoading = true;
+            if (GalleryItemsViewModels.Any())
+            {
+                GalleryItemsViewModels.Remove(viewModel);
+                PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
+            }
+            IsLoading = false;
+        }
 
         private async Task TakePhoto()
         {
@@ -169,17 +191,6 @@ namespace ReminderXamarin.ViewModels
             {
                 IsLoading = false;
             }
-        }
-
-        private void DeletePhoto(GalleryItemViewModel viewModel)
-        {
-            IsLoading = true;
-            if (GalleryItemsViewModels.Any())
-            {
-                GalleryItemsViewModels.Remove(viewModel);
-                PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
-            }
-            IsLoading = false;
         }
 
         private async Task TakeVideo()

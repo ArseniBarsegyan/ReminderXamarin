@@ -171,6 +171,9 @@
   <data name="Date" xml:space="preserve">
     <value>Дата:</value>
   </data>
+  <data name="DeleteGalleryItemQuestion" xml:space="preserve">
+    <value>Удалить элемент?</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Описание:</value>
   </data>
@@ -248,6 +251,9 @@
   </data>
   <data name="NotesCount" xml:space="preserve">
     <value>Число записей:</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ок</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль</value>

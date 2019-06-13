@@ -69,7 +69,7 @@
 
             <elements:FloatingActionButton x:Name="CreateAchievementButton" 
                                            Command="{Binding NavigateToAchievementEditViewCommand}"
-                                           Image="add.png" 
+                                           ImageSource="add.png" 
                                            ButtonColor="{StaticResource SubmitButtonBackground}"
                                            AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
                                            AbsoluteLayout.LayoutFlags="PositionProportional">

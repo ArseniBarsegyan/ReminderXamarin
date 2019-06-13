@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Rm.Helpers;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;

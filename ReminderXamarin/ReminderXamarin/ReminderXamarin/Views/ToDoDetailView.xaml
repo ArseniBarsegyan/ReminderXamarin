@@ -42,7 +42,7 @@
         <elements:FloatingActionButton HorizontalOptions="EndAndExpand"
                                        Clicked="Delete_OnClicked"
                                        ImageSource="delete.png"
-                                       ButtonColor="{StaticResource ErrorTextColor}" />
+                                       ButtonColor="{StaticResource ErrorColor}" />
         <elements:FloatingActionButton HorizontalOptions="EndAndExpand"
                                        Clicked="Confirm_OnClicked"
                                        ImageSource="confirm.png"

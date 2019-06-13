@@ -25,6 +25,7 @@
         public const string CreateNote = "CreateNote";
         public const string CreateAchievement = "CreateAchievement";
         public const string Completed = "Completed";
+        public const string DeleteGalleryItemQuestion = "DeleteGalleryItemQuestion";
         public const string DeleteImageSource = "delete.png";
         public const string DetailPageChanged = "DetailPageChanged";
         public const string DontHaveAccountQuestion = "DontHaveAccountQuestion";

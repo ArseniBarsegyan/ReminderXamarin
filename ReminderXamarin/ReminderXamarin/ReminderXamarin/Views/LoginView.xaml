@@ -57,7 +57,7 @@
                        HorizontalOptions="Center" 
                        TextColor="{StaticResource DarkFont}" />
                 <!-- Error message -->
-                <Label TextColor="{StaticResource ErrorTextColor}"
+                <Label TextColor="{StaticResource ErrorColor}"
                        HorizontalOptions="Center"
                        Text="{extensions:Translate IncorrectData}" 
                        IsVisible="{Binding IsValid, Converter={StaticResource InverseBooleanConverter}}" />

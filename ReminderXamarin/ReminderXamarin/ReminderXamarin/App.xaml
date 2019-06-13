@@ -11,7 +11,7 @@
             <Color x:Key="DarkBackground">#323232</Color>
             <Color x:Key="SubmitButtonBackground">#3072B0</Color>
             <Color x:Key="DeleteButtonBackground">#FF5252</Color>
-            <Color x:Key="ErrorTextColor">#FF5252</Color>
+            <Color x:Key="ErrorColor">#FF5252</Color>
             
             <Style TargetType="NavigationPage">
                 <Setter Property="BarTextColor" Value="#fafafa" />
