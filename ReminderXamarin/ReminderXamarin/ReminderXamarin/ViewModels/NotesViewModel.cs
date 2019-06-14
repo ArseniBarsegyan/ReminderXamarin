@@ -60,9 +60,9 @@ namespace ReminderXamarin.ViewModels
                     EditExistingViewModel(id);
                 });
                 MessagingCenter.Subscribe<NoteEditViewModel>(this, ConstantsHelper.NoteEditPageDissapeared, (vm) =>
-                    {
-                        _isNavigatedToEditView = false;
-                    });
+                {
+                    _isNavigatedToEditView = false;
+                });
             }
             _isInitialized = true;
         }
@@ -91,13 +91,6 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private void RemoveDeletedNoteFromList(int id)
-        {
-            var viewModel = _allNotes.FirstOrDefault(x => x.Id == id);
-            _allNotes.Remove(viewModel);
-            Notes.Remove(viewModel);
-        }
-
         private void AddNewNoteToList()
         {
             var recentNote = App.NoteRepository.Value
@@ -112,8 +105,22 @@ namespace ReminderXamarin.ViewModels
         private void EditExistingViewModel(int id)
         {
             var newNote = App.NoteRepository.Value.GetNoteAsync(id).ToViewModel();
-            _allNotes.Insert(0, newNote);
-            Notes.Insert(0, newNote);
+
+            var oldNote = _allNotes.FirstOrDefault(x => x.Id == id);
+            var oldNoteIndex = _allNotes.IndexOf(oldNote);
+
+            _allNotes.RemoveAt(oldNoteIndex);
+            Notes.RemoveAt(oldNoteIndex);
+
+            _allNotes.Insert(oldNoteIndex, newNote);
+            Notes.Insert(oldNoteIndex, newNote);
+        }
+
+        private void RemoveDeletedNoteFromList(int id)
+        {
+            var viewModel = _allNotes.FirstOrDefault(x => x.Id == id);
+            _allNotes.Remove(viewModel);
+            Notes.Remove(viewModel);
         }
 
         private void Refresh()
