@@ -51,7 +51,6 @@ namespace ReminderXamarin.ViewModels
             MessagingCenter.Unsubscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted);
         }
 
-
         private async Task SelectImage(GalleryItemViewModel viewModel)
         {
             if (viewModel.IsVideo)
@@ -332,6 +331,7 @@ namespace ReminderXamarin.ViewModels
                 {
                     var noteToDelete = App.NoteRepository.Value.GetNoteAsync(_noteId);
                     App.NoteRepository.Value.DeleteNote(noteToDelete);
+                    MessagingCenter.Send(this, ConstantsHelper.NoteDeleted, _noteId);
                     await NavigationService.NavigateBackAsync();
                 }
             }

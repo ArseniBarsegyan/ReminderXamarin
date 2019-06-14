@@ -17,6 +17,7 @@ namespace ReminderXamarin.ViewModels
         private int _notesPerLoad = 10;
         private int _currentSkipCounter = 10;
         private List<NoteViewModel> _allNotes;
+        private bool _isInitialized;
 
         public NotesViewModel()
         {
@@ -41,7 +42,21 @@ namespace ReminderXamarin.ViewModels
 
         public void OnAppearing()
         {
-            LoadNotesFromDatabase();
+            if (!_isInitialized)
+            {
+                LoadNotesFromDatabase();
+            }
+
+            MessagingCenter.Subscribe<NoteEditViewModel, int>(this, ConstantsHelper.NoteDeleted, (vm, id) =>
+            {
+                RemoveDeletedNoteFromList(id);
+            });
+            _isInitialized = true;
+        }
+
+        public void OnDissapearing()
+        {
+            MessagingCenter.Unsubscribe<NoteEditViewModel, int>(this, ConstantsHelper.NoteDeleted);
         }
 
         private async Task DeleteNote(int noteId)
@@ -53,8 +68,15 @@ namespace ReminderXamarin.ViewModels
             {
                 var noteToDelete = App.NoteRepository.Value.GetNoteAsync(noteId);
                 App.NoteRepository.Value.DeleteNote(noteToDelete);
-                OnAppearing();
+                RemoveDeletedNoteFromList(noteId);
             }
+        }
+
+        private void RemoveDeletedNoteFromList(int id)
+        {
+            var viewModel = _allNotes.FirstOrDefault(x => x.Id == id);
+            _allNotes.Remove(viewModel);
+            Notes.Remove(viewModel);
         }
 
         private void Refresh()
