@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using ReminderXamarin.Extensions;
 using System.Threading.Tasks;
@@ -49,6 +50,7 @@ namespace ReminderXamarin.ViewModels
         public void OnDissapearing()
         {
             MessagingCenter.Unsubscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted);
+            MessagingCenter.Send(this, ConstantsHelper.NoteEditPageDissapeared);
         }
 
         private async Task SelectImage(GalleryItemViewModel viewModel)
@@ -308,6 +310,7 @@ namespace ReminderXamarin.ViewModels
                     UserId = Settings.CurrentUserId
                 };
                 App.NoteRepository.Value.Save(note);
+                MessagingCenter.Send(this, ConstantsHelper.NoteCreated);
                 await NavigationService.NavigateBackAsync();
             }
             else
@@ -317,6 +320,7 @@ namespace ReminderXamarin.ViewModels
                 note.EditDate = DateTime.Now;
                 note.GalleryItems = GalleryItemsViewModels.ToModels().ToList();
                 App.NoteRepository.Value.Save(note);
+                MessagingCenter.Send(this, ConstantsHelper.NoteEdited, _noteId);
             }
             IsLoading = false;
         }

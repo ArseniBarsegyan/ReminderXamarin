@@ -38,6 +38,32 @@ namespace ReminderXamarin.Extensions
             return model;
         }
 
+        public static Note ToModel(this NoteViewModel viewModel)
+        {
+            return new Note
+            {
+                Id = viewModel.Id,
+                Description = viewModel.Description,
+                CreationDate = viewModel.CreationDate,
+                EditDate = viewModel.EditDate,
+                UserId = Settings.CurrentUserId,
+                GalleryItems = viewModel.GalleryItemsViewModels.ToModels()
+            };
+        }
+
+        public static NoteViewModel ToViewModel(this Note model)
+        {
+            return new NoteViewModel
+            {
+                Id = model.Id,
+                CreationDate = model.CreationDate,
+                EditDate = model.EditDate,
+                Description = model.Description,
+                FullDescription = model.EditDate.ToString("dd.MM.yy") + " " + model.Description,
+                GalleryItemsViewModels = model.GalleryItems.ToViewModels()
+            };
+        }
+
         public static ObservableCollection<GalleryItemViewModel> ToViewModels(this IEnumerable<GalleryItemModel> models)
         {
             return models.Select(model => model.ToViewModel()).ToObservableCollection();
@@ -50,15 +76,7 @@ namespace ReminderXamarin.Extensions
 
         public static ObservableCollection<NoteViewModel> ToNoteViewModels(this IEnumerable<Note> models)
         {
-            return models.Select(model => new NoteViewModel
-            {
-                Id = model.Id,
-                CreationDate = model.CreationDate,
-                EditDate = model.EditDate,
-                Description = model.Description,
-                FullDescription = model.EditDate.ToString("dd.MM.yy") + " " + model.Description,
-                GalleryItemsViewModels = model.GalleryItems.ToViewModels()
-            }).ToObservableCollection();
+            return models.Select(model => model.ToViewModel()).ToObservableCollection();
         }
 
         public static ToDoModel ToToDoModel(this ToDoViewModel viewModel)

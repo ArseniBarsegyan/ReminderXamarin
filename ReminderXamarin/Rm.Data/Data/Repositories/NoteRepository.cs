@@ -20,7 +20,7 @@ namespace Rm.Data.Data.Repositories
         /// Get all notes from database.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Note> GetAll()
+        public IEnumerable<Note> GetAll(int amount = 0)
         {
             return _db.GetAllWithChildren<Note>();
         }

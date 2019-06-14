@@ -25,6 +25,15 @@ namespace ReminderXamarin.Views
             }
         }
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            if (BindingContext is NotesViewModel viewModel)
+            {
+                viewModel.OnDissapearing();
+            }
+        }
+
         private void NotesList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var noteViewModel = e.SelectedItem as NoteViewModel;

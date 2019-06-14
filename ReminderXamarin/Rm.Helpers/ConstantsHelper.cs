@@ -39,10 +39,13 @@
         public const string LoadingMessage = "LoadingMessage";
         public const string Login = "Login";
         public const string NewStep = "NewStep";
+        public const string NoteEditPageDissapeared = "NoteEditPageDissapeared";
         public const string No = "No";
         public const string Notes = "Notes";
         public const string NoteTextIsEmptyMessage = "Note text is empty. Creation cancelled";
+        public const string NoteCreated = "NoteDeleted";
         public const string NoteDeleted = "NoteDeleted";
+        public const string NoteEdited = "NoteDeleted";
         public const string NoteDeleteMessage = "Are you sure you want to delete this note?";
         public const string NotesListIcon = "notes_list.png";
         public const string Ok = "Ok";
