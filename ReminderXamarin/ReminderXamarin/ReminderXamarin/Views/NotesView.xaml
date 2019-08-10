@@ -6,14 +6,70 @@
              xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
              xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors"
+             xmlns:helpers="clr-namespace:ReminderXamarin.Helpers;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.NotesView"
-             x:Name="NotesViewReference"
              Title="{extensions:Translate AllNotes}"
              BackgroundColor="#fafafa"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:NullElementToImageSourceConverter x:Key="NullElementToImageSourceConverter" />
+            <DataTemplate x:Key="ImageCellDataTemplate">
+                <ViewCell>
+                    <ViewCell.View>
+                        <Frame MinimumHeightRequest="200"
+                               HasShadow="True" 
+                               Padding="0,10" 
+                               BorderColor="LightGray" 
+                               CornerRadius="5" 
+                               Margin="0,5">
+                            <StackLayout>
+                                <Image Source="{Binding GalleryItemsViewModels, 
+                                                Converter={StaticResource NullElementToImageSourceConverter}}" 
+                                       Aspect="AspectFill" 
+                                       HorizontalOptions="FillAndExpand"
+                                       HeightRequest="200" />
+                                <StackLayout Spacing="10" Padding="10,10,10,30">
+                                    <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" 
+                                           TextColor="{StaticResource DarkFont}" />
+                                    <elements:ExtendedLabel HorizontalTextAlignment="Start" 
+                                                            Lines="5" 
+                                                            LineSpacing="1.1" 
+                                                            LineBreakMode="TailTruncation" 
+                                                            TextColor="{StaticResource DarkFont}"
+                                                            Text="{Binding Description}" />
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="TextCellDataTemplate">
+                <ViewCell>
+                    <ViewCell.View>
+                        <Frame MinimumHeightRequest="200"
+                               HasShadow="True" 
+                               Padding="0,10" 
+                               BorderColor="LightGray" 
+                               CornerRadius="5" 
+                               Margin="0,5">
+                            <StackLayout Spacing="10" Padding="10,10,10,30">
+                                <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" 
+                                       TextColor="{StaticResource DarkFont}" />
+                                <elements:ExtendedLabel HorizontalTextAlignment="Start" 
+                                                        Lines="5" 
+                                                        LineSpacing="1.1" 
+                                                        LineBreakMode="TailTruncation" 
+                                                        TextColor="{StaticResource DarkFont}"
+                                                        Text="{Binding Description}" />
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
+            <helpers:NotesListDataTemplateSelector x:Key="ListDataTemplateSelector" 
+                                                   ImageCellTemplate="{StaticResource ImageCellDataTemplate}"
+                                                   TextCellTemplate="{StaticResource TextCellDataTemplate}" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -44,37 +100,8 @@
                       IsRefreshing="{Binding IsRefreshing}"
                       ItemSelected="NotesList_OnItemSelected"
                       ItemAppearing="NotesList_OnItemAppearing"
-                      SeparatorVisibility="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem IconImageSource="delete.png" IsDestructive="True" 
-                                          Command="{Binding Path=BindingContext.DeleteNoteCommand, Source = {x:Reference NotesViewReference}}"
-                                          CommandParameter="{Binding Id}" />
-                            </ViewCell.ContextActions>
-                            <Frame MinimumHeightRequest="200" HasShadow="True" Padding="0,10" BorderColor="LightGray" CornerRadius="5" Margin="0,5">
-                                <StackLayout>
-                                    <Image Source="{Binding GalleryItemsViewModels, Converter={StaticResource NullElementToImageSourceConverter}}" 
-                                           IsVisible="{Binding GalleryItemsViewModels, Converter={StaticResource NullElementToBoolConverter}}" 
-                                           Aspect="AspectFill" 
-                                           HorizontalOptions="FillAndExpand"
-                                           HeightRequest="200" />
-                                    <StackLayout Spacing="10" Padding="10,10,10,30">
-                                        <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" TextColor="{StaticResource DarkFont}" />
-                                        <elements:ExtendedLabel HorizontalTextAlignment="Start" 
-                                                                Lines="5" 
-                                                                LineSpacing="1.1" 
-                                                                LineBreakMode="TailTruncation" 
-                                                                TextColor="{StaticResource DarkFont}"
-                                                                Text="{Binding Description}" />
-                                    </StackLayout>
-                                </StackLayout>
-                            </Frame>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                      SeparatorVisibility="None"
+                      ItemTemplate="{StaticResource ListDataTemplateSelector}" />
         </StackLayout>
 
         <elements:FloatingActionButton x:Name="CreateNoteButton"
