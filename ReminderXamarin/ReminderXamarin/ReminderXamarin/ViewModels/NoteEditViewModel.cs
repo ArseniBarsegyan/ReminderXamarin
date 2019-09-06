@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
+using System.Runtime.InteropServices;
 using ReminderXamarin.Extensions;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -11,6 +12,7 @@ using Acr.UserDialogs;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
+using ReminderXamarin.Services.MediaPicker;
 using ReminderXamarin.ViewModels.Base;
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
@@ -32,16 +34,16 @@ namespace ReminderXamarin.ViewModels
             _transformHelper = new TransformHelper();
             
             GalleryItemsViewModels = new ObservableCollection<GalleryItemViewModel>();
-
+            
             TakePhotoCommand = new Command(async () => await TakePhoto());
             DeletePhotoCommand = new Command<GalleryItemViewModel>(vm => DeletePhoto(vm));
             TakeVideoCommand = new Command(async () => await TakeVideo());
-            PickMediaCommand = new Command<PlatformDocument>(async document => await PickDocument(document));
+            PickMultipleMediaCommand = new Command(async () => await PickMultipleMedia());
             SaveNoteCommand = new Command(async() => await SaveNote());
             DeleteNoteCommand = new Command(async () => await DeleteNote());
             SelectImageCommand = new Command<GalleryItemViewModel>(async viewModel => await SelectImage(viewModel));
         }
-
+        
         public void OnAppearing()
         {
             MessagingCenter.Subscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted, (vm) => DeletePhoto(vm));
@@ -51,22 +53,6 @@ namespace ReminderXamarin.ViewModels
         {
             MessagingCenter.Unsubscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted);
             MessagingCenter.Send(this, ConstantsHelper.NoteEditPageDissapeared);
-        }
-
-        private async Task SelectImage(GalleryItemViewModel viewModel)
-        {
-            if (viewModel.IsVideo)
-            {
-                if (!string.IsNullOrWhiteSpace(viewModel.VideoPath))
-                {
-                    var videoService = DependencyService.Get<IVideoService>();
-                    videoService.PlayVideo(viewModel.VideoPath);
-                }
-            }
-            else
-            {
-                await NavigationService.NavigateToPopupAsync<GalleryItemViewModel>(viewModel);
-            }
         }
 
         public override Task InitializeAsync(object navigationData)
@@ -98,17 +84,54 @@ namespace ReminderXamarin.ViewModels
         public ICommand DeletePhotoCommand { get; set; }
         public ICommand TakePhotoCommand { get; set; }
         public ICommand TakeVideoCommand { get; set; }
-        public ICommand PickPhotoCommand { get; set; }
-        public ICommand PickMediaCommand { get; set; }
-        public ICommand PickVideoCommand { get; set; }
+        public ICommand PickMultipleMediaCommand { get; set; }
         public ICommand SaveNoteCommand { get; set; }
         public ICommand DeleteNoteCommand { get; set; }
         public ICommand SelectImageCommand { get; set; }
 
-        /// <summary>
-        /// Invokes when Photos collection changing.
-        /// </summary>
         public event EventHandler PhotosCollectionChanged;
+
+        private async Task PickMultipleMedia()
+        {
+            var multipleMediaPickerService = App.MultiMediaPickerService;
+            multipleMediaPickerService.OnMediaPicked += (sender, file) =>
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    var galleryItemModel = new GalleryItemModel
+                    {
+                        NoteId = _noteId,
+                        ImagePath = file.Path,
+                        Thumbnail = file.Path
+                    };
+                    
+                    GalleryItemsViewModels.Add(galleryItemModel.ToViewModel());
+                    PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
+                });
+            };
+
+            var hasPermission = await CheckPermissionsAsync();
+            if (hasPermission)
+            {
+                await multipleMediaPickerService.PickPhotosAsync();
+            }
+        }
+
+        private async Task SelectImage(GalleryItemViewModel viewModel)
+        {
+            if (viewModel.IsVideo)
+            {
+                if (!string.IsNullOrWhiteSpace(viewModel.VideoPath))
+                {
+                    var videoService = DependencyService.Get<IVideoService>();
+                    videoService.PlayVideo(viewModel.VideoPath);
+                }
+            }
+            else
+            {
+                await NavigationService.NavigateToPopupAsync<GalleryItemViewModel>(viewModel);
+            }
+        }
 
         private void DeletePhoto(GalleryItemViewModel viewModel)
         {
@@ -142,56 +165,6 @@ namespace ReminderXamarin.ViewModels
                 }
             }
             IsLoading = false;
-        }
-
-        private async Task PickDocument(PlatformDocument document)
-        {
-            if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg") || document.Name.EndsWith(".jpeg"))
-            {
-                await PickPhoto(document);
-            }
-            else if (document.Name.EndsWith(".mp4"))
-            {
-                await PickVideo(document);
-            }
-        }
-
-        private async Task PickPhoto(PlatformDocument document)
-        {
-            IsLoading = true;
-            try
-            {
-                var galleryItemModel = new GalleryItemModel
-                {
-                    NoteId = _noteId
-                };
-
-                var mediaService = DependencyService.Get<IMediaService>();
-                var fileSystem = DependencyService.Get<IFileSystem>();
-                var imageContent = fileSystem.ReadAllBytes(document.Path);
-
-                var resizedImage = mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
-                    ConstantsHelper.ResizedImageHeight);
-                string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                string imagePath = Path.Combine(path, document.Name);
-
-                File.WriteAllBytes(imagePath, resizedImage);
-                galleryItemModel.ImagePath = imagePath;
-                galleryItemModel.Thumbnail = imagePath;
-
-                await _transformHelper.ResizeAsync(imagePath, galleryItemModel);
-
-                GalleryItemsViewModels.Add(galleryItemModel.ToViewModel());
-                PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
-            }
-            catch (Exception ex)
-            {
-                await UserDialogs.Instance.AlertAsync(ex.Message);
-            }
-            finally
-            {
-                IsLoading = false;
-            }
         }
 
         private async Task TakeVideo()
@@ -239,61 +212,6 @@ namespace ReminderXamarin.ViewModels
                 }
             }
             IsLoading = false;
-        }
-
-        private async Task PickVideo(PlatformDocument document)
-        {
-            IsLoading = true;
-            try
-            {
-                var galleryItemModel = new GalleryItemModel
-                {
-                    NoteId = _noteId,
-                    IsVideo = true
-                };
-
-                var videoName =
-                    document.Path.Substring(document.Path.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
-                var imageName = videoName.Substring(0, videoName.Length - 4) + "_thumb.jpg";
-
-                var mediaService = DependencyService.Get<IMediaService>();
-                var fileHelper = DependencyService.Get<IFileHelper>();
-                var fileSystem = DependencyService.Get<IFileSystem>();
-
-                // Thumbnail
-                var imageContent = mediaService.GenerateThumbImage(document.Path, ConstantsHelper.ThumbnailTimeFrame);
-                var resizedImage = mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth, ConstantsHelper.ResizedImageHeight);
-                //string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                //string imagePath = Path.Combine(path, imageName);
-                string imagePath = fileHelper.GetLocalFilePath(imageName);
-                File.WriteAllBytes(imagePath, resizedImage);
-
-                // Video
-                var videoContent = fileSystem.ReadAllBytes(document.Path);
-                string videoPath = fileHelper.GetVideoSavingPath(document.Name);
-                if (string.IsNullOrEmpty(videoPath))
-                {
-                    videoPath = fileHelper.GetLocalFilePath(document.Path);
-                }
-                File.WriteAllBytes(videoPath, videoContent);
-
-                galleryItemModel.VideoPath = videoPath;
-                galleryItemModel.ImagePath = imagePath;
-                galleryItemModel.Thumbnail = imagePath;
-
-                await _transformHelper.ResizeAsync(imagePath, galleryItemModel);
-                
-                GalleryItemsViewModels.Add(galleryItemModel.ToViewModel());
-                PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
-            }
-            catch (Exception ex)
-            {
-                await UserDialogs.Instance.AlertAsync(ex.Message);
-            }
-            finally
-            {
-                IsLoading = false;
-            }
         }
 
         private async Task SaveNote()

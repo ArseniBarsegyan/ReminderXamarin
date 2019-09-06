@@ -25,7 +25,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>ReminderXamarin</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.ReminderXamarin</string>
+	<string>com.arsbars.ReminderXamarin</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
@@ -34,13 +34,15 @@
 	<string>ReminderXamarin</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Reminder wants to access your gallery</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Reminder wants to access your camera</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
 	</array>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Reminder wants to access your photos</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Reminder wants to access your photos</string>
 </dict>
 </plist>
