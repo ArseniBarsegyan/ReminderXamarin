@@ -13,6 +13,7 @@
         public const string AchievementNoteDeleteMessage = "Are you sure you want to delete this achievement note?";
         public const string AchievementSteps = "AchievementSteps";
         public const string AchievementStepEditComplete = "AchievementStepEditComplete";
+        public const string AchievementStepDeleteMessage = "Are you sure you want to delete this achievement step?";
         public const string AlreadyHaveAccountQuestion = "AlreadyHaveAccountQuestion";
         public const string ArrowForwardImage = "arrow_forward.png";
         public const string AreYouSure = "Are you sure?";

@@ -132,6 +132,9 @@
   <data name="Add" xml:space="preserve">
     <value>Добавить</value>
   </data>
+  <data name="AddStep" xml:space="preserve">
+    <value>Добавить шаг</value>
+  </data>
   <data name="AllNotes" xml:space="preserve">
     <value>Все заметки</value>
   </data>

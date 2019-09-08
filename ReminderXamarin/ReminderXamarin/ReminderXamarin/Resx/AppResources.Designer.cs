@@ -106,6 +106,15 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add step.
+        /// </summary>
+        internal static string AddStep {
+            get {
+                return ResourceManager.GetString("AddStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All notes.
         /// </summary>
         internal static string AllNotes {

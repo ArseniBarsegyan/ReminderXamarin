@@ -132,6 +132,9 @@
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="AddStep" xml:space="preserve">
+    <value>Add step</value>
+  </data>
   <data name="AllNotes" xml:space="preserve">
     <value>All notes</value>
   </data>

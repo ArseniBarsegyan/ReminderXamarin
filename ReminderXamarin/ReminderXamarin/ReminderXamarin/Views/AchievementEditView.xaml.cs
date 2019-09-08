@@ -62,5 +62,29 @@ namespace ReminderXamarin.Views
         {
             AchievementStepsListView.SelectedItem = null;
         }
+
+        private async void Delete_OnClicked(object sender, EventArgs e)
+        {
+            bool result = await DisplayAlert
+                (ConstantsHelper.Warning, 
+                ConstantsHelper.AchievementStepDeleteMessage, 
+                ConstantsHelper.Ok, 
+                ConstantsHelper.Cancel);
+
+            if (result)
+            {
+                var menuItem = sender as MenuItem;
+                var viewModel = menuItem?.CommandParameter as AchievementStepViewModel;
+
+                if (viewModel == null)
+                {
+                    return;
+                }
+                if (BindingContext is AchievementEditViewModel vm)
+                {
+                    vm.AchievementStepViewModels.Remove(viewModel);
+                }
+            }
+        }
     }
 }

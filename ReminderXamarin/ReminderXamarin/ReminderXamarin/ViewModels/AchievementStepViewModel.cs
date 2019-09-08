@@ -27,12 +27,12 @@ namespace ReminderXamarin.ViewModels
             ImageContent = new byte[0];
             SaveAchievementStepCommand = new Command(async() => await Save());
             ChangeImageCommand = new Command<PlatformDocument>(async document => await ChangeImage(document));
-            IncreaseProgressCommand = new Command<string>(async amount => await IncreaseProgress(amount));
+            ChangeProgressCommand = new Command<string>(async amount => await ChangeProgress(amount));
         }
 
         public ICommand SaveAchievementStepCommand { get; set; }
         public ICommand ChangeImageCommand { get; set; }
-        public ICommand IncreaseProgressCommand { get; set; }
+        public ICommand ChangeProgressCommand { get; set; }
 
         public IList<string> AvailableStepTypes =>
             Enum.GetNames(typeof(AchievementStepType)).Select(x => x.ToString()).ToList();
@@ -114,10 +114,16 @@ namespace ReminderXamarin.ViewModels
             await NavigationService.NavigateBackAsync();
         }
 
-        private async Task IncreaseProgress(string amount)
+        private async Task ChangeProgress(string amount)
         {
-            int.TryParse(amount, out int result);
-            TimeSpent += result;
+            if (int.TryParse(amount, out int result))
+            {
+                TimeSpent += result;
+                if (TimeSpent < 0)
+                {
+                    TimeSpent = 0;
+                }
+            }
         }
     }
 
