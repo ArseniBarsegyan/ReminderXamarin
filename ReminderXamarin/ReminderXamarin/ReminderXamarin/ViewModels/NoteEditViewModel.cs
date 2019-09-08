@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using ReminderXamarin.Extensions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Services;
-using ReminderXamarin.Services.FilePickerService;
-using ReminderXamarin.Services.MediaPicker;
 using ReminderXamarin.ViewModels.Base;
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
@@ -27,7 +23,9 @@ namespace ReminderXamarin.ViewModels
         private readonly MediaHelper _mediaHelper;
         private readonly TransformHelper _transformHelper;
         private static readonly IPermissionService PermissionService = DependencyService.Get<IPermissionService>();
-        
+        private static readonly IFileSystem FileService = DependencyService.Get<IFileSystem>();
+        private static readonly IMediaService MediaService = DependencyService.Get<IMediaService>();
+
         public NoteEditViewModel()
         {
             _mediaHelper = new MediaHelper();
@@ -96,15 +94,26 @@ namespace ReminderXamarin.ViewModels
             var multipleMediaPickerService = App.MultiMediaPickerService;
             multipleMediaPickerService.OnMediaPicked += (sender, file) =>
             {
-                Device.BeginInvokeOnMainThread(() =>
+                Device.BeginInvokeOnMainThread(async () =>
                 {
                     var galleryItemModel = new GalleryItemModel
                     {
-                        NoteId = _noteId,
-                        ImagePath = file.Path,
-                        Thumbnail = file.Path
+                        NoteId = _noteId
                     };
-                    
+                    var imageContent = FileService.ReadAllBytes(file.Path);
+                    var imageName = Path.GetFileName(file.Path);
+
+                    var resizedImage = MediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
+                        ConstantsHelper.ResizedImageHeight);
+                    string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                    string imagePath = Path.Combine(path, imageName);
+
+                    File.WriteAllBytes(imagePath, resizedImage);
+                    galleryItemModel.ImagePath = imagePath;
+                    galleryItemModel.Thumbnail = imagePath;
+
+                    await _transformHelper.ResizeAsync(imagePath, galleryItemModel);
+
                     GalleryItemsViewModels.Add(galleryItemModel.ToViewModel());
                     PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
                 });
