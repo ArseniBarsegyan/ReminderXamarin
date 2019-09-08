@@ -67,7 +67,7 @@ namespace ReminderXamarin.ViewModels
             _isInitialized = true;
         }
 
-        public void OnDissapearing()
+        public void OnDisappearing()
         {
             if (!_isNavigatedToEditView)
             {

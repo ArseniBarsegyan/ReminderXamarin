@@ -30,7 +30,7 @@ namespace ReminderXamarin.Views
             base.OnDisappearing();
             if (BindingContext is NotesViewModel viewModel)
             {
-                viewModel.OnDissapearing();
+                viewModel.OnDisappearing();
             }
         }
 
@@ -40,7 +40,6 @@ namespace ReminderXamarin.Views
             NotesList.SelectedItem = null;
             if (noteViewModel != null)
             {
-                // await Navigation.PushAsync(new NoteDetailView(viewModel));
                 if (BindingContext is NotesViewModel viewModel)
                 {
                     viewModel.NavigateToEditViewCommand.Execute(noteViewModel.Id);

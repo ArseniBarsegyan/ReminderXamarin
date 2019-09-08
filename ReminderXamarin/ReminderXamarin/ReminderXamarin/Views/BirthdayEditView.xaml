@@ -4,12 +4,20 @@
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
-             x:Class="ReminderXamarin.Views.BirthdayDetailView"
-             Title="{Binding Name}"
-             BackgroundColor="White">
-  <ContentPage.Content>
-    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-      <StackLayout Padding="10" Spacing="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+             xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
+             x:Class="ReminderXamarin.Views.BirthdayEditView"
+             BackgroundColor="White"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <viewModels:BirthdayEditViewModel x:Name="ViewModel" />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                    AbsoluteLayout.LayoutFlags="All">
+            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                         AbsoluteLayout.LayoutFlags="All"
+                         Padding="10" 
+                         Spacing="10">
         <StackLayout Spacing="0">
           <abstractions:CircleImage x:Name="FriendPhoto"
                                     Aspect="AspectFill"
@@ -17,16 +25,18 @@
                                     VerticalOptions="Start"
                                     HeightRequest="120"
                                     WidthRequest="120"
-                                    Source="{Binding ImageContent, Converter={StaticResource ByteToImageSourceConverter}}"
+                                    Source="{Binding ImageContent, 
+                                                Converter={StaticResource ByteToImageSourceConverter}}"
                                     Style="{StaticResource UserImageStyle}">
             <abstractions:CircleImage.GestureRecognizers>
-              <TapGestureRecognizer Tapped="FriendPhoto_OnTapped" NumberOfTapsRequired="1" />
+              <TapGestureRecognizer Tapped="FriendPhoto_OnTapped" 
+                                    NumberOfTapsRequired="1" />
             </abstractions:CircleImage.GestureRecognizers>
           </abstractions:CircleImage>
 
           <Button x:Name="PhotoPickButton"
                   Clicked="PhotoPickButton_OnClicked"
-                  Image="edit.png"
+                  ImageSource="edit.png"
                   HorizontalOptions="Center"
                   WidthRequest="50"
                   HeightRequest="50"
@@ -42,11 +52,13 @@
 
         <StackLayout Spacing="0">
           <Label Text="{extensions:Translate EditName}" />
-          <Entry x:Name="NameEntry" HorizontalOptions="FillAndExpand" />
+          <Entry x:Name="NameEntry" 
+                 HorizontalOptions="FillAndExpand" />
         </StackLayout>
 
         <StackLayout Spacing="0">
-          <Label Text="{extensions:Translate EditPreferencesDescription}" HorizontalOptions="Start" />
+          <Label Text="{extensions:Translate EditPreferencesDescription}" 
+                 HorizontalOptions="Start" />
           <Editor x:Name="GiftDescriptionEditor"
                   HorizontalOptions="FillAndExpand"
                   VerticalOptions="FillAndExpand"
@@ -54,13 +66,14 @@
         </StackLayout>
       </StackLayout>
 
-      <!-- Confirm and delete buttons -->
-      <StackLayout AbsoluteLayout.LayoutBounds="0.95,1,100,150" AbsoluteLayout.LayoutFlags="PositionProportional">
+      <StackLayout AbsoluteLayout.LayoutBounds="0.95,1,100,150" 
+                   AbsoluteLayout.LayoutFlags="PositionProportional">
         <elements:FloatingActionButton ImageSource="delete.png"
                                        HorizontalOptions="EndAndExpand"
-                                       ButtonColor="{StaticResource Error}"
-                                       Clicked="Delete_OnClicked" >
-
+                                       ButtonColor="{StaticResource ErrorColor}"
+                                       IsVisible="{Binding IsNewBirthday, 
+                                                    Converter={StaticResource InverseBooleanConverter}}"
+                                       Command="{Binding DeleteBirthdayCommand}">
         </elements:FloatingActionButton>
 
         <elements:FloatingActionButton ButtonColor="{StaticResource SubmitButtonBackground}"

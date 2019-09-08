@@ -52,6 +52,9 @@
     <Compile Update="Views\AchievementStepView.xaml.cs">
       <DependentUpon>AchievementStepView.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\BirthdayEditView.xaml.cs">
+      <DependentUpon>BirthdayEditView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ToDoActiveView.xaml.cs">
       <DependentUpon>ToDoActiveView.xaml</DependentUpon>
     </Compile>

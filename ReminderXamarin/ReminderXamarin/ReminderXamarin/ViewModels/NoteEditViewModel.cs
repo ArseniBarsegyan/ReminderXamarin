@@ -34,20 +34,22 @@ namespace ReminderXamarin.ViewModels
             GalleryItemsViewModels = new ObservableCollection<GalleryItemViewModel>();
             
             TakePhotoCommand = new Command(async () => await TakePhoto());
-            DeletePhotoCommand = new Command<GalleryItemViewModel>(vm => DeletePhoto(vm));
+            DeletePhotoCommand = new Command<GalleryItemViewModel>(DeletePhoto);
             TakeVideoCommand = new Command(async () => await TakeVideo());
             PickMultipleMediaCommand = new Command(async () => await PickMultipleMedia());
             SaveNoteCommand = new Command(async() => await SaveNote());
             DeleteNoteCommand = new Command(async () => await DeleteNote());
-            SelectImageCommand = new Command<GalleryItemViewModel>(async viewModel => await SelectImage(viewModel));
+            SelectImageCommand = new Command<GalleryItemViewModel>(async viewModel =>
+                await SelectImage(viewModel));
         }
         
         public void OnAppearing()
         {
-            MessagingCenter.Subscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted, (vm) => DeletePhoto(vm));
+            MessagingCenter.Subscribe<GalleryItemViewModel>(this, 
+                ConstantsHelper.ImageDeleted, DeletePhoto);
         }
 
-        public void OnDissapearing()
+        public void OnDisappearing()
         {
             MessagingCenter.Unsubscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted);
             MessagingCenter.Send(this, ConstantsHelper.NoteEditPageDissapeared);
@@ -198,9 +200,11 @@ namespace ReminderXamarin.ViewModels
 
                         var mediaService = DependencyService.Get<IMediaService>();
                         var imageContent =
-                            mediaService.GenerateThumbImage(videoModel.VideoPath, ConstantsHelper.ThumbnailTimeFrame);
+                            mediaService.GenerateThumbImage(videoModel.VideoPath, 
+                                ConstantsHelper.ThumbnailTimeFrame);
 
-                        var resizedImage = mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
+                        var resizedImage = mediaService.ResizeImage(imageContent, 
+                            ConstantsHelper.ResizedImageWidth,
                             ConstantsHelper.ResizedImageHeight);
                         string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                         string imagePath = Path.Combine(path, imageName);

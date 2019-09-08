@@ -1,5 +1,4 @@
 ﻿using System;
-using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
 using Rm.Helpers;
 using Xamarin.Forms;
@@ -10,13 +9,16 @@ namespace ReminderXamarin.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NoteEditView : ContentPage
     {
-        private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
         private readonly ToolbarItem _confirmToolbarItem;
 
         public NoteEditView()
         {
             InitializeComponent();
-            _confirmToolbarItem = new ToolbarItem { Order = ToolbarItemOrder.Primary, IconImageSource = ConstantsHelper.ConfirmIcon };
+            _confirmToolbarItem = new ToolbarItem
+            {
+                Order = ToolbarItemOrder.Primary,
+                IconImageSource = ConstantsHelper.ConfirmIcon
+            };
             _confirmToolbarItem.Clicked += Confirm_OnClicked;
             ToolbarItems.Add(_confirmToolbarItem);
         }
@@ -48,7 +50,7 @@ namespace ReminderXamarin.Views
             if (BindingContext is NoteEditViewModel noteEditViewModel)
             {
                 noteEditViewModel.PhotosCollectionChanged -= NoteViewModelOnPhotosCollectionChanged;
-                noteEditViewModel.OnDissapearing();
+                noteEditViewModel.OnDisappearing();
             }
         }
 

@@ -17,19 +17,23 @@ namespace ReminderXamarin.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (this.BindingContext is BirthdaysViewModel viewModel)
+            if (BindingContext is BirthdaysViewModel viewModel)
             {
                 viewModel.OnAppearing();
             }
         }
 
-        private async void FriendsList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void FriendsList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (e.SelectedItem is BirthdayViewModel viewModel)
-            {
-                await Navigation.PushAsync(new BirthdayDetailView(viewModel));
-            }
+            var birthdayViewModel = e.SelectedItem as BirthdayViewModel;
             FriendsList.SelectedItem = null;
+            if (birthdayViewModel != null)
+            {
+                if (BindingContext is BirthdaysViewModel viewModel)
+                {
+                    viewModel.NavigateToEditBirthdayCommand.Execute(birthdayViewModel.Id);
+                }
+            }
         }
 
         private async void Delete_OnClicked(object sender, EventArgs e)
@@ -43,16 +47,11 @@ namespace ReminderXamarin.Views
                 var viewModel = menuItem?.CommandParameter as BirthdayViewModel;
                 viewModel?.DeleteBirthdayCommand.Execute(null);
 
-                if (this.BindingContext is BirthdaysViewModel vm)
+                if (BindingContext is BirthdaysViewModel vm)
                 {
                     vm.OnAppearing();
                 }
             }
-        }
-
-        private async void AddFriendButton_OnClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new BirthdayCreateView());
         }
     }
 }
