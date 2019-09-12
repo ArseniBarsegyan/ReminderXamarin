@@ -20,21 +20,22 @@ namespace ReminderXamarin.iOS.Renderers
             base.OnElementChanged(e);
             if (e.NewElement != null)
             {
-                var view = Element as ExtendedLabel;
-
-                var paragraphStyle = new NSMutableParagraphStyle
+                if (Element is ExtendedLabel view)
                 {
-                    LineSpacing = (nfloat)view.LineSpacing
-                };
-                var str = new NSMutableAttributedString(view.Text);
-                var style = UIStringAttributeKey.ParagraphStyle;
-                var range = new NSRange(0, str.Length);
+                    var paragraphStyle = new NSMutableParagraphStyle
+                    {
+                        LineSpacing = (nfloat)view.LineSpacing
+                    };
+                    var str = new NSMutableAttributedString(view.Text);
+                    var style = UIStringAttributeKey.ParagraphStyle;
+                    var range = new NSRange(0, str.Length);
 
-                str.AddAttribute(style, paragraphStyle, range);
-                Control.Lines = view.Lines;
-                Control.AttributedText = str;
+                    str.AddAttribute(style, paragraphStyle, range);
+                    Control.Lines = view.Lines;
+                    Control.AttributedText = str;
 
-                UpdateUi(view, Control);
+                    UpdateUi(view, Control);
+                }
             }
         }
 
@@ -45,7 +46,10 @@ namespace ReminderXamarin.iOS.Renderers
 
             if (e.PropertyName == ExtendedLabel.IsUnderlinedProperty.PropertyName)
             {
-                UpdateUi(view, Control);
+                if (view != null)
+                {
+                    UpdateUi(view, Control);
+                }
             }
         }
 

@@ -162,8 +162,12 @@ namespace ReminderXamarin.ViewModels
             {
                 Notes = _allNotes.ToObservableCollection();
             }
-            Notes = Notes.Where(x => x.FullDescription.Contains(SearchText))
-                .ToObservableCollection();
+
+            if (SearchText != null)
+            {
+                Notes = Notes.Where(x => x.FullDescription.Contains(SearchText))
+                    .ToObservableCollection();
+            }
         }
 
         private async Task LoadMoreNotes()

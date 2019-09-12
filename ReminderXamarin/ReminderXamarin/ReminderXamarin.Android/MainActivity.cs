@@ -8,8 +8,9 @@ using Android.Runtime;
 using ImageCircle.Forms.Plugin.Droid;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
-using ReminderXamarin.Droid.Services.FilePickerService;
+using ReminderXamarin.Droid.Services.MediaPicker;
 using Xamarin.Forms;
+using Platform = ReminderXamarin.Droid.Services.FilePickerService.Platform;
 
 namespace ReminderXamarin.Droid
 {
@@ -17,9 +18,6 @@ namespace ReminderXamarin.Droid
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        /// <summary>
-        /// Publishes results from returning activities started for some result. Required for Platform class
-        /// </summary>
         public event Action<int, Result, Intent> ActivityResult;
 
         protected override void OnCreate(Bundle bundle)
@@ -38,7 +36,7 @@ namespace ReminderXamarin.Droid
             CrossCurrentActivity.Current.Activity = this;
             ImageCircleRenderer.Init();
             UserDialogs.Init(this);
-            LoadApplication(new App());
+            LoadApplication(new App(MultiMediaPickerService.SharedInstance));
 
             App.ScreenHeight = (int)(Resources.DisplayMetrics.HeightPixels / Resources.DisplayMetrics.Density);
             App.ScreenWidth = (int)(Resources.DisplayMetrics.WidthPixels / Resources.DisplayMetrics.Density);
@@ -52,12 +50,11 @@ namespace ReminderXamarin.Droid
             Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed);
         }
 
-        /// <summary>
-        /// Required for Platform.cs class.
-        /// </summary>
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
+            base.OnActivityResult(requestCode, resultCode, data);
             ActivityResult?.Invoke(requestCode, resultCode, data);
+            MultiMediaPickerService.SharedInstance.OnActivityResult(requestCode, resultCode, data);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)

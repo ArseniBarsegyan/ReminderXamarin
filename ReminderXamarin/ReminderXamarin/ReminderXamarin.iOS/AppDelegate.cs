@@ -4,6 +4,7 @@ using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
 using Plugin.LocalNotifications;
 using ReminderXamarin.Enums;
+using ReminderXamarin.iOS.Services.MediaPicker;
 using Rm.Helpers;
 using UIKit;
 using UserNotifications;
@@ -11,19 +12,9 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.iOS
 {
-    // The UIApplicationDelegate for the application. This class is responsible for launching the 
-    // User Interface of the application, as well as listening (and optionally responding) to 
-    // application events from iOS.
-    [Register("AppDelegate")]
+    [Register(nameof(AppDelegate))]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
-        //
-        // This method is invoked when the application has loaded and is ready to run. In this 
-        // method you should instantiate the window, load the UI into it and then make the window
-        // visible.
-        //
-        // You have 17 seconds to return from this method, or iOS will terminate your application.
-        //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Rg.Plugins.Popup.Popup.Init();
@@ -33,7 +24,7 @@ namespace ReminderXamarin.iOS
             //var cv = typeof(Xamarin.Forms.CarouselView);
             //var assembly = Assembly.Load(cv.FullName);
             ImageCircleRenderer.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(new MultiMediaPickerService()));
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {

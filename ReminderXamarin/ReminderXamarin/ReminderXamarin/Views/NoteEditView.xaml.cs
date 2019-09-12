@@ -75,22 +75,6 @@ namespace ReminderXamarin.Views
             }
         }
 
-        private async void OnPickMediaButtonClicked(object sender, EventArgs e)
-        {
-            if (BindingContext is NoteEditViewModel viewModel)
-            {
-                viewModel.IsLoading = true;
-
-                var document = await DocumentPicker.DisplayImportAsync(this);
-                if (document == null)
-                {
-                    viewModel.IsLoading = false;
-                    return;
-                }
-                viewModel.PickMediaCommand.Execute(document);
-            }
-        }
-
         private void DescriptionEditor_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             if (BindingContext is NoteEditViewModel viewModel)
@@ -128,9 +112,9 @@ namespace ReminderXamarin.Views
 
         private void ResetButtons()
         {
+            PickMultipleMediaButton.BackgroundColor = Color.Transparent;
             VideoButton.BackgroundColor = Color.Transparent;
             CameraButton.BackgroundColor = Color.Transparent;
-            PickButton.BackgroundColor = Color.Transparent;
         }
     }
 }

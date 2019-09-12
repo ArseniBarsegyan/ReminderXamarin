@@ -8,6 +8,7 @@ using Rm.Helpers;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.IoC;
+using ReminderXamarin.Services.MediaPicker;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 
@@ -15,9 +16,12 @@ namespace ReminderXamarin
 {
     public partial class App : Application
     {
-        public App()
+        public static IMultiMediaPickerService MultiMediaPickerService;
+
+        public App(IMultiMediaPickerService multiMediaPickerService)
         {
             InitializeComponent();
+            MultiMediaPickerService = multiMediaPickerService;
             Bootstrapper.Initialize();
             var navigationService = ComponentFactory.Resolve<INavigationService>();
             var dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantsHelper.SqLiteDataBaseName);

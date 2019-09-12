@@ -100,6 +100,7 @@
     <Compile Include="Services\FileSystem.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\LoadingService.cs" />
+    <Compile Include="Services\MediaPicker\MultiMediaPickerService.cs" />
     <Compile Include="Services\MediaService.cs" />
     <Compile Include="Services\PermissionService.cs" />
     <Compile Include="Services\VideoService.cs" />
@@ -168,6 +169,9 @@
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs">
       <Version>7.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="GMImagePicker.Xamarin">
+      <Version>2.3.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter">
       <Version>2.0.0</Version>
