@@ -48,7 +48,7 @@
                     <ViewCell.View>
                         <Frame MinimumHeightRequest="200"
                                HasShadow="True" 
-                               Padding="0,0,0,10" 
+                               Padding="0,10" 
                                BorderColor="LightGray" 
                                Margin="0,5">
                             <StackLayout Spacing="10" Padding="10,10,10,30">
