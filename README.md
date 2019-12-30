@@ -8,4 +8,4 @@ photos/images/videos(partially implemented) to notes, search notes, create local
 - PropertyChanged.Fody package for MVVM simplify
 - ViewModel first navigation
 - DI with SimpleInjector
-- Multilingual plugion, resx files translation
+- Multilingual plugin, resx files translation
