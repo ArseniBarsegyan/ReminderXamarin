@@ -2,6 +2,7 @@
 {
     public enum ThemeTypes
     {
+        Default,
         Light,
         Dark
     }

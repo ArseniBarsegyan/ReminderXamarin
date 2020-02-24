@@ -1,16 +1,19 @@
-﻿using System;
+﻿using ReminderXamarin.ResourceDictionaries;
 
-using ReminderXamarin.ResourceDictionaries;
 using Rm.Helpers;
+
+using System;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Utilities
 {
     public class ThemeSwitcher
-    {
-        public ThemeTypes CurrentThemeType { get; private set; }
+    {       
         private readonly LightThemeDictionary _lightThemeDictionary;
         private readonly DarkThemeDictionary _darkThemeDictionary;
+
+        public ThemeTypes CurrentThemeType { get; private set; }
 
         public ThemeSwitcher()
         {
@@ -44,6 +47,11 @@ namespace ReminderXamarin.Utilities
                     case ThemeTypes.Dark:
                         {
                             Application.Current.Resources.MergedDictionaries.Add(_darkThemeDictionary);
+                            break;
+                        }
+                    case ThemeTypes.Default:
+                        {
+                            Application.Current.Resources.MergedDictionaries.Add(_lightThemeDictionary);
                             break;
                         }
                 }
