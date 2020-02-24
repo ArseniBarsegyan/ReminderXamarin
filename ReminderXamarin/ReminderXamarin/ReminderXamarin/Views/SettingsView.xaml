@@ -15,7 +15,8 @@
                        AbsoluteLayout.LayoutBounds="0,0,1,1"
                        AbsoluteLayout.LayoutFlags="All">
                 <TableRoot>
-                    <TableSection Title="{extensions:Translate SettingsLoginSectionName}">
+                    <TableSection Title="{extensions:Translate SettingsLoginSectionName}"
+                                  TextColor="{DynamicResource ColorTextCommon}">
                         <SwitchCell x:Name="UsePinSwitch"
                                     Text="{extensions:Translate UsePin}"
                                     On="{Binding UsePin}"
@@ -26,7 +27,8 @@
                                    Keyboard="Numeric">
                         </EntryCell>
                     </TableSection>
-                    <TableSection Title="{extensions:Translate SettingsThemeSectionName}">
+                    <TableSection Title="{extensions:Translate SettingsThemeSectionName}"
+                                  TextColor="{DynamicResource ColorTextCommon}">
                         <SwitchCell x:Name="ThemeSwitcher"
                                     On="{Binding IsDarkTheme}"
                                     Text="{extensions:Translate UseColorTheme}"

@@ -18,9 +18,9 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="DeleteOption" 
-                     IconImageSource="delete.png" 
-                     Order="Primary" 
+        <ToolbarItem x:Name="DeleteOption"
+                     IconImageSource="delete.png"
+                     Order="Primary"
                      Command="{Binding DeleteNoteCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.BindingContext>
@@ -92,7 +92,7 @@
                              Orientation="Horizontal"
                              Spacing="0"
                              Margin="-10"
-                             BackgroundColor="{DynamicResource DarkBackground}">
+                             BackgroundColor="{DynamicResource NoteOptionsMenuBackground}">
                     <ImageButton x:Name="PickMultipleMediaButton"
                                  Source="add.png"
                                  Style="{StaticResource PickerButtonStyle}"

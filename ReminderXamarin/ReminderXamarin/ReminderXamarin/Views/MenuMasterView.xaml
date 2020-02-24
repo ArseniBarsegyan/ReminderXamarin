@@ -10,7 +10,7 @@
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                         AbsoluteLayout.LayoutFlags="All"
-                        BackgroundColor="#FAFAFA">            
+                        BackgroundColor="{DynamicResource MenuBackground}">            
             <!-- Side menu -->
             <ListView x:Name="MenuList"
                       ItemsSource="{Binding MasterPageItems}"

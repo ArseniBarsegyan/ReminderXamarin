@@ -12,7 +12,8 @@
              BackgroundColor="{DynamicResource NotesViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Upload"
+        <ToolbarItem x:Name="UploadOption"
+                     IconImageSource="upload_light.png"
                      Order="Primary"
                      Command="{Binding UploadNotesToApiCommand}"/>
     </ContentPage.ToolbarItems>

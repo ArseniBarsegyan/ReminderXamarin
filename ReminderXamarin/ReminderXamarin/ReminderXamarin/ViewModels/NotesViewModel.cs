@@ -119,7 +119,7 @@ namespace ReminderXamarin.ViewModels
             }
             catch (HttpRequestException)
             {
-                await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("It seems that server is offline. Please, try again later.");
+                await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("It seems like server is offline. Please, try again later.");
             }
         }
 

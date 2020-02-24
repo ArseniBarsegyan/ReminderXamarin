@@ -6,6 +6,7 @@
     <x:String x:Key="Theme">Light</x:String>
 
     <Color x:Key="BarBackground">#323232</Color>
+    <Color x:Key="MenuBackground">#fafafa</Color>
     <Color x:Key="AchievementEditViewBackground">#ffffff</Color>
     <Color x:Key="AchievementsViewBackground">#fafafa</Color>
     <Color x:Key="BirthdayEditViewBackground">#ffffff</Color>
