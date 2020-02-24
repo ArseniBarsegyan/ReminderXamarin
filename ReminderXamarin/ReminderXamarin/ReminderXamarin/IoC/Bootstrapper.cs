@@ -1,5 +1,7 @@
 ﻿using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.DependencyResolver;
+using ReminderXamarin.Services;
+using ReminderXamarin.Utilities;
 
 namespace ReminderXamarin.IoC
 {
@@ -13,6 +15,8 @@ namespace ReminderXamarin.IoC
             {
                 ComponentRegistry.Container = new SimpleInjectorContainerService();
                 ComponentRegistry.Register<INavigationService, NavigationService>();
+                ComponentRegistry.Register<IUploadService, UploadService>();
+                ComponentRegistry.Register<ThemeSwitcher>();
                 IsInitialized = true;
             }
         }

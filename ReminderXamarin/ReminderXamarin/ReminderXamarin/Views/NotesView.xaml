@@ -9,8 +9,13 @@
              xmlns:helpers="clr-namespace:ReminderXamarin.Helpers;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.NotesView"
              Title="{extensions:Translate AllNotes}"
-             BackgroundColor="#fafafa"
+             BackgroundColor="{DynamicResource NotesViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Upload"
+                     Order="Primary"
+                     Command="{Binding UploadNotesToApiCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:NullElementToImageSourceConverter x:Key="NullElementToImageSourceConverter" />
@@ -18,24 +23,24 @@
                 <ViewCell>
                     <ViewCell.View>
                         <Frame MinimumHeightRequest="200"
-                               HasShadow="True" 
-                               Padding="0,0,0,10" 
-                               BorderColor="LightGray" 
+                               HasShadow="True"
+                               Padding="0,0,0,10"
+                               BorderColor="{DynamicResource NoteViewCellBorder}"
                                Margin="0,5">
                             <StackLayout>
-                                <Image Source="{Binding GalleryItemsViewModels, 
-                                                Converter={StaticResource NullElementToImageSourceConverter}}" 
-                                       Aspect="AspectFill" 
+                                <Image Source="{Binding GalleryItemsViewModels,
+                                                Converter={StaticResource NullElementToImageSourceConverter}}"
+                                       Aspect="AspectFill"
                                        HorizontalOptions="FillAndExpand"
                                        HeightRequest="200" />
                                 <StackLayout Spacing="10" Padding="10,10,10,30">
-                                    <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" 
-                                           TextColor="{StaticResource DarkFont}" />
-                                    <elements:ExtendedLabel HorizontalTextAlignment="Start" 
-                                                            Lines="5" 
-                                                            LineSpacing="1.1" 
-                                                            LineBreakMode="TailTruncation" 
-                                                            TextColor="{StaticResource DarkFont}"
+                                    <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}"
+                                           TextColor="{DynamicResource ColorTextCommon}" />
+                                    <elements:ExtendedLabel HorizontalTextAlignment="Start"
+                                                            Lines="5"
+                                                            LineSpacing="1.1"
+                                                            LineBreakMode="TailTruncation"
+                                                            TextColor="{DynamicResource ColorTextCommon}"
                                                             Text="{Binding Description}" />
                                 </StackLayout>
                             </StackLayout>
@@ -47,36 +52,36 @@
                 <ViewCell>
                     <ViewCell.View>
                         <Frame MinimumHeightRequest="200"
-                               HasShadow="True" 
-                               Padding="0,10" 
-                               BorderColor="LightGray" 
+                               HasShadow="True"
+                               Padding="0,10"
+                               BorderColor="LightGray"
                                Margin="0,5">
                             <StackLayout Spacing="10" Padding="10,10,10,30">
                                 <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" 
-                                       TextColor="{StaticResource DarkFont}" />
-                                <elements:ExtendedLabel HorizontalTextAlignment="Start" 
-                                                        Lines="5" 
-                                                        LineSpacing="1.1" 
-                                                        LineBreakMode="TailTruncation" 
-                                                        TextColor="{StaticResource DarkFont}"
+                                       TextColor="{DynamicResource ColorTextCommon}" />
+                                <elements:ExtendedLabel HorizontalTextAlignment="Start"
+                                                        Lines="5"
+                                                        LineSpacing="1.1"
+                                                        LineBreakMode="TailTruncation"
+                                                        TextColor="{DynamicResource ColorTextCommon}"
                                                         Text="{Binding Description}" />
                             </StackLayout>
                         </Frame>
                     </ViewCell.View>
                 </ViewCell>
             </DataTemplate>
-            <helpers:NotesListDataTemplateSelector x:Key="ListDataTemplateSelector" 
+            <helpers:NotesListDataTemplateSelector x:Key="ListDataTemplateSelector"
                                                    ImageCellTemplate="{StaticResource ImageCellDataTemplate}"
                                                    TextCellTemplate="{StaticResource TextCellDataTemplate}" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-        <StackLayout x:Name="StackLayout" Padding="5" 
-                     AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                     AbsoluteLayout.LayoutFlags="All" 
-                     Spacing="0" 
-                     VerticalOptions="FillAndExpand" 
+        <StackLayout x:Name="StackLayout" Padding="5"
+                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     AbsoluteLayout.LayoutFlags="All"
+                     Spacing="0"
+                     VerticalOptions="FillAndExpand"
                      HorizontalOptions="FillAndExpand">
             <!-- Search bar with border -->
             <SearchBar x:Name="SearchBar" 
@@ -84,14 +89,15 @@
                        Placeholder="Search..."
                        Text="{Binding SearchText}">
                 <SearchBar.Behaviors>
-                    <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchCommand}" />
+                    <behaviors:EventToCommandBehavior EventName="TextChanged"
+                                                      Command="{Binding SearchCommand}" />
                 </SearchBar.Behaviors>
             </SearchBar>
             <!-- List with notes -->
-            <ListView x:Name="NotesList" 
+            <ListView x:Name="NotesList"
                       ItemsSource="{Binding Notes}"
                       IsPullToRefreshEnabled="True"
-                      RefreshControlColor="{StaticResource SubmitButtonBackground}"
+                      RefreshControlColor="{DynamicResource RefreshControl}"
                       HasUnevenRows="True"
                       CachingStrategy="RecycleElement"
                       RefreshCommand="{Binding RefreshListCommand}"
@@ -103,10 +109,10 @@
         </StackLayout>
 
         <elements:FloatingActionButton x:Name="CreateNoteButton"
-                                       AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
-                                       AbsoluteLayout.LayoutFlags="PositionProportional" 
+                                       AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"
+                                       AbsoluteLayout.LayoutFlags="PositionProportional"
                                        ImageSource="add.png"
-                                       ButtonColor="{StaticResource SubmitButtonBackground}"
+                                       ButtonColor="{DynamicResource SubmitButtonBackground}"
                                        Command="{Binding NavigateToEditViewCommand}">
             <elements:FloatingActionButton.CommandParameter>
                 <x:Int32>0</x:Int32>

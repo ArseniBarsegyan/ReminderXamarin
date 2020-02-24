@@ -7,7 +7,7 @@
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.BirthdaysView"
              Title="{extensions:Translate Birthdays}"
-             BackgroundColor="White"
+             BackgroundColor="{DynamicResource BirthdaysViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
@@ -91,7 +91,7 @@
             <elements:FloatingActionButton x:Name="AddFriendButton" 
                                            AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
                                            AbsoluteLayout.LayoutFlags="PositionProportional"
-                                           ButtonColor="{StaticResource SubmitButtonBackground}"
+                                           ButtonColor="{DynamicResource SubmitButtonBackground}"
                                            Command="{Binding NavigateToEditBirthdayCommand}"
                                            ImageSource="add.png">
                 <elements:FloatingActionButton.CommandParameter>

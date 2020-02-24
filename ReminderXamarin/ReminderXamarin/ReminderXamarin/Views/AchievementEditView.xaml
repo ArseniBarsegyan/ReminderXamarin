@@ -8,7 +8,7 @@
              xmlns:converters="clr-namespace:ReminderXamarin.Converters"
              x:Class="ReminderXamarin.Views.AchievementEditView"
              Title="{Binding Title}"
-             BackgroundColor="White"
+             BackgroundColor="{DynamicResource AchievementEditViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>

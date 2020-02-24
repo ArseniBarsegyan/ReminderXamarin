@@ -1,29 +1,41 @@
-﻿using System;
-using Microsoft.AppCenter;
+﻿using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using Rm.Data.Data.Repositories;
+
 using ReminderXamarin.DependencyResolver;
-using Rm.Helpers;
-using ReminderXamarin.Services;
-using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.IoC;
+using ReminderXamarin.Services;
 using ReminderXamarin.Services.MediaPicker;
+using ReminderXamarin.Services.Navigation;
+using ReminderXamarin.Utilities;
 using ReminderXamarin.ViewModels;
+
+using Rm.Data.Data.Repositories;
+using Rm.Helpers;
+
+using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ReminderXamarin
 {
     public partial class App : Application
     {
+        private ThemeSwitcher _themeSwitchService;
+        private INavigationService _navigationService;
+
         public static IMultiMediaPickerService MultiMediaPickerService;
 
         public App(IMultiMediaPickerService multiMediaPickerService)
         {
             InitializeComponent();
             MultiMediaPickerService = multiMediaPickerService;
+
             Bootstrapper.Initialize();
-            var navigationService = ComponentFactory.Resolve<INavigationService>();
+
+            _navigationService = ComponentFactory.Resolve<INavigationService>();
+            _themeSwitchService = ComponentFactory.Resolve<ThemeSwitcher>();
+
             var dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantsHelper.SqLiteDataBaseName);
 
             NoteRepository = new Lazy<NoteRepository>(() => new NoteRepository(dbPath));
@@ -34,14 +46,7 @@ namespace ReminderXamarin
             AchievementStepRepository = new Lazy<AchievementStepRepository>(() => new AchievementStepRepository(dbPath));
 
             bool.TryParse(Settings.UsePin, out var shouldUsePin);
-            if (shouldUsePin)
-            {
-                navigationService.InitializeAsync<PinViewModel>();
-            }
-            else
-            {
-                navigationService.InitializeAsync<LoginViewModel>();
-            }
+            InitNavigation(shouldUsePin);
         }
 
         public static int ScreenWidth { get; set; }
@@ -66,12 +71,25 @@ namespace ReminderXamarin
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+            _themeSwitchService.Reset();
         }
 
         protected override void OnResume()
         {
-            // Handle when your app resumes
+        }
+
+        private void InitNavigation(bool shouldUsePin)
+        {
+            _themeSwitchService.InitializeTheme();
+
+            if (shouldUsePin)
+            {
+                _navigationService.InitializeAsync<PinViewModel>();
+            }
+            else
+            {
+                _navigationService.InitializeAsync<LoginViewModel>();
+            }
         }
     }
 }

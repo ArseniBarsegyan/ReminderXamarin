@@ -7,6 +7,7 @@ using SQLiteNetExtensions.Attributes;
 namespace Rm.Data.Data.Entities
 {
     [Table(ConstantsHelper.Notes)]
+    [Serializable]
     public class Note
     {
         [PrimaryKey, AutoIncrement]

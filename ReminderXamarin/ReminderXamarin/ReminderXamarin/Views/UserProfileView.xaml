@@ -6,15 +6,16 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.UserProfileView"
-             BackgroundColor="White"
+             BackgroundColor="{DynamicResource UserProfileViewBackground}"
              Title="{extensions:Translate Profile}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Content>
         <!-- Header with user name and photo -->
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All">
             <elements:BlurredImage x:Name="BackgroundImage"
                                    Aspect="AspectFill"
-                                   AbsoluteLayout.LayoutBounds="0,0,1,100" 
+                                   AbsoluteLayout.LayoutBounds="0,0,1,100"
                                    AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
                 <elements:BlurredImage.GestureRecognizers>
                     <TapGestureRecognizer Tapped="BackgroundImage_OnTapped" />
@@ -27,34 +28,38 @@
                                       VerticalOptions="Start"
                                       HeightRequest="120"
                                       WidthRequest="120"
-                                      AbsoluteLayout.LayoutBounds="0.5,40,120,120" 
+                                      AbsoluteLayout.LayoutBounds="0.5,40,120,120"
                                       AbsoluteLayout.LayoutFlags="XProportional"
-                                      Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}"
+                                      Source="{Binding ImageContent, 
+                                                       Converter={StaticResource EmptyByteToImageSourceConverter}}"
                                       Style="{StaticResource UserImageStyle}">
                 <abstractions:CircleImage.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="UserProfileImage_OnTapped" NumberOfTapsRequired="1" />
+                    <TapGestureRecognizer Tapped="UserProfileImage_OnTapped"
+                                          NumberOfTapsRequired="1" />
                 </abstractions:CircleImage.GestureRecognizers>
             </abstractions:CircleImage>
 
-            <elements:FloatingActionButton x:Name="PickUserPhotoImage" 
+            <elements:FloatingActionButton x:Name="PickUserPhotoImage"
                                            Clicked="PickUserPhotoImage_OnClicked"
-                                           Image="edit.png" 
-                                           ButtonColor="LightGray"
-                                           AbsoluteLayout.LayoutBounds="0.6,120,50,50" 
+                                           Image="edit.png"
+                                           ButtonColor="{DynamicResource PickUserButtonBackground}"
+                                           AbsoluteLayout.LayoutBounds="0.6,120,50,50"
                                            AbsoluteLayout.LayoutFlags="XProportional" />
 
-            <StackLayout x:Name="UserInfoLayout" 
+            <StackLayout x:Name="UserInfoLayout"
                          AbsoluteLayout.LayoutBounds="0.5,180,1,1"
                          AbsoluteLayout.LayoutFlags="XProportional, SizeProportional">
-                <Label Text="{Binding UserName}" FontSize="Medium" HorizontalOptions="Center" />
+                <Label Text="{Binding UserName}"
+                       FontSize="Medium"
+                       HorizontalOptions="Center" />
             </StackLayout>
 
-            <elements:FloatingActionButton  x:Name="UpdateUserButton" 
-                                            AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
-                                            AbsoluteLayout.LayoutFlags="PositionProportional" 
+            <elements:FloatingActionButton  x:Name="UpdateUserButton"
+                                            AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"
+                                            AbsoluteLayout.LayoutFlags="PositionProportional"
                                             IsVisible="{Binding ViewModelChanged}"
                                             Command="{Binding UpdateUserCommand}"
-                                            ButtonColor="{StaticResource SubmitButtonBackground}"
+                                            ButtonColor="{DynamicResource SubmitButtonBackground}"
                                             ImageSource="confirm.png" />
         </AbsoluteLayout>
     </ContentPage.Content>

@@ -1,6 +1,7 @@
 ﻿using Rm.Helpers;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
+using System;
 
 namespace Rm.Data.Data.Entities
 {
@@ -8,6 +9,7 @@ namespace Rm.Data.Data.Entities
     /// Store filepath to pictures and videos.
     /// </summary>
     [Table(ConstantsHelper.GalleryItems)]
+    [Serializable]
     public class GalleryItemModel
     {
         [PrimaryKey, AutoIncrement]

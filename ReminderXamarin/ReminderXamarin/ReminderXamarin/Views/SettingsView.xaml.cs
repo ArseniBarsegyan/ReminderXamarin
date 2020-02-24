@@ -32,6 +32,10 @@ namespace ReminderXamarin.Views
         private void Switch_OnValueChanged(object sender, ToggledEventArgs e)
         {
             ConfirmButton.IsVisible = true;
+
+            if (BindingContext is SettingsViewModel viewModel)
+            {
+            }
         }
     }
 }

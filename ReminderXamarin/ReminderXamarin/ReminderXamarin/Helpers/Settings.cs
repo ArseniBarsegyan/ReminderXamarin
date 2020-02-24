@@ -3,11 +3,6 @@ using Plugin.Settings.Abstractions;
 
 namespace Rm.Helpers
 {
-    /// <summary>
-    /// This is the Settings static class that can be used in your Core solution or in any
-    /// of your client applications. All settings are laid out the same exact way with getters
-    /// and setters. 
-    /// </summary>
     public static class Settings
     {
         private static ISettings AppSettings => CrossSettings.Current;
@@ -19,6 +14,7 @@ namespace Rm.Helpers
         private const string UsePinKey = "True";
         private const string UserPinCodeKey = "0000";
         private const string ApplicationUserKey = "";
+        private const string ThemeTypeKey = "Light";
 
         private static readonly string SettingsDefault = string.Empty;
 
@@ -52,6 +48,12 @@ namespace Rm.Helpers
         {
             get => AppSettings.GetValueOrDefault(SettingsKey, SettingsDefault);
             set => AppSettings.AddOrUpdateValue(SettingsKey, value);
+        }
+
+        public static string ThemeType
+        {
+            get => AppSettings.GetValueOrDefault(ThemeTypeKey, SettingsDefault);
+            set => AppSettings.AddOrUpdateValue(ThemeTypeKey, value);
         }
 
         public static void Clear()

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.ViewModels;
+using Rm.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

@@ -5,32 +5,33 @@
                 xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors;assembly=ReminderXamarin"
                 xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
                 xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
+                xmlns:elements="clr-namespace:ReminderXamarin.Elements"
                 x:Class="ReminderXamarin.Views.LoginView"
                 base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="LoginLabelStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="{StaticResource DarkFont}" />
+                <Setter Property="TextColor" Value="{DynamicResource ColorTextCommon}" />
                 <Setter Property="FontSize" Value="Small" />
                 <Setter Property="Margin" Value="25, 0" />
             </Style>
 
             <Style x:Key="LoginEntryStyle" TargetType="Entry">
                 <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="TextColor" Value="{StaticResource DarkFont}" />
+                <Setter Property="TextColor" Value="{DynamicResource ColorTextCommon}" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
                 <Setter Property="Margin" Value="25, 0" />
             </Style>
 
             <Style x:Key="CancelButtonStyle" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#fafafa" />
-                <Setter Property="TextColor" Value="{StaticResource DarkFont}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource CancelButtonBackground}" />
+                <Setter Property="TextColor" Value="{DynamicResource ColorTextCommon}" />
             </Style>
 
             <Style x:Key="LoginButtonStyle" TargetType="Button">
-                <Setter Property="TextColor" Value="White" />
+                <Setter Property="TextColor" Value="{DynamicResource LoginButtonText}" />
                 <Setter Property="CornerRadius" Value="0" />
-                <Setter Property="BackgroundColor" Value="{StaticResource SubmitButtonBackground}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource SubmitButtonBackground}" />
                 <Setter Property="Margin" Value="25, 10" />
             </Style>
 
@@ -41,8 +42,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                        AbsoluteLayout.LayoutFlags="All" 
-                        BackgroundColor="#fafafa">
+                        AbsoluteLayout.LayoutFlags="All"> 
             <AbsoluteLayout.Padding>
                 <OnPlatform x:TypeArguments="Thickness">
                     <On Platform="Android" Value="10"/>
@@ -50,14 +50,20 @@
                 </OnPlatform>
             </AbsoluteLayout.Padding>
 
+            <!-- Background image -->
+            <elements:BlurredImage x:Name="BackgroundImage"
+                                   Aspect="AspectFill"
+                                   AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                   AbsoluteLayout.LayoutFlags="All" />
+
             <StackLayout AbsoluteLayout.LayoutBounds="0.5,0,1,100" 
                          AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
                 <Label FontSize="Large" 
                        Text="{Binding IsRegister, Converter={StaticResource RegisterLoginTextConverter}}" 
                        HorizontalOptions="Center" 
-                       TextColor="{StaticResource DarkFont}" />
+                       TextColor="{DynamicResource ColorTextCommon}" />
                 <!-- Error message -->
-                <Label TextColor="{StaticResource ErrorColor}"
+                <Label TextColor="{DynamicResource ErrorTextCommon}"
                        HorizontalOptions="Center"
                        Text="{extensions:Translate IncorrectData}" 
                        IsVisible="{Binding IsValid, Converter={StaticResource InverseBooleanConverter}}" />
@@ -103,7 +109,7 @@
                         </Entry>
 
                         <!-- Hide or show password -->
-                        <Image x:Name="TogglePasswordVisibilityButton" 
+                        <Image x:Name="TogglePasswordVisibilityButton"
                                    AbsoluteLayout.LayoutBounds="0.9,0.5,20,20"
                                    AbsoluteLayout.LayoutFlags="PositionProportional"
                                    Source="eye.png">
@@ -118,9 +124,11 @@
                 <!-- Confirm password -->
                 <StackLayout Spacing="0" IsVisible="{Binding IsRegister}">
                     <Label x:Name="ConfirmPasswordLabel"
-                           Text="{extensions:Translate ConfirmPassword}" 
+                           Text="{extensions:Translate ConfirmPassword}"
                            Style="{StaticResource LoginLabelStyle}" />
-                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                    AbsoluteLayout.LayoutFlags="All">
+                        
                         <Entry x:Name="ConfirmPasswordEntry"
                                Text="{Binding ConfirmPassword}"
                                AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -132,12 +140,12 @@
                                Style="{StaticResource LoginEntryStyle}" />
 
                         <!-- Hide or show password -->
-                        <Image x:Name="ToggleConfirmPassword" 
+                        <Image x:Name="ToggleConfirmPassword"
                                AbsoluteLayout.LayoutBounds="0.9,0.5,20,20"
                                AbsoluteLayout.LayoutFlags="PositionProportional"
                                Source="eye.png">
                             <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SwitchPasswordConfirmVisibilityCommand}" 
+                                <TapGestureRecognizer Command="{Binding SwitchPasswordConfirmVisibilityCommand}"
                                                       NumberOfTapsRequired="1" />
                             </Image.GestureRecognizers>
                         </Image>
@@ -145,20 +153,20 @@
                 </StackLayout>
             </StackLayout>
 
-            <StackLayout x:Name="RegisterLayout" 
-                         AbsoluteLayout.LayoutBounds="0.5,0.7,1,0.25" 
+            <StackLayout x:Name="RegisterLayout"
+                         AbsoluteLayout.LayoutBounds="0.5,0.7,1,0.25"
                          AbsoluteLayout.LayoutFlags="All">
-                <Button x:Name="SignInButton" 
-                        Command="{Binding SignInCommand}" 
+                <Button x:Name="SignInButton"
+                        Command="{Binding SignInCommand}"
                         VerticalOptions="EndAndExpand"
                         Style="{StaticResource LoginButtonStyle}"
                         Text="{Binding IsRegister, Converter={StaticResource RegisterLoginTextConverter}}" />
-                <Label x:Name="QuestionLabel" 
-                       TextColor="{StaticResource DarkFont}"
-                       HorizontalOptions="Center" 
+                <Label x:Name="QuestionLabel"
+                       TextColor="{DynamicResource ColorTextCommon}"
+                       HorizontalOptions="Center"
                        Text="{Binding IsRegister, Converter={StaticResource AccountQuestionConverter}}" />
                 <Button x:Name="ToggleRegisterOrLoginButton"
-                        Command="{Binding ToggleRegisterOrLoginViewCommand}" 
+                        Command="{Binding ToggleRegisterOrLoginViewCommand}"
                         VerticalOptions="EndAndExpand"
                         Style="{StaticResource CancelButtonStyle}"
                         Clicked="ToggleRegisterOrLoginButton_OnClicked"

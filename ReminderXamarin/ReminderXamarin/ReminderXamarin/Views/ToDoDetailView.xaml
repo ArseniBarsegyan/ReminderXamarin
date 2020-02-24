@@ -12,8 +12,11 @@
     </ResourceDictionary>
   </ContentPage.Resources>
   <ContentPage.Content>
-    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-      <StackLayout Padding="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                    AbsoluteLayout.LayoutFlags="All">
+      <StackLayout Padding="10"
+                   AbsoluteLayout.LayoutBounds="0,0,1,1"
+                   AbsoluteLayout.LayoutFlags="All">
         <Label Text="{extensions:Translate Status}" />
         <elements:CustomPickerWithIcon x:Name="PriorityPicker"
                                        ItemsSource="{Binding AvailableStatuses}"
@@ -26,7 +29,8 @@
                     Date="{Binding WhenHappens}" />
 
         <Label Text="{extensions:Translate Time}" />
-        <TimePicker x:Name="TimePicker" Format="HH:mm" />
+        <TimePicker x:Name="TimePicker"
+                    Format="HH:mm" />
 
         <Label Text="{extensions:Translate Description}" />
         <ScrollView VerticalOptions="FillAndExpand">
@@ -38,16 +42,17 @@
       </StackLayout>
 
       <!-- Confirm and delete buttons -->
-      <StackLayout AbsoluteLayout.LayoutBounds="0.95,1,100,150" AbsoluteLayout.LayoutFlags="PositionProportional">
+      <StackLayout AbsoluteLayout.LayoutBounds="0.95,1,100,150"
+                   AbsoluteLayout.LayoutFlags="PositionProportional">
         <elements:FloatingActionButton HorizontalOptions="EndAndExpand"
                                        Clicked="Delete_OnClicked"
                                        ImageSource="delete.png"
-                                       ButtonColor="{StaticResource ErrorColor}" />
-        <elements:FloatingActionButton HorizontalOptions="EndAndExpand"
+                                       ButtonColor="{DynamicResource ErrorTextCommon}" />
+                <elements:FloatingActionButton HorizontalOptions="EndAndExpand"
                                        Clicked="Confirm_OnClicked"
                                        ImageSource="confirm.png"
-                                       ButtonColor="{StaticResource SubmitButtonBackground}"></elements:FloatingActionButton>
-      </StackLayout>
+                                       ButtonColor="{DynamicResource SubmitButtonBackground}" />
+            </StackLayout>
     </AbsoluteLayout>
   </ContentPage.Content>
 </ContentPage>

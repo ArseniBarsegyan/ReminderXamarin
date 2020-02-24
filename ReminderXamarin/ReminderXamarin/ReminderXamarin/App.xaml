@@ -3,19 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:ReminderXamarin.Converters"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:ResourceDictionaries="clr-namespace:ReminderXamarin.ResourceDictionaries"
              x:Class="ReminderXamarin.App">
 	<Application.Resources>
 		<!-- Application resource dictionary -->
         <ResourceDictionary>
-            <Color x:Key="DarkFont">#323232</Color>
-            <Color x:Key="DarkBackground">#323232</Color>
-            <Color x:Key="SubmitButtonBackground">#3072B0</Color>
-            <Color x:Key="DeleteButtonBackground">#FF5252</Color>
-            <Color x:Key="ErrorColor">#FF5252</Color>
-            
             <Style TargetType="NavigationPage">
-                <Setter Property="BarTextColor" Value="#fafafa" />
-                <Setter Property="BarBackgroundColor" Value="#323232" />
+                <Setter Property="BarTextColor" Value="{DynamicResource NavigationBarText}" />
+                <Setter Property="BarBackgroundColor" Value="{DynamicResource BarBackground}" />
             </Style>
 
             <!-- Images styles -->
@@ -25,7 +20,6 @@
             </Style>
             
             <!-- Converters -->
-            <converters:NullElementToBoolConverter x:Key="NullElementToBoolConverter" />
             <converters:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
             <converters:EmptyByteToImageSourceConverter x:Key="EmptyByteToImageSourceConverter" />
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />

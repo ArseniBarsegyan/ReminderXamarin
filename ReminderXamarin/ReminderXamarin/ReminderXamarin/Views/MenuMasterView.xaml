@@ -8,16 +8,18 @@
              base:ViewModelHelper.AutoWireViewModel="True"
              Title="{extensions:Translate Menu}">
     <ContentPage.Content>
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#FAFAFA">            
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        BackgroundColor="#FAFAFA">            
             <!-- Side menu -->
             <ListView x:Name="MenuList"
                       ItemsSource="{Binding MasterPageItems}"
-                      AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                      AbsoluteLayout.LayoutBounds="0,0,1,1"
                       AbsoluteLayout.LayoutFlags="All"
                       RowHeight="60"
                       SeparatorVisibility="None"
                       HorizontalOptions="FillAndExpand"
-                      VerticalOptions="FillAndExpand"    
+                      VerticalOptions="FillAndExpand"
                       ItemSelected="MenuList_OnItemSelected">
                 <ListView.Header>
                     <!-- User photo and name on top of list view -->
@@ -34,20 +36,22 @@
                                      Spacing="10"
                                      Padding="10">
                             <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding NavigateToUserProfileCommand}" NumberOfTapsRequired="1" />
+                                <TapGestureRecognizer Command="{Binding NavigateToUserProfileCommand}"
+                                                      NumberOfTapsRequired="1" />
                             </StackLayout.GestureRecognizers>
                             <abstractions:CircleImage x:Name="UserProfilePhoto"
                                                       WidthRequest="100"
                                                       HorizontalOptions="Center"
                                                       VerticalOptions="Center"
-                                                      HeightRequest="100" 
+                                                      HeightRequest="100"
                                                       Aspect="AspectFill"
-                                                      Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}">
+                                                      Source="{Binding ImageContent, 
+                                                                       Converter={StaticResource EmptyByteToImageSourceConverter}}">
                             </abstractions:CircleImage>
-                            <Label Text="{Binding UserName}" 
-                                   FontSize="Large" 
-                                   TextColor="White"
-                                   VerticalOptions="End" 
+                            <Label Text="{Binding UserName}"
+                                   FontSize="Large"
+                                   TextColor="{DynamicResource MenuUserName}"
+                                   VerticalOptions="End"
                                    HorizontalOptions="Center" />
                         </StackLayout>
                     </AbsoluteLayout>
@@ -57,15 +61,15 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
-                                <StackLayout Orientation="Horizontal" 
-                                             Spacing="20" 
+                                <StackLayout Orientation="Horizontal"
+                                             Spacing="20"
                                              Padding="30,0">
                                     <Image Source="{Binding IconSource}" HeightRequest="50" />
                                     <Label Text="{Binding Title}"
-                                               FontSize="Medium"
-                                               TextColor="{StaticResource DarkFont}"
-                                               VerticalOptions="Center" 
-                                               HorizontalOptions="Start" />
+                                           FontSize="Medium"
+                                           TextColor="{DynamicResource ColorTextCommon}"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Start" />
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>
@@ -78,14 +82,17 @@
                                  Orientation="Horizontal" 
                                  VerticalOptions="FillAndExpand">
                         <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding LogoutCommand}" NumberOfTapsRequired="1" />
+                            <TapGestureRecognizer Command="{Binding LogoutCommand}" 
+                                                  NumberOfTapsRequired="1" />
                         </StackLayout.GestureRecognizers>
-                        <Image Source="logout.png" HeightRequest="50" HorizontalOptions="Start" />
+                        <Image Source="logout.png" 
+                               HeightRequest="50" 
+                               HorizontalOptions="Start" />
                         <Label Text="{extensions:Translate Logout}" 
-                                   FontSize="Medium" 
-                                   TextColor="{StaticResource DarkFont}"
-                                   VerticalOptions="Center" 
-                                   HorizontalOptions="Center" />
+                               FontSize="Medium" 
+                               TextColor="{DynamicResource ColorTextCommon}"
+                               VerticalOptions="Center" 
+                               HorizontalOptions="Center" />
                     </StackLayout>
                 </ListView.Footer>
             </ListView>

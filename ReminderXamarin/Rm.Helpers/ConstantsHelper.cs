@@ -49,6 +49,7 @@
         public const string NoteEdited = "NoteEdited";
         public const string NoteDeleteMessage = "Are you sure you want to delete this note?";
         public const string NotesListIcon = "notes_list.png";
+        public const string NotesUploadUrl = "https://localhost:5001/notes";
         public const string Ok = "Ok";
         public const string Photos = "Photos";
         public const string PageCloseMessage = "Are you sure you want to close this page?";
@@ -65,7 +66,7 @@
         public const string ToDoListIcon = "todo_list.png";
         public const string ToDoModels = "ToDoModels";
         public const string TranslationResourcePath = "ReminderXamarin.Resx.AppResources";
-        public const string Users = "Users";
+        public const string Users = "Users";        
         public const string UpdateUI = "UpdateUI";
         public const string Videos = "Videos";
         public const string Warning = "Warning";

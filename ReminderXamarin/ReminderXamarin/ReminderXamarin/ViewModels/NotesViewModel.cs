@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 using ReminderXamarin.Extensions;
-using Rm.Helpers;
+using ReminderXamarin.Services;
 using ReminderXamarin.ViewModels.Base;
+
+using Rm.Helpers;
+
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -19,12 +26,16 @@ namespace ReminderXamarin.ViewModels
         private List<NoteViewModel> _allNotes;
         private bool _isInitialized;
         private bool _isNavigatedToEditView;
+        private readonly IUploadService _uploadService;
 
-        public NotesViewModel()
+        public NotesViewModel(IUploadService uploadService)
         {
+            _uploadService = uploadService;
             Notes = new ObservableCollection<NoteViewModel>();
 
             SearchText = string.Empty;
+
+            UploadNotesToApiCommand = new Command(async () => await UploadAllNotes());
             DeleteNoteCommand = new Command<int>(async id => await DeleteNote(id));
             RefreshListCommand = new Command(Refresh);
             SearchCommand = new Command(SearchNotesByDescription);
@@ -35,6 +46,8 @@ namespace ReminderXamarin.ViewModels
         public string SearchText { get; set; }
         public bool IsRefreshing { get; set; }
         public ObservableCollection<NoteViewModel> Notes { get; set; }
+        
+        public ICommand UploadNotesToApiCommand { get; set; }
         public ICommand DeleteNoteCommand { get; set; }
         public ICommand RefreshListCommand { get; set; }
         public ICommand SearchCommand { get; set; }
@@ -75,6 +88,38 @@ namespace ReminderXamarin.ViewModels
                 MessagingCenter.Unsubscribe<NoteEditViewModel, int>(this, ConstantsHelper.NoteCreated);
                 MessagingCenter.Unsubscribe<NoteEditViewModel, int>(this, ConstantsHelper.NoteEdited);
                 MessagingCenter.Unsubscribe<NoteEditViewModel, int>(this, ConstantsHelper.NoteEditPageDissapeared);
+            }
+        }
+
+        private async Task UploadAllNotes()
+        {
+            var currentConnection = Connectivity.NetworkAccess;
+
+            if (currentConnection == NetworkAccess.None || currentConnection == NetworkAccess.Unknown)
+            {
+                await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Please, check your internet connection and try again.");
+                return;
+            }
+
+            try
+            {
+                var ctx = new CancellationToken();
+
+                var result = await _uploadService.UploadAll(_allNotes.ToNoteModels(), ctx)
+                .ConfigureAwait(false);
+
+                if (result == HttpResult.Ok)
+                {
+                    await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("All notes uploaded successfully");
+                }
+                else
+                {
+                    await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Error while uploading notes");
+                }
+            }
+            catch (HttpRequestException)
+            {
+                await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("It seems that server is offline. Please, try again later.");
             }
         }
 

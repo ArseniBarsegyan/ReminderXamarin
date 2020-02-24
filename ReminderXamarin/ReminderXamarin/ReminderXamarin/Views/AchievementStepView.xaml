@@ -15,13 +15,15 @@
             <converters:StepTypeVisibilityConverter x:Key="StepTypeVisibilityConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-        <ListView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                    AbsoluteLayout.LayoutFlags="All">
+        <ListView AbsoluteLayout.LayoutBounds="0,0,1,1"
+                  AbsoluteLayout.LayoutFlags="All">
             <ListView.Header>
                 <AbsoluteLayout>
                     <elements:BlurredImage x:Name="BackgroundImage"
                                Aspect="AspectFill"
-                               AbsoluteLayout.LayoutBounds="0,0,1,100" 
+                               AbsoluteLayout.LayoutBounds="0,0,1,100"
                                AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" />
 
                     <abstractions:CircleImage x:Name="AchievementStepImage"
@@ -30,25 +32,33 @@
                                   VerticalOptions="Start"
                                   HeightRequest="120"
                                   WidthRequest="120"
-                                  AbsoluteLayout.LayoutBounds="0.5,40,120,120" 
+                                  AbsoluteLayout.LayoutBounds="0.5,40,120,120"
                                   AbsoluteLayout.LayoutFlags="XProportional"
                                   Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}"
                                   Style="{StaticResource UserImageStyle}">
                         <abstractions:CircleImage.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="AchievementStepImage_OnTapped" NumberOfTapsRequired="1" />
+                            <TapGestureRecognizer Tapped="AchievementStepImage_OnTapped"
+                                                  NumberOfTapsRequired="1" />
                         </abstractions:CircleImage.GestureRecognizers>
                     </abstractions:CircleImage>
                 </AbsoluteLayout>
             </ListView.Header>
             <ListView.Footer>
-                <ScrollView AbsoluteLayout.LayoutBounds="0.5,180,1,1" AbsoluteLayout.LayoutFlags="XProportional, SizeProportional">
+                <ScrollView AbsoluteLayout.LayoutBounds="0.5,180,1,1"
+                            AbsoluteLayout.LayoutFlags="XProportional, SizeProportional">
                     <StackLayout Padding="5">
-                        <Label Text="{Binding Title}" FontSize="Medium" HorizontalOptions="Center" />
+                        <Label Text="{Binding Title}"
+                               FontSize="Medium"
+                               HorizontalOptions="Center" />
 
-                        <Label Text="{extensions:Translate StepName}" HorizontalOptions="Start" />
-                        <Entry x:Name="TitleEntry" Text="{Binding Title}" HorizontalOptions="FillAndExpand" />
+                        <Label Text="{extensions:Translate StepName}"
+                               HorizontalOptions="Start" />
+                        <Entry x:Name="TitleEntry"
+                               Text="{Binding Title}"
+                               HorizontalOptions="FillAndExpand" />
 
-                        <Label Text="{extensions:Translate Description}" HorizontalOptions="Start" />
+                        <Label Text="{extensions:Translate Description}"
+                               HorizontalOptions="Start" />
                         <Editor x:Name="DescriptionEditor"
                             Text="{Binding Description}"
                             HeightRequest="200"
@@ -56,28 +66,32 @@
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="FillAndExpand" />
 
-                        <Label Text="{extensions:Translate StepType}" HorizontalOptions="Start" />
+                        <Label Text="{extensions:Translate StepType}"
+                               HorizontalOptions="Start" />
                         <elements:CustomPickerWithIcon x:Name="StepTypePicker"
                                                    SelectedIndexChanged="OnViewChanged"
                                                    ItemsSource="{Binding AvailableStepTypes}"
-                                                   SelectedIndex="{Binding StepType, Converter={StaticResource IntEnumConverter}}" />
+                                                   SelectedIndex="{Binding StepType,
+                                                                            Converter={StaticResource IntEnumConverter}}" />
                         <Label Text="{extensions:Translate StepTimeEstimation}"
-                               IsVisible="{Binding StepType, Converter={StaticResource StepTypeVisibilityConverter}}" 
+                               IsVisible="{Binding StepType,
+                                                    Converter={StaticResource StepTypeVisibilityConverter}}"
                                HorizontalOptions="Start" />
-                        <Entry Text="{Binding TimeEstimation}" 
-                               Keyboard="Numeric" 
-                               IsVisible="{Binding StepType, Converter={StaticResource StepTypeVisibilityConverter}}" />
+                        <Entry Text="{Binding TimeEstimation}"
+                               Keyboard="Numeric"
+                               IsVisible="{Binding StepType,
+                                                    Converter={StaticResource StepTypeVisibilityConverter}}" />
                     </StackLayout>
                 </ScrollView>
             </ListView.Footer>
         </ListView>
         
-        <elements:FloatingActionButton  x:Name="SaveAchievementStepButton" 
-                                        AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
-                                        AbsoluteLayout.LayoutFlags="PositionProportional" 
-                                        IsVisible="{Binding ViewModelChanged}"
-                                        Command="{Binding SaveAchievementStepCommand}"
-                                        ButtonColor="{StaticResource SubmitButtonBackground}"
-                                        ImageSource="confirm.png" />
+        <elements:FloatingActionButton x:Name="SaveAchievementStepButton"
+                                       AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"
+                                       AbsoluteLayout.LayoutFlags="PositionProportional"
+                                       IsVisible="{Binding ViewModelChanged}"
+                                       Command="{Binding SaveAchievementStepCommand}"
+                                       ButtonColor="{DynamicResource SubmitButtonBackground}"
+                                       ImageSource="confirm.png" />
     </AbsoluteLayout>
 </ContentPage>

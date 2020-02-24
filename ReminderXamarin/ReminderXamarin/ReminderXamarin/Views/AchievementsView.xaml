@@ -8,7 +8,7 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.AchievementsView"
              Title="{extensions:Translate Achievements}"
-             BackgroundColor="#fafafa"
+             BackgroundColor="{DynamicResource AchievementsViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
       <ResourceDictionary>
@@ -57,9 +57,11 @@
 
                                 <Button AbsoluteLayout.LayoutBounds="1,1,50,50" 
                                         TextColor="White"
-                                        BackgroundColor="{Binding GeneralTimeSpent, Converter={StaticResource NumberToColorConverter}}"
+                                        BackgroundColor="{Binding GeneralTimeSpent, 
+                                                                  Converter={StaticResource NumberToColorConverter}}"
                                         AbsoluteLayout.LayoutFlags="PositionProportional" 
-                                        Text="{Binding GeneralTimeSpent, Converter={StaticResource SpentTimePresentationConverter}}" 
+                                        Text="{Binding GeneralTimeSpent, 
+                                                       Converter={StaticResource SpentTimePresentationConverter}}" 
                                         HeightRequest="50" 
                                         WidthRequest="50" 
                                         CornerRadius="25"
@@ -74,7 +76,7 @@
             <elements:FloatingActionButton x:Name="CreateAchievementButton" 
                                            Command="{Binding NavigateToAchievementEditViewCommand}"
                                            ImageSource="add.png" 
-                                           ButtonColor="{StaticResource SubmitButtonBackground}"
+                                           ButtonColor="{DynamicResource SubmitButtonBackground}"
                                            AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
                                            AbsoluteLayout.LayoutFlags="PositionProportional">
                 <elements:FloatingActionButton.CommandParameter>

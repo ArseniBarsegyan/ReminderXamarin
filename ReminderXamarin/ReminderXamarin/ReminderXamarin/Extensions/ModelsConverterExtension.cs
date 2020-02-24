@@ -79,6 +79,11 @@ namespace ReminderXamarin.Extensions
             return models.Select(model => model.ToViewModel()).ToObservableCollection();
         }
 
+        public static List<Note> ToNoteModels(this IEnumerable<NoteViewModel> viewModels)
+        {
+            return viewModels.Select(vm => vm.ToModel()).ToList();
+        }
+
         public static ToDoModel ToToDoModel(this ToDoViewModel viewModel)
         {
             return new ToDoModel

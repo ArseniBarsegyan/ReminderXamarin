@@ -36,6 +36,7 @@ namespace ReminderXamarin.Droid
             CrossCurrentActivity.Current.Activity = this;
             ImageCircleRenderer.Init();
             UserDialogs.Init(this);
+            Xamarin.Essentials.Platform.Init(this, bundle);
             LoadApplication(new App(MultiMediaPickerService.SharedInstance));
 
             App.ScreenHeight = (int)(Resources.DisplayMetrics.HeightPixels / Resources.DisplayMetrics.Density);
@@ -58,8 +59,9 @@ namespace ReminderXamarin.Droid
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
-        {
+        {            
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }

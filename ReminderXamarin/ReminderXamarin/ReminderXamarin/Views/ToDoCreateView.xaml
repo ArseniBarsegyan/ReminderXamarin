@@ -13,8 +13,10 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All">
+            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         AbsoluteLayout.LayoutFlags="All">
                 <ScrollView VerticalOptions="FillAndExpand">
                     <StackLayout Padding="10">
                         <Label Text="{extensions:Translate Date}" />
@@ -24,7 +26,8 @@
                                     Date="{x:Static sys:DateTime.Now}" />
 
                         <Label Text="{extensions:Translate Time}" />
-                        <TimePicker x:Name="TimePicker" Format="HH:mm" />
+                        <TimePicker x:Name="TimePicker"
+                                    Format="HH:mm" />
 
                         <Label Text="{extensions:Translate Description}" />
                         <Editor x:Name="DescriptionEditor"
@@ -36,7 +39,7 @@
 
             <elements:FloatingActionButton x:Name="CreateToDoButton" 
                                            Clicked="Save_OnClicked"
-                                           ButtonColor="{StaticResource SubmitButtonBackground}"
+                                           ButtonColor="{DynamicResource SubmitButtonBackground}"
                                            ImageSource="confirm.png" 
                                            AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
                                            AbsoluteLayout.LayoutFlags="PositionProportional" />
