@@ -17,6 +17,7 @@ namespace Rm.Helpers
         private const string ThemeTypeKey = "Light";
 
         private static readonly string SettingsDefault = string.Empty;
+        private static readonly string ThemeSettingDefault = "Light";
 
         #endregion
 
@@ -52,7 +53,7 @@ namespace Rm.Helpers
 
         public static string ThemeType
         {
-            get => AppSettings.GetValueOrDefault(ThemeTypeKey, SettingsDefault);
+            get => AppSettings.GetValueOrDefault(ThemeTypeKey, ThemeSettingDefault);
             set => AppSettings.AddOrUpdateValue(ThemeTypeKey, value);
         }
 

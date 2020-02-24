@@ -8,17 +8,15 @@ namespace ReminderXamarin.Utilities
 {
     public class ThemeSwitcher
     {
-        private ThemeTypes _currentThemeType;
+        public ThemeTypes CurrentThemeType { get; private set; }
         private readonly LightThemeDictionary _lightThemeDictionary;
         private readonly DarkThemeDictionary _darkThemeDictionary;
-
 
         public ThemeSwitcher()
         {
             _lightThemeDictionary = new LightThemeDictionary();
             _darkThemeDictionary = new DarkThemeDictionary();
         }
-
 
         public void InitializeTheme()
         {
@@ -27,15 +25,14 @@ namespace ReminderXamarin.Utilities
 
         public void Reset()
         {
-            _currentThemeType = ThemeTypes.None;
+            CurrentThemeType = ThemeTypes.Light;
         }
 
         public void SwitchTheme(ThemeTypes themeType)
         {
-            if (themeType != _currentThemeType)
+            if (themeType != CurrentThemeType)
             {
-                Application.Current.Resources.MergedDictionaries.Clear();
-                Settings.ThemeType = themeType.ToString();
+                Application.Current.Resources.MergedDictionaries.Clear();                
 
                 switch (themeType)
                 {
@@ -50,10 +47,8 @@ namespace ReminderXamarin.Utilities
                             break;
                         }
                 }
-
-                _currentThemeType = themeType;
+                CurrentThemeType = themeType;
             }
-
         }
 
         public ThemeTypes GetThemeType()

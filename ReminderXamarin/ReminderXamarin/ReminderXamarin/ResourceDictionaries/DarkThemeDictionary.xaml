@@ -5,29 +5,29 @@
     
     <x:String x:Key="Theme">Dark</x:String>
 
-    <Color x:Key="ColorTextCommon">#EAEAEA</Color>
+    <Color x:Key="BarBackground">#323232</Color>
+    <Color x:Key="AchievementEditViewBackground">##1A1A1A</Color>
+    <Color x:Key="AchievementsViewBackground">#1A1A1A</Color>
+    <Color x:Key="BirthdayEditViewBackground">##1A1A1A</Color>
+    <Color x:Key="BirthdaysViewBackground">##1A1A1A</Color>
+    <Color x:Key="NotesViewBackground">##1A1A1A</Color>
+    <Color x:Key="NoteEditViewBackground">##1A1A1A</Color>
     <Color x:Key="NoteOptionsMenuBackground">#323232</Color>
+    <Color x:Key="ToDoActiveViewBackground">##1A1A1A</Color>
+    <Color x:Key="SettingsViewBackground">##1A1A1A</Color>
+    <Color x:Key="UserProfileViewBackground">##1A1A1A</Color>
+    <Color x:Key="ColorTextCommon">#EAEAEA</Color>    
     <Color x:Key="SubmitButtonBackground">#3072B0</Color>
     <Color x:Key="RefreshControl">#3072B0</Color>
     <Color x:Key="ErrorTextCommon">#FF5252</Color>
     <Color x:Key="NavigationBarText">#fafafa</Color>
-    <Color x:Key="BarBackground">#323232</Color>
-    <Color x:Key="AchievementEditViewBackground">#ffffff</Color>
-    <Color x:Key="AchievementsViewBackground">#fafafa</Color>
-    <Color x:Key="BirthdayEditViewBackground">#ffffff</Color>
-    <Color x:Key="BirthdaysViewBackground">#ffffff</Color>
     <Color x:Key="LoginButtonText">#ffffff</Color>
     <Color x:Key="CancelButtonBackground">#ffffff</Color>
-    <Color x:Key="MenuUserName">#ffffff</Color>
-    <Color x:Key="NoteEditViewBackground">#ffffff</Color>
-    <Color x:Key="NotesViewBackground">#ffffff</Color>
+    <Color x:Key="MenuUserName">#ffffff</Color>    
     <Color x:Key="NoteViewCellBorder">LightGray</Color>
     <Color x:Key="PinViewLabelText">#ffffff</Color>
     <Color x:Key="PinViewButtonText">#ffffff</Color>
-    <Color x:Key="PinViewButtonBorder">#ffffff</Color>
-    <Color x:Key="SettingsViewBackground">#ffffff</Color>
-    <Color x:Key="ToDoActiveViewBackground">#ffffff</Color>
-    <Color x:Key="ToDoListViewItemBorder">DarkGray</Color>
-    <Color x:Key="UserProfileViewBackground">#ffffff</Color>
+    <Color x:Key="PinViewButtonBorder">#ffffff</Color>    
+    <Color x:Key="ToDoListViewItemBorder">DarkGray</Color>    
     <Color x:Key="PickUserButtonBackground">LightGray</Color>
 </ResourceDictionary>
