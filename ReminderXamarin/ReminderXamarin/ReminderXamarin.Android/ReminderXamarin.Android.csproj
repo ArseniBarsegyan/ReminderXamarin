@@ -64,7 +64,7 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <AndroidLinkSkip>
     </AndroidLinkSkip>
-    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
