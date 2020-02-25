@@ -3,28 +3,35 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using ReminderXamarin.Extensions;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 using Acr.UserDialogs;
+
+using ReminderXamarin.DependencyResolver;
+using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Services;
 using ReminderXamarin.ViewModels.Base;
+
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
     public class NoteEditViewModel : BaseViewModel
     {
-        private int _noteId;
-        private Note _note;
+        private static readonly IPermissionService PermissionService = ComponentFactory.Resolve<IPermissionService>();
+        private static readonly IFileSystem FileService = ComponentFactory.Resolve<IFileSystem>();
+        private static readonly IMediaService MediaService = ComponentFactory.Resolve<IMediaService>();
+
         private readonly MediaHelper _mediaHelper;
         private readonly TransformHelper _transformHelper;
-        private static readonly IPermissionService PermissionService = DependencyService.Get<IPermissionService>();
-        private static readonly IFileSystem FileService = DependencyService.Get<IFileSystem>();
-        private static readonly IMediaService MediaService = DependencyService.Get<IMediaService>();
+
+        private int _noteId;
+        private Note _note;
 
         public NoteEditViewModel()
         {
@@ -81,13 +88,13 @@ namespace ReminderXamarin.ViewModels
         public string Description { get; set; }
         public ObservableCollection<GalleryItemViewModel> GalleryItemsViewModels { get; set; }
         
-        public ICommand DeletePhotoCommand { get; set; }
-        public ICommand TakePhotoCommand { get; set; }
-        public ICommand TakeVideoCommand { get; set; }
-        public ICommand PickMultipleMediaCommand { get; set; }
-        public ICommand SaveNoteCommand { get; set; }
-        public ICommand DeleteNoteCommand { get; set; }
-        public ICommand SelectImageCommand { get; set; }
+        public ICommand DeletePhotoCommand { get; }
+        public ICommand TakePhotoCommand { get; }
+        public ICommand TakeVideoCommand { get; }
+        public ICommand PickMultipleMediaCommand { get; }
+        public ICommand SaveNoteCommand { get; }
+        public ICommand DeleteNoteCommand { get; }
+        public ICommand SelectImageCommand { get; }
 
         public event EventHandler PhotosCollectionChanged;
 
@@ -134,7 +141,7 @@ namespace ReminderXamarin.ViewModels
             {
                 if (!string.IsNullOrWhiteSpace(viewModel.VideoPath))
                 {
-                    var videoService = DependencyService.Get<IVideoService>();
+                    var videoService = ComponentFactory.Resolve<IVideoService>();
                     videoService.PlayVideo(viewModel.VideoPath);
                 }
             }
@@ -198,7 +205,7 @@ namespace ReminderXamarin.ViewModels
                                 videoModel.VideoPath.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
                         var imageName = videoName.Substring(0, videoName.Length - 4) + "_thumb.jpg";
 
-                        var mediaService = DependencyService.Get<IMediaService>();
+                        var mediaService = ComponentFactory.Resolve<IMediaService>();
                         var imageContent =
                             mediaService.GenerateThumbImage(videoModel.VideoPath, 
                                 ConstantsHelper.ThumbnailTimeFrame);

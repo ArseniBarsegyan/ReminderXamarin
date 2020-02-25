@@ -42,22 +42,18 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                        AbsoluteLayout.LayoutFlags="All"> 
+                        AbsoluteLayout.LayoutFlags="All"
+                        BackgroundColor="{DynamicResource LoginViewBackground}">
             <AbsoluteLayout.Padding>
                 <OnPlatform x:TypeArguments="Thickness">
                     <On Platform="Android" Value="10"/>
                     <On Platform="iOS" Value="10,20,10,10"/>
                 </OnPlatform>
             </AbsoluteLayout.Padding>
-
-            <!-- Background image -->
-            <elements:BlurredImage x:Name="BackgroundImage"
-                                   Aspect="AspectFill"
-                                   AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                                   AbsoluteLayout.LayoutFlags="All" />
-
-            <StackLayout AbsoluteLayout.LayoutBounds="0.5,0,1,100" 
-                         AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
+            
+            <StackLayout AbsoluteLayout.LayoutBounds="0.5,0,1,100"
+                         AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                         BackgroundColor="Transparent">
                 <Label FontSize="Large" 
                        Text="{Binding IsRegister, Converter={StaticResource RegisterLoginTextConverter}}" 
                        HorizontalOptions="Center" 
@@ -69,10 +65,10 @@
                        IsVisible="{Binding IsValid, Converter={StaticResource InverseBooleanConverter}}" />
             </StackLayout>
 
-            <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.3,1,0.5" 
+            <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.3,1,0.5"
                          AbsoluteLayout.LayoutFlags="All"
-                         BackgroundColor="Transparent" 
-                         Spacing="10" 
+                         BackgroundColor="Transparent"
+                         Spacing="10"
                          VerticalOptions="CenterAndExpand">
                 <!-- User name -->
                 <StackLayout Spacing="0">
@@ -122,7 +118,9 @@
                 </StackLayout>
 
                 <!-- Confirm password -->
-                <StackLayout Spacing="0" IsVisible="{Binding IsRegister}">
+                <StackLayout Spacing="0"
+                             IsVisible="{Binding IsRegister}"
+                             BackgroundColor="Transparent">
                     <Label x:Name="ConfirmPasswordLabel"
                            Text="{extensions:Translate ConfirmPassword}"
                            Style="{StaticResource LoginLabelStyle}" />
@@ -155,7 +153,8 @@
 
             <StackLayout x:Name="RegisterLayout"
                          AbsoluteLayout.LayoutBounds="0.5,0.7,1,0.25"
-                         AbsoluteLayout.LayoutFlags="All">
+                         AbsoluteLayout.LayoutFlags="All"
+                         BackgroundColor="Transparent">
                 <Button x:Name="SignInButton"
                         Command="{Binding SignInCommand}"
                         VerticalOptions="EndAndExpand"

@@ -1,24 +1,21 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+
 using Foundation;
+
 using MobileCoreServices;
+
 using Photos;
-using ReminderXamarin.iOS.Services.FilePickerService;
+
 using ReminderXamarin.Services.FilePickerService;
+
 using UIKit;
+
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(PlatformDocumentPicker))]
 namespace ReminderXamarin.iOS.Services.FilePickerService
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Implementaion of <see cref="IPlatformDocumentPicker"/> for iOS. 
-    /// <para>
-    /// Copy PageExtensions and PageRenderer to your project to get PageRenderer (required for present view controller).
-    /// </para> 
-    /// </summary>
     public class PlatformDocumentPicker : IPlatformDocumentPicker
     {
         private static readonly string[] allUTTypes =

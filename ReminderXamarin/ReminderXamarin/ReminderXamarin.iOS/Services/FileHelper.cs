@@ -1,10 +1,8 @@
 ﻿using System;
 using System.IO;
-using ReminderXamarin.iOS.Services;
-using ReminderXamarin.Services;
-using Xamarin.Forms;
 
-[assembly: Dependency(typeof(FileHelper))]
+using ReminderXamarin.Services;
+
 namespace ReminderXamarin.iOS.Services
 {
     public class FileHelper : IFileHelper

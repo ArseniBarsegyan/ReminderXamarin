@@ -1,17 +1,15 @@
 ﻿using System.Threading.Tasks;
+
 using Android.App;
 using Android.Support.V4.Content;
 using Android.Widget;
+
 using Plugin.CurrentActivity;
-using ReminderXamarin.Droid.Services;
+
 using ReminderXamarin.Services;
 
-[assembly: Xamarin.Forms.Dependency(typeof(AlertService))]
 namespace ReminderXamarin.Droid.Services
 {
-    /// <summary>
-    /// Implementation of <see cref="IAlertService"/>
-    /// </summary>
     public class AlertService : IAlertService
     {
         public Task<bool> ShowYesNoAlert(string message, string yesButtonText, string noButtonText)

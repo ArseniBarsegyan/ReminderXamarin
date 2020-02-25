@@ -1,23 +1,16 @@
 ﻿using System;
 using System.IO;
-using CoreGraphics;
-using ReminderXamarin.iOS.Services;
-using ReminderXamarin.Services;
-using UIKit;
-using Xamarin.Forms;
 
-[assembly: Dependency(typeof(ImageService))]
+using CoreGraphics;
+
+using ReminderXamarin.Services;
+
+using UIKit;
+
 namespace ReminderXamarin.iOS.Services
 {
     public class ImageService : IImageService
     {
-        /// <summary>
-        /// Resizes the image at sourceFile with the requested width and height and stores it at the provided target.
-        /// </summary>
-        /// <param name="sourceFile">Source file.</param>
-        /// <param name="targetFile">Target file.</param>
-        /// <param name="requiredWidth">Required width.</param>
-        /// <param name="requiredHeight">Required height.</param>
         public void ResizeImage(string sourceFile, string targetFile, int requiredWidth, int requiredHeight)
         {
             if (File.Exists(sourceFile) && !File.Exists(targetFile))

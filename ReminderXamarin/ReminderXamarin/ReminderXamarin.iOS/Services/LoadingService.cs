@@ -1,16 +1,13 @@
 ﻿using System.Drawing;
+
 using CoreGraphics;
-using ReminderXamarin.iOS.Services;
+
 using ReminderXamarin.Services;
+
 using UIKit;
 
-[assembly: Xamarin.Forms.Dependency(typeof(LoadingService))]
 namespace ReminderXamarin.iOS.Services
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Implementation of <see cref="ILoadingService" /> for iOS.
-    /// </summary>
     public class LoadingService : ILoadingService
     {
         private LoadingOverlay _loadingOverlay;
@@ -30,12 +27,10 @@ namespace ReminderXamarin.iOS.Services
 
     public sealed class LoadingOverlay : UIView
     {
-        // control declarations
         private readonly UIActivityIndicatorView _activitySpinner;
 
         public LoadingOverlay(CGRect frame, string message) : base(frame)
         {
-            // Configurable bits.
             BackgroundColor = UIColor.Black;
             Alpha = 0.75f;
             AutoresizingMask = UIViewAutoresizing.FlexibleDimensions;
@@ -43,11 +38,9 @@ namespace ReminderXamarin.iOS.Services
             float labelHeight = 22;
             float labelWidth = (float)(Frame.Width - 20);
 
-            // Derive the center x and y.
             float centerX = (float)(Frame.Width / 2);
             float centerY = (float)(Frame.Height / 2);
 
-            // Create the activity spinner, center it horizontall and put it 5 points above center x
             _activitySpinner = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
             _activitySpinner.Frame = new RectangleF(
                 (float)(centerX - (_activitySpinner.Frame.Width / 2)),
@@ -58,7 +51,6 @@ namespace ReminderXamarin.iOS.Services
             AddSubview(_activitySpinner);
             _activitySpinner.StartAnimating();
 
-            // Create and configure the "Loading Data" label.
             var loadingLabel = new UILabel(new RectangleF(
                 centerX - (labelWidth / 2),
                 centerY + 20,
@@ -75,16 +67,9 @@ namespace ReminderXamarin.iOS.Services
             AddSubview(loadingLabel);
         }
 
-        /// <summary>
-        /// Fades out the control and then removes it from the super view.
-        /// </summary>
         public void Hide()
         {
-            Animate(
-                0.5, // duration
-                () => { Alpha = 0; },
-                RemoveFromSuperview
-            );
+            Animate(0.5, () => { Alpha = 0; }, RemoveFromSuperview);
         }
     };
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
+
 using Android.App;
 using Android.Content;
 using Android.Database;
@@ -10,7 +11,9 @@ using Android.Graphics;
 using Android.Media;
 using Android.Provider;
 using Android.Widget;
+
 using Plugin.CurrentActivity;
+
 using ReminderXamarin.Services.MediaPicker;
 
 namespace ReminderXamarin.Droid.Services.MediaPicker

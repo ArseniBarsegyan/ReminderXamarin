@@ -1,21 +1,13 @@
 ﻿using System.IO;
-using Android.Graphics;
-using ReminderXamarin.Droid.Services;
-using ReminderXamarin.Services;
-using Xamarin.Forms;
 
-[assembly: Dependency(typeof(ImageService))]
+using Android.Graphics;
+
+using ReminderXamarin.Services;
+
 namespace ReminderXamarin.Droid.Services
 {
     public class ImageService : IImageService
     {
-        /// <summary>
-        /// Resizes the image at sourceFile with the requested width and height and stores it at the provided target.
-        /// </summary>
-        /// <param name="sourceFile">Source file.</param>
-        /// <param name="targetFile">Target file.</param>
-        /// <param name="requiredWidth">Required width.</param>
-        /// <param name="requiredHeight">Required height.</param>
         public void ResizeImage(string sourceFile, string targetFile, int requiredWidth, int requiredHeight)
         {
             if (!File.Exists(targetFile) && File.Exists(sourceFile))
@@ -38,21 +30,16 @@ namespace ReminderXamarin.Droid.Services
 
         private static Bitmap DecodeSampledBitmapFromFile(string path, int requiredWidth, int requiredHeight)
         {
-            // First decode with inJustDecodeBounds=true to check dimensions
             var options = new BitmapFactory.Options { InJustDecodeBounds = true };
             BitmapFactory.DecodeFile(path, options);
 
-            // Calculate inSampleSize
             options.InSampleSize = CalculateInSampleSize(options, requiredWidth, requiredHeight);
-
-            // Decode bitmap with inSampleSize set
             options.InJustDecodeBounds = false;
             return BitmapFactory.DecodeFile(path, options);
         }
 
         private static int CalculateInSampleSize(BitmapFactory.Options options, int requiredWidth, int requiredHeight)
         {
-            // Raw height and width of image
             var height = options.OutHeight;
             var width = options.OutWidth;
             var inSampleSize = 1;
@@ -62,8 +49,6 @@ namespace ReminderXamarin.Droid.Services
                 var halfHeight = height / 2;
                 var halfWidth = width / 2;
 
-                // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-                // height and width larger than the requested height and width.
                 while ((halfHeight / inSampleSize) > requiredHeight
                        && (halfWidth / inSampleSize) > requiredWidth)
                 {

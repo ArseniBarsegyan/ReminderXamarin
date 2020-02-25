@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 using Acr.UserDialogs;
-using Rm.Helpers;
+
+using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
-using Rm.Data.Data.Entities;
-using Xamarin.Forms;
 using ReminderXamarin.ViewModels.Base;
+
+using Rm.Data.Data.Entities;
+using Rm.Helpers;
+
+using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
     public class UserProfileViewModel : BaseViewModel
     {
-        private static readonly IFileSystem FileService = DependencyService.Get<IFileSystem>();
-        private static readonly IMediaService MediaService = DependencyService.Get<IMediaService>();
+        private static readonly IFileSystem FileService = ComponentFactory.Resolve<IFileSystem>();
+        private static readonly IMediaService MediaService = ComponentFactory.Resolve<IMediaService>();
 
         public UserProfileViewModel()
         {
@@ -46,8 +51,8 @@ namespace ReminderXamarin.ViewModels
         public int FriendBirthdaysCount { get; set; }
         public bool ViewModelChanged { get; set; }
 
-        public ICommand ChangeUserProfileCommand { get; set; }
-        public ICommand UpdateUserCommand { get; set; }
+        public ICommand ChangeUserProfileCommand { get; }
+        public ICommand UpdateUserCommand { get; }
         
         private async void ChangeUserProfile(PlatformDocument document)
         {

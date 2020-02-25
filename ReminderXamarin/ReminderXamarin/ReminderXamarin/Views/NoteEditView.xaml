@@ -33,8 +33,10 @@
                          AbsoluteLayout.LayoutBounds="0,0,1,1"
                          AbsoluteLayout.LayoutFlags="All">
                 <Label Text="{extensions:Translate Note}"
+                       TextColor="{DynamicResource ColorTextCommon}"
                        FontSize="Small" />
                 <Editor x:Name="DescriptionEditor"
+                        TextColor="{DynamicResource ColorTextCommon}"
                         Placeholder="{extensions:Translate EnterDescription}"
                         TextChanged="DescriptionEditor_OnTextChanged"
                         HorizontalOptions="FillAndExpand"
@@ -42,6 +44,7 @@
                         HeightRequest="200" />
 
                 <Label Text="{extensions:Translate Gallery}"
+                       TextColor="{DynamicResource ColorTextCommon}"
                        FontSize="Small" />
 
                 <CollectionView ItemsSource="{Binding GalleryItemsViewModels}"

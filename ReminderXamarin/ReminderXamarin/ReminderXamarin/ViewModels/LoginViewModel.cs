@@ -1,7 +1,10 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
-using Rm.Helpers;
+
 using ReminderXamarin.ViewModels.Base;
+
+using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -28,11 +31,11 @@ namespace ReminderXamarin.ViewModels
         // will show error at LoginView.
         public bool IsValid { get; set; } = true;
 
-        public ICommand NavigateToLoginViewCommand { get; set; }
-        public ICommand SwitchPasswordVisibilityCommand { get; set; }
-        public ICommand SwitchPasswordConfirmVisibilityCommand { get; set; }
-        public ICommand ToggleRegisterOrLoginViewCommand { get; set; }
-        public ICommand SignInCommand { get; set; }
+        public ICommand NavigateToLoginViewCommand { get; }
+        public ICommand SwitchPasswordVisibilityCommand { get; }
+        public ICommand SwitchPasswordConfirmVisibilityCommand { get; }
+        public ICommand ToggleRegisterOrLoginViewCommand { get; }
+        public ICommand SignInCommand { get; }
 
         private async Task SignIn()
         {
@@ -48,7 +51,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task Login()
         {
-            if (await AuthenticationManager.Authenticate(UserName, Password))
+            if (await AuthenticationManager.Authenticate(UserName, Password).ConfigureAwait(false))
             {
                 Settings.ApplicationUser = UserName;
                 // Application.Current.MainPage = new NavigationPage(new MenuView(UserName));
@@ -75,10 +78,10 @@ namespace ReminderXamarin.ViewModels
             }
             else
             {
-                var authResult = await AuthenticationManager.Register(UserName, Password);
+                var authResult = await AuthenticationManager.Register(UserName, Password).ConfigureAwait(false);
                 if (authResult)
                 {
-                    if (await AuthenticationManager.Authenticate(UserName, Password))
+                    if (await AuthenticationManager.Authenticate(UserName, Password).ConfigureAwait(false))
                     {
                         Settings.ApplicationUser = UserName;
                         await NavigationService.InitializeAsync<MenuViewModel>();

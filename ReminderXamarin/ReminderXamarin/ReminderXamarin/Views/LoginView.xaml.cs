@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+
 using ReminderXamarin.Extensions;
 using ReminderXamarin.ViewModels;
-using Rm.Helpers;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -37,15 +38,15 @@ namespace ReminderXamarin.Views
         {
             var item = e.VisualElement;
 
-            if (e.VisualElement == UserNameEntry && string.IsNullOrWhiteSpace(UserNameEntry.Text))
+            if (item == UserNameEntry && string.IsNullOrWhiteSpace(UserNameEntry.Text))
             {
                 await TransitionToTitle(UserNameLabel, true);
             }
-            else if (e.VisualElement == PasswordEntry && string.IsNullOrWhiteSpace(PasswordEntry.Text))
+            else if (item == PasswordEntry && string.IsNullOrWhiteSpace(PasswordEntry.Text))
             {
                 await TransitionToTitle(PasswordLabel, true);
             }
-            else if (e.VisualElement == ConfirmPasswordEntry && string.IsNullOrWhiteSpace(ConfirmPasswordEntry.Text))
+            else if (item == ConfirmPasswordEntry && string.IsNullOrWhiteSpace(ConfirmPasswordEntry.Text))
             {
                 await TransitionToTitle(ConfirmPasswordLabel, true);
             }
@@ -55,15 +56,15 @@ namespace ReminderXamarin.Views
         {
             var item = e.VisualElement;
 
-            if (e.VisualElement == UserNameEntry && string.IsNullOrWhiteSpace(UserNameEntry.Text))
+            if (item == UserNameEntry && string.IsNullOrWhiteSpace(UserNameEntry.Text))
             {
                 await TransitionToPlaceholder(UserNameLabel, true);
             }
-            else if (e.VisualElement == PasswordEntry && string.IsNullOrWhiteSpace(PasswordEntry.Text))
+            else if (item == PasswordEntry && string.IsNullOrWhiteSpace(PasswordEntry.Text))
             {
                 await TransitionToPlaceholder(PasswordLabel, true);
             }
-            else if (e.VisualElement == ConfirmPasswordEntry && string.IsNullOrWhiteSpace(ConfirmPasswordEntry.Text))
+            else if (item == ConfirmPasswordEntry && string.IsNullOrWhiteSpace(ConfirmPasswordEntry.Text))
             {
                 await TransitionToPlaceholder(ConfirmPasswordLabel, true);
             }

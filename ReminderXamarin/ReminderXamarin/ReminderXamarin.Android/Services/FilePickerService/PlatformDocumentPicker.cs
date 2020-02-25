@@ -1,32 +1,18 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+
 using Android.Content;
 using Android.Provider;
-using ReminderXamarin.Droid.Services.FilePickerService;
+
 using ReminderXamarin.Services.FilePickerService;
+
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(PlatformDocumentPicker))]
 namespace ReminderXamarin.Droid.Services.FilePickerService
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Implement on Android. Copy Platform.cs class to your Android project.
-    /// <para>
-    /// In MainActivity: Add event of type "int,Result,Intent" named ActivityResult, override OnActivityResult where invoke this event.
-    /// <para>
-    /// Call Platform.Init() method in MainActivity class
-    /// </para>
-    /// </para> 
-    /// </summary>
     public class PlatformDocumentPicker : IPlatformDocumentPicker
     {
-        /// <inheritdoc />
-        /// <summary>
-        /// Start new activity to user
-        /// </summary>
-        /// <param name="page">Page from which user have come</param>
         public async Task<PlatformDocument> DisplayImportAsync(Page page)
         {
             var intent = await ShowPickerDialog();

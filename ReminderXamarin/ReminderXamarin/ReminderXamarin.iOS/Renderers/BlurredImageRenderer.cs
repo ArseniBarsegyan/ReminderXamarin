@@ -25,7 +25,7 @@ namespace ReminderXamarin.iOS.Renderers
             base.OnElementChanged(e);
         }
 
-        private class BlurredImageView : UIImageView
+        private class BlurredImageView : FormsUIImageView
         {
             public override UIImage Image
             {

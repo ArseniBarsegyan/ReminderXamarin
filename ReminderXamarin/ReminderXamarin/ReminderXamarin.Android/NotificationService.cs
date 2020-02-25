@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Linq;
+
 using Android.App;
 using Android.Content;
 using Android.OS;
+
 using Plugin.LocalNotifications;
+
 using ReminderXamarin.Enums;
+
 using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Droid

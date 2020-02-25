@@ -1,26 +1,19 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
+
 using ExifLib;
+
 using PCLStorage;
+
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
 
 namespace ReminderXamarin.Helpers
 {
-    /// <summary>
-    /// Provide functionality to resizing images.
-    /// </summary>
     public class TransformHelper
     {
         private bool _landscape;
 
-        /// <summary>
-        /// Resizes the image at the provided filePath and stores the resized image and the thumbnail in the provided
-        /// PhotoModels ResizedPath and Thumbnail, also sets the Landscape mode.
-        /// </summary>
-        /// <returns>The async.</returns>
-        /// <param name="filePath">File path.</param>
-        /// <param name="photoModel">Photomodel.</param>
         public async Task ResizeAsync(string filePath, GalleryItemModel galleryItemModel)
         {
             _landscape = false;
@@ -28,15 +21,8 @@ namespace ReminderXamarin.Helpers
             galleryItemModel.ImagePath = str[0];
             galleryItemModel.Thumbnail = str[1];
             galleryItemModel.Landscape = _landscape;
-            // photoModel.Landscape = _landscape;
         }
 
-        /// <summary>
-        /// Resizes the image at the provided filePath and returns a string array containing
-        /// the Resized path at position 0 and the Thumbnail path at position 1;
-        /// </summary>
-        /// <returns>The async.</returns>
-        /// <param name="filePath">File path.</param>
         private async Task<string[]> ResizeAsync(string filePath)
         {
             var str = new string[2];

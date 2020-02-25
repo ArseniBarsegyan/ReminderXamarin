@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Drawing;
 using System.Threading.Tasks;
+
 using CoreGraphics;
-using ReminderXamarin.iOS.Services;
+
 using ReminderXamarin.Services;
+
 using UIKit;
 
-[assembly: Xamarin.Forms.Dependency(typeof(AlertService))]
 namespace ReminderXamarin.iOS.Services
 {
-    /// <summary>
-    /// Implementation of <see cref="IAlertService"/>
-    /// </summary>
     public class AlertService : UIViewController, IAlertService
     {
         public Task<bool> ShowYesNoAlert(string message, string yesButtonText, string noButtonText)

@@ -4,23 +4,28 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 using Acr.UserDialogs;
+
+using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels.Base;
+
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
     public class AchievementStepViewModel : BaseViewModel
     {
-        private int _achievementStepId;
-        private AchievementStep _achievementStep;
+        private static readonly IFileSystem FileService = ComponentFactory.Resolve<IFileSystem>();
+        private static readonly IMediaService MediaService = ComponentFactory.Resolve<IMediaService>();
 
-        private static readonly IFileSystem FileService = DependencyService.Get<IFileSystem>();
-        private static readonly IMediaService MediaService = DependencyService.Get<IMediaService>();
+        private int _achievementStepId;
+        private AchievementStep _achievementStep;        
 
         public AchievementStepViewModel()
         {
@@ -30,9 +35,9 @@ namespace ReminderXamarin.ViewModels
             ChangeProgressCommand = new Command<string>(async amount => await ChangeProgress(amount));
         }
 
-        public ICommand SaveAchievementStepCommand { get; set; }
-        public ICommand ChangeImageCommand { get; set; }
-        public ICommand ChangeProgressCommand { get; set; }
+        public ICommand SaveAchievementStepCommand { get; }
+        public ICommand ChangeImageCommand { get; }
+        public ICommand ChangeProgressCommand { get; }
 
         public IList<string> AvailableStepTypes =>
             Enum.GetNames(typeof(AchievementStepType)).Select(x => x.ToString()).ToList();

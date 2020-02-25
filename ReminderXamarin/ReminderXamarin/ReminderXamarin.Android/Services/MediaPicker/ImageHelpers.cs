@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+
 using Android.Graphics;
 using Android.Media;
 
@@ -40,7 +41,7 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
             return imageBytes;
         }
 
-        static int GetRotation(string filePath)
+        private static int GetRotation(string filePath)
         {
             using (var ei = new ExifInterface(filePath))
             {

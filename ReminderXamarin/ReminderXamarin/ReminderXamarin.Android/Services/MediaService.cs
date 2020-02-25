@@ -1,24 +1,21 @@
 ﻿using System.IO;
+
 using Android.Graphics;
 using Android.Media;
+
 using Java.IO;
-using ReminderXamarin.Droid.Services;
+
 using ReminderXamarin.Services;
 
-[assembly: Xamarin.Forms.Dependency(typeof(MediaService))]
 namespace ReminderXamarin.Droid.Services
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Implementation of <see cref="T:ReminderXamarin.Services.IMediaService" /> for Android.
-    /// </summary>
     public class MediaService : IMediaService
     {
         public byte[] ResizeImage(byte[] imageData, float width, float height)
         {
             // Load the bitmap 
-            BitmapFactory.Options options = new BitmapFactory.Options();// Create object of bitmapfactory's option method for further option use
-            options.InPurgeable = true; // inPurgeable is used to free up memory while required
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.InPurgeable = true;
             Bitmap originalImage = BitmapFactory.DecodeByteArray(imageData, 0, imageData.Length, options);
 
             float newHeight = 0;
@@ -59,7 +56,6 @@ namespace ReminderXamarin.Droid.Services
                 retriever.SetDataSource(inputStream.FD);
             }
             
-            // retriever.SetDataSource(url, new Dictionary<string, string>());
             Bitmap bitmap = retriever.GetFrameAtTime(second);
             if (bitmap != null)
             {

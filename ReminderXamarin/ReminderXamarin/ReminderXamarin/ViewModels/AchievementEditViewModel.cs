@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
@@ -18,11 +19,11 @@ namespace ReminderXamarin.ViewModels
 {
     public class AchievementEditViewModel : BaseViewModel
     {
+        private static readonly IFileSystem FileService = ComponentFactory.Resolve<IFileSystem>();
+        private static readonly IMediaService MediaService = ComponentFactory.Resolve<IMediaService>();
+
         private int _achievementId;
         private AchievementModel _achievement;
-
-        private static readonly IFileSystem FileService = DependencyService.Get<IFileSystem>();
-        private static readonly IMediaService MediaService = DependencyService.Get<IMediaService>();
 
         public AchievementEditViewModel()
         {
@@ -58,12 +59,11 @@ namespace ReminderXamarin.ViewModels
 
         public ObservableCollection<AchievementStepViewModel> AchievementStepViewModels { get; set; }
 
-        public ICommand ChangeImageCommand { get; set; }
-        public ICommand SaveAchievementCommand { get; set; }
-        public ICommand DeleteAchievementCommand { get; set; }
-        public ICommand AddStepCommand { get; set; }
-
-        public ICommand NavigateToAchievementStepEditViewCommand { get; set; }
+        public ICommand ChangeImageCommand { get; }
+        public ICommand SaveAchievementCommand { get; }
+        public ICommand DeleteAchievementCommand { get; }
+        public ICommand AddStepCommand { get; }
+        public ICommand NavigateToAchievementStepEditViewCommand { get; }
 
         private async Task ChangeImage(PlatformDocument document)
         {

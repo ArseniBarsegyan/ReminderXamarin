@@ -1,13 +1,28 @@
 ﻿using System;
 using System.Linq;
+
 using Foundation;
+
 using ImageCircle.Forms.Plugin.iOS;
+
 using Plugin.LocalNotifications;
+
+using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Enums;
+using ReminderXamarin.IoC;
+using ReminderXamarin.iOS.Services;
+using ReminderXamarin.iOS.Services.FilePickerService;
 using ReminderXamarin.iOS.Services.MediaPicker;
+using ReminderXamarin.Services;
+using ReminderXamarin.Services.FilePickerService;
+using ReminderXamarin.Services.MediaPicker;
+
 using Rm.Helpers;
+
 using UIKit;
+
 using UserNotifications;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.iOS
@@ -19,28 +34,18 @@ namespace ReminderXamarin.iOS
         {
             Rg.Plugins.Popup.Popup.Init();
             Forms.SetFlags("CollectionView_Experimental");
-            global::Xamarin.Forms.Forms.Init();
+            Forms.Init();
             SQLitePCL.Batteries.Init();
-            //var cv = typeof(Xamarin.Forms.CarouselView);
-            //var assembly = Assembly.Load(cv.FullName);
             ImageCircleRenderer.Init();
+            Bootstrapper.Initialize();
+            RegisterPlatformServices();
             LoadApplication(new App(new MultiMediaPickerService()));
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
-                // Ask the user for permission to get notifications on iOS 10.0+
                 UNUserNotificationCenter.Current.RequestAuthorization(
                     UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound,
                     (approved, error) => { });
-            }
-            else if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
-            {
-                // Ask the user for permission to get notifications on iOS 8.0+
-                var settings = UIUserNotificationSettings.GetSettingsForTypes(
-                    UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound,
-                    new NSSet());
-
-                UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
             }
 
             NSTimer.CreateRepeatingScheduledTimer(TimeSpan.FromSeconds(5), delegate { CheckNotifications(); });
@@ -75,6 +80,21 @@ namespace ReminderXamarin.iOS
                 App.ToDoRepository.Value.Save(model);
                 MessagingCenter.Send((App)App.Current, ConstantsHelper.UpdateUI);
             });
+        }
+
+        private void RegisterPlatformServices()
+        {
+            ComponentRegistry.Register<IPlatformDocumentPicker, PlatformDocumentPicker>();
+            ComponentRegistry.Register<IMultiMediaPickerService, MultiMediaPickerService>();
+            ComponentRegistry.Register<IAlertService, AlertService>();
+            ComponentRegistry.Register<IDeviceOrientation, DeviceOrientation>();
+            ComponentRegistry.Register<IFileHelper, Services.FileHelper>();
+            ComponentRegistry.Register<IFileSystem, FileSystem>();
+            ComponentRegistry.Register<IImageService, ImageService>();
+            ComponentRegistry.Register<ILoadingService, LoadingService>();
+            ComponentRegistry.Register<IMediaService, MediaService>();
+            ComponentRegistry.Register<IPermissionService, PermissionService>();
+            ComponentRegistry.Register<IVideoService, VideoService>();
         }
     }
 }

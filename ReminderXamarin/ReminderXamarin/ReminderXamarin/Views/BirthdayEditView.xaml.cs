@@ -1,10 +1,15 @@
 ﻿using System;
 using System.IO;
-using Rm.Helpers;
+
+using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
+
 using Rg.Plugins.Popup.Extensions;
+
+using Rm.Helpers;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,9 +18,9 @@ namespace ReminderXamarin.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BirthdayEditView : ContentPage
     {
-        private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
-        private static readonly IFileSystem FileService = DependencyService.Get<IFileSystem>();
-        private static readonly IMediaService MediaService = DependencyService.Get<IMediaService>();
+        private static readonly IPlatformDocumentPicker DocumentPicker = ComponentFactory.Resolve<IPlatformDocumentPicker>();
+        private static readonly IFileSystem FileService = ComponentFactory.Resolve<IFileSystem>();
+        private static readonly IMediaService MediaService = ComponentFactory.Resolve<IMediaService>();
         
         public BirthdayEditView()
         {

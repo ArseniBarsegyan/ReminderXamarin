@@ -5,11 +5,17 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
 using AVFoundation;
+
 using Foundation;
+
 using GMImagePicker;
+
 using Photos;
+
 using ReminderXamarin.Services.MediaPicker;
+
 using UIKit;
 
 namespace ReminderXamarin.iOS.Services.MediaPicker

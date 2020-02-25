@@ -1,7 +1,11 @@
 ﻿using System;
+
+using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
+
 using Rm.Helpers;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,9 +13,10 @@ namespace ReminderXamarin.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AchievementEditView : ContentPage
-    {
+    {        
+        private static readonly IPlatformDocumentPicker DocumentPicker = ComponentFactory.Resolve<IPlatformDocumentPicker>();
+
         private readonly ToolbarItem _confirmToolbarItem;
-        private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
 
         public AchievementEditView()
         {

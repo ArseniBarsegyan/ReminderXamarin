@@ -1,7 +1,11 @@
 ﻿using System;
+
+using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
+
 using Rm.Helpers;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +14,7 @@ namespace ReminderXamarin.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AchievementStepView : ContentPage
     {
-        private static readonly IPlatformDocumentPicker DocumentPicker = DependencyService.Get<IPlatformDocumentPicker>();
+        private static readonly IPlatformDocumentPicker DocumentPicker = ComponentFactory.Resolve<IPlatformDocumentPicker>();
 
         public AchievementStepView()
         {

@@ -26,6 +26,7 @@
                         <Frame MinimumHeightRequest="200"
                                HasShadow="True"
                                Padding="0,0,0,10"
+                               BackgroundColor="{DynamicResource NoteViewCellBackground}"
                                BorderColor="{DynamicResource NoteViewCellBorder}"
                                Margin="0,5">
                             <StackLayout>
@@ -55,7 +56,8 @@
                         <Frame MinimumHeightRequest="200"
                                HasShadow="True"
                                Padding="0,10"
-                               BorderColor="LightGray"
+                               BackgroundColor="{DynamicResource NoteViewCellBackground}"
+                               BorderColor="{DynamicResource NoteViewCellBorder}"
                                Margin="0,5">
                             <StackLayout Spacing="10" Padding="10,10,10,30">
                                 <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" 
@@ -85,9 +87,12 @@
                      VerticalOptions="FillAndExpand"
                      HorizontalOptions="FillAndExpand">
             <!-- Search bar with border -->
-            <SearchBar x:Name="SearchBar" 
-                       BackgroundColor="White"
+            <SearchBar x:Name="SearchBar"
+                       PlaceholderColor="{DynamicResource ColorTextCommon}"
+                       BackgroundColor="{DynamicResource SearchBarBackground}"
                        Placeholder="Search..."
+                       TextColor="{DynamicResource ColorTextCommon}"
+                       CancelButtonColor="{DynamicResource ColorTextCommon}"
                        Text="{Binding SearchText}">
                 <SearchBar.Behaviors>
                     <behaviors:EventToCommandBehavior EventName="TextChanged"

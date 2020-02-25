@@ -29,14 +29,14 @@ namespace ReminderXamarin
         public App(IMultiMediaPickerService multiMediaPickerService)
         {
             InitializeComponent();
-            MultiMediaPickerService = multiMediaPickerService;
+            Bootstrapper.RegisterServices();
 
-            Bootstrapper.Initialize();
+            MultiMediaPickerService = multiMediaPickerService;
 
             _navigationService = ComponentFactory.Resolve<INavigationService>();
             _themeSwitchService = ComponentFactory.Resolve<ThemeSwitcher>();
 
-            var dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath(ConstantsHelper.SqLiteDataBaseName);
+            var dbPath = ComponentFactory.Resolve<IFileHelper>().GetLocalFilePath(ConstantsHelper.SqLiteDataBaseName);
 
             NoteRepository = new Lazy<NoteRepository>(() => new NoteRepository(dbPath));
             ToDoRepository = new Lazy<ToDoRepository>(() => new ToDoRepository(dbPath));

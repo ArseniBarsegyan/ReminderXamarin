@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Drawing;
+
 using AVFoundation;
+
 using CoreGraphics;
+
 using CoreMedia;
+
 using Foundation;
-using ReminderXamarin.iOS.Services;
+
 using ReminderXamarin.Services;
+
 using UIKit;
 
-[assembly: Xamarin.Forms.Dependency(typeof(MediaService))]
 namespace ReminderXamarin.iOS.Services
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Implementation of <see cref="T:ReminderXamarin.Services.IMediaService" /> for iOS.
-    /// </summary>
     public class MediaService : IMediaService
     {
         public byte[] ResizeImage(byte[] imageData, float width, float height)

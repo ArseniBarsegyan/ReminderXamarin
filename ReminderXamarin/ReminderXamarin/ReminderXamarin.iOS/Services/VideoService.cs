@@ -1,13 +1,16 @@
 ﻿using System;
 using System.IO;
+
 using Foundation;
+
 using QuickLook;
-using ReminderXamarin.iOS.Services;
+
 using ReminderXamarin.Services;
+
 using UIKit;
+
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(VideoService))]
 namespace ReminderXamarin.iOS.Services
 {
     public class VideoService : IVideoService

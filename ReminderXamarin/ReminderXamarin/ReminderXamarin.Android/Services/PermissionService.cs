@@ -1,24 +1,19 @@
 ﻿using System;
 using System.Threading.Tasks;
+
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
-using ReminderXamarin.Droid.Services;
+
 using ReminderXamarin.Services;
 
-[assembly: Xamarin.Forms.Dependency(typeof(PermissionService))]
 namespace ReminderXamarin.Droid.Services
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Implementation of <see cref="IPermissionService"/> for Android.
-    /// </summary>
     public class PermissionService : IPermissionService
     {
         private static readonly int SdkVersion = (int)Android.OS.Build.VERSION.SdkInt;
 
         public async Task<bool> AskPermission()
         {
-            //Runtime permissions available only from API25+
             if (SdkVersion < 23)
             {
                 return true;
@@ -26,7 +21,6 @@ namespace ReminderXamarin.Droid.Services
 
             try
             {
-                //Configure required permissions here and include them into manifest
                 await CrossPermissions.Current.RequestPermissionsAsync(Permission.Camera);
                 await CrossPermissions.Current.RequestPermissionsAsync(Permission.Storage);
 

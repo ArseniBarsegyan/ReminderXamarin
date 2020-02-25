@@ -1,12 +1,13 @@
 ﻿using Android.Content;
 using Android.Net;
 using Android.Support.V4.Content;
+
 using Java.IO;
+
 using Plugin.CurrentActivity;
-using ReminderXamarin.Droid.Services;
+
 using ReminderXamarin.Services;
 
-[assembly: Xamarin.Forms.Dependency(typeof(VideoService))]
 namespace ReminderXamarin.Droid.Services
 {
     public class VideoService : IVideoService

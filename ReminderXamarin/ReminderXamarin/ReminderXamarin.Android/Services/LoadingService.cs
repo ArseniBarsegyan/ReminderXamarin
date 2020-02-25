@@ -1,27 +1,18 @@
 ﻿using Android.Graphics;
 using Android.Views;
 using Android.Widget;
+
 using Plugin.CurrentActivity;
-using ReminderXamarin.Droid.Services;
+
 using ReminderXamarin.Services;
 
-[assembly: Xamarin.Forms.Dependency(typeof(LoadingService))]
 namespace ReminderXamarin.Droid.Services
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Implementation of <see cref="ILoadingService" /> for Android.
-    /// </summary>
     public class LoadingService : ILoadingService
     {
         private RelativeLayout _relLayout;
         private ProgressBar _bar;
 
-        /// <inheritdoc />
-        /// <summary>
-        /// Create layout with loading indicator and message, place it in a top of current activity view
-        /// and make it visible.
-        /// </summary>
         public void ShowLoading(string message = null)
         {
             if (_relLayout != null)
@@ -63,10 +54,6 @@ namespace ReminderXamarin.Droid.Services
             _relLayout.Visibility = ViewStates.Visible;
         }
 
-        /// <inheritdoc />
-        /// <summary>
-        /// Set visibility of layout with loading indicator and text to false
-        /// </summary>
         public void HideLoading()
         {
             _relLayout.Click -= null;

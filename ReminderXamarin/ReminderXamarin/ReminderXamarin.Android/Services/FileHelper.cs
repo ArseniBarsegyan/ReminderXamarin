@@ -1,11 +1,10 @@
 ﻿using System;
 using System.IO;
-using Plugin.CurrentActivity;
-using ReminderXamarin.Droid.Services;
-using ReminderXamarin.Services;
-using Xamarin.Forms;
 
-[assembly: Dependency(typeof(FileHelper))]
+using Plugin.CurrentActivity;
+
+using ReminderXamarin.Services;
+
 namespace ReminderXamarin.Droid.Services
 {
     public class FileHelper : IFileHelper
