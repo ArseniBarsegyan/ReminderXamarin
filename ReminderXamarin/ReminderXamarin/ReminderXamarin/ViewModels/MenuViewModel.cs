@@ -1,6 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Rm.Helpers;
+
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
+
+using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -10,7 +14,8 @@ namespace ReminderXamarin.ViewModels
         public BaseViewModel MasterViewModel { get; set; }
         public BaseViewModel DetailViewModel { get; set; }
 
-        public MenuViewModel()
+        public MenuViewModel(INavigationService navigationService)
+            : base(navigationService)
         {
             MessagingCenter.Subscribe<MenuMasterViewModel, MenuViewIndex>(this, ConstantsHelper.DetailPageChanged, async (sender, pageIndex) =>
             {

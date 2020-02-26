@@ -10,6 +10,7 @@ using System.Windows.Input;
 
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Services;
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
@@ -21,14 +22,16 @@ namespace ReminderXamarin.ViewModels
 {
     public class NotesViewModel : BaseViewModel
     {
-        private int _notesPerLoad = 10;
+        private readonly IUploadService _uploadService;
+        private readonly int _notesPerLoad = 10;
         private int _currentSkipCounter = 10;
         private List<NoteViewModel> _allNotes;
         private bool _isInitialized;
-        private bool _isNavigatedToEditView;
-        private readonly IUploadService _uploadService;
+        private bool _isNavigatedToEditView;        
 
-        public NotesViewModel(IUploadService uploadService)
+        public NotesViewModel(INavigationService navigationService, 
+            IUploadService uploadService)
+            : base(navigationService)
         {
             _uploadService = uploadService;
             Notes = new ObservableCollection<NoteViewModel>();
@@ -47,12 +50,12 @@ namespace ReminderXamarin.ViewModels
         public bool IsRefreshing { get; set; }
         public ObservableCollection<NoteViewModel> Notes { get; set; }
         
-        public ICommand UploadNotesToApiCommand { get; set; }
-        public ICommand DeleteNoteCommand { get; set; }
-        public ICommand RefreshListCommand { get; set; }
-        public ICommand SearchCommand { get; set; }
-        public ICommand NavigateToEditViewCommand { get; set; }
-        public ICommand LoadMoreNotesCommand { get; set; }
+        public ICommand UploadNotesToApiCommand { get; }
+        public ICommand DeleteNoteCommand { get; }
+        public ICommand RefreshListCommand { get; }
+        public ICommand SearchCommand { get; }
+        public ICommand NavigateToEditViewCommand { get; }
+        public ICommand LoadMoreNotesCommand { get; }
 
         public void OnAppearing()
         {
@@ -142,14 +145,14 @@ namespace ReminderXamarin.ViewModels
                 .GetAll()
                 .OrderByDescending(x => x.CreationDate)
                 .FirstOrDefault(x => x.UserId == Settings.CurrentUserId)
-                .ToViewModel();
+                .ToViewModel(NavigationService);
             _allNotes.Insert(0, recentNote);
             Notes.Insert(0, recentNote);
         }
 
         private void EditExistingViewModel(int id)
         {
-            var newNote = App.NoteRepository.Value.GetNoteAsync(id).ToViewModel();
+            var newNote = App.NoteRepository.Value.GetNoteAsync(id).ToViewModel(NavigationService);
 
             var oldNote = _allNotes.FirstOrDefault(x => x.Id == id);
             var oldNoteIndex = _allNotes.IndexOf(oldNote);
@@ -195,7 +198,7 @@ namespace ReminderXamarin.ViewModels
             _allNotes = App.NoteRepository.Value
                 .GetAll()
                 .Where(x => x.UserId == Settings.CurrentUserId)
-                .ToNoteViewModels()
+                .ToNoteViewModels(NavigationService)
                 .OrderByDescending(x => x.CreationDate)
                 .ToList();
 

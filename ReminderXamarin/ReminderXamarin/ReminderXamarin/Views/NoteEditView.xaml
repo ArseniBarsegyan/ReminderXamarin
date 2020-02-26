@@ -2,10 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             xmlns:viewModels="clr-namespace:ReminderXamarin.ViewModels;assembly=ReminderXamarin"
+             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.NoteEditView"
              Title="{Binding Title}"
-             BackgroundColor="{DynamicResource NoteEditViewBackground}">
+             BackgroundColor="{DynamicResource NoteEditViewBackground}"
+             base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="PickerButtonStyle" TargetType="ImageButton">
@@ -22,10 +23,7 @@
                      IconImageSource="delete.png"
                      Order="Primary"
                      Command="{Binding DeleteNoteCommand}" />
-    </ContentPage.ToolbarItems>
-    <ContentPage.BindingContext>
-        <viewModels:NoteEditViewModel x:Name="ViewModel" />
-    </ContentPage.BindingContext>
+    </ContentPage.ToolbarItems>    
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                         AbsoluteLayout.LayoutFlags="All">
@@ -66,8 +64,7 @@
                                        AbsoluteLayout.LayoutFlags="All">
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                              Command="{Binding Source={x:Reference ViewModel}, 
-                                                                                Path=SelectImageCommand}"
+                                                              Command="{Binding BindingContext.SelectImageCommand}"
                                                               CommandParameter="{Binding .}" />
                                     </Image.GestureRecognizers>
                                 </Image>
@@ -81,8 +78,7 @@
                                        AbsoluteLayout.LayoutFlags="All">
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                              Command="{Binding Source={x:Reference ViewModel},
-                                                                                Path=SelectImageCommand}"
+                                                              Command="{Binding BindingContext.SelectImageCommand}"
                                                               CommandParameter="{Binding .}" />
                                     </Image.GestureRecognizers>
                                 </Image>

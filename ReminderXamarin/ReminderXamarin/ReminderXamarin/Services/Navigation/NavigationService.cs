@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.ViewModels.Base;
 using ReminderXamarin.Views;
 using Rg.Plugins.Popup.Extensions;

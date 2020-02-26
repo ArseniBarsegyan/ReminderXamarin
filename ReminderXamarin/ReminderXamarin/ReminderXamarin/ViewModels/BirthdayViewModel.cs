@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Windows.Input;
-using ReminderXamarin.ViewModels.Base;
+
 using ReminderXamarin.Extensions;
+using ReminderXamarin.Services.Navigation;
+using ReminderXamarin.ViewModels.Base;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
     public class BirthdayViewModel : BaseViewModel
     {
-        public BirthdayViewModel()
+        public BirthdayViewModel(INavigationService navigationService)
+            : base(navigationService)
         {
             CreateBirthdayCommand = new Command(CreateBirthday);
             UpdateBirthdayCommand = new Command(UpdateBirthday);
@@ -22,9 +26,9 @@ namespace ReminderXamarin.ViewModels
         public string Title => Name + ", " + BirthDayDate.ToString("dd.MM.yy");
         public string GiftDescription { get; set; }
 
-        public ICommand CreateBirthdayCommand { get; set; }
-        public ICommand UpdateBirthdayCommand { get; set; }
-        public ICommand DeleteBirthdayCommand { get; set; }
+        public ICommand CreateBirthdayCommand { get; }
+        public ICommand UpdateBirthdayCommand { get; }
+        public ICommand DeleteBirthdayCommand { get; }
 
         private void CreateBirthday()
         {

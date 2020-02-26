@@ -12,6 +12,7 @@ using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Services;
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Data.Data.Entities;
@@ -23,18 +24,30 @@ namespace ReminderXamarin.ViewModels
 {
     public class NoteEditViewModel : BaseViewModel
     {
-        private static readonly IPermissionService PermissionService = ComponentFactory.Resolve<IPermissionService>();
-        private static readonly IFileSystem FileService = ComponentFactory.Resolve<IFileSystem>();
-        private static readonly IMediaService MediaService = ComponentFactory.Resolve<IMediaService>();
+        private readonly IPermissionService _permissionService;
+        private readonly IFileSystem _fileService;
+        private readonly IMediaService _mediaService;
+        private readonly IVideoService _videoService;
 
+        // TODO: register as dependency
         private readonly MediaHelper _mediaHelper;
         private readonly TransformHelper _transformHelper;
 
         private int _noteId;
         private Note _note;
 
-        public NoteEditViewModel()
+        public NoteEditViewModel(INavigationService navigationService,
+            IPermissionService permissionService,
+            IFileSystem fileService,
+            IMediaService mediaService,
+            IVideoService videoService)
+            : base(navigationService)
         {
+            _permissionService = permissionService;
+            _fileService = fileService;
+            _mediaService = mediaService;
+            _videoService = videoService;
+
             _mediaHelper = new MediaHelper();
             _transformHelper = new TransformHelper();
             
@@ -76,7 +89,7 @@ namespace ReminderXamarin.ViewModels
                 _note = App.NoteRepository.Value.GetNoteAsync(_noteId);
                 Title = _note.EditDate.ToString("d");
                 Description = _note.Description;
-                GalleryItemsViewModels = _note.GalleryItems.ToViewModels();
+                GalleryItemsViewModels = _note.GalleryItems.ToViewModels(NavigationService);
                 PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
             }
             return base.InitializeAsync(navigationData);
@@ -109,10 +122,10 @@ namespace ReminderXamarin.ViewModels
                     {
                         NoteId = _noteId
                     };
-                    var imageContent = FileService.ReadAllBytes(file.Path);
+                    var imageContent = _fileService.ReadAllBytes(file.Path);
                     var imageName = Path.GetFileName(file.Path);
 
-                    var resizedImage = MediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
+                    var resizedImage = _mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
                         ConstantsHelper.ResizedImageHeight);
                     string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                     string imagePath = Path.Combine(path, imageName);
@@ -123,7 +136,7 @@ namespace ReminderXamarin.ViewModels
 
                     await _transformHelper.ResizeAsync(imagePath, galleryItemModel);
 
-                    GalleryItemsViewModels.Add(galleryItemModel.ToViewModel());
+                    GalleryItemsViewModels.Add(galleryItemModel.ToViewModel(NavigationService));
                     PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
                 });
             };
@@ -141,8 +154,7 @@ namespace ReminderXamarin.ViewModels
             {
                 if (!string.IsNullOrWhiteSpace(viewModel.VideoPath))
                 {
-                    var videoService = ComponentFactory.Resolve<IVideoService>();
-                    videoService.PlayVideo(viewModel.VideoPath);
+                    _videoService.PlayVideo(viewModel.VideoPath);
                 }
             }
             else
@@ -164,7 +176,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task TakePhoto()
         {
-            bool permissionResult = await PermissionService.AskPermission();
+            bool permissionResult = await _permissionService.AskPermission();
             if (permissionResult)
             {
                 IsLoading = true;
@@ -173,7 +185,7 @@ namespace ReminderXamarin.ViewModels
                     var photoModel = await _mediaHelper.TakePhotoAsync();
                     if (photoModel != null)
                     {
-                        GalleryItemsViewModels.Add(photoModel.ToViewModel());
+                        GalleryItemsViewModels.Add(photoModel.ToViewModel(NavigationService));
                         PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
                     }
                 }
@@ -187,7 +199,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task TakeVideo()
         {
-            bool permissionResult = await PermissionService.AskPermission();
+            bool permissionResult = await _permissionService.AskPermission();
 
             if (permissionResult)
             {
@@ -222,7 +234,7 @@ namespace ReminderXamarin.ViewModels
 
                         await _transformHelper.ResizeAsync(imagePath, videoModel);
 
-                        GalleryItemsViewModels.Add(videoModel.ToViewModel());
+                        GalleryItemsViewModels.Add(videoModel.ToViewModel(NavigationService));
                         PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
                     }
                     catch (Exception ex)

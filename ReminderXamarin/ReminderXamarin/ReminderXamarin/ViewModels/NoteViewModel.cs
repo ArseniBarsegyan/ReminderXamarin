@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
 namespace ReminderXamarin.ViewModels
 {
     public class NoteViewModel : BaseViewModel
     {
-        public NoteViewModel()
+        public NoteViewModel(INavigationService navigationService)
+            : base(navigationService)
         {
             Photos = new ObservableCollection<PhotoViewModel>();
             Videos = new ObservableCollection<VideoViewModel>();

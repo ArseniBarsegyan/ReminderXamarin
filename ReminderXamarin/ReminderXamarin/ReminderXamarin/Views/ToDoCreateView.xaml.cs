@@ -1,5 +1,8 @@
 ﻿using System;
+
 using ReminderXamarin.Enums;
+using ReminderXamarin.ViewModels;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -30,10 +33,13 @@ namespace ReminderXamarin.Views
 
             var fullDate = eventDate.Add(eventTime);
 
-            ViewModel.Status = _toDoStatus;
-            ViewModel.WhenHappens = fullDate;
-            ViewModel.Description = DescriptionEditor.Text;
-            ViewModel.CreateToDoCommand.Execute(null);
+            if (BindingContext is ToDoViewModel viewModel)
+            {
+                viewModel.Status = _toDoStatus;
+                viewModel.WhenHappens = fullDate;
+                viewModel.Description = DescriptionEditor.Text;
+                viewModel.CreateToDoCommand.Execute(null);
+            }            
 
             await Navigation.PopAsync();
         }

@@ -3,11 +3,14 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Resources;
 using System.Threading.Tasks;
+
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
+
 using ReminderXamarin.DependencyResolver;
-using Rm.Helpers;
 using ReminderXamarin.Services.Navigation;
+
+using Rm.Helpers;
 
 namespace ReminderXamarin.ViewModels.Base
 {
@@ -15,9 +18,9 @@ namespace ReminderXamarin.ViewModels.Base
     {
         protected readonly INavigationService NavigationService;
 
-        protected BaseViewModel()
+        public BaseViewModel(INavigationService navigationService)
         {
-            NavigationService = ComponentFactory.Resolve<INavigationService>();
+            NavigationService = navigationService;
         }
 
         public static readonly Lazy<ResourceManager> Resmgr = new Lazy<ResourceManager>(

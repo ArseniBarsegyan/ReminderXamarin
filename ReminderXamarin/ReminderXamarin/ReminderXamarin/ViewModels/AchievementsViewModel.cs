@@ -2,16 +2,21 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 using ReminderXamarin.Extensions;
-using Rm.Helpers;
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
+
+using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
     public class AchievementsViewModel : BaseViewModel
     {
-        public AchievementsViewModel()
+        public AchievementsViewModel(INavigationService navigationService)
+            : base(navigationService)
         {
             Achievements = new ObservableCollection<AchievementViewModel>();
 
@@ -47,7 +52,7 @@ namespace ReminderXamarin.ViewModels
             Achievements = App.AchievementRepository.Value
                 .GetAll()
                 .Where(x => x.UserId == Settings.CurrentUserId)
-                .ToAchievementViewModels()
+                .ToAchievementViewModels(NavigationService)
                 .OrderByDescending(x => x.GeneralTimeSpent)
                 .ToObservableCollection();
         }

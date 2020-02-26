@@ -1,8 +1,12 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Rm.Helpers;
+
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
+
+using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -12,7 +16,8 @@ namespace ReminderXamarin.ViewModels
         private static int _currentCount;
         private readonly StringBuilder _pinBuilder;
 
-        public PinViewModel()
+        public PinViewModel(INavigationService navigationService)
+            : base(navigationService)
         {
             FirstNumberImageSource = new Image { Source = ConstantsHelper.EmptyDotImage };
             SecondNumberImageSource = new Image { Source = ConstantsHelper.EmptyDotImage };
@@ -32,9 +37,9 @@ namespace ReminderXamarin.ViewModels
 
         public int Pin { get; set; }
 
-        public ICommand DeleteNumberCommand { get; set; }
-        public ICommand PinCommand { get; set; }
-        public ICommand LoginCommand { get; set; }
+        public ICommand DeleteNumberCommand { get; }
+        public ICommand PinCommand { get; }
+        public ICommand LoginCommand { get; }
 
         private async Task CheckPin(string text)
         {

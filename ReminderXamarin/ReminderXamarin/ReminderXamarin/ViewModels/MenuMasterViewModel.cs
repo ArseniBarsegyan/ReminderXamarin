@@ -2,10 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 using ReminderXamarin.Extensions;
-using Rm.Helpers;
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
+
 using Rm.Data.Data.Entities;
+using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -14,7 +18,8 @@ namespace ReminderXamarin.ViewModels
     {
         private UserModel _appUser;
 
-        public MenuMasterViewModel()
+        public MenuMasterViewModel(INavigationService navigationService)
+            : base(navigationService)
         {
             MessagingCenter.Subscribe<UserProfileViewModel>(this, ConstantsHelper.ProfileUpdated, vm => ProfileUpdated());
             _appUser = App.UserRepository.Value.GetAll().FirstOrDefault(x => x.UserName == Settings.ApplicationUser);
@@ -42,8 +47,8 @@ namespace ReminderXamarin.ViewModels
         public string UserName { get; set; }
         public byte[] ImageContent { get; set; }
         public ObservableCollection<MasterPageItem> MasterPageItems { get; set; }
-        public ICommand LogoutCommand { get; set; }
-        public ICommand NavigateToUserProfileCommand { get; set; }
+        public ICommand LogoutCommand { get; }
+        public ICommand NavigateToUserProfileCommand { get; }
 
         private async Task Logout()
         {

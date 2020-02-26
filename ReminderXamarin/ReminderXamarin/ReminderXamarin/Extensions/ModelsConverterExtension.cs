@@ -1,18 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+
 using ReminderXamarin.Enums;
-using Rm.Helpers;
+using ReminderXamarin.Services;
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels;
+
 using Rm.Data.Data.Entities;
+using Rm.Helpers;
 
 namespace ReminderXamarin.Extensions
 {
     public static class ModelsConverterExtension
     {
-        public static GalleryItemViewModel ToViewModel(this GalleryItemModel model)
+        public static GalleryItemViewModel ToViewModel(this GalleryItemModel model, INavigationService navigationService)
         {
-            var viewModel = new GalleryItemViewModel
+            var viewModel = new GalleryItemViewModel(navigationService)
             {
                 Id = model.Id,
                 ImagePath = model.ImagePath,
@@ -51,22 +55,23 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static NoteViewModel ToViewModel(this Note model)
+        public static NoteViewModel ToViewModel(this Note model, INavigationService navigationService)
         {
-            return new NoteViewModel
+            return new NoteViewModel(navigationService)
             {
                 Id = model.Id,
                 CreationDate = model.CreationDate,
                 EditDate = model.EditDate,
                 Description = model.Description,
                 FullDescription = model.EditDate.ToString("dd.MM.yy") + " " + model.Description,
-                GalleryItemsViewModels = model.GalleryItems.ToViewModels()
+                GalleryItemsViewModels = model.GalleryItems.ToViewModels(navigationService)
             };
         }
 
-        public static ObservableCollection<GalleryItemViewModel> ToViewModels(this IEnumerable<GalleryItemModel> models)
+        public static ObservableCollection<GalleryItemViewModel> ToViewModels(this IEnumerable<GalleryItemModel> models,
+            INavigationService navigationService)
         {
-            return models.Select(model => model.ToViewModel()).ToObservableCollection();
+            return models.Select(model => model.ToViewModel(navigationService)).ToObservableCollection();
         }
 
         public static List<GalleryItemModel> ToModels(this IEnumerable<GalleryItemViewModel> viewModels)
@@ -74,9 +79,11 @@ namespace ReminderXamarin.Extensions
             return viewModels.Select(vm => vm.ToModel()).ToList();
         }
 
-        public static ObservableCollection<NoteViewModel> ToNoteViewModels(this IEnumerable<Note> models)
+        public static ObservableCollection<NoteViewModel> ToNoteViewModels(this IEnumerable<Note> models, 
+            INavigationService navigationService)
         {
-            return models.Select(model => model.ToViewModel()).ToObservableCollection();
+            return models.Select(model => model.ToViewModel(navigationService))
+                .ToObservableCollection();
         }
 
         public static List<Note> ToNoteModels(this IEnumerable<NoteViewModel> viewModels)
@@ -96,9 +103,9 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static ToDoViewModel ToToDoViewModel(this ToDoModel model)
+        public static ToDoViewModel ToToDoViewModel(this ToDoModel model, INavigationService navigationService)
         {
-            var viewModel = new ToDoViewModel
+            var viewModel = new ToDoViewModel(navigationService)
             {
                 Id = model.Id,
                 WhenHappens = model.WhenHappens,
@@ -120,13 +127,13 @@ namespace ReminderXamarin.Extensions
             return viewModel;
         }
 
-        public static ObservableCollection<ToDoViewModel> ToToDoViewModels(this IEnumerable<ToDoModel> models)
+        public static ObservableCollection<ToDoViewModel> ToToDoViewModels(this IEnumerable<ToDoModel> models, INavigationService navigationService)
         {
             var viewModels = new ObservableCollection<ToDoViewModel>();
 
             foreach (var model in models)
             {
-                var viewModel = new ToDoViewModel
+                var viewModel = new ToDoViewModel(navigationService)
                 {
                     Id = model.Id,
                     WhenHappens = model.WhenHappens,
@@ -162,9 +169,9 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static BirthdayViewModel ToBirthdayViewModel(this BirthdayModel model)
+        public static BirthdayViewModel ToBirthdayViewModel(this BirthdayModel model, INavigationService navigationService)
         {
-            return new BirthdayViewModel
+            return new BirthdayViewModel(navigationService)
             {
                 Id = model.Id,
                 Name = model.Name,
@@ -174,9 +181,9 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static ObservableCollection<BirthdayViewModel> ToFriendViewModels(this IEnumerable<BirthdayModel> models)
+        public static ObservableCollection<BirthdayViewModel> ToFriendViewModels(this IEnumerable<BirthdayModel> models, INavigationService navigationService)
         {
-            return models.Select(model => model.ToBirthdayViewModel()).ToObservableCollection();
+            return models.Select(model => model.ToBirthdayViewModel(navigationService)).ToObservableCollection();
         }
 
         public static AchievementStep ToModel(this AchievementStepViewModel viewModel)
@@ -193,9 +200,12 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static AchievementStepViewModel ToViewModel(this AchievementStep model)
+        public static AchievementStepViewModel ToViewModel(this AchievementStep model,
+            INavigationService navigationService,
+            IFileSystem fileService,
+            IMediaService mediaService)
         {
-            return new AchievementStepViewModel
+            return new AchievementStepViewModel(navigationService, fileService, mediaService)
             {
                 Id = model.Id,
                 AchievementId = model.AchievementId,
@@ -208,9 +218,13 @@ namespace ReminderXamarin.Extensions
         }
 
         public static ObservableCollection<AchievementStepViewModel> ToViewModels(
-            this IEnumerable<AchievementStep> models)
+            this IEnumerable<AchievementStep> models, 
+            INavigationService navigationService,
+            IFileSystem fileService,
+            IMediaService mediaService)
         {
-            return models.Select(model => model.ToViewModel()).ToObservableCollection();
+            return models.Select(model => model.ToViewModel(navigationService, fileService, mediaService))
+                .ToObservableCollection();
         }
 
         public static List<AchievementStep> ToModels(this IEnumerable<AchievementStepViewModel> viewModels)
@@ -218,9 +232,9 @@ namespace ReminderXamarin.Extensions
             return viewModels.Select(model => model.ToModel()).ToList();
         }
 
-        public static AchievementViewModel ToAchievementViewModel(this AchievementModel model)
+        public static AchievementViewModel ToAchievementViewModel(this AchievementModel model, INavigationService navigationService)
         {
-            return new AchievementViewModel
+            return new AchievementViewModel(navigationService)
             {
                 Id = model.Id,
                 Title = model.Title,
@@ -231,9 +245,10 @@ namespace ReminderXamarin.Extensions
         }
 
         public static ObservableCollection<AchievementViewModel> ToAchievementViewModels(
-            this IEnumerable<AchievementModel> models)
+            this IEnumerable<AchievementModel> models,
+            INavigationService navigationService)
         {
-            return models.Select(model => model.ToAchievementViewModel()).ToObservableCollection();
+            return models.Select(model => model.ToAchievementViewModel(navigationService)).ToObservableCollection();
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System;
+
 using ReminderXamarin.ViewModels;
+
 using Rm.Helpers;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

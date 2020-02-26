@@ -2,6 +2,7 @@
 using System.Windows.Input;
 
 using ReminderXamarin.DependencyResolver;
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.Utilities;
 using ReminderXamarin.ViewModels.Base;
 
@@ -17,13 +18,15 @@ namespace ReminderXamarin.ViewModels
         private ThemeTypes _savedTheme;
         private bool _isDarkTheme;
 
-        public SettingsViewModel()
+        public SettingsViewModel(INavigationService navigationService,
+            ThemeSwitcher themeSwitcher)
+            : base(navigationService)
         {
+            _themeSwitcher = themeSwitcher;
+
             bool.TryParse(Settings.UsePin, out bool shouldUsePin);
             UsePin = shouldUsePin;
             Pin = Settings.UserPinCode;
-            
-            _themeSwitcher = ComponentFactory.Resolve<ThemeSwitcher>();
 
             if ((ThemeTypes)Enum.Parse(typeof(ThemeTypes), Settings.ThemeType) == ThemeTypes.Dark)
             {

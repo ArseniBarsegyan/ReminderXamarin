@@ -2,17 +2,22 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 using ReminderXamarin.Enums;
 using ReminderXamarin.Extensions;
-using Rm.Helpers;
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
+
+using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
     public class ToDoTabbedViewModel : BaseViewModel
     {
-        public ToDoTabbedViewModel()
+        public ToDoTabbedViewModel(INavigationService navigationService)
+            : base(navigationService)
         {
             ActiveModels = new ObservableCollection<ToDoViewModel>();
             CompletedModels = new ObservableCollection<ToDoViewModel>();
@@ -37,9 +42,9 @@ namespace ReminderXamarin.ViewModels
         public ObservableCollection<ToDoViewModel> ActiveModels { get; set; }
         public ObservableCollection<ToDoViewModel> CompletedModels { get; set; }
 
-        public ICommand RefreshListCommand { get; set; }
-        public ICommand ShowDetailsCommand { get; set; }
-        public ICommand SelectItemCommand { get; set; }
+        public ICommand RefreshListCommand { get; }
+        public ICommand ShowDetailsCommand { get; }
+        public ICommand SelectItemCommand { get; }
 
         private void RefreshCommandExecute()
         {
@@ -50,7 +55,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task<ToDoViewModel> SelectItem(int id)
         {
-            return App.ToDoRepository.Value.GetToDoAsync(id).ToToDoViewModel();
+            return App.ToDoRepository.Value.GetToDoAsync(id).ToToDoViewModel(NavigationService);
         }
 
         private void LoadModelsFromDatabase()
@@ -58,7 +63,7 @@ namespace ReminderXamarin.ViewModels
             var allModels = App.ToDoRepository.Value
                 .GetAll()
                 .Where(x => x.UserId == Settings.CurrentUserId)
-                .ToToDoViewModels()
+                .ToToDoViewModels(NavigationService)
                 .ToList();
 
             ActiveModels = allModels.Where(x => x.Status == ToDoStatus.Active)

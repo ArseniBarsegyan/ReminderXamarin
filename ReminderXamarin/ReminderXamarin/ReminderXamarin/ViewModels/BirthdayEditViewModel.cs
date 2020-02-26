@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
+
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -12,7 +16,8 @@ namespace ReminderXamarin.ViewModels
     {
         private BirthdayModel _birthdayModel;
 
-        public BirthdayEditViewModel()
+        public BirthdayEditViewModel(INavigationService navigationService)
+            : base(navigationService)
         {
             ImageContent = new byte[0];
             Name = "New birthday";
@@ -46,8 +51,8 @@ namespace ReminderXamarin.ViewModels
         public DateTime BirthDayDate { get; set; }
         public string GiftDescription { get; set; }
 
-        public ICommand SaveBirthdayCommand { get; set; }
-        public ICommand DeleteBirthdayCommand { get; set; }
+        public ICommand SaveBirthdayCommand { get; }
+        public ICommand DeleteBirthdayCommand { get; }
 
         private async Task SaveBirthday()
         {

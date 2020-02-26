@@ -22,7 +22,10 @@ namespace ReminderXamarin.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ViewModel.OnAppearing();
+            if (BindingContext is ToDoTabbedViewModel viewModel)
+            {
+                viewModel.OnAppearing();
+            }
         }
 
         private async void Delete_OnClicked(object sender, EventArgs e)
@@ -34,7 +37,10 @@ namespace ReminderXamarin.Views
                 var menuItem = sender as MenuItem;
                 var toDoViewModel = menuItem?.CommandParameter as ToDoViewModel;
                 toDoViewModel?.DeleteItemCommand.Execute(toDoViewModel);
-                ViewModel.OnAppearing();
+                if (BindingContext is ToDoTabbedViewModel viewModel)
+                {
+                    viewModel.OnAppearing();
+                }
             }
         }
 

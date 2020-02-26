@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
 
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
@@ -11,7 +12,8 @@ namespace ReminderXamarin.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        public LoginViewModel()
+        public LoginViewModel(INavigationService navigationService)
+            : base(navigationService)
         {
             SignInCommand = new Command(async() => await SignIn());
             SwitchPasswordVisibilityCommand = new Command(SwitchPasswordVisibility);

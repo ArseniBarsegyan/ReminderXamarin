@@ -2,16 +2,21 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 using ReminderXamarin.Extensions;
-using Rm.Helpers;
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
+
+using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
     public class BirthdaysViewModel : BaseViewModel
     {
-        public BirthdaysViewModel()
+        public BirthdaysViewModel(INavigationService navigationService)
+            : base(navigationService)
         {
             BirthdayViewModels = new ObservableCollection<BirthdayViewModel>();
             RefreshListCommand = new Command(Refresh);
@@ -21,9 +26,9 @@ namespace ReminderXamarin.ViewModels
         public bool IsRefreshing { get; set; }
         public ObservableCollection<BirthdayViewModel> BirthdayViewModels { get; set; }
 
-        public ICommand NavigateToEditBirthdayCommand { get; set; }
+        public ICommand NavigateToEditBirthdayCommand { get; }
 
-        public ICommand RefreshListCommand { get; set; }
+        public ICommand RefreshListCommand { get; }
 
         public void OnAppearing()
         {
@@ -42,7 +47,7 @@ namespace ReminderXamarin.ViewModels
             BirthdayViewModels = App.BirthdaysRepository.Value
                 .GetAll()
                 .Where(x => x.UserId == Settings.CurrentUserId)
-                .ToFriendViewModels()
+                .ToFriendViewModels(NavigationService)
                 .OrderByDescending(x => x.BirthDayDate)
                 .ToObservableCollection();
         }

@@ -1,15 +1,19 @@
 ﻿using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
+
 using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
     public class GalleryItemViewModel : BaseViewModel
     {
-        public GalleryItemViewModel()
+        public GalleryItemViewModel(INavigationService navigationService)
+            : base(navigationService)
         {
             DeleteCommand = new Command(async() => await Delete());
             NavigateBackCommand = new Command(async () => await NavigateBack());
@@ -24,8 +28,8 @@ namespace ReminderXamarin.ViewModels
 
         public int NoteId { get; set; }
 
-        public ICommand DeleteCommand { get; set; }
-        public ICommand NavigateBackCommand { get; set; }
+        public ICommand DeleteCommand { get; }
+        public ICommand NavigateBackCommand { get; }
 
         private async Task Delete()
         {

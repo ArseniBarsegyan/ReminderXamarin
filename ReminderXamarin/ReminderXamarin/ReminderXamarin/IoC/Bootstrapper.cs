@@ -2,6 +2,7 @@
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.Utilities;
+using ReminderXamarin.ViewModels;
 
 namespace ReminderXamarin.IoC
 {

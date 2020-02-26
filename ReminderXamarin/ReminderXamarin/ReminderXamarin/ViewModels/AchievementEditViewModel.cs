@@ -5,28 +5,38 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 using Acr.UserDialogs;
-using ReminderXamarin.DependencyResolver;
+
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
+
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
     public class AchievementEditViewModel : BaseViewModel
     {
-        private static readonly IFileSystem FileService = ComponentFactory.Resolve<IFileSystem>();
-        private static readonly IMediaService MediaService = ComponentFactory.Resolve<IMediaService>();
+        private readonly IFileSystem _fileService;
+        private readonly IMediaService _mediaService;
 
         private int _achievementId;
         private AchievementModel _achievement;
 
-        public AchievementEditViewModel()
+        public AchievementEditViewModel(INavigationService navigationService,
+            IFileSystem fileService,
+            IMediaService mediaService)
+            : base(navigationService)
         {
+            _fileService = fileService;
+            _mediaService = mediaService;
+
             ImageContent = new byte[0];
             AchievementStepViewModels = new ObservableCollection<AchievementStepViewModel>();
 
@@ -72,8 +82,8 @@ namespace ReminderXamarin.ViewModels
                 try
                 {
                     ViewModelChanged = true;
-                    var imageContent = FileService.ReadAllBytes(document.Path);
-                    var resizedImage = MediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
+                    var imageContent = _fileService.ReadAllBytes(document.Path);
+                    var resizedImage = _mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
                         ConstantsHelper.ResizedImageHeight);
 
                     ImageContent = resizedImage;
@@ -106,7 +116,7 @@ namespace ReminderXamarin.ViewModels
                 Title = _achievement.Title;
                 Description = _achievement.GeneralDescription;
                 ImageContent = _achievement.ImageContent;
-                AchievementStepViewModels = _achievement.AchievementSteps.ToViewModels();
+                AchievementStepViewModels = _achievement.AchievementSteps.ToViewModels(NavigationService, _fileService, _mediaService);
             }
             return base.InitializeAsync(navigationData);
         }

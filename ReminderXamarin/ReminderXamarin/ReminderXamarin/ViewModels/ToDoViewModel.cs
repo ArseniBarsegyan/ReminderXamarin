@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 using ReminderXamarin.Enums;
-using ReminderXamarin.ViewModels.Base;
 using ReminderXamarin.Extensions;
+using ReminderXamarin.Services.Navigation;
+using ReminderXamarin.ViewModels.Base;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
     public class ToDoViewModel : BaseViewModel
     {
-        public ToDoViewModel()
+        public ToDoViewModel(INavigationService navigationService)
+            : base(navigationService)
         {
             CreateToDoCommand = new Command(async () => await CreateToDo());
             UpdateItemCommand = new Command(async () => await UpdateItem());
@@ -27,9 +31,9 @@ namespace ReminderXamarin.ViewModels
         public string Description { get; set; }
         public DateTime WhenHappens { get; set; }
 
-        public ICommand CreateToDoCommand { get; set; }
-        public ICommand UpdateItemCommand { get; set; }
-        public ICommand DeleteItemCommand { get; set; }
+        public ICommand CreateToDoCommand { get; }
+        public ICommand UpdateItemCommand { get; }
+        public ICommand DeleteItemCommand { get; }
 
         private async Task CreateToDo()
         {

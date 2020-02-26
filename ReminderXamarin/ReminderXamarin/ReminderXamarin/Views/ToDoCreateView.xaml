@@ -8,10 +8,6 @@
              x:Class="ReminderXamarin.Views.ToDoCreateView"
              Title="{extensions:Translate CreateToDo}"
              BackgroundColor="White">
-    <ContentPage.BindingContext>
-        <viewModels:ToDoViewModel x:Name="ViewModel" />
-    </ContentPage.BindingContext>
-
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                         AbsoluteLayout.LayoutFlags="All">

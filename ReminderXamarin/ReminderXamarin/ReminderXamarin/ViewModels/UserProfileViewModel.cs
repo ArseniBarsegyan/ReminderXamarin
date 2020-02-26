@@ -4,9 +4,9 @@ using System.Windows.Input;
 
 using Acr.UserDialogs;
 
-using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
+using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Data.Data.Entities;
@@ -18,11 +18,17 @@ namespace ReminderXamarin.ViewModels
 {
     public class UserProfileViewModel : BaseViewModel
     {
-        private static readonly IFileSystem FileService = ComponentFactory.Resolve<IFileSystem>();
-        private static readonly IMediaService MediaService = ComponentFactory.Resolve<IMediaService>();
+        private readonly IFileSystem _fileService;
+        private readonly IMediaService _mediaService;
 
-        public UserProfileViewModel()
+        public UserProfileViewModel(INavigationService navigationService,
+            IFileSystem fileService,
+            IMediaService mediaService)
+            : base(navigationService)
         {
+            _fileService = fileService;
+            _mediaService = mediaService;
+
             ImageContent = new byte[0];
 
             ChangeUserProfileCommand = new Command<PlatformDocument>(ChangeUserProfile);
@@ -62,8 +68,8 @@ namespace ReminderXamarin.ViewModels
                 try
                 {
                     ViewModelChanged = true;
-                    var imageContent = FileService.ReadAllBytes(document.Path);
-                    var resizedImage = MediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
+                    var imageContent = _fileService.ReadAllBytes(document.Path);
+                    var resizedImage = _mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
                         ConstantsHelper.ResizedImageHeight);
 
                     ImageContent = resizedImage;
