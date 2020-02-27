@@ -30,7 +30,7 @@
                                BorderColor="{DynamicResource NoteViewCellBorder}"
                                Margin="0,5">
                             <StackLayout>
-                                <Image Source="{Binding GalleryItemsViewModels,
+                                <Image Source="{Binding GalleryItems,
                                                 Converter={StaticResource NullElementToImageSourceConverter}}"
                                        Aspect="AspectFill"
                                        HorizontalOptions="FillAndExpand"

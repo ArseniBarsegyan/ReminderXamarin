@@ -12,7 +12,7 @@ using ReminderXamarin.Extensions;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
-
+using Rm.Data.Data.Entities;
 using Rm.Helpers;
 
 using Xamarin.Essentials;
@@ -25,16 +25,16 @@ namespace ReminderXamarin.ViewModels
         private readonly IUploadService _uploadService;
         private readonly int _notesPerLoad = 10;
         private int _currentSkipCounter = 10;
-        private List<NoteViewModel> _allNotes;
+        private List<Note> _allNotes;
         private bool _isInitialized;
         private bool _isNavigatedToEditView;        
 
-        public NotesViewModel(INavigationService navigationService, 
+        public NotesViewModel(INavigationService navigationService,
             IUploadService uploadService)
             : base(navigationService)
         {
             _uploadService = uploadService;
-            Notes = new ObservableCollection<NoteViewModel>();
+            Notes = new ObservableCollection<Note>();
 
             SearchText = string.Empty;
 
@@ -48,7 +48,7 @@ namespace ReminderXamarin.ViewModels
 
         public string SearchText { get; set; }
         public bool IsRefreshing { get; set; }
-        public ObservableCollection<NoteViewModel> Notes { get; set; }
+        public ObservableCollection<Note> Notes { get; set; }
         
         public ICommand UploadNotesToApiCommand { get; }
         public ICommand DeleteNoteCommand { get; }
@@ -108,8 +108,7 @@ namespace ReminderXamarin.ViewModels
             {
                 var ctx = new CancellationToken();
 
-                var result = await _uploadService.UploadAll(_allNotes.ToNoteModels(), ctx)
-                .ConfigureAwait(false);
+                var result = await _uploadService.UploadAll(_allNotes, ctx).ConfigureAwait(false);
 
                 if (result == HttpResult.Ok)
                 {
@@ -144,15 +143,14 @@ namespace ReminderXamarin.ViewModels
             var recentNote = App.NoteRepository.Value
                 .GetAll()
                 .OrderByDescending(x => x.CreationDate)
-                .FirstOrDefault(x => x.UserId == Settings.CurrentUserId)
-                .ToViewModel(NavigationService);
+                .FirstOrDefault(x => x.UserId == Settings.CurrentUserId);
             _allNotes.Insert(0, recentNote);
             Notes.Insert(0, recentNote);
         }
 
         private void EditExistingViewModel(int id)
         {
-            var newNote = App.NoteRepository.Value.GetNoteAsync(id).ToViewModel(NavigationService);
+            var newNote = App.NoteRepository.Value.GetNoteAsync(id);
 
             var oldNote = _allNotes.FirstOrDefault(x => x.Id == id);
             var oldNoteIndex = _allNotes.IndexOf(oldNote);
@@ -187,7 +185,7 @@ namespace ReminderXamarin.ViewModels
             else
             {
                 Notes = _allNotes
-                    .Where(x => x.FullDescription.Contains(SearchText))
+                    .Where(x => x.Description.Contains(SearchText))
                     .ToObservableCollection();
             }
         }
@@ -198,13 +196,13 @@ namespace ReminderXamarin.ViewModels
             _allNotes = App.NoteRepository.Value
                 .GetAll()
                 .Where(x => x.UserId == Settings.CurrentUserId)
-                .ToNoteViewModels(NavigationService)
                 .OrderByDescending(x => x.CreationDate)
                 .ToList();
 
             if (_allNotes.Count > _notesPerLoad)
             {
-                Notes = _allNotes.Take(_notesPerLoad).ToObservableCollection();
+                Notes = _allNotes.Take(_notesPerLoad)
+                    .ToObservableCollection();
             }
             else
             {
@@ -213,7 +211,7 @@ namespace ReminderXamarin.ViewModels
 
             if (SearchText != null)
             {
-                Notes = Notes.Where(x => x.FullDescription.Contains(SearchText))
+                Notes = Notes.Where(x => x.Description.Contains(SearchText))
                     .ToObservableCollection();
             }
         }
@@ -222,7 +220,7 @@ namespace ReminderXamarin.ViewModels
         {
             try
             {
-                List<NoteViewModel> notesToAdd;
+                List<Note> notesToAdd;
                 var remainingCount = _allNotes.Count - _allNotes.Skip(_currentSkipCounter).Count();
                 if (remainingCount > _notesPerLoad)
                 {
@@ -238,7 +236,7 @@ namespace ReminderXamarin.ViewModels
                         notesToAdd = _allNotes
                             .Skip(_currentSkipCounter)
                             .Take(_notesPerLoad)
-                            .Where(x => x.FullDescription.Contains(SearchText))
+                            .Where(x => x.Description.Contains(SearchText))
                             .ToList();
                     }
                 }
@@ -256,7 +254,7 @@ namespace ReminderXamarin.ViewModels
                         notesToAdd = _allNotes
                             .Skip(_currentSkipCounter)
                             .Take(remainingCount)
-                            .Where(x => x.FullDescription.Contains(SearchText))
+                            .Where(x => x.Description.Contains(SearchText))
                             .ToList();
                     }
                 }

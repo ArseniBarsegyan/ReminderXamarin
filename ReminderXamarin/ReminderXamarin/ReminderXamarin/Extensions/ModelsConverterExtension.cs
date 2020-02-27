@@ -42,32 +42,6 @@ namespace ReminderXamarin.Extensions
             return model;
         }
 
-        public static Note ToModel(this NoteViewModel viewModel)
-        {
-            return new Note
-            {
-                Id = viewModel.Id,
-                Description = viewModel.Description,
-                CreationDate = viewModel.CreationDate,
-                EditDate = viewModel.EditDate,
-                UserId = Settings.CurrentUserId,
-                GalleryItems = viewModel.GalleryItemsViewModels.ToModels()
-            };
-        }
-
-        public static NoteViewModel ToViewModel(this Note model, INavigationService navigationService)
-        {
-            return new NoteViewModel(navigationService)
-            {
-                Id = model.Id,
-                CreationDate = model.CreationDate,
-                EditDate = model.EditDate,
-                Description = model.Description,
-                FullDescription = model.EditDate.ToString("dd.MM.yy") + " " + model.Description,
-                GalleryItemsViewModels = model.GalleryItems.ToViewModels(navigationService)
-            };
-        }
-
         public static ObservableCollection<GalleryItemViewModel> ToViewModels(this IEnumerable<GalleryItemModel> models,
             INavigationService navigationService)
         {
@@ -75,18 +49,6 @@ namespace ReminderXamarin.Extensions
         }
 
         public static List<GalleryItemModel> ToModels(this IEnumerable<GalleryItemViewModel> viewModels)
-        {
-            return viewModels.Select(vm => vm.ToModel()).ToList();
-        }
-
-        public static ObservableCollection<NoteViewModel> ToNoteViewModels(this IEnumerable<Note> models, 
-            INavigationService navigationService)
-        {
-            return models.Select(model => model.ToViewModel(navigationService))
-                .ToObservableCollection();
-        }
-
-        public static List<Note> ToNoteModels(this IEnumerable<NoteViewModel> viewModels)
         {
             return viewModels.Select(vm => vm.ToModel()).ToList();
         }

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using ReminderXamarin.ViewModels;
+using Rm.Data.Data.Entities;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Views
@@ -36,13 +37,13 @@ namespace ReminderXamarin.Views
 
         private void NotesList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var noteViewModel = e.SelectedItem as NoteViewModel;
+            var noteModel = e.SelectedItem as Note;
             NotesList.SelectedItem = null;
-            if (noteViewModel != null)
+            if (noteModel != null)
             {
                 if (BindingContext is NotesViewModel viewModel)
                 {
-                    viewModel.NavigateToEditViewCommand.Execute(noteViewModel.Id);
+                    viewModel.NavigateToEditViewCommand.Execute(noteModel.Id);
                 }
             }
         }
@@ -51,7 +52,7 @@ namespace ReminderXamarin.Views
         {
             if (BindingContext is NotesViewModel viewModel)
             {
-                if ((NoteViewModel)e.Item == viewModel.Notes.ElementAt(viewModel.Notes.Count - 1))
+                if ((Note)e.Item == viewModel.Notes.ElementAt(viewModel.Notes.Count - 1))
                 {
                     viewModel.LoadMoreNotesCommand.Execute(null);
                 }

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Name="NoteEditPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
@@ -64,7 +65,8 @@
                                        AbsoluteLayout.LayoutFlags="All">
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                              Command="{Binding BindingContext.SelectImageCommand}"
+                                                              Command="{Binding Source={x:Reference NoteEditPage},
+                                                                                Path=BindingContext.SelectImageCommand}"
                                                               CommandParameter="{Binding .}" />
                                     </Image.GestureRecognizers>
                                 </Image>
@@ -78,7 +80,8 @@
                                        AbsoluteLayout.LayoutFlags="All">
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                              Command="{Binding BindingContext.SelectImageCommand}"
+                                                              Command="{Binding Source={x:Reference NoteEditPage},
+                                                                                Path=BindingContext.SelectImageCommand}"
                                                               CommandParameter="{Binding .}" />
                                     </Image.GestureRecognizers>
                                 </Image>

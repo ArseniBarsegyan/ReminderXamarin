@@ -1,5 +1,7 @@
 ﻿using ReminderXamarin.Extensions;
-using ReminderXamarin.ViewModels;
+
+using Rm.Data.Data.Entities;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Helpers
@@ -11,9 +13,9 @@ namespace ReminderXamarin.Helpers
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            if (item is NoteViewModel viewModel)
+            if (item is Note model)
             {
-                if (!viewModel.GalleryItemsViewModels.IsNullOrEmpty())
+                if (!model.GalleryItems.IsNullOrEmpty())
                 {
                     return ImageCellTemplate;
                 }
