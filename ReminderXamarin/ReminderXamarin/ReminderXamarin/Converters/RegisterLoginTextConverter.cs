@@ -2,8 +2,11 @@
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
+
 using ReminderXamarin.Extensions;
+
 using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Converters

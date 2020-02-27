@@ -4,7 +4,11 @@ namespace ReminderXamarin.Elements
 {
     public class FloatingActionButton : Button
     {
-        public static BindableProperty ButtonColorProperty = BindableProperty.Create(nameof(ButtonColor), typeof(Color), typeof(FloatingActionButton), Color.Accent);
+        public static BindableProperty ButtonColorProperty = 
+            BindableProperty.Create(nameof(ButtonColor),
+                typeof(Color),
+                typeof(FloatingActionButton),
+                Color.Accent);
 
         public Color ButtonColor
         {

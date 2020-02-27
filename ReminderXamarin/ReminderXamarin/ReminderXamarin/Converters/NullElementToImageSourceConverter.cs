@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+
 using ReminderXamarin.Extensions;
 using ReminderXamarin.ViewModels;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Converters

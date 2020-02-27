@@ -2,14 +2,14 @@
 
 namespace ReminderXamarin.Elements
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Entry with colored border.
-    /// </summary>
     public class EntryWithBorder : Entry
     {
         public static readonly BindableProperty BorderColorProperty =
-            BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(ContentViewWithBorder), Color.DodgerBlue, BindingMode.Default);
+            BindableProperty.Create(nameof(BorderColor), 
+                typeof(Color),
+                typeof(ContentViewWithBorder), 
+                Color.DodgerBlue, 
+                BindingMode.Default);
 
         public Color BorderColor
         {

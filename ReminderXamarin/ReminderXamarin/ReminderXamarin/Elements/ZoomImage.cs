@@ -1,12 +1,9 @@
 ﻿using System;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Elements
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Image with ability to zoom and pan.
-    /// </summary>
     public class ZoomImage : Image
     {
         private const double MinScale = 1;
@@ -51,7 +48,7 @@ namespace ReminderXamarin.Elements
             }
             else
             {
-                AnchorX = AnchorY = 0.5; //TODO tapped position
+                AnchorX = AnchorY = 0.5;
                 this.ScaleTo(MaxScale, 250, Easing.CubicInOut);
             }
         }

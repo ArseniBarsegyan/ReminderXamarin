@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
+
 using ReminderXamarin.ViewModels;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Converters
