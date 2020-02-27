@@ -72,7 +72,7 @@ namespace ReminderXamarin.ViewModels
         public void OnDisappearing()
         {
             MessagingCenter.Unsubscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted);
-            MessagingCenter.Send(this, ConstantsHelper.NoteEditPageDissapeared);
+            MessagingCenter.Send(this, ConstantsHelper.NoteEditPageDisappeared);
         }
 
         public override Task InitializeAsync(object navigationData)

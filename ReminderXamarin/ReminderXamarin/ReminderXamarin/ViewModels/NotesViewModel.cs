@@ -75,7 +75,7 @@ namespace ReminderXamarin.ViewModels
                 {
                     EditExistingViewModel(id);
                 });
-                MessagingCenter.Subscribe<NoteEditViewModel>(this, ConstantsHelper.NoteEditPageDissapeared, (vm) =>
+                MessagingCenter.Subscribe<NoteEditViewModel>(this, ConstantsHelper.NoteEditPageDisappeared, (vm) =>
                 {
                     _isNavigatedToEditView = false;
                 });
@@ -90,7 +90,7 @@ namespace ReminderXamarin.ViewModels
                 MessagingCenter.Unsubscribe<NoteEditViewModel, int>(this, ConstantsHelper.NoteDeleted);
                 MessagingCenter.Unsubscribe<NoteEditViewModel, int>(this, ConstantsHelper.NoteCreated);
                 MessagingCenter.Unsubscribe<NoteEditViewModel, int>(this, ConstantsHelper.NoteEdited);
-                MessagingCenter.Unsubscribe<NoteEditViewModel, int>(this, ConstantsHelper.NoteEditPageDissapeared);
+                MessagingCenter.Unsubscribe<NoteEditViewModel, int>(this, ConstantsHelper.NoteEditPageDisappeared);
             }
         }
 
@@ -122,6 +122,10 @@ namespace ReminderXamarin.ViewModels
             catch (HttpRequestException)
             {
                 await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("It seems like server is offline. Please, try again later.");
+            }
+            catch (Exception)
+            {
+                await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Oops. It seems like server is down.");
             }
         }
 
