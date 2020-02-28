@@ -24,8 +24,10 @@
     <Color x:Key="NoteOptionsMenuBackground">#323232</Color>
     <Color x:Key="NoteViewCellBorder">LightGray</Color>
     <Color x:Key="PinViewLabelText">#ffffff</Color>
-    <Color x:Key="PinViewButtonText">#ffffff</Color>
-    <Color x:Key="PinViewButtonBorder">#ffffff</Color>
+    <Color x:Key="PinViewButtonText">#333333</Color>
+    <Color x:Key="PinViewBackground">#E1E1E1</Color>
+    <Color x:Key="PinButtonBackground">#FFFFFF</Color>
+    <Color x:Key="PinViewButtonBorder">#FFFFFF</Color>
     <Color x:Key="PickUserButtonBackground">LightGray</Color>
     <Color x:Key="RefreshControl">#3072B0</Color>
     <Color x:Key="SearchBarBackground">#ffffff</Color>
