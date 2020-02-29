@@ -57,12 +57,8 @@ namespace ReminderXamarin.Views
         {
             if (sender is Button button)
             {
-                await button.ScaleTo(1.1f);
-                //await button.ColorTo(Color.Transparent, Color.White, c => button.BackgroundColor = c, 15);
-                //await button.ColorTo(Color.White, Color.FromHex("#323232"), c => button.TextColor = c, 15);
-                //await button.ColorTo(Color.White, Color.Transparent, c => button.BackgroundColor = c, 15);
-                //await button.ColorTo(Color.FromHex("#323232"), Color.White, c => button.TextColor = c, 15);
-                await button.ScaleTo(1f);
+                await button.ScaleTo(1.15f, 150, Easing.Linear);
+                await button.ScaleTo(1f, 150, Easing.Linear);
             }
         }
     }

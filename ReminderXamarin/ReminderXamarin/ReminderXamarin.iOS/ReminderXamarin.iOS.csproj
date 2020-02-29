@@ -484,4 +484,22 @@
   <ItemGroup>
     <BundleResource Include="Resources\upload_light%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\erase_dark%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\erase_dark%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\erase_dark%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\erase_light%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\erase_light%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\erase_light%403x.png" />
+  </ItemGroup>
 </Project>

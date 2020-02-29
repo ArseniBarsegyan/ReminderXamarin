@@ -52,6 +52,8 @@
         public const string PageCloseMessage = "Are you sure you want to close this page?";
         public const string ProfileUpdated = nameof(ProfileUpdated);
         public const string ProfileIcon = "https://lightwidget.com/widgets/empty-photo.jpg";
+        public const string PinButtonDarkDeleteImageSource = "erase_light.png";
+        public const string PinButtonDeleteImageSource = "erase_dark.png";
         public const string Register = nameof(Register);
         public const string Settings = nameof(Settings);
         public const string SettingsIcon = "settings.png";

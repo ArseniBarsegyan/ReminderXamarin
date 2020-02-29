@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 using ReminderXamarin.Services.Navigation;
+using ReminderXamarin.Utilities;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
@@ -15,31 +16,47 @@ namespace ReminderXamarin.ViewModels
     {
         private static int _currentCount;
         private readonly StringBuilder _pinBuilder;
+        private readonly ThemeSwitcher _themeSwitcher;
 
-        public PinViewModel(INavigationService navigationService)
+        public PinViewModel(INavigationService navigationService,
+            ThemeSwitcher themeSwitcher)
             : base(navigationService)
         {
-            FirstNumberImageSource = new Image { Source = ConstantsHelper.EmptyDotImage };
-            SecondNumberImageSource = new Image { Source = ConstantsHelper.EmptyDotImage };
-            ThirdNumberImageSource = new Image { Source = ConstantsHelper.EmptyDotImage };
-            FourthNumberImageSource = new Image { Source = ConstantsHelper.EmptyDotImage };
-
             DeleteNumberCommand = new Command(DeletePinNumber);
             PinCommand = new Command<string>(async pin => await CheckPin(pin));
             LoginCommand = new Command(async task => await Login());
-            _pinBuilder = new StringBuilder();
+
+            _pinBuilder = new StringBuilder();           
+
+            _themeSwitcher = themeSwitcher;
+            InitializeImagesForButtons();
         }
 
-        public Image FirstNumberImageSource { get; }
-        public Image SecondNumberImageSource { get; }
-        public Image ThirdNumberImageSource { get; }
-        public Image FourthNumberImageSource { get; }
+        public Image FirstNumberImageSource { get; private set; }
+        public Image SecondNumberImageSource { get; private set; }
+        public Image ThirdNumberImageSource { get; private set; }
+        public Image FourthNumberImageSource { get; private set; }
+        public ImageSource DeleteButtonImageSource { get; private set; }
 
         public int Pin { get; set; }
 
         public ICommand DeleteNumberCommand { get; }
         public ICommand PinCommand { get; }
         public ICommand LoginCommand { get; }
+
+        private void InitializeImagesForButtons()
+        {
+            FirstNumberImageSource = new Image { Source = ConstantsHelper.EmptyDotImage };
+            SecondNumberImageSource = new Image { Source = ConstantsHelper.EmptyDotImage };
+            ThirdNumberImageSource = new Image { Source = ConstantsHelper.EmptyDotImage };
+            FourthNumberImageSource = new Image { Source = ConstantsHelper.EmptyDotImage };
+
+            var currentTheme = _themeSwitcher.GetThemeType();
+
+            DeleteButtonImageSource = currentTheme == ThemeTypes.Dark ?
+                ConstantsHelper.PinButtonDarkDeleteImageSource :
+                ConstantsHelper.PinButtonDeleteImageSource;
+        }
 
         private async Task CheckPin(string text)
         {
