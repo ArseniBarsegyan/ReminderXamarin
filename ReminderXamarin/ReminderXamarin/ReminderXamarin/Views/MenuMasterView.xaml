@@ -85,7 +85,8 @@
                             <TapGestureRecognizer Command="{Binding LogoutCommand}" 
                                                   NumberOfTapsRequired="1" />
                         </StackLayout.GestureRecognizers>
-                        <Image Source="logout.png" 
+                        <Image x:Name="LogoutImage" 
+                               Source="{Binding LogoutImageSource}" 
                                HeightRequest="50" 
                                HorizontalOptions="Start" />
                         <Label Text="{extensions:Translate Logout}" 

@@ -1,7 +1,12 @@
-﻿using System.Collections.Generic;
-using Rm.Data.Data.Entities;
+﻿using Rm.Data.Data.Entities;
+
 using SQLite;
+
 using SQLiteNetExtensions.Extensions;
+
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Rm.Data.Data.Repositories
 {
@@ -16,30 +21,16 @@ namespace Rm.Data.Data.Repositories
             _db.CreateTable<GalleryItemModel>();
         }
 
-        /// <summary>
-        /// Get all notes from database.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Note> GetAll(int amount = 0)
+        public IEnumerable<Note> GetAll(Expression<Func<Note, bool>> filter = null)
         {
-            return _db.GetAllWithChildren<Note>();
+            return _db.GetAllWithChildren<Note>(filter);
         }
 
-        /// <summary>
-        /// Get note from database by id.
-        /// </summary>
-        /// <param name="id">Id of the note</param>
-        /// <returns></returns>
         public Note GetNoteAsync(int id)
         {
             return _db.GetWithChildren<Note>(id);
         }
 
-        /// <summary>
-        /// Create (if id = 0) or update note in database.
-        /// </summary>
-        /// <param name="note">Note to be saved</param>
-        /// <returns></returns>
         public void Save(Note note)
         {
             if (note.Id != 0)
@@ -52,11 +43,6 @@ namespace Rm.Data.Data.Repositories
             }
         }
 
-        /// <summary>
-        /// Delete note from database.
-        /// </summary>
-        /// <param name="note">Note to be deleted</param>
-        /// <returns></returns>
         public int DeleteNote(Note note)
         {
             return _db.Delete(note);

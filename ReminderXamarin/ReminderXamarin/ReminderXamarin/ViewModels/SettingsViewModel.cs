@@ -47,7 +47,7 @@ namespace ReminderXamarin.ViewModels
                 {
                     _isDarkTheme = value;
                     _themeSwitcher.SwitchTheme(value ? ThemeTypes.Dark : ThemeTypes.Light);
-                    OnPropertyChanged();
+                    OnPropertyChanged();                    
                 }
             }
         }

@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
-using Rm.Helpers;
+﻿using Rm.Helpers;
+
 using SQLite;
+
 using SQLiteNetExtensions.Attributes;
+
+using System.Collections.Generic;
 
 namespace Rm.Data.Data.Entities
 {

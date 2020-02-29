@@ -11,7 +11,7 @@
     <Color x:Key="BirthdayEditViewBackground">#FFFFFF</Color>
     <Color x:Key="BirthdaysViewBackground">#FFFFFF</Color>
     <Color x:Key="ColorTextCommon">#323232</Color>
-    <Color x:Key="CancelButtonBackground">#FFFFFF</Color>
+    <Color x:Key="CancelButtonBackground">#FAFAFA</Color>
     <Color x:Key="ErrorTextCommon">#FF5252</Color>
     <Color x:Key="LoginViewBackground">#FAFAFA</Color>
     <Color x:Key="LoginButtonText">#FFFFFF</Color>
@@ -35,6 +35,7 @@
     <Color x:Key="SettingsViewBackground">#FFFFFF</Color>
     <Color x:Key="ToDoActiveViewBackground">#FFFFFF</Color>
     <Color x:Key="ToDoListViewItemBorder">DarkGray</Color>
+    <Color x:Key="ToggleVisibilityButtonBackground">#FAFAFA</Color>
     <Color x:Key="UserProfileViewBackground">#FFFFFF</Color>    
     <Color x:Key="SubmitButtonBackground">#3072B0</Color>
 </ResourceDictionary>

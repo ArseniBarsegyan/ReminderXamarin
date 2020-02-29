@@ -56,6 +56,7 @@ namespace ReminderXamarin.Utilities
                         }
                 }
                 CurrentThemeType = themeType;
+                MessagingCenter.Send(this, ConstantsHelper.AppThemeChanged);
             }
         }
 

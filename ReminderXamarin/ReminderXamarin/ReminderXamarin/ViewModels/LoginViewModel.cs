@@ -2,6 +2,7 @@
 using System.Windows.Input;
 
 using ReminderXamarin.Services.Navigation;
+using ReminderXamarin.Utilities;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
@@ -12,15 +13,24 @@ namespace ReminderXamarin.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        public LoginViewModel(INavigationService navigationService)
+        private readonly ThemeSwitcher _themeSwitcher;
+
+        public LoginViewModel(INavigationService navigationService,
+            ThemeSwitcher themeSwitcher)
             : base(navigationService)
         {
+            _themeSwitcher = themeSwitcher;
+            TogglePasswordImageSource = _themeSwitcher.CurrentThemeType == ThemeTypes.Dark
+                        ? ConstantsHelper.TogglePasswordImage
+                        : ConstantsHelper.TogglePasswordDarkImage;
+
             SignInCommand = new Command(async() => await SignIn());
             SwitchPasswordVisibilityCommand = new Command(SwitchPasswordVisibility);
             ToggleRegisterOrLoginViewCommand = new Command(async() => await ToggleRegisterOrLoginView());
             SwitchPasswordConfirmVisibilityCommand = new Command(SwitchConfirmPasswordVisibility);
         }
 
+        public ImageSource TogglePasswordImageSource { get; set; }
         public bool IsRegister { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }

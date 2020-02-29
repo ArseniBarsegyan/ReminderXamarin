@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using ReminderXamarin.Views;
 using ReminderXamarin.Resx;
+using ReminderXamarin.Utilities;
 
 namespace Rm.Helpers
 {
-    /// <summary>
-    /// Helper class. Provide list of MasterPageItem for MenuView.
-    /// </summary>
     public static class MenuHelper
     {
-        public static List<MasterPageItem> GetMenu()
+        public static List<MasterPageItem> GetMenu(ThemeTypes themeType)
         {
             var masterPageItems = new List<MasterPageItem>
             {
                 new MasterPageItem
                 {
                     Title = AppResources.Notes,
-                    IconSource = ConstantsHelper.NotesListIcon,
+                    IconSource = themeType == ThemeTypes.Dark
+                        ? ConstantsHelper.NotesListIcon
+                        : ConstantsHelper.NotesListDarkIcon,
                     TargetType = typeof(NotesView),
                     IsDisplayed = true,
                     Index = MenuViewIndex.NotesView
@@ -25,7 +25,9 @@ namespace Rm.Helpers
                 new MasterPageItem
                 {
                     Title = AppResources.ToDoSection,
-                    IconSource = ConstantsHelper.ToDoListIcon,
+                    IconSource = themeType == ThemeTypes.Dark
+                        ? ConstantsHelper.ToDoListIcon
+                        : ConstantsHelper.ToDoListDarkIcon,
                     TargetType = typeof(ToDoTabbedView),
                     IsDisplayed = true,
                     Index = MenuViewIndex.ToDoPage
@@ -33,7 +35,9 @@ namespace Rm.Helpers
                 new MasterPageItem
                 {
                     Title = AppResources.Birthdays,
-                    IconSource = ConstantsHelper.BirthdaysIcon,
+                    IconSource = themeType == ThemeTypes.Dark
+                        ? ConstantsHelper.BirthdaysIcon
+                        : ConstantsHelper.BirthdaysDarkIcon,
                     TargetType = typeof(BirthdaysView),
                     IsDisplayed = true,
                     Index = MenuViewIndex.BirthdaysView
@@ -41,7 +45,9 @@ namespace Rm.Helpers
                 new MasterPageItem
                 {
                     Title = AppResources.Achievements,
-                    IconSource = ConstantsHelper.AchievementsIcon,
+                    IconSource = themeType == ThemeTypes.Dark
+                        ? ConstantsHelper.AchievementIcon
+                        : ConstantsHelper.AchievementDarkIcon,
                     TargetType = typeof(AchievementsView),
                     IsDisplayed = true,
                     Index = MenuViewIndex.AchievementsView
@@ -49,7 +55,9 @@ namespace Rm.Helpers
                 new MasterPageItem
                 {
                     Title = AppResources.Settings,
-                    IconSource = ConstantsHelper.SettingsIcon,
+                    IconSource = themeType == ThemeTypes.Dark
+                        ? ConstantsHelper.SettingsIcon
+                        : ConstantsHelper.SettingsDarkIcon,
                     TargetType = typeof(SettingsView),
                     IsDisplayed = true,
                     Index = MenuViewIndex.SettingsView
@@ -61,26 +69,10 @@ namespace Rm.Helpers
 
     public class MasterPageItem
     {
-        /// <summary>
-        /// Title that will be displayed in side menu.
-        /// </summary>
         public string Title { get; set; }
-        /// <summary>
-        /// Icon source that will be displayed in side menu.
-        /// </summary>
         public string IconSource { get; set; }
-        /// <summary>
-        /// Page on which user will be redirected.
-        /// </summary>
         public Type TargetType { get; set; }
-        /// <summary>
-        /// Show this item in side menu or not.
-        /// </summary>
         public bool IsDisplayed { get; set; }
-
-        /// <summary>
-        /// Display item index.
-        /// </summary>
         public MenuViewIndex Index { get; set; }
     }
 

@@ -1,6 +1,9 @@
 ﻿using Rm.Helpers;
+
 using SQLite;
+
 using SQLiteNetExtensions.Attributes;
+
 using System;
 
 namespace Rm.Data.Data.Entities

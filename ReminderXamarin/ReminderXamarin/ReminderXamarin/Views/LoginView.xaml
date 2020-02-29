@@ -96,7 +96,7 @@
                                Focused="Entry_OnFocused"
                                Unfocused="Entry_OnUnfocused"
                                IsPassword="{Binding ShowPassword, 
-                                                        Converter={StaticResource InverseBooleanConverter}}" 
+                                                    Converter={StaticResource InverseBooleanConverter}}" 
                                Style="{StaticResource LoginEntryStyle}">
                             <Entry.Behaviors>
                                 <behaviors:EventToCommandBehavior EventName="Completed" 
@@ -105,15 +105,13 @@
                         </Entry>
 
                         <!-- Hide or show password -->
-                        <Image x:Name="TogglePasswordVisibilityButton"
-                                   AbsoluteLayout.LayoutBounds="0.9,0.5,20,20"
-                                   AbsoluteLayout.LayoutFlags="PositionProportional"
-                                   Source="eye.png">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SwitchPasswordVisibilityCommand}"
-                                                      NumberOfTapsRequired="1" />
-                            </Image.GestureRecognizers>
-                        </Image>
+                        <ImageButton x:Name="TogglePasswordVisibilityButton"
+                                     AbsoluteLayout.LayoutBounds="0.9,0,36,36"
+                                     AbsoluteLayout.LayoutFlags="PositionProportional"
+                                     CornerRadius="18"
+                                     BackgroundColor="{DynamicResource ToggleVisibilityButtonBackground}"
+                                     Source="{Binding TogglePasswordImageSource}"
+                                     Command="{Binding SwitchPasswordVisibilityCommand}" />
                     </AbsoluteLayout>
                 </StackLayout>
 
@@ -138,15 +136,13 @@
                                Style="{StaticResource LoginEntryStyle}" />
 
                         <!-- Hide or show password -->
-                        <Image x:Name="ToggleConfirmPassword"
-                               AbsoluteLayout.LayoutBounds="0.9,0.5,20,20"
-                               AbsoluteLayout.LayoutFlags="PositionProportional"
-                               Source="eye.png">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SwitchPasswordConfirmVisibilityCommand}"
-                                                      NumberOfTapsRequired="1" />
-                            </Image.GestureRecognizers>
-                        </Image>
+                        <ImageButton x:Name="ToggleConfirmPassword"
+                                     AbsoluteLayout.LayoutBounds="0.9,0,36,36"
+                                     AbsoluteLayout.LayoutFlags="PositionProportional"
+                                     CornerRadius="18"
+                                     BackgroundColor="{DynamicResource ToggleVisibilityButtonBackground}"
+                                     Source="{Binding TogglePasswordImageSource}"
+                                     Command="{Binding SwitchPasswordConfirmVisibilityCommand}" />                        
                     </AbsoluteLayout>
                 </StackLayout>
             </StackLayout>
@@ -159,17 +155,20 @@
                         Command="{Binding SignInCommand}"
                         VerticalOptions="EndAndExpand"
                         Style="{StaticResource LoginButtonStyle}"
-                        Text="{Binding IsRegister, Converter={StaticResource RegisterLoginTextConverter}}" />
+                        Text="{Binding IsRegister, 
+                                       Converter={StaticResource RegisterLoginTextConverter}}" />
                 <Label x:Name="QuestionLabel"
                        TextColor="{DynamicResource ColorTextCommon}"
                        HorizontalOptions="Center"
-                       Text="{Binding IsRegister, Converter={StaticResource AccountQuestionConverter}}" />
+                       Text="{Binding IsRegister, 
+                                      Converter={StaticResource AccountQuestionConverter}}" />
                 <Button x:Name="ToggleRegisterOrLoginButton"
                         Command="{Binding ToggleRegisterOrLoginViewCommand}"
                         VerticalOptions="EndAndExpand"
                         Style="{StaticResource CancelButtonStyle}"
                         Clicked="ToggleRegisterOrLoginButton_OnClicked"
-                        Text="{Binding IsRegister, Converter={StaticResource InverseRegisterLoginTextConverter}}" />
+                        Text="{Binding IsRegister, 
+                                       Converter={StaticResource InverseRegisterLoginTextConverter}}" />
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>

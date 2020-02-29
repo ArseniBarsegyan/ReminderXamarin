@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Rm.Data.Data.Entities;
+﻿using Rm.Data.Data.Entities;
+
 using SQLite;
+
 using SQLiteNetExtensions.Extensions;
+
+using System;
+using System.Collections.Generic;
 
 namespace Rm.Data.Data.Repositories
 {
@@ -20,30 +23,16 @@ namespace Rm.Data.Data.Repositories
             _db.CreateTable<ToDoModel>();
         }
 
-        /// <summary>
-        /// Get all users from database.
-        /// </summary>
-        /// <returns></returns>
         public IEnumerable<UserModel> GetAll()
         {
             return _db.GetAllWithChildren<UserModel>();
         }
 
-        /// <summary>
-        /// Get user from database by id.
-        /// </summary>
-        /// <param name="id">Id of the user</param>
-        /// <returns></returns>
         public UserModel GetUserAsync(string id)
         {
             return _db.GetWithChildren<UserModel>(id);
         }
 
-        /// <summary>
-        /// Create (if id = 0) or update note in database.
-        /// </summary>
-        /// <param name="user">User to be saved</param>
-        /// <returns></returns>
         public void Save(UserModel user)
         {
             if (!string.IsNullOrEmpty(user.Id))
@@ -60,11 +49,6 @@ namespace Rm.Data.Data.Repositories
             }
         }
 
-        /// <summary>
-        /// Delete user from database.
-        /// </summary>
-        /// <param name="user">User to be deleted</param>
-        /// <returns></returns>
         public int DeleteUser(UserModel user)
         {
             return _db.Delete(user);

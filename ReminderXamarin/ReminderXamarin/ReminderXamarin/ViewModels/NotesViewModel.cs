@@ -145,9 +145,9 @@ namespace ReminderXamarin.ViewModels
         private void AddNewNoteToList()
         {
             var recentNote = App.NoteRepository.Value
-                .GetAll()
+                .GetAll(x => x.UserId == Settings.CurrentUserId)
                 .OrderByDescending(x => x.CreationDate)
-                .FirstOrDefault(x => x.UserId == Settings.CurrentUserId);
+                .FirstOrDefault();
             _allNotes.Insert(0, recentNote);
             Notes.Insert(0, recentNote);
         }
@@ -198,8 +198,7 @@ namespace ReminderXamarin.ViewModels
         {
             _currentSkipCounter = 10;
             _allNotes = App.NoteRepository.Value
-                .GetAll()
-                .Where(x => x.UserId == Settings.CurrentUserId)
+                .GetAll(x => x.UserId == Settings.CurrentUserId)
                 .OrderByDescending(x => x.CreationDate)
                 .ToList();
 
