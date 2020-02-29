@@ -1,26 +1,30 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
+﻿using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
 
-using Xamarin.Forms;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ReminderXamarin.ViewModels
 {
     public class BirthdaysViewModel : BaseViewModel
     {
-        public BirthdaysViewModel(INavigationService navigationService)
+        private ICommandResolver _commandResolver;
+
+        public BirthdaysViewModel(INavigationService navigationService,
+            ICommandResolver commandResolver)
             : base(navigationService)
         {
+            _commandResolver = commandResolver;
+
             BirthdayViewModels = new ObservableCollection<BirthdayViewModel>();
-            RefreshListCommand = new Command(Refresh);
-            NavigateToEditBirthdayCommand = new Command<int>(async id => await NavigateToEditView(id));
+            RefreshListCommand = commandResolver.Command(Refresh);
+            NavigateToEditBirthdayCommand = commandResolver.AsyncCommand<int>(NavigateToEditView);
         }
 
         public bool IsRefreshing { get; set; }
@@ -45,9 +49,8 @@ namespace ReminderXamarin.ViewModels
         private void LoadFriendsFromDatabase()
         {
             BirthdayViewModels = App.BirthdaysRepository.Value
-                .GetAll()
-                .Where(x => x.UserId == Settings.CurrentUserId)
-                .ToFriendViewModels(NavigationService)
+                .GetAll(x => x.UserId == Settings.CurrentUserId)
+                .ToFriendViewModels(NavigationService, _commandResolver)
                 .OrderByDescending(x => x.BirthDayDate)
                 .ToObservableCollection();
         }

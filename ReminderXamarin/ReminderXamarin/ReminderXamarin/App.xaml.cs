@@ -22,6 +22,7 @@ namespace ReminderXamarin
     public partial class App : Application
     {
         private ThemeSwitcher _themeSwitchService;
+        private IThemeService _themeService;
         private INavigationService _navigationService;
 
         public static IMultiMediaPickerService MultiMediaPickerService;
@@ -35,6 +36,7 @@ namespace ReminderXamarin
 
             _navigationService = ComponentFactory.Resolve<INavigationService>();
             _themeSwitchService = ComponentFactory.Resolve<ThemeSwitcher>();
+            _themeService = ComponentFactory.Resolve<IThemeService>();
 
             var dbPath = ComponentFactory.Resolve<IFileHelper>().GetLocalFilePath(ConstantsHelper.SqLiteDataBaseName);
 
@@ -81,6 +83,7 @@ namespace ReminderXamarin
         private void InitNavigation(bool shouldUsePin)
         {
             _themeSwitchService.InitializeTheme();
+            _themeService.SetStatusBarColor((Color)Current.Resources["StatusBarColor"]);
 
             if (shouldUsePin)
             {

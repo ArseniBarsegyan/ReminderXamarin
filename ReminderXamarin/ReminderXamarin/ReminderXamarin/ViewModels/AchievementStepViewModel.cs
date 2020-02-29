@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using Acr.UserDialogs;
 
-using Acr.UserDialogs;
-
+using ReminderXamarin.Core.Interfaces.Commanding;
+using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.Services.Navigation;
@@ -14,6 +9,12 @@ using ReminderXamarin.ViewModels.Base;
 
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
@@ -30,21 +31,22 @@ namespace ReminderXamarin.ViewModels
         public AchievementStepViewModel(
             INavigationService navigationService,
             IFileSystem fileService,
-            IMediaService mediaService)
+            IMediaService mediaService,
+            ICommandResolver commandResolver)
             : base(navigationService)
         {
             _fileService = fileService;
             _mediaService = mediaService;
 
             ImageContent = new byte[0];
-            SaveAchievementStepCommand = new Command(async() => await Save());
-            ChangeImageCommand = new Command<PlatformDocument>(async document => await ChangeImage(document));
-            ChangeProgressCommand = new Command<string>(async amount => await ChangeProgress(amount));
+            SaveAchievementStepCommand = commandResolver.AsyncCommand(Save);
+            ChangeImageCommand = commandResolver.AsyncCommand<PlatformDocument>(ChangeImage);
+            ChangeProgressCommand = commandResolver.AsyncCommand<string>(ChangeProgress);
         }
 
-        public ICommand SaveAchievementStepCommand { get; }
-        public ICommand ChangeImageCommand { get; }
-        public ICommand ChangeProgressCommand { get; }
+        public IAsyncCommand SaveAchievementStepCommand { get; }
+        public IAsyncCommand<PlatformDocument> ChangeImageCommand { get; }
+        public IAsyncCommand<string> ChangeProgressCommand { get; }
 
         public IList<string> AvailableStepTypes =>
             Enum.GetNames(typeof(AchievementStepType)).Select(x => x.ToString()).ToList();

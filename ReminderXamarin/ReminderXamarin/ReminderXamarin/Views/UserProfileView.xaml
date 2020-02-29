@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
@@ -11,48 +10,31 @@
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Content>
         <!-- Header with user name and photo -->
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,0.5"
                         AbsoluteLayout.LayoutFlags="All">
-            <elements:BlurredImage x:Name="BackgroundImage"
-                                   Aspect="AspectFill"
-                                   AbsoluteLayout.LayoutBounds="0,0,1,100"
-                                   AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
-                <elements:BlurredImage.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="BackgroundImage_OnTapped" />
-                </elements:BlurredImage.GestureRecognizers>
-            </elements:BlurredImage>
+            <Image Source="{Binding UserProfileImageSource}"
+                   Aspect="AspectFill"
+                   AbsoluteLayout.LayoutBounds="0,0,1,0.5"
+                   AbsoluteLayout.LayoutFlags="All" />
 
-            <abstractions:CircleImage x:Name="UserProfileImage"
-                                      Aspect="AspectFill"
-                                      HorizontalOptions="Center"
-                                      VerticalOptions="Start"
-                                      HeightRequest="120"
-                                      WidthRequest="120"
-                                      AbsoluteLayout.LayoutBounds="0.5,40,120,120"
-                                      AbsoluteLayout.LayoutFlags="XProportional"
-                                      Source="{Binding ImageContent, 
-                                                       Converter={StaticResource EmptyByteToImageSourceConverter}}"
-                                      Style="{StaticResource UserImageStyle}">
-                <abstractions:CircleImage.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="UserProfileImage_OnTapped"
-                                          NumberOfTapsRequired="1" />
-                </abstractions:CircleImage.GestureRecognizers>
-            </abstractions:CircleImage>
+            <Label Text="{Binding UserName}"
+                   AbsoluteLayout.LayoutBounds="20,0.45,1,50"
+                   AbsoluteLayout.LayoutFlags="YProportional, WidthProportional" 
+                   TextColor="White"
+                   FontSize="Title" />
+
+            <StackLayout x:Name="UserInfoLayout"
+                         AbsoluteLayout.LayoutBounds="0.5,1,1,0.5"
+                         AbsoluteLayout.LayoutFlags="All">
+                
+            </StackLayout>
 
             <elements:FloatingActionButton x:Name="PickUserPhotoImage"
                                            Clicked="PickUserPhotoImage_OnClicked"
                                            Image="edit.png"
                                            ButtonColor="{DynamicResource PickUserButtonBackground}"
-                                           AbsoluteLayout.LayoutBounds="0.6,120,50,50"
-                                           AbsoluteLayout.LayoutFlags="XProportional" />
-
-            <StackLayout x:Name="UserInfoLayout"
-                         AbsoluteLayout.LayoutBounds="0.5,180,1,1"
-                         AbsoluteLayout.LayoutFlags="XProportional, SizeProportional">
-                <Label Text="{Binding UserName}"
-                       FontSize="Medium"
-                       HorizontalOptions="Center" />
-            </StackLayout>
+                                           AbsoluteLayout.LayoutBounds="0.9,0.5,60,60"
+                                           AbsoluteLayout.LayoutFlags="PositionProportional" />
 
             <elements:FloatingActionButton  x:Name="UpdateUserButton"
                                             AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"

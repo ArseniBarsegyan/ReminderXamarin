@@ -1,14 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
+﻿using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
 
-using Xamarin.Forms;
+using System;
+using System.Threading.Tasks;
 
 namespace ReminderXamarin.ViewModels
 {
@@ -16,14 +14,15 @@ namespace ReminderXamarin.ViewModels
     {
         private BirthdayModel _birthdayModel;
 
-        public BirthdayEditViewModel(INavigationService navigationService)
+        public BirthdayEditViewModel(INavigationService navigationService,
+            ICommandResolver commandResolver)
             : base(navigationService)
         {
             ImageContent = new byte[0];
             Name = "New birthday";
             BirthDayDate = new DateTime();
-            SaveBirthdayCommand = new Command(async () => await SaveBirthday());
-            DeleteBirthdayCommand = new Command(async () => await DeleteBirthday());
+            SaveBirthdayCommand = commandResolver.AsyncCommand(SaveBirthday);
+            DeleteBirthdayCommand = commandResolver.AsyncCommand(DeleteBirthday);
         }
 
         public override Task InitializeAsync(object navigationData)
@@ -51,8 +50,8 @@ namespace ReminderXamarin.ViewModels
         public DateTime BirthDayDate { get; set; }
         public string GiftDescription { get; set; }
 
-        public ICommand SaveBirthdayCommand { get; }
-        public ICommand DeleteBirthdayCommand { get; }
+        public IAsyncCommand SaveBirthdayCommand { get; }
+        public IAsyncCommand DeleteBirthdayCommand { get; }
 
         private async Task SaveBirthday()
         {

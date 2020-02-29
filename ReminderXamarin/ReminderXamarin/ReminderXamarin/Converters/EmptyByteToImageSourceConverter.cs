@@ -20,8 +20,8 @@ namespace ReminderXamarin.Converters
             {
                 byte[] imageAsBytes = (byte[])value;
 
-                retSource = imageAsBytes.Length == 0 ? 
-                    ConstantsHelper.ProfileIcon
+                retSource = imageAsBytes.Length == 0 ?
+                    "profile_icon.png"
                     : ImageSource.FromStream(() => new MemoryStream(imageAsBytes));
             }
             return retSource;

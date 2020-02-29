@@ -1,5 +1,7 @@
-﻿using Rm.Helpers;
-using ReminderXamarin.ViewModels;
+﻿using ReminderXamarin.ViewModels;
+
+using Rm.Helpers;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,14 +13,13 @@ namespace ReminderXamarin.Views
         public MenuMasterView()
         {
             InitializeComponent();
-            HeaderBackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.SideMenuBackground);
         }
 
         private void MenuList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem is MasterPageItem item)
             {
-                if (this.BindingContext is MenuMasterViewModel viewModel)
+                if (BindingContext is MenuMasterViewModel viewModel)
                 {
                     MessagingCenter.Send(viewModel, ConstantsHelper.DetailPageChanged, item.Index);
                 }

@@ -16,7 +16,7 @@ namespace Rm.Helpers
                 {
                     Title = AppResources.Notes,
                     IconSource = themeType == ThemeTypes.Dark
-                        ? ConstantsHelper.NotesListIcon
+                        ? ConstantsHelper.NotesListLightIcon
                         : ConstantsHelper.NotesListDarkIcon,
                     TargetType = typeof(NotesView),
                     IsDisplayed = true,
@@ -26,7 +26,7 @@ namespace Rm.Helpers
                 {
                     Title = AppResources.ToDoSection,
                     IconSource = themeType == ThemeTypes.Dark
-                        ? ConstantsHelper.ToDoListIcon
+                        ? ConstantsHelper.ToDoListLightIcon
                         : ConstantsHelper.ToDoListDarkIcon,
                     TargetType = typeof(ToDoTabbedView),
                     IsDisplayed = true,
@@ -56,7 +56,7 @@ namespace Rm.Helpers
                 {
                     Title = AppResources.Settings,
                     IconSource = themeType == ThemeTypes.Dark
-                        ? ConstantsHelper.SettingsIcon
+                        ? ConstantsHelper.SettingsLightIcon
                         : ConstantsHelper.SettingsDarkIcon,
                     TargetType = typeof(SettingsView),
                     IsDisplayed = true,

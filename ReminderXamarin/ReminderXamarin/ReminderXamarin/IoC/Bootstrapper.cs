@@ -1,8 +1,9 @@
-﻿using ReminderXamarin.DependencyResolver;
+﻿using ReminderXamarin.Commanding;
+using ReminderXamarin.Core.Interfaces.Commanding;
+using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.Utilities;
-using ReminderXamarin.ViewModels;
 
 namespace ReminderXamarin.IoC
 {
@@ -18,6 +19,10 @@ namespace ReminderXamarin.IoC
             ComponentRegistry.Register<INavigationService, NavigationService>();
             ComponentRegistry.Register<IUploadService, UploadService>();
             ComponentRegistry.Register<ThemeSwitcher>();
+
+            ComponentRegistry.Register<IAsyncCommand, AsyncCommand>();
+            ComponentRegistry.Register<ICommandExecutionLock, CommandExecutionLock>();
+            ComponentRegistry.Register<ICommandResolver, CommandResolver>();
         }
     }
 }

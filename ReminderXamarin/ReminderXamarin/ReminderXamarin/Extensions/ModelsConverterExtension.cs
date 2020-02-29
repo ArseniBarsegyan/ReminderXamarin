@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-
+﻿using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Enums;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.Navigation;
@@ -10,13 +7,19 @@ using ReminderXamarin.ViewModels;
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
 
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+
 namespace ReminderXamarin.Extensions
 {
     public static class ModelsConverterExtension
     {
-        public static GalleryItemViewModel ToViewModel(this GalleryItemModel model, INavigationService navigationService)
+        public static GalleryItemViewModel ToViewModel(this GalleryItemModel model, 
+            INavigationService navigationService,
+            ICommandResolver commandResolver)
         {
-            var viewModel = new GalleryItemViewModel(navigationService)
+            var viewModel = new GalleryItemViewModel(navigationService, commandResolver)
             {
                 Id = model.Id,
                 ImagePath = model.ImagePath,
@@ -43,9 +46,11 @@ namespace ReminderXamarin.Extensions
         }
 
         public static ObservableCollection<GalleryItemViewModel> ToViewModels(this IEnumerable<GalleryItemModel> models,
-            INavigationService navigationService)
+            INavigationService navigationService,
+            ICommandResolver commandResolver)
         {
-            return models.Select(model => model.ToViewModel(navigationService)).ToObservableCollection();
+            return models.Select(model => model.ToViewModel(navigationService, commandResolver))
+                .ToObservableCollection();
         }
 
         public static List<GalleryItemModel> ToModels(this IEnumerable<GalleryItemViewModel> viewModels)
@@ -65,9 +70,11 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static ToDoViewModel ToToDoViewModel(this ToDoModel model, INavigationService navigationService)
+        public static ToDoViewModel ToToDoViewModel(this ToDoModel model, 
+            INavigationService navigationService,
+            ICommandResolver commandResolver)
         {
-            var viewModel = new ToDoViewModel(navigationService)
+            var viewModel = new ToDoViewModel(navigationService, commandResolver)
             {
                 Id = model.Id,
                 WhenHappens = model.WhenHappens,
@@ -89,13 +96,15 @@ namespace ReminderXamarin.Extensions
             return viewModel;
         }
 
-        public static ObservableCollection<ToDoViewModel> ToToDoViewModels(this IEnumerable<ToDoModel> models, INavigationService navigationService)
+        public static ObservableCollection<ToDoViewModel> ToToDoViewModels(this IEnumerable<ToDoModel> models, 
+            INavigationService navigationService,
+            ICommandResolver commandResolver)
         {
             var viewModels = new ObservableCollection<ToDoViewModel>();
 
             foreach (var model in models)
             {
-                var viewModel = new ToDoViewModel(navigationService)
+                var viewModel = new ToDoViewModel(navigationService, commandResolver)
                 {
                     Id = model.Id,
                     WhenHappens = model.WhenHappens,
@@ -131,9 +140,11 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static BirthdayViewModel ToBirthdayViewModel(this BirthdayModel model, INavigationService navigationService)
+        public static BirthdayViewModel ToBirthdayViewModel(this BirthdayModel model, 
+            INavigationService navigationService,
+            ICommandResolver commandResolver)
         {
-            return new BirthdayViewModel(navigationService)
+            return new BirthdayViewModel(navigationService, commandResolver)
             {
                 Id = model.Id,
                 Name = model.Name,
@@ -143,9 +154,13 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static ObservableCollection<BirthdayViewModel> ToFriendViewModels(this IEnumerable<BirthdayModel> models, INavigationService navigationService)
+        public static ObservableCollection<BirthdayViewModel> ToFriendViewModels(this IEnumerable<BirthdayModel> models, 
+            INavigationService navigationService,
+            ICommandResolver commandResolver)
         {
-            return models.Select(model => model.ToBirthdayViewModel(navigationService)).ToObservableCollection();
+            return models.Select(model => model.ToBirthdayViewModel(navigationService,
+                commandResolver))
+                .ToObservableCollection();
         }
 
         public static AchievementStep ToModel(this AchievementStepViewModel viewModel)
@@ -165,9 +180,13 @@ namespace ReminderXamarin.Extensions
         public static AchievementStepViewModel ToViewModel(this AchievementStep model,
             INavigationService navigationService,
             IFileSystem fileService,
-            IMediaService mediaService)
+            IMediaService mediaService,
+            ICommandResolver commandResolver)
         {
-            return new AchievementStepViewModel(navigationService, fileService, mediaService)
+            return new AchievementStepViewModel(navigationService, 
+                fileService, 
+                mediaService, 
+                commandResolver)
             {
                 Id = model.Id,
                 AchievementId = model.AchievementId,
@@ -183,9 +202,13 @@ namespace ReminderXamarin.Extensions
             this IEnumerable<AchievementStep> models, 
             INavigationService navigationService,
             IFileSystem fileService,
-            IMediaService mediaService)
+            IMediaService mediaService,
+            ICommandResolver commandResolver)
         {
-            return models.Select(model => model.ToViewModel(navigationService, fileService, mediaService))
+            return models.Select(model => model.ToViewModel(navigationService, 
+                fileService, 
+                mediaService,
+                commandResolver))
                 .ToObservableCollection();
         }
 

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using Acr.UserDialogs;
 
-using Acr.UserDialogs;
-
+using ReminderXamarin.Core.Interfaces.Commanding;
+using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
 using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
@@ -17,6 +11,14 @@ using ReminderXamarin.ViewModels.Base;
 
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
+
+using System;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 using Xamarin.Forms;
 
@@ -28,6 +30,7 @@ namespace ReminderXamarin.ViewModels
         private readonly IFileSystem _fileService;
         private readonly IMediaService _mediaService;
         private readonly IVideoService _videoService;
+        private readonly ICommandResolver _commandResolver;
 
         // TODO: register as dependency
         private readonly MediaHelper _mediaHelper;
@@ -40,29 +43,46 @@ namespace ReminderXamarin.ViewModels
             IPermissionService permissionService,
             IFileSystem fileService,
             IMediaService mediaService,
-            IVideoService videoService)
+            IVideoService videoService,
+            ICommandResolver commandResolver)
             : base(navigationService)
         {
             _permissionService = permissionService;
             _fileService = fileService;
             _mediaService = mediaService;
             _videoService = videoService;
+            _commandResolver = commandResolver;
 
             _mediaHelper = new MediaHelper();
             _transformHelper = new TransformHelper();
             
             GalleryItemsViewModels = new ObservableCollection<GalleryItemViewModel>();
             
-            TakePhotoCommand = new Command(async () => await TakePhoto());
-            DeletePhotoCommand = new Command<GalleryItemViewModel>(DeletePhoto);
-            TakeVideoCommand = new Command(async () => await TakeVideo());
-            PickMultipleMediaCommand = new Command(async () => await PickMultipleMedia());
-            SaveNoteCommand = new Command(async() => await SaveNote());
-            DeleteNoteCommand = new Command(async () => await DeleteNote());
-            SelectImageCommand = new Command<GalleryItemViewModel>(async viewModel =>
-                await SelectImage(viewModel));
+            TakePhotoCommand = commandResolver.AsyncCommand(TakePhoto);
+            DeletePhotoCommand = commandResolver.Command<GalleryItemViewModel>(DeletePhoto);
+            TakeVideoCommand = commandResolver.AsyncCommand(TakeVideo);
+            PickMultipleMediaCommand = commandResolver.AsyncCommand(PickMultipleMedia);
+            SaveNoteCommand = commandResolver.AsyncCommand(SaveNote);
+            DeleteNoteCommand = commandResolver.AsyncCommand(DeleteNote);
+            SelectImageCommand = commandResolver.AsyncCommand<GalleryItemViewModel>(SelectImage);
         }
-        
+
+        public bool IsEditMode { get; set; }
+        public string Title { get; set; }
+        public bool IsLoading { get; set; }
+        public string Description { get; set; }
+        public ObservableCollection<GalleryItemViewModel> GalleryItemsViewModels { get; set; }
+
+        public IAsyncCommand TakePhotoCommand { get; }
+        public ICommand DeletePhotoCommand { get; }        
+        public IAsyncCommand TakeVideoCommand { get; }
+        public IAsyncCommand PickMultipleMediaCommand { get; }
+        public IAsyncCommand SaveNoteCommand { get; }
+        public IAsyncCommand DeleteNoteCommand { get; }
+        public IAsyncCommand<GalleryItemViewModel> SelectImageCommand { get; }
+
+        public event EventHandler PhotosCollectionChanged;
+
         public void OnAppearing()
         {
             MessagingCenter.Subscribe<GalleryItemViewModel>(this, 
@@ -89,27 +109,11 @@ namespace ReminderXamarin.ViewModels
                 _note = App.NoteRepository.Value.GetNoteAsync(_noteId);
                 Title = _note.EditDate.ToString("d");
                 Description = _note.Description;
-                GalleryItemsViewModels = _note.GalleryItems.ToViewModels(NavigationService);
+                GalleryItemsViewModels = _note.GalleryItems.ToViewModels(NavigationService, _commandResolver);
                 PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
             }
             return base.InitializeAsync(navigationData);
-        }
-
-        public bool IsEditMode { get; set; }
-        public string Title { get; set; }
-        public bool IsLoading { get; set; }
-        public string Description { get; set; }
-        public ObservableCollection<GalleryItemViewModel> GalleryItemsViewModels { get; set; }
-        
-        public ICommand DeletePhotoCommand { get; }
-        public ICommand TakePhotoCommand { get; }
-        public ICommand TakeVideoCommand { get; }
-        public ICommand PickMultipleMediaCommand { get; }
-        public ICommand SaveNoteCommand { get; }
-        public ICommand DeleteNoteCommand { get; }
-        public ICommand SelectImageCommand { get; }
-
-        public event EventHandler PhotosCollectionChanged;
+        }        
 
         private async Task PickMultipleMedia()
         {
@@ -136,7 +140,7 @@ namespace ReminderXamarin.ViewModels
 
                     await _transformHelper.ResizeAsync(imagePath, galleryItemModel);
 
-                    GalleryItemsViewModels.Add(galleryItemModel.ToViewModel(NavigationService));
+                    GalleryItemsViewModels.Add(galleryItemModel.ToViewModel(NavigationService, _commandResolver));
                     PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
                 });
             };
@@ -185,7 +189,7 @@ namespace ReminderXamarin.ViewModels
                     var photoModel = await _mediaHelper.TakePhotoAsync();
                     if (photoModel != null)
                     {
-                        GalleryItemsViewModels.Add(photoModel.ToViewModel(NavigationService));
+                        GalleryItemsViewModels.Add(photoModel.ToViewModel(NavigationService, _commandResolver));
                         PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
                     }
                 }
@@ -234,7 +238,7 @@ namespace ReminderXamarin.ViewModels
 
                         await _transformHelper.ResizeAsync(imagePath, videoModel);
 
-                        GalleryItemsViewModels.Add(videoModel.ToViewModel(NavigationService));
+                        GalleryItemsViewModels.Add(videoModel.ToViewModel(NavigationService, _commandResolver));
                         PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
                     }
                     catch (Exception ex)

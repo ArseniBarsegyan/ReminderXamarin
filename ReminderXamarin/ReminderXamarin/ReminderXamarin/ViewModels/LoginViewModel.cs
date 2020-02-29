@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Input;
-
+﻿using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.Utilities;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
+
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 using Xamarin.Forms;
 
@@ -16,18 +17,19 @@ namespace ReminderXamarin.ViewModels
         private readonly ThemeSwitcher _themeSwitcher;
 
         public LoginViewModel(INavigationService navigationService,
-            ThemeSwitcher themeSwitcher)
+            ThemeSwitcher themeSwitcher,
+            ICommandResolver commandResolver)
             : base(navigationService)
         {
             _themeSwitcher = themeSwitcher;
             TogglePasswordImageSource = _themeSwitcher.CurrentThemeType == ThemeTypes.Dark
-                        ? ConstantsHelper.TogglePasswordImage
+                        ? ConstantsHelper.TogglePasswordLightImage
                         : ConstantsHelper.TogglePasswordDarkImage;
 
-            SignInCommand = new Command(async() => await SignIn());
-            SwitchPasswordVisibilityCommand = new Command(SwitchPasswordVisibility);
-            ToggleRegisterOrLoginViewCommand = new Command(async() => await ToggleRegisterOrLoginView());
-            SwitchPasswordConfirmVisibilityCommand = new Command(SwitchConfirmPasswordVisibility);
+            SignInCommand = commandResolver.AsyncCommand(SignIn);
+            SwitchPasswordVisibilityCommand = commandResolver.Command(SwitchPasswordVisibility);
+            ToggleRegisterOrLoginViewCommand = commandResolver.AsyncCommand(ToggleRegisterOrLoginView);
+            SwitchPasswordConfirmVisibilityCommand = commandResolver.Command(SwitchConfirmPasswordVisibility);
         }
 
         public ImageSource TogglePasswordImageSource { get; set; }
@@ -43,11 +45,10 @@ namespace ReminderXamarin.ViewModels
         // will show error at LoginView.
         public bool IsValid { get; set; } = true;
 
-        public ICommand NavigateToLoginViewCommand { get; }
         public ICommand SwitchPasswordVisibilityCommand { get; }
         public ICommand SwitchPasswordConfirmVisibilityCommand { get; }
-        public ICommand ToggleRegisterOrLoginViewCommand { get; }
-        public ICommand SignInCommand { get; }
+        public IAsyncCommand ToggleRegisterOrLoginViewCommand { get; }
+        public IAsyncCommand SignInCommand { get; }
 
         private async Task SignIn()
         {

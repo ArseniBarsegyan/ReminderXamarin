@@ -33,9 +33,11 @@ namespace ReminderXamarin.Droid
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public event Action<int, Result, Intent> ActivityResult;
+        public static MainActivity Instance { get; private set; }
 
         protected override void OnCreate(Bundle bundle)
         {
+            Instance = this;
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
@@ -93,6 +95,7 @@ namespace ReminderXamarin.Droid
             ComponentRegistry.Register<IMediaService, MediaService>();
             ComponentRegistry.Register<IPermissionService, PermissionService>();
             ComponentRegistry.Register<IVideoService, VideoService>();
+            ComponentRegistry.Register<IThemeService, ThemeService>();
         }
     }
 }

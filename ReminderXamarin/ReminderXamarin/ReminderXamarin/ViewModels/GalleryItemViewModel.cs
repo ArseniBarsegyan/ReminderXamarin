@@ -1,10 +1,12 @@
-﻿using System.Globalization;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
+
+using System.Globalization;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 using Xamarin.Forms;
 
@@ -12,11 +14,12 @@ namespace ReminderXamarin.ViewModels
 {
     public class GalleryItemViewModel : BaseViewModel
     {
-        public GalleryItemViewModel(INavigationService navigationService)
+        public GalleryItemViewModel(INavigationService navigationService,
+            ICommandResolver commandResolver)
             : base(navigationService)
         {
-            DeleteCommand = new Command(async() => await Delete());
-            NavigateBackCommand = new Command(async () => await NavigateBack());
+            DeleteCommand = commandResolver.AsyncCommand(Delete);
+            NavigateBackCommand = commandResolver.AsyncCommand(NavigateBack);
         }
         
         public int Id { get; set; }

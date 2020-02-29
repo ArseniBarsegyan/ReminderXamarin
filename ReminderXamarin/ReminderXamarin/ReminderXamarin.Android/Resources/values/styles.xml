@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
-  <style name="MainTheme" parent="MainTheme.Base">
+  <style name="MainTheme" parent="MainTheme.Base">    
   </style>
 
   <style name="MainTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
     <item name="windowNoTitle">true</item>
     <item name="windowActionBar">false</item>
     <!-- Action bar and tabbed page color -->
-    <item name="colorPrimary">#323232</item>
+    <item name="colorPrimary">#01579b</item>
     <!-- Status bar -->
-    <item name="colorPrimaryDark">#252753</item>
+    <item name="colorPrimaryDark">#002f6c</item>
     <!-- Tint widget -->
-    <item name="colorAccent">#448AFF</item>
+    <item name="colorAccent">#01579b</item>
     <item name="windowActionModeOverlay">true</item>
     <item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
     <item name="android:timePickerDialogTheme">@style/AppCompatDialogStyle</item>

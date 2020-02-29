@@ -1,8 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
+﻿using ReminderXamarin.Core.Interfaces.Commanding;
+using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
 using ReminderXamarin.Enums;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Services.Navigation;
@@ -10,30 +7,35 @@ using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
 
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
     public class ToDoTabbedViewModel : BaseViewModel
     {
-        public ToDoTabbedViewModel(INavigationService navigationService)
+        private readonly ICommandResolver _commandResolver;
+
+        public ToDoTabbedViewModel(INavigationService navigationService,
+            ICommandResolver commandResolver)
             : base(navigationService)
         {
+            _commandResolver = commandResolver;
+
             ActiveModels = new ObservableCollection<ToDoViewModel>();
             CompletedModels = new ObservableCollection<ToDoViewModel>();
 
-            RefreshListCommand = new Command(RefreshCommandExecute);
-            SelectItemCommand = new Command<int>(async id => await SelectItem(id));
+            RefreshListCommand = commandResolver.Command(RefreshCommandExecute);
+            SelectItemCommand = commandResolver.AsyncCommand<int>(SelectItem);
 
             MessagingCenter.Subscribe<App>(this, ConstantsHelper.UpdateUI, _ =>
             {
                 LoadModelsFromDatabase();
             });
-        }
-
-        public void OnAppearing()
-        {
-            LoadModelsFromDatabase();
         }
 
         public bool IsLoading { get; set; }
@@ -44,7 +46,12 @@ namespace ReminderXamarin.ViewModels
 
         public ICommand RefreshListCommand { get; }
         public ICommand ShowDetailsCommand { get; }
-        public ICommand SelectItemCommand { get; }
+        public IAsyncCommand<int> SelectItemCommand { get; }
+
+        public void OnAppearing()
+        {
+            LoadModelsFromDatabase();
+        }        
 
         private void RefreshCommandExecute()
         {
@@ -55,7 +62,8 @@ namespace ReminderXamarin.ViewModels
 
         private async Task<ToDoViewModel> SelectItem(int id)
         {
-            return App.ToDoRepository.Value.GetToDoAsync(id).ToToDoViewModel(NavigationService);
+            return App.ToDoRepository.Value.GetToDoAsync(id)
+                .ToToDoViewModel(NavigationService, _commandResolver);
         }
 
         private void LoadModelsFromDatabase()
@@ -63,7 +71,7 @@ namespace ReminderXamarin.ViewModels
             var allModels = App.ToDoRepository.Value
                 .GetAll()
                 .Where(x => x.UserId == Settings.CurrentUserId)
-                .ToToDoViewModels(NavigationService)
+                .ToToDoViewModels(NavigationService, _commandResolver)
                 .ToList();
 
             ActiveModels = allModels.Where(x => x.Status == ToDoStatus.Active)

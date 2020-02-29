@@ -1,8 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
+﻿using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.Utilities;
@@ -10,6 +6,11 @@ using ReminderXamarin.ViewModels.Base;
 
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
+
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
@@ -21,13 +22,14 @@ namespace ReminderXamarin.ViewModels
         private UserModel _appUser;
 
         public MenuMasterViewModel(INavigationService navigationService,
-            ThemeSwitcher themeSwitcher)
+            ThemeSwitcher themeSwitcher,
+            ICommandResolver commandResolver)
             : base(navigationService)
         {
             _themeSwitcher = themeSwitcher;
 
-            MessagingCenter.Subscribe<UserProfileViewModel>(this, 
-                ConstantsHelper.ProfileUpdated, 
+            MessagingCenter.Subscribe<UserProfileViewModel>(this,
+                ConstantsHelper.ProfileUpdated,
                 vm => ProfileUpdated());
             MessagingCenter.Subscribe<ThemeSwitcher>(this,
                 ConstantsHelper.AppThemeChanged,
@@ -38,12 +40,11 @@ namespace ReminderXamarin.ViewModels
             if (_appUser != null)
             {
                 UserName = _appUser.UserName;
-                ImageContent = _appUser.ImageContent;
                 Settings.CurrentUserId = _appUser.Id;
             }
             DrawMenu();
-            LogoutCommand = new Command(async task => await Logout());
-            NavigateToUserProfileCommand = new Command(async task => await NavigateToUserProfile());
+            LogoutCommand = commandResolver.AsyncCommand(Logout);
+            NavigateToUserProfileCommand = commandResolver.AsyncCommand(NavigateToUserProfile);
         }
 
         private void ProfileUpdated()
@@ -53,16 +54,17 @@ namespace ReminderXamarin.ViewModels
             if (_appUser != null)
             {
                 UserName = _appUser.UserName;
-                ImageContent = _appUser.ImageContent;
             }
+            UpdateProfilePhoto();
         }
 
         public string UserName { get; set; }
-        public byte[] ImageContent { get; set; }
+        public ImageSource UserProfilePhoto { get; set; }
+        public ImageSource HeaderBackgroundImageSource { get; private set; }
         public ImageSource LogoutImageSource { get; private set; }
         public ObservableCollection<MasterPageItem> MasterPageItems { get; set; }
-        public ICommand LogoutCommand { get; }
-        public ICommand NavigateToUserProfileCommand { get; }
+        public IAsyncCommand LogoutCommand { get; }
+        public IAsyncCommand NavigateToUserProfileCommand { get; }
 
         private async Task Logout()
         {
@@ -88,9 +90,29 @@ namespace ReminderXamarin.ViewModels
                 .Where(x => x.IsDisplayed)
                 .ToObservableCollection();
 
+            UpdateProfilePhoto();
+
+            HeaderBackgroundImageSource = _themeSwitcher.CurrentThemeType == ThemeTypes.Dark
+                ? ImageSource.FromResource(ConstantsHelper.SideMenuDarkBackground)
+                : ImageSource.FromResource(ConstantsHelper.SideMenuLightBackground);
+
             LogoutImageSource = _themeSwitcher.CurrentThemeType == ThemeTypes.Dark
-                        ? ConstantsHelper.LogoutImage
+                        ? ConstantsHelper.LogoutLightImage
                         : ConstantsHelper.LogoutDarkImage;
+        }
+
+        private void UpdateProfilePhoto()
+        {
+            if (_appUser.ImageContent == null || _appUser.ImageContent.Length == 0)
+            {
+                UserProfilePhoto = ImageSource.FromResource(
+                    ConstantsHelper.NoPhotoImage);
+            }
+            else
+            {
+                UserProfilePhoto = ImageSource.FromStream(
+                    () => new MemoryStream(_appUser.ImageContent));
+            }
         }
     }
 }

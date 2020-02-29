@@ -4,7 +4,9 @@ using SQLite;
 
 using SQLiteNetExtensions.Extensions;
 
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Rm.Data.Data.Repositories
 {
@@ -19,9 +21,9 @@ namespace Rm.Data.Data.Repositories
             _db.CreateTable<AchievementStep>();
         }
 
-        public IEnumerable<AchievementModel> GetAll()
+        public IEnumerable<AchievementModel> GetAll(Expression<Func<AchievementModel,bool>> filter = null)
         {
-            return _db.GetAllWithChildren<AchievementModel>();
+            return _db.GetAllWithChildren<AchievementModel>(filter);
         }
 
         public AchievementModel GetAchievementAsync(int id)

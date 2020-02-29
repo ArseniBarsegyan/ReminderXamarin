@@ -9,9 +9,9 @@
         <ResourceDictionary>
             <Style x:Key="PinViewButtonStyle" TargetType="Button">
                 <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="WidthRequest" Value="80" />
-                <Setter Property="HeightRequest" Value="80" />
-                <Setter Property="CornerRadius" Value="40" />
+                <Setter Property="WidthRequest" Value="70" />
+                <Setter Property="HeightRequest" Value="70" />
+                <Setter Property="CornerRadius" Value="35" />
                 <Setter Property="BackgroundColor" Value="{DynamicResource PinButtonBackground}" />
                 <Setter Property="FontSize" Value="Title" />
                 <Setter Property="BorderColor" Value="{DynamicResource PinButtonBorder}" />
@@ -39,10 +39,10 @@
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="1.2*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
                 <RowDefinition Height="1.2*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -175,12 +175,12 @@
                          Grid.Column="3"
                          VerticalOptions="Center"
                          HorizontalOptions="Center"
-                         WidthRequest="40"
-                         HeightRequest="40"
-                         CornerRadius="20"
+                         WidthRequest="50"
+                         HeightRequest="50"
+                         CornerRadius="25"
                          Source="{Binding DeleteButtonImageSource}"
                          Pressed="Button_OnPressed"
-                         BackgroundColor="Transparent"
+                         BackgroundColor="{DynamicResource PinButtonBackground}"
                          Command="{Binding DeleteNumberCommand}" />
         </Grid>
     </ContentPage.Content>

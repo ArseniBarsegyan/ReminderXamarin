@@ -149,6 +149,7 @@
     <Compile Include="Services\MediaPicker\MultiMediaPickerService.cs" />
     <Compile Include="Services\MediaService.cs" />
     <Compile Include="Services\PermissionService.cs" />
+    <Compile Include="Services\ThemeService.cs" />
     <Compile Include="Services\VideoService.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
@@ -311,15 +312,6 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\profile_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\profile_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\profile_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\emptyDot.png" />
   </ItemGroup>
   <ItemGroup>
@@ -363,9 +355,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\play.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\user_profile.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\video_dark.png" />

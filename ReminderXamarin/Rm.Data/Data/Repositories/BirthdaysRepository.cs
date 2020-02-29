@@ -4,7 +4,9 @@ using SQLite;
 
 using SQLiteNetExtensions.Extensions;
 
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Rm.Data.Data.Repositories
 {
@@ -18,9 +20,9 @@ namespace Rm.Data.Data.Repositories
             _db.CreateTable<BirthdayModel>();
         }
 
-        public IEnumerable<BirthdayModel> GetAll()
+        public IEnumerable<BirthdayModel> GetAll(Expression<Func<BirthdayModel,bool>> filter = null)
         {
-            return _db.GetAllWithChildren<BirthdayModel>();
+            return _db.GetAllWithChildren<BirthdayModel>(filter);
         }
 
         public BirthdayModel GetBirthdayAsync(int id)

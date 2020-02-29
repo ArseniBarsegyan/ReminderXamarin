@@ -1,9 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using Acr.UserDialogs;
 
-using Acr.UserDialogs;
-
+using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.Services.Navigation;
@@ -11,6 +8,11 @@ using ReminderXamarin.ViewModels.Base;
 
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
+
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 using Xamarin.Forms;
 
@@ -23,7 +25,8 @@ namespace ReminderXamarin.ViewModels
 
         public UserProfileViewModel(INavigationService navigationService,
             IFileSystem fileService,
-            IMediaService mediaService)
+            IMediaService mediaService,
+            ICommandResolver commandResolver)
             : base(navigationService)
         {
             _fileService = fileService;
@@ -31,8 +34,8 @@ namespace ReminderXamarin.ViewModels
 
             ImageContent = new byte[0];
 
-            ChangeUserProfileCommand = new Command<PlatformDocument>(ChangeUserProfile);
-            UpdateUserCommand = new Command(async () => await UpdateUser());
+            ChangeUserProfileCommand = commandResolver.Command<PlatformDocument>(ChangeUserProfile);
+            UpdateUserCommand = commandResolver.AsyncCommand(UpdateUser);
         }
 
         public override Task InitializeAsync(object navigationData)
@@ -46,19 +49,35 @@ namespace ReminderXamarin.ViewModels
                 AchievementsCount = appUser.Achievements.Count;
                 FriendBirthdaysCount = appUser.Birthdays.Count;
             }
+            UpdateProfilePhoto();
             return base.InitializeAsync(navigationData);
         }
 
         public string Id { get; set; }
         public string UserName { get; set; }
         public byte[] ImageContent { get; set; }
+        public ImageSource UserProfileImageSource { get; private set; }
         public int NotesCount { get; set; }
         public int AchievementsCount { get; set; }
         public int FriendBirthdaysCount { get; set; }
         public bool ViewModelChanged { get; set; }
 
         public ICommand ChangeUserProfileCommand { get; }
-        public ICommand UpdateUserCommand { get; }
+        public IAsyncCommand UpdateUserCommand { get; }
+
+        private void UpdateProfilePhoto()
+        {
+            if (ImageContent == null || ImageContent.Length == 0)
+            {
+                UserProfileImageSource = ImageSource.FromResource(
+                    ConstantsHelper.NoPhotoImage);
+            }
+            else
+            {
+                UserProfileImageSource = ImageSource.FromStream(
+                    () => new MemoryStream(ImageContent));
+            }
+        }
         
         private async void ChangeUserProfile(PlatformDocument document)
         {
@@ -73,6 +92,7 @@ namespace ReminderXamarin.ViewModels
                         ConstantsHelper.ResizedImageHeight);
 
                     ImageContent = resizedImage;
+                    UpdateProfilePhoto();
                 }
                 catch (Exception ex)
                 {

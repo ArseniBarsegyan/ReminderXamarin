@@ -1,12 +1,14 @@
-﻿using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
+﻿using ReminderXamarin.Core.Interfaces.Commanding;
+using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.Utilities;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
+
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 using Xamarin.Forms;
 
@@ -19,12 +21,13 @@ namespace ReminderXamarin.ViewModels
         private readonly ThemeSwitcher _themeSwitcher;
 
         public PinViewModel(INavigationService navigationService,
-            ThemeSwitcher themeSwitcher)
+            ThemeSwitcher themeSwitcher,
+            ICommandResolver commandResolver)
             : base(navigationService)
         {
-            DeleteNumberCommand = new Command(DeletePinNumber);
-            PinCommand = new Command<string>(async pin => await CheckPin(pin));
-            LoginCommand = new Command(async task => await Login());
+            DeleteNumberCommand = commandResolver.Command(DeletePinNumber);
+            PinCommand = commandResolver.AsyncCommand<string>(CheckPin);
+            LoginCommand = commandResolver.AsyncCommand(Login);
 
             _pinBuilder = new StringBuilder();           
 
@@ -41,8 +44,8 @@ namespace ReminderXamarin.ViewModels
         public int Pin { get; set; }
 
         public ICommand DeleteNumberCommand { get; }
-        public ICommand PinCommand { get; }
-        public ICommand LoginCommand { get; }
+        public IAsyncCommand<string> PinCommand { get; }
+        public IAsyncCommand LoginCommand { get; }
 
         private void InitializeImagesForButtons()
         {
@@ -55,7 +58,7 @@ namespace ReminderXamarin.ViewModels
 
             DeleteButtonImageSource = currentTheme == ThemeTypes.Dark ?
                 ConstantsHelper.PinButtonDarkDeleteImageSource :
-                ConstantsHelper.PinButtonDeleteImageSource;
+                ConstantsHelper.PinButtonLightDeleteImageSource;
         }
 
         private async Task CheckPin(string text)

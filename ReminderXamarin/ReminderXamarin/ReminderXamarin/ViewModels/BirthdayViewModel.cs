@@ -1,22 +1,22 @@
-﻿using System;
-using System.Windows.Input;
-
+﻿using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
-using Xamarin.Forms;
+using System;
+using System.Windows.Input;
 
 namespace ReminderXamarin.ViewModels
 {
     public class BirthdayViewModel : BaseViewModel
     {
-        public BirthdayViewModel(INavigationService navigationService)
+        public BirthdayViewModel(INavigationService navigationService,
+            ICommandResolver commandResolver)
             : base(navigationService)
         {
-            CreateBirthdayCommand = new Command(CreateBirthday);
-            UpdateBirthdayCommand = new Command(UpdateBirthday);
-            DeleteBirthdayCommand = new Command(DeleteBirthday);
+            CreateBirthdayCommand = commandResolver.Command(CreateBirthday);
+            UpdateBirthdayCommand = commandResolver.Command(UpdateBirthday);
+            DeleteBirthdayCommand = commandResolver.Command(DeleteBirthday);
         }
 
         public int Id { get; set; }

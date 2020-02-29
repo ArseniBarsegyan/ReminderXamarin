@@ -103,6 +103,7 @@
     <Compile Include="Services\MediaPicker\MultiMediaPickerService.cs" />
     <Compile Include="Services\MediaService.cs" />
     <Compile Include="Services\PermissionService.cs" />
+    <Compile Include="Services\ThemeService.cs" />
     <Compile Include="Services\VideoService.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
@@ -363,9 +364,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\play%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\user_profile.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\add_dark%401x.png" />

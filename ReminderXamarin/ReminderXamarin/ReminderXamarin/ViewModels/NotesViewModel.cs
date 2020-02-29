@@ -1,4 +1,14 @@
-﻿using System;
+﻿using ReminderXamarin.Core.Interfaces.Commanding;
+using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
+using ReminderXamarin.Extensions;
+using ReminderXamarin.Services;
+using ReminderXamarin.Services.Navigation;
+using ReminderXamarin.ViewModels.Base;
+
+using Rm.Data.Data.Entities;
+using Rm.Helpers;
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -7,13 +17,6 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
-using ReminderXamarin.Extensions;
-using ReminderXamarin.Services;
-using ReminderXamarin.Services.Navigation;
-using ReminderXamarin.ViewModels.Base;
-using Rm.Data.Data.Entities;
-using Rm.Helpers;
 
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -30,7 +33,8 @@ namespace ReminderXamarin.ViewModels
         private bool _isNavigatedToEditView;        
 
         public NotesViewModel(INavigationService navigationService,
-            IUploadService uploadService)
+            IUploadService uploadService,
+            ICommandResolver commandResolver)
             : base(navigationService)
         {
             _uploadService = uploadService;
@@ -38,24 +42,24 @@ namespace ReminderXamarin.ViewModels
 
             SearchText = string.Empty;
 
-            UploadNotesToApiCommand = new Command(async () => await UploadAllNotes());
-            DeleteNoteCommand = new Command<int>(async id => await DeleteNote(id));
-            RefreshListCommand = new Command(Refresh);
-            SearchCommand = new Command(SearchNotesByDescription);
-            NavigateToEditViewCommand = new Command<int>(async id => await NavigateToEditView(id));
-            LoadMoreNotesCommand = new Command(async () => await LoadMoreNotes());
+            UploadNotesToApiCommand = commandResolver.AsyncCommand(UploadAllNotes);
+            DeleteNoteCommand = commandResolver.AsyncCommand<int>(DeleteNote);
+            RefreshListCommand = commandResolver.Command(Refresh);
+            SearchCommand = commandResolver.Command(SearchNotesByDescription);
+            NavigateToEditViewCommand = commandResolver.AsyncCommand<int>(NavigateToEditView);
+            LoadMoreNotesCommand = commandResolver.AsyncCommand(LoadMoreNotes);
         }
 
         public string SearchText { get; set; }
         public bool IsRefreshing { get; set; }
         public ObservableCollection<Note> Notes { get; set; }
         
-        public ICommand UploadNotesToApiCommand { get; }
-        public ICommand DeleteNoteCommand { get; }
+        public IAsyncCommand UploadNotesToApiCommand { get; }
+        public IAsyncCommand<int> DeleteNoteCommand { get; }
         public ICommand RefreshListCommand { get; }
         public ICommand SearchCommand { get; }
-        public ICommand NavigateToEditViewCommand { get; }
-        public ICommand LoadMoreNotesCommand { get; }
+        public IAsyncCommand<int> NavigateToEditViewCommand { get; }
+        public IAsyncCommand LoadMoreNotesCommand { get; }
 
         public void OnAppearing()
         {

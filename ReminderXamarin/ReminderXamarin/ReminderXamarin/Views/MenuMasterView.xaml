@@ -22,37 +22,33 @@
                       VerticalOptions="FillAndExpand"
                       ItemSelected="MenuList_OnItemSelected">
                 <ListView.Header>
-                    <!-- User photo and name on top of list view -->
                     <AbsoluteLayout>
-                        <Image x:Name="HeaderBackgroundImage"
-                               Aspect="AspectFill"
-                               AbsoluteLayout.LayoutBounds="0,0,1,160"
+                        <Image Aspect="AspectFill"
+                               Source="{Binding HeaderBackgroundImageSource}"
+                               AbsoluteLayout.LayoutBounds="0,0,1,150"
                                AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" />
 
                         <StackLayout x:Name="UserProfileLink"
-                                     HeightRequest="160"
+                                     HeightRequest="150"
+                                     Orientation="Horizontal"
                                      AbsoluteLayout.LayoutBounds="0,0,1,1"
                                      AbsoluteLayout.LayoutFlags="All"
-                                     Spacing="10"
-                                     Padding="10">
+                                     Spacing="20"
+                                     Padding="20,5">
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding NavigateToUserProfileCommand}"
                                                       NumberOfTapsRequired="1" />
                             </StackLayout.GestureRecognizers>
-                            <abstractions:CircleImage x:Name="UserProfilePhoto"
-                                                      WidthRequest="100"
-                                                      HorizontalOptions="Center"
+                            <abstractions:CircleImage WidthRequest="80"
                                                       VerticalOptions="Center"
                                                       HeightRequest="100"
                                                       Aspect="AspectFill"
-                                                      Source="{Binding ImageContent, 
-                                                                       Converter={StaticResource EmptyByteToImageSourceConverter}}">
+                                                      Source="{Binding UserProfilePhoto}">
                             </abstractions:CircleImage>
                             <Label Text="{Binding UserName}"
-                                   FontSize="Large"
+                                   FontSize="Title"
                                    TextColor="{DynamicResource MenuUserName}"
-                                   VerticalOptions="End"
-                                   HorizontalOptions="Center" />
+                                   VerticalOptions="Center" />
                         </StackLayout>
                     </AbsoluteLayout>
                 </ListView.Header>

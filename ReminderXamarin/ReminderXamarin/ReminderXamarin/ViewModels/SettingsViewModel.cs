@@ -1,12 +1,13 @@
-﻿using System;
-using System.Windows.Input;
-
-using ReminderXamarin.DependencyResolver;
+﻿using ReminderXamarin.Core.Interfaces.Commanding;
+using ReminderXamarin.Services;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.Utilities;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
+
+using System;
+using System.Windows.Input;
 
 using Xamarin.Forms;
 
@@ -14,14 +15,18 @@ namespace ReminderXamarin.ViewModels
 {
     public class SettingsViewModel : BaseViewModel
     {
+        private readonly IThemeService _themeService;
         private readonly ThemeSwitcher _themeSwitcher;
         private ThemeTypes _savedTheme;
         private bool _isDarkTheme;
 
         public SettingsViewModel(INavigationService navigationService,
-            ThemeSwitcher themeSwitcher)
+            ThemeSwitcher themeSwitcher,
+            IThemeService themeService,
+            ICommandResolver commandResolver)
             : base(navigationService)
         {
+            _themeService = themeService;
             _themeSwitcher = themeSwitcher;
 
             bool.TryParse(Settings.UsePin, out bool shouldUsePin);
@@ -32,7 +37,7 @@ namespace ReminderXamarin.ViewModels
             {
                 IsDarkTheme = true;
             }
-            SaveSettingsCommand = new Command(SaveSettings);
+            SaveSettingsCommand = commandResolver.Command(SaveSettings);
         }
 
         public bool UsePin { get; set; }
@@ -47,7 +52,8 @@ namespace ReminderXamarin.ViewModels
                 {
                     _isDarkTheme = value;
                     _themeSwitcher.SwitchTheme(value ? ThemeTypes.Dark : ThemeTypes.Light);
-                    OnPropertyChanged();                    
+                    _themeService.SetStatusBarColor((Color)Application.Current.Resources["StatusBarColor"]);
+                    OnPropertyChanged();
                 }
             }
         }
@@ -59,6 +65,7 @@ namespace ReminderXamarin.ViewModels
             _savedTheme = (ThemeTypes)Enum.Parse(typeof(ThemeTypes), Settings.ThemeType);
             Settings.ThemeType = _savedTheme.ToString();
             _themeSwitcher.SwitchTheme(_savedTheme);
+            _themeService.SetStatusBarColor((Color)Application.Current.Resources["StatusBarColor"]);
         }
 
         private void SaveSettings()
