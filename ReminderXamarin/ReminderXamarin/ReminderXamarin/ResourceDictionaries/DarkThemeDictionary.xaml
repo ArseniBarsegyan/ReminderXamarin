@@ -7,8 +7,7 @@
 
     <Color x:Key="AchievementEditViewBackground">#303030</Color>
     <Color x:Key="AchievementsViewBackground">#303030</Color>
-    <Color x:Key="StatusBarColor">#000A12</Color>
-    <Color x:Key="BarBackground">#1A1A1A</Color>
+    <Color x:Key="StatusBarColor">#000A12</Color>    
     <Color x:Key="BirthdayEditViewBackground">#303030</Color>
     <Color x:Key="BirthdaysViewBackground">#303030</Color>
     <Color x:Key="ColorTextCommon">#EAEAEA</Color>
@@ -18,12 +17,13 @@
     <Color x:Key="LoginButtonText">#FFFFFF</Color>
     <Color x:Key="MenuBackground">#303030</Color>
     <Color x:Key="MenuUserName">#EAEAEA</Color>
+    <Color x:Key="NavigationBarBackground">#1A1A1A</Color>
     <Color x:Key="NavigationBarText">#FFFFFF</Color>
     <Color x:Key="NotesViewBackground">#303030</Color>
     <Color x:Key="NoteViewCellBackground">#444444</Color>
     <Color x:Key="NoteViewCellBorder">#444444</Color>
     <Color x:Key="NoteEditViewBackground">#303030</Color>
-    <Color x:Key="NoteOptionsMenuBackground">#323232</Color>    
+    <Color x:Key="NoteOptionsMenuBackground">#444444</Color>    
     <Color x:Key="PinViewLabelText">#FFFFFF</Color>
     <Color x:Key="PinButtonText">#FAFAFA</Color>
     <Color x:Key="PinViewBackground">#303030</Color>

@@ -10,7 +10,7 @@
         <ResourceDictionary>
             <Style TargetType="NavigationPage">
                 <Setter Property="BarTextColor" Value="{DynamicResource NavigationBarText}" />
-                <Setter Property="BarBackgroundColor" Value="{DynamicResource BarBackground}" />
+                <Setter Property="BarBackgroundColor" Value="{DynamicResource NavigationBarBackground}" />
             </Style>
 
             <!-- Images styles -->
