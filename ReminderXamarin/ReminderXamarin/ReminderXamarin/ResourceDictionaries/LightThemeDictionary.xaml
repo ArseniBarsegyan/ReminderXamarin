@@ -7,6 +7,7 @@
 
     <Color x:Key="AchievementEditViewBackground">#FFFFFF</Color>
     <Color x:Key="AchievementsViewBackground">#FAFAFA</Color>
+    <Color x:Key="AttachOptionFrameBackground">#FAFAFA</Color>
     <Color x:Key="StatusBarColor">#002f6c</Color>    
     <Color x:Key="BirthdayEditViewBackground">#FFFFFF</Color>
     <Color x:Key="BirthdaysViewBackground">#FFFFFF</Color>

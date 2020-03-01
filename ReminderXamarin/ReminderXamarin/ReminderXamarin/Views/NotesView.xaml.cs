@@ -1,14 +1,13 @@
-﻿using System.Linq;
-using ReminderXamarin.ViewModels;
+﻿using ReminderXamarin.ViewModels;
+
 using Rm.Data.Data.Entities;
+
+using System.Linq;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Views
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// List of notes with search bar at the top.
-    /// </summary>
     public partial class NotesView : ContentPage
     {
         public NotesView()

@@ -56,12 +56,11 @@ namespace ReminderXamarin.ViewModels
             _mediaHelper = mediaHelper;
             _transformHelper = transformHelper;
 
-            AttachButtonImageSource = "add.png";
+            AttachButtonImageSource = "attachment_light.png";
             CameraButtonImageSource = "camera.png";
             VideoButtonImageSource = "video.png";
-            ConfirmButtonImageSource = "confirm.png";
 
-            GalleryItemsViewModels = new ObservableCollection<GalleryItemViewModel>();
+            GalleryItemsViewModels = new ObservableCollection<GalleryItemViewModel>();            
 
             DescriptionTextChanged = commandResolver.Command<string>(DescriptionChanged);
             TakePhotoCommand = commandResolver.AsyncCommand(TakePhoto);
@@ -71,14 +70,13 @@ namespace ReminderXamarin.ViewModels
             SaveNoteCommand = commandResolver.AsyncCommand<string>(SaveNote);
             DeleteNoteCommand = commandResolver.AsyncCommand(DeleteNote);
             SelectImageCommand = commandResolver.AsyncCommand<GalleryItemViewModel>(SelectImage);
-        }
+        }        
 
         public ImageSource AttachButtonImageSource { get; private set; }
         public ImageSource CameraButtonImageSource { get; private set; }
         public ImageSource VideoButtonImageSource { get; private set; }
-        public ImageSource ConfirmButtonImageSource { get; private set; }
 
-        public bool ConfirmChangesButtonVisibility { get; set; }
+        public bool IsToolbarItemVisible { get; set; }
 
         public string Title { get; set; }
         public bool IsLoading { get; set; }
@@ -105,7 +103,7 @@ namespace ReminderXamarin.ViewModels
                     ShouldPromptUser = true;
                 }
             }
-            ConfirmChangesButtonVisibility = true;
+            IsToolbarItemVisible = value != Description;           
         }
 
         public override Task InitializeAsync(object navigationData)
@@ -122,8 +120,7 @@ namespace ReminderXamarin.ViewModels
                 _note = App.NoteRepository.Value.GetNoteAsync(_noteId);
                 Title = _note.EditDate.ToString("d");
                 Description = _note.Description;
-                GalleryItemsViewModels = _note.GalleryItems.ToViewModels(NavigationService, _commandResolver);                
-                ConfirmChangesButtonVisibility = true;
+                GalleryItemsViewModels = _note.GalleryItems.ToViewModels(NavigationService, _commandResolver);
             }
             return base.InitializeAsync(navigationData);
         }
@@ -132,12 +129,15 @@ namespace ReminderXamarin.ViewModels
         {
             MessagingCenter.Subscribe<GalleryItemViewModel>(this,
                 ConstantsHelper.ImageDeleted, DeletePhoto);
+            IsToolbarItemVisible = false;
+            GalleryItemsViewModels.CollectionChanged += GalleryItemsViewModels_CollectionChanged;
         }
 
         public void OnDisappearing()
         {
             MessagingCenter.Unsubscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted);
             MessagingCenter.Send(this, ConstantsHelper.NoteEditPageDisappeared);
+            GalleryItemsViewModels.CollectionChanged -= GalleryItemsViewModels_CollectionChanged;
         }
 
         public Task<bool> AskAboutLeave()
@@ -145,6 +145,11 @@ namespace ReminderXamarin.ViewModels
             return UserDialogs.Instance.ConfirmAsync(ConstantsHelper.PageCloseMessage,
                 ConstantsHelper.Warning,
                 ConstantsHelper.Ok, ConstantsHelper.Cancel);
+        }
+
+        private void GalleryItemsViewModels_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            IsToolbarItemVisible = true;
         }
 
         private async Task PickMultipleMedia()
@@ -179,7 +184,6 @@ namespace ReminderXamarin.ViewModels
                     {
                         GalleryItemsViewModels.Add(galleryItemModel.ToViewModel
                             (NavigationService, _commandResolver));
-                        ConfirmChangesButtonVisibility = true;
                     });
                 });               
             };
@@ -212,7 +216,6 @@ namespace ReminderXamarin.ViewModels
             if (GalleryItemsViewModels.Any())
             {
                 GalleryItemsViewModels.Remove(viewModel);
-                ConfirmChangesButtonVisibility = true;
             }
             IsLoading = false;
         }
@@ -228,8 +231,7 @@ namespace ReminderXamarin.ViewModels
                     var photoModel = await _mediaHelper.TakePhotoAsync();
                     if (photoModel != null)
                     {
-                        GalleryItemsViewModels.Add(photoModel.ToViewModel(NavigationService, _commandResolver));
-                        ConfirmChangesButtonVisibility = true;
+                        GalleryItemsViewModels.Add(photoModel.ToViewModel(NavigationService, _commandResolver));                        
                     }
                 }
                 catch (Exception ex)
@@ -281,7 +283,6 @@ namespace ReminderXamarin.ViewModels
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             GalleryItemsViewModels.Add(videoModel.ToViewModel(NavigationService, _commandResolver));
-                            ConfirmChangesButtonVisibility = true;
                         });
                     });
                 }
@@ -320,7 +321,7 @@ namespace ReminderXamarin.ViewModels
             }
             IsLoading = false;
 
-            ConfirmChangesButtonVisibility = false;
+            IsToolbarItemVisible = false;
         }
 
         private async Task DeleteNote()
