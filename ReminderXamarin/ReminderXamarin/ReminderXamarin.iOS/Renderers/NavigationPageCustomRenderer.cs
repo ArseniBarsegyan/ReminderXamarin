@@ -1,8 +1,12 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using ReminderXamarin.iOS.Renderers;
+﻿using ReminderXamarin.iOS.Renderers;
+using ReminderXamarin.ViewModels;
 using ReminderXamarin.Views;
+
 using Rm.Helpers;
+
+using System.Linq;
+using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
@@ -19,17 +23,19 @@ namespace ReminderXamarin.iOS.Renderers
         {
             if (page.Navigation.NavigationStack.LastOrDefault() is NoteEditView noteEditView)
             {
-                if (noteEditView.ShouldPromptUser)
+                if (noteEditView.BindingContext is NoteEditViewModel viewModel)
                 {
-                    bool result = await noteEditView.DisplayAlert(ConstantsHelper.Warning,
-                        ConstantsHelper.PageCloseMessage, ConstantsHelper.Ok, ConstantsHelper.Cancel);
-
-                    if (result)
+                    if (viewModel.ShouldPromptUser)
                     {
-                        return await base.OnPopViewAsync(page, animated);
+                        bool result = await viewModel.AskAboutLeave();
+
+                        if (result)
+                        {
+                            return await base.OnPopViewAsync(page, animated);
+                        }
+                        return await Task.FromResult(false);
                     }
-                    return await Task.FromResult(false);
-                }
+                }                
             }
             return await base.OnPopViewAsync(page, animated);
         }

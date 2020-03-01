@@ -1,9 +1,12 @@
 ﻿using ReminderXamarin.Commanding;
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.DependencyResolver;
+using ReminderXamarin.Helpers;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.Utilities;
+
+using Rm.Helpers;
 
 namespace ReminderXamarin.IoC
 {
@@ -23,6 +26,9 @@ namespace ReminderXamarin.IoC
             ComponentRegistry.Register<IAsyncCommand, AsyncCommand>();
             ComponentRegistry.Register<ICommandExecutionLock, CommandExecutionLock>();
             ComponentRegistry.Register<ICommandResolver, CommandResolver>();
+
+            ComponentRegistry.Register<TransformHelper>();
+            ComponentRegistry.Register<MediaHelper>();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows.Input;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Behaviors
@@ -9,10 +10,30 @@ namespace ReminderXamarin.Behaviors
     {
         private Delegate eventHandler;
 
-        public static readonly BindableProperty EventNameProperty = BindableProperty.Create(nameof(EventName), typeof(string), typeof(EventToCommandBehavior), null, propertyChanged: OnEventNameChanged);
-        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(EventToCommandBehavior), null);
-        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(EventToCommandBehavior), null);
-        public static readonly BindableProperty InputConverterProperty = BindableProperty.Create(nameof(Converter), typeof(IValueConverter), typeof(EventToCommandBehavior), null);
+        public static readonly BindableProperty EventNameProperty = 
+            BindableProperty.Create(propertyName: nameof(EventName), 
+                returnType: typeof(string), 
+                declaringType: typeof(EventToCommandBehavior), 
+                defaultValue: null, 
+                propertyChanged: OnEventNameChanged);
+
+        public static readonly BindableProperty CommandProperty = 
+            BindableProperty.Create(propertyName: nameof(Command),
+                returnType: typeof(ICommand),
+                declaringType: typeof(EventToCommandBehavior), 
+                defaultValue: null);
+
+        public static readonly BindableProperty CommandParameterProperty = 
+            BindableProperty.Create(propertyName: nameof(CommandParameter),
+                returnType: typeof(object),
+                declaringType: typeof(EventToCommandBehavior),
+                defaultValue: null);
+        
+        public static readonly BindableProperty InputConverterProperty = 
+            BindableProperty.Create(propertyName: nameof(Converter),
+                returnType: typeof(IValueConverter),
+                declaringType: typeof(EventToCommandBehavior),
+                defaultValue: null);
 
         public string EventName
         {
@@ -41,14 +62,12 @@ namespace ReminderXamarin.Behaviors
         protected override void OnAttachedTo(View bindable)
         {
             base.OnAttachedTo(bindable);
-
             RegisterEvent(EventName);
         }
 
         protected override void OnDetachingFrom(View bindable)
         {
             DeregisterEvent(EventName);
-
             base.OnDetachingFrom(bindable);
         }
 
@@ -62,9 +81,12 @@ namespace ReminderXamarin.Behaviors
             EventInfo eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
             if (eventInfo == null)
             {
-                throw new ArgumentException($"EventToCommandBehavior: Can't register the '{EventName}' event.");
+                throw new ArgumentException(
+                    $"EventToCommandBehavior: Can't register the '{EventName}' event.");
             }
-            MethodInfo methodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod("OnEvent");
+            MethodInfo methodInfo = typeof(EventToCommandBehavior)
+                .GetTypeInfo()
+                .GetDeclaredMethod("OnEvent");
             eventHandler = methodInfo.CreateDelegate(eventInfo.EventHandlerType, this);
             eventInfo.AddEventHandler(AssociatedObject, eventHandler);
         }
@@ -83,7 +105,8 @@ namespace ReminderXamarin.Behaviors
             EventInfo eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
             if (eventInfo == null)
             {
-                throw new ArgumentException($"EventToCommandBehavior: Can't de-register the '{EventName}' event.");
+                throw new ArgumentException(
+                    $"EventToCommandBehavior: Can't de-register the '{EventName}' event.");
             }
             eventInfo.RemoveEventHandler(AssociatedObject, eventHandler);
             eventHandler = null;
@@ -116,7 +139,9 @@ namespace ReminderXamarin.Behaviors
             }
         }
 
-        private static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void OnEventNameChanged(BindableObject bindable, 
+            object oldValue, 
+            object newValue)
         {
             var behavior = (EventToCommandBehavior)bindable;
             if (behavior.AssociatedObject == null)

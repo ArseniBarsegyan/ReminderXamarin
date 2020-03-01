@@ -23,7 +23,7 @@
     <Color x:Key="NoteViewCellBackground">#FFFFFF</Color>
     <Color x:Key="NoteViewCellBorder">LightGray</Color>
     <Color x:Key="NoteEditViewBackground">#FFFFFF</Color>
-    <Color x:Key="NoteOptionsMenuBackground">#4f83cc</Color>    
+    <Color x:Key="NoteOptionsMenuBackground">#4f83cc</Color>
     <Color x:Key="PinViewLabelText">#333333</Color>
     <Color x:Key="PinButtonText">#333333</Color>
     <Color x:Key="PinViewBackground">#FAFAFA</Color>

@@ -17,9 +17,9 @@ namespace Rm.Helpers
     {
         private readonly TransformHelper _transformHelper;
 
-        public MediaHelper()
+        public MediaHelper(TransformHelper transformHelper)
         {
-            _transformHelper = new TransformHelper();
+            _transformHelper = transformHelper;
         }
 
         public async Task<GalleryItemModel> TakePhotoAsync()

@@ -2,7 +2,6 @@
 
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
-using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Services;
@@ -32,7 +31,6 @@ namespace ReminderXamarin.ViewModels
         private readonly IVideoService _videoService;
         private readonly ICommandResolver _commandResolver;
 
-        // TODO: register as dependency
         private readonly MediaHelper _mediaHelper;
         private readonly TransformHelper _transformHelper;
 
@@ -44,7 +42,9 @@ namespace ReminderXamarin.ViewModels
             IFileSystem fileService,
             IMediaService mediaService,
             IVideoService videoService,
-            ICommandResolver commandResolver)
+            ICommandResolver commandResolver,
+            MediaHelper mediaHelper,
+            TransformHelper transformHelper)
             : base(navigationService)
         {
             _permissionService = permissionService;
@@ -53,46 +53,59 @@ namespace ReminderXamarin.ViewModels
             _videoService = videoService;
             _commandResolver = commandResolver;
 
-            _mediaHelper = new MediaHelper();
-            _transformHelper = new TransformHelper();
-            
+            _mediaHelper = mediaHelper;
+            _transformHelper = transformHelper;
+
+            AttachButtonImageSource = "add.png";
+            CameraButtonImageSource = "camera.png";
+            VideoButtonImageSource = "video.png";
+            ConfirmButtonImageSource = "confirm.png";
+
             GalleryItemsViewModels = new ObservableCollection<GalleryItemViewModel>();
-            
+
+            DescriptionTextChanged = commandResolver.Command<string>(DescriptionChanged);
             TakePhotoCommand = commandResolver.AsyncCommand(TakePhoto);
             DeletePhotoCommand = commandResolver.Command<GalleryItemViewModel>(DeletePhoto);
             TakeVideoCommand = commandResolver.AsyncCommand(TakeVideo);
             PickMultipleMediaCommand = commandResolver.AsyncCommand(PickMultipleMedia);
-            SaveNoteCommand = commandResolver.AsyncCommand(SaveNote);
+            SaveNoteCommand = commandResolver.AsyncCommand<string>(SaveNote);
             DeleteNoteCommand = commandResolver.AsyncCommand(DeleteNote);
             SelectImageCommand = commandResolver.AsyncCommand<GalleryItemViewModel>(SelectImage);
         }
 
-        public bool IsEditMode { get; set; }
+        public ImageSource AttachButtonImageSource { get; private set; }
+        public ImageSource CameraButtonImageSource { get; private set; }
+        public ImageSource VideoButtonImageSource { get; private set; }
+        public ImageSource ConfirmButtonImageSource { get; private set; }
+
+        public bool ConfirmChangesButtonVisibility { get; set; }
+
         public string Title { get; set; }
         public bool IsLoading { get; set; }
+        public bool IsEditMode { get; set; }
         public string Description { get; set; }
+        public bool ShouldPromptUser { get; set; }
         public ObservableCollection<GalleryItemViewModel> GalleryItemsViewModels { get; set; }
 
+        public ICommand DescriptionTextChanged { get; }
         public IAsyncCommand TakePhotoCommand { get; }
         public ICommand DeletePhotoCommand { get; }        
         public IAsyncCommand TakeVideoCommand { get; }
         public IAsyncCommand PickMultipleMediaCommand { get; }
-        public IAsyncCommand SaveNoteCommand { get; }
+        public IAsyncCommand<string> SaveNoteCommand { get; }
         public IAsyncCommand DeleteNoteCommand { get; }
         public IAsyncCommand<GalleryItemViewModel> SelectImageCommand { get; }
 
-        public event EventHandler PhotosCollectionChanged;
-
-        public void OnAppearing()
+        private void DescriptionChanged(string value)
         {
-            MessagingCenter.Subscribe<GalleryItemViewModel>(this, 
-                ConstantsHelper.ImageDeleted, DeletePhoto);
-        }
-
-        public void OnDisappearing()
-        {
-            MessagingCenter.Unsubscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted);
-            MessagingCenter.Send(this, ConstantsHelper.NoteEditPageDisappeared);
+            if (!IsEditMode)
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    ShouldPromptUser = true;
+                }
+            }
+            ConfirmChangesButtonVisibility = true;
         }
 
         public override Task InitializeAsync(object navigationData)
@@ -109,18 +122,37 @@ namespace ReminderXamarin.ViewModels
                 _note = App.NoteRepository.Value.GetNoteAsync(_noteId);
                 Title = _note.EditDate.ToString("d");
                 Description = _note.Description;
-                GalleryItemsViewModels = _note.GalleryItems.ToViewModels(NavigationService, _commandResolver);
-                PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
+                GalleryItemsViewModels = _note.GalleryItems.ToViewModels(NavigationService, _commandResolver);                
+                ConfirmChangesButtonVisibility = true;
             }
             return base.InitializeAsync(navigationData);
-        }        
+        }
+
+        public void OnAppearing()
+        {
+            MessagingCenter.Subscribe<GalleryItemViewModel>(this,
+                ConstantsHelper.ImageDeleted, DeletePhoto);
+        }
+
+        public void OnDisappearing()
+        {
+            MessagingCenter.Unsubscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted);
+            MessagingCenter.Send(this, ConstantsHelper.NoteEditPageDisappeared);
+        }
+
+        public Task<bool> AskAboutLeave()
+        {
+            return UserDialogs.Instance.ConfirmAsync(ConstantsHelper.PageCloseMessage,
+                ConstantsHelper.Warning,
+                ConstantsHelper.Ok, ConstantsHelper.Cancel);
+        }
 
         private async Task PickMultipleMedia()
         {
             var multipleMediaPickerService = App.MultiMediaPickerService;
             multipleMediaPickerService.OnMediaPicked += (sender, file) =>
             {
-                Device.BeginInvokeOnMainThread(async () =>
+                Task.Run(async() => 
                 {
                     var galleryItemModel = new GalleryItemModel
                     {
@@ -129,8 +161,10 @@ namespace ReminderXamarin.ViewModels
                     var imageContent = _fileService.ReadAllBytes(file.Path);
                     var imageName = Path.GetFileName(file.Path);
 
-                    var resizedImage = _mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
+                    var resizedImage = _mediaService.ResizeImage(imageContent, 
+                        ConstantsHelper.ResizedImageWidth,
                         ConstantsHelper.ResizedImageHeight);
+
                     string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                     string imagePath = Path.Combine(path, imageName);
 
@@ -138,11 +172,16 @@ namespace ReminderXamarin.ViewModels
                     galleryItemModel.ImagePath = imagePath;
                     galleryItemModel.Thumbnail = imagePath;
 
-                    await _transformHelper.ResizeAsync(imagePath, galleryItemModel);
+                    await _transformHelper.ResizeAsync(imagePath, galleryItemModel)
+                    .ConfigureAwait(false);
 
-                    GalleryItemsViewModels.Add(galleryItemModel.ToViewModel(NavigationService, _commandResolver));
-                    PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
-                });
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        GalleryItemsViewModels.Add(galleryItemModel.ToViewModel
+                            (NavigationService, _commandResolver));
+                        ConfirmChangesButtonVisibility = true;
+                    });
+                });               
             };
 
             var hasPermission = await CheckPermissionsAsync();
@@ -173,7 +212,7 @@ namespace ReminderXamarin.ViewModels
             if (GalleryItemsViewModels.Any())
             {
                 GalleryItemsViewModels.Remove(viewModel);
-                PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
+                ConfirmChangesButtonVisibility = true;
             }
             IsLoading = false;
         }
@@ -190,7 +229,7 @@ namespace ReminderXamarin.ViewModels
                     if (photoModel != null)
                     {
                         GalleryItemsViewModels.Add(photoModel.ToViewModel(NavigationService, _commandResolver));
-                        PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
+                        ConfirmChangesButtonVisibility = true;
                     }
                 }
                 catch (Exception ex)
@@ -211,7 +250,7 @@ namespace ReminderXamarin.ViewModels
                 var videoModel = await _mediaHelper.TakeVideoAsync();
                 if (videoModel != null)
                 {
-                    try
+                    await Task.Run(async () =>
                     {
                         videoModel.NoteId = _noteId;
                         videoModel.IsVideo = true;
@@ -221,14 +260,14 @@ namespace ReminderXamarin.ViewModels
                                 videoModel.VideoPath.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
                         var imageName = videoName.Substring(0, videoName.Length - 4) + "_thumb.jpg";
 
-                        var mediaService = ComponentFactory.Resolve<IMediaService>();
                         var imageContent =
-                            mediaService.GenerateThumbImage(videoModel.VideoPath, 
+                            _mediaService.GenerateThumbImage(videoModel.VideoPath,
                                 ConstantsHelper.ThumbnailTimeFrame);
 
-                        var resizedImage = mediaService.ResizeImage(imageContent, 
+                        var resizedImage = _mediaService.ResizeImage(imageContent,
                             ConstantsHelper.ResizedImageWidth,
                             ConstantsHelper.ResizedImageHeight);
+
                         string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
                         string imagePath = Path.Combine(path, imageName);
 
@@ -236,22 +275,25 @@ namespace ReminderXamarin.ViewModels
                         videoModel.ImagePath = imagePath;
                         videoModel.Thumbnail = imagePath;
 
-                        await _transformHelper.ResizeAsync(imagePath, videoModel);
+                        await _transformHelper.ResizeAsync(imagePath, videoModel)
+                        .ConfigureAwait(false);
 
-                        GalleryItemsViewModels.Add(videoModel.ToViewModel(NavigationService, _commandResolver));
-                        PhotosCollectionChanged?.Invoke(this, EventArgs.Empty);
-                    }
-                    catch (Exception ex)
-                    {
-                        await UserDialogs.Instance.AlertAsync(ex.Message);
-                    }
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            GalleryItemsViewModels.Add(videoModel.ToViewModel(NavigationService, _commandResolver));
+                            ConfirmChangesButtonVisibility = true;
+                        });
+                    });
                 }
             }
             IsLoading = false;
         }
 
-        private async Task SaveNote()
+        private async Task SaveNote(string text)
         {
+            ShouldPromptUser = false;
+            Description = text;
+
             IsLoading = true;
             if (_noteId == 0)
             {
@@ -277,6 +319,8 @@ namespace ReminderXamarin.ViewModels
                 MessagingCenter.Send(this, ConstantsHelper.NoteEdited, _noteId);
             }
             IsLoading = false;
+
+            ConfirmChangesButtonVisibility = false;
         }
 
         private async Task DeleteNote()
