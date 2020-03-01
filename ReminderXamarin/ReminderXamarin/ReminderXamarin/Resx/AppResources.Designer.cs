@@ -295,15 +295,6 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter description.
-        /// </summary>
-        internal static string EnterDescription {
-            get {
-                return ResourceManager.GetString("EnterDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Enter PIN.
         /// </summary>
         internal static string EnterPin {
@@ -471,6 +462,15 @@ namespace ReminderXamarin.Resx {
         internal static string NotesCount {
             get {
                 return ResourceManager.GetString("NotesCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note text....
+        /// </summary>
+        internal static string NoteText {
+            get {
+                return ResourceManager.GetString("NoteText", resourceCulture);
             }
         }
         

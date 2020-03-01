@@ -36,7 +36,8 @@
                        FontSize="Small" />
                 <Editor x:Name="DescriptionEditor"
                         TextColor="{DynamicResource ColorTextCommon}"
-                        Placeholder="{extensions:Translate EnterDescription}"
+                        Placeholder="{extensions:Translate NoteText}"
+                        PlaceholderColor="{DynamicResource Placeholder}"
                         TextChanged="DescriptionEditor_OnTextChanged"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="FillAndExpand"

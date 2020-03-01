@@ -195,9 +195,6 @@
   <data name="EditPreferencesDescription" xml:space="preserve">
     <value>Ред. предпочтения:</value>
   </data>
-  <data name="EnterDescription" xml:space="preserve">
-    <value>Введите описание</value>
-  </data>
   <data name="EnterPin" xml:space="preserve">
     <value>Введите PIN</value>
   </data>
@@ -254,6 +251,9 @@
   </data>
   <data name="NotesCount" xml:space="preserve">
     <value>Число записей:</value>
+  </data>
+  <data name="NoteText" xml:space="preserve">
+    <value>Текст заметки...</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>Ок</value>

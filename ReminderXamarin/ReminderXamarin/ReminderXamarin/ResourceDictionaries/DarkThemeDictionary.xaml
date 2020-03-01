@@ -31,6 +31,7 @@
     <Color x:Key="PinButtonSelectedBackground">#8588AD</Color>
     <Color x:Key="PinButtonBorder">#303030</Color>
     <Color x:Key="PickUserButtonBackground">#01579b</Color>
+    <Color x:Key="Placeholder">#8C8C8C</Color>
     <Color x:Key="RefreshControl">#3072B0</Color>
     <Color x:Key="SearchBarBackground">#303030</Color>
     <Color x:Key="SettingsViewBackground">#303030</Color>

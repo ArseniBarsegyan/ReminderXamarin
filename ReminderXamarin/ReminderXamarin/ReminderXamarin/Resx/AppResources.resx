@@ -195,9 +195,6 @@
   <data name="EditPreferencesDescription" xml:space="preserve">
     <value>Edit preferences description:</value>
   </data>
-  <data name="EnterDescription" xml:space="preserve">
-    <value>Enter description</value>
-  </data>
   <data name="EnterPin" xml:space="preserve">
     <value>Enter PIN</value>
   </data>
@@ -254,6 +251,9 @@
   </data>
   <data name="NotesCount" xml:space="preserve">
     <value>Notes сount:</value>
+  </data>
+  <data name="NoteText" xml:space="preserve">
+    <value>Note text...</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
