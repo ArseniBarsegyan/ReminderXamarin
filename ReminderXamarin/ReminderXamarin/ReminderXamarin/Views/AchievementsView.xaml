@@ -73,16 +73,18 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <elements:FloatingActionButton x:Name="CreateAchievementButton" 
-                                           Command="{Binding NavigateToAchievementEditViewCommand}"
-                                           ImageSource="add.png" 
-                                           ButtonColor="{DynamicResource SubmitButtonBackground}"
-                                           AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
-                                           AbsoluteLayout.LayoutFlags="PositionProportional">
-                <elements:FloatingActionButton.CommandParameter>
+            <ImageButton x:Name="CreateAchievementButton" 
+                         Padding="20"
+                         Command="{Binding NavigateToAchievementEditViewCommand}"
+                         Source="add.png" 
+                         BackgroundColor="{DynamicResource SubmitButtonBackground}"
+                         CornerRadius="30"
+                         AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
+                         AbsoluteLayout.LayoutFlags="PositionProportional">
+                <ImageButton.CommandParameter>
                     <x:Int32>0</x:Int32>
-                </elements:FloatingActionButton.CommandParameter>
-            </elements:FloatingActionButton>
+                </ImageButton.CommandParameter>
+            </ImageButton>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

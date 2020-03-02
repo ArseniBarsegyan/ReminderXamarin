@@ -29,20 +29,24 @@
                 
             </StackLayout>
 
-            <elements:FloatingActionButton x:Name="PickUserPhotoImage"
-                                           Clicked="PickUserPhotoImage_OnClicked"
-                                           Image="edit.png"
-                                           ButtonColor="{DynamicResource PickUserButtonBackground}"
-                                           AbsoluteLayout.LayoutBounds="0.9,0.5,60,60"
-                                           AbsoluteLayout.LayoutFlags="PositionProportional" />
+            <ImageButton x:Name="PickUserPhotoImage"
+                         Clicked="PickUserPhotoImage_OnClicked"
+                         Source="edit.png"
+                         Padding="20"
+                         BackgroundColor="{DynamicResource PickUserButtonBackground}"
+                         AbsoluteLayout.LayoutBounds="0.9,0.5,60,60"
+                         CornerRadius="30"
+                         AbsoluteLayout.LayoutFlags="PositionProportional" />
 
-            <elements:FloatingActionButton  x:Name="UpdateUserButton"
-                                            AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"
-                                            AbsoluteLayout.LayoutFlags="PositionProportional"
-                                            IsVisible="{Binding ViewModelChanged}"
-                                            Command="{Binding UpdateUserCommand}"
-                                            ButtonColor="{DynamicResource SubmitButtonBackground}"
-                                            ImageSource="confirm.png" />
+            <ImageButton x:Name="UpdateUserButton"
+                         AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"
+                         AbsoluteLayout.LayoutFlags="PositionProportional"
+                         Padding="20"
+                         IsVisible="{Binding ViewModelChanged}"
+                         Command="{Binding UpdateUserCommand}"
+                         BackgroundColor="{DynamicResource SubmitButtonBackground}"
+                         CornerRadius="30"
+                         Source="confirm.png" />
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

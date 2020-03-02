@@ -18,11 +18,13 @@
                             HeightRequest="500"
                             AbsoluteLayout.LayoutBounds="0.5,0.5,0.8,0.8"
                             AbsoluteLayout.LayoutFlags="All" />
-        <elements:FloatingActionButton x:Name="DeleteImageButton"
-                                       AbsoluteLayout.LayoutBounds="0.5,0.8,50,50"
-                                       AbsoluteLayout.LayoutFlags="PositionProportional"
-                                       ImageSource="delete.png"
-                                       ButtonColor="{DynamicResource ErrorTextCommon}"
-                                       Command="{Binding DeleteCommand}" />
+        <ImageButton x:Name="DeleteImageButton"
+                     AbsoluteLayout.LayoutBounds="0.5,0.8,50,50"
+                     AbsoluteLayout.LayoutFlags="PositionProportional"
+                     Padding="20"
+                     CornerRadius="25"
+                     Source="delete.png"
+                     BackgroundColor="{DynamicResource ErrorTextCommon}"
+                     Command="{Binding DeleteCommand}" />
     </AbsoluteLayout>
 </pages:PopupPage>

@@ -34,7 +34,7 @@
                                      AbsoluteLayout.LayoutBounds="0,0,1,1"
                                      AbsoluteLayout.LayoutFlags="All"
                                      Spacing="20"
-                                     Padding="20,5">
+                                     Padding="20,0">
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding NavigateToUserProfileCommand}"
                                                       NumberOfTapsRequired="1" />

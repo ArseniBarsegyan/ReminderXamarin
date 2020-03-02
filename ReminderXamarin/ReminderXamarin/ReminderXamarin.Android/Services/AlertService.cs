@@ -17,7 +17,7 @@ namespace ReminderXamarin.Droid.Services
             var tcs = new TaskCompletionSource<bool>();
             var dialog = new Dialog(CrossCurrentActivity.Current.Activity);
             dialog.Window.SetBackgroundDrawable(ContextCompat.GetDrawable(CrossCurrentActivity.Current.Activity, Android.Resource.Color.Transparent));
-            dialog.SetContentView(Resource.Layout.CustomAlertYesNo);
+            dialog.SetContentView(Resource.Layout.custom_alert_yes_no);
             TextView text = (TextView)dialog.FindViewById(Resource.Id.yesNoText);
             text.SetText(message, TextView.BufferType.Normal);
 

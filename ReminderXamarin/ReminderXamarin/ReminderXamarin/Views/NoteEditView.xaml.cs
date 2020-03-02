@@ -48,21 +48,16 @@ namespace ReminderXamarin.Views
 
         private async Task ShowOptionsLayout()
         {
-            //var startPosition = ShowOptionsLayoutButton.GetScreenCoordinates();
-            //var attachButtonEndPosition = AttachButton.GetScreenCoordinates();
-            //var cameraButtonEndPosition = CameraButton.GetScreenCoordinates();
-            //var videoButtonEndPosition = VideoButton.GetScreenCoordinates();
-
-            //await AttachButton.TranslateTo(startPosition.X, startPosition.Y, 0);
-            //await CameraButton.TranslateTo(startPosition.X, startPosition.Y, 0);
-            //await VideoButton.TranslateTo(startPosition.X, startPosition.Y, 0);
+            await AttachButton.TranslateTo(0, 240, 0);
+            await CameraButton.TranslateTo(0, 180, 0);
+            await VideoButton.TranslateTo(0, 120, 0);
 
             AttachOptionLayout.IsVisible = true;
             var tasks = new Task[]
             {
-                //AttachButton.TranslateTo(attachButtonEndPosition.X, attachButtonEndPosition.Y, 400),
-                //CameraButton.TranslateTo(cameraButtonEndPosition.X, cameraButtonEndPosition.Y, 300),
-                //VideoButton.TranslateTo(videoButtonEndPosition.X, videoButtonEndPosition.Y, 200),
+                AttachButton.TranslateTo(0, 0, 300),
+                CameraButton.TranslateTo(0, 0, 300),
+                VideoButton.TranslateTo(0, 0, 300),
                 ShowOptionsLayoutButton.RotateTo(45, 200),
                 AttachOptionLayout.FadeTo(1, 200)
             };

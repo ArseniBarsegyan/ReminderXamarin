@@ -71,10 +71,13 @@
                                                     Converter={StaticResource InverseBooleanConverter}}"
                                        Command="{Binding DeleteBirthdayCommand}" />
 
-                <elements:FloatingActionButton ButtonColor="{DynamicResource SubmitButtonBackground}"
-                                       ImageSource="confirm.png"
-                                       HorizontalOptions="EndAndExpand"
-                                       Clicked="Confirm_OnClicked"  />
+                <ImageButton BackgroundColor="{DynamicResource SubmitButtonBackground}"
+                             Source="confirm.png"
+                             CornerRadius="30"
+                             WidthRequest="60"
+                             HeightRequest="60"
+                             HorizontalOptions="EndAndExpand"
+                             Clicked="Confirm_OnClicked"  />
             </StackLayout>
     </AbsoluteLayout>
   </ContentPage.Content>

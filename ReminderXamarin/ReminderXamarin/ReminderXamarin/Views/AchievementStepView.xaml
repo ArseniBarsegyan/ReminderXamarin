@@ -85,13 +85,15 @@
                 </ScrollView>
             </ListView.Footer>
         </ListView>
-        
-        <elements:FloatingActionButton x:Name="SaveAchievementStepButton"
-                                       AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"
-                                       AbsoluteLayout.LayoutFlags="PositionProportional"
-                                       IsVisible="{Binding ViewModelChanged}"
-                                       Command="{Binding SaveAchievementStepCommand}"
-                                       ButtonColor="{DynamicResource SubmitButtonBackground}"
-                                       ImageSource="confirm.png" />
+
+        <ImageButton x:Name="SaveAchievementStepButton"
+                     AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"
+                     AbsoluteLayout.LayoutFlags="PositionProportional"
+                     Padding="20"
+                     CornerRadius="30"
+                     IsVisible="{Binding ViewModelChanged}"
+                     Command="{Binding SaveAchievementStepCommand}"
+                     BackgroundColor="{DynamicResource SubmitButtonBackground}"
+                     Source="confirm.png" />
     </AbsoluteLayout>
 </ContentPage>

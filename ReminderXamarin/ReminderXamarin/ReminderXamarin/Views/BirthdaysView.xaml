@@ -88,16 +88,18 @@
                 </ListView>
             </StackLayout>
 
-            <elements:FloatingActionButton x:Name="AddFriendButton" 
-                                           AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
-                                           AbsoluteLayout.LayoutFlags="PositionProportional"
-                                           ButtonColor="{DynamicResource SubmitButtonBackground}"
-                                           Command="{Binding NavigateToEditBirthdayCommand}"
-                                           ImageSource="add.png">
-                <elements:FloatingActionButton.CommandParameter>
+            <ImageButton x:Name="AddFriendButton" 
+                         AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
+                         AbsoluteLayout.LayoutFlags="PositionProportional"
+                         CornerRadius="30"
+                         Padding="20"
+                         BackgroundColor="{DynamicResource SubmitButtonBackground}"
+                         Command="{Binding NavigateToEditBirthdayCommand}"
+                         Source="add.png">
+                <ImageButton.CommandParameter>
                     <x:Int32>0</x:Int32>
-                </elements:FloatingActionButton.CommandParameter>
-            </elements:FloatingActionButton>
+                </ImageButton.CommandParameter>
+            </ImageButton>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
