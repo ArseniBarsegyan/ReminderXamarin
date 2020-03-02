@@ -61,7 +61,7 @@ namespace ReminderXamarin.Views
                 ShowOptionsLayoutButton.RotateTo(45, 200),
                 AttachOptionLayout.FadeTo(1, 200)
             };
-            await Task.WhenAll(tasks);           
+            await Task.WhenAll(tasks);
         }
 
         private async Task HideOptionsLayout()
@@ -73,24 +73,6 @@ namespace ReminderXamarin.Views
             };
             await Task.WhenAll(tasks);
             AttachOptionLayout.IsVisible = false;
-        }
-    }
-
-    public static class ScreenCoords
-    {
-        public static (double X, double Y) GetScreenCoordinates(this VisualElement view)
-        {
-            var screenCoordinateX = view.X;
-            var screenCoordinateY = view.Y;
-
-            var parent = (VisualElement)view.Parent;
-            while (parent != null && parent.GetType().BaseType == typeof(View))
-            {
-                screenCoordinateX += parent.X;
-                screenCoordinateY += parent.Y;
-                parent = (VisualElement)parent.Parent;
-            }
-            return (screenCoordinateX, screenCoordinateY);
         }
     }
 }

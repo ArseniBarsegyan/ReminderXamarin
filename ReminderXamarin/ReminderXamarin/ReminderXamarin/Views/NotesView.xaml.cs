@@ -2,7 +2,9 @@
 
 using Rm.Data.Data.Entities;
 
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
@@ -18,7 +20,7 @@ namespace ReminderXamarin.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            
+            SearchBar.TranslateTo(0, -120, 0);
             if (BindingContext is NotesViewModel viewModel)
             {
                 viewModel.OnAppearing();
@@ -55,6 +57,32 @@ namespace ReminderXamarin.Views
                 {
                     viewModel.LoadMoreNotesCommand.Execute(null);
                 }
+            }
+        }
+
+        private async void ToggleSearchBarVisibility(object sender, EventArgs e)
+        {
+            if (SearchBar.IsVisible)
+            {
+                SearchToolbarItem.IconImageSource = "search_icon.png";
+                var tasks = new Task[]
+                {
+                    SearchBar.TranslateTo(0, -120, 250),
+                    SearchBar.FadeTo(0, 250)
+                };
+                await Task.WhenAll(tasks);
+                SearchBar.IsVisible = false;
+            }
+            else
+            {
+                SearchToolbarItem.IconImageSource = "cancel.png";
+                SearchBar.IsVisible = true;
+                var tasks = new Task[]
+                {
+                    SearchBar.TranslateTo(0, 0, 250),
+                    SearchBar.FadeTo(1, 250)
+                };
+                await Task.WhenAll(tasks);
             }
         }
     }

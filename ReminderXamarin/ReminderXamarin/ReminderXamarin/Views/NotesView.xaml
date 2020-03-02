@@ -12,10 +12,13 @@
              BackgroundColor="{DynamicResource NotesViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="UploadOption"
-                     IconImageSource="upload_light.png"
+        <ToolbarItem IconImageSource="upload_light.png"
                      Order="Primary"
                      Command="{Binding UploadNotesToApiCommand}"/>
+        <ToolbarItem x:Name="SearchToolbarItem" 
+                     Order="Primary"                     
+                     Clicked="ToggleSearchBarVisibility"
+                     IconImageSource="search_icon.png" />
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -79,8 +82,10 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-        <StackLayout x:Name="StackLayout" Padding="5"
+    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                    AbsoluteLayout.LayoutFlags="All">
+        <StackLayout x:Name="StackLayout" 
+                     Padding="5"
                      AbsoluteLayout.LayoutBounds="0,0,1,1"
                      AbsoluteLayout.LayoutFlags="All"
                      Spacing="0"
@@ -90,6 +95,7 @@
             <SearchBar x:Name="SearchBar"
                        PlaceholderColor="{DynamicResource ColorTextCommon}"
                        BackgroundColor="{DynamicResource SearchBarBackground}"
+                       IsVisible="False"
                        Placeholder="Search..."
                        TextColor="{DynamicResource ColorTextCommon}"
                        CancelButtonColor="{DynamicResource ColorTextCommon}"

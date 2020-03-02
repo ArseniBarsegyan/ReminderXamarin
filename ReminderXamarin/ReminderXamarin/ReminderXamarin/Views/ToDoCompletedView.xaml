@@ -70,12 +70,14 @@
                 </ListView>
             </StackLayout>
 
-            <elements:FloatingActionButton x:Name="CreateToDoButton"
-                                           Clicked="CreateToDoButton_OnClicked"
-                                           ButtonColor="{DynamicResource SubmitButtonBackground}"
-                                           ImageSource="add.png"
-                                           AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"
-                                           AbsoluteLayout.LayoutFlags="PositionProportional" />
+            <ImageButton x:Name="CreateToDoButton"
+                         Clicked="CreateToDoButton_OnClicked"
+                         BackgroundColor="{DynamicResource SubmitButtonBackground}"
+                         Source="add.png"
+                         Padding="20"
+                         CornerRadius="30"
+                         AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"
+                         AbsoluteLayout.LayoutFlags="PositionProportional" />
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

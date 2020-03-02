@@ -20,7 +20,7 @@
     <Color x:Key="MenuUserName">#FFFFFF</Color>
     <Color x:Key="NavigationBarBackground">#01579b</Color>
     <Color x:Key="NavigationBarText">#FFFFFF</Color>
-    <Color x:Key="NotesViewBackground">#FFFFFF</Color>
+    <Color x:Key="NotesViewBackground">#F6F6F6</Color>
     <Color x:Key="NoteViewCellBackground">#FFFFFF</Color>
     <Color x:Key="NoteViewCellBorder">LightGray</Color>
     <Color x:Key="NoteEditViewBackground">#FFFFFF</Color>

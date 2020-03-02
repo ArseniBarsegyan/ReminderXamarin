@@ -64,15 +64,17 @@
 
       <StackLayout AbsoluteLayout.LayoutBounds="0.95,1,100,150"
                    AbsoluteLayout.LayoutFlags="PositionProportional">
-                <elements:FloatingActionButton ImageSource="delete.png"
-                                       HorizontalOptions="EndAndExpand"
-                                       ButtonColor="{DynamicResource ErrorTextCommon}"
-                                       IsVisible="{Binding IsNewBirthday,
-                                                    Converter={StaticResource InverseBooleanConverter}}"
-                                       Command="{Binding DeleteBirthdayCommand}" />
+                <ImageButton Source="delete.png"
+                             Padding="20"
+                             HorizontalOptions="EndAndExpand"
+                             BackgroundColor="{DynamicResource ErrorTextCommon}"
+                             IsVisible="{Binding IsNewBirthday,
+                                        Converter={StaticResource InverseBooleanConverter}}"
+                             Command="{Binding DeleteBirthdayCommand}" />
 
                 <ImageButton BackgroundColor="{DynamicResource SubmitButtonBackground}"
                              Source="confirm.png"
+                             Padding="20"
                              CornerRadius="30"
                              WidthRequest="60"
                              HeightRequest="60"

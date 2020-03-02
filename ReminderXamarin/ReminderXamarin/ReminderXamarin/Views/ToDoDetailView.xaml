@@ -44,14 +44,16 @@
       <!-- Confirm and delete buttons -->
       <StackLayout AbsoluteLayout.LayoutBounds="0.95,1,100,150"
                    AbsoluteLayout.LayoutFlags="PositionProportional">
-        <elements:FloatingActionButton HorizontalOptions="EndAndExpand"
-                                       Clicked="Delete_OnClicked"
-                                       ImageSource="delete.png"
-                                       ButtonColor="{DynamicResource ErrorTextCommon}" />
-                <elements:FloatingActionButton HorizontalOptions="EndAndExpand"
-                                       Clicked="Confirm_OnClicked"
-                                       ImageSource="confirm.png"
-                                       ButtonColor="{DynamicResource SubmitButtonBackground}" />
+                <ImageButton HorizontalOptions="EndAndExpand"
+                             Clicked="Delete_OnClicked"
+                             Source="delete.png"
+                             Padding="20"
+                             BackgroundColor="{DynamicResource ErrorTextCommon}" />
+                <ImageButton HorizontalOptions="EndAndExpand"
+                             Clicked="Confirm_OnClicked"
+                             Source="confirm.png"
+                             Padding="20"
+                             BackgroundColor="{DynamicResource SubmitButtonBackground}" />
             </StackLayout>
     </AbsoluteLayout>
   </ContentPage.Content>

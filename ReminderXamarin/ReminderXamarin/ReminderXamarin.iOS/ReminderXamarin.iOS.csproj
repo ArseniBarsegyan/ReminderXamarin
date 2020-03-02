@@ -89,7 +89,6 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Renderers\FloatingActionButtonRenderer.cs" />
     <Compile Include="Renderers\NavigationPageCustomRenderer.cs" />
     <Compile Include="Services\AlertService.cs" />
     <Compile Include="Services\DeviceOrientation.cs" />
@@ -484,5 +483,14 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\attachment_light%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\search_icon%401x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\search_icon%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\search_icon%403x.png" />
   </ItemGroup>
 </Project>
