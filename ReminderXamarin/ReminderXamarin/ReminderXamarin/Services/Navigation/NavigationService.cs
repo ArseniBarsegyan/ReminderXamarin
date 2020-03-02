@@ -1,21 +1,21 @@
-﻿using System;
+﻿using ReminderXamarin.ViewModels.Base;
+using ReminderXamarin.Views;
+
+using Rg.Plugins.Popup.Extensions;
+using Rg.Plugins.Popup.Pages;
+
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using ReminderXamarin.DependencyResolver;
-using ReminderXamarin.ViewModels.Base;
-using ReminderXamarin.Views;
-using Rg.Plugins.Popup.Extensions;
-using Rg.Plugins.Popup.Pages;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Services.Navigation
 {
     public class NavigationService : INavigationService
     {
-        private Type _rootViewModelType;
-
         public BaseViewModel PreviousPageViewModel
         {
             get
@@ -30,10 +30,8 @@ namespace ReminderXamarin.Services.Navigation
             }
         }
 
-
         public Task InitializeAsync<TViewModel>() where TViewModel : BaseViewModel
         {
-            _rootViewModelType = typeof(TViewModel);
             return NavigateToAsync<TViewModel>();
         }
 
@@ -96,7 +94,6 @@ namespace ReminderXamarin.Services.Navigation
                     return;
                 }
 
-                _rootViewModelType = mainPage.CurrentPage.BindingContext?.GetType();
                 var lastPage = mainPage.Navigation.NavigationStack.Last();
 
                 while (true)

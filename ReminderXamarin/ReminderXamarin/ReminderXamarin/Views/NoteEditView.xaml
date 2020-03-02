@@ -37,38 +37,13 @@
     </ContentPage.ToolbarItems>    
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                        AbsoluteLayout.LayoutFlags="All">
-            <StackLayout Padding="10"
-                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All">            
+            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                          AbsoluteLayout.LayoutFlags="All">
-                <Label Text="{extensions:Translate Note}"
-                       TextColor="{DynamicResource ColorTextCommon}"
-                       FontSize="Small" />
-                <Editor x:Name="DescriptionEditor"
-                        Text="{Binding Description, Mode=OneWay}"
-                        TextColor="{DynamicResource ColorTextCommon}"
-                        Placeholder="{extensions:Translate NoteText}"
-                        PlaceholderColor="{DynamicResource Placeholder}"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand"
-                        HeightRequest="200">
-                    <Editor.Behaviors>
-                        <behaviors:EventToCommandBehavior 
-                            EventName="TextChanged"
-                            Command="{Binding DescriptionTextChanged}"
-                            CommandParameter="{Binding Source={x:Reference DescriptionEditor},
-                                                       Path=Text}"/>
-                    </Editor.Behaviors>
-                </Editor>
-
-                <CollectionView ItemsSource="{Binding GalleryItemsViewModels}"
-                                HeightRequest="200"
-                                ItemSizingStrategy="MeasureFirstItem">
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Horizontal"
-                                         Span="1" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
+                <CarouselView x:Name="GalleryCarousel" 
+                              ItemsSource="{Binding GalleryItemsViewModels}"
+                              HeightRequest="300">
+                    <CarouselView.ItemTemplate>
                         <DataTemplate>
                             <AbsoluteLayout Padding="2">
                                 <Image Source="{Binding ImagePath}"
@@ -99,8 +74,29 @@
                                 </Image>
                             </AbsoluteLayout>
                         </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+                
+                <Label Text="{extensions:Translate Note}"
+                       Padding="10"
+                       TextColor="{DynamicResource ColorTextCommon}"
+                       FontSize="Small" />
+                <Editor x:Name="DescriptionEditor"
+                        Text="{Binding Description, Mode=OneWay}"
+                        TextColor="{DynamicResource ColorTextCommon}"
+                        Placeholder="{extensions:Translate NoteText}"
+                        PlaceholderColor="{DynamicResource Placeholder}"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand"
+                        HeightRequest="200">
+                    <Editor.Behaviors>
+                        <behaviors:EventToCommandBehavior 
+                            EventName="TextChanged"
+                            Command="{Binding DescriptionTextChanged}"
+                            CommandParameter="{Binding Source={x:Reference DescriptionEditor},
+                                                       Path=Text}"/>
+                    </Editor.Behaviors>
+                </Editor>                
             </StackLayout>
 
             <AbsoluteLayout x:Name="AttachOptionLayout"

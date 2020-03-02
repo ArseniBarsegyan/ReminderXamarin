@@ -33,7 +33,10 @@ namespace ReminderXamarin.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Rg.Plugins.Popup.Popup.Init();
+
             Forms.SetFlags("CollectionView_Experimental");
+            Forms.SetFlags("CarouselView_Experimental");
+            
             Forms.Init();
             SQLitePCL.Batteries.Init();
             ImageCircleRenderer.Init();

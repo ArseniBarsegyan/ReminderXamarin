@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rm.Helpers", "Rm.Helpers\Rm
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{2C344D91-7B85-4F5A-B9B8-CCB390EBC8C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReminderXamarin.Core.Interfaces", "ReminderXamarin.Core.Interfaces\ReminderXamarin.Core.Interfaces.csproj", "{9B37722B-A1F2-4832-AE16-6511A2BF4F19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReminderXamarin.Core.Interfaces", "ReminderXamarin.Core.Interfaces\ReminderXamarin.Core.Interfaces.csproj", "{9B37722B-A1F2-4832-AE16-6511A2BF4F19}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Forms", "Forms", "{047F2138-E894-43D3-9C08-008609FCFE8C}"
 EndProject
