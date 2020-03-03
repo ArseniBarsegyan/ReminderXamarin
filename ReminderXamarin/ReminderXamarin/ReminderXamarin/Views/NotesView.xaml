@@ -95,7 +95,6 @@
             <SearchBar x:Name="SearchBar"
                        PlaceholderColor="{DynamicResource ColorTextCommon}"
                        BackgroundColor="{DynamicResource SearchBarBackground}"
-                       IsVisible="False"
                        Placeholder="Search..."
                        TextColor="{DynamicResource ColorTextCommon}"
                        CancelButtonColor="{DynamicResource ColorTextCommon}"

@@ -10,6 +10,8 @@ namespace ReminderXamarin.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NoteEditView : ContentPage
     {
+        private bool _isAnimationInProgress;
+
         public NoteEditView()
         {
             InitializeComponent();
@@ -36,6 +38,12 @@ namespace ReminderXamarin.Views
 
         private async void ToggleOptionsLayout(object sender, System.EventArgs e)
         {
+            if (_isAnimationInProgress)
+            {
+                return;
+            }
+            _isAnimationInProgress = true;
+
             if (AttachOptionLayout.IsVisible)
             {
                 await HideOptionsLayout();
@@ -44,6 +52,8 @@ namespace ReminderXamarin.Views
             {
                 await ShowOptionsLayout();
             }
+
+            _isAnimationInProgress = false;
         }
 
         private async Task ShowOptionsLayout()
