@@ -18,9 +18,9 @@
                    AbsoluteLayout.LayoutBounds="0,0,1,1"
                    AbsoluteLayout.LayoutFlags="All">
         <Label Text="{extensions:Translate Status}" />
-        <elements:CustomPickerWithIcon x:Name="PriorityPicker"
-                                       ItemsSource="{Binding AvailableStatuses}"
-                                       SelectedIndex="{Binding Status, Converter={StaticResource IntEnumConverter}}" />
+        <Picker x:Name="PriorityPicker"
+                ItemsSource="{Binding AvailableStatuses}"
+                SelectedIndex="{Binding Status, Converter={StaticResource IntEnumConverter}}" />
 
         <Label Text="{extensions:Translate Date}" />
         <DatePicker x:Name="DatePicker"

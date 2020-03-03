@@ -4,8 +4,6 @@ using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
 
-using Rm.Helpers;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,7 +17,6 @@ namespace ReminderXamarin.Views
         public AchievementStepView()
         {
             InitializeComponent();
-            BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
         }
 
         private async void AchievementStepImage_OnTapped(object sender, EventArgs e)

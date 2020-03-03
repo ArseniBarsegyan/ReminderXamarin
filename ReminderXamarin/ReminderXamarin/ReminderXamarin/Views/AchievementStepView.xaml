@@ -68,11 +68,11 @@
 
                         <Label Text="{extensions:Translate StepType}"
                                HorizontalOptions="Start" />
-                        <elements:CustomPickerWithIcon x:Name="StepTypePicker"
-                                                   SelectedIndexChanged="OnViewChanged"
-                                                   ItemsSource="{Binding AvailableStepTypes}"
-                                                   SelectedIndex="{Binding StepType,
-                                                                            Converter={StaticResource IntEnumConverter}}" />
+                        <Picker x:Name="StepTypePicker"
+                                SelectedIndexChanged="OnViewChanged"
+                                ItemsSource="{Binding AvailableStepTypes}"
+                                SelectedIndex="{Binding StepType,
+                                                        Converter={StaticResource IntEnumConverter}}" />
                         <Label Text="{extensions:Translate StepTimeEstimation}"
                                IsVisible="{Binding StepType,
                                                     Converter={StaticResource StepTypeVisibilityConverter}}"

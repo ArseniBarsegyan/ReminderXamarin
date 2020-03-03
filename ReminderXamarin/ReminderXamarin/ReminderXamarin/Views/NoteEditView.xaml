@@ -78,14 +78,17 @@
                 </CarouselView>
                 
                 <Label Text="{extensions:Translate Note}"
-                       Padding="10"
+                       Padding="10,10,0,0"
                        TextColor="{DynamicResource ColorTextCommon}"
                        FontSize="Small" />
                 <Editor x:Name="DescriptionEditor"
+                        Margin="10,0"
                         Text="{Binding Description, Mode=OneWay}"
                         TextColor="{DynamicResource ColorTextCommon}"
                         Placeholder="{extensions:Translate NoteText}"
                         PlaceholderColor="{DynamicResource Placeholder}"
+                        Focused="DescriptionEditor_Focused"
+                        Unfocused="DescriptionEditor_Unfocused"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="FillAndExpand"
                         HeightRequest="200">
@@ -122,16 +125,19 @@
                     <ImageButton x:Name="AttachButton"
                                  Source="{Binding AttachButtonImageSource}"
                                  Style="{StaticResource PickerButtonStyle}"
+                                 Clicked="Button_Clicked"
                                  Command="{Binding PickMultipleMediaCommand}" />
 
                     <ImageButton x:Name="CameraButton"
                                  Source="{Binding CameraButtonImageSource}"
                                  Style="{StaticResource PickerButtonStyle}"
+                                 Clicked="Button_Clicked"
                                  Command="{Binding TakePhotoCommand}" />
 
                     <ImageButton x:Name="VideoButton"
                                  Source="{Binding VideoButtonImageSource}"
                                  Style="{StaticResource PickerButtonStyle}"
+                                 Clicked="Button_Clicked"
                                  Command="{Binding TakeVideoCommand}" />
                 </StackLayout>
             </AbsoluteLayout>

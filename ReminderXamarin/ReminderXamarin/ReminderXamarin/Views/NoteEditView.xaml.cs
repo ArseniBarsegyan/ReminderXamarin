@@ -84,5 +84,36 @@ namespace ReminderXamarin.Views
             await Task.WhenAll(tasks);
             AttachOptionLayout.IsVisible = false;
         }
+
+        private async void Button_Clicked(object sender, System.EventArgs e)
+        {
+            await AnimateGalleryShow();
+        }
+
+        private async void DescriptionEditor_Focused(object sender, FocusEventArgs e)
+        {
+            await AnimateGalleryHide();
+        }        
+
+        private async void DescriptionEditor_Unfocused(object sender, FocusEventArgs e)
+        {
+            await AnimateGalleryShow();
+        }
+
+        private async Task AnimateGalleryHide()
+        {
+            await GalleryCarousel.TranslateTo(0, -300, 150);
+            await ShowOptionsLayoutButton.TranslateTo(0, -250, 150);
+            await AttachOptionLayout.TranslateTo(0, -250, 150);
+            GalleryCarousel.IsVisible = false;
+        }
+
+        private async Task AnimateGalleryShow()
+        {
+            GalleryCarousel.IsVisible = true;
+            await GalleryCarousel.TranslateTo(0, 0, 150);
+            await ShowOptionsLayoutButton.TranslateTo(0, 0, 150);
+            await AttachOptionLayout.TranslateTo(0, 0, 150);
+        }
     }
 }

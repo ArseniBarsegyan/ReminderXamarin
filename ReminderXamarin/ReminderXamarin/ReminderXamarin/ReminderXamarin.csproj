@@ -11,18 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Images\login_background.png" />
-    <None Remove="Images\menu_background.png" />
-    <None Remove="Images\montain_image_background.jpg" />
     <None Remove="Images\no_photo.png" />
     <None Remove="Images\side_menu_header_dark_background.jpg" />
     <None Remove="Images\side_menu_header_light_background.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Images\login_background.png" />
-    <EmbeddedResource Include="Images\menu_background.png" />
-    <EmbeddedResource Include="Images\montain_image_background.jpg" />
     <EmbeddedResource Include="Images\no_photo.png" />
     <EmbeddedResource Include="Images\side_menu_header_dark_background.jpg" />
     <EmbeddedResource Include="Images\side_menu_header_light_background.jpg" />

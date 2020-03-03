@@ -16,7 +16,6 @@
         public const string AlreadyHaveAccountQuestion = nameof(AlreadyHaveAccountQuestion);
         public const string ArrowForwardImage = "arrow_forward.png";
         public const string AreYouSure = "Are you sure?";
-        public const string BackgroundImageSource = "ReminderXamarin.Images.login_background.png";
         public const string Birthdays = nameof(Birthdays);
         public const string BirthdaysDeleteMessage = "Are you sure you want to delete this birthday?";
         public const string BirthdaysIcon = "birthday_light.png";

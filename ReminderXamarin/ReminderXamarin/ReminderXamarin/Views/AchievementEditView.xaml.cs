@@ -24,7 +24,6 @@ namespace ReminderXamarin.Views
             _confirmToolbarItem = new ToolbarItem { Order = ToolbarItemOrder.Primary, IconImageSource = ConstantsHelper.ConfirmIcon };
             _confirmToolbarItem.Clicked += Confirm_OnClicked;
             ToolbarItems.Add(_confirmToolbarItem);
-            BackgroundImage.Source = ImageSource.FromResource(ConstantsHelper.BackgroundImageSource);
         }
 
         private void Confirm_OnClicked(object sender, EventArgs e)
