@@ -57,7 +57,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task NavigateToEditView(int id)
         {
-            await NavigationService.NavigateToAsync<BirthdayEditViewModel>(id);
+            await NavigationService.NavigateToAsync<BirthdayEditViewModel>(id).ConfigureAwait(false);
         }
     }
 }

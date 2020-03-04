@@ -101,7 +101,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task NavigateToAchievementStepEditView(KeyValuePair<int, int> pair)
         {
-            await NavigationService.NavigateToAsync<AchievementStepViewModel>(pair);
+            await NavigationService.NavigateToAsync<AchievementStepViewModel>(pair).ConfigureAwait(false);
         }
 
         public override Task InitializeAsync(object navigationData)
@@ -143,7 +143,7 @@ namespace ReminderXamarin.ViewModels
                     UserId = Settings.CurrentUserId
                 };
                 App.AchievementRepository.Value.Save(achievement);
-                await NavigationService.NavigateBackAsync();
+                await NavigationService.NavigateBackAsync().ConfigureAwait(false);
             }
             else
             {
@@ -172,14 +172,14 @@ namespace ReminderXamarin.ViewModels
                 {
                     var achievementToDelete = App.AchievementRepository.Value.GetAchievementAsync(_achievementId);
                     App.AchievementRepository.Value.DeleteAchievement(achievementToDelete);
-                    await NavigationService.NavigateBackAsync();
+                    await NavigationService.NavigateBackAsync().ConfigureAwait(false);
                 }
             }
         }
 
         private async Task AddStep()
         {
-            await NavigationService.NavigateToAsync<AchievementStepViewModel>();
+            await NavigationService.NavigateToAsync<AchievementStepViewModel>().ConfigureAwait(false);
         }
     }
 }

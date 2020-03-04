@@ -54,11 +54,11 @@ namespace ReminderXamarin.ViewModels
         {
             if (IsRegister)
             {
-                await Register();
+                await Register().ConfigureAwait(false);
             }
             else
             {
-                await Login();
+                await Login().ConfigureAwait(false);
             }
         }
 

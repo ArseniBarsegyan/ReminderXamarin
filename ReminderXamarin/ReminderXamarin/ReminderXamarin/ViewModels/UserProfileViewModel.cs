@@ -87,12 +87,16 @@ namespace ReminderXamarin.ViewModels
                 try
                 {
                     ViewModelChanged = true;
-                    var imageContent = _fileService.ReadAllBytes(document.Path);
-                    var resizedImage = _mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
-                        ConstantsHelper.ResizedImageHeight);
+                    await Task.Run(() =>
+                    {
+                        var imageContent = _fileService.ReadAllBytes(document.Path);
+                        var resizedImage = _mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
+                            ConstantsHelper.ResizedImageHeight);
 
-                    ImageContent = resizedImage;
-                    UpdateProfilePhoto();
+                        ImageContent = resizedImage;
+                    }).ConfigureAwait(false);
+
+                    Device.BeginInvokeOnMainThread(UpdateProfilePhoto);
                 }
                 catch (Exception ex)
                 {

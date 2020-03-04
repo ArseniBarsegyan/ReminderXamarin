@@ -47,7 +47,7 @@ namespace ReminderXamarin.ViewModels
             RefreshListCommand = commandResolver.Command(Refresh);
             SearchCommand = commandResolver.Command(SearchNotesByDescription);
             NavigateToEditViewCommand = commandResolver.AsyncCommand<int>(NavigateToEditView);
-            LoadMoreNotesCommand = commandResolver.AsyncCommand(LoadMoreNotes);
+            LoadMoreNotesCommand = commandResolver.Command(LoadMoreNotes);
         }
 
         public string SearchText { get; set; }
@@ -59,7 +59,7 @@ namespace ReminderXamarin.ViewModels
         public ICommand RefreshListCommand { get; }
         public ICommand SearchCommand { get; }
         public IAsyncCommand<int> NavigateToEditViewCommand { get; }
-        public IAsyncCommand LoadMoreNotesCommand { get; }
+        public ICommand LoadMoreNotesCommand { get; }
 
         public void OnAppearing()
         {
@@ -223,7 +223,7 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private async Task LoadMoreNotes()
+        private void LoadMoreNotes()
         {
             try
             {

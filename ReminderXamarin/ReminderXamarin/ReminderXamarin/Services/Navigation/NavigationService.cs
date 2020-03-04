@@ -168,9 +168,10 @@ namespace ReminderXamarin.Services.Navigation
             {
                 if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {
-                    Device.BeginInvokeOnMainThread(() =>
+                    Device.BeginInvokeOnMainThread(async() =>
                     {
                         detailPage.Detail = new NavigationPage(page);
+                        await Task.Delay(25);
                         detailPage.IsPresented = false;
                     });
                 }          

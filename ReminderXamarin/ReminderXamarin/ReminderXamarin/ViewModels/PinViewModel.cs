@@ -88,7 +88,6 @@ namespace ReminderXamarin.ViewModels
             {
                 int.TryParse(_pinBuilder.ToString(), out int pin);
                 Pin = pin;
-                await Task.Delay(25).ConfigureAwait(false);
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     ResetImagesAndCount();

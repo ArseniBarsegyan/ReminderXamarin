@@ -125,7 +125,7 @@ namespace ReminderXamarin.ViewModels
                 TimeEstimation = 1;
             }
             MessagingCenter.Send(this, ConstantsHelper.AchievementStepEditComplete);
-            await NavigationService.NavigateBackAsync();
+            await NavigationService.NavigateBackAsync().ConfigureAwait(false);
         }
 
         private async Task ChangeProgress(string amount)

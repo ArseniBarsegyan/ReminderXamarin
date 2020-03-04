@@ -1,13 +1,13 @@
-﻿using ReminderXamarin.Core.Interfaces.Commanding;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Input;
+
+using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Enums;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ReminderXamarin.ViewModels
 {
@@ -17,9 +17,9 @@ namespace ReminderXamarin.ViewModels
             ICommandResolver commandResolver)
             : base(navigationService)
         {
-            CreateToDoCommand = commandResolver.AsyncCommand(CreateToDo);
-            UpdateItemCommand = commandResolver.AsyncCommand(UpdateItem);
-            DeleteItemCommand = commandResolver.AsyncCommand(DeleteItem);
+            CreateToDoCommand = commandResolver.Command(CreateToDo);
+            UpdateItemCommand = commandResolver.Command(UpdateItem);
+            DeleteItemCommand = commandResolver.Command(DeleteItem);
         }
 
         public int Id { get; set; }
@@ -30,22 +30,22 @@ namespace ReminderXamarin.ViewModels
         public string Description { get; set; }
         public DateTime WhenHappens { get; set; }
 
-        public IAsyncCommand CreateToDoCommand { get; }
-        public IAsyncCommand UpdateItemCommand { get; }
-        public IAsyncCommand DeleteItemCommand { get; }
+        public ICommand CreateToDoCommand { get; }
+        public ICommand UpdateItemCommand { get; }
+        public ICommand DeleteItemCommand { get; }
 
-        private async Task CreateToDo()
+        private void CreateToDo()
         {
             App.ToDoRepository.Value.Save(this.ToToDoModel());
         }
 
-        private async Task UpdateItem()
+        private void UpdateItem()
         {
             // Update edit date since user pressed confirm
             App.ToDoRepository.Value.Save(this.ToToDoModel());
         }
 
-        private async Task DeleteItem()
+        private void DeleteItem()
         {
             App.ToDoRepository.Value.DeleteModel(this.ToToDoModel());
         }
