@@ -1,7 +1,9 @@
-﻿using ReminderXamarin.DependencyResolver;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Reflection;
+
+using ReminderXamarin.DependencyResolver;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels.Base

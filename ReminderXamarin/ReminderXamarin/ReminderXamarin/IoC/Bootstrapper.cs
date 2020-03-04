@@ -1,4 +1,5 @@
 ﻿using ReminderXamarin.Commanding;
+using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Helpers;

@@ -1,5 +1,5 @@
-﻿using ReminderXamarin.DependencyResolver;
-using ReminderXamarin.Services;
+﻿using ReminderXamarin.Core.Interfaces;
+using ReminderXamarin.DependencyResolver;
 
 namespace Rm.Helpers
 {

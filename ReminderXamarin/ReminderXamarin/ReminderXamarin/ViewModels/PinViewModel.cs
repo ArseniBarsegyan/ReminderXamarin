@@ -25,13 +25,13 @@ namespace ReminderXamarin.ViewModels
             ICommandResolver commandResolver)
             : base(navigationService)
         {
+            _pinBuilder = new StringBuilder();
+            _themeSwitcher = themeSwitcher;            
+
             DeleteNumberCommand = commandResolver.Command(DeletePinNumber);
             PinCommand = commandResolver.AsyncCommand<string>(CheckPin);
             LoginCommand = commandResolver.AsyncCommand(Login);
 
-            _pinBuilder = new StringBuilder();           
-
-            _themeSwitcher = themeSwitcher;
             InitializeImagesForButtons();
         }
 
@@ -88,9 +88,12 @@ namespace ReminderXamarin.ViewModels
             {
                 int.TryParse(_pinBuilder.ToString(), out int pin);
                 Pin = pin;
-                await Task.Delay(25);
-                ResetImagesAndCount();
-                await Login();
+                await Task.Delay(25).ConfigureAwait(false);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    ResetImagesAndCount();
+                });                
+                await Login().ConfigureAwait(false);
             }
         }
 
@@ -139,7 +142,7 @@ namespace ReminderXamarin.ViewModels
             var userPin = Settings.UserPinCode;
             if (Pin.ToString() == userPin)
             {
-                await NavigationService.InitializeAsync<MenuViewModel>();
+                await NavigationService.InitializeAsync<MenuViewModel>().ConfigureAwait(false);
             }
         }
     }

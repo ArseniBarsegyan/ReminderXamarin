@@ -40,7 +40,10 @@ namespace ReminderXamarin.Services.Navigation
             if (Application.Current.MainPage is NavigationPage mainPage)
             {
                 var lastPage = mainPage.Navigation.NavigationStack.Last();
-                await lastPage.Navigation.PopToRootAsync();
+                Device.BeginInvokeOnMainThread(async() =>
+                {
+                    await lastPage.Navigation.PopToRootAsync();
+                });                
             }
         }
 
@@ -65,7 +68,10 @@ namespace ReminderXamarin.Services.Navigation
 
             if (Application.Current.MainPage is MasterDetailPage masterDetailPage)
             {
-                await masterDetailPage.Navigation.PushPopupAsync(popupPage);
+                Device.BeginInvokeOnMainThread(async() =>
+                {
+                    await masterDetailPage.Navigation.PushPopupAsync(popupPage);
+                });                
             }
         }
 
@@ -116,18 +122,24 @@ namespace ReminderXamarin.Services.Navigation
 
         public async Task NavigateBackAsync()
         {
-            if (Application.Current.MainPage is MasterDetailPage detailPage)
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                await detailPage.Detail.Navigation.PopAsync(true);
-            }
+                if (Application.Current.MainPage is MasterDetailPage detailPage)
+                {
+                    await detailPage.Detail.Navigation.PopAsync(true);
+                }
+            });           
         }
 
         public async Task NavigatePopupBackAsync()
         {
             if (Application.Current.MainPage is MasterDetailPage detailPage)
             {
-                await detailPage.Detail.Navigation.PopPopupAsync(true);
-            }
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await detailPage.Detail.Navigation.PopPopupAsync(true);
+                }); 
+            }            
         }
 
         private async Task InternalNavigateToAsync(Type viewModelType, object parameter)
@@ -140,8 +152,11 @@ namespace ReminderXamarin.Services.Navigation
             }
 
             if (page is MenuView || page is LoginView || page is PinView)
-            {                
-                Application.Current.MainPage = page;
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    Application.Current.MainPage = page;
+                });                
             }
 
             else if (page is UserProfileView 
@@ -153,19 +168,23 @@ namespace ReminderXamarin.Services.Navigation
             {
                 if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {
-                    detailPage.Detail = new NavigationPage(page);
-                    await Task.Delay(50);
-                    detailPage.IsPresented = false;
-                }
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        detailPage.Detail = new NavigationPage(page);
+                        detailPage.IsPresented = false;
+                    });
+                }          
             }
             else
             {
                 if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {
-                    await detailPage.Detail.Navigation.PushAsync(page, true);
-                    await Task.Delay(50);
-                    detailPage.IsPresented = false;
-                }
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await detailPage.Detail.Navigation.PushAsync(page, true);
+                        detailPage.IsPresented = false;
+                    });                    
+                }                               
             }
         }
 

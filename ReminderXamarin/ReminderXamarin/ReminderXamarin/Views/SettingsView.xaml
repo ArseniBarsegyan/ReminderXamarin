@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
-             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.SettingsView"
              Title="{extensions:Translate Settings}"
              BackgroundColor="{DynamicResource SettingsViewBackground}"
@@ -11,35 +10,79 @@
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                         AbsoluteLayout.LayoutFlags="All">
-            <TableView Intent="Form" 
-                       AbsoluteLayout.LayoutBounds="0,0,1,1"
-                       AbsoluteLayout.LayoutFlags="All">
-                <TableRoot>
-                    <TableSection Title="{extensions:Translate SettingsLoginSectionName}"
-                                  TextColor="{DynamicResource ColorTextCommon}">
-                        <SwitchCell x:Name="UsePinSwitch"
-                                    Text="{extensions:Translate UsePin}"
-                                    On="{Binding UsePin}"
-                                    OnChanged="Switch_OnValueChanged" />
-                        <EntryCell x:Name="PinEntry"
-                                   Text="{Binding Pin}"
-                                   IsEnabled="{Binding Source={x:Reference UsePinSwitch}, Path=On}"
-                                   Keyboard="Numeric">
-                        </EntryCell>
-                    </TableSection>
-                    <TableSection Title="{extensions:Translate SettingsThemeSectionName}"
-                                  TextColor="{DynamicResource ColorTextCommon}">
-                        <SwitchCell x:Name="ThemeSwitcher"
-                                    On="{Binding IsDarkTheme}"
-                                    Text="{extensions:Translate UseColorTheme}"
-                                    OnChanged="Switch_OnValueChanged" />
-                    </TableSection>
-                </TableRoot>
-            </TableView>
+
+            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         AbsoluteLayout.LayoutFlags="All"
+                         Padding="10">
+
+                <Frame MinimumHeightRequest="200"
+                       HasShadow="True"
+                       Padding="10"
+                       BackgroundColor="{DynamicResource CardViewBackground}"
+                       BorderColor="{DynamicResource CardViewBorder}"
+                       Margin="0,5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Text="{extensions:Translate UsePin}"
+                               TextColor="{DynamicResource ColorTextCommon}" />
+
+                        <Switch x:Name="UsePinSwitch"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                IsToggled="{Binding UsePin}" />
+
+                        <Entry x:Name="PinEntry"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               Text="{Binding Pin}"
+                               IsEnabled="{Binding Source={x:Reference UsePinSwitch}, Path=IsToggled}"
+                               Keyboard="Numeric" />
+                    </Grid>
+                </Frame>
+
+                <Frame MinimumHeightRequest="200"
+                       HasShadow="True"
+                       Padding="10"
+                       BackgroundColor="{DynamicResource CardViewBackground}"
+                       BorderColor="{DynamicResource CardViewBorder}"
+                       Margin="0,5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Text="{extensions:Translate UseColorTheme}"
+                               TextColor="{DynamicResource ColorTextCommon}" />
+                        
+                        <Switch x:Name="ThemeSwitcher"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                IsToggled="{Binding IsDarkTheme}" />
+                    </Grid>
+                </Frame>
+            </StackLayout>            
 
             <ImageButton x:Name="ConfirmButton"
-                         Clicked="ConfirmButton_OnClicked"
+                         IsVisible="{Binding ModelChanged}"
                          BackgroundColor="{DynamicResource SubmitButtonBackground}"
+                         Command="{Binding SaveSettingsCommand}"
+                         CommandParameter="{Binding Source={x:Reference PinEntry}, Path=Text}"
                          Source="confirm.png"
                          CornerRadius="30"
                          Padding="20"

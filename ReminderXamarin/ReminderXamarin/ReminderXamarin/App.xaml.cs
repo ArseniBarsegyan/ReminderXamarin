@@ -1,7 +1,10 @@
-﻿using Microsoft.AppCenter;
+﻿using System;
+
+using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 
+using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.IoC;
 using ReminderXamarin.Services;
@@ -13,8 +16,6 @@ using ReminderXamarin.ViewModels;
 using Rm.Data.Data.Repositories;
 using Rm.Helpers;
 
-using System;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ReminderXamarin

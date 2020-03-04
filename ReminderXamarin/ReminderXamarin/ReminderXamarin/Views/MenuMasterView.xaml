@@ -78,7 +78,7 @@
                                  Orientation="Horizontal" 
                                  VerticalOptions="FillAndExpand">
                         <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding LogoutCommand}" 
+                            <TapGestureRecognizer Command="{Binding LogoutCommand}"
                                                   NumberOfTapsRequired="1" />
                         </StackLayout.GestureRecognizers>
                         <Image x:Name="LogoutImage" 

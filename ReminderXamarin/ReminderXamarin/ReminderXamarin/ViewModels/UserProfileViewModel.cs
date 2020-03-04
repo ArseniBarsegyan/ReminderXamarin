@@ -1,18 +1,18 @@
-﻿using Acr.UserDialogs;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
+using Acr.UserDialogs;
+
+using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
-using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
-
-using System;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 using Xamarin.Forms;
 
@@ -35,7 +35,7 @@ namespace ReminderXamarin.ViewModels
             ImageContent = new byte[0];
 
             ChangeUserProfileCommand = commandResolver.Command<PlatformDocument>(ChangeUserProfile);
-            UpdateUserCommand = commandResolver.AsyncCommand(UpdateUser);
+            UpdateUserCommand = commandResolver.Command(UpdateUser);
         }
 
         public override Task InitializeAsync(object navigationData)
@@ -63,7 +63,7 @@ namespace ReminderXamarin.ViewModels
         public bool ViewModelChanged { get; set; }
 
         public ICommand ChangeUserProfileCommand { get; }
-        public IAsyncCommand UpdateUserCommand { get; }
+        public ICommand UpdateUserCommand { get; }
 
         private void UpdateProfilePhoto()
         {
@@ -101,7 +101,7 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private async Task UpdateUser()
+        private void UpdateUser()
         {
             var user = App.UserRepository.Value.GetUserAsync(Id);
             if (user != null)

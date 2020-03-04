@@ -1,12 +1,14 @@
-﻿using Rm.Data.Data.Entities;
-using Rm.Helpers;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Threading.Tasks;
+
+using ReminderXamarin.Core.Interfaces;
+
+using Rm.Data.Data.Entities;
+using Rm.Helpers;
 
 namespace ReminderXamarin.Services
 {
@@ -15,7 +17,7 @@ namespace ReminderXamarin.Services
         private readonly HttpClient _httpClient = new HttpClient();
 
         public async Task<HttpResult> UploadAll(IList<Note> notes, CancellationToken cancellationToken)
-        {            
+        {
             using (var stream = new MemoryStream())
             {
                 var formatter = new BinaryFormatter();
@@ -31,7 +33,7 @@ namespace ReminderXamarin.Services
                     return HttpResult.Ok;
                 }
                 return HttpResult.Error;
-            }            
+            }
         }
     }    
 }

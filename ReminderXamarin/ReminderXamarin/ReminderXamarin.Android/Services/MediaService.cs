@@ -5,7 +5,7 @@ using Android.Media;
 
 using Java.IO;
 
-using ReminderXamarin.Services;
+using ReminderXamarin.Core.Interfaces;
 
 namespace ReminderXamarin.Droid.Services
 {

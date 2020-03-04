@@ -1,23 +1,23 @@
-﻿using Acr.UserDialogs;
-
-using ReminderXamarin.Core.Interfaces.Commanding;
-using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
-using ReminderXamarin.Extensions;
-using ReminderXamarin.Helpers;
-using ReminderXamarin.Services;
-using ReminderXamarin.Services.Navigation;
-using ReminderXamarin.ViewModels.Base;
-
-using Rm.Data.Data.Entities;
-using Rm.Helpers;
-
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
+using Acr.UserDialogs;
+
+using ReminderXamarin.Core.Interfaces;
+using ReminderXamarin.Core.Interfaces.Commanding;
+using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
+using ReminderXamarin.Extensions;
+using ReminderXamarin.Helpers;
+using ReminderXamarin.Services.Navigation;
+using ReminderXamarin.ViewModels.Base;
+
+using Rm.Data.Data.Entities;
+using Rm.Helpers;
 
 using Xamarin.Forms;
 
@@ -56,9 +56,9 @@ namespace ReminderXamarin.ViewModels
             _mediaHelper = mediaHelper;
             _transformHelper = transformHelper;
 
-            AttachButtonImageSource = "attachment_light.png";
-            CameraButtonImageSource = "camera.png";
-            VideoButtonImageSource = "video.png";
+            AttachButtonImageSource = ConstantsHelper.AttachmentLightIcon;
+            CameraButtonImageSource = ConstantsHelper.CameraIcon;
+            VideoButtonImageSource = ConstantsHelper.VideoIcon;
 
             GalleryItemsViewModels = new ObservableCollection<GalleryItemViewModel>();            
 
@@ -177,8 +177,7 @@ namespace ReminderXamarin.ViewModels
                     galleryItemModel.ImagePath = imagePath;
                     galleryItemModel.Thumbnail = imagePath;
 
-                    await _transformHelper.ResizeAsync(imagePath, galleryItemModel)
-                    .ConfigureAwait(false);
+                    await _transformHelper.ResizeAsync(imagePath, galleryItemModel).ConfigureAwait(false);
 
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -206,7 +205,7 @@ namespace ReminderXamarin.ViewModels
             }
             else
             {
-                await NavigationService.NavigateToPopupAsync<GalleryItemViewModel>(viewModel);
+                await NavigationService.NavigateToPopupAsync<GalleryItemViewModel>(viewModel).ConfigureAwait(false);
             }
         }
 
@@ -277,8 +276,7 @@ namespace ReminderXamarin.ViewModels
                         videoModel.ImagePath = imagePath;
                         videoModel.Thumbnail = imagePath;
 
-                        await _transformHelper.ResizeAsync(imagePath, videoModel)
-                        .ConfigureAwait(false);
+                        await _transformHelper.ResizeAsync(imagePath, videoModel).ConfigureAwait(false);
 
                         Device.BeginInvokeOnMainThread(() =>
                         {
@@ -308,7 +306,7 @@ namespace ReminderXamarin.ViewModels
                 };
                 App.NoteRepository.Value.Save(note);
                 MessagingCenter.Send(this, ConstantsHelper.NoteCreated);
-                await NavigationService.NavigateBackAsync();
+                await NavigationService.NavigateBackAsync().ConfigureAwait(false);
             }
             else
             {
@@ -335,7 +333,7 @@ namespace ReminderXamarin.ViewModels
                     var noteToDelete = App.NoteRepository.Value.GetNoteAsync(_noteId);
                     App.NoteRepository.Value.DeleteNote(noteToDelete);
                     MessagingCenter.Send(this, ConstantsHelper.NoteDeleted, _noteId);
-                    await NavigationService.NavigateBackAsync();
+                    await NavigationService.NavigateBackAsync().ConfigureAwait(false);
                 }
             }
         }

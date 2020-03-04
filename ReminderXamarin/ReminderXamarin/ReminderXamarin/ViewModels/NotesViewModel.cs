@@ -1,14 +1,4 @@
-﻿using ReminderXamarin.Core.Interfaces.Commanding;
-using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
-using ReminderXamarin.Extensions;
-using ReminderXamarin.Services;
-using ReminderXamarin.Services.Navigation;
-using ReminderXamarin.ViewModels.Base;
-
-using Rm.Data.Data.Entities;
-using Rm.Helpers;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -17,6 +7,16 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
+using ReminderXamarin.Core.Interfaces;
+using ReminderXamarin.Core.Interfaces.Commanding;
+using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
+using ReminderXamarin.Extensions;
+using ReminderXamarin.Services.Navigation;
+using ReminderXamarin.ViewModels.Base;
+
+using Rm.Data.Data.Entities;
+using Rm.Helpers;
 
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -284,7 +284,7 @@ namespace ReminderXamarin.ViewModels
         private async Task NavigateToEditView(int id)
         {
             _isNavigatedToEditView = true;
-            await NavigationService.NavigateToAsync<NoteEditViewModel>(id);
+            await NavigationService.NavigateToAsync<NoteEditViewModel>(id).ConfigureAwait(false);
         }
     }
 }

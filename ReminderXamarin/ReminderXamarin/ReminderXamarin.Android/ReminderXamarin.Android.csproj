@@ -197,6 +197,10 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ReminderXamarin.Core.Interfaces\ReminderXamarin.Core.Interfaces.csproj">
+      <Project>{9B37722B-A1F2-4832-AE16-6511A2BF4F19}</Project>
+      <Name>ReminderXamarin.Core.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Rm.Data\Rm.Data.csproj">
       <Project>{7d972519-5c7a-4275-a74a-e69a7a981104}</Project>
       <Name>Rm.Data</Name>

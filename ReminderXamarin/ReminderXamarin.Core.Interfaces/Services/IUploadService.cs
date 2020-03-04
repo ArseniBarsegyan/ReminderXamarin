@@ -1,10 +1,10 @@
-﻿using Rm.Data.Data.Entities;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ReminderXamarin.Services
+using Rm.Data.Data.Entities;
+
+namespace ReminderXamarin.Core.Interfaces
 {
     public interface IUploadService
     {

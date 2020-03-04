@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 
+using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.DependencyResolver;
-using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
 

@@ -11,6 +11,8 @@
     <Color x:Key="StatusBarColor">#000A12</Color>
     <Color x:Key="BirthdayEditViewBackground">#303030</Color>
     <Color x:Key="BirthdaysViewBackground">#303030</Color>
+    <Color x:Key="CardViewBackground">#444444</Color>
+    <Color x:Key="CardViewBorder">#444444</Color>
     <Color x:Key="ColorTextCommon">#EAEAEA</Color>
     <Color x:Key="CancelButtonBackground">#303030</Color>
     <Color x:Key="ErrorTextCommon">#FF5252</Color>
@@ -21,8 +23,6 @@
     <Color x:Key="NavigationBarBackground">#1A1A1A</Color>
     <Color x:Key="NavigationBarText">#FFFFFF</Color>
     <Color x:Key="NotesViewBackground">#303030</Color>
-    <Color x:Key="NoteViewCellBackground">#444444</Color>
-    <Color x:Key="NoteViewCellBorder">#444444</Color>
     <Color x:Key="NoteEditViewBackground">#303030</Color>
     <Color x:Key="NoteOptionsMenuBackground">#444444</Color>    
     <Color x:Key="PinViewLabelText">#FFFFFF</Color>

@@ -28,7 +28,7 @@ namespace ReminderXamarin.ViewModels
 
             SignInCommand = commandResolver.AsyncCommand(SignIn);
             SwitchPasswordVisibilityCommand = commandResolver.Command(SwitchPasswordVisibility);
-            ToggleRegisterOrLoginViewCommand = commandResolver.AsyncCommand(ToggleRegisterOrLoginView);
+            ToggleRegisterOrLoginViewCommand = commandResolver.Command(ToggleRegisterOrLoginView);
             SwitchPasswordConfirmVisibilityCommand = commandResolver.Command(SwitchConfirmPasswordVisibility);
         }
 
@@ -47,7 +47,7 @@ namespace ReminderXamarin.ViewModels
 
         public ICommand SwitchPasswordVisibilityCommand { get; }
         public ICommand SwitchPasswordConfirmVisibilityCommand { get; }
-        public IAsyncCommand ToggleRegisterOrLoginViewCommand { get; }
+        public ICommand ToggleRegisterOrLoginViewCommand { get; }
         public IAsyncCommand SignInCommand { get; }
 
         private async Task SignIn()
@@ -67,8 +67,7 @@ namespace ReminderXamarin.ViewModels
             if (await AuthenticationManager.Authenticate(UserName, Password).ConfigureAwait(false))
             {
                 Settings.ApplicationUser = UserName;
-                // Application.Current.MainPage = new NavigationPage(new MenuView(UserName));
-                await NavigationService.InitializeAsync<MenuViewModel>();
+                await NavigationService.InitializeAsync<MenuViewModel>().ConfigureAwait(false);
                 IsValid = true;
             }
             else
@@ -97,7 +96,7 @@ namespace ReminderXamarin.ViewModels
                     if (await AuthenticationManager.Authenticate(UserName, Password).ConfigureAwait(false))
                     {
                         Settings.ApplicationUser = UserName;
-                        await NavigationService.InitializeAsync<MenuViewModel>();
+                        await NavigationService.InitializeAsync<MenuViewModel>().ConfigureAwait(false);
                         IsValid = true;
                     }
                     else
@@ -112,7 +111,7 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private async Task ToggleRegisterOrLoginView()
+        private void ToggleRegisterOrLoginView()
         {
             IsRegister = !IsRegister;
         }

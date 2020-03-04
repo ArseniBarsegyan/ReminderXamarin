@@ -1,4 +1,4 @@
-﻿namespace ReminderXamarin.Services
+﻿namespace ReminderXamarin.Core.Interfaces
 {
     public interface IVideoService
     {

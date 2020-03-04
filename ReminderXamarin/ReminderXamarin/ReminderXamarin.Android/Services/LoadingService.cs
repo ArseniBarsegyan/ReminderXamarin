@@ -4,7 +4,7 @@ using Android.Widget;
 
 using Plugin.CurrentActivity;
 
-using ReminderXamarin.Services;
+using ReminderXamarin.Core.Interfaces;
 
 namespace ReminderXamarin.Droid.Services
 {

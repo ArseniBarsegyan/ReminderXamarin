@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 
-using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Services.Navigation;
 
 using Rm.Helpers;
@@ -48,8 +47,8 @@ namespace ReminderXamarin.ViewModels.Base
                 {
                     if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Storage))
                     {
-                        await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Need Storage permission to access to your photos.",
-                            "Alert");
+                        await Acr.UserDialogs.UserDialogs.Instance.AlertAsync(ConstantsHelper.StoragePermissionRequiredMessage,
+                            ConstantsHelper.Warning);
                     }
 
                     var results = await CrossPermissions.Current.RequestPermissionsAsync(new[] {Permission.Storage });
@@ -63,15 +62,15 @@ namespace ReminderXamarin.ViewModels.Base
                 }
                 else if (status != PermissionStatus.Unknown)
                 {
-                    await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Permission Denied. Can not continue, try again.",
-                        "Alert");
+                    await Acr.UserDialogs.UserDialogs.Instance.AlertAsync(ConstantsHelper.PermissionDeniedMessage,
+                        ConstantsHelper.Warning);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Error. Can not continue, try again.",
-                    "Alert");
+                await Acr.UserDialogs.UserDialogs.Instance.AlertAsync(ConstantsHelper.CantContinueErrorMessage,
+                    ConstantsHelper.Warning);
             }
             return retVal;
         }

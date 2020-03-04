@@ -13,6 +13,7 @@ using ImageCircle.Forms.Plugin.Droid;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
 
+using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Droid.Services;
 using ReminderXamarin.Droid.Services.FilePickerService;

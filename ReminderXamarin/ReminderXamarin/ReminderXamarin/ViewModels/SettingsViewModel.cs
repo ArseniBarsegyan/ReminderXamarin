@@ -1,13 +1,13 @@
-﻿using ReminderXamarin.Core.Interfaces.Commanding;
+﻿using System;
+using System.Windows.Input;
+
+using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.Utilities;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
-
-using System;
-using System.Windows.Input;
 
 using Xamarin.Forms;
 
@@ -29,6 +29,8 @@ namespace ReminderXamarin.ViewModels
             _themeService = themeService;
             _themeSwitcher = themeSwitcher;
 
+            _savedTheme = (ThemeTypes)Enum.Parse(typeof(ThemeTypes), Settings.ThemeType);
+
             bool.TryParse(Settings.UsePin, out bool shouldUsePin);
             UsePin = shouldUsePin;
             Pin = Settings.UserPinCode;
@@ -37,10 +39,22 @@ namespace ReminderXamarin.ViewModels
             {
                 IsDarkTheme = true;
             }
-            SaveSettingsCommand = commandResolver.Command(SaveSettings);
+            SaveSettingsCommand = commandResolver.Command<string>(pin => SaveSettings(pin));
+        }
+
+        public bool ModelChanged
+        {
+            get
+            {
+                bool.TryParse(Settings.UsePin, out bool shouldUsePin);
+                return !(shouldUsePin == UsePin
+                    && Settings.UserPinCode == Pin
+                    && _savedTheme == _themeSwitcher.CurrentThemeType);
+            }
         }
 
         public bool UsePin { get; set; }
+
         public string Pin { get; set; }
 
         public bool IsDarkTheme
@@ -62,18 +76,19 @@ namespace ReminderXamarin.ViewModels
 
         public void OnDisappearing()
         {
-            _savedTheme = (ThemeTypes)Enum.Parse(typeof(ThemeTypes), Settings.ThemeType);
             Settings.ThemeType = _savedTheme.ToString();
             _themeSwitcher.SwitchTheme(_savedTheme);
             _themeService.SetStatusBarColor((Color)Application.Current.Resources["StatusBarColor"]);
         }
 
-        private void SaveSettings()
+        private void SaveSettings(string pinCode)
         {
-            Settings.UserPinCode = int.TryParse(Pin, out var pin) ? Pin : "1111";
+            Settings.UserPinCode = int.TryParse(pinCode, out var pin) ? pinCode : "1111";
+            Pin = pinCode;
             Settings.UsePin = UsePin.ToString();
-
             Settings.ThemeType = _themeSwitcher.CurrentThemeType.ToString();
+            _savedTheme = (ThemeTypes)Enum.Parse(typeof(ThemeTypes), Settings.ThemeType);
+            OnPropertyChanged();
         }
     }
 }

@@ -71,11 +71,11 @@ namespace ReminderXamarin.ViewModels
             bool.TryParse(Settings.UsePin, out var result);
             if (result)
             {
-                await NavigationService.InitializeAsync<PinViewModel>();
+                await NavigationService.InitializeAsync<PinViewModel>().ConfigureAwait(false);
             }
             else
             {
-                await NavigationService.InitializeAsync<LoginViewModel>();
+                await NavigationService.InitializeAsync<LoginViewModel>().ConfigureAwait(false);
             }
         }
 

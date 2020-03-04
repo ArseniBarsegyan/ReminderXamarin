@@ -6,6 +6,7 @@
         public const string Achievements = nameof(Achievements);
         public const string AchievementNotes = nameof(AchievementNotes);
         public const string AppThemeChanged = nameof(AppThemeChanged);
+        public const string AttachmentLightIcon = "attachment_light.png";
         public const string AchievementIcon = "achievement_light.png";
         public const string AchievementDarkIcon = "achievement_dark.png";
         public const string AchievementDeleteMessage = "Are you sure you want to delete this achievement?";
@@ -21,6 +22,8 @@
         public const string BirthdaysIcon = "birthday_light.png";
         public const string BirthdaysDarkIcon = "birthday_dark.png";
         public const string Cancel = nameof(Cancel);
+        public const string CameraIcon = "camera.png";
+        public const string CantContinueErrorMessage = "Error. Can not continue, try again.";
         public const string ConfirmIcon = "confirm.png";
         public const string CreateNote = nameof(CreateNote);
         public const string CreateAchievement = nameof(CreateAchievement);
@@ -56,6 +59,7 @@
         public const string Ok = nameof(Ok);
         public const string Photos = nameof(Photos);
         public const string PageCloseMessage = "Are you sure you want to close this page?";
+        public const string PermissionDeniedMessage = "Permission Denied. Can not continue, try again.";
         public const string ProfileUpdated = nameof(ProfileUpdated);
         public const string ProfileIcon = "https://lightwidget.com/widgets/empty-photo.jpg";
         public const string PinButtonDarkDeleteImageSource = "erase_light.png";
@@ -66,6 +70,7 @@
         public const string SettingsDarkIcon = "settings_dark.png";
         public const string SideMenuLightBackground = "ReminderXamarin.Images.side_menu_header_light_background.jpg";
         public const string SideMenuDarkBackground = "ReminderXamarin.Images.side_menu_header_dark_background.jpg";
+        public const string StoragePermissionRequiredMessage = "Storage permission is required to access to your photos.";
         public const string SqLiteDataBaseName = "ReminderDB.db3";
         public const string TimeParsingError = "Enter a valid number";
         public const string TogglePasswordLightImage = "eye_light.png";
@@ -78,6 +83,7 @@
         public const string TranslationResourcePath = "ReminderXamarin.Resx.AppResources";
         public const string Users = nameof(Users);        
         public const string UpdateUI = nameof(UpdateUI);
+        public const string VideoIcon = "video.png";
         public const string Videos = nameof(Videos);
         public const string Warning = nameof(Warning);
         public const string Yes = nameof(Yes);

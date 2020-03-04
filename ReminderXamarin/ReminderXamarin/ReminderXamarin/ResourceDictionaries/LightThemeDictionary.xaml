@@ -11,6 +11,8 @@
     <Color x:Key="StatusBarColor">#002f6c</Color>    
     <Color x:Key="BirthdayEditViewBackground">#FFFFFF</Color>
     <Color x:Key="BirthdaysViewBackground">#FFFFFF</Color>
+    <Color x:Key="CardViewBackground">#FFFFFF</Color>
+    <Color x:Key="CardViewBorder">LightGray</Color>
     <Color x:Key="ColorTextCommon">#323232</Color>
     <Color x:Key="CancelButtonBackground">#FAFAFA</Color>
     <Color x:Key="ErrorTextCommon">#FF5252</Color>
@@ -21,8 +23,6 @@
     <Color x:Key="NavigationBarBackground">#01579b</Color>
     <Color x:Key="NavigationBarText">#FFFFFF</Color>
     <Color x:Key="NotesViewBackground">#F6F6F6</Color>
-    <Color x:Key="NoteViewCellBackground">#FFFFFF</Color>
-    <Color x:Key="NoteViewCellBorder">LightGray</Color>
     <Color x:Key="NoteEditViewBackground">#FFFFFF</Color>
     <Color x:Key="NoteOptionsMenuBackground">#4f83cc</Color>
     <Color x:Key="PinViewLabelText">#333333</Color>
@@ -35,7 +35,7 @@
     <Color x:Key="Placeholder">#c8c8c8</Color>
     <Color x:Key="RefreshControl">#3072B0</Color>
     <Color x:Key="SearchBarBackground">#FFFFFF</Color>
-    <Color x:Key="SettingsViewBackground">#FFFFFF</Color>
+    <Color x:Key="SettingsViewBackground">#FFFFFF</Color>    
     <Color x:Key="ToDoActiveViewBackground">#FFFFFF</Color>
     <Color x:Key="ToDoListViewItemBorder">DarkGray</Color>
     <Color x:Key="ToggleVisibilityButtonBackground">#FAFAFA</Color>

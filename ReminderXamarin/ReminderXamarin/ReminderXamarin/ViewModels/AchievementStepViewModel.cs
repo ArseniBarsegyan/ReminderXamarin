@@ -1,20 +1,20 @@
-﻿using Acr.UserDialogs;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
 
+using Acr.UserDialogs;
+
+using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
-using ReminderXamarin.Services;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
-
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 

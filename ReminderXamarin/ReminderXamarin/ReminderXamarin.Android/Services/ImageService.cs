@@ -2,7 +2,7 @@
 
 using Android.Graphics;
 
-using ReminderXamarin.Services;
+using ReminderXamarin.Core.Interfaces;
 
 namespace ReminderXamarin.Droid.Services
 {
