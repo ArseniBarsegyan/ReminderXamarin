@@ -54,20 +54,20 @@ namespace ReminderXamarin.ViewModels
         {
             if (IsRegister)
             {
-                await Register().ConfigureAwait(false);
+                await Register();
             }
             else
             {
-                await Login().ConfigureAwait(false);
+                await Login();
             }
         }
 
         private async Task Login()
         {
-            if (await AuthenticationManager.Authenticate(UserName, Password).ConfigureAwait(false))
+            if (await AuthenticationManager.Authenticate(UserName, Password))
             {
                 Settings.ApplicationUser = UserName;
-                await NavigationService.InitializeAsync<MenuViewModel>().ConfigureAwait(false);
+                await NavigationService.InitializeAsync<MenuViewModel>();
                 IsValid = true;
             }
             else
@@ -90,13 +90,13 @@ namespace ReminderXamarin.ViewModels
             }
             else
             {
-                var authResult = await AuthenticationManager.Register(UserName, Password).ConfigureAwait(false);
+                var authResult = await AuthenticationManager.Register(UserName, Password);
                 if (authResult)
                 {
-                    if (await AuthenticationManager.Authenticate(UserName, Password).ConfigureAwait(false))
+                    if (await AuthenticationManager.Authenticate(UserName, Password))
                     {
                         Settings.ApplicationUser = UserName;
-                        await NavigationService.InitializeAsync<MenuViewModel>().ConfigureAwait(false);
+                        await NavigationService.InitializeAsync<MenuViewModel>();
                         IsValid = true;
                     }
                     else

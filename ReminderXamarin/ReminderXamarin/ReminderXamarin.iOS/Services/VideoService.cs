@@ -5,7 +5,7 @@ using Foundation;
 
 using QuickLook;
 
-using ReminderXamarin.Services;
+using ReminderXamarin.Core.Interfaces;
 
 using UIKit;
 

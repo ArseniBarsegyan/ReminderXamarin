@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 
-using ReminderXamarin.Services;
+using ReminderXamarin.Core.Interfaces;
 
 namespace ReminderXamarin.iOS.Services
 {

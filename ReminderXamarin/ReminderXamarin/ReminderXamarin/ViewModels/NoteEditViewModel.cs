@@ -177,7 +177,7 @@ namespace ReminderXamarin.ViewModels
                     galleryItemModel.ImagePath = imagePath;
                     galleryItemModel.Thumbnail = imagePath;
 
-                    await _transformHelper.ResizeAsync(imagePath, galleryItemModel).ConfigureAwait(false);
+                    await _transformHelper.ResizeAsync(imagePath, galleryItemModel);
 
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -205,7 +205,7 @@ namespace ReminderXamarin.ViewModels
             }
             else
             {
-                await NavigationService.NavigateToPopupAsync<GalleryItemViewModel>(viewModel).ConfigureAwait(false);
+                await NavigationService.NavigateToPopupAsync<GalleryItemViewModel>(viewModel);
             }
         }
 
@@ -276,7 +276,7 @@ namespace ReminderXamarin.ViewModels
                         videoModel.ImagePath = imagePath;
                         videoModel.Thumbnail = imagePath;
 
-                        await _transformHelper.ResizeAsync(imagePath, videoModel).ConfigureAwait(false);
+                        await _transformHelper.ResizeAsync(imagePath, videoModel);
 
                         Device.BeginInvokeOnMainThread(() =>
                         {
@@ -306,7 +306,7 @@ namespace ReminderXamarin.ViewModels
                 };
                 App.NoteRepository.Value.Save(note);
                 MessagingCenter.Send(this, ConstantsHelper.NoteCreated);
-                await NavigationService.NavigateBackAsync().ConfigureAwait(false);
+                await NavigationService.NavigateBackAsync();
             }
             else
             {
@@ -333,7 +333,7 @@ namespace ReminderXamarin.ViewModels
                     var noteToDelete = App.NoteRepository.Value.GetNoteAsync(_noteId);
                     App.NoteRepository.Value.DeleteNote(noteToDelete);
                     MessagingCenter.Send(this, ConstantsHelper.NoteDeleted, _noteId);
-                    await NavigationService.NavigateBackAsync().ConfigureAwait(false);
+                    await NavigationService.NavigateBackAsync();
                 }
             }
         }

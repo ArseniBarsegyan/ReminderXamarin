@@ -48,12 +48,12 @@ namespace ReminderXamarin.ViewModels
 
             if (MasterViewModel != null)
             {
-                await MasterViewModel.InitializeAsync(navigationData).ConfigureAwait(false);
+                await MasterViewModel.InitializeAsync(navigationData);
             }
 
             if (DetailViewModel != null)
             {
-                await DetailViewModel.InitializeAsync(navigationData).ConfigureAwait(false);
+                await DetailViewModel.InitializeAsync(navigationData);
             }
         }
     }

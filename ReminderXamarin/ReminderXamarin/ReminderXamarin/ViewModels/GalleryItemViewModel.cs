@@ -52,7 +52,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task NavigateBack()
         {
-            await NavigationService.NavigatePopupBackAsync().ConfigureAwait(false);
+            await NavigationService.NavigatePopupBackAsync();
         }
     }
 }

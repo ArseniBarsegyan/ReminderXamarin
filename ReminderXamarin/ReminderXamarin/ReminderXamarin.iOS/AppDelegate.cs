@@ -7,6 +7,7 @@ using ImageCircle.Forms.Plugin.iOS;
 
 using Plugin.LocalNotifications;
 
+using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.Enums;
 using ReminderXamarin.IoC;

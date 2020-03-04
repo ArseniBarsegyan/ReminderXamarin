@@ -284,7 +284,7 @@ namespace ReminderXamarin.ViewModels
         private async Task NavigateToEditView(int id)
         {
             _isNavigatedToEditView = true;
-            await NavigationService.NavigateToAsync<NoteEditViewModel>(id).ConfigureAwait(false);
+            await NavigationService.NavigateToAsync<NoteEditViewModel>(id);
         }
     }
 }

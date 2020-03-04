@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-using ReminderXamarin.Services;
+using ReminderXamarin.Core.Interfaces;
 
 namespace ReminderXamarin.iOS.Services
 {

@@ -91,7 +91,7 @@ namespace ReminderXamarin.ViewModels
                 if (_birthdayModel != null)
                 {
                     App.BirthdaysRepository.Value.DeleteBirthday(_birthdayModel);
-                    await NavigationService.NavigateBackAsync().ConfigureAwait(false);
+                    await NavigationService.NavigateBackAsync();
                 }
             }
         }

@@ -1,13 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-                xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors;assembly=ReminderXamarin"
-                xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
-                xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
-                xmlns:elements="clr-namespace:ReminderXamarin.Elements"
-                x:Class="ReminderXamarin.Views.LoginView"
-                base:ViewModelHelper.AutoWireViewModel="True">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+             xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
+             x:Class="ReminderXamarin.Views.LoginView"
+             base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="LoginLabelStyle" TargetType="Label">
@@ -55,14 +53,16 @@
                          AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
                          BackgroundColor="Transparent">
                 <Label FontSize="Large" 
-                       Text="{Binding IsRegister, Converter={StaticResource RegisterLoginTextConverter}}" 
+                       Text="{Binding IsRegister, 
+                                      Converter={StaticResource RegisterLoginTextConverter}}" 
                        HorizontalOptions="Center" 
                        TextColor="{DynamicResource ColorTextCommon}" />
                 <!-- Error message -->
                 <Label TextColor="{DynamicResource ErrorTextCommon}"
                        HorizontalOptions="Center"
                        Text="{extensions:Translate IncorrectData}" 
-                       IsVisible="{Binding IsValid, Converter={StaticResource InverseBooleanConverter}}" />
+                       IsVisible="{Binding IsValid, 
+                                           Converter={StaticResource InverseBooleanConverter}}" />
             </StackLayout>
 
             <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.3,1,0.5"
@@ -97,12 +97,7 @@
                                Unfocused="Entry_OnUnfocused"
                                IsPassword="{Binding ShowPassword, 
                                                     Converter={StaticResource InverseBooleanConverter}}" 
-                               Style="{StaticResource LoginEntryStyle}">
-                            <Entry.Behaviors>
-                                <behaviors:EventToCommandBehavior EventName="Completed" 
-                                                                  Command="{Binding LoginCommand}" />
-                            </Entry.Behaviors>
-                        </Entry>
+                               Style="{StaticResource LoginEntryStyle}" />
 
                         <!-- Hide or show password -->
                         <ImageButton x:Name="TogglePasswordVisibilityButton"
@@ -132,7 +127,7 @@
                                Focused="Entry_OnFocused"
                                Unfocused="Entry_OnUnfocused"
                                IsPassword="{Binding ShowConfirmedPassword, 
-                                                            Converter={StaticResource InverseBooleanConverter}}" 
+                                                    Converter={StaticResource InverseBooleanConverter}}" 
                                Style="{StaticResource LoginEntryStyle}" />
 
                         <!-- Hide or show password -->

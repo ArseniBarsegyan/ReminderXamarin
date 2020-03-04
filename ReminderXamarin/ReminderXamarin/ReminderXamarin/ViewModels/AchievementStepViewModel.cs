@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 using Acr.UserDialogs;
 
@@ -41,12 +42,12 @@ namespace ReminderXamarin.ViewModels
             ImageContent = new byte[0];
             SaveAchievementStepCommand = commandResolver.AsyncCommand(Save);
             ChangeImageCommand = commandResolver.AsyncCommand<PlatformDocument>(ChangeImage);
-            ChangeProgressCommand = commandResolver.AsyncCommand<string>(ChangeProgress);
+            ChangeProgressCommand = commandResolver.Command<string>(amount => ChangeProgress(amount));
         }
 
         public IAsyncCommand SaveAchievementStepCommand { get; }
         public IAsyncCommand<PlatformDocument> ChangeImageCommand { get; }
-        public IAsyncCommand<string> ChangeProgressCommand { get; }
+        public ICommand ChangeProgressCommand { get; }
 
         public IList<string> AvailableStepTypes =>
             Enum.GetNames(typeof(AchievementStepType)).Select(x => x.ToString()).ToList();
@@ -125,10 +126,10 @@ namespace ReminderXamarin.ViewModels
                 TimeEstimation = 1;
             }
             MessagingCenter.Send(this, ConstantsHelper.AchievementStepEditComplete);
-            await NavigationService.NavigateBackAsync().ConfigureAwait(false);
+            await NavigationService.NavigateBackAsync();
         }
 
-        private async Task ChangeProgress(string amount)
+        private void ChangeProgress(string amount)
         {
             if (int.TryParse(amount, out int result))
             {

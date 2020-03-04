@@ -141,7 +141,7 @@ namespace ReminderXamarin.ViewModels
             var userPin = Settings.UserPinCode;
             if (Pin.ToString() == userPin)
             {
-                await NavigationService.InitializeAsync<MenuViewModel>().ConfigureAwait(false);
+                await NavigationService.InitializeAsync<MenuViewModel>();
             }
         }
     }

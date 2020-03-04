@@ -9,7 +9,7 @@ using CoreMedia;
 
 using Foundation;
 
-using ReminderXamarin.Services;
+using ReminderXamarin.Core.Interfaces;
 
 using UIKit;
 

@@ -46,7 +46,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task NavigateToAchievementEditView(int id)
         {
-            await NavigationService.NavigateToAsync<AchievementEditViewModel>(id).ConfigureAwait(false);
+            await NavigationService.NavigateToAsync<AchievementEditViewModel>(id);
         }
 
         private void LoadAchievementsFromDatabase()
