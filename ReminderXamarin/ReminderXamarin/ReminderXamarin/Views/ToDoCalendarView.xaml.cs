@@ -4,9 +4,9 @@ using Xamarin.Forms.Xaml;
 namespace ReminderXamarin.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ToDoTabbedView : TabbedPage
+    public partial class ToDoCalendarView : ContentPage
     {
-        public ToDoTabbedView()
+        public ToDoCalendarView()
         {
             InitializeComponent();
         }

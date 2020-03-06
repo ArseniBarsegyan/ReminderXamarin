@@ -8,7 +8,7 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements"
              x:Class="ReminderXamarin.Views.NoteEditView"
              Title="{Binding Title}"
-             BackgroundColor="{DynamicResource NoteEditViewBackground}"
+             BackgroundColor="{DynamicResource ViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -42,7 +42,8 @@
                          AbsoluteLayout.LayoutFlags="All">
                 <CarouselView x:Name="GalleryCarousel" 
                               ItemsSource="{Binding GalleryItemsViewModels}"
-                              HeightRequest="300">
+                              IsVisible="{Binding IsGalleryVisible}"
+                              HeightRequest="250">
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
                             <AbsoluteLayout Padding="2">
@@ -79,16 +80,14 @@
                 
                 <Label Text="{extensions:Translate Note}"
                        Padding="10,10,0,0"
-                       TextColor="{DynamicResource ColorTextCommon}"
+                       TextColor="{DynamicResource TextCommon}"
                        FontSize="Small" />
                 <Editor x:Name="DescriptionEditor"
                         Margin="10,0"
                         Text="{Binding Description, Mode=OneWay}"
-                        TextColor="{DynamicResource ColorTextCommon}"
+                        TextColor="{DynamicResource TextCommon}"
                         Placeholder="{extensions:Translate NoteText}"
                         PlaceholderColor="{DynamicResource Placeholder}"
-                        Focused="DescriptionEditor_Focused"
-                        Unfocused="DescriptionEditor_Unfocused"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="FillAndExpand"
                         HeightRequest="200">
@@ -117,7 +116,7 @@
 
                 <StackLayout Padding="0"
                              Spacing="0"
-                             AbsoluteLayout.LayoutBounds="0.9,0.7,200,200"
+                             AbsoluteLayout.LayoutBounds="0.97,0.7,200,200"
                              AbsoluteLayout.LayoutFlags="PositionProportional"
                              HorizontalOptions="EndAndExpand"
                              VerticalOptions="EndAndExpand">
@@ -125,25 +124,22 @@
                     <ImageButton x:Name="AttachButton"
                                  Source="{Binding AttachButtonImageSource}"
                                  Style="{StaticResource PickerButtonStyle}"
-                                 Clicked="Button_Clicked"
                                  Command="{Binding PickMultipleMediaCommand}" />
 
                     <ImageButton x:Name="CameraButton"
                                  Source="{Binding CameraButtonImageSource}"
                                  Style="{StaticResource PickerButtonStyle}"
-                                 Clicked="Button_Clicked"
                                  Command="{Binding TakePhotoCommand}" />
 
                     <ImageButton x:Name="VideoButton"
                                  Source="{Binding VideoButtonImageSource}"
                                  Style="{StaticResource PickerButtonStyle}"
-                                 Clicked="Button_Clicked"
                                  Command="{Binding TakeVideoCommand}" />
                 </StackLayout>
             </AbsoluteLayout>
 
             <ImageButton x:Name="ShowOptionsLayoutButton"
-                         AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"
+                         AbsoluteLayout.LayoutBounds="0.97,0.98,60,60"
                          AbsoluteLayout.LayoutFlags="PositionProportional"
                          Source="add.png"
                          Style="{StaticResource PickerButtonStyle}"

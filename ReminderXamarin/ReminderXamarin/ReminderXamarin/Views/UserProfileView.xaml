@@ -2,10 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.UserProfileView"
-             BackgroundColor="{DynamicResource UserProfileViewBackground}"
+             BackgroundColor="{DynamicResource ViewBackground}"
              Title="{extensions:Translate Profile}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Content>
@@ -20,14 +19,8 @@
             <Label Text="{Binding UserName}"
                    AbsoluteLayout.LayoutBounds="20,0.45,1,50"
                    AbsoluteLayout.LayoutFlags="YProportional, WidthProportional" 
-                   TextColor="White"
+                   TextColor="{DynamicResource TextCommon}"
                    FontSize="Title" />
-
-            <StackLayout x:Name="UserInfoLayout"
-                         AbsoluteLayout.LayoutBounds="0.5,1,1,0.5"
-                         AbsoluteLayout.LayoutFlags="All">
-                
-            </StackLayout>
 
             <ImageButton x:Name="PickUserPhotoImage"
                          Clicked="PickUserPhotoImage_OnClicked"
@@ -38,8 +31,13 @@
                          CornerRadius="30"
                          AbsoluteLayout.LayoutFlags="PositionProportional" />
 
+            <StackLayout x:Name="UserInfoLayout"
+                         AbsoluteLayout.LayoutBounds="0.5,1,1,0.5"
+                         AbsoluteLayout.LayoutFlags="All">                
+            </StackLayout>            
+
             <ImageButton x:Name="UpdateUserButton"
-                         AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"
+                         AbsoluteLayout.LayoutBounds="0.97,0.98,60,60"
                          AbsoluteLayout.LayoutFlags="PositionProportional"
                          Padding="20"
                          IsVisible="{Binding ViewModelChanged}"

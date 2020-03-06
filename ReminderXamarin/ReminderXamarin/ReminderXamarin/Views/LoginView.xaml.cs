@@ -32,6 +32,13 @@ namespace ReminderXamarin.Views
             {
                 PasswordEntry.Focus();
             }
+            if (sender == PasswordEntry)
+            {
+                if (ConfirmPasswordEntry.IsVisible)
+                {
+                    ConfirmPasswordEntry.Focus();
+                }
+            }
         }
 
         private async void Entry_OnFocused(object sender, FocusEventArgs e)

@@ -28,7 +28,7 @@ namespace Rm.Helpers
                     IconSource = themeType == ThemeTypes.Dark
                         ? ConstantsHelper.ToDoListLightIcon
                         : ConstantsHelper.ToDoListDarkIcon,
-                    TargetType = typeof(ToDoTabbedView),
+                    TargetType = typeof(ToDoCalendarView),
                     IsDisplayed = true,
                     Index = MenuViewIndex.ToDoPage
                 },

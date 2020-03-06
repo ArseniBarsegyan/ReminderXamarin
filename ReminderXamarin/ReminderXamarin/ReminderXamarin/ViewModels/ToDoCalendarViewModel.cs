@@ -1,5 +1,9 @@
-﻿using ReminderXamarin.Core.Interfaces.Commanding;
-using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
+
+using ReminderXamarin.Collections;
+using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Enums;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Services.Navigation;
@@ -7,27 +11,23 @@ using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
 
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class ToDoTabbedViewModel : BaseViewModel
+    public class ToDoCalendarViewModel : BaseViewModel
     {
         private readonly ICommandResolver _commandResolver;
 
-        public ToDoTabbedViewModel(INavigationService navigationService,
+        public ToDoCalendarViewModel(INavigationService navigationService,
             ICommandResolver commandResolver)
             : base(navigationService)
         {
             _commandResolver = commandResolver;
 
-            ActiveModels = new ObservableCollection<ToDoViewModel>();
-            CompletedModels = new ObservableCollection<ToDoViewModel>();
+            ActiveModels = new RangeObservableCollection<ToDoViewModel>();
+            CompletedModels = new RangeObservableCollection<ToDoViewModel>();
+            FailedModels = new RangeObservableCollection<ToDoViewModel>();
 
             RefreshListCommand = commandResolver.Command(RefreshCommandExecute);
             SelectItemCommand = commandResolver.Command<int>(id => SelectItem(id));
@@ -41,8 +41,9 @@ namespace ReminderXamarin.ViewModels
         public bool IsLoading { get; set; }
         public bool IsRefreshing { get; set; }
 
-        public ObservableCollection<ToDoViewModel> ActiveModels { get; set; }
-        public ObservableCollection<ToDoViewModel> CompletedModels { get; set; }
+        public ObservableCollection<ToDoViewModel> ActiveModels { get; private set; }
+        public ObservableCollection<ToDoViewModel> CompletedModels { get; private set; }
+        public ObservableCollection<ToDoViewModel> FailedModels { get; private set; }
 
         public ICommand RefreshListCommand { get; }
         public ICommand ShowDetailsCommand { get; }

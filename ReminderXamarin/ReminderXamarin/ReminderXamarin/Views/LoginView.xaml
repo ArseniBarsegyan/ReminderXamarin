@@ -9,21 +9,21 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="LoginLabelStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="{DynamicResource ColorTextCommon}" />
+                <Setter Property="TextColor" Value="{DynamicResource TextCommon}" />
                 <Setter Property="FontSize" Value="Small" />
                 <Setter Property="Margin" Value="25, 0" />
             </Style>
 
             <Style x:Key="LoginEntryStyle" TargetType="Entry">
                 <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="TextColor" Value="{DynamicResource ColorTextCommon}" />
+                <Setter Property="TextColor" Value="{DynamicResource TextCommon}" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
                 <Setter Property="Margin" Value="25, 0" />
             </Style>
 
             <Style x:Key="CancelButtonStyle" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="{DynamicResource CancelButtonBackground}" />
-                <Setter Property="TextColor" Value="{DynamicResource ColorTextCommon}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource ViewBackground}" />
+                <Setter Property="TextColor" Value="{DynamicResource TextCommon}" />
             </Style>
 
             <Style x:Key="LoginButtonStyle" TargetType="Button">
@@ -41,7 +41,7 @@
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
                         AbsoluteLayout.LayoutFlags="All"
-                        BackgroundColor="{DynamicResource LoginViewBackground}">
+                        BackgroundColor="{DynamicResource ViewBackground}">
             <AbsoluteLayout.Padding>
                 <OnPlatform x:TypeArguments="Thickness">
                     <On Platform="Android" Value="10"/>
@@ -52,11 +52,13 @@
             <StackLayout AbsoluteLayout.LayoutBounds="0.5,0,1,100"
                          AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
                          BackgroundColor="Transparent">
+                
                 <Label FontSize="Large" 
                        Text="{Binding IsRegister, 
                                       Converter={StaticResource RegisterLoginTextConverter}}" 
                        HorizontalOptions="Center" 
-                       TextColor="{DynamicResource ColorTextCommon}" />
+                       TextColor="{DynamicResource TextCommon}" />
+                
                 <!-- Error message -->
                 <Label TextColor="{DynamicResource ErrorTextCommon}"
                        HorizontalOptions="Center"
@@ -70,11 +72,14 @@
                          BackgroundColor="Transparent"
                          Spacing="10"
                          VerticalOptions="CenterAndExpand">
+                
                 <!-- User name -->
                 <StackLayout Spacing="0">
+                    
                     <Label x:Name="UserNameLabel" 
                            Text="{extensions:Translate Username}" 
                            Style="{StaticResource LoginLabelStyle}" />
+                    
                     <Entry x:Name="UserNameEntry" 
                            Style="{StaticResource LoginEntryStyle}"
                            Text="{Binding UserName}"
@@ -85,16 +90,20 @@
 
                 <!-- Password -->
                 <StackLayout Spacing="0">
+                    
                     <Label x:Name="PasswordLabel" 
                            Text="{extensions:Translate Password}" 
                            Style="{StaticResource LoginLabelStyle}" />
-                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
+                                    AbsoluteLayout.LayoutFlags="All">
+                        
                         <Entry x:Name="PasswordEntry"
                                AbsoluteLayout.LayoutBounds="0,0,1,1"
                                AbsoluteLayout.LayoutFlags="All"
                                Text="{Binding Password}" 
                                Focused="Entry_OnFocused"
                                Unfocused="Entry_OnUnfocused"
+                               Completed="Entry_OnCompleted"
                                IsPassword="{Binding ShowPassword, 
                                                     Converter={StaticResource InverseBooleanConverter}}" 
                                Style="{StaticResource LoginEntryStyle}" />
@@ -114,9 +123,11 @@
                 <StackLayout Spacing="0"
                              IsVisible="{Binding IsRegister}"
                              BackgroundColor="Transparent">
+                    
                     <Label x:Name="ConfirmPasswordLabel"
                            Text="{extensions:Translate ConfirmPassword}"
                            Style="{StaticResource LoginLabelStyle}" />
+                    
                     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
                                     AbsoluteLayout.LayoutFlags="All">
                         
@@ -126,6 +137,7 @@
                                AbsoluteLayout.LayoutFlags="All"
                                Focused="Entry_OnFocused"
                                Unfocused="Entry_OnUnfocused"
+                               Completed="Entry_OnCompleted"
                                IsPassword="{Binding ShowConfirmedPassword, 
                                                     Converter={StaticResource InverseBooleanConverter}}" 
                                Style="{StaticResource LoginEntryStyle}" />
@@ -146,17 +158,20 @@
                          AbsoluteLayout.LayoutBounds="0.5,0.7,1,0.25"
                          AbsoluteLayout.LayoutFlags="All"
                          BackgroundColor="Transparent">
+                
                 <Button x:Name="SignInButton"
                         Command="{Binding SignInCommand}"
                         VerticalOptions="EndAndExpand"
                         Style="{StaticResource LoginButtonStyle}"
                         Text="{Binding IsRegister, 
                                        Converter={StaticResource RegisterLoginTextConverter}}" />
+                
                 <Label x:Name="QuestionLabel"
-                       TextColor="{DynamicResource ColorTextCommon}"
+                       TextColor="{DynamicResource TextCommon}"
                        HorizontalOptions="Center"
                        Text="{Binding IsRegister, 
                                       Converter={StaticResource AccountQuestionConverter}}" />
+                
                 <Button x:Name="ToggleRegisterOrLoginButton"
                         Command="{Binding ToggleRegisterOrLoginViewCommand}"
                         VerticalOptions="EndAndExpand"

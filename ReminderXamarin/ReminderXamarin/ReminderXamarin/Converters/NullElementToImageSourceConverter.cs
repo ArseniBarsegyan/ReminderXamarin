@@ -11,10 +11,6 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.Converters
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Convert object to image source. If object is null return empty string.
-    /// </summary>
     public class NullElementToImageSourceConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

@@ -3,6 +3,7 @@
     public enum ToDoStatus
     {
         Completed,
-        Active
+        Active,
+        Failed
     }
 }

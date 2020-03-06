@@ -14,7 +14,7 @@
                 <Setter Property="CornerRadius" Value="35" />
                 <Setter Property="BackgroundColor" Value="{DynamicResource PinButtonBackground}" />
                 <Setter Property="FontSize" Value="Title" />
-                <Setter Property="BorderColor" Value="{DynamicResource PinButtonBorder}" />
+                <Setter Property="BorderColor" Value="{DynamicResource PinButtonBackground}" />
                 <Setter Property="BorderWidth" Value="1" />
                 <Setter Property="TextColor" Value="{DynamicResource PinButtonText}" />
             </Style>
@@ -31,7 +31,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid BackgroundColor="{DynamicResource PinViewBackground}"
+        <Grid BackgroundColor="{DynamicResource ViewBackground}"
               Padding="0,10"
               RowSpacing="15"
               ColumnSpacing="15">

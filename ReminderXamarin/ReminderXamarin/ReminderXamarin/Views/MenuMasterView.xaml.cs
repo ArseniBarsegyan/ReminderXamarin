@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using ReminderXamarin.ViewModels;
+﻿using ReminderXamarin.ViewModels;
 
 using Rm.Helpers;
 

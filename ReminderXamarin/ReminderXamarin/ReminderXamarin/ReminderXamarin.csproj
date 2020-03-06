@@ -31,6 +31,7 @@
     <PackageReference Include="PCLStorage" Version="1.0.2" />
     <PackageReference Include="Plugin.Multilingual" Version="1.0.2" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.2.6" />
+    <PackageReference Include="Refractored.MvvmHelpers" Version="1.3.0" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
     <PackageReference Include="SimpleInjector" Version="4.9.0" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
@@ -56,14 +57,8 @@
     <Compile Update="Views\AchievementStepView.xaml.cs">
       <DependentUpon>AchievementStepView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\BirthdayEditView.xaml.cs">
-      <DependentUpon>BirthdayEditView.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\ToDoActiveView.xaml.cs">
-      <DependentUpon>ToDoActiveView.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\ToDoCompletedView.xaml.cs">
-      <DependentUpon>ToDoCompletedView.xaml</DependentUpon>
+    <Compile Update="Views\ToDoCalendarView.xaml.cs">
+      <DependentUpon>ToDoCalendarView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

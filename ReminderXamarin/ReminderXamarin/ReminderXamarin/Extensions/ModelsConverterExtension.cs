@@ -45,12 +45,11 @@ namespace ReminderXamarin.Extensions
             return model;
         }
 
-        public static ObservableCollection<GalleryItemViewModel> ToViewModels(this IEnumerable<GalleryItemModel> models,
+        public static IEnumerable<GalleryItemViewModel> ToViewModels(this IEnumerable<GalleryItemModel> models,
             INavigationService navigationService,
             ICommandResolver commandResolver)
         {
-            return models.Select(model => model.ToViewModel(navigationService, commandResolver))
-                .ToObservableCollection();
+            return models.Select(model => model.ToViewModel(navigationService, commandResolver));
         }
 
         public static List<GalleryItemModel> ToModels(this IEnumerable<GalleryItemViewModel> viewModels)
@@ -125,42 +124,6 @@ namespace ReminderXamarin.Extensions
                 viewModels.Add(viewModel);
             }
             return viewModels;
-        }
-
-        public static BirthdayModel ToBirthdayModel(this BirthdayViewModel viewModel)
-        {
-            return new BirthdayModel
-            {
-                Id = viewModel.Id,
-                UserId = Settings.CurrentUserId,
-                Name = viewModel.Name,
-                ImageContent = viewModel.ImageContent,
-                BirthDayDate = viewModel.BirthDayDate,
-                GiftDescription = viewModel.GiftDescription
-            };
-        }
-
-        public static BirthdayViewModel ToBirthdayViewModel(this BirthdayModel model, 
-            INavigationService navigationService,
-            ICommandResolver commandResolver)
-        {
-            return new BirthdayViewModel(navigationService, commandResolver)
-            {
-                Id = model.Id,
-                Name = model.Name,
-                ImageContent = model.ImageContent,
-                BirthDayDate = model.BirthDayDate,
-                GiftDescription = model.GiftDescription
-            };
-        }
-
-        public static ObservableCollection<BirthdayViewModel> ToFriendViewModels(this IEnumerable<BirthdayModel> models, 
-            INavigationService navigationService,
-            ICommandResolver commandResolver)
-        {
-            return models.Select(model => model.ToBirthdayViewModel(navigationService,
-                commandResolver))
-                .ToObservableCollection();
         }
 
         public static AchievementStep ToModel(this AchievementStepViewModel viewModel)

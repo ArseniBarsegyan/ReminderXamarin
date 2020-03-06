@@ -5,13 +5,12 @@
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
-             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.AchievementsView"
              Title="{extensions:Translate Achievements}"
-             BackgroundColor="{DynamicResource AchievementsViewBackground}"
+             BackgroundColor="{DynamicResource ViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
-      <ResourceDictionary>
+      <ResourceDictionary> 
           <converters:AchievementSpentTimePresentationConverter x:Key="SpentTimePresentationConverter" />
           <converters:NumberToColorConverter x:Key="NumberToColorConverter" />
       </ResourceDictionary>
@@ -23,7 +22,11 @@
             <CollectionView x:Name="AchievementsCollectionView"
                             AbsoluteLayout.LayoutBounds="0,0,1,1" 
                             AbsoluteLayout.LayoutFlags="All"
-                            ItemsSource="{Binding Achievements}" 
+                            ItemsSource="{Binding Achievements}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding NavigateToAchievementEditViewCommand}"
+                            SelectionChangedCommandParameter="{Binding Source={x:Reference AchievementsCollectionView}, 
+                                                                       Path=SelectedItem.Id}"
                             ItemSizingStrategy="MeasureFirstItem">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" 
@@ -32,18 +35,23 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Padding="5">
-                            <AbsoluteLayout x:Name="ImageViewLayout" 
-                                            AbsoluteLayout.LayoutBounds="0,0,1,1" 
-                                            AbsoluteLayout.LayoutFlags="All"  
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="{DynamicResource Selection}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                            <AbsoluteLayout x:Name="ImageViewLayout"
+                                            AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                            AbsoluteLayout.LayoutFlags="All"
                                             HeightRequest="120"
                                             Padding="5">
-                                <AbsoluteLayout.GestureRecognizers>
-                                    <TapGestureRecognizer NumberOfTapsRequired="1" 
-                                                          Tapped="AchievementsList_OnItemSelected" />
-                                </AbsoluteLayout.GestureRecognizers>
-                                <!-- Hidden field for Id -->
-                                <Label IsVisible="False" 
-                                       Text="{Binding Id, StringFormat='{0}'}" />
                                 <abstractions:CircleImage Source="{Binding ImageContent, 
                                                                    Converter={StaticResource ByteToImageSourceConverter}}"
                                                           Aspect="AspectFill"
@@ -52,8 +60,7 @@
                                                           VerticalOptions="Center"
                                                           HorizontalOptions="Center"
                                                           HeightRequest="90"
-                                                          WidthRequest="90">
-                                </abstractions:CircleImage>
+                                                          WidthRequest="90" />
 
                                 <Button AbsoluteLayout.LayoutBounds="1,1,50,50" 
                                         TextColor="White"
@@ -66,7 +73,7 @@
                                         WidthRequest="50" 
                                         CornerRadius="25"
                                         FontSize="Micro" />
-
+                                
                             </AbsoluteLayout>
                         </StackLayout>
                     </DataTemplate>
@@ -79,7 +86,7 @@
                          Source="add.png" 
                          BackgroundColor="{DynamicResource SubmitButtonBackground}"
                          CornerRadius="30"
-                         AbsoluteLayout.LayoutBounds="0.95,0.95,60,60" 
+                         AbsoluteLayout.LayoutBounds="0.97,0.98,60,60" 
                          AbsoluteLayout.LayoutFlags="PositionProportional">
                 <ImageButton.CommandParameter>
                     <x:Int32>0</x:Int32>

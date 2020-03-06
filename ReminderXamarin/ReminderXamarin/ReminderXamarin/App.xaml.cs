@@ -22,23 +22,30 @@ namespace ReminderXamarin
 {
     public partial class App : Application
     {
-        private ThemeSwitcher _themeSwitchService;
-        private IThemeService _themeService;
-        private INavigationService _navigationService;
+        private readonly ThemeSwitcher _themeSwitchService;
+        private readonly IThemeService _themeService;
+        private readonly INavigationService _navigationService;
 
         public static IMultiMediaPickerService MultiMediaPickerService;
 
         public App(IMultiMediaPickerService multiMediaPickerService)
         {
             InitializeComponent();
-            Bootstrapper.RegisterServices();
 
-            MultiMediaPickerService = multiMediaPickerService;
+            Bootstrapper.RegisterServices();
+            InitRepositories();
+            MultiMediaPickerService = multiMediaPickerService;                   
 
             _navigationService = ComponentFactory.Resolve<INavigationService>();
             _themeSwitchService = ComponentFactory.Resolve<ThemeSwitcher>();
-            _themeService = ComponentFactory.Resolve<IThemeService>();
+            _themeService = ComponentFactory.Resolve<IThemeService>();            
 
+            bool.TryParse(Settings.UsePin, out var shouldUsePin);
+            InitNavigation(shouldUsePin);
+        }
+
+        private void InitRepositories()
+        {
             var dbPath = ComponentFactory.Resolve<IFileHelper>().GetLocalFilePath(ConstantsHelper.SqLiteDataBaseName);
 
             NoteRepository = new Lazy<NoteRepository>(() => new NoteRepository(dbPath));
@@ -47,9 +54,6 @@ namespace ReminderXamarin
             UserRepository = new Lazy<UserRepository>(() => new UserRepository(dbPath));
             BirthdaysRepository = new Lazy<BirthdaysRepository>(() => new BirthdaysRepository(dbPath));
             AchievementStepRepository = new Lazy<AchievementStepRepository>(() => new AchievementStepRepository(dbPath));
-
-            bool.TryParse(Settings.UsePin, out var shouldUsePin);
-            InitNavigation(shouldUsePin);
         }
 
         public static int ScreenWidth { get; set; }

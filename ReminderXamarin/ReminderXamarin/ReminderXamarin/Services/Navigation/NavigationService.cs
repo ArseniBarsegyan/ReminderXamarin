@@ -148,7 +148,7 @@ namespace ReminderXamarin.Services.Navigation
                      || page is NotesView 
                      || page is AchievementsView
                      || page is BirthdaysView 
-                     || page is ToDoTabbedView 
+                     || page is ToDoCalendarView 
                      || page is SettingsView)
             {
                 if (Application.Current.MainPage is MasterDetailPage detailPage)

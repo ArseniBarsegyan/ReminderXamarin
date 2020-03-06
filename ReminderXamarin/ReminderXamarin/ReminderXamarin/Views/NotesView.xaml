@@ -9,7 +9,7 @@
              xmlns:helpers="clr-namespace:ReminderXamarin.Helpers;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.NotesView"
              Title="{extensions:Translate AllNotes}"
-             BackgroundColor="{DynamicResource NotesViewBackground}"
+             BackgroundColor="{DynamicResource ViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="upload_light.png"
@@ -39,13 +39,13 @@
                                        HorizontalOptions="FillAndExpand"
                                        HeightRequest="200" />
                                 <StackLayout Spacing="10" Padding="10,10,10,30">
-                                    <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}"
-                                           TextColor="{DynamicResource ColorTextCommon}" />
+                                    <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yyyy, HH:mm}'}"
+                                           TextColor="{DynamicResource TextCommon}" />
                                     <elements:ExtendedLabel HorizontalTextAlignment="Start"
                                                             Lines="5"
                                                             LineSpacing="1.1"
                                                             LineBreakMode="TailTruncation"
-                                                            TextColor="{DynamicResource ColorTextCommon}"
+                                                            TextColor="{DynamicResource TextCommon}"
                                                             Text="{Binding Description}" />
                                 </StackLayout>
                             </StackLayout>
@@ -63,13 +63,13 @@
                                BorderColor="{DynamicResource CardViewBorder}"
                                Margin="0,5">
                             <StackLayout Spacing="10" Padding="10,10,10,30">
-                                <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yy, HH:mm}'}" 
-                                       TextColor="{DynamicResource ColorTextCommon}" />
+                                <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yyyy, HH:mm}'}" 
+                                       TextColor="{DynamicResource TextCommon}" />
                                 <elements:ExtendedLabel HorizontalTextAlignment="Start"
                                                         Lines="5"
                                                         LineSpacing="1.1"
                                                         LineBreakMode="TailTruncation"
-                                                        TextColor="{DynamicResource ColorTextCommon}"
+                                                        TextColor="{DynamicResource TextCommon}"
                                                         Text="{Binding Description}" />
                             </StackLayout>
                         </Frame>
@@ -93,11 +93,11 @@
                      HorizontalOptions="FillAndExpand">
             <!-- Search bar with border -->
             <SearchBar x:Name="SearchBar"
-                       PlaceholderColor="{DynamicResource ColorTextCommon}"
+                       PlaceholderColor="{DynamicResource TextCommon}"
                        BackgroundColor="{DynamicResource SearchBarBackground}"
                        Placeholder="Search..."
-                       TextColor="{DynamicResource ColorTextCommon}"
-                       CancelButtonColor="{DynamicResource ColorTextCommon}"
+                       TextColor="{DynamicResource TextCommon}"
+                       CancelButtonColor="{DynamicResource TextCommon}"
                        Text="{Binding SearchText}">
                 <SearchBar.Behaviors>
                     <behaviors:EventToCommandBehavior EventName="TextChanged"
@@ -117,10 +117,11 @@
                       ItemAppearing="NotesList_OnItemAppearing"
                       SeparatorVisibility="None"
                       ItemTemplate="{StaticResource ListDataTemplateSelector}" />
+
         </StackLayout>
 
         <ImageButton x:Name="CreateNoteButton"
-                     AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"
+                     AbsoluteLayout.LayoutBounds="0.97,0.98,60,60"
                      AbsoluteLayout.LayoutFlags="PositionProportional"
                      CornerRadius="30"
                      Padding="20"

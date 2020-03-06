@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Acr.UserDialogs;
-
+using ReminderXamarin.Collections;
 using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
@@ -60,7 +59,7 @@ namespace ReminderXamarin.ViewModels
             CameraButtonImageSource = ConstantsHelper.CameraIcon;
             VideoButtonImageSource = ConstantsHelper.VideoIcon;
 
-            GalleryItemsViewModels = new ObservableCollection<GalleryItemViewModel>();            
+            GalleryItemsViewModels = new RangeObservableCollection<GalleryItemViewModel>();
 
             DescriptionTextChanged = commandResolver.Command<string>(DescriptionChanged);
             TakePhotoCommand = commandResolver.AsyncCommand(TakePhoto);
@@ -83,7 +82,13 @@ namespace ReminderXamarin.ViewModels
         public bool IsEditMode { get; set; }
         public string Description { get; set; }
         public bool ShouldPromptUser { get; set; }
-        public ObservableCollection<GalleryItemViewModel> GalleryItemsViewModels { get; set; }
+
+        public bool IsGalleryVisible
+        {
+            get => GalleryItemsViewModels.Count > 0;
+        }
+
+        public RangeObservableCollection<GalleryItemViewModel> GalleryItemsViewModels { get; set; }
 
         public ICommand DescriptionTextChanged { get; }
         public IAsyncCommand TakePhotoCommand { get; }
@@ -120,7 +125,9 @@ namespace ReminderXamarin.ViewModels
                 _note = App.NoteRepository.Value.GetNoteAsync(_noteId);
                 Title = _note.EditDate.ToString("d");
                 Description = _note.Description;
-                GalleryItemsViewModels = _note.GalleryItems.ToViewModels(NavigationService, _commandResolver);
+                GalleryItemsViewModels.ReplaceRangeWithoutUpdating(_note.GalleryItems.ToViewModels(NavigationService, _commandResolver));
+                GalleryItemsViewModels.RaiseCollectionChanged();
+                OnPropertyChanged(nameof(IsGalleryVisible));
             }
             return base.InitializeAsync(navigationData);
         }
@@ -150,6 +157,7 @@ namespace ReminderXamarin.ViewModels
         private void GalleryItemsViewModels_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             IsToolbarItemVisible = true;
+            OnPropertyChanged(nameof(IsGalleryVisible));
         }
 
         private async Task PickMultipleMedia()

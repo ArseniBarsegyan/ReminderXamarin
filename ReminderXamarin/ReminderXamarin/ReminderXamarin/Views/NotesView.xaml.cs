@@ -27,6 +27,7 @@ namespace ReminderXamarin.Views
             {
                 viewModel.OnAppearing();
             }
+            NotesList.SelectedItem = null;
         }
 
         protected override void OnDisappearing()

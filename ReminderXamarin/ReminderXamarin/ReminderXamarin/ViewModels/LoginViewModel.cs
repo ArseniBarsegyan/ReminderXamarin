@@ -38,12 +38,8 @@ namespace ReminderXamarin.ViewModels
         public string Password { get; set; }
         public bool ShowPassword { get; set; }
         public string ConfirmPassword { get; set; }
-        public bool ShowConfirmedPassword { get; set; }
-
-        // Set this field to true to hide error message at LoginView.
-        // When user will press "Login" button and get error change this property
-        // will show error at LoginView.
-        public bool IsValid { get; set; } = true;
+        public bool ShowConfirmedPassword { get; set; }       
+        public bool IsValid { get; private set; } = true;
 
         public ICommand SwitchPasswordVisibilityCommand { get; }
         public ICommand SwitchPasswordConfirmVisibilityCommand { get; }
@@ -54,20 +50,23 @@ namespace ReminderXamarin.ViewModels
         {
             if (IsRegister)
             {
-                await Register();
+                await Register().ConfigureAwait(false);
             }
             else
             {
-                await Login();
+                await Login().ConfigureAwait(false);
             }
         }
 
         private async Task Login()
         {
-            if (await AuthenticationManager.Authenticate(UserName, Password))
+            if (await AuthenticationManager.Authenticate(UserName, Password).ConfigureAwait(false))
             {
                 Settings.ApplicationUser = UserName;
-                await NavigationService.InitializeAsync<MenuViewModel>();
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await NavigationService.InitializeAsync<MenuViewModel>();
+                });                
                 IsValid = true;
             }
             else
@@ -90,13 +89,16 @@ namespace ReminderXamarin.ViewModels
             }
             else
             {
-                var authResult = await AuthenticationManager.Register(UserName, Password);
+                var authResult = await AuthenticationManager.Register(UserName, Password).ConfigureAwait(false);
                 if (authResult)
                 {
-                    if (await AuthenticationManager.Authenticate(UserName, Password))
+                    if (await AuthenticationManager.Authenticate(UserName, Password).ConfigureAwait(false))
                     {
                         Settings.ApplicationUser = UserName;
-                        await NavigationService.InitializeAsync<MenuViewModel>();
+                        Device.BeginInvokeOnMainThread(async() =>
+                        {
+                            await NavigationService.InitializeAsync<MenuViewModel>();
+                        });                        
                         IsValid = true;
                     }
                     else

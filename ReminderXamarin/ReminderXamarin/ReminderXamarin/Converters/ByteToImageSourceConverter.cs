@@ -5,10 +5,6 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.Converters
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Convert byte array to image source.
-    /// </summary>
     public class ByteToImageSourceConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

@@ -87,7 +87,7 @@
         </ListView>
 
         <ImageButton x:Name="SaveAchievementStepButton"
-                     AbsoluteLayout.LayoutBounds="0.95,0.95,60,60"
+                     AbsoluteLayout.LayoutBounds="0.97,0.98,60,60"
                      AbsoluteLayout.LayoutFlags="PositionProportional"
                      Padding="20"
                      CornerRadius="30"

@@ -1,5 +1,4 @@
-﻿using ReminderXamarin.Extensions;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -38,17 +37,17 @@ namespace ReminderXamarin.Views
             await Task.Delay(300);
             var tasks = new Task[]
             {
-                Button1.ScaleTo(1, 300),
-                Button2.ScaleTo(1, 300),
-                Button3.ScaleTo(1, 300),
-                Button4.ScaleTo(1, 300),
-                Button5.ScaleTo(1, 300),
-                Button6.ScaleTo(1, 300),
-                Button7.ScaleTo(1, 300),
-                Button8.ScaleTo(1, 300),
-                Button9.ScaleTo(1, 300),
-                Button0.ScaleTo(1, 300),
-                ButtonX.ScaleTo(1, 300)
+                Button1.ScaleTo(1, 200),
+                Button2.ScaleTo(1, 200),
+                Button3.ScaleTo(1, 200),
+                Button4.ScaleTo(1, 200),
+                Button5.ScaleTo(1, 200),
+                Button6.ScaleTo(1, 200),
+                Button7.ScaleTo(1, 200),
+                Button8.ScaleTo(1, 200),
+                Button9.ScaleTo(1, 200),
+                Button0.ScaleTo(1, 200),
+                ButtonX.ScaleTo(1, 200)
             };
             await Task.WhenAll(tasks);
         }

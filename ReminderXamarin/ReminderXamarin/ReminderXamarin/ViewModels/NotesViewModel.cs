@@ -193,9 +193,42 @@ namespace ReminderXamarin.ViewModels
             else
             {
                 Notes = _allNotes
-                    .Where(x => x.Description.Contains(SearchText))
+                    .Where(CheckSearchText)
                     .ToObservableCollection();
             }
+        }
+
+        private bool CheckSearchText(Note note)
+        {
+            if (note.Description.IsNullOrEmpty())
+                return false;
+
+            var matchingText = SearchText.Split(' ');
+
+            var matches = new bool[matchingText.Length];
+            for (int i = 0; i < matchingText.Length; i++)
+            {
+                bool contains = (note.Description.Contains(matchingText[i].ToLowerInvariant())
+                        && note.CreationDate.ToString("dd.MM.yyyy, HH:mm").Contains(matchingText[i].ToLowerInvariant())
+                        && note.EditDate.ToString("dd.MM.yyyy, HH:mm").Contains(matchingText[i].ToLowerInvariant()))
+
+                   || (note.Description.Contains(matchingText[i].ToLowerInvariant())
+                        && note.CreationDate.ToString("dd.MM.yyyy, HH:mm").Contains(matchingText[i].ToLowerInvariant()))
+
+                   || (note.Description.Contains(matchingText[i].ToLowerInvariant())
+                        && note.EditDate.ToString("dd.MM.yyyy, HH:mm").Contains(matchingText[i].ToLowerInvariant()))
+
+                   || (note.Description.Contains(matchingText[i].ToLowerInvariant())
+                        || note.CreationDate.ToString("dd.MM.yyyy, HH:mm").Contains(matchingText[i].ToLowerInvariant())
+                        || note.EditDate.ToString("dd.MM.yyyy, HH:mm").Contains(matchingText[i].ToLowerInvariant()));
+                matches[i] = contains;
+            }
+
+            if (matches.Contains(true))
+            {
+                return true;
+            }
+            return false;
         }
 
         private void LoadNotesFromDatabase()
@@ -208,7 +241,8 @@ namespace ReminderXamarin.ViewModels
 
             if (_allNotes.Count > _notesPerLoad)
             {
-                Notes = _allNotes.Take(_notesPerLoad)
+                Notes = _allNotes
+                    .Take(_notesPerLoad)
                     .ToObservableCollection();
             }
             else
@@ -218,7 +252,8 @@ namespace ReminderXamarin.ViewModels
 
             if (SearchText != null)
             {
-                Notes = Notes.Where(x => x.Description.Contains(SearchText))
+                Notes = Notes
+                    .Where(CheckSearchText)
                     .ToObservableCollection();
             }
         }
@@ -243,7 +278,7 @@ namespace ReminderXamarin.ViewModels
                         notesToAdd = _allNotes
                             .Skip(_currentSkipCounter)
                             .Take(_notesPerLoad)
-                            .Where(x => x.Description.Contains(SearchText))
+                            .Where(CheckSearchText)
                             .ToList();
                     }
                 }
@@ -261,7 +296,7 @@ namespace ReminderXamarin.ViewModels
                         notesToAdd = _allNotes
                             .Skip(_currentSkipCounter)
                             .Take(remainingCount)
-                            .Where(x => x.Description.Contains(SearchText))
+                            .Where(CheckSearchText)
                             .ToList();
                     }
                 }

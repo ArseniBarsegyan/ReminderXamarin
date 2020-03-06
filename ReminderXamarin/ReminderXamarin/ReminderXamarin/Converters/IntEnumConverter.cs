@@ -5,10 +5,6 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.Converters
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Convert enum value to int number.
-    /// </summary>
     public class IntEnumConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
