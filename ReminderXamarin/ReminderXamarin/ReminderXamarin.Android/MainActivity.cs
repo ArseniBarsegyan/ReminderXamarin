@@ -29,7 +29,7 @@ using Platform = ReminderXamarin.Droid.Services.FilePickerService.Platform;
 
 namespace ReminderXamarin.Droid
 {
-    [Activity(Label = "Reminder", Icon = "@mipmap/icon", Theme = "@style/MainTheme", 
+    [Activity(Label = "Reminder", Icon = "@mipmap/Icon", Theme = "@style/MainTheme", 
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
