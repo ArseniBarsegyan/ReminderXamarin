@@ -139,11 +139,12 @@
             </AbsoluteLayout>
 
             <ImageButton x:Name="ShowOptionsLayoutButton"
-                         AbsoluteLayout.LayoutBounds="0.97,0.98,60,60"
+                         AbsoluteLayout.LayoutBounds="0.96,0.96,50,50"
                          AbsoluteLayout.LayoutFlags="PositionProportional"
                          Source="add.png"
                          Style="{StaticResource PickerButtonStyle}"
                          CornerRadius="30"
+                         Padding="10"
                          HorizontalOptions="EndAndExpand"
                          Clicked="ToggleOptionsLayout" />
 

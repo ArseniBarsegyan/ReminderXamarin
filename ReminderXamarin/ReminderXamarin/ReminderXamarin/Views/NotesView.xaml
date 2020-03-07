@@ -84,6 +84,7 @@
 
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
                     AbsoluteLayout.LayoutFlags="All">
+        
         <StackLayout x:Name="StackLayout" 
                      Padding="5"
                      AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -91,11 +92,12 @@
                      Spacing="0"
                      VerticalOptions="FillAndExpand"
                      HorizontalOptions="FillAndExpand">
-            <!-- Search bar with border -->
+            
             <SearchBar x:Name="SearchBar"
                        PlaceholderColor="{DynamicResource TextCommon}"
                        BackgroundColor="{DynamicResource SearchBarBackground}"
                        Placeholder="Search..."
+                       IsVisible="False"
                        TextColor="{DynamicResource TextCommon}"
                        CancelButtonColor="{DynamicResource TextCommon}"
                        Text="{Binding SearchText}">
@@ -104,7 +106,7 @@
                                                       Command="{Binding SearchCommand}" />
                 </SearchBar.Behaviors>
             </SearchBar>
-            <!-- List with notes -->
+            
             <ListView x:Name="NotesList"
                       ItemsSource="{Binding Notes}"
                       IsPullToRefreshEnabled="True"
@@ -121,12 +123,8 @@
         </StackLayout>
 
         <ImageButton x:Name="CreateNoteButton"
-                     AbsoluteLayout.LayoutBounds="0.97,0.98,60,60"
-                     AbsoluteLayout.LayoutFlags="PositionProportional"
-                     CornerRadius="30"
-                     Padding="20"
                      Source="add.png"
-                     BackgroundColor="{DynamicResource SubmitButtonBackground}"
+                     Style="{StaticResource Fab}"
                      Command="{Binding NavigateToEditViewCommand}">
             <ImageButton.CommandParameter>
                 <x:Int32>0</x:Int32>

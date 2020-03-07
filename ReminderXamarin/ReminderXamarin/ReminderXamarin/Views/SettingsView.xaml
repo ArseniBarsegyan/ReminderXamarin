@@ -80,14 +80,10 @@
 
             <ImageButton x:Name="ConfirmButton"
                          IsVisible="{Binding ModelChanged}"
-                         BackgroundColor="{DynamicResource SubmitButtonBackground}"
+                         Style="{StaticResource Fab}"
                          Command="{Binding SaveSettingsCommand}"
                          CommandParameter="{Binding Source={x:Reference PinEntry}, Path=Text}"
-                         Source="confirm.png"
-                         CornerRadius="30"
-                         Padding="20"
-                         AbsoluteLayout.LayoutBounds="0.97,0.98,60,60"
-                         AbsoluteLayout.LayoutFlags="PositionProportional" />
+                         Source="confirm.png" />
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

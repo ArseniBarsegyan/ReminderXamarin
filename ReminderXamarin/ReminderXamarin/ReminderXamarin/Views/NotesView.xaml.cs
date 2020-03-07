@@ -22,7 +22,6 @@ namespace ReminderXamarin.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ToggleSearchBarVisibility(SearchToolbarItem, EventArgs.Empty);
             if (BindingContext is NotesViewModel viewModel)
             {
                 viewModel.OnAppearing();

@@ -88,7 +88,7 @@ namespace ReminderXamarin
         private void InitNavigation(bool shouldUsePin)
         {
             _themeSwitchService.InitializeTheme();
-            _themeService.SetStatusBarColor((Color)Current.Resources["StatusBarColor"]);
+            _themeService.SetStatusBarColor((Color)Current.Resources["StatusBar"]);
 
             if (shouldUsePin)
             {

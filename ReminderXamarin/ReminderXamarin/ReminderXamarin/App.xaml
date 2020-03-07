@@ -13,6 +13,14 @@
                 <Setter Property="BarBackgroundColor" Value="{DynamicResource NavigationBarBackground}" />
             </Style>
 
+            <Style x:Key="Fab" TargetType="ImageButton">
+                <Setter Property="CornerRadius" Value="30" />
+                <Setter Property="Padding" Value="10" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource SubmitButtonBackground}" />
+                <Setter Property="AbsoluteLayout.LayoutBounds" Value="0.96,0.96,50,50" />
+                <Setter Property="AbsoluteLayout.LayoutFlags" Value="PositionProportional" />
+            </Style>
+
             <!-- Images styles -->
             <Style x:Key="UserImageStyle" TargetType="abstractions:CircleImage">
                 <Setter Property="HeightRequest" Value="40" />

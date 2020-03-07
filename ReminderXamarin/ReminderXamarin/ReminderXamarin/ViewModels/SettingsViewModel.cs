@@ -66,7 +66,7 @@ namespace ReminderXamarin.ViewModels
                 {
                     _isDarkTheme = value;
                     _themeSwitcher.SwitchTheme(value ? ThemeTypes.Dark : ThemeTypes.Light);
-                    _themeService.SetStatusBarColor((Color)Application.Current.Resources["StatusBarColor"]);
+                    _themeService.SetStatusBarColor((Color)Application.Current.Resources["StatusBar"]);
                     OnPropertyChanged();
                 }
             }
@@ -78,7 +78,7 @@ namespace ReminderXamarin.ViewModels
         {
             Settings.ThemeType = _savedTheme.ToString();
             _themeSwitcher.SwitchTheme(_savedTheme);
-            _themeService.SetStatusBarColor((Color)Application.Current.Resources["StatusBarColor"]);
+            _themeService.SetStatusBarColor((Color)Application.Current.Resources["StatusBar"]);
         }
 
         private void SaveSettings(string pinCode)

@@ -208,17 +208,8 @@ namespace ReminderXamarin.ViewModels
             var matches = new bool[matchingText.Length];
             for (int i = 0; i < matchingText.Length; i++)
             {
-                bool contains = (note.Description.Contains(matchingText[i].ToLowerInvariant())
-                        && note.CreationDate.ToString("dd.MM.yyyy, HH:mm").Contains(matchingText[i].ToLowerInvariant())
-                        && note.EditDate.ToString("dd.MM.yyyy, HH:mm").Contains(matchingText[i].ToLowerInvariant()))
-
-                   || (note.Description.Contains(matchingText[i].ToLowerInvariant())
-                        && note.CreationDate.ToString("dd.MM.yyyy, HH:mm").Contains(matchingText[i].ToLowerInvariant()))
-
-                   || (note.Description.Contains(matchingText[i].ToLowerInvariant())
-                        && note.EditDate.ToString("dd.MM.yyyy, HH:mm").Contains(matchingText[i].ToLowerInvariant()))
-
-                   || (note.Description.Contains(matchingText[i].ToLowerInvariant())
+                bool contains =
+                   (note.Description.Contains(matchingText[i].ToLowerInvariant())
                         || note.CreationDate.ToString("dd.MM.yyyy, HH:mm").Contains(matchingText[i].ToLowerInvariant())
                         || note.EditDate.ToString("dd.MM.yyyy, HH:mm").Contains(matchingText[i].ToLowerInvariant()));
                 matches[i] = contains;

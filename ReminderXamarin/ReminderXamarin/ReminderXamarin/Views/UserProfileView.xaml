@@ -37,13 +37,9 @@
             </StackLayout>            
 
             <ImageButton x:Name="UpdateUserButton"
-                         AbsoluteLayout.LayoutBounds="0.97,0.98,60,60"
-                         AbsoluteLayout.LayoutFlags="PositionProportional"
-                         Padding="20"
+                         Style="{StaticResource Fab}"
                          IsVisible="{Binding ViewModelChanged}"
                          Command="{Binding UpdateUserCommand}"
-                         BackgroundColor="{DynamicResource SubmitButtonBackground}"
-                         CornerRadius="30"
                          Source="confirm.png" />
         </AbsoluteLayout>
     </ContentPage.Content>
