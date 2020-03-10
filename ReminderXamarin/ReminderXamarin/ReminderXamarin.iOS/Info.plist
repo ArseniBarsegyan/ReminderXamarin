@@ -32,8 +32,6 @@
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
 	<string>ReminderXamarin</string>
-	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Reminder wants to access your camera</string>
 	<key>UIBackgroundModes</key>
@@ -44,5 +42,7 @@
 	<string>Reminder wants to access your photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Reminder wants to access your photos</string>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
 </dict>
 </plist>
