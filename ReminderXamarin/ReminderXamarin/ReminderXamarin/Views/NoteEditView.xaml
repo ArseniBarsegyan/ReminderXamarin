@@ -46,7 +46,7 @@
                               HeightRequest="250">
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
-                            <AbsoluteLayout Padding="2">
+                            <AbsoluteLayout>
                                 <Image Source="{Binding ImagePath}"
                                        Aspect="AspectFill"
                                        AbsoluteLayout.LayoutBounds="0,0,1,1"
