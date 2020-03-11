@@ -26,8 +26,10 @@
     <Color x:Key="SearchBarBackground">#FFFFFF</Color>
     <Color x:Key="SubmitButtonBackground">#0277bd</Color>
     <Color x:Key="StatusBar">#004c8c</Color>
+    <Color x:Key="SwitchOn">#4D9FD0</Color>
     <Color x:Key="TextCommon">#323232</Color>
     <Color x:Key="ToDoListViewItemBorder">DarkGray</Color>
     <Color x:Key="ToggleVisibilityButtonBackground">#FAFAFA</Color>
+    <Color x:Key="Thumb">#E1E1E1</Color>
     <Color x:Key="ViewBackground">#F6F6F6</Color>    
 </ResourceDictionary>

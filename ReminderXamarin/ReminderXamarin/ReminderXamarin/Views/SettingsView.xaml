@@ -38,6 +38,8 @@
 
                         <Switch x:Name="UsePinSwitch"
                                 Grid.Row="0"
+                                ThumbColor="{DynamicResource Thumb}"
+                                OnColor="{DynamicResource SwitchOn}"
                                 Grid.Column="1"
                                 IsToggled="{Binding UsePin}" />
 
@@ -73,6 +75,8 @@
                         <Switch x:Name="ThemeSwitcher"
                                 Grid.Row="0"
                                 Grid.Column="1"
+                                ThumbColor="{DynamicResource Thumb}"
+                                OnColor="{DynamicResource SwitchOn}"
                                 IsToggled="{Binding IsDarkTheme}" />
                     </Grid>
                 </Frame>
