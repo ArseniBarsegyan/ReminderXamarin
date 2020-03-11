@@ -15,13 +15,13 @@ namespace ReminderXamarin.Views
             InitializeComponent();
         }
 
-        private void MenuList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void MenuList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem is MasterPageItem item)
             {
                 if (BindingContext is MenuMasterViewModel viewModel)
                 {
-                    MessagingCenter.Send(viewModel, ConstantsHelper.DetailPageChanged, item.Index);
+                    await viewModel.ChangeDetailsPageCommand.ExecuteAsync(item.Index);
                 }
             }
             MenuList.SelectedItem = null;

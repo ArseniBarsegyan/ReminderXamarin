@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using ReminderXamarin.Views;
+
 using ReminderXamarin.Resx;
 using ReminderXamarin.Utilities;
+using ReminderXamarin.Views;
 
 namespace Rm.Helpers
 {

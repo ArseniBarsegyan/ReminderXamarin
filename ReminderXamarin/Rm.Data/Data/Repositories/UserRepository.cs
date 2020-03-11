@@ -1,11 +1,12 @@
-﻿using Rm.Data.Data.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+
+using Rm.Data.Data.Entities;
 
 using SQLite;
 
 using SQLiteNetExtensions.Extensions;
-
-using System;
-using System.Collections.Generic;
 
 namespace Rm.Data.Data.Repositories
 {
@@ -23,9 +24,9 @@ namespace Rm.Data.Data.Repositories
             _db.CreateTable<ToDoModel>();
         }
 
-        public IEnumerable<UserModel> GetAll()
+        public IEnumerable<UserModel> GetAll(Expression<Func<UserModel, bool>> expression = null)
         {
-            return _db.GetAllWithChildren<UserModel>();
+            return _db.GetAllWithChildren(expression);
         }
 
         public UserModel GetUserAsync(string id)

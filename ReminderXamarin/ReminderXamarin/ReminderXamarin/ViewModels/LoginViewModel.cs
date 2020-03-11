@@ -1,12 +1,12 @@
-﻿using ReminderXamarin.Core.Interfaces.Commanding;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
+
+using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.Utilities;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
-
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 using Xamarin.Forms;
 
@@ -65,7 +65,7 @@ namespace ReminderXamarin.ViewModels
                 Settings.ApplicationUser = UserName;
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await NavigationService.InitializeAsync<MenuViewModel>();
+                    await NavigationService.ToRootAsync<MenuViewModel>();
                 });                
                 IsValid = true;
             }
@@ -97,7 +97,7 @@ namespace ReminderXamarin.ViewModels
                         Settings.ApplicationUser = UserName;
                         Device.BeginInvokeOnMainThread(async() =>
                         {
-                            await NavigationService.InitializeAsync<MenuViewModel>();
+                            await NavigationService.ToRootAsync<MenuViewModel>();
                         });                        
                         IsValid = true;
                     }

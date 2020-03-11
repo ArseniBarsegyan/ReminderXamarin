@@ -3,10 +3,6 @@
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
-using Rm.Helpers;
-
-using Xamarin.Forms;
-
 namespace ReminderXamarin.ViewModels
 {
     public class MenuViewModel : BaseViewModel
@@ -17,29 +13,6 @@ namespace ReminderXamarin.ViewModels
         public MenuViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            MessagingCenter.Subscribe<MenuMasterViewModel, MenuViewIndex>(this, ConstantsHelper.DetailPageChanged, async (sender, pageIndex) =>
-            {
-                switch (pageIndex)
-                {
-                    case MenuViewIndex.NotesView:
-                        await NavigationService.NavigateToAsync<NotesViewModel>();
-                        break;
-                    case MenuViewIndex.ToDoPage:
-                        await NavigationService.NavigateToAsync<ToDoCalendarViewModel>();
-                        break;
-                    case MenuViewIndex.BirthdaysView:
-                        await NavigationService.NavigateToAsync<BirthdaysViewModel>();
-                        break;
-                    case MenuViewIndex.AchievementsView:
-                        await NavigationService.NavigateToAsync<AchievementsViewModel>();
-                        break;
-                    case MenuViewIndex.SettingsView:
-                        await NavigationService.NavigateToAsync<SettingsViewModel>();
-                        break;
-                    default:
-                        break;
-                }
-            });
         }
 
         public override async Task InitializeAsync(object navigationData)

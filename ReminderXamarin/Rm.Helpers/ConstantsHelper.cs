@@ -24,6 +24,7 @@
         public const string Cancel = nameof(Cancel);
         public const string CameraIcon = "camera.png";
         public const string CantContinueErrorMessage = "Error. Can not continue, try again.";
+        public const string ConfirmPin = nameof(ConfirmPin);
         public const string ConfirmIcon = "confirm.png";
         public const string CreateNote = nameof(CreateNote);
         public const string CreateAchievement = nameof(CreateAchievement);
@@ -32,6 +33,7 @@
         public const string DeleteImageSource = "delete.png";
         public const string DetailPageChanged = nameof(DetailPageChanged);
         public const string DontHaveAccountQuestion = nameof(DontHaveAccountQuestion);
+        public const string EnterPin = nameof(EnterPin);
         public const string EmptyDotImage = "emptyDot.png";
         public const string EFConnectionString = "RmDB.db";
         public const string FilledDotImage = "filledDot.png";

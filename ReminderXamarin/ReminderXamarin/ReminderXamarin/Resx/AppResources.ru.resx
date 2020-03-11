@@ -162,6 +162,9 @@
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Повторите пароль</value>
   </data>
+  <data name="ConfirmPin" xml:space="preserve">
+    <value>Подтвердите PIN</value>
+  </data>
   <data name="CreateAchievement" xml:space="preserve">
     <value>Новое достижение</value>
   </data>

@@ -1,14 +1,13 @@
-﻿using ReminderXamarin.ViewModels.Base;
+﻿using System;
+using System.Globalization;
+using System.Reflection;
+using System.Threading.Tasks;
+
+using ReminderXamarin.ViewModels.Base;
 using ReminderXamarin.Views;
 
 using Rg.Plugins.Popup.Extensions;
 using Rg.Plugins.Popup.Pages;
-
-using System;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
@@ -16,32 +15,9 @@ namespace ReminderXamarin.Services.Navigation
 {
     public class NavigationService : INavigationService
     {
-        public BaseViewModel PreviousPageViewModel
+        public Task ToRootAsync<TViewModel>() where TViewModel : BaseViewModel
         {
-            get
-            {
-                if (Application.Current.MainPage is NavigationPage mainPage &&
-                    mainPage.Navigation.NavigationStack.Count > 1)
-                {
-                    var viewModel = mainPage.Navigation.NavigationStack[mainPage.Navigation.NavigationStack.Count - 2].BindingContext;
-                    return viewModel as BaseViewModel;
-                }
-                return null;
-            }
-        }
-
-        public Task InitializeAsync<TViewModel>() where TViewModel : BaseViewModel
-        {
-            return NavigateToAsync<TViewModel>();
-        }
-
-        public async Task NavigateToRootAsync()
-        {
-            if (Application.Current.MainPage is NavigationPage mainPage)
-            {
-                var lastPage = mainPage.Navigation.NavigationStack.Last();
-                await lastPage.Navigation.PopToRootAsync();
-            }
+            return InternalNavigateToAsync(typeof(TViewModel), null, true);
         }
 
         public Task NavigateToAsync<TViewModel>() where TViewModel : BaseViewModel
@@ -59,6 +35,11 @@ namespace ReminderXamarin.Services.Navigation
             return InternalNavigateToPopupAsync(typeof(TViewModel), parameter);
         }
 
+        public Task NavigateToDetails<TViewModel>() where TViewModel : BaseViewModel
+        {
+            return InternalNavigateToAsync(typeof(TViewModel), null, false, true);
+        }
+
         private async Task InternalNavigateToPopupAsync(Type viewModelType, object parameter)
         {
             PopupPage popupPage = CreatePopupPage(viewModelType, parameter);
@@ -67,51 +48,6 @@ namespace ReminderXamarin.Services.Navigation
             {
                 await masterDetailPage.Navigation.PushPopupAsync(popupPage);
             }
-        }
-
-        public async Task RemoveLastFromBackStackAsync()
-        {
-            if (Application.Current.MainPage is NavigationPage mainPage)
-            {
-                var navigationStack = mainPage.Navigation.NavigationStack;
-                var previousPage = navigationStack.ElementAtOrDefault(navigationStack.Count - 2);
-
-                if (previousPage != null)
-                {
-                    mainPage.Navigation.RemovePage(previousPage);
-                }
-            }
-
-            await Task.FromResult(true);
-        }
-
-        public async Task RemoveBackStackAsync()
-        {
-            if (Application.Current.MainPage is NavigationPage mainPage)
-            {
-                if (!mainPage.Navigation.NavigationStack.Any())
-                {
-                    return;
-                }
-
-                var lastPage = mainPage.Navigation.NavigationStack.Last();
-
-                while (true)
-                {
-                    var pageToDelete = mainPage.Navigation.NavigationStack[0];
-
-                    if (pageToDelete != null && pageToDelete != lastPage)
-                    {
-                        mainPage.Navigation.RemovePage(pageToDelete);
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-
-            await Task.FromResult(true);
         }
 
         public async Task NavigateBackAsync()
@@ -130,7 +66,10 @@ namespace ReminderXamarin.Services.Navigation
             }            
         }
 
-        private async Task InternalNavigateToAsync(Type viewModelType, object parameter)
+        private async Task InternalNavigateToAsync(Type viewModelType, 
+            object parameter, 
+            bool root = false, 
+            bool isDetailChangeRequested = false)
         {
             Page page = CreatePage(viewModelType, parameter);
 
@@ -139,24 +78,19 @@ namespace ReminderXamarin.Services.Navigation
                 await viewModel.InitializeAsync(parameter);
             }
 
-            if (page is MenuView || page is LoginView || page is PinView)
+            if (root)
             {
                 Application.Current.MainPage = page;
             }
 
-            else if (page is UserProfileView 
-                     || page is NotesView 
-                     || page is AchievementsView
-                     || page is BirthdaysView 
-                     || page is ToDoCalendarView 
-                     || page is SettingsView)
+            if (isDetailChangeRequested)
             {
                 if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {
                     detailPage.Detail = new NavigationPage(page);
                     await Task.Delay(25);
                     detailPage.IsPresented = false;
-                }          
+                }
             }
             else
             {
@@ -164,7 +98,7 @@ namespace ReminderXamarin.Services.Navigation
                 {
                     await detailPage.Detail.Navigation.PushAsync(page, true);
                     detailPage.IsPresented = false;
-                }                               
+                }
             }
         }
 
@@ -217,6 +151,6 @@ namespace ReminderXamarin.Services.Navigation
                 Console.WriteLine(ex.Message);
             }
             return null;
-        }
+        }        
     }
 }

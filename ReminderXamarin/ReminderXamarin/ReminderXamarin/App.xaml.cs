@@ -92,11 +92,11 @@ namespace ReminderXamarin
 
             if (shouldUsePin)
             {
-                _navigationService.InitializeAsync<PinViewModel>();
+                _navigationService.ToRootAsync<PinViewModel>();
             }
             else
             {
-                _navigationService.InitializeAsync<LoginViewModel>();
+                _navigationService.ToRootAsync<LoginViewModel>();
             }
         }
     }

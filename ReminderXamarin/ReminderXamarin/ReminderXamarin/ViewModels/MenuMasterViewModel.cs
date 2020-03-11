@@ -1,4 +1,10 @@
-﻿using ReminderXamarin.Core.Interfaces.Commanding;
+﻿using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+
+using ReminderXamarin.Core.Interfaces.Commanding;
+using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.Utilities;
@@ -6,11 +12,6 @@ using ReminderXamarin.ViewModels.Base;
 
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
-
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
@@ -30,58 +31,82 @@ namespace ReminderXamarin.ViewModels
 
             MessagingCenter.Subscribe<UserProfileViewModel>(this,
                 ConstantsHelper.ProfileUpdated,
-                vm => ProfileUpdated());
+                vm => UpdateProfile());
             MessagingCenter.Subscribe<ThemeSwitcher>(this,
                 ConstantsHelper.AppThemeChanged,
                 ts => DrawMenu());
 
-            _appUser = App.UserRepository.Value.GetAll()
-                .FirstOrDefault(x => x.UserName == Settings.ApplicationUser);
+            UpdateProfile();
+            DrawMenu();            
+            
+            NavigateToUserProfileCommand = commandResolver.AsyncCommand(NavigateToUserProfile);
+            ChangeDetailsPageCommand = commandResolver.AsyncCommand<MenuViewIndex>(ChangeDetailsPageAsync);
+            LogoutCommand = commandResolver.AsyncCommand(Logout);
+        }
+
+        private void UpdateProfile()
+        {
+            _appUser = App.UserRepository.Value
+                .GetAll(x => x.UserName == Settings.ApplicationUser)
+                .FirstOrDefault();
             if (_appUser != null)
             {
                 UserName = _appUser.UserName;
                 Settings.CurrentUserId = _appUser.Id;
             }
-            DrawMenu();
-            LogoutCommand = commandResolver.AsyncCommand(Logout);
-            NavigateToUserProfileCommand = commandResolver.AsyncCommand(NavigateToUserProfile);
-        }
-
-        private void ProfileUpdated()
-        {
-            _appUser = App.UserRepository.Value.GetAll()
-                .FirstOrDefault(x => x.UserName == Settings.ApplicationUser);
-            if (_appUser != null)
-            {
-                UserName = _appUser.UserName;
-            }
             UpdateProfilePhoto();
         }
 
-        public string UserName { get; set; }
-        public ImageSource UserProfilePhoto { get; set; }
+        public string UserName { get; private set; }
+        public ImageSource UserProfilePhoto { get; private set; }
         public ImageSource HeaderBackgroundImageSource { get; private set; }
         public ImageSource LogoutImageSource { get; private set; }
-        public ObservableCollection<MasterPageItem> MasterPageItems { get; set; }
-        public IAsyncCommand LogoutCommand { get; }
+        public ObservableCollection<MasterPageItem> MasterPageItems { get; private set; }
+
         public IAsyncCommand NavigateToUserProfileCommand { get; }
+        public IAsyncCommand<MenuViewIndex> ChangeDetailsPageCommand { get; }
+        public IAsyncCommand LogoutCommand { get; }
+
+        private async Task NavigateToUserProfile()
+        {
+            await NavigationService.NavigateToAsync<UserProfileViewModel>(_appUser);
+        }
+
+        private async Task ChangeDetailsPageAsync(MenuViewIndex pageIndex)
+        {
+            switch (pageIndex)
+            {
+                case MenuViewIndex.NotesView:
+                    await NavigationService.NavigateToDetails<NotesViewModel>();
+                    break;
+                case MenuViewIndex.ToDoPage:
+                    await NavigationService.NavigateToDetails<ToDoCalendarViewModel>();
+                    break;
+                case MenuViewIndex.BirthdaysView:
+                    await NavigationService.NavigateToDetails<BirthdaysViewModel>();
+                    break;
+                case MenuViewIndex.AchievementsView:
+                    await NavigationService.NavigateToDetails<AchievementsViewModel>();
+                    break;
+                case MenuViewIndex.SettingsView:
+                    await NavigationService.NavigateToDetails<SettingsViewModel>();
+                    break;
+                default:
+                    break;
+            }
+        }
 
         private async Task Logout()
         {
             bool.TryParse(Settings.UsePin, out var result);
             if (result)
             {
-                await NavigationService.InitializeAsync<PinViewModel>();
+                await NavigationService.ToRootAsync<PinViewModel>();
             }
             else
             {
-                await NavigationService.InitializeAsync<LoginViewModel>();
+                await NavigationService.ToRootAsync<LoginViewModel>();
             }
-        }
-
-        private async Task NavigateToUserProfile()
-        {
-            await NavigationService.NavigateToAsync<UserProfileViewModel>(_appUser);
         }
 
         private void DrawMenu()

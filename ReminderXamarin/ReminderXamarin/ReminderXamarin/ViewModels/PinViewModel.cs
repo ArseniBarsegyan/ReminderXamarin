@@ -1,14 +1,15 @@
-﻿using ReminderXamarin.Core.Interfaces.Commanding;
+﻿using System.Globalization;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
+using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.Utilities;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
-
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 using Xamarin.Forms;
 
@@ -19,6 +20,8 @@ namespace ReminderXamarin.ViewModels
         private static int _currentCount;
         private readonly StringBuilder _pinBuilder;
         private readonly ThemeSwitcher _themeSwitcher;
+        private bool _shouldConfirmPin;
+        private int _pinToConfirm;
 
         public PinViewModel(INavigationService navigationService,
             ThemeSwitcher themeSwitcher,
@@ -26,13 +29,22 @@ namespace ReminderXamarin.ViewModels
             : base(navigationService)
         {
             _pinBuilder = new StringBuilder();
-            _themeSwitcher = themeSwitcher;            
+            _themeSwitcher = themeSwitcher;
+            Message = Resmgr.Value.GetString(ConstantsHelper.EnterPin, CultureInfo.CurrentCulture);
 
             DeleteNumberCommand = commandResolver.Command(DeletePinNumber);
-            PinCommand = commandResolver.AsyncCommand<string>(CheckPin);
-            LoginCommand = commandResolver.AsyncCommand(Login);
+            PinCommand = commandResolver.AsyncCommand<string>(CheckPinAsync);
 
             InitializeImagesForButtons();
+        }
+
+        public override Task InitializeAsync(object navigationData)
+        {
+            if (navigationData != null)
+            {
+                _shouldConfirmPin = (bool)navigationData;
+            }
+            return base.InitializeAsync(navigationData);            
         }
 
         public Image FirstNumberImageSource { get; private set; }
@@ -42,10 +54,11 @@ namespace ReminderXamarin.ViewModels
         public ImageSource DeleteButtonImageSource { get; private set; }
 
         public int Pin { get; set; }
+        public string Message { get; private set; }
 
         public ICommand DeleteNumberCommand { get; }
+        public IAsyncCommand SetPin { get; }
         public IAsyncCommand<string> PinCommand { get; }
-        public IAsyncCommand LoginCommand { get; }
 
         private void InitializeImagesForButtons()
         {
@@ -61,7 +74,7 @@ namespace ReminderXamarin.ViewModels
                 ConstantsHelper.PinButtonLightDeleteImageSource;
         }
 
-        private async Task CheckPin(string text)
+        private async Task CheckPinAsync(string text)
         {
             _currentCount++;
 
@@ -86,11 +99,40 @@ namespace ReminderXamarin.ViewModels
 
             if (_currentCount == 4)
             {
-                int.TryParse(_pinBuilder.ToString(), out int pin);
-                Pin = pin;
-                await Task.Delay(25);
-                ResetImagesAndCount();
-                await Login().ConfigureAwait(false);
+                if (_shouldConfirmPin)
+                {
+                    if (_pinToConfirm != 0)
+                    {
+                        int.TryParse(_pinBuilder.ToString(), out int confirmedPin);
+                        if (confirmedPin == _pinToConfirm)
+                        {
+                            Settings.UserPinCode = confirmedPin.ToString();
+                            await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Pin saved", "Success", "Ok");
+                            await Task.Delay(200);
+                            await NavigationService.NavigateBackAsync();
+                        }
+                        else
+                        {
+                            await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Pin doesn't match entered", "Error", "Ok");
+                            await Task.Delay(200);
+                            await NavigationService.NavigateBackAsync();
+                        }
+                    }
+                    else
+                    {
+                        int.TryParse(_pinBuilder.ToString(), out _pinToConfirm);
+                        Message = Resmgr.Value.GetString(ConstantsHelper.ConfirmPin, CultureInfo.CurrentCulture);
+                        ResetImagesAndCount();
+                    }                    
+                }
+                else
+                {
+                    int.TryParse(_pinBuilder.ToString(), out int pin);
+                    Pin = pin;
+                    await Task.Delay(25);
+                    ResetImagesAndCount();
+                    await Login().ConfigureAwait(false);
+                }                
             }
         }
 
@@ -139,7 +181,7 @@ namespace ReminderXamarin.ViewModels
             var userPin = Settings.UserPinCode;
             if (Pin.ToString() == userPin)
             {
-                await NavigationService.InitializeAsync<MenuViewModel>();
+                await NavigationService.ToRootAsync<MenuViewModel>();
             }
         }
     }

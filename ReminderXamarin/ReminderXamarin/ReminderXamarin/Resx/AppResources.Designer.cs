@@ -196,6 +196,15 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm PIN.
+        /// </summary>
+        internal static string ConfirmPin {
+            get {
+                return ResourceManager.GetString("ConfirmPin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New achievement.
         /// </summary>
         internal static string CreateAchievement {
