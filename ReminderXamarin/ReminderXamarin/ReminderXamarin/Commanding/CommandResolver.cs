@@ -23,6 +23,16 @@ namespace ReminderXamarin.Commanding
 
         public bool IsLocked => _commandExecutionLock.IsLocked;
 
+        public IAsyncCommand AsyncCommandWithoutLock(Func<Task> execute, Func<bool> canExecute = null)
+        {
+            return new AsyncCommand(execute, canExecute);
+        }
+
+        public IAsyncCommand<TParam> AsyncCommandWithoutLock<TParam>(Func<TParam, Task> execute, Func<object, bool> canExecute = null)
+        {
+            return new AsyncCommand<TParam>(execute, par => CanExecute(par, canExecute));
+        }
+
         public IAsyncCommand AsyncCommand(
             Func<Task> execute, Func<bool> canExecute = null)
         {
@@ -118,6 +128,28 @@ namespace ReminderXamarin.Commanding
         public ICommand Command(Action execute, Func<bool> canExecute = null)
         {
             return Command<object>(o => execute(), o => CanExecute(canExecute));
+        }
+
+        public ICommand CommandWithoutLock(Action execute, Func<bool> canExecute = null)
+        {
+            return CommandWithoutLock<object>(o => execute(), o => CanExecute(canExecute));
+        }
+
+        public ICommand CommandWithoutLock<TParam>(Action<TParam> execute, Func<object, bool> canExecute = null)
+        {
+            void Action(TParam p)
+            {
+                try
+                {
+                    execute(p);
+                }
+                finally
+                {
+                    _commandExecutionLock.FreeExecutionLock();
+                }
+            }
+
+            return new Command<TParam>(Action, par => CanExecute(par, canExecute));
         }
 
         public ICommand Command<TParam>(Action<TParam> execute, Func<object, bool> canExecute = null)

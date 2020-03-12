@@ -32,8 +32,8 @@ namespace ReminderXamarin.ViewModels
             _themeSwitcher = themeSwitcher;
             Message = Resmgr.Value.GetString(ConstantsHelper.EnterPin, CultureInfo.CurrentCulture);
 
-            DeleteNumberCommand = commandResolver.Command(DeletePinNumber);
-            PinCommand = commandResolver.AsyncCommand<string>(CheckPinAsync);
+            DeleteNumberCommand = commandResolver.CommandWithoutLock(DeletePinNumber);
+            PinCommand = commandResolver.AsyncCommandWithoutLock<string>(CheckPinAsync);
 
             InitializeImagesForButtons();
         }
