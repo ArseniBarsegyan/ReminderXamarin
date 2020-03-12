@@ -12,6 +12,7 @@ namespace ReminderXamarin.Views
         public PinView()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
 
         protected override async void OnAppearing()

@@ -44,6 +44,10 @@ namespace ReminderXamarin.ViewModels
             {
                 _shouldConfirmPin = (bool)navigationData;
             }
+            else
+            {
+                _shouldConfirmPin = false;
+            }
             return base.InitializeAsync(navigationData);            
         }
 
@@ -108,13 +112,13 @@ namespace ReminderXamarin.ViewModels
                         {
                             Settings.UserPinCode = confirmedPin.ToString();
                             await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Pin saved", "Success", "Ok");
-                            await Task.Delay(200);
+                            ResetImagesAndCount();
                             await NavigationService.NavigateBackAsync();
                         }
                         else
                         {
                             await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Pin doesn't match entered", "Error", "Ok");
-                            await Task.Delay(200);
+                            ResetImagesAndCount();
                             await NavigationService.NavigateBackAsync();
                         }
                     }

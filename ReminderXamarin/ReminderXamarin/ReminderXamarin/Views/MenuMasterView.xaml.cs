@@ -17,14 +17,14 @@ namespace ReminderXamarin.Views
 
         private async void MenuList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            MenuList.SelectedItem = null;
             if (e.SelectedItem is MasterPageItem item)
             {
                 if (BindingContext is MenuMasterViewModel viewModel)
                 {
                     await viewModel.ChangeDetailsPageCommand.ExecuteAsync(item.Index);
                 }
-            }
-            MenuList.SelectedItem = null;
+            }            
         }
     }
 }

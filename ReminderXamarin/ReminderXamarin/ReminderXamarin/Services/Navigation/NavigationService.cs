@@ -82,8 +82,7 @@ namespace ReminderXamarin.Services.Navigation
             {
                 Application.Current.MainPage = page;
             }
-
-            if (isDetailChangeRequested)
+            else if (isDetailChangeRequested)
             {
                 if (Application.Current.MainPage is MasterDetailPage detailPage)
                 {
