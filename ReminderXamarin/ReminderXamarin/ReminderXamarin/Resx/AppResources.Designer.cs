@@ -313,6 +313,15 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exit.
         /// </summary>
         internal static string Exit {
@@ -529,6 +538,24 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pin doesn&apos;t match entered.
+        /// </summary>
+        internal static string PinDoesNotMatchMessage {
+            get {
+                return ResourceManager.GetString("PinDoesNotMatchMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIN saved.
+        /// </summary>
+        internal static string PinSavedMessage {
+            get {
+                return ResourceManager.GetString("PinSavedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preferences description:.
         /// </summary>
         internal static string PreferencesDescription {
@@ -642,6 +669,15 @@ namespace ReminderXamarin.Resx {
         internal static string String1 {
             get {
                 return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string Success {
+            get {
+                return ResourceManager.GetString("Success", resourceCulture);
             }
         }
         

@@ -30,7 +30,8 @@ using Platform = ReminderXamarin.Droid.Services.FilePickerService.Platform;
 namespace ReminderXamarin.Droid
 {
     [Activity(Label = "Reminder", Icon = "@mipmap/Icon", Theme = "@style/MainTheme", 
-        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
+        ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public event Action<int, Result, Intent> ActivityResult;
@@ -90,12 +91,10 @@ namespace ReminderXamarin.Droid
         {
             ComponentRegistry.Register<IPlatformDocumentPicker, PlatformDocumentPicker>();
             ComponentRegistry.Register<IMultiMediaPickerService, MultiMediaPickerService>();
-            ComponentRegistry.Register<IAlertService, AlertService>();
             ComponentRegistry.Register<IDeviceOrientation, DeviceOrientation>();
             ComponentRegistry.Register<IFileHelper, Services.FileHelper>();
             ComponentRegistry.Register<IFileSystem, FileSystem>();
             ComponentRegistry.Register<IImageService, ImageService>();
-            ComponentRegistry.Register<ILoadingService, LoadingService>();
             ComponentRegistry.Register<IMediaService, MediaService>();
             ComponentRegistry.Register<IPermissionService, PermissionService>();
             ComponentRegistry.Register<IVideoService, VideoService>();

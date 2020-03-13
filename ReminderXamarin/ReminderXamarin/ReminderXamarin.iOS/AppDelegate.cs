@@ -90,12 +90,10 @@ namespace ReminderXamarin.iOS
         {
             ComponentRegistry.Register<IPlatformDocumentPicker, PlatformDocumentPicker>();
             ComponentRegistry.Register<IMultiMediaPickerService, MultiMediaPickerService>();
-            ComponentRegistry.Register<IAlertService, AlertService>();
             ComponentRegistry.Register<IDeviceOrientation, DeviceOrientation>();
             ComponentRegistry.Register<IFileHelper, Services.FileHelper>();
             ComponentRegistry.Register<IFileSystem, FileSystem>();
             ComponentRegistry.Register<IImageService, ImageService>();
-            ComponentRegistry.Register<ILoadingService, LoadingService>();
             ComponentRegistry.Register<IMediaService, MediaService>();
             ComponentRegistry.Register<IPermissionService, PermissionService>();
             ComponentRegistry.Register<IVideoService, VideoService>();

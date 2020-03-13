@@ -111,13 +111,22 @@ namespace ReminderXamarin.ViewModels
                         if (confirmedPin == _pinToConfirm)
                         {
                             Settings.UserPinCode = confirmedPin.ToString();
-                            await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Pin saved", "Success", "Ok");
+
+                            var pinSavedMessage = Resmgr.Value.GetString(ConstantsHelper.PinSavedMessage, CultureInfo.CurrentCulture);
+                            var successMessage = Resmgr.Value.GetString(ConstantsHelper.Success, CultureInfo.CurrentCulture);
+                            var ok = Resmgr.Value.GetString(ConstantsHelper.Ok, CultureInfo.CurrentCulture);
+
+                            await Acr.UserDialogs.UserDialogs.Instance.AlertAsync(pinSavedMessage, successMessage, ok);
                             ResetImagesAndCount();
                             await NavigationService.NavigateBackAsync();
                         }
                         else
                         {
-                            await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Pin doesn't match entered", "Error", "Ok");
+                            var pinSavedMessage = Resmgr.Value.GetString(ConstantsHelper.PinDoesNotMatchMessage, CultureInfo.CurrentCulture);
+                            var ok = Resmgr.Value.GetString(ConstantsHelper.Ok, CultureInfo.CurrentCulture);
+                            var error = Resmgr.Value.GetString(ConstantsHelper.Error, CultureInfo.CurrentCulture);
+
+                            await Acr.UserDialogs.UserDialogs.Instance.AlertAsync(pinSavedMessage, error, ok);
                             ResetImagesAndCount();
                             await NavigationService.NavigateBackAsync();
                         }
@@ -133,7 +142,6 @@ namespace ReminderXamarin.ViewModels
                 {
                     int.TryParse(_pinBuilder.ToString(), out int pin);
                     Pin = pin;
-                    await Task.Delay(25);
                     ResetImagesAndCount();
                     await Login().ConfigureAwait(false);
                 }                

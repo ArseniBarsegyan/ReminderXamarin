@@ -33,6 +33,7 @@
         public const string DeleteImageSource = "delete.png";
         public const string DetailPageChanged = nameof(DetailPageChanged);
         public const string DontHaveAccountQuestion = nameof(DontHaveAccountQuestion);
+        public const string Error = nameof(Error);
         public const string EnterPin = nameof(EnterPin);
         public const string EmptyDotImage = "emptyDot.png";
         public const string EFConnectionString = "RmDB.db";
@@ -64,8 +65,10 @@
         public const string PermissionDeniedMessage = "Permission Denied. Can not continue, try again.";
         public const string ProfileUpdated = nameof(ProfileUpdated);
         public const string ProfileIcon = "https://lightwidget.com/widgets/empty-photo.jpg";
+        public const string PinSavedMessage = nameof(PinSavedMessage);
         public const string PinButtonDarkDeleteImageSource = "erase_light.png";
         public const string PinButtonLightDeleteImageSource = "erase_dark.png";
+        public const string PinDoesNotMatchMessage = nameof(PinDoesNotMatchMessage);
         public const string Register = nameof(Register);
         public const string Settings = nameof(Settings);
         public const string SettingsLightIcon = "settings_light.png";
@@ -74,6 +77,7 @@
         public const string SideMenuDarkBackground = "ReminderXamarin.Images.side_menu_header_dark_background.jpg";
         public const string StoragePermissionRequiredMessage = "Storage permission is required to access to your photos.";
         public const string SqLiteDataBaseName = "ReminderDB.db3";
+        public const string Success = nameof(Success);
         public const string TimeParsingError = "Enter a valid number";
         public const string TogglePasswordLightImage = "eye_light.png";
         public const string TogglePasswordDarkImage = "eye_dark.png";

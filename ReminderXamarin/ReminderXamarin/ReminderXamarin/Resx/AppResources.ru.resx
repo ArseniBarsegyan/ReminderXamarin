@@ -201,6 +201,9 @@
   <data name="EnterPin" xml:space="preserve">
     <value>Введите PIN</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
   <data name="Exit" xml:space="preserve">
     <value>Выйти</value>
   </data>
@@ -273,6 +276,12 @@
   <data name="PickVideo" xml:space="preserve">
     <value>Выбрать видео</value>
   </data>
+  <data name="PinDoesNotMatchMessage" xml:space="preserve">
+    <value>PIN не соответствует введенному</value>
+  </data>
+  <data name="PinSavedMessage" xml:space="preserve">
+    <value>PIN сохранен</value>
+  </data>
   <data name="PreferencesDescription" xml:space="preserve">
     <value>Предпочтения:</value>
   </data>
@@ -308,6 +317,9 @@
   </data>
   <data name="StepType" xml:space="preserve">
     <value>Тип этапа:</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Успех</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Сделать фото</value>

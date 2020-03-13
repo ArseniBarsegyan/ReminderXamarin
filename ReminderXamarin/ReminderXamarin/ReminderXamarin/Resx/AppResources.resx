@@ -201,6 +201,9 @@
   <data name="EnterPin" xml:space="preserve">
     <value>Enter PIN</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="Exit" xml:space="preserve">
     <value>Exit</value>
   </data>
@@ -273,6 +276,12 @@
   <data name="PickVideo" xml:space="preserve">
     <value>Pick video</value>
   </data>
+  <data name="PinDoesNotMatchMessage" xml:space="preserve">
+    <value>Pin doesn't match entered</value>
+  </data>
+  <data name="PinSavedMessage" xml:space="preserve">
+    <value>PIN saved</value>
+  </data>
   <data name="PreferencesDescription" xml:space="preserve">
     <value>Preferences description:</value>
   </data>
@@ -311,6 +320,9 @@
   </data>
   <data name="String1" xml:space="preserve">
     <value />
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Take photo</value>

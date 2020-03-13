@@ -22,6 +22,7 @@ namespace ReminderXamarin.ViewModels
             : base(navigationService)
         {
             _themeSwitcher = themeSwitcher;
+
             TogglePasswordImageSource = _themeSwitcher.CurrentThemeType == ThemeTypes.Dark
                         ? ConstantsHelper.TogglePasswordLightImage
                         : ConstantsHelper.TogglePasswordDarkImage;
