@@ -69,7 +69,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task NavigateToUserProfile()
         {
-            await NavigationService.NavigateToAsync<UserProfileViewModel>(_appUser);
+            await NavigationService.NavigateToDetails<UserProfileViewModel>(_appUser);
         }
 
         private async Task ChangeDetailsPageAsync(MenuViewIndex pageIndex)

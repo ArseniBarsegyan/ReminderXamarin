@@ -20,6 +20,16 @@ namespace ReminderXamarin.Services.Navigation
             return InternalNavigateToAsync(typeof(TViewModel), null, true);
         }
 
+        public Task NavigateToDetails<TViewModel>() where TViewModel : BaseViewModel
+        {
+            return InternalNavigateToAsync(typeof(TViewModel), null, false, true);
+        }
+
+        public Task NavigateToDetails<TViewModel>(object parameter) where TViewModel : BaseViewModel
+        {
+            return InternalNavigateToAsync(typeof(TViewModel), parameter, false, true);
+        }
+
         public Task NavigateToAsync<TViewModel>() where TViewModel : BaseViewModel
         {
             return InternalNavigateToAsync(typeof(TViewModel), null);
@@ -33,12 +43,7 @@ namespace ReminderXamarin.Services.Navigation
         public Task NavigateToPopupAsync<TViewModel>(object parameter) where TViewModel : BaseViewModel
         {
             return InternalNavigateToPopupAsync(typeof(TViewModel), parameter);
-        }
-
-        public Task NavigateToDetails<TViewModel>() where TViewModel : BaseViewModel
-        {
-            return InternalNavigateToAsync(typeof(TViewModel), null, false, true);
-        }
+        }               
 
         private async Task InternalNavigateToPopupAsync(Type viewModelType, object parameter)
         {
