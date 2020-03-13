@@ -62,8 +62,8 @@
                                 <Image Source="play.png"
                                        IsVisible="{Binding IsVideo}"
                                        Aspect="AspectFit"
-                                       HeightRequest="60"
-                                       WidthRequest="60"
+                                       HeightRequest="50"
+                                       WidthRequest="50"
                                        AbsoluteLayout.LayoutBounds="0.5,0.5,0.5,0.5"
                                        AbsoluteLayout.LayoutFlags="All">
                                     <Image.GestureRecognizers>
