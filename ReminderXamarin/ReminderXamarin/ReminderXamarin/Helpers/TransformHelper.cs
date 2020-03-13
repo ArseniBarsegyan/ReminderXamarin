@@ -5,14 +5,21 @@ using ExifLib;
 
 using PCLStorage;
 
+using ReminderXamarin.Core.Interfaces;
+
 using Rm.Data.Data.Entities;
-using Rm.Helpers;
 
 namespace ReminderXamarin.Helpers
 {
     public class TransformHelper
     {
         private bool _landscape;
+        private readonly IImageService _imageService;
+
+        public TransformHelper(IImageService imageService)
+        {
+            _imageService = imageService;
+        }
 
         public async Task ResizeAsync(string filePath, GalleryItemModel galleryItemModel)
         {
@@ -68,8 +75,8 @@ namespace ReminderXamarin.Helpers
                 thumbWidth = width / 7;
                 thumbHigh = height / 13;
             }
-            ImageServiceHelper.ResizeImage(filePath, img, width, height);
-            ImageServiceHelper.ResizeImage(filePath, thumb, thumbWidth, thumbHigh);
+            _imageService.ResizeImage(filePath, img, width, height);
+            _imageService.ResizeImage(filePath, thumb, thumbWidth, thumbHigh);
 
             str[0] = img;
             str[1] = thumb;
