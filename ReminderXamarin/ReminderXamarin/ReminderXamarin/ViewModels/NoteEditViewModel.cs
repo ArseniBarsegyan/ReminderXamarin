@@ -69,7 +69,7 @@ namespace ReminderXamarin.ViewModels
             SaveNoteCommand = commandResolver.AsyncCommand<string>(SaveNote);
             DeleteNoteCommand = commandResolver.AsyncCommand(DeleteNote);
             SelectImageCommand = commandResolver.AsyncCommand<GalleryItemViewModel>(SelectImage);
-        }        
+        }
 
         public ImageSource AttachButtonImageSource { get; private set; }
         public ImageSource CameraButtonImageSource { get; private set; }

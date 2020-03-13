@@ -41,18 +41,27 @@
                                 <StackLayout Spacing="10" Padding="10,10,10,30">
                                     <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yyyy, HH:mm}'}"
                                            TextColor="{DynamicResource TextCommon}" />
+
                                     <elements:ExtendedLabel HorizontalTextAlignment="Start"
                                                             Lines="5"
                                                             LineSpacing="1.1"
                                                             LineBreakMode="TailTruncation"
                                                             TextColor="{DynamicResource TextCommon}"
-                                                            Text="{Binding Description}" />
+                                                            Text="{Binding Description}">
+                                        <elements:ExtendedLabel.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Roboto-Regular" />
+                                                <On Platform="Android" Value="Roboto-Regular.ttf#Roboto-Medium" />
+                                            </OnPlatform>
+                                        </elements:ExtendedLabel.FontFamily>
+                                    </elements:ExtendedLabel>
                                 </StackLayout>
                             </StackLayout>
                         </Frame>
                     </ViewCell.View>
                 </ViewCell>
             </DataTemplate>
+            
             <DataTemplate x:Key="TextCellDataTemplate">
                 <ViewCell>
                     <ViewCell.View>
@@ -63,19 +72,28 @@
                                BorderColor="{DynamicResource CardViewBorder}"
                                Margin="0,5">
                             <StackLayout Spacing="10" Padding="10,10,10,30">
-                                <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yyyy, HH:mm}'}" 
+                                <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yyyy, HH:mm}'}"
                                        TextColor="{DynamicResource TextCommon}" />
+
                                 <elements:ExtendedLabel HorizontalTextAlignment="Start"
                                                         Lines="5"
                                                         LineSpacing="1.1"
                                                         LineBreakMode="TailTruncation"
                                                         TextColor="{DynamicResource TextCommon}"
-                                                        Text="{Binding Description}" />
+                                                        Text="{Binding Description}">
+                                    <elements:ExtendedLabel.FontFamily>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="iOS" Value="Roboto-Regular" />
+                                            <On Platform="Android" Value="Roboto-Regular.ttf#Roboto-Medium" />
+                                        </OnPlatform>
+                                    </elements:ExtendedLabel.FontFamily>
+                                </elements:ExtendedLabel>
                             </StackLayout>
                         </Frame>
                     </ViewCell.View>
                 </ViewCell>
             </DataTemplate>
+            
             <helpers:NotesListDataTemplateSelector x:Key="ListDataTemplateSelector"
                                                    ImageCellTemplate="{StaticResource ImageCellDataTemplate}"
                                                    TextCellTemplate="{StaticResource TextCellDataTemplate}" />

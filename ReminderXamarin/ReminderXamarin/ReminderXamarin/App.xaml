@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:ReminderXamarin.Converters"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
-             xmlns:ResourceDictionaries="clr-namespace:ReminderXamarin.ResourceDictionaries"
              x:Class="ReminderXamarin.App">
 	<Application.Resources>
 		<!-- Application resource dictionary -->
@@ -25,6 +24,17 @@
             <Style x:Key="UserImageStyle" TargetType="abstractions:CircleImage">
                 <Setter Property="HeightRequest" Value="40" />
                 <Setter Property="Aspect" Value="AspectFit" />
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="FontFamily">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Roboto-Medium" />
+                            <On Platform="Android" Value="Roboto-Medium.ttf#Roboto-Medium" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
             </Style>
             
             <!-- Converters -->

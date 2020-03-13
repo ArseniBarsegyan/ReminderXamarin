@@ -49,6 +49,7 @@
                                    FontSize="Title"
                                    TextColor="{DynamicResource MenuUserName}"
                                    VerticalOptions="Center" />
+
                         </StackLayout>
                     </AbsoluteLayout>
                 </ListView.Header>
@@ -66,6 +67,7 @@
                                            TextColor="{DynamicResource TextCommon}"
                                            VerticalOptions="Center"
                                            HorizontalOptions="Start" />
+
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>
@@ -90,6 +92,7 @@
                                TextColor="{DynamicResource TextCommon}"
                                VerticalOptions="Center" 
                                HorizontalOptions="Center" />
+
                     </StackLayout>
                 </ListView.Footer>
             </ListView>

@@ -77,11 +77,12 @@
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
                 </CarouselView>
-                
+
                 <Label Text="{extensions:Translate Note}"
                        Padding="10,10,0,0"
                        TextColor="{DynamicResource TextCommon}"
                        FontSize="Small" />
+
                 <Editor x:Name="DescriptionEditor"
                         Margin="10,0"
                         Text="{Binding Description, Mode=OneWay}"
@@ -91,6 +92,12 @@
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="FillAndExpand"
                         HeightRequest="200">
+                    <Editor.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Roboto-Regular" />
+                            <On Platform="Android" Value="Roboto-Regular.ttf#Roboto-Medium" />
+                        </OnPlatform>
+                    </Editor.FontFamily>
                     <Editor.Behaviors>
                         <behaviors:EventToCommandBehavior 
                             EventName="TextChanged"
