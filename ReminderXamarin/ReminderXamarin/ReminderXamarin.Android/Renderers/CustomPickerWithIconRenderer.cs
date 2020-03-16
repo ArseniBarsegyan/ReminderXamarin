@@ -1,21 +1,21 @@
 ﻿using System;
+
 using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Support.V4.Content;
 using Android.Text;
 using Android.Util;
+
 using ReminderXamarin.Droid.Renderers;
 using ReminderXamarin.Elements;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(CustomPickerWithIcon), typeof(CustomPickerWithIconRenderer))]
 namespace ReminderXamarin.Droid.Renderers
 {
-    /// <summary>
-    /// Renderer for <see cref="CustomPickerWithIcon" />
-    /// </summary>
     public class CustomPickerWithIconRenderer : PickerRenderer
     {
         private CustomPickerWithIcon _element;

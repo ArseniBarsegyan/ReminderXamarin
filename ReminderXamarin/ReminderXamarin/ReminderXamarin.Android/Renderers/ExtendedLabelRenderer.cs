@@ -1,18 +1,18 @@
 ﻿using System.ComponentModel;
+
 using Android.Content;
 using Android.Graphics;
 using Android.Widget;
+
 using ReminderXamarin.Droid.Renderers;
 using ReminderXamarin.Elements;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(ExtendedLabel), typeof(ExtendedLabelRenderer))]
 namespace ReminderXamarin.Droid.Renderers
 {
-    /// <summary>
-    /// Renderer for <see cref="ExtendedLabel"/>
-    /// </summary>
     public class ExtendedLabelRenderer : LabelRenderer
     {
         protected ExtendedLabel LabelElement { get; private set; }

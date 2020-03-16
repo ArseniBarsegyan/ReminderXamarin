@@ -1,16 +1,16 @@
 ﻿using Foundation;
+
 using ReminderXamarin.Elements;
 using ReminderXamarin.iOS.Renderers;
+
 using UIKit;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(CustomPickerWithIcon), typeof(CustomPickerWithIconRenderer))]
 namespace ReminderXamarin.iOS.Renderers
 {
-    /// <summary>
-    /// Renderer for <see cref="CustomPickerWithIcon" />
-    /// </summary>
     public class CustomPickerWithIconRenderer : PickerRenderer
     {
         protected override void OnElementChanged(ElementChangedEventArgs<Picker> e)

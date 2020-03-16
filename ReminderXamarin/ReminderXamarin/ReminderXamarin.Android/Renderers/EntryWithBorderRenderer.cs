@@ -1,19 +1,19 @@
 ﻿using System;
+
 using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Util;
+
 using ReminderXamarin.Droid.Renderers;
 using ReminderXamarin.Elements;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(EntryWithBorder), typeof(EntryWithBorderRenderer))]
 namespace ReminderXamarin.Droid.Renderers
 {
-    /// <summary>
-    /// Renderer for <see cref="EntryWithBorder"/>
-    /// </summary>
     public class EntryWithBorderRenderer : EntryRenderer
     {
         private ShapeDrawable _borderShape;

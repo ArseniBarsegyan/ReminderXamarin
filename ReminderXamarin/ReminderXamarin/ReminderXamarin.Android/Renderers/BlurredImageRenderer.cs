@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Reflection;
 using System.Threading.Tasks;
+
 using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Renderscripts;
 using Android.Widget;
+
 using Java.IO;
+
 using ReminderXamarin.Droid.Renderers;
 using ReminderXamarin.Elements;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -19,7 +23,8 @@ namespace ReminderXamarin.Droid.Renderers
     {
         private bool _isDisposed;
 
-        public BlurredImageRenderer(Context context) : base(context)
+        public BlurredImageRenderer(Context context) 
+            : base(context)
         {
             AutoPackage = false;
         }

@@ -1,18 +1,19 @@
 ﻿using System;
 using System.ComponentModel;
+
 using Foundation;
+
 using ReminderXamarin.Elements;
 using ReminderXamarin.iOS.Renderers;
+
 using UIKit;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(ExtendedLabel), typeof(ExtendedLabelRenderer))]
 namespace ReminderXamarin.iOS.Renderers
 {
-    /// <summary>
-    /// Renderer for <see cref="ExtendedLabel"/>
-    /// </summary>
     public class ExtendedLabelRenderer : LabelRenderer
     {
         protected override void OnElementChanged(ElementChangedEventArgs<Label> e)

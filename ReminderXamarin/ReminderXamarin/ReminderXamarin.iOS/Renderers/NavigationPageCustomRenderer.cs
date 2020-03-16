@@ -1,11 +1,9 @@
-﻿using ReminderXamarin.iOS.Renderers;
+﻿using System.Linq;
+using System.Threading.Tasks;
+
+using ReminderXamarin.iOS.Renderers;
 using ReminderXamarin.ViewModels;
 using ReminderXamarin.Views;
-
-using Rm.Helpers;
-
-using System.Linq;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;

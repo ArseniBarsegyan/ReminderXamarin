@@ -1,8 +1,12 @@
 ﻿using System.Threading.Tasks;
+
 using CoreImage;
+
 using ReminderXamarin.Elements;
 using ReminderXamarin.iOS.Renderers;
+
 using UIKit;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
@@ -37,7 +41,7 @@ namespace ReminderXamarin.iOS.Renderers
                     {
                         using (var context = CIContext.Create())
                         using (var inputImage = CIImage.FromCGImage(value.CGImage))
-                        using (var filter = new CIGaussianBlur { Image = inputImage, Radius = 5 })
+                        using (var filter = new CIGaussianBlur { InputImage = inputImage, Radius = 5 })
                         using (var resultImage = context.CreateCGImage(filter.OutputImage, inputImage.Extent))
                         {
                             InvokeOnMainThread(() => base.Image = new UIImage(resultImage));

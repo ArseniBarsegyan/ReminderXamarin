@@ -1,14 +1,12 @@
 ﻿using ReminderXamarin.Elements;
 using ReminderXamarin.iOS.Renderers;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(EntryWithBorder), typeof(EntryWithBorderRenderer))]
 namespace ReminderXamarin.iOS.Renderers
 {
-    /// <summary>
-    /// Renderer for <see cref="EntryWithBorder"/>
-    /// </summary>
     public class EntryWithBorderRenderer : EntryRenderer
     {
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)

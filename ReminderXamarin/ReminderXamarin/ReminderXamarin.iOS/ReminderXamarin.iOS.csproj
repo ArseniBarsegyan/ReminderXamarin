@@ -89,6 +89,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Renderers\GrayscaleImageRenderer.cs" />
     <Compile Include="Renderers\NavigationPageCustomRenderer.cs" />
     <Compile Include="Services\DeviceOrientation.cs" />
     <Compile Include="Services\FileHelper.cs" />

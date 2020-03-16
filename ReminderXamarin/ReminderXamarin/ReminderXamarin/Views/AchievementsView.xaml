@@ -43,7 +43,7 @@
                                         <RowDefinition Height="2*" />
                                     </Grid.RowDefinitions>
 
-                                    <Image Grid.Row="0"
+                                    <elements:GrayscaleImage Grid.Row="0"
                                            Grid.RowSpan="2"
                                            Grid.Column="0"
                                            Aspect="AspectFill"
