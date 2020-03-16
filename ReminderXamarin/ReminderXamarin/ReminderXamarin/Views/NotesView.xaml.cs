@@ -1,10 +1,11 @@
-﻿using ReminderXamarin.ViewModels;
-
-using Rm.Data.Data.Entities;
-
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+
+using ReminderXamarin.ViewModels;
+
+using Rm.Data.Data.Entities;
+using Rm.Helpers;
 
 using Xamarin.Forms;
 
@@ -38,15 +39,15 @@ namespace ReminderXamarin.Views
             }
         }
 
-        private void NotesList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void NotesList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var noteModel = e.SelectedItem as Note;
+            var model = e.SelectedItem as Note;
             NotesList.SelectedItem = null;
-            if (noteModel != null)
+            if (model != null)
             {
                 if (BindingContext is NotesViewModel viewModel)
                 {
-                    viewModel.NavigateToEditViewCommand.Execute(noteModel.Id);
+                    await viewModel.NavigateToEditViewCommand.ExecuteAsync(model.Id);
                 }
             }
         }
@@ -72,7 +73,7 @@ namespace ReminderXamarin.Views
 
             if (SearchBar.IsVisible)
             {
-                SearchToolbarItem.IconImageSource = "search_icon.png";
+                SearchToolbarItem.IconImageSource = ConstantsHelper.SearchIcon;
                 var tasks = new Task[]
                 {
                     SearchBar.TranslateTo(0, -120, 100),
@@ -83,7 +84,7 @@ namespace ReminderXamarin.Views
             }
             else
             {
-                SearchToolbarItem.IconImageSource = "cancel.png";
+                SearchToolbarItem.IconImageSource = ConstantsHelper.CancelIcon;
                 SearchBar.IsVisible = true;
                 var tasks = new Task[]
                 {

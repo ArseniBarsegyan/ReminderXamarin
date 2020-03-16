@@ -22,6 +22,7 @@
         public const string BirthdaysIcon = "birthday_light.png";
         public const string BirthdaysDarkIcon = "birthday_dark.png";
         public const string Cancel = nameof(Cancel);
+        public const string CancelIcon = "cancel.png";
         public const string CameraIcon = "camera.png";
         public const string CantContinueErrorMessage = "Error. Can not continue, try again.";
         public const string ConfirmPin = nameof(ConfirmPin);
@@ -70,6 +71,7 @@
         public const string PinButtonLightDeleteImageSource = "erase_dark.png";
         public const string PinDoesNotMatchMessage = nameof(PinDoesNotMatchMessage);
         public const string Register = nameof(Register);
+        public const string SearchIcon = "search_icon.png";
         public const string Settings = nameof(Settings);
         public const string SettingsLightIcon = "settings_light.png";
         public const string SettingsDarkIcon = "settings_dark.png";

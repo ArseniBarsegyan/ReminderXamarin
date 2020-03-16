@@ -22,14 +22,17 @@ namespace ReminderXamarin.ViewModels
             Achievements = new ObservableCollection<AchievementViewModel>();
 
             RefreshListCommand = commandResolver.Command(Refresh);
+            SelectAchievementCommand = commandResolver.Command<AchievementViewModel>((viewModel) => { SelectedAchievement = viewModel; });
             NavigateToAchievementEditViewCommand = commandResolver.AsyncCommand<int>(NavigateToAchievementEditView);
         }
 
-        public bool IsRefreshing { get; set; }
-        public ObservableCollection<AchievementViewModel> Achievements { get; set; }
+        public bool IsRefreshing { get; private set; }
+        public AchievementViewModel SelectedAchievement { get; private set; }
+        public ObservableCollection<AchievementViewModel> Achievements { get; private set; }
 
-        public ICommand RefreshListCommand { get; set; }
-        public IAsyncCommand<int> NavigateToAchievementEditViewCommand { get; set; }
+        public ICommand RefreshListCommand { get; }
+        public ICommand SelectAchievementCommand { get; }
+        public IAsyncCommand<int> NavigateToAchievementEditViewCommand { get; }
 
         public void OnAppearing()
         {

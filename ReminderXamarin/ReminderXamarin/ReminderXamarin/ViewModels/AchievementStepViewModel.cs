@@ -60,6 +60,7 @@ namespace ReminderXamarin.ViewModels
         public string Description { get; set; }
         public int TimeSpent { get; set; }
         public int TimeEstimation { get; set; }
+        public DateTime AchievedDate { get; set; }
         public bool IsEditMode { get; set; }
         public double Progress => TimeSpent / (double)TimeEstimation;
         public bool ViewModelChanged { get; set; }
@@ -107,9 +108,7 @@ namespace ReminderXamarin.ViewModels
                 _achievementStep = App.AchievementStepRepository.Value.GetAchievementStepAsync(_achievementStepId);
                 Title = _achievementStep.Title;
                 Description = _achievementStep.Description;
-                ImageContent = _achievementStep.ImageContent;
                 TimeSpent = _achievementStep.TimeSpent;
-                TimeEstimation = _achievementStep.TimeEstimation;
             }
             return base.InitializeAsync(navigationData);
         }

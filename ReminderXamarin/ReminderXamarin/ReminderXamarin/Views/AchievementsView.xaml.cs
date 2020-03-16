@@ -21,5 +21,18 @@ namespace ReminderXamarin.Views
                 vm.OnAppearing();
             }
         }
+
+        private async void AchievementsList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var model = e.SelectedItem as AchievementViewModel;
+            AchievementsListView.SelectedItem = null;
+            if (model != null)
+            {
+                if (BindingContext is AchievementsViewModel viewModel)
+                {
+                    await viewModel.NavigateToAchievementEditViewCommand.ExecuteAsync(model.Id);
+                }
+            }
+        }
     }
 }

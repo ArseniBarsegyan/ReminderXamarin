@@ -1,10 +1,11 @@
-﻿using Rm.Helpers;
+﻿using System;
+using System.Collections.Generic;
+
+using Rm.Helpers;
 
 using SQLite;
 
 using SQLiteNetExtensions.Attributes;
-
-using System.Collections.Generic;
 
 namespace Rm.Data.Data.Entities
 {
@@ -13,10 +14,10 @@ namespace Rm.Data.Data.Entities
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        public byte[] ImageContent { get; set; }
         public string Title { get; set; }
-        public string GeneralDescription { get; set; }
+        public string Description { get; set; }
         public int GeneralTimeSpent { get; set; }
+        public DateTime AchievedDate { get; set; }
 
         [ForeignKey(typeof(UserModel))]
         public string UserId { get; set; }

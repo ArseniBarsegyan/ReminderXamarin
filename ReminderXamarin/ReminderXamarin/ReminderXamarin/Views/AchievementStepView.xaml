@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
-             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.AchievementStepView"
              base:ViewModelHelper.AutoWireViewModel="True"
@@ -18,31 +16,7 @@
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                     AbsoluteLayout.LayoutFlags="All">
         <ListView AbsoluteLayout.LayoutBounds="0,0,1,1"
-                  AbsoluteLayout.LayoutFlags="All">
-            <ListView.Header>
-                <AbsoluteLayout>
-                    <elements:BlurredImage x:Name="BackgroundImage"
-                               Aspect="AspectFill"
-                               AbsoluteLayout.LayoutBounds="0,0,1,100"
-                               AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" />
-
-                    <abstractions:CircleImage x:Name="AchievementStepImage"
-                                  Aspect="AspectFill"
-                                  HorizontalOptions="Center"
-                                  VerticalOptions="Start"
-                                  HeightRequest="120"
-                                  WidthRequest="120"
-                                  AbsoluteLayout.LayoutBounds="0.5,40,120,120"
-                                  AbsoluteLayout.LayoutFlags="XProportional"
-                                  Source="{Binding ImageContent, Converter={StaticResource EmptyByteToImageSourceConverter}}"
-                                  Style="{StaticResource UserImageStyle}">
-                        <abstractions:CircleImage.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="AchievementStepImage_OnTapped"
-                                                  NumberOfTapsRequired="1" />
-                        </abstractions:CircleImage.GestureRecognizers>
-                    </abstractions:CircleImage>
-                </AbsoluteLayout>
-            </ListView.Header>
+                  AbsoluteLayout.LayoutFlags="All">            
             <ListView.Footer>
                 <ScrollView AbsoluteLayout.LayoutBounds="0.5,180,1,1"
                             AbsoluteLayout.LayoutFlags="XProportional, SizeProportional">

@@ -42,7 +42,7 @@
                                     <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yyyy, HH:mm}'}"
                                            TextColor="{DynamicResource TextCommon}" />
 
-                                    <elements:ExtendedLabel HorizontalTextAlignment="Start"
+                                    <elements:ExtendedLabel HorizontalOptions="Start"
                                                             Lines="5"
                                                             LineSpacing="1.1"
                                                             LineBreakMode="TailTruncation"
@@ -75,7 +75,7 @@
                                 <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yyyy, HH:mm}'}"
                                        TextColor="{DynamicResource TextCommon}" />
 
-                                <elements:ExtendedLabel HorizontalTextAlignment="Start"
+                                <elements:ExtendedLabel HorizontalOptions="Start"
                                                         Lines="5"
                                                         LineSpacing="1.1"
                                                         LineBreakMode="TailTruncation"

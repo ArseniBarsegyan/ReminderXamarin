@@ -49,19 +49,6 @@ namespace ReminderXamarin.Views
             }
         }
 
-        private async void AchievementImage_OnTapped(object sender, EventArgs e)
-        {
-            var document = await DocumentPicker.DisplayImportAsync(this);
-            if (document == null)
-            {
-                return;
-            }
-            if (BindingContext is AchievementEditViewModel viewModel)
-            {
-                viewModel.ChangeImageCommand.Execute(document);
-            }
-        }
-
         private void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             AchievementStepsListView.SelectedItem = null;

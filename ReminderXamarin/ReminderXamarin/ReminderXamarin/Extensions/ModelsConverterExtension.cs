@@ -132,11 +132,10 @@ namespace ReminderXamarin.Extensions
             {
                 Id = viewModel.Id,
                 AchievementId = viewModel.AchievementId,
-                ImageContent = viewModel.ImageContent,
                 Title = viewModel.Title,
                 Description = viewModel.Description,
                 TimeSpent = viewModel.TimeSpent,
-                TimeEstimation = viewModel.TimeEstimation
+                AchievedDate = viewModel.AchievedDate
             };
         }
 
@@ -153,11 +152,10 @@ namespace ReminderXamarin.Extensions
             {
                 Id = model.Id,
                 AchievementId = model.AchievementId,
-                ImageContent = model.ImageContent,
                 Title = model.Title,
                 Description = model.Description,
                 TimeSpent = model.TimeSpent,
-                TimeEstimation = model.TimeEstimation
+                AchievedDate = model.AchievedDate
             };
         }
 
@@ -180,15 +178,15 @@ namespace ReminderXamarin.Extensions
             return viewModels.Select(model => model.ToModel()).ToList();
         }
 
-        public static AchievementViewModel ToAchievementViewModel(this AchievementModel model, INavigationService navigationService)
+        public static AchievementViewModel ToAchievementViewModel(this AchievementModel model, 
+            INavigationService navigationService)
         {
             return new AchievementViewModel(navigationService)
             {
                 Id = model.Id,
                 Title = model.Title,
-                GeneralDescription = model.GeneralDescription,
-                GeneralTimeSpent = model.GeneralTimeSpent,
-                ImageContent = model.ImageContent
+                Description = model.Description,
+                GeneralTimeSpent = model.GeneralTimeSpent
             };
         }
 

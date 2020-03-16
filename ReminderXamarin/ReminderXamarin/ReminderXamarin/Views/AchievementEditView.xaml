@@ -26,28 +26,37 @@
               CachingStrategy="RecycleElement">
         <ListView.Header>
             <AbsoluteLayout>
-                <elements:BlurredImage x:Name="BackgroundImage"
-                                       Aspect="AspectFill"
-                                       AbsoluteLayout.LayoutBounds="0,0,1,100" 
-                                       AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" />
+                <!--<ListView.Header>
+                    <AbsoluteLayout>
+                        <BoxView BackgroundColor="Blue"
+                                 AbsoluteLayout.LayoutBounds="0,0,1,200"
+                                 AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" />
 
-                <abstractions:CircleImage x:Name="AchievementImage"
-                                          Aspect="AspectFill"
-                                          HorizontalOptions="Center"
-                                          VerticalOptions="Start"
-                                          HeightRequest="120"
-                                          WidthRequest="120"
-                                          AbsoluteLayout.LayoutBounds="0.5,40,120,120" 
-                                          AbsoluteLayout.LayoutFlags="XProportional"
-                                          Source="{Binding ImageContent, 
-                                                    Converter={StaticResource EmptyByteToImageSourceConverter}}"
-                                          Style="{StaticResource UserImageStyle}">
-                    <abstractions:CircleImage.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="AchievementImage_OnTapped" 
-                                              NumberOfTapsRequired="1" />
-                    </abstractions:CircleImage.GestureRecognizers>
-                </abstractions:CircleImage>
+                        <ImageButton Source="edit.png"
+                                     Padding="10"
+                                     BackgroundColor="Blue"
+                                     AbsoluteLayout.LayoutBounds="1,0,50,50"
+                                     AbsoluteLayout.LayoutFlags="PositionProportional"/>
 
+                        <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.3,100,100"
+                                     AbsoluteLayout.LayoutFlags="PositionProportional"
+                                     Spacing="0">
+                            <abstractions:CircleImage Aspect="AspectFill"
+                                                      WidthRequest="100"
+                                                      HeightRequest="100"
+                                                      Source="https://cdn.vox-cdn.com/thumbor/kRONnJUml8PWtU4tSGvBoWnVb64=/0x0:600x350/1200x800/filters:focal(252x127:348x223)/cdn.vox-cdn.com/uploads/chorus_image/image/63402414/A_Consensus_sm.0.jpg" />
+
+                            <ProgressBar Progress="0.7" />
+                            <Button Text="{Binding SelectedAchievement.GeneralTimeSpent}"
+                                    BackgroundColor="Blue"
+                                    HorizontalOptions="Center"
+                                    TextColor="White" />
+                        </StackLayout>
+
+                    </AbsoluteLayout>
+                </ListView.Header>-->
+                
+                
                 <StackLayout AbsoluteLayout.LayoutBounds="0.5,180,1,1"
                              Padding="10"
                              AbsoluteLayout.LayoutFlags="XProportional, SizeProportional">

@@ -118,8 +118,7 @@ namespace ReminderXamarin.ViewModels
                 _achievement = App.AchievementRepository.Value.GetAchievementAsync(_achievementId);
                 Id = _achievement.Id;
                 Title = _achievement.Title;
-                Description = _achievement.GeneralDescription;
-                ImageContent = _achievement.ImageContent;
+                Description = _achievement.Description;
                 AchievementStepViewModels = _achievement.AchievementSteps
                     .ToViewModels(NavigationService,
                     _fileService, 
@@ -136,9 +135,8 @@ namespace ReminderXamarin.ViewModels
                 var achievement = new AchievementModel
                 {
                     AchievementSteps = AchievementStepViewModels.ToModels(),
-                    GeneralDescription = Description,
+                    Description = Description,
                     GeneralTimeSpent = 0,
-                    ImageContent = ImageContent,
                     Title = Title,
                     UserId = Settings.CurrentUserId
                 };
@@ -153,8 +151,7 @@ namespace ReminderXamarin.ViewModels
                 }
 
                 var achievement = App.AchievementRepository.Value.GetAchievementAsync(_achievementId);
-                achievement.GeneralDescription = Description;
-                achievement.ImageContent = ImageContent;
+                achievement.Description = Description;
                 achievement.Title = Title;
                 achievement.GeneralTimeSpent = GeneralTimeSpent;
                 achievement.AchievementSteps = AchievementStepViewModels.ToModels();
