@@ -103,16 +103,18 @@ namespace ReminderXamarin.Views
             {
                 if (viewModel.IsRegister)
                 {
-                    await SignInButton.ColorTo(Color.FromHex("#3072B0"), 
-                        Color.FromHex("#80B76D"), 
-                        c => SignInButton.BackgroundColor = c, 
+                    await SignInButton.ColorTo(
+                        (Color)Application.Current.Resources["LoginButtonBackground"],
+                        (Color)Application.Current.Resources["RegisterButtonBackground"],
+                        c => SignInButton.BackgroundColor = c,
                         100);
                 }
                 else
                 {
-                    await SignInButton.ColorTo(Color.FromHex("#80B76D"), 
-                        Color.FromHex("#3072B0"), 
-                        c => SignInButton.BackgroundColor = c, 
+                    await SignInButton.ColorTo(
+                        (Color)Application.Current.Resources["RegisterButtonBackground"],
+                        (Color)Application.Current.Resources["LoginButtonBackground"],
+                        c => SignInButton.BackgroundColor = c,
                         100);
                 }
             }

@@ -21,14 +21,16 @@
             <ListView x:Name="AchievementsListView"
                       AbsoluteLayout.LayoutBounds="0,0,1,1"
                       AbsoluteLayout.LayoutFlags="All"
-                      HasUnevenRows="True"
-                      ItemSelected="AchievementsList_OnItemSelected"
-                      CachingStrategy="RecycleElement"
-                      SeparatorVisibility="Default"
-                      SeparatorColor="LightGray"
+                      ItemsSource="{Binding Achievements}"
                       IsPullToRefreshEnabled="True"
-                      ItemsSource="{Binding Achievements}">               
-
+                      RefreshControlColor="{DynamicResource RefreshControl}"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="Default"
+                      SeparatorColor="{DynamicResource CardViewBorder}"                      
+                      CachingStrategy="RecycleElement"
+                      RefreshCommand="{Binding RefreshListCommand}"
+                      IsRefreshing="{Binding IsRefreshing}"
+                      ItemSelected="AchievementsList_OnItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

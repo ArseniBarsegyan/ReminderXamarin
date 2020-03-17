@@ -52,7 +52,7 @@ namespace ReminderXamarin.ViewModels
 
         public string SearchText { get; set; }
         public bool IsRefreshing { get; set; }
-        public ObservableCollection<Note> Notes { get; set; }
+        public ObservableCollection<Note> Notes { get; private set; }
         
         public IAsyncCommand UploadNotesToApiCommand { get; }
         public IAsyncCommand<int> DeleteNoteCommand { get; }

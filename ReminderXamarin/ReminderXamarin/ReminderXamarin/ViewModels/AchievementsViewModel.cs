@@ -26,7 +26,7 @@ namespace ReminderXamarin.ViewModels
             NavigateToAchievementEditViewCommand = commandResolver.AsyncCommand<int>(NavigateToAchievementEditView);
         }
 
-        public bool IsRefreshing { get; private set; }
+        public bool IsRefreshing { get; set; }
         public AchievementViewModel SelectedAchievement { get; private set; }
         public ObservableCollection<AchievementViewModel> Achievements { get; private set; }
 

@@ -9,6 +9,7 @@
     <Color x:Key="CardViewBackground">#FFFFFF</Color>
     <Color x:Key="CardViewBorder">LightGray</Color>
     <Color x:Key="ErrorTextCommon">#FF5252</Color>
+    <Color x:Key="LoginButtonBackground">#3072B0</Color>
     <Color x:Key="LoginButtonText">#FFFFFF</Color>
     <Color x:Key="MenuBackground">#FAFAFA</Color>
     <Color x:Key="MenuUserName">#FFFFFF</Color>
@@ -21,6 +22,7 @@
     <Color x:Key="PinButtonSelectedBackground">#F2F2F2</Color>
     <Color x:Key="PickUserButtonBackground">#0277bd</Color>
     <Color x:Key="Placeholder">#C8C8C8</Color>
+    <Color x:Key="RegisterButtonBackground">#80B76D</Color>
     <Color x:Key="RefreshControl">#0277bd</Color>
     <Color x:Key="Selection">#ACACAC</Color>
     <Color x:Key="SearchBarBackground">#FFFFFF</Color>

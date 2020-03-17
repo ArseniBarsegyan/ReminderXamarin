@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using Acr.UserDialogs;
 
 using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
 using ReminderXamarin.Extensions;
-using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
@@ -41,14 +39,14 @@ namespace ReminderXamarin.ViewModels
             _mediaService = mediaService;
             _commandResolver = commandResolver;
 
-            ImageContent = new byte[0];
             AchievementStepViewModels = new ObservableCollection<AchievementStepViewModel>();
 
-            ChangeImageCommand = commandResolver.AsyncCommand<PlatformDocument>(ChangeImage);
             SaveAchievementCommand = commandResolver.AsyncCommand(SaveAchievement);
             DeleteAchievementCommand = commandResolver.AsyncCommand(DeleteAchievement);
             AddStepCommand = commandResolver.AsyncCommand(AddStep);
-            NavigateToAchievementStepEditViewCommand = commandResolver.AsyncCommand<KeyValuePair<int, int>>(NavigateToAchievementStepEditView);
+            NavigateToAchievementStepEditViewCommand = commandResolver
+                .AsyncCommand<KeyValuePair<int, int>>(NavigateToAchievementStepEditView);
+            ChangeEditEnabledCommand = commandResolver.Command(() => IsEditEnabled = !IsEditEnabled);
 
             MessagingCenter.Subscribe<AchievementStepViewModel>(this, ConstantsHelper.AchievementStepEditComplete, AddViewModel);
         }
@@ -67,43 +65,18 @@ namespace ReminderXamarin.ViewModels
         public string Title { get; set; }
         public string Description { get; set; }
         public int GeneralTimeSpent { get; set; }
-        public byte[] ImageContent { get; set; }
         public bool ViewModelChanged { get; set; }
         public bool IsEditMode { get; set; }
+        public bool IsEditEnabled { get; set; }
 
-        public ObservableCollection<AchievementStepViewModel> AchievementStepViewModels { get; set; }
+        public ObservableCollection<AchievementStepViewModel> AchievementStepViewModels { get; private set; }
 
-        public IAsyncCommand<PlatformDocument> ChangeImageCommand { get; }
         public IAsyncCommand SaveAchievementCommand { get; }
         public IAsyncCommand DeleteAchievementCommand { get; }
         public IAsyncCommand AddStepCommand { get; }
+        public ICommand ChangeEditEnabledCommand { get; }
         public IAsyncCommand<KeyValuePair<int, int>> NavigateToAchievementStepEditViewCommand { get; }
-
-        private async Task ChangeImage(PlatformDocument document)
-        {
-            if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg") || document.Name.EndsWith(".jpeg"))
-            {
-                try
-                {
-                    ViewModelChanged = true;
-                    var imageContent = _fileService.ReadAllBytes(document.Path);
-                    var resizedImage = _mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
-                        ConstantsHelper.ResizedImageHeight);
-
-                    ImageContent = resizedImage;
-                }
-                catch (Exception ex)
-                {
-                    await UserDialogs.Instance.AlertAsync(ex.Message);
-                }
-            }
-        }
-
-        private async Task NavigateToAchievementStepEditView(KeyValuePair<int, int> pair)
-        {
-            await NavigationService.NavigateToAsync<AchievementStepViewModel>(pair);
-        }
-
+        
         public override Task InitializeAsync(object navigationData)
         {
             _achievementId = (int)navigationData;
@@ -121,11 +94,16 @@ namespace ReminderXamarin.ViewModels
                 Description = _achievement.Description;
                 AchievementStepViewModels = _achievement.AchievementSteps
                     .ToViewModels(NavigationService,
-                    _fileService, 
-                    _mediaService, 
+                    _fileService,
+                    _mediaService,
                     _commandResolver);
             }
             return base.InitializeAsync(navigationData);
+        }
+
+        private async Task NavigateToAchievementStepEditView(KeyValuePair<int, int> pair)
+        {
+            await NavigationService.NavigateToAsync<AchievementStepViewModel>(pair);
         }
 
         private async Task SaveAchievement()

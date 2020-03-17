@@ -20,59 +20,56 @@
                      IconImageSource="delete.png" 
                      Command="{Binding DeleteAchievementCommand}" />
     </ContentPage.ToolbarItems>
-    <ListView x:Name="AchievementStepsListView" HasUnevenRows="True"
+    <ListView x:Name="AchievementStepsListView" 
+              HasUnevenRows="True"
               ItemSelected="ListView_OnItemSelected"
               ItemsSource="{Binding AchievementStepViewModels}"
               CachingStrategy="RecycleElement">
         <ListView.Header>
             <AbsoluteLayout>
-                <!--<ListView.Header>
-                    <AbsoluteLayout>
-                        <BoxView BackgroundColor="Blue"
-                                 AbsoluteLayout.LayoutBounds="0,0,1,200"
-                                 AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" />
+                <BoxView BackgroundColor="{DynamicResource StatusBar}"
+                         AbsoluteLayout.LayoutBounds="0,0,1,200"
+                         AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" />
 
-                        <ImageButton Source="edit.png"
-                                     Padding="10"
-                                     BackgroundColor="Blue"
-                                     AbsoluteLayout.LayoutBounds="1,0,50,50"
-                                     AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                <ImageButton Source="edit.png"
+                             Padding="10"
+                             BackgroundColor="{DynamicResource StatusBar}"
+                             Command="{Binding ChangeEditEnabledCommand}"
+                             AbsoluteLayout.LayoutBounds="1,0,45,45"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"/>
 
-                        <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.3,100,100"
-                                     AbsoluteLayout.LayoutFlags="PositionProportional"
-                                     Spacing="0">
-                            <abstractions:CircleImage Aspect="AspectFill"
-                                                      WidthRequest="100"
-                                                      HeightRequest="100"
-                                                      Source="https://cdn.vox-cdn.com/thumbor/kRONnJUml8PWtU4tSGvBoWnVb64=/0x0:600x350/1200x800/filters:focal(252x127:348x223)/cdn.vox-cdn.com/uploads/chorus_image/image/63402414/A_Consensus_sm.0.jpg" />
+                <StackLayout AbsoluteLayout.LayoutBounds="0.5,0.1,100,100"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"
+                             Spacing="0">
 
-                            <ProgressBar Progress="0.7" />
-                            <Button Text="{Binding SelectedAchievement.GeneralTimeSpent}"
-                                    BackgroundColor="Blue"
-                                    HorizontalOptions="Center"
-                                    TextColor="White" />
-                        </StackLayout>
+                    <elements:GrayscaleImage Aspect="AspectFill"
+                                             HeightRequest="100"
+                                             WidthRequest="100"
+                                             Source="achievement_icon.png" />
 
-                    </AbsoluteLayout>
-                </ListView.Header>-->
-                
-                
-                <StackLayout AbsoluteLayout.LayoutBounds="0.5,180,1,1"
+                    <ProgressBar Progress="0.7" ProgressColor="Gold" />
+                    <Button Text="{Binding SelectedAchievement.GeneralTimeSpent}"
+                            BackgroundColor="{DynamicResource StatusBar}"
+                            HorizontalOptions="Center"
+                            TextColor="White" />
+                </StackLayout>
+
+                <StackLayout AbsoluteLayout.LayoutBounds="0.5,200,1,1"
                              Padding="10"
                              AbsoluteLayout.LayoutFlags="XProportional, SizeProportional">
-                    <Label Text="{Binding Title}" 
-                           FontSize="Medium" 
-                           HorizontalOptions="Center" />
-
+                    
                     <Label Text="{extensions:Translate AchievementName}" 
                            HorizontalOptions="Start" />
-                    <Entry x:Name="TitleEntry" Text="{Binding Title}" 
+                    <Entry x:Name="TitleEntry" 
+                           Text="{Binding Title}" 
+                           IsEnabled="{Binding IsEditEnabled}"
                            HorizontalOptions="FillAndExpand" />
 
                     <Label Text="{extensions:Translate Description}" 
                            HorizontalOptions="Start" />
                     <Editor x:Name="DescriptionEditor"
                             Text="{Binding Description}"
+                            IsEnabled="{Binding IsEditEnabled}"
                             TextChanged="DescriptionEditor_OnTextChanged"
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="FillAndExpand" />
@@ -162,7 +159,10 @@
             </DataTemplate>
         </ListView.ItemTemplate>
         <ListView.Footer>
-            <Button Text="{extensions:Translate AddStep}" 
+            <Button IsVisible="{Binding IsEditMode}"
+                    TextColor="{DynamicResource LoginButtonText}"
+                    BackgroundColor="{DynamicResource RegisterButtonBackground}"
+                    Text="{extensions:Translate AddStep}" 
                     Command="{Binding AddStepCommand}" />
         </ListView.Footer>
     </ListView>
