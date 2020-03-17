@@ -58,17 +58,23 @@
                              Padding="10"
                              AbsoluteLayout.LayoutFlags="XProportional, SizeProportional">
                     
-                    <Label Text="{extensions:Translate AchievementName}" 
+                    <Label Text="{extensions:Translate AchievementName}"
+                           TextColor="{DynamicResource TextCommon}"
                            HorizontalOptions="Start" />
                     <Entry x:Name="TitleEntry" 
-                           Text="{Binding Title}" 
+                           Text="{Binding Title}"
+                           PlaceholderColor="{DynamicResource Placeholder}"
+                           TextColor="{DynamicResource TextCommon}"
                            IsEnabled="{Binding IsEditEnabled}"
                            HorizontalOptions="FillAndExpand" />
 
-                    <Label Text="{extensions:Translate Description}" 
+                    <Label Text="{extensions:Translate Description}"
+                           TextColor="{DynamicResource TextCommon}"
                            HorizontalOptions="Start" />
                     <Editor x:Name="DescriptionEditor"
                             Text="{Binding Description}"
+                            PlaceholderColor="{DynamicResource Placeholder}"
+                            TextColor="{DynamicResource TextCommon}"
                             IsEnabled="{Binding IsEditEnabled}"
                             TextChanged="DescriptionEditor_OnTextChanged"
                             HorizontalOptions="FillAndExpand"
