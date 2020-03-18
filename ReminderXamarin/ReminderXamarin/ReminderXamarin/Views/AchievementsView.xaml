@@ -62,7 +62,8 @@
                                            Text="{Binding Title}" />
 
                                     <elements:ExtendedLabel Grid.Row="1"
-                                                            Grid.Column="1" HorizontalOptions="Start"
+                                                            Grid.Column="1"
+                                                            HorizontalOptions="Start"
                                                             Lines="5"
                                                             LineSpacing="1.1"
                                                             LineBreakMode="TailTruncation"
@@ -76,13 +77,9 @@
             </ListView>
 
             <ImageButton x:Name="CreateAchievementButton"
-                         Command="{Binding NavigateToAchievementEditViewCommand}"
+                         Command="{Binding CreateNewAchievementCommand}"
                          Source="add.png"
-                         Style="{StaticResource Fab}">
-                <ImageButton.CommandParameter>
-                    <x:Int32>0</x:Int32>
-                </ImageButton.CommandParameter>
-            </ImageButton>
+                         Style="{StaticResource Fab}" />
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

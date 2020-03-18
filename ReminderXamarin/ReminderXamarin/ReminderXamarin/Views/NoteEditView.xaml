@@ -34,7 +34,7 @@
                                       IconImageSource="delete.png"
                                       Order="Primary"
                                       Command="{Binding DeleteNoteCommand}" />
-    </ContentPage.ToolbarItems>    
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                         AbsoluteLayout.LayoutFlags="All">            

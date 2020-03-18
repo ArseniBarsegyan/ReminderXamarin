@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
-             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              xmlns:converters="clr-namespace:ReminderXamarin.Converters"
              x:Class="ReminderXamarin.Views.AchievementEditView"
@@ -16,9 +15,15 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" 
-                     IconImageSource="delete.png" 
-                     Command="{Binding DeleteAchievementCommand}" />
+        <elements:BindableToolbarItem IconImageSource="confirm.png"
+                                      IsVisible="{Binding IsEditMode}"
+                                      Order="Primary"
+                                      Command="{Binding SaveAchievementCommand}" />
+
+        <elements:BindableToolbarItem IsVisible="{Binding IsEditMode}"
+                                      IconImageSource="delete.png"
+                                      Order="Primary"
+                                      Command="{Binding DeleteAchievementCommand}" />
     </ContentPage.ToolbarItems>
     <ListView x:Name="AchievementStepsListView" 
               HasUnevenRows="True"
@@ -47,8 +52,9 @@
                                              WidthRequest="100"
                                              Source="achievement_icon.png" />
 
-                    <ProgressBar Progress="0.7" ProgressColor="Gold" />
-                    <Button Text="{Binding SelectedAchievement.GeneralTimeSpent}"
+                    <ProgressBar Progress="{Binding AchievementProgress}" 
+                                 ProgressColor="Gold" />
+                    <Button Text="{Binding GeneralTimeSpent}"
                             BackgroundColor="{DynamicResource StatusBar}"
                             HorizontalOptions="Center"
                             TextColor="White" />
@@ -61,22 +67,19 @@
                     <Label Text="{extensions:Translate AchievementName}"
                            TextColor="{DynamicResource TextCommon}"
                            HorizontalOptions="Start" />
-                    <Entry x:Name="TitleEntry" 
-                           Text="{Binding Title}"
+                    <Entry Text="{Binding Title}"
                            PlaceholderColor="{DynamicResource Placeholder}"
                            TextColor="{DynamicResource TextCommon}"
-                           IsEnabled="{Binding IsEditEnabled}"
+                           IsEnabled="{Binding IsEditMode}"
                            HorizontalOptions="FillAndExpand" />
 
                     <Label Text="{extensions:Translate Description}"
                            TextColor="{DynamicResource TextCommon}"
                            HorizontalOptions="Start" />
-                    <Editor x:Name="DescriptionEditor"
-                            Text="{Binding Description}"
+                    <Editor Text="{Binding Description}"
                             PlaceholderColor="{DynamicResource Placeholder}"
                             TextColor="{DynamicResource TextCommon}"
-                            IsEnabled="{Binding IsEditEnabled}"
-                            TextChanged="DescriptionEditor_OnTextChanged"
+                            IsEnabled="{Binding IsEditMode}"
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="FillAndExpand" />
                 </StackLayout>
@@ -85,88 +88,34 @@
         </ListView.Header>
         <ListView.ItemTemplate>
             <DataTemplate>
-                <ViewCell Height="250">
-                    <ViewCell.ContextActions>
-                        <MenuItem IconImageSource="delete.png" 
-                                  IsDestructive="True" 
-                                  Clicked="Delete_OnClicked" 
-                                  CommandParameter="{Binding .}" />
-                    </ViewCell.ContextActions>
-                    <Grid Padding="10,0">
+                <ViewCell Height="250">                    
+                    <Grid Padding="10,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="3*" />
                         </Grid.ColumnDefinitions>
-
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="2*" />
                         </Grid.RowDefinitions>
 
-                        <abstractions:CircleImage Source="{Binding ImageContent, 
-                                                            Converter={StaticResource ByteToImageSourceConverter}}"
-                                                  Aspect="AspectFill"
-                                                  Grid.Column="0"
-                                                  Grid.RowSpan="2"
-                                                  VerticalOptions="Center"
-                                                  HorizontalOptions="Start"
-                                                  HeightRequest="90"
-                                                  WidthRequest="90" />
-
-                        <Label Text="{Binding Title}" 
-                               Grid.Row="0" 
-                               Grid.Column="1" 
+                        <Label Text="{Binding Title}"
+                               Grid.Row="0"
+                               Grid.Column="0"
                                FontSize="Medium" />
-                        <StackLayout Grid.Row="1" 
-                                     Grid.Column="1">
-                            <elements:ExtendedLabel HorizontalTextAlignment="Start" 
-                                                    Lines="3"
-                                                    LineBreakMode="TailTruncation" 
-                                                    LineSpacing="1.1" 
-                                                    Text="{Binding Description}"
-                                                    VerticalOptions="Start" />
-                            <ProgressBar Progress="{Binding Progress}"
-                                         ProgressColor="BlueViolet" />
-                            <StackLayout Orientation="Horizontal" 
-                                         IsVisible="{Binding IsAchieved, 
-                                                    Converter={StaticResource InverseBooleanConverter}}">
-                                <Button Text="+1"
-                                        Command="{Binding ChangeProgressCommand}" 
-                                        CommandParameter="1" />
-                                <Button Text="+5" 
-                                        IsVisible="{Binding StepType, 
-                                                    Converter={StaticResource AchievementStepTypeToBoolConverter}}"
-                                        Command="{Binding ChangeProgressCommand}" 
-                                        CommandParameter="5" />
-                                <Button Text="+10" 
-                                        IsVisible="{Binding StepType, 
-                                                    Converter={StaticResource AchievementStepTypeToBoolConverter}}"
-                                        Command="{Binding ChangeProgressCommand}" 
-                                        CommandParameter="10" />
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal">
-                                <Button Text="-1"
-                                        Command="{Binding ChangeProgressCommand}" 
-                                        CommandParameter="-1" />
-                                <Button Text="-5" 
-                                        IsVisible="{Binding StepType, 
-                                                    Converter={StaticResource AchievementStepTypeToBoolConverter}}"
-                                        Command="{Binding ChangeProgressCommand}" 
-                                        CommandParameter="-5" />
-                                <Button Text="-10" 
-                                        IsVisible="{Binding StepType, 
-                                                    Converter={StaticResource AchievementStepTypeToBoolConverter}}"
-                                        Command="{Binding ChangeProgressCommand}" 
-                                        CommandParameter="-10" />
-                            </StackLayout>
-                        </StackLayout>
+                        <elements:ExtendedLabel Grid.Row="1"
+                                                Grid.Column="0"
+                                                HorizontalTextAlignment="Start"
+                                                Lines="3"
+                                                LineBreakMode="TailTruncation"
+                                                LineSpacing="1.1"
+                                                Text="{Binding Description}"
+                                                VerticalOptions="Start" />
                     </Grid>
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
         <ListView.Footer>
-            <Button IsVisible="{Binding IsEditMode}"
-                    TextColor="{DynamicResource LoginButtonText}"
+            <Button TextColor="{DynamicResource LoginButtonText}"
                     BackgroundColor="{DynamicResource RegisterButtonBackground}"
                     Text="{extensions:Translate AddStep}" 
                     Command="{Binding AddStepCommand}" />

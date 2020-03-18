@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -22,17 +23,17 @@ namespace ReminderXamarin.ViewModels
             Achievements = new ObservableCollection<AchievementViewModel>();
 
             RefreshListCommand = commandResolver.Command(Refresh);
-            SelectAchievementCommand = commandResolver.Command<AchievementViewModel>((viewModel) => { SelectedAchievement = viewModel; });
             NavigateToAchievementEditViewCommand = commandResolver.AsyncCommand<int>(NavigateToAchievementEditView);
+            CreateNewAchievementCommand = commandResolver.Command(CreateNewAchievement);
         }
 
         public bool IsRefreshing { get; set; }
-        public AchievementViewModel SelectedAchievement { get; private set; }
         public ObservableCollection<AchievementViewModel> Achievements { get; private set; }
 
         public ICommand RefreshListCommand { get; }
         public ICommand SelectAchievementCommand { get; }
         public IAsyncCommand<int> NavigateToAchievementEditViewCommand { get; }
+        public ICommand CreateNewAchievementCommand { get; }
 
         public void OnAppearing()
         {
@@ -49,6 +50,19 @@ namespace ReminderXamarin.ViewModels
         private async Task NavigateToAchievementEditView(int id)
         {
             await NavigationService.NavigateToAsync<AchievementEditViewModel>(id);
+        }
+
+        private void CreateNewAchievement()
+        {
+            // TODO: add popup with achievement title and 2 buttons
+            App.AchievementRepository.Value.Save(new Rm.Data.Data.Entities.AchievementModel 
+            {
+                AchievedDate = DateTime.Now,
+                GeneralTimeSpent = 1000,
+                Title = "Senior dotnet developer",
+                Description = "Become a senior dotnet developer",
+                UserId = Settings.CurrentUserId
+            });
         }
 
         private void LoadAchievementsFromDatabase()
