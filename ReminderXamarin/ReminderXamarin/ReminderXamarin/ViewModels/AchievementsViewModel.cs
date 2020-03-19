@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -11,6 +10,7 @@ using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Helpers;
+using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
@@ -37,7 +37,15 @@ namespace ReminderXamarin.ViewModels
 
         public void OnAppearing()
         {
-            LoadAchievementsFromDatabase();
+            MessagingCenter.Subscribe<NewAchievementViewModel>(this,
+                    ConstantsHelper.AchievementCreated, (vm) => Refresh());
+            Refresh();      
+        }
+
+        public void OnDisappearing()
+        {
+            MessagingCenter.Unsubscribe< NewAchievementViewModel>(this,
+                    ConstantsHelper.AchievementCreated);
         }
 
         private void Refresh()
@@ -53,16 +61,8 @@ namespace ReminderXamarin.ViewModels
         }
 
         private void CreateNewAchievement()
-        {
-            // TODO: add popup with achievement title and 2 buttons
-            App.AchievementRepository.Value.Save(new Rm.Data.Data.Entities.AchievementModel 
-            {
-                AchievedDate = DateTime.Now,
-                GeneralTimeSpent = 1000,
-                Title = "Senior dotnet developer",
-                Description = "Become a senior dotnet developer",
-                UserId = Settings.CurrentUserId
-            });
+        {            
+            NavigationService.NavigateToPopupAsync<NewAchievementViewModel>();
         }
 
         private void LoadAchievementsFromDatabase()

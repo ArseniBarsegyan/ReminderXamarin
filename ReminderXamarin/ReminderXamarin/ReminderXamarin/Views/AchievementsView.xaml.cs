@@ -22,6 +22,15 @@ namespace ReminderXamarin.Views
             }
         }
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            if (BindingContext is AchievementsViewModel vm)
+            {
+                vm.OnDisappearing();
+            }
+        }
+
         private async void AchievementsList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var model = e.SelectedItem as AchievementViewModel;

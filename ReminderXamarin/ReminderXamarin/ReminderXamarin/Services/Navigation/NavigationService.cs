@@ -20,34 +20,29 @@ namespace ReminderXamarin.Services.Navigation
             return InternalNavigateToAsync(typeof(TViewModel), null, true);
         }
 
-        public Task NavigateToDetails<TViewModel>() where TViewModel : BaseViewModel
-        {
-            return InternalNavigateToAsync(typeof(TViewModel), null, false, true);
-        }
-
-        public Task NavigateToDetails<TViewModel>(object parameter) where TViewModel : BaseViewModel
+        public Task NavigateToDetails<TViewModel>(object parameter = null) where TViewModel : BaseViewModel
         {
             return InternalNavigateToAsync(typeof(TViewModel), parameter, false, true);
         }
 
-        public Task NavigateToAsync<TViewModel>() where TViewModel : BaseViewModel
-        {
-            return InternalNavigateToAsync(typeof(TViewModel), null);
-        }
-
-        public Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : BaseViewModel
+        public Task NavigateToAsync<TViewModel>(object parameter = null) where TViewModel : BaseViewModel
         {
             return InternalNavigateToAsync(typeof(TViewModel), parameter);
         }
 
-        public Task NavigateToPopupAsync<TViewModel>(object parameter) where TViewModel : BaseViewModel
+        public Task NavigateToPopupAsync<TViewModel>(object parameter = null) where TViewModel : BaseViewModel
         {
             return InternalNavigateToPopupAsync(typeof(TViewModel), parameter);
         }               
 
-        private async Task InternalNavigateToPopupAsync(Type viewModelType, object parameter)
+        private async Task InternalNavigateToPopupAsync(Type viewModelType, object parameter = null)
         {
-            PopupPage popupPage = CreatePopupPage(viewModelType, parameter);
+            PopupPage popupPage = CreatePopupPage(viewModelType);
+
+            if (popupPage.BindingContext is BaseViewModel viewModel)
+            {
+                await viewModel.InitializeAsync(parameter);
+            }
 
             if (Application.Current.MainPage is MasterDetailPage masterDetailPage)
             {
@@ -72,11 +67,11 @@ namespace ReminderXamarin.Services.Navigation
         }
 
         private async Task InternalNavigateToAsync(Type viewModelType, 
-            object parameter, 
+            object parameter = null, 
             bool root = false, 
             bool isDetailChangeRequested = false)
         {
-            Page page = CreatePage(viewModelType, parameter);
+            Page page = CreatePage(viewModelType);
 
             if (page.BindingContext is BaseViewModel viewModel)
             {
@@ -115,7 +110,7 @@ namespace ReminderXamarin.Services.Navigation
             return viewType;
         }
 
-        private Page CreatePage(Type viewModelType, object parameter)
+        private Page CreatePage(Type viewModelType)
         {
             Type pageType = GetPageTypeForViewModel(viewModelType);
 
@@ -136,7 +131,7 @@ namespace ReminderXamarin.Services.Navigation
             return null;
         }
 
-        private PopupPage CreatePopupPage(Type viewModelType, object parameter)
+        private PopupPage CreatePopupPage(Type viewModelType)
         {
             Type popupPageType = GetPageTypeForViewModel(viewModelType);
 
@@ -147,7 +142,7 @@ namespace ReminderXamarin.Services.Navigation
 
             try
             {
-                var page = Activator.CreateInstance(popupPageType, args:parameter) as GalleryItemView;
+                var page = Activator.CreateInstance(popupPageType) as PopupPage;
                 return page;
             }
             catch (Exception ex)

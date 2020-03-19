@@ -6,6 +6,7 @@
         public const string Achievements = nameof(Achievements);
         public const string AchievementNotes = nameof(AchievementNotes);
         public const string AppThemeChanged = nameof(AppThemeChanged);
+        public const string AchievementCreated = nameof(AchievementCreated);
         public const string AttachmentLightIcon = "attachment_light.png";
         public const string AchievementIcon = "achievement_light.png";
         public const string AchievementDarkIcon = "achievement_dark.png";

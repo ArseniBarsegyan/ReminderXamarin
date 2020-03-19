@@ -65,7 +65,7 @@ namespace ReminderXamarin.ViewModels
         {
             if (!_isInitialized)
             {
-                LoadNotesFromDatabase();
+                Refresh();
 
                 MessagingCenter.Subscribe<NoteEditViewModel, int>(this, ConstantsHelper.NoteDeleted, (vm, id) =>
                 {
