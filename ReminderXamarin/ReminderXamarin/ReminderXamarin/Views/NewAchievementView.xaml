@@ -4,28 +4,85 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
                  xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:elements="clr-namespace:ReminderXamarin.Elements"
                  mc:Ignorable="d"
                  base:ViewModelHelper.AutoWireViewModel="True"
                  x:Class="ReminderXamarin.Views.NewAchievementView">
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="Center"
-                     VerticalOptions="Center"
-                     BackgroundColor="{DynamicResource CardViewBackground}">
-            <Entry Placeholder="Enter achievement name..."
-                   Text="{Binding Title}"
-                   TextColor="{DynamicResource TextCommon}" />
+        <ScrollView>
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                            AbsoluteLayout.LayoutFlags="All">
+                <Grid Padding="10,20,10,10"
+                  BackgroundColor="{DynamicResource CardViewBackground}"
+                  AbsoluteLayout.LayoutBounds="0.5,0.5,0.7,0.4"
+                  AbsoluteLayout.LayoutFlags="All">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="15" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="15" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
 
-            <Entry Placeholder="Enter achievement description..."
-                   Text="{Binding Description}"
-                   TextColor="{DynamicResource TextCommon}" />
+                    <Label Grid.Column="0"
+                       Padding="5,0"
+                       Grid.Row="0"
+                       Text="Title" />
 
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Save" 
-                        Command="{Binding CreateAchievementCommand}" />
-                <Button Text="Back"
-                        Command="{Binding NavigateBackCommand}" />
-            </StackLayout>
-        </StackLayout>
+                    <Entry Grid.Column="0"
+                       Grid.Row="1"
+                       Grid.ColumnSpan="2"
+                       VerticalOptions="Center"
+                       Placeholder="Title..."
+                       Text="{Binding Title}"
+                       TextColor="{DynamicResource TextCommon}" />
+
+                    <Label Grid.Column="0"
+                       Padding="5,0"
+                       Grid.Row="2"
+                       Text="Description" />
+
+                    <Entry Grid.Column="0"
+                       Grid.Row="3"
+                       Grid.ColumnSpan="2"
+                       VerticalOptions="Center"
+                       Placeholder="Description..."
+                       Text="{Binding Description}"
+                       TextColor="{DynamicResource TextCommon}" />
+
+                    <Button Text="Save"
+                            Grid.Column="0"
+                            Grid.Row="4" 
+                            CornerRadius="0"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="EndAndExpand"
+                            HeightRequest="40"
+                            BackgroundColor="{DynamicResource SubmitButtonBackground}"
+                            TextColor="White"
+                            Command="{Binding CreateAchievementCommand}" />
+                    <Button Text="Back"
+                            Grid.Column="1"
+                            Grid.Row="4"
+                            TextColor="{DynamicResource TextCommon}"
+                            BackgroundColor="{DynamicResource ViewBackground}"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="EndAndExpand"
+                            HeightRequest="40"
+                            CornerRadius="0"
+                            Command="{Binding NavigateBackCommand}" />
+                </Grid>
+
+                <Image Aspect="AspectFill"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start"
+                       Source="achievement_icon.png"
+                       AbsoluteLayout.LayoutBounds="0.5,0.28,60,60"
+                       AbsoluteLayout.LayoutFlags="PositionProportional"/>
+            </AbsoluteLayout>
+        </ScrollView>
     </ContentPage.Content>
 </pages:PopupPage>
