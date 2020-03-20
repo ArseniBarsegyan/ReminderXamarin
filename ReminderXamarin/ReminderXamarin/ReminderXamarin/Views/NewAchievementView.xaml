@@ -5,76 +5,111 @@
                  xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
                  xmlns:d="http://xamarin.com/schemas/2014/forms/design"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:elements="clr-namespace:ReminderXamarin.Elements"
+                 xmlns:converters="clr-namespace:ReminderXamarin.Converters"
+                 xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors"
                  mc:Ignorable="d"
                  base:ViewModelHelper.AutoWireViewModel="True"
                  x:Class="ReminderXamarin.Views.NewAchievementView">
-    <ContentPage.Content>
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+    <pages:PopupPage.Content>
         <ScrollView>
             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                             AbsoluteLayout.LayoutFlags="All">
-                <Grid Padding="10,20,10,10"
-                  BackgroundColor="{DynamicResource CardViewBackground}"
-                  AbsoluteLayout.LayoutBounds="0.5,0.5,0.7,0.4"
-                  AbsoluteLayout.LayoutFlags="All">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="15" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="15" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="50" />
-                    </Grid.RowDefinitions>
+                <Frame AbsoluteLayout.LayoutBounds="0.5,0.5,0.7,0.4"
+                       AbsoluteLayout.LayoutFlags="All"
+                       CornerRadius="10"
+                       Padding="0">
+                    <Grid Padding="10,20,10,10"
+                          BackgroundColor="{DynamicResource CardViewBackground}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="15" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="15" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
 
-                    <Label Grid.Column="0"
-                       Padding="5,0"
-                       Grid.Row="0"
-                       Text="Title" />
+                        <Label Grid.Column="0"
+                               Padding="5,0"
+                               Grid.Row="0"
+                               Text="Title" />
 
-                    <Entry Grid.Column="0"
-                       Grid.Row="1"
-                       Grid.ColumnSpan="2"
-                       VerticalOptions="Center"
-                       Placeholder="Title..."
-                       Text="{Binding Title}"
-                       TextColor="{DynamicResource TextCommon}" />
+                        <Entry x:Name="TitleEntry"
+                               Grid.Column="0"
+                               Grid.Row="1"
+                               Grid.ColumnSpan="2"                               
+                               VerticalOptions="Center"
+                               Placeholder="Title..."
+                               Text="{Binding Title}">
+                            <Entry.Behaviors>
+                                <behaviors:MinLengthValidatorBehavior 
+                                    x:Name="TitleMinLengthValidatorBehavior"
+                                    MinLength="3" />
+                            </Entry.Behaviors>
+                        </Entry>
 
-                    <Label Grid.Column="0"
-                       Padding="5,0"
-                       Grid.Row="2"
-                       Text="Description" />
+                        <Label Grid.Column="0"
+                               Padding="5,0"
+                               Grid.Row="2"
+                               Text="Description" />
 
-                    <Entry Grid.Column="0"
-                       Grid.Row="3"
-                       Grid.ColumnSpan="2"
-                       VerticalOptions="Center"
-                       Placeholder="Description..."
-                       Text="{Binding Description}"
-                       TextColor="{DynamicResource TextCommon}" />
+                        <Entry Grid.Column="0"
+                               Grid.Row="3"
+                               Grid.ColumnSpan="2"
+                               VerticalOptions="Center"
+                               Placeholder="Description..."
+                               Text="{Binding Description}"
+                               TextColor="{DynamicResource TextCommon}" />
 
-                    <Button Text="Save"
-                            Grid.Column="0"
-                            Grid.Row="4" 
-                            CornerRadius="0"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="EndAndExpand"
-                            HeightRequest="40"
-                            BackgroundColor="{DynamicResource SubmitButtonBackground}"
-                            TextColor="White"
-                            Command="{Binding CreateAchievementCommand}" />
-                    <Button Text="Back"
-                            Grid.Column="1"
-                            Grid.Row="4"
-                            TextColor="{DynamicResource TextCommon}"
-                            BackgroundColor="{DynamicResource ViewBackground}"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="EndAndExpand"
-                            HeightRequest="40"
-                            CornerRadius="0"
-                            Command="{Binding NavigateBackCommand}" />
-                </Grid>
+                        <Button Text="Save"
+                                Grid.Column="0"
+                                Grid.Row="4"
+                                CornerRadius="0"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="EndAndExpand"
+                                HeightRequest="40"
+                                TextColor="White"
+                                IsEnabled="{Binding IsEnabled}"
+                                Command="{Binding CreateAchievementCommand}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Disabled">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" 
+                                                    Value="DarkGray" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                    <VisualState x:Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" 
+                                                    Value="{DynamicResource SubmitButtonBackground}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Button>
+
+                        <Button Text="Back"
+                                Grid.Column="1"
+                                Grid.Row="4"
+                                TextColor="{DynamicResource TextCommon}"
+                                BackgroundColor="{DynamicResource ViewBackground}"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="EndAndExpand"
+                                HeightRequest="40"
+                                CornerRadius="0"
+                                Command="{Binding NavigateBackCommand}" />
+                    </Grid>
+                </Frame>
 
                 <Image Aspect="AspectFill"
                        HorizontalOptions="Center"
@@ -84,5 +119,5 @@
                        AbsoluteLayout.LayoutFlags="PositionProportional"/>
             </AbsoluteLayout>
         </ScrollView>
-    </ContentPage.Content>
+    </pages:PopupPage.Content>
 </pages:PopupPage>

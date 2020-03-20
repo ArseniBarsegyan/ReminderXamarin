@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using System.Windows.Input;
 
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Services.Navigation;
@@ -13,15 +12,40 @@ namespace ReminderXamarin.ViewModels
 {
     public class NewAchievementViewModel : BaseViewModel
     {
+        private bool _isEnabled;
+
         public NewAchievementViewModel(INavigationService navigationService,
             ICommandResolver commandResolver)
             : base(navigationService)
         {
-            CreateAchievementCommand = commandResolver.AsyncCommand(CreateAchievement);
+            CreateAchievementCommand = commandResolver.AsyncCommand(CreateAchievement, () => { return IsEnabled; });
             NavigateBackCommand = commandResolver.AsyncCommand(NavigateBack);
         }
 
         public string Title { get; set; }
+        public bool IsEnabled 
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(Title))
+                {
+                    return false;
+                }
+                if (Title.Length < 3)
+                {
+                    return false;
+                }
+                return true;
+            }
+            set
+            {
+                if (value != _isEnabled)
+                {
+                    _isEnabled = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public string Description { get; set; }
 
         public IAsyncCommand CreateAchievementCommand { get; }
