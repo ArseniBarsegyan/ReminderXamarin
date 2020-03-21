@@ -448,6 +448,15 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Minimum length is 3 symbols.
+        /// </summary>
+        internal static string MinimumLengthThreeSymbolsMessage {
+            get {
+                return ResourceManager.GetString("MinimumLengthThreeSymbolsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New step.
         /// </summary>
         internal static string NewStep {
@@ -660,15 +669,6 @@ namespace ReminderXamarin.Resx {
         internal static string StepType {
             get {
                 return ResourceManager.GetString("StepType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

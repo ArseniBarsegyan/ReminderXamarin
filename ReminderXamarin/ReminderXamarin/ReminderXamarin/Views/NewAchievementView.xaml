@@ -7,6 +7,7 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:elements="clr-namespace:ReminderXamarin.Elements"
                  xmlns:converters="clr-namespace:ReminderXamarin.Converters"
                  xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors"
+                 xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
                  mc:Ignorable="d"
                  base:ViewModelHelper.AutoWireViewModel="True"
                  x:Class="ReminderXamarin.Views.NewAchievementView">
@@ -19,7 +20,7 @@
         <ScrollView>
             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                             AbsoluteLayout.LayoutFlags="All">
-                <Frame AbsoluteLayout.LayoutBounds="0.5,0.5,0.7,0.4"
+                <Frame AbsoluteLayout.LayoutBounds="0.5,0.25,0.7,0.4"
                        AbsoluteLayout.LayoutFlags="All"
                        CornerRadius="10"
                        Padding="0">
@@ -30,22 +31,24 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="15" />
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="15" />
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="50" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <Label Grid.Column="0"
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
                                Padding="5,0"
-                               Grid.Row="0"
+                               VerticalOptions="Center"
                                Text="Title" />
 
                         <Entry x:Name="TitleEntry"
-                               Grid.Column="0"
                                Grid.Row="1"
-                               Grid.ColumnSpan="2"                               
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
                                VerticalOptions="Center"
                                Placeholder="Title..."
                                Text="{Binding Title}">
@@ -55,14 +58,27 @@
                                     MinLength="3" />
                             </Entry.Behaviors>
                         </Entry>
-
-                        <Label Grid.Column="0"
-                               Padding="5,0"
+                        <Label FontSize="Micro"
+                               VerticalOptions="StartAndExpand"
+                               HorizontalOptions="StartAndExpand"
                                Grid.Row="2"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               Padding="5,0"
+                               Text="{extensions:Translate MinimumLengthThreeSymbolsMessage}"
+                               TextColor="{DynamicResource ErrorTextCommon}"
+                               IsVisible="{Binding Source={x:Reference TitleMinLengthValidatorBehavior},
+                                               Path=IsValid,
+                                               Converter={StaticResource InverseBooleanConverter}}" />
+
+                        <Label Grid.Row="3"
+                               Grid.Column="0"
+                               Padding="5,0"
+                               VerticalOptions="Center"
                                Text="Description" />
 
-                        <Entry Grid.Column="0"
-                               Grid.Row="3"
+                        <Entry Grid.Row="4"
+                               Grid.Column="0"                               
                                Grid.ColumnSpan="2"
                                VerticalOptions="Center"
                                Placeholder="Description..."
@@ -70,8 +86,8 @@
                                TextColor="{DynamicResource TextCommon}" />
 
                         <Button Text="Save"
+                                Grid.Row="5"
                                 Grid.Column="0"
-                                Grid.Row="4"
                                 CornerRadius="0"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="EndAndExpand"
@@ -84,7 +100,7 @@
                                     <VisualState x:Name="Disabled">
                                         <VisualState.Setters>
                                             <Setter Property="BackgroundColor" 
-                                                    Value="DarkGray" />
+                                                    Value="{DynamicResource DisabledBackground}" />
                                         </VisualState.Setters>
                                     </VisualState>
 
@@ -99,8 +115,8 @@
                         </Button>
 
                         <Button Text="Back"
-                                Grid.Column="1"
-                                Grid.Row="4"
+                                Grid.Row="5"
+                                Grid.Column="1"                                
                                 TextColor="{DynamicResource TextCommon}"
                                 BackgroundColor="{DynamicResource ViewBackground}"
                                 HorizontalOptions="FillAndExpand"
@@ -115,9 +131,9 @@
                        HorizontalOptions="Center"
                        VerticalOptions="Start"
                        Source="achievement_icon.png"
-                       AbsoluteLayout.LayoutBounds="0.5,0.28,60,60"
+                       AbsoluteLayout.LayoutBounds="0.5,0.125,60,60"
                        AbsoluteLayout.LayoutFlags="PositionProportional"/>
             </AbsoluteLayout>
-        </ScrollView>
+        </ScrollView>        
     </pages:PopupPage.Content>
 </pages:PopupPage>

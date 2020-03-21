@@ -246,6 +246,9 @@
   <data name="Menu" xml:space="preserve">
     <value>Меню</value>
   </data>
+  <data name="MinimumLengthThreeSymbolsMessage" xml:space="preserve">
+    <value>Минимальная длина 3 символа</value>
+  </data>
   <data name="NewStep" xml:space="preserve">
     <value>Новый этап</value>
   </data>

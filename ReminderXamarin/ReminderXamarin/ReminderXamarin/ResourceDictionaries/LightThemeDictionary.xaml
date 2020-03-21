@@ -8,6 +8,7 @@
     <Color x:Key="AttachOptionFrameBackground">#FAFAFA</Color>    
     <Color x:Key="CardViewBackground">#FFFFFF</Color>
     <Color x:Key="CardViewBorder">LightGray</Color>
+    <Color x:Key="DisabledBackground">#DDDDDD</Color>
     <Color x:Key="ErrorTextCommon">#FF5252</Color>
     <Color x:Key="LoginButtonBackground">#3072B0</Color>
     <Color x:Key="LoginButtonText">#FFFFFF</Color>
