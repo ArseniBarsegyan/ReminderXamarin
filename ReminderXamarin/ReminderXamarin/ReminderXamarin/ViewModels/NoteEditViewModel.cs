@@ -1,22 +1,22 @@
-﻿using System;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using Acr.UserDialogs;
 
-using Acr.UserDialogs;
 using ReminderXamarin.Collections;
 using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
-using ReminderXamarin.Extensions;
 using ReminderXamarin.Helpers;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
+
+using System;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 using Xamarin.Forms;
 
@@ -59,16 +59,15 @@ namespace ReminderXamarin.ViewModels
             CameraButtonImageSource = ConstantsHelper.CameraIcon;
             VideoButtonImageSource = ConstantsHelper.VideoIcon;
 
-            GalleryItemsViewModels = new RangeObservableCollection<GalleryItemViewModel>();
+            GalleryItemModels = new RangeObservableCollection<GalleryItemModel>();
 
             DescriptionTextChanged = commandResolver.Command<string>(DescriptionChanged);
             TakePhotoCommand = commandResolver.AsyncCommand(TakePhoto);
-            DeletePhotoCommand = commandResolver.Command<GalleryItemViewModel>(DeletePhoto);
             TakeVideoCommand = commandResolver.AsyncCommand(TakeVideo);
             PickMultipleMediaCommand = commandResolver.AsyncCommand(PickMultipleMedia);
             SaveNoteCommand = commandResolver.AsyncCommand<string>(SaveNote);
             DeleteNoteCommand = commandResolver.AsyncCommand(DeleteNote);
-            SelectImageCommand = commandResolver.AsyncCommand<GalleryItemViewModel>(SelectImage);
+            SelectImageCommand = commandResolver.AsyncCommand<GalleryItemModel>(SelectImage);
         }
 
         public ImageSource AttachButtonImageSource { get; private set; }
@@ -85,19 +84,18 @@ namespace ReminderXamarin.ViewModels
 
         public bool IsGalleryVisible
         {
-            get => GalleryItemsViewModels.Count > 0;
+            get => GalleryItemModels.Count > 0;
         }
 
-        public RangeObservableCollection<GalleryItemViewModel> GalleryItemsViewModels { get; set; }
+        public RangeObservableCollection<GalleryItemModel> GalleryItemModels { get; set; }
 
         public ICommand DescriptionTextChanged { get; }
         public IAsyncCommand TakePhotoCommand { get; }
-        public ICommand DeletePhotoCommand { get; }        
         public IAsyncCommand TakeVideoCommand { get; }
         public IAsyncCommand PickMultipleMediaCommand { get; }
         public IAsyncCommand<string> SaveNoteCommand { get; }
         public IAsyncCommand DeleteNoteCommand { get; }
-        public IAsyncCommand<GalleryItemViewModel> SelectImageCommand { get; }
+        public IAsyncCommand<GalleryItemModel> SelectImageCommand { get; }
 
         private void DescriptionChanged(string value)
         {
@@ -125,8 +123,8 @@ namespace ReminderXamarin.ViewModels
                 _note = App.NoteRepository.Value.GetNoteAsync(_noteId);
                 Title = _note.EditDate.ToString("d");
                 Description = _note.Description;
-                GalleryItemsViewModels.ReplaceRangeWithoutUpdating(_note.GalleryItems.ToViewModels(NavigationService, _commandResolver));
-                GalleryItemsViewModels.RaiseCollectionChanged();
+                GalleryItemModels.ReplaceRangeWithoutUpdating(_note.GalleryItems);
+                GalleryItemModels.RaiseCollectionChanged();
                 OnPropertyChanged(nameof(IsGalleryVisible));
             }
             return base.InitializeAsync(navigationData);
@@ -134,17 +132,17 @@ namespace ReminderXamarin.ViewModels
 
         public void OnAppearing()
         {
-            MessagingCenter.Subscribe<GalleryItemViewModel>(this,
-                ConstantsHelper.ImageDeleted, DeletePhoto);
+            MessagingCenter.Subscribe<GalleryItemViewModel, int>(this,
+                ConstantsHelper.ImageDeleted, (vm, id) => DeletePhoto(id));
             IsToolbarItemVisible = false;
-            GalleryItemsViewModels.CollectionChanged += GalleryItemsViewModels_CollectionChanged;
+            GalleryItemModels.CollectionChanged += GalleryItemsViewModels_CollectionChanged;
         }
 
         public void OnDisappearing()
         {
             MessagingCenter.Unsubscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted);
             MessagingCenter.Send(this, ConstantsHelper.NoteEditPageDisappeared);
-            GalleryItemsViewModels.CollectionChanged -= GalleryItemsViewModels_CollectionChanged;
+            GalleryItemModels.CollectionChanged -= GalleryItemsViewModels_CollectionChanged;
         }
 
         public Task<bool> AskAboutLeave()
@@ -167,7 +165,7 @@ namespace ReminderXamarin.ViewModels
             {
                 Task.Run(async() => 
                 {
-                    var galleryItemModel = new GalleryItemModel
+                    var model = new GalleryItemModel
                     {
                         NoteId = _noteId
                     };
@@ -182,15 +180,14 @@ namespace ReminderXamarin.ViewModels
                     string imagePath = Path.Combine(path, imageName);
 
                     File.WriteAllBytes(imagePath, resizedImage);
-                    galleryItemModel.ImagePath = imagePath;
-                    galleryItemModel.Thumbnail = imagePath;
+                    model.ImagePath = imagePath;
+                    model.Thumbnail = imagePath;
 
-                    await _transformHelper.ResizeAsync(imagePath, galleryItemModel);
+                    await _transformHelper.ResizeAsync(imagePath, model);
 
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        GalleryItemsViewModels.Add(galleryItemModel.ToViewModel
-                            (NavigationService, _commandResolver));
+                        GalleryItemModels.Add(model);
                     });
                 });               
             };
@@ -202,7 +199,7 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private async Task SelectImage(GalleryItemViewModel viewModel)
+        private async Task SelectImage(GalleryItemModel viewModel)
         {
             if (viewModel.IsVideo)
             {
@@ -217,12 +214,16 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private void DeletePhoto(GalleryItemViewModel viewModel)
+        private void DeletePhoto(int id)
         {
             IsLoading = true;
-            if (GalleryItemsViewModels.Any())
+            if (GalleryItemModels.Any())
             {
-                GalleryItemsViewModels.Remove(viewModel);
+                var model = GalleryItemModels.FirstOrDefault(x => x.Id == id);
+                if (model != null)
+                {
+                    GalleryItemModels.Remove(model);
+                }
             }
             IsLoading = false;
         }
@@ -235,10 +236,10 @@ namespace ReminderXamarin.ViewModels
                 IsLoading = true;
                 try
                 {
-                    var photoModel = await _mediaHelper.TakePhotoAsync();
-                    if (photoModel != null)
+                    var model = await _mediaHelper.TakePhotoAsync();
+                    if (model != null)
                     {
-                        GalleryItemsViewModels.Add(photoModel.ToViewModel(NavigationService, _commandResolver));                        
+                        GalleryItemModels.Add(model);                        
                     }
                 }
                 catch (Exception ex)
@@ -256,21 +257,21 @@ namespace ReminderXamarin.ViewModels
             if (permissionResult)
             {
                 IsLoading = true;
-                var videoModel = await _mediaHelper.TakeVideoAsync();
-                if (videoModel != null)
+                var model = await _mediaHelper.TakeVideoAsync();
+                if (model != null)
                 {
                     await Task.Run(async () =>
                     {
-                        videoModel.NoteId = _noteId;
-                        videoModel.IsVideo = true;
+                        model.NoteId = _noteId;
+                        model.IsVideo = true;
 
                         var videoName =
-                            videoModel.VideoPath.Substring(
-                                videoModel.VideoPath.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
+                            model.VideoPath.Substring(
+                                model.VideoPath.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
                         var imageName = videoName.Substring(0, videoName.Length - 4) + "_thumb.jpg";
 
                         var imageContent =
-                            _mediaService.GenerateThumbImage(videoModel.VideoPath,
+                            _mediaService.GenerateThumbImage(model.VideoPath,
                                 ConstantsHelper.ThumbnailTimeFrame);
 
                         var resizedImage = _mediaService.ResizeImage(imageContent,
@@ -281,14 +282,14 @@ namespace ReminderXamarin.ViewModels
                         string imagePath = Path.Combine(path, imageName);
 
                         File.WriteAllBytes(imagePath, resizedImage);
-                        videoModel.ImagePath = imagePath;
-                        videoModel.Thumbnail = imagePath;
+                        model.ImagePath = imagePath;
+                        model.Thumbnail = imagePath;
 
-                        await _transformHelper.ResizeAsync(imagePath, videoModel);
+                        await _transformHelper.ResizeAsync(imagePath, model);
 
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            GalleryItemsViewModels.Add(videoModel.ToViewModel(NavigationService, _commandResolver));
+                            GalleryItemModels.Add(model);
                         });
                     });
                 }
@@ -309,7 +310,7 @@ namespace ReminderXamarin.ViewModels
                     CreationDate = DateTime.Now,
                     EditDate = DateTime.Now,
                     Description = Description,
-                    GalleryItems = GalleryItemsViewModels.ToModels().ToList(),
+                    GalleryItems = GalleryItemModels.ToList(),
                     UserId = Settings.CurrentUserId
                 };
                 App.NoteRepository.Value.Save(note);
@@ -321,7 +322,7 @@ namespace ReminderXamarin.ViewModels
                 var note = App.NoteRepository.Value.GetNoteAsync(_noteId);
                 note.Description = Description;
                 note.EditDate = DateTime.Now;
-                note.GalleryItems = GalleryItemsViewModels.ToModels().ToList();
+                note.GalleryItems = GalleryItemModels.ToList();
                 App.NoteRepository.Value.Save(note);
                 MessagingCenter.Send(this, ConstantsHelper.NoteEdited, _noteId);
             }

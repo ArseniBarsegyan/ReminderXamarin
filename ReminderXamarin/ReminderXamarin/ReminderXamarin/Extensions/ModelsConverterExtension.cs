@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-
-using ReminderXamarin.Core.Interfaces;
+﻿using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Enums;
 using ReminderXamarin.Services.Navigation;
@@ -11,52 +7,14 @@ using ReminderXamarin.ViewModels;
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
 
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+
 namespace ReminderXamarin.Extensions
 {
     public static class ModelsConverterExtension
     {
-        public static GalleryItemViewModel ToViewModel(this GalleryItemModel model, 
-            INavigationService navigationService,
-            ICommandResolver commandResolver)
-        {
-            var viewModel = new GalleryItemViewModel(navigationService, commandResolver)
-            {
-                Id = model.Id,
-                ImagePath = model.ImagePath,
-                IsVideo = model.IsVideo,
-                NoteId = model.NoteId,
-                Thumbnail = model.Thumbnail,
-                VideoPath = model.VideoPath
-            };
-            return viewModel;
-        }
-
-        public static GalleryItemModel ToModel(this GalleryItemViewModel viewModel)
-        {
-            var model = new GalleryItemModel
-            {
-                Id = viewModel.Id,
-                ImagePath = viewModel.ImagePath,
-                IsVideo = viewModel.IsVideo,
-                NoteId = viewModel.NoteId,
-                Thumbnail = viewModel.Thumbnail,
-                VideoPath = viewModel.VideoPath
-            };
-            return model;
-        }
-
-        public static IEnumerable<GalleryItemViewModel> ToViewModels(this IEnumerable<GalleryItemModel> models,
-            INavigationService navigationService,
-            ICommandResolver commandResolver)
-        {
-            return models.Select(model => model.ToViewModel(navigationService, commandResolver));
-        }
-
-        public static List<GalleryItemModel> ToModels(this IEnumerable<GalleryItemViewModel> viewModels)
-        {
-            return viewModels.Select(vm => vm.ToModel()).ToList();
-        }
-
         public static ToDoModel ToToDoModel(this ToDoViewModel viewModel)
         {
             return new ToDoModel

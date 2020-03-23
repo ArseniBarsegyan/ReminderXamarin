@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
+                 xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 base:ViewModelHelper.AutoWireViewModel="True"
                  x:Class="ReminderXamarin.Views.GalleryItemView">
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                     AbsoluteLayout.LayoutFlags="All">
@@ -13,16 +15,15 @@
 
         <elements:ZoomImage x:Name="Image"
                             Source="{Binding ImagePath}"
-                            Aspect="AspectFit"
-                            WidthRequest="300"
-                            HeightRequest="500"
+                            Aspect="AspectFill"
                             AbsoluteLayout.LayoutBounds="0.5,0.5,0.8,0.8"
                             AbsoluteLayout.LayoutFlags="All" />
-        <ImageButton x:Name="DeleteImageButton"
-                     AbsoluteLayout.LayoutBounds="0.5,0.8,50,50"
+        
+        <ImageButton AbsoluteLayout.LayoutBounds="0.5,0.925,50,50"
                      AbsoluteLayout.LayoutFlags="PositionProportional"
-                     Padding="20"
+                     Padding="18"
                      CornerRadius="25"
+                     Aspect="AspectFill"
                      Source="delete.png"
                      BackgroundColor="{DynamicResource ErrorTextCommon}"
                      Command="{Binding DeleteCommand}" />

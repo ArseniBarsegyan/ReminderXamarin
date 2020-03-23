@@ -33,7 +33,7 @@ namespace ReminderXamarin.Services.Navigation
         public Task NavigateToPopupAsync<TViewModel>(object parameter = null) where TViewModel : BaseViewModel
         {
             return InternalNavigateToPopupAsync(typeof(TViewModel), parameter);
-        }               
+        }
 
         private async Task InternalNavigateToPopupAsync(Type viewModelType, object parameter = null)
         {

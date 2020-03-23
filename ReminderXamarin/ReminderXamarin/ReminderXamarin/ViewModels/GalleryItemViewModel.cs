@@ -2,6 +2,7 @@
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
+using Rm.Data.Data.Entities;
 using Rm.Helpers;
 
 using System.Globalization;
@@ -14,6 +15,8 @@ namespace ReminderXamarin.ViewModels
 {
     public class GalleryItemViewModel : BaseViewModel
     {
+        private GalleryItemModel _model;
+
         public GalleryItemViewModel(INavigationService navigationService,
             ICommandResolver commandResolver)
             : base(navigationService)
@@ -21,15 +24,19 @@ namespace ReminderXamarin.ViewModels
             DeleteCommand = commandResolver.AsyncCommand(Delete);
             NavigateBackCommand = commandResolver.AsyncCommand(NavigateBack);
         }
-        
-        public int Id { get; set; }
+
+        public override Task InitializeAsync(object navigationData)
+        {
+            if (navigationData is GalleryItemModel model)
+            {
+                _model = model;
+                ImagePath = model.ImagePath;
+            }
+
+            return base.InitializeAsync(navigationData);
+        }
 
         public string ImagePath { get; set; }
-        public string Thumbnail { get; set; }
-        public bool IsVideo { get; set; }
-        public string VideoPath { get; set; }
-
-        public int NoteId { get; set; }
 
         public ICommand DeleteCommand { get; }
         public ICommand NavigateBackCommand { get; }
@@ -45,7 +52,7 @@ namespace ReminderXamarin.ViewModels
                 cancelLocalized);
             if (result)
             {
-                MessagingCenter.Send(this, ConstantsHelper.ImageDeleted);
+                MessagingCenter.Send(this, ConstantsHelper.ImageDeleted, _model.Id);
                 await NavigateBack();
             }
         }
