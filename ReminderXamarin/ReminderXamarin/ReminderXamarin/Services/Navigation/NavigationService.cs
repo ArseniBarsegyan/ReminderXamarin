@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 
 using ReminderXamarin.ViewModels.Base;
-using ReminderXamarin.Views;
 
 using Rg.Plugins.Popup.Extensions;
 using Rg.Plugins.Popup.Pages;

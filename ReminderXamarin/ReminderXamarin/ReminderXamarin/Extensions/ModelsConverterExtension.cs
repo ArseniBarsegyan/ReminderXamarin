@@ -1,4 +1,8 @@
-﻿using ReminderXamarin.Core.Interfaces;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+
+using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Enums;
 using ReminderXamarin.Services.Navigation;
@@ -6,10 +10,6 @@ using ReminderXamarin.ViewModels;
 
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
-
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace ReminderXamarin.Extensions
 {

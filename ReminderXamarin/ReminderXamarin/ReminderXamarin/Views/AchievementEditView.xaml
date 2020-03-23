@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+             xmlns:converters="clr-namespace:ReminderXamarin.Converters"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             xmlns:converters="clr-namespace:ReminderXamarin.Converters"
+             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.AchievementEditView"
              Title="{Binding Title}"
              BackgroundColor="{DynamicResource ViewBackground}"
@@ -114,8 +114,9 @@
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
-        <ListView.Footer>
+        <ListView.Footer>            
             <Button TextColor="{DynamicResource LoginButtonText}"
+                    Padding="0,20,0,0"
                     BackgroundColor="{DynamicResource RegisterButtonBackground}"
                     Text="{extensions:Translate AddStep}" 
                     Command="{Binding AddStepCommand}" />

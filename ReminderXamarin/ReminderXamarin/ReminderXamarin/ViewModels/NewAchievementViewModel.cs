@@ -1,11 +1,11 @@
-﻿using ReminderXamarin.Core.Interfaces.Commanding;
+﻿using System.Threading.Tasks;
+
+using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
-
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
