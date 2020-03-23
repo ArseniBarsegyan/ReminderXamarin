@@ -1,69 +1,162 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
-             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
-             x:Class="ReminderXamarin.Views.AchievementStepView"
-             base:ViewModelHelper.AutoWireViewModel="True"
-             Title="{extensions:Translate NewStep}">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:IntEnumConverter x:Key="IntEnumConverter" />
-            <converters:StepTypeVisibilityConverter x:Key="StepTypeVisibilityConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                    AbsoluteLayout.LayoutFlags="All">
-        <ListView AbsoluteLayout.LayoutBounds="0,0,1,1"
-                  AbsoluteLayout.LayoutFlags="All">            
-            <ListView.Footer>
-                <ScrollView AbsoluteLayout.LayoutBounds="0.5,180,1,1"
-                            AbsoluteLayout.LayoutFlags="XProportional, SizeProportional">
-                    <StackLayout Padding="5">
-                        <Label Text="{Binding Title}"
-                               FontSize="Medium"
-                               HorizontalOptions="Center" />
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors"
+                 xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+                 xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 mc:Ignorable="d"
+                 base:ViewModelHelper.AutoWireViewModel="True"
+                 x:Class="ReminderXamarin.Views.AchievementStepView">
+    <pages:PopupPage.Content>
+        <ScrollView>
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                            AbsoluteLayout.LayoutFlags="All">
+                <Frame AbsoluteLayout.LayoutBounds="0.5,0.25,0.7,0.4"
+                       AbsoluteLayout.LayoutFlags="All"
+                       CornerRadius="10"
+                       Padding="0">
+                    <Grid Padding="10,20,10,10"
+                          BackgroundColor="{DynamicResource CardViewBackground}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                        <Label Text="{extensions:Translate StepName}"
-                               HorizontalOptions="Start" />
-                        <Entry x:Name="TitleEntry"
-                               Text="{Binding Title}"
-                               HorizontalOptions="FillAndExpand" />
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Padding="5,0"
+                               VerticalOptions="StartAndExpand"
+                               Text="{extensions:Translate Title}" />
 
-                        <Label Text="{extensions:Translate Description}"
-                               HorizontalOptions="Start" />
-                        <Editor x:Name="DescriptionEditor"
-                            Text="{Binding Description}"
-                            HeightRequest="200"
-                            TextChanged="OnViewChanged"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand" />
+                        <Entry Grid.Row="1"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               VerticalOptions="Center"
+                               Placeholder="{extensions:Translate TitlePlaceholder}"
+                               Text="{Binding Title}">
+                            <Entry.Behaviors>
+                                <behaviors:MinLengthValidatorBehavior 
+                                    x:Name="TitleMinLengthValidatorBehavior"
+                                    MinLength="3" />
+                            </Entry.Behaviors>
+                        </Entry>
 
-                        <Label Text="{extensions:Translate StepType}"
-                               HorizontalOptions="Start" />
-                        <Picker x:Name="StepTypePicker"
-                                SelectedIndexChanged="OnViewChanged"
-                                ItemsSource="{Binding AvailableStepTypes}"
-                                SelectedIndex="{Binding StepType,
-                                                        Converter={StaticResource IntEnumConverter}}" />
-                        <Label Text="{extensions:Translate StepTimeEstimation}"
-                               IsVisible="{Binding StepType,
-                                                    Converter={StaticResource StepTypeVisibilityConverter}}"
-                               HorizontalOptions="Start" />
-                        <Entry Text="{Binding TimeEstimation}"
+                        <Label Grid.Row="2"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               FontSize="Micro"
+                               VerticalOptions="StartAndExpand"
+                               HorizontalOptions="StartAndExpand"                               
+                               Padding="5,0"
+                               Text="{extensions:Translate MinimumLengthThreeSymbolsMessage}"
+                               TextColor="{DynamicResource ErrorTextCommon}"
+                               IsVisible="{Binding Source={x:Reference TitleMinLengthValidatorBehavior},
+                                               Path=IsValid,
+                                               Converter={StaticResource InverseBooleanConverter}}" />
+
+                        <Label Grid.Row="3"
+                               Grid.Column="0"
+                               Padding="5,0"
+                               VerticalOptions="Center"
+                               Text="{extensions:Translate NotesTitle}" />
+
+                        <Entry Grid.Row="4"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               VerticalOptions="Center"
+                               Placeholder="{extensions:Translate NotesPlaceholder}"
+                               Text="{Binding NotesText}">
+                            <Entry.Behaviors>
+                                <behaviors:MinLengthValidatorBehavior 
+                                    x:Name="NotesTextMinLengthValidatorBehavior"
+                                    MinLength="3" />
+                            </Entry.Behaviors>
+                        </Entry>
+
+                        <Label Grid.Row="5"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               FontSize="Micro"
+                               VerticalOptions="StartAndExpand"
+                               HorizontalOptions="StartAndExpand"                               
+                               Padding="5,0"
+                               Text="{extensions:Translate MinimumLengthThreeSymbolsMessage}"
+                               TextColor="{DynamicResource ErrorTextCommon}"
+                               IsVisible="{Binding Source={x:Reference NotesTextMinLengthValidatorBehavior},
+                                               Path=IsValid,
+                                               Converter={StaticResource InverseBooleanConverter}}" />
+
+                        <Label Grid.Row="6"
+                               Grid.Column="0"
+                               Padding="5,0"
+                               VerticalOptions="Center"
+                               Text="Time spent:" />
+
+                        <Entry Grid.Row="7"
+                               Grid.Column="0"
                                Keyboard="Numeric"
-                               IsVisible="{Binding StepType,
-                                                    Converter={StaticResource StepTypeVisibilityConverter}}" />
-                    </StackLayout>
-                </ScrollView>
-            </ListView.Footer>
-        </ListView>
+                               Grid.ColumnSpan="2"
+                               VerticalOptions="Center"
+                               Placeholder="0"
+                               Text="{Binding TimeSpent}"
+                               TextColor="{DynamicResource TextCommon}" />
 
-        <ImageButton x:Name="SaveAchievementStepButton"
-                     IsVisible="{Binding ViewModelChanged}"
-                     Command="{Binding SaveAchievementStepCommand}"
-                     Style="{StaticResource Fab}"
-                     Source="confirm.png" />
-    </AbsoluteLayout>
-</ContentPage>
+                        <Button Grid.Row="8"
+                                Grid.Column="0"
+                                Text="{extensions:Translate Save}"
+                                CornerRadius="0"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="EndAndExpand"
+                                HeightRequest="40"
+                                TextColor="#FAFAFA"
+                                IsEnabled="{Binding IsEnabled}"
+                                Command="{Binding SaveStepCommand}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Disabled">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" 
+                                                    Value="{DynamicResource DisabledBackground}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                    <VisualState x:Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" 
+                                                    Value="{DynamicResource SubmitButtonBackground}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Button>
+
+                        <Button Grid.Row="8"
+                                Grid.Column="1"
+                                Text="{extensions:Translate Back}"
+                                TextColor="{DynamicResource TextCommon}"
+                                BackgroundColor="{DynamicResource ViewBackground}"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="EndAndExpand"
+                                HeightRequest="40"
+                                CornerRadius="0"
+                                Command="{Binding NavigateBackCommand}" />
+                    </Grid>
+                </Frame>
+            </AbsoluteLayout>
+        </ScrollView>
+    </pages:PopupPage.Content>
+</pages:PopupPage>

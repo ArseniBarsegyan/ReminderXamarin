@@ -16,7 +16,7 @@ namespace Rm.Data.Data.Entities
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public int GeneralTimeSpent { get; set; }
+        public double GeneralTimeSpent { get; set; }
         public DateTime AchievedDate { get; set; }
 
         [ForeignKey(typeof(UserModel))]

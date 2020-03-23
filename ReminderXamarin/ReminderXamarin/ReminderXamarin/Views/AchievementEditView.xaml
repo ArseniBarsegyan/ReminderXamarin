@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:ReminderXamarin.Converters"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
@@ -9,11 +8,6 @@
              Title="{Binding Title}"
              BackgroundColor="{DynamicResource ViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:AchievementStepTypeToBoolConverter x:Key="AchievementStepTypeToBoolConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <elements:BindableToolbarItem IconImageSource="confirm.png"
                                       IsVisible="{Binding IsEditMode}"
@@ -28,7 +22,7 @@
     <ListView x:Name="AchievementStepsListView" 
               HasUnevenRows="True"
               ItemSelected="ListView_OnItemSelected"
-              ItemsSource="{Binding AchievementStepViewModels}"
+              ItemsSource="{Binding AchievementSteps}"
               CachingStrategy="RecycleElement">
         <ListView.Header>
             <AbsoluteLayout>
@@ -88,14 +82,14 @@
         </ListView.Header>
         <ListView.ItemTemplate>
             <DataTemplate>
-                <ViewCell Height="250">                    
+                <ViewCell Height="250">
                     <Grid Padding="10,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
                         <Label Text="{Binding Title}"
@@ -114,9 +108,9 @@
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
-        <ListView.Footer>            
+        <ListView.Footer>
             <Button TextColor="{DynamicResource LoginButtonText}"
-                    Padding="0,20,0,0"
+                    Margin="0,5,0,0"
                     BackgroundColor="{DynamicResource RegisterButtonBackground}"
                     Text="{extensions:Translate AddStep}" 
                     Command="{Binding AddStepCommand}" />

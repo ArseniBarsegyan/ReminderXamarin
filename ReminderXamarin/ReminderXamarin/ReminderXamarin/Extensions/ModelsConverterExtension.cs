@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Enums;
 using ReminderXamarin.Services.Navigation;
@@ -82,58 +81,6 @@ namespace ReminderXamarin.Extensions
                 viewModels.Add(viewModel);
             }
             return viewModels;
-        }
-
-        public static AchievementStep ToModel(this AchievementStepViewModel viewModel)
-        {
-            return new AchievementStep
-            {
-                Id = viewModel.Id,
-                AchievementId = viewModel.AchievementId,
-                Title = viewModel.Title,
-                Description = viewModel.Description,
-                TimeSpent = viewModel.TimeSpent,
-                AchievedDate = viewModel.AchievedDate
-            };
-        }
-
-        public static AchievementStepViewModel ToViewModel(this AchievementStep model,
-            INavigationService navigationService,
-            IFileSystem fileService,
-            IMediaService mediaService,
-            ICommandResolver commandResolver)
-        {
-            return new AchievementStepViewModel(navigationService, 
-                fileService, 
-                mediaService, 
-                commandResolver)
-            {
-                Id = model.Id,
-                AchievementId = model.AchievementId,
-                Title = model.Title,
-                Description = model.Description,
-                TimeSpent = model.TimeSpent,
-                AchievedDate = model.AchievedDate
-            };
-        }
-
-        public static ObservableCollection<AchievementStepViewModel> ToViewModels(
-            this IEnumerable<AchievementStep> models, 
-            INavigationService navigationService,
-            IFileSystem fileService,
-            IMediaService mediaService,
-            ICommandResolver commandResolver)
-        {
-            return models.Select(model => model.ToViewModel(navigationService, 
-                fileService, 
-                mediaService,
-                commandResolver))
-                .ToObservableCollection();
-        }
-
-        public static List<AchievementStep> ToModels(this IEnumerable<AchievementStepViewModel> viewModels)
-        {
-            return viewModels.Select(model => model.ToModel()).ToList();
         }
 
         public static AchievementViewModel ToAchievementViewModel(this AchievementModel model, 

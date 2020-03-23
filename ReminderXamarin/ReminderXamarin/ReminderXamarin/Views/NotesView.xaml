@@ -15,8 +15,8 @@
         <ToolbarItem IconImageSource="upload_light.png"
                      Order="Primary"
                      Command="{Binding UploadNotesToApiCommand}"/>
-        <ToolbarItem x:Name="SearchToolbarItem" 
-                     Order="Primary"                     
+        <ToolbarItem x:Name="SearchToolbarItem"
+                     Order="Primary"
                      Clicked="ToggleSearchBarVisibility"
                      IconImageSource="search_icon.png" />
     </ContentPage.ToolbarItems>

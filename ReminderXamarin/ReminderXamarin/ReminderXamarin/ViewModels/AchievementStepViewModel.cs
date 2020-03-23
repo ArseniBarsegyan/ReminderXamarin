@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
-using Acr.UserDialogs;
-
-using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
-using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
-using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
@@ -23,127 +14,82 @@ namespace ReminderXamarin.ViewModels
 {
     public class AchievementStepViewModel : BaseViewModel
     {
-        private readonly IFileSystem _fileService;
-        private readonly IMediaService _mediaService;
-
-        private int _achievementStepId;
-        private AchievementStep _achievementStep;        
+        private bool _isEnabled;
+        private AchievementStep _model;
 
         public AchievementStepViewModel(
             INavigationService navigationService,
-            IFileSystem fileService,
-            IMediaService mediaService,
             ICommandResolver commandResolver)
             : base(navigationService)
         {
-            _fileService = fileService;
-            _mediaService = mediaService;
-
-            ImageContent = new byte[0];
-            SaveAchievementStepCommand = commandResolver.AsyncCommand(Save);
-            ChangeImageCommand = commandResolver.AsyncCommand<PlatformDocument>(ChangeImage);
-            ChangeProgressCommand = commandResolver.Command<string>(amount => ChangeProgress(amount));
+            SaveStepCommand = commandResolver.AsyncCommand(SaveStep, () => { return IsEnabled; });
+            NavigateBackCommand = commandResolver.AsyncCommand(NavigateBack);
         }
-
-        public IAsyncCommand SaveAchievementStepCommand { get; }
-        public IAsyncCommand<PlatformDocument> ChangeImageCommand { get; }
-        public ICommand ChangeProgressCommand { get; }
-
-        public IList<string> AvailableStepTypes =>
-            Enum.GetNames(typeof(AchievementStepType)).Select(x => x.ToString()).ToList();
-
-        public AchievementStepType StepType { get; set; } = AchievementStepType.Single;
-
-        public int Id { get; set; }
-        public byte[] ImageContent { get; set; }
+                
         public string Title { get; set; }
-        public string Description { get; set; }
-        public int TimeSpent { get; set; }
-        public int TimeEstimation { get; set; }
-        public DateTime AchievedDate { get; set; }
-        public bool IsEditMode { get; set; }
-        public double Progress => TimeSpent / (double)TimeEstimation;
-        public bool ViewModelChanged { get; set; }
-
-        public bool IsAchieved => Progress >= 1.0;
-
-        public int AchievementId { get; set; }
-
-        private async Task ChangeImage(PlatformDocument document)
+        public string NotesText { get; set; }
+        public string TimeSpent { get; set; }
+        public bool IsEnabled
         {
-            if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg") || document.Name.EndsWith(".jpeg"))
+            get
             {
-                try
+                if (string.IsNullOrWhiteSpace(Title)
+                    || string.IsNullOrWhiteSpace(NotesText)
+                    || string.IsNullOrWhiteSpace(TimeSpent))
                 {
-                    ViewModelChanged = true;
-                    var imageContent = _fileService.ReadAllBytes(document.Path);
-                    var resizedImage = _mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
-                        ConstantsHelper.ResizedImageHeight);
-
-                    ImageContent = resizedImage;
+                    return false;
                 }
-                catch (Exception ex)
+                if (Title.Length < 3 
+                    || NotesText.Length < 3)
                 {
-                    await UserDialogs.Instance.AlertAsync(ex.Message);
+                    return false;
+                }
+                return true;
+            }
+            set
+            {
+                if (value != _isEnabled)
+                {
+                    _isEnabled = value;
+                    OnPropertyChanged();
                 }
             }
         }
+
+        public IAsyncCommand SaveStepCommand { get; }
+        public IAsyncCommand NavigateBackCommand { get; }
 
         public override Task InitializeAsync(object navigationData)
         {
-            if (navigationData == null)
+            if (navigationData is AchievementStep model)
             {
-                return base.InitializeAsync(null);
-            }
-
-            _achievementStepId = (int) navigationData;
-
-            if (_achievementStepId == 0)
-            {
-                Title = Resmgr.Value.GetString(ConstantsHelper.NewStep, CultureInfo.CurrentCulture);
-            }
-            else
-            {
-                IsEditMode = true;
-                _achievementStep = App.AchievementStepRepository.Value.GetAchievementStepAsync(_achievementStepId);
-                Title = _achievementStep.Title;
-                Description = _achievementStep.Description;
-                TimeSpent = _achievementStep.TimeSpent;
+                _model = model;
+                Title = _model.Title;
+                NotesText = _model.Description;
+                TimeSpent = _model.TimeSpent.ToString();
             }
             return base.InitializeAsync(navigationData);
         }
-        
-        private async Task Save()
+
+        private async Task SaveStep()
         {
-            if (string.IsNullOrEmpty(Title))
+            if (double.TryParse(TimeSpent, out var result))
             {
-                await NavigationService.NavigateBackAsync();
-                return;
+                _model.TimeSpent = result;
             }
-            if (StepType == AchievementStepType.Single)
-            {
-                TimeEstimation = 1;
-            }
+            _model.Title = Title;
+            _model.Description = NotesText;
+            _model.AchievedDate = DateTime.Now;
+
+            App.AchievementStepRepository.Value.Save(_model);
+
             MessagingCenter.Send(this, ConstantsHelper.AchievementStepEditComplete);
-            await NavigationService.NavigateBackAsync();
+            await NavigateBack();
         }
 
-        private void ChangeProgress(string amount)
+        private async Task NavigateBack()
         {
-            if (int.TryParse(amount, out int result))
-            {
-                TimeSpent += result;
-                if (TimeSpent < 0)
-                {
-                    TimeSpent = 0;
-                }
-            }
+            await NavigationService.NavigatePopupBackAsync();
         }
-    }
-
-    public enum AchievementStepType
-    {
-        Single,
-        TimeSpending
     }
 }

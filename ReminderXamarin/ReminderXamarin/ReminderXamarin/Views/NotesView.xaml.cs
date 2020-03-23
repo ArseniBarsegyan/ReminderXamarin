@@ -58,7 +58,7 @@ namespace ReminderXamarin.Views
             {
                 if ((Note)e.Item == viewModel.Notes.ElementAt(viewModel.Notes.Count - 1))
                 {
-                    viewModel.LoadMoreNotesCommand.Execute(null);
+                    viewModel.LoadMoreNotes();
                 }
             }
         }

@@ -6,63 +6,55 @@ using System.Windows.Input;
 
 using Acr.UserDialogs;
 
-using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
+using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
+using Rm.Data.Data.Entities;
 using Rm.Helpers;
-
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
     public class AchievementEditViewModel : BaseViewModel
     {
-        private readonly IFileSystem _fileService;
-        private readonly IMediaService _mediaService;
-        private readonly ICommandResolver _commandResolver;
-
         private int _achievementId;
 
         public AchievementEditViewModel(INavigationService navigationService,
-            IFileSystem fileService,
-            IMediaService mediaService,
             ICommandResolver commandResolver)
             : base(navigationService)
         {
-            _fileService = fileService;
-            _mediaService = mediaService;
-            _commandResolver = commandResolver;
-
-            AchievementStepViewModels = new ObservableCollection<AchievementStepViewModel>();
+            AchievementSteps = new ObservableCollection<AchievementStep>();
 
             SaveAchievementCommand = commandResolver.AsyncCommand(SaveAchievement);
+            NavigateToAchievementStepEditViewCommand = commandResolver.AsyncCommand<AchievementStep>(NavigateToAchievementStepEditView);
             DeleteAchievementCommand = commandResolver.AsyncCommand(DeleteAchievement);
             AddStepCommand = commandResolver.AsyncCommand(AddStep);
             ChangeEditEnabledCommand = commandResolver.Command(() => IsEditMode = !IsEditMode);
 
-            //MessagingCenter.Subscribe<AchievementStepViewModel>(this, ConstantsHelper.AchievementStepEditComplete, AddViewModel);
+            MessagingCenter.Subscribe<AchievementStepViewModel>(this, ConstantsHelper.AchievementStepEditComplete, vm => UpdateStepsList());
         }
 
         public void OnDisappearing()
         {
-            //MessagingCenter.Unsubscribe<AchievementStepViewModel>(this, ConstantsHelper.AchievementStepEditComplete);
+            MessagingCenter.Unsubscribe<AchievementStepViewModel>(this, ConstantsHelper.AchievementStepEditComplete);
         }        
 
         public string Title { get; set; }
         public string Description { get; set; }
         public double AchievementProgress 
         {
-            get => (double)GeneralTimeSpent / 10000;
+            get => GeneralTimeSpent / 10000;
         }
-        public int GeneralTimeSpent { get; set; }
+        public double GeneralTimeSpent { get; set; }
         public bool IsEditMode { get; set; }
 
-        public ObservableCollection<AchievementStepViewModel> AchievementStepViewModels { get; private set; }
+        public ObservableCollection<AchievementStep> AchievementSteps { get; private set; }
 
         public IAsyncCommand SaveAchievementCommand { get; }
+        public IAsyncCommand<AchievementStep> NavigateToAchievementStepEditViewCommand { get; }
         public IAsyncCommand DeleteAchievementCommand { get; }
         public IAsyncCommand AddStepCommand { get; }
         public ICommand ChangeEditEnabledCommand { get; }
@@ -81,19 +73,17 @@ namespace ReminderXamarin.ViewModels
                 GeneralTimeSpent = model.GeneralTimeSpent;
                 Title = model.Title;
                 Description = model.Description;
-                AchievementStepViewModels = model.AchievementSteps
-                    .ToViewModels(NavigationService,
-                    _fileService,
-                    _mediaService,
-                    _commandResolver);
+                AchievementSteps = model.AchievementSteps.ToObservableCollection();
             }
             return base.InitializeAsync(navigationData);
         }
 
-        //private void AddViewModel(AchievementStepViewModel viewModel)
-        //{
-        //    AchievementStepViewModels.Add(viewModel);
-        //}
+        private void UpdateStepsList()
+        {
+            var model = App.AchievementRepository.Value.GetAchievementAsync(_achievementId);
+            AchievementSteps = model.AchievementSteps.ToObservableCollection();
+            GeneralTimeSpent = AchievementSteps.Sum(x => x.TimeSpent);
+        }
 
         private async Task SaveAchievement()
         {
@@ -101,8 +91,9 @@ namespace ReminderXamarin.ViewModels
             model.Description = Description;
             model.Title = Title;
             model.GeneralTimeSpent = GeneralTimeSpent;
-            model.AchievementSteps = AchievementStepViewModels.ToModels();            
+            model.AchievementSteps = AchievementSteps.ToList();
             App.AchievementRepository.Value.Save(model);
+            await NavigationService.NavigateBackAsync();
         }
 
         private async Task DeleteAchievement()
@@ -126,13 +117,18 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private async Task AddStep()
+        private Task AddStep()
         {
-            // Show popup with step name and note
-            // and spent time, 2 buttons - ok and cancel
-            // When step is added check if achievement progress changed
-            // If achievement is completed then show immediate popup
-            // with animation.
+            return NavigationService.NavigateToPopupAsync<AchievementStepViewModel>(
+                new AchievementStep
+                {
+                    AchievementId = _achievementId
+                });
+        }
+
+        private Task NavigateToAchievementStepEditView(AchievementStep model)
+        {
+            return NavigationService.NavigateToPopupAsync<AchievementStepViewModel>(model);
         }
     }
 }

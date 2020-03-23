@@ -43,14 +43,14 @@
                                Grid.Column="0"
                                Padding="5,0"
                                VerticalOptions="Center"
-                               Text="Title" />
+                               Text="{extensions:Translate Title}" />
 
                         <Entry x:Name="TitleEntry"
                                Grid.Row="1"
                                Grid.Column="0"
                                Grid.ColumnSpan="2"
                                VerticalOptions="Center"
-                               Placeholder="Title..."
+                               Placeholder="{extensions:Translate TitlePlaceholder}"
                                Text="{Binding Title}">
                             <Entry.Behaviors>
                                 <behaviors:MinLengthValidatorBehavior 
@@ -58,12 +58,12 @@
                                     MinLength="3" />
                             </Entry.Behaviors>
                         </Entry>
-                        <Label FontSize="Micro"
-                               VerticalOptions="StartAndExpand"
-                               HorizontalOptions="StartAndExpand"
-                               Grid.Row="2"
+                        <Label Grid.Row="2"
                                Grid.Column="0"
                                Grid.ColumnSpan="2"
+                               FontSize="Micro"
+                               VerticalOptions="StartAndExpand"
+                               HorizontalOptions="StartAndExpand"                               
                                Padding="5,0"
                                Text="{extensions:Translate MinimumLengthThreeSymbolsMessage}"
                                TextColor="{DynamicResource ErrorTextCommon}"
@@ -75,24 +75,24 @@
                                Grid.Column="0"
                                Padding="5,0"
                                VerticalOptions="Center"
-                               Text="Description" />
+                               Text="{extensions:Translate Description}" />
 
                         <Entry Grid.Row="4"
                                Grid.Column="0"                               
                                Grid.ColumnSpan="2"
                                VerticalOptions="Center"
-                               Placeholder="Description..."
+                               Placeholder="{extensions:Translate DescriptionPlaceholder}"
                                Text="{Binding Description}"
                                TextColor="{DynamicResource TextCommon}" />
 
-                        <Button Text="Save"
-                                Grid.Row="5"
+                        <Button Grid.Row="5"
                                 Grid.Column="0"
+                                Text="{extensions:Translate Save}"                                
                                 CornerRadius="0"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="EndAndExpand"
                                 HeightRequest="40"
-                                TextColor="White"
+                                TextColor="#FAFAFA"
                                 IsEnabled="{Binding IsEnabled}"
                                 Command="{Binding CreateAchievementCommand}">
                             <VisualStateManager.VisualStateGroups>
@@ -114,9 +114,9 @@
                             </VisualStateManager.VisualStateGroups>
                         </Button>
 
-                        <Button Text="Back"
-                                Grid.Row="5"
-                                Grid.Column="1"                                
+                        <Button Grid.Row="5"
+                                Grid.Column="1"
+                                Text="{extensions:Translate Back}"                                                             
                                 TextColor="{DynamicResource TextCommon}"
                                 BackgroundColor="{DynamicResource ViewBackground}"
                                 HorizontalOptions="FillAndExpand"

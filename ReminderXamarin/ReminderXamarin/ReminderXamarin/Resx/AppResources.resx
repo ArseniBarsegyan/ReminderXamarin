@@ -141,6 +141,9 @@
   <data name="AlreadyHaveAccountQuestion" xml:space="preserve">
     <value>Already have an account?</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
   <data name="Birthday" xml:space="preserve">
     <value>Birthday:</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description:</value>
+  </data>
+  <data name="DescriptionPlaceholder" xml:space="preserve">
+    <value>Description...</value>
   </data>
   <data name="DontHaveAccountQuestion" xml:space="preserve">
     <value>Don't have an account?</value>
@@ -261,6 +267,12 @@
   <data name="NotesCount" xml:space="preserve">
     <value>Notes сount:</value>
   </data>
+  <data name="NotesPlaceholder" xml:space="preserve">
+    <value>Notes...</value>
+  </data>
+  <data name="NotesTitle" xml:space="preserve">
+    <value>Notes:</value>
+  </data>
   <data name="NoteText" xml:space="preserve">
     <value>Note text...</value>
   </data>
@@ -335,6 +347,12 @@
   </data>
   <data name="TimeSpent" xml:space="preserve">
     <value>Time spent</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title:</value>
+  </data>
+  <data name="TitlePlaceholder" xml:space="preserve">
+    <value>Title...</value>
   </data>
   <data name="ToDoPageTitle" xml:space="preserve">
     <value>To-do page</value>

@@ -133,6 +133,15 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        internal static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Birthday:.
         /// </summary>
         internal static string Birthday {
@@ -255,6 +264,15 @@ namespace ReminderXamarin.Resx {
         internal static string Description {
             get {
                 return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description....
+        /// </summary>
+        internal static string DescriptionPlaceholder {
+            get {
+                return ResourceManager.GetString("DescriptionPlaceholder", resourceCulture);
             }
         }
         
@@ -493,6 +511,24 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notes....
+        /// </summary>
+        internal static string NotesPlaceholder {
+            get {
+                return ResourceManager.GetString("NotesPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notes:.
+        /// </summary>
+        internal static string NotesTitle {
+            get {
+                return ResourceManager.GetString("NotesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Note text....
         /// </summary>
         internal static string NoteText {
@@ -714,6 +750,24 @@ namespace ReminderXamarin.Resx {
         internal static string TimeSpent {
             get {
                 return ResourceManager.GetString("TimeSpent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title:.
+        /// </summary>
+        internal static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title....
+        /// </summary>
+        internal static string TitlePlaceholder {
+            get {
+                return ResourceManager.GetString("TitlePlaceholder", resourceCulture);
             }
         }
         
