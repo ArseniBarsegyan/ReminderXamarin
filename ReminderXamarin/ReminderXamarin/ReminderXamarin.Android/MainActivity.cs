@@ -46,9 +46,10 @@ namespace ReminderXamarin.Droid
             base.OnCreate(bundle);
             Rg.Plugins.Popup.Popup.Init(this, bundle);
 
-            Forms.SetFlags("CollectionView_Experimental");
-            Forms.SetFlags("CarouselView_Experimental");
-            
+            Forms.SetFlags("CollectionView_Experimental", 
+                "CarouselView_Experimental", 
+                "IndicatorView_Experimental");
+
             Forms.Init(this, bundle);
             CrossCurrentActivity.Current.Init(this, bundle);
             Platform.Init(this);
