@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using ReminderXamarin.ViewModels.Base;
 
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
+
 using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
@@ -93,6 +95,12 @@ namespace ReminderXamarin.ViewModels
             model.GeneralTimeSpent = GeneralTimeSpent;
             model.AchievementSteps = AchievementSteps.ToList();
             App.AchievementRepository.Value.Save(model);
+            if (GeneralTimeSpent >= 10000)
+            {
+                // TODO: make custom alert (at top of screen with animation)
+                await UserDialogs.Instance.AlertAsync("Achieved");
+                model.AchievedDate = DateTime.Now;
+            }
             await NavigationService.NavigateBackAsync();
         }
 

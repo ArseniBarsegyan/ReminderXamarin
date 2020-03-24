@@ -40,12 +40,12 @@ namespace ReminderXamarin.ViewModels
         {
             MessagingCenter.Subscribe<NewAchievementViewModel>(this,
                     ConstantsHelper.AchievementCreated, (vm) => Refresh());
-            Refresh();      
+            Refresh();
         }
 
         public void OnDisappearing()
         {
-            MessagingCenter.Unsubscribe< NewAchievementViewModel>(this,
+            MessagingCenter.Unsubscribe<NewAchievementViewModel>(this,
                     ConstantsHelper.AchievementCreated);
         }
 
