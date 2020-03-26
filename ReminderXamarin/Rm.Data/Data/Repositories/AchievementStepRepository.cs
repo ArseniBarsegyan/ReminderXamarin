@@ -40,7 +40,7 @@ namespace Rm.Data.Data.Repositories
             }
         }
 
-        public int DeleteAchievement(AchievementStep achievementStep)
+        public int DeleteAchievementStep(AchievementStep achievementStep)
         {
             return _db.Delete(achievementStep);
         }

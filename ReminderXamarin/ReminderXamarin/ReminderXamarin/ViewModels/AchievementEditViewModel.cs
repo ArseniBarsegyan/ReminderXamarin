@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -23,17 +24,20 @@ namespace ReminderXamarin.ViewModels
     public class AchievementEditViewModel : BaseViewModel
     {
         private int _achievementId;
+        private List<AchievementStep> _stepsToDelete;
 
         public AchievementEditViewModel(INavigationService navigationService,
             ICommandResolver commandResolver)
             : base(navigationService)
         {
+            _stepsToDelete = new List<AchievementStep>();
             AchievementSteps = new ObservableCollection<AchievementStep>();
 
             SaveAchievementCommand = commandResolver.AsyncCommand(SaveAchievement);
             NavigateToAchievementStepEditViewCommand = commandResolver.AsyncCommand<AchievementStep>(NavigateToAchievementStepEditView);
             DeleteAchievementCommand = commandResolver.AsyncCommand(DeleteAchievement);
             AddStepCommand = commandResolver.AsyncCommand(AddStep);
+            DeleteStepCommand = commandResolver.Command<AchievementStep>(model => DeleteStep(model));
             ChangeEditEnabledCommand = commandResolver.Command(() => IsEditMode = !IsEditMode);
 
             MessagingCenter.Subscribe<AchievementStepViewModel>(this, ConstantsHelper.AchievementStepEditComplete, vm => UpdateStepsList());
@@ -59,6 +63,7 @@ namespace ReminderXamarin.ViewModels
         public IAsyncCommand<AchievementStep> NavigateToAchievementStepEditViewCommand { get; }
         public IAsyncCommand DeleteAchievementCommand { get; }
         public IAsyncCommand AddStepCommand { get; }
+        public ICommand DeleteStepCommand { get; }
         public ICommand ChangeEditEnabledCommand { get; }
         
         public override Task InitializeAsync(object navigationData)
@@ -95,6 +100,13 @@ namespace ReminderXamarin.ViewModels
             model.GeneralTimeSpent = GeneralTimeSpent;
             model.AchievementSteps = AchievementSteps.ToList();
             App.AchievementRepository.Value.Save(model);
+            if (_stepsToDelete.Any())
+            {
+                foreach(var step in _stepsToDelete)
+                {
+                    App.AchievementStepRepository.Value.DeleteAchievementStep(step);
+                }
+            }
             if (GeneralTimeSpent >= 10000)
             {
                 // TODO: make custom alert (at top of screen with animation)
@@ -132,6 +144,16 @@ namespace ReminderXamarin.ViewModels
                 {
                     AchievementId = _achievementId
                 });
+        }
+
+        private void DeleteStep(AchievementStep model)
+        {
+            AchievementSteps.Remove(model);
+            GeneralTimeSpent = AchievementSteps.Sum(x => x.TimeSpent);
+            if (!_stepsToDelete.Contains(model))
+            {
+                _stepsToDelete.Add(model);
+            }
         }
 
         private Task NavigateToAchievementStepEditView(AchievementStep model)
