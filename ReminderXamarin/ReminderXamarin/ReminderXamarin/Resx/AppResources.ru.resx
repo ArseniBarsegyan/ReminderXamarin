@@ -327,6 +327,9 @@
   <data name="StepName" xml:space="preserve">
     <value>Название этапа:</value>
   </data>
+  <data name="Steps" xml:space="preserve">
+    <value>Этапы:</value>
+  </data>
   <data name="StepTimeEstimation" xml:space="preserve">
     <value>Оценка времени до завершения:</value>
   </data>

@@ -37,7 +37,7 @@ namespace ReminderXamarin.ViewModels
             NavigateToAchievementStepEditViewCommand = commandResolver.AsyncCommand<AchievementStep>(NavigateToAchievementStepEditView);
             DeleteAchievementCommand = commandResolver.AsyncCommand(DeleteAchievement);
             AddStepCommand = commandResolver.AsyncCommand(AddStep);
-            DeleteStepCommand = commandResolver.Command<AchievementStep>(model => DeleteStep(model));
+            DeleteStepCommand = commandResolver.AsyncCommand<AchievementStep>(DeleteStep);
             ChangeEditEnabledCommand = commandResolver.Command(() => IsEditMode = !IsEditMode);
 
             MessagingCenter.Subscribe<AchievementStepViewModel>(this, ConstantsHelper.AchievementStepEditComplete, vm => UpdateStepsList());
@@ -63,7 +63,7 @@ namespace ReminderXamarin.ViewModels
         public IAsyncCommand<AchievementStep> NavigateToAchievementStepEditViewCommand { get; }
         public IAsyncCommand DeleteAchievementCommand { get; }
         public IAsyncCommand AddStepCommand { get; }
-        public ICommand DeleteStepCommand { get; }
+        public IAsyncCommand<AchievementStep> DeleteStepCommand { get; }
         public ICommand ChangeEditEnabledCommand { get; }
         
         public override Task InitializeAsync(object navigationData)
@@ -122,8 +122,8 @@ namespace ReminderXamarin.ViewModels
             {
                 bool result = await UserDialogs.Instance.ConfirmAsync(
                     ConstantsHelper.AchievementDeleteMessage,
-                    ConstantsHelper.Warning, 
-                    ConstantsHelper.Ok, 
+                    ConstantsHelper.Warning,
+                    ConstantsHelper.Ok,
                     ConstantsHelper.Cancel);
 
                 if (result)
@@ -146,14 +146,23 @@ namespace ReminderXamarin.ViewModels
                 });
         }
 
-        private void DeleteStep(AchievementStep model)
+        private async Task DeleteStep(AchievementStep model)
         {
-            AchievementSteps.Remove(model);
-            GeneralTimeSpent = AchievementSteps.Sum(x => x.TimeSpent);
-            if (!_stepsToDelete.Contains(model))
+            bool result = await UserDialogs.Instance.ConfirmAsync(
+                    ConstantsHelper.AchievementStepDeleteMessage,
+                    ConstantsHelper.Warning,
+                    ConstantsHelper.Ok,
+                    ConstantsHelper.Cancel);
+
+            if (result)
             {
-                _stepsToDelete.Add(model);
-            }
+                AchievementSteps.Remove(model);
+                GeneralTimeSpent = AchievementSteps.Sum(x => x.TimeSpent);
+                if (!_stepsToDelete.Contains(model))
+                {
+                    _stepsToDelete.Add(model);
+                }
+            }            
         }
 
         private Task NavigateToAchievementStepEditView(AchievementStep model)
