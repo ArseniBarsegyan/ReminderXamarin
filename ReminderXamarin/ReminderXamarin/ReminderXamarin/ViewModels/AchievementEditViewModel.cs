@@ -40,7 +40,9 @@ namespace ReminderXamarin.ViewModels
             DeleteStepCommand = commandResolver.AsyncCommand<AchievementStep>(DeleteStep);
             ChangeEditEnabledCommand = commandResolver.Command(() => IsEditMode = !IsEditMode);
 
-            MessagingCenter.Subscribe<AchievementStepViewModel>(this, ConstantsHelper.AchievementStepEditComplete, vm => UpdateStepsList());
+            MessagingCenter.Subscribe<AchievementStepViewModel, AchievementStep>(this, 
+                ConstantsHelper.AchievementStepEditComplete,
+                (vm, args) => UpdateStepsList(args));
         }
 
         public void OnDisappearing()
@@ -85,11 +87,11 @@ namespace ReminderXamarin.ViewModels
             return base.InitializeAsync(navigationData);
         }
 
-        private void UpdateStepsList()
+        private void UpdateStepsList(AchievementStep model)
         {
-            var model = App.AchievementRepository.Value.GetAchievementAsync(_achievementId);
-            AchievementSteps = model.AchievementSteps.ToObservableCollection();
+            AchievementSteps.Add(model);
             GeneralTimeSpent = AchievementSteps.Sum(x => x.TimeSpent);
+            IsEditMode = true;
         }
 
         private async Task SaveAchievement()
@@ -131,6 +133,11 @@ namespace ReminderXamarin.ViewModels
                     var achievementToDelete = App.AchievementRepository.Value
                         .GetAchievementAsync(_achievementId);
 
+                    foreach (var step in AchievementSteps)
+                    {
+                        App.AchievementStepRepository.Value.DeleteAchievementStep(step);
+                    }
+
                     App.AchievementRepository.Value.DeleteAchievement(achievementToDelete);
                     await NavigationService.NavigateBackAsync();
                 }
@@ -162,7 +169,8 @@ namespace ReminderXamarin.ViewModels
                 {
                     _stepsToDelete.Add(model);
                 }
-            }            
+                IsEditMode = true;
+            }
         }
 
         private Task NavigateToAchievementStepEditView(AchievementStep model)
