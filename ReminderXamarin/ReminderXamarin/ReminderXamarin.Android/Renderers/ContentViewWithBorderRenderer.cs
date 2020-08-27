@@ -31,14 +31,16 @@ namespace ReminderXamarin.Droid.Renderers
             if (e.NewElement != null)
             {
                 var element = e.NewElement as ContentViewWithBorder;
-                _borderShape = new ShapeDrawable(new Android.Graphics.Drawables.Shapes.RoundRectShape(new[] { (float)element.CornerRadius,
-                                                                                                                    (float)element.CornerRadius,
-                                                                                                                    (float)element.CornerRadius,
-                                                                                                                    (float)element.CornerRadius,
-                                                                                                                    (float)element.CornerRadius,
-                                                                                                                    (float)element.CornerRadius,
-                                                                                                                    (float)element.CornerRadius,
-                                                                                                                    (float)element.CornerRadius }, null, null));
+                _borderShape = new ShapeDrawable(
+                    new Android.Graphics.Drawables.Shapes.RoundRectShape(new[] { (float)element.CornerRadius,
+                        (float)element.CornerRadius,
+                        (float)element.CornerRadius,
+                        (float)element.CornerRadius,
+                        (float)element.CornerRadius,
+                        (float)element.CornerRadius,
+                        (float)element.CornerRadius,
+                        (float)element.CornerRadius }, null, null));
+
                 var paint = new Paint(PaintFlags.AntiAlias)
                 {
                     Color = element.BorderColor.ToAndroid(),

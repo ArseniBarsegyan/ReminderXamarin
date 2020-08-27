@@ -23,15 +23,18 @@ namespace ReminderXamarin.Services
                 var formatter = new BinaryFormatter();
                 formatter.Serialize(stream, notes);
 
-                var content = new StreamContent(stream);
-
-                var result = await _httpClient
+                using (var content = new StreamContent(stream))
+                {
+                    var result = await _httpClient
                     .PostAsync(ConstantsHelper.NotesUploadUrl, content, cancellationToken)
                     .ConfigureAwait(false);
-                if (result.IsSuccessStatusCode)
-                {
-                    return HttpResult.Ok;
+
+                    if (result.IsSuccessStatusCode)
+                    {
+                        return HttpResult.Ok;
+                    }
                 }
+
                 return HttpResult.Error;
             }
         }

@@ -4,8 +4,6 @@ using ReminderXamarin.Droid.Renderers;
 using ReminderXamarin.ViewModels;
 using ReminderXamarin.Views;
 
-using Rm.Helpers;
-
 using System.Linq;
 using System.Threading.Tasks;
 

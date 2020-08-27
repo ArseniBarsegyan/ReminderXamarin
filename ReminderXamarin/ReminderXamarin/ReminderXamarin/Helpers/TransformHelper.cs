@@ -39,47 +39,52 @@ namespace ReminderXamarin.Helpers
             string thumb = folder + "T" + Path.GetFileName(filePath);
 
             IFile vf = await FileSystem.Current.GetFileFromPathAsync(filePath);
-            Stream stream2 = await vf.OpenAsync(PCLStorage.FileAccess.Read);
-            JpegInfo exif = ExifReader.ReadJpeg(stream2);
 
-            int width = 0;
-            int height = 0;
-            int thumbWidth = 0;
-            int thumbHigh = 0;
-
-            if (exif.Width > 0)
+            using (Stream stream = await vf.OpenAsync(PCLStorage.FileAccess.Read))
             {
-                width = exif.Width;
-                height = exif.Height;
-                if (width > height)
+                JpegInfo exif = ExifReader.ReadJpeg(stream);
+
+                int width = 0;
+                int height = 0;
+                int thumbWidth = 0;
+                int thumbHigh = 0;
+
+                if (exif.Width > 0)
                 {
-                    var temp = width;
-                    width = height;
-                    height = temp;
+                    width = exif.Width;
+                    height = exif.Height;
+                    if (width > height)
+                    {
+                        var temp = width;
+                        width = height;
+                        height = temp;
 
-                    _landscape = true;
+                        _landscape = true;
+                    }
                 }
-            }
-            else
-            {
-                width = 1000;
-                height = 2000;
-            }
-            if (exif.Width / 7 < 100)
-            {
-                thumbWidth = 70;
-                thumbHigh = 100;
-            }
-            else
-            {
-                thumbWidth = width / 7;
-                thumbHigh = height / 13;
-            }
-            _imageService.ResizeImage(filePath, img, width, height);
-            _imageService.ResizeImage(filePath, thumb, thumbWidth, thumbHigh);
+                else
+                {
+                    width = 1000;
+                    height = 2000;
+                }
+                if (exif.Width / 7 < 100)
+                {
+                    thumbWidth = 70;
+                    thumbHigh = 100;
+                }
+                else
+                {
+                    thumbWidth = width / 7;
+                    thumbHigh = height / 13;
+                }
 
-            str[0] = img;
-            str[1] = thumb;
+                _imageService.ResizeImage(filePath, img, width, height);
+                _imageService.ResizeImage(filePath, thumb, thumbWidth, thumbHigh);
+
+                str[0] = img;
+                str[1] = thumb;
+            }
+            
             return str;
         }
     }

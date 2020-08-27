@@ -27,12 +27,17 @@ namespace ReminderXamarin.iOS.Renderers
                 UIColor color = element.PlaceholderColor.ToUIColor();
                 if (element.Title != null)
                 {
-                    var placeholderAttributes = new NSAttributedString(element.Title, new UIStringAttributes { ForegroundColor = color });
+                    var placeholderAttributes = new NSAttributedString(
+                        element.Title,
+                        new UIStringAttributes { ForegroundColor = color });
+
                     Control.AttributedPlaceholder = placeholderAttributes;
                 }
 
-                var image = new UIImageView(arrow);
-                image.ContentMode = UIViewContentMode.Center;
+                var image = new UIImageView(arrow)
+                {
+                    ContentMode = UIViewContentMode.Center
+                };
                 Control.RightView = image;
                 Control.RightView.Frame = new CoreGraphics.CGRect(0, 0, 50, Bounds.Height);
 

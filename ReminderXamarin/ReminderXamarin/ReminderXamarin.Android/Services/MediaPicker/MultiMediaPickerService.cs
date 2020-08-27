@@ -20,14 +20,14 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
 {
     public class MultiMediaPickerService : IMultiMediaPickerService
     {
+        private const int MultiPickerResultCode = 9793;
+        private const string TemporalDirectoryName = "TmpMedia";
+        private TaskCompletionSource<IList<MediaFile>> mediaPickedTcs;
+
         public static MultiMediaPickerService SharedInstance = new MultiMediaPickerService();
-        int MultiPickerResultCode = 9793;
-        const string TemporalDirectoryName = "TmpMedia";
-        
+                
         public event EventHandler<MediaFile> OnMediaPicked;
         public event EventHandler<IList<MediaFile>> OnMediaPickedCompleted;
-
-        TaskCompletionSource<IList<MediaFile>> mediaPickedTcs;
 
         public void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
@@ -72,7 +72,7 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
             }
         }
 
-        MediaFile CreateMediaFileFromUri(Android.Net.Uri uri)
+        private MediaFile CreateMediaFileFromUri(Android.Net.Uri uri)
         {
             MediaFile mediaFile = null;
             var type = CrossCurrentActivity.Current.Activity.ContentResolver.GetType(uri);
@@ -86,33 +86,51 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
                 var ext = System.IO.Path.GetExtension(path) ?? string.Empty;
                 MediaFileType mediaFileType = MediaFileType.Image;
 
-                if (type.StartsWith(Enum.GetName(typeof(MediaFileType), MediaFileType.Image), StringComparison.CurrentCultureIgnoreCase))
+                if (type.StartsWith(Enum.GetName(typeof(MediaFileType), MediaFileType.Image), 
+                    StringComparison.CurrentCultureIgnoreCase))
                 {
                     var fullImage = ImageHelpers.RotateImage(path, 1);
                     var thumbImage = ImageHelpers.RotateImage(path, 0.25f);
 
+                    fullPath = ReminderXamarin.Services.MediaPicker.FileHelper.GetOutputPath(
+                        MediaFileType.Image,
+                        TemporalDirectoryName,
+                        $"{fileName}{ext}");
 
-                    fullPath = ReminderXamarin.Services.MediaPicker.FileHelper.GetOutputPath(MediaFileType.Image, TemporalDirectoryName, $"{fileName}{ext}");
                     File.WriteAllBytes(fullPath, fullImage);
 
-                    thumbnailImagePath = ReminderXamarin.Services.MediaPicker.FileHelper.GetOutputPath(MediaFileType.Image, TemporalDirectoryName, $"{fileName}-THUMBNAIL{ext}");
+                    thumbnailImagePath = ReminderXamarin.Services.MediaPicker.FileHelper.GetOutputPath(
+                        MediaFileType.Image,
+                        TemporalDirectoryName,
+                        $"{fileName}-THUMBNAIL{ext}");
+
                     File.WriteAllBytes(thumbnailImagePath, thumbImage);
 
                 }
-                else if (type.StartsWith(Enum.GetName(typeof(MediaFileType), MediaFileType.Video), StringComparison.CurrentCultureIgnoreCase))
+                else if (type.StartsWith(
+                    Enum.GetName(typeof(MediaFileType), MediaFileType.Video),
+                    StringComparison.CurrentCultureIgnoreCase))
                 {
                     fullPath = path;
-                    var bitmap = ThumbnailUtils.CreateVideoThumbnail(path, ThumbnailKind.MiniKind);
 
-                    thumbnailImagePath = ReminderXamarin.Services.MediaPicker.FileHelper.GetOutputPath(MediaFileType.Image, TemporalDirectoryName, $"{fileName}-THUMBNAIL{ext}");
-                    var stream = new FileStream(thumbnailImagePath, FileMode.Create);
-                    bitmap?.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
-                    stream.Close();
+                    using (var bitmap = ThumbnailUtils.CreateVideoThumbnail(path, ThumbnailKind.MiniKind))
+                    {
+                        thumbnailImagePath = ReminderXamarin.Services.MediaPicker.FileHelper.GetOutputPath(
+                        MediaFileType.Image,
+                        TemporalDirectoryName,
+                        $"{fileName}-THUMBNAIL{ext}");
+
+                        using (var stream = new FileStream(thumbnailImagePath, FileMode.Create))
+                        {
+                            bitmap?.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
+                        }
+                    }
 
                     mediaFileType = MediaFileType.Video;
                 }
 
-                if (!string.IsNullOrEmpty(fullPath) && !string.IsNullOrEmpty(thumbnailImagePath))
+                if (!string.IsNullOrEmpty(fullPath) 
+                    && !string.IsNullOrEmpty(thumbnailImagePath))
                 {
                     mediaFile = new MediaFile()
                     {
@@ -121,7 +139,6 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
                         PreviewPath = thumbnailImagePath
                     };
                 }
-
             }
 
             return mediaFile;
@@ -134,7 +151,8 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
             {
 
                 string mediaPath = string.Empty;
-                cursor = CrossCurrentActivity.Current.Activity.ContentResolver.Query(contentURI, null, null, null, null);
+                cursor = CrossCurrentActivity.Current.Activity.ContentResolver
+                    .Query(contentURI, null, null, null, null);
                 cursor.MoveToFirst();
                 int idx = cursor.GetColumnIndex(MediaStore.MediaColumns.Data);
 
@@ -173,11 +191,15 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
                     }
 
                     projections = new string[] { dataConst };
-                    cursor = CrossCurrentActivity.Current.Activity.ContentResolver.Query(internalUri, projections, whereSelect, new string[] { id }, null);
+                    cursor = CrossCurrentActivity.Current.Activity.ContentResolver
+                        .Query(internalUri, projections, whereSelect, new string[] { id }, null);
+
                     if (cursor.Count == 0)
                     {
-                        cursor = CrossCurrentActivity.Current.Activity.ContentResolver.Query(externalUri, projections, whereSelect, new string[] { id }, null);
+                        cursor = CrossCurrentActivity.Current.Activity.ContentResolver
+                            .Query(externalUri, projections, whereSelect, new string[] { id }, null);
                     }
+
                     var colDatax = cursor.GetColumnIndexOrThrow(dataConst);
                     cursor.MoveToFirst();
 
@@ -205,7 +227,9 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
 
         public void Clean()
         {
-            var documentsDirectory = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), TemporalDirectoryName);
+            var documentsDirectory = System.IO.Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                TemporalDirectoryName);
 
             if (Directory.Exists(documentsDirectory))
             {
@@ -230,7 +254,8 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
             var imageIntent = new Intent(Intent.ActionPick);
             imageIntent.SetType(type);
             imageIntent.PutExtra(Intent.ExtraAllowMultiple, true);
-            CrossCurrentActivity.Current.Activity.StartActivityForResult(Intent.CreateChooser(imageIntent, title), resultCode);
+            CrossCurrentActivity.Current.Activity.StartActivityForResult(
+                Intent.CreateChooser(imageIntent, title), resultCode);
 
             return await mediaPickedTcs.Task;
         }

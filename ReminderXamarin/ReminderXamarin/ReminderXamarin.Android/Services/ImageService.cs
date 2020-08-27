@@ -12,23 +12,24 @@ namespace ReminderXamarin.Droid.Services
         {
             if (!File.Exists(targetFile) && File.Exists(sourceFile))
             {
-                var downImg = DecodeSampledBitmapFromFile(sourceFile, requiredWidth, requiredHeight);
-                using (var outStream = File.Create(targetFile))
+                using (Bitmap bitmap = DecodeSampledBitmapFromFile(sourceFile, requiredWidth, requiredHeight))
+                using (FileStream stream = File.Create(targetFile))
                 {
                     if (targetFile.ToLower().EndsWith("png"))
                     {
-                        downImg.Compress(Bitmap.CompressFormat.Png, 100, outStream);
+                        bitmap?.Compress(Bitmap.CompressFormat.Png, 100, stream);
                     }
                     else
                     {
-                        downImg.Compress(Bitmap.CompressFormat.Jpeg, 95, outStream);
+                        bitmap?.Compress(Bitmap.CompressFormat.Jpeg, 95, stream);
                     }
+
+                    bitmap?.Recycle();
                 }
-                downImg.Recycle();
             }
         }
 
-        private static Bitmap DecodeSampledBitmapFromFile(string path, int requiredWidth, int requiredHeight)
+        private Bitmap DecodeSampledBitmapFromFile(string path, int requiredWidth, int requiredHeight)
         {
             var options = new BitmapFactory.Options { InJustDecodeBounds = true };
             BitmapFactory.DecodeFile(path, options);
@@ -38,7 +39,7 @@ namespace ReminderXamarin.Droid.Services
             return BitmapFactory.DecodeFile(path, options);
         }
 
-        private static int CalculateInSampleSize(BitmapFactory.Options options, int requiredWidth, int requiredHeight)
+        private int CalculateInSampleSize(BitmapFactory.Options options, int requiredWidth, int requiredHeight)
         {
             var height = options.OutHeight;
             var width = options.OutWidth;

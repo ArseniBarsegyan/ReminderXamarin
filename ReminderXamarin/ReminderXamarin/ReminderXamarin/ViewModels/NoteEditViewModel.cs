@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -28,13 +30,13 @@ namespace ReminderXamarin.ViewModels
         private readonly IFileSystem _fileService;
         private readonly IMediaService _mediaService;
         private readonly IVideoService _videoService;
-        private readonly ICommandResolver _commandResolver;
 
         private readonly MediaHelper _mediaHelper;
         private readonly TransformHelper _transformHelper;
 
         private int _noteId;
         private Note _note;
+        private bool _subscribed;
 
         public NoteEditViewModel(INavigationService navigationService,
             IPermissionService permissionService,
@@ -50,7 +52,6 @@ namespace ReminderXamarin.ViewModels
             _fileService = fileService;
             _mediaService = mediaService;
             _videoService = videoService;
-            _commandResolver = commandResolver;
 
             _mediaHelper = mediaHelper;
             _transformHelper = transformHelper;
@@ -82,10 +83,7 @@ namespace ReminderXamarin.ViewModels
         public string Description { get; set; }
         public bool ShouldPromptUser { get; set; }
 
-        public bool IsGalleryVisible
-        {
-            get => GalleryItemModels.Count > 0;
-        }
+        public bool IsGalleryVisible => GalleryItemModels.Count > 0;
 
         public RangeObservableCollection<GalleryItemModel> GalleryItemModels { get; set; }
 
@@ -111,7 +109,7 @@ namespace ReminderXamarin.ViewModels
 
         public override Task InitializeAsync(object navigationData)
         {
-            _noteId = (int) navigationData;
+            _noteId = (int)navigationData;
 
             if (_noteId == 0)
             {
@@ -132,24 +130,105 @@ namespace ReminderXamarin.ViewModels
 
         public void OnAppearing()
         {
+            Subscribe();
+        }
+
+        private void Subscribe()
+        {
+            if (_subscribed)
+                return;
+
             MessagingCenter.Subscribe<GalleryItemViewModel, int>(this,
                 ConstantsHelper.ImageDeleted, (vm, id) => DeletePhoto(id));
             IsToolbarItemVisible = false;
             GalleryItemModels.CollectionChanged += GalleryItemsViewModels_CollectionChanged;
+            App.MultiMediaPickerService.OnMediaPickedCompleted += MultiMediaPickerServiceOnMediaPickedCompleted;
+            _subscribed = true;
         }
 
-        public void OnDisappearing()
+        private void Unsubscribe()
         {
             MessagingCenter.Unsubscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted);
             MessagingCenter.Send(this, ConstantsHelper.NoteEditPageDisappeared);
             GalleryItemModels.CollectionChanged -= GalleryItemsViewModels_CollectionChanged;
+            _subscribed = false;
+        }
+
+        public void OnDisappearing()
+        {
+            Unsubscribe();
+        }
+
+        private void MultiMediaPickerServiceOnMediaPickedCompleted(object sender, IList<Services.MediaPicker.MediaFile> e)
+        {
+            Task.Run(() =>
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    IsLoading = true;
+                });
+
+                Parallel.ForEach(e, async(item) =>
+                {
+                    var model = await GetGalleryItemModelFromMediaFile(item).ConfigureAwait(false);
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        GalleryItemModels.Add(model);
+                    });
+                });
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    IsLoading = false;
+                });
+
+                App.MultiMediaPickerService.OnMediaPickedCompleted -= MultiMediaPickerServiceOnMediaPickedCompleted;
+            });
+        }
+
+        private async Task<GalleryItemModel> GetGalleryItemModelFromMediaFile(Services.MediaPicker.MediaFile mediaFile)
+        {
+            var model = new GalleryItemModel
+            {
+                NoteId = _noteId
+            };
+
+            byte[] imageContent = _fileService.ReadAllBytes(mediaFile.Path);
+
+            var imageName = Path.GetFileName(mediaFile.Path);
+
+            byte[] resizedImage = _mediaService.ResizeImage(imageContent,
+                ConstantsHelper.ResizedImageWidth,
+                ConstantsHelper.ResizedImageHeight);
+
+            string imagePath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.Personal), 
+                imageName);
+
+            try
+            {
+                File.WriteAllBytes(imagePath, resizedImage);
+            }
+            catch(Exception ex)
+            {
+                await UserDialogs.Instance.AlertAsync(ex.Message);
+            }
+            
+            model.ImagePath = imagePath;
+            model.Thumbnail = imagePath;
+
+            await _transformHelper.ResizeAsync(imagePath, model).ConfigureAwait(false);
+
+            return model;
         }
 
         public Task<bool> AskAboutLeave()
         {
-            return UserDialogs.Instance.ConfirmAsync(ConstantsHelper.PageCloseMessage,
+            return UserDialogs.Instance.ConfirmAsync(
+                ConstantsHelper.PageCloseMessage,
                 ConstantsHelper.Warning,
-                ConstantsHelper.Ok, ConstantsHelper.Cancel);
+                ConstantsHelper.Ok, 
+                ConstantsHelper.Cancel);
         }
 
         private void GalleryItemsViewModels_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -160,42 +239,10 @@ namespace ReminderXamarin.ViewModels
 
         private async Task PickMultipleMedia()
         {
-            var multipleMediaPickerService = App.MultiMediaPickerService;
-            multipleMediaPickerService.OnMediaPicked += (sender, file) =>
-            {
-                Task.Run(async() => 
-                {
-                    var model = new GalleryItemModel
-                    {
-                        NoteId = _noteId
-                    };
-                    var imageContent = _fileService.ReadAllBytes(file.Path);
-                    var imageName = Path.GetFileName(file.Path);
-
-                    var resizedImage = _mediaService.ResizeImage(imageContent, 
-                        ConstantsHelper.ResizedImageWidth,
-                        ConstantsHelper.ResizedImageHeight);
-
-                    string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                    string imagePath = Path.Combine(path, imageName);
-
-                    File.WriteAllBytes(imagePath, resizedImage);
-                    model.ImagePath = imagePath;
-                    model.Thumbnail = imagePath;
-
-                    await _transformHelper.ResizeAsync(imagePath, model);
-
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        GalleryItemModels.Add(model);
-                    });
-                });               
-            };
-
             var hasPermission = await CheckPermissionsAsync();
             if (hasPermission)
             {
-                await multipleMediaPickerService.PickPhotosAsync();
+                await App.MultiMediaPickerService.PickPhotosAsync();
             }
         }
 
@@ -239,7 +286,7 @@ namespace ReminderXamarin.ViewModels
                     var model = await _mediaHelper.TakePhotoAsync();
                     if (model != null)
                     {
-                        GalleryItemModels.Add(model);                        
+                        GalleryItemModels.Add(model);
                     }
                 }
                 catch (Exception ex)
@@ -257,44 +304,45 @@ namespace ReminderXamarin.ViewModels
             if (permissionResult)
             {
                 IsLoading = true;
-                var model = await _mediaHelper.TakeVideoAsync();
+                var model = await _mediaHelper.TakeVideoAsync().ConfigureAwait(false);
+
                 if (model != null)
                 {
-                    await Task.Run(async () =>
+                    model.NoteId = _noteId;
+                    model.IsVideo = true;
+
+                    var videoName =
+                        model.VideoPath.Substring(
+                            model.VideoPath.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
+                    var imageName = videoName.Substring(0, videoName.Length - 4) + "_thumb.jpg";
+
+                    byte[] imageContent =
+                        _mediaService.GenerateThumbImage(model.VideoPath,
+                            ConstantsHelper.ThumbnailTimeFrame);
+
+                    byte[] resizedImage = _mediaService.ResizeImage(imageContent,
+                        ConstantsHelper.ResizedImageWidth,
+                        ConstantsHelper.ResizedImageHeight);
+
+                    string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                    string imagePath = Path.Combine(path, imageName);
+
+                    File.WriteAllBytes(imagePath, resizedImage);
+                    model.ImagePath = imagePath;
+                    model.Thumbnail = imagePath;
+
+                    await _transformHelper.ResizeAsync(imagePath, model).ConfigureAwait(false);
+
+                    Device.BeginInvokeOnMainThread(() =>
                     {
-                        model.NoteId = _noteId;
-                        model.IsVideo = true;
-
-                        var videoName =
-                            model.VideoPath.Substring(
-                                model.VideoPath.LastIndexOf(@"/", StringComparison.InvariantCulture) + 1);
-                        var imageName = videoName.Substring(0, videoName.Length - 4) + "_thumb.jpg";
-
-                        var imageContent =
-                            _mediaService.GenerateThumbImage(model.VideoPath,
-                                ConstantsHelper.ThumbnailTimeFrame);
-
-                        var resizedImage = _mediaService.ResizeImage(imageContent,
-                            ConstantsHelper.ResizedImageWidth,
-                            ConstantsHelper.ResizedImageHeight);
-
-                        string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                        string imagePath = Path.Combine(path, imageName);
-
-                        File.WriteAllBytes(imagePath, resizedImage);
-                        model.ImagePath = imagePath;
-                        model.Thumbnail = imagePath;
-
-                        await _transformHelper.ResizeAsync(imagePath, model);
-
-                        Device.BeginInvokeOnMainThread(() =>
-                        {
-                            GalleryItemModels.Add(model);
-                        });
+                        GalleryItemModels.Add(model);
                     });
                 }
             }
-            IsLoading = false;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                IsLoading = false;
+            });
         }
 
         private async Task SaveNote(string text)
@@ -305,17 +353,20 @@ namespace ReminderXamarin.ViewModels
             IsLoading = true;
             if (_noteId == 0)
             {
-                var note = new Note
-                {
-                    CreationDate = DateTime.Now,
-                    EditDate = DateTime.Now,
-                    Description = Description,
-                    GalleryItems = GalleryItemModels.ToList(),
-                    UserId = Settings.CurrentUserId
-                };
-                App.NoteRepository.Value.Save(note);
-                MessagingCenter.Send(this, ConstantsHelper.NoteCreated);
                 await NavigationService.NavigateBackAsync();
+                Task.Run(() =>
+                {
+                    var note = new Note
+                    {
+                        CreationDate = DateTime.Now,
+                        EditDate = DateTime.Now,
+                        Description = Description,
+                        GalleryItems = GalleryItemModels.ToList(),
+                        UserId = Settings.CurrentUserId
+                    };
+                    App.NoteRepository.Value.Save(note);
+                    MessagingCenter.Send(this, ConstantsHelper.NoteCreated);
+                });
             }
             else
             {
@@ -335,14 +386,21 @@ namespace ReminderXamarin.ViewModels
         {
             if (_noteId != 0)
             {
-                bool result = await UserDialogs.Instance.ConfirmAsync(ConstantsHelper.NoteDeleteMessage,
-                    ConstantsHelper.Warning, ConstantsHelper.Ok, ConstantsHelper.Cancel);
+                bool result = await UserDialogs.Instance.ConfirmAsync(
+                    ConstantsHelper.NoteDeleteMessage,
+                    ConstantsHelper.Warning, 
+                    ConstantsHelper.Ok, 
+                    ConstantsHelper.Cancel);
+
                 if (result)
                 {
-                    var noteToDelete = App.NoteRepository.Value.GetNoteAsync(_noteId);
-                    App.NoteRepository.Value.DeleteNote(noteToDelete);
-                    MessagingCenter.Send(this, ConstantsHelper.NoteDeleted, _noteId);
                     await NavigationService.NavigateBackAsync();
+                    Task.Run(() =>
+                    {
+                        var noteToDelete = App.NoteRepository.Value.GetNoteAsync(_noteId);
+                        App.NoteRepository.Value.DeleteNote(noteToDelete);
+                        MessagingCenter.Send(this, ConstantsHelper.NoteDeleted, _noteId);
+                    });
                 }
             }
         }

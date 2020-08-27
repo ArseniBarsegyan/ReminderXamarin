@@ -14,55 +14,57 @@ namespace ReminderXamarin.Droid.Services
         public byte[] ResizeImage(byte[] imageData, float width, float height)
         {
             // Load the bitmap 
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.InPurgeable = true;
-            Bitmap originalImage = BitmapFactory.DecodeByteArray(imageData, 0, imageData.Length, options);
-
-            float newHeight = 0;
-            float newWidth = 0;
-
-            var originalHeight = originalImage.Height;
-            var originalWidth = originalImage.Width;
-
-            if (originalHeight > originalWidth)
+            using (BitmapFactory.Options options = new BitmapFactory.Options { InPurgeable = true })
+            using (Bitmap originalImage = BitmapFactory.DecodeByteArray(imageData, 0, imageData.Length, options))
             {
-                newHeight = height;
-                float ratio = originalHeight / height;
-                newWidth = originalWidth / ratio;
-            }
-            else
-            {
-                newWidth = width;
-                float ratio = originalWidth / width;
-                newHeight = originalHeight / ratio;
-            }
+                float newHeight = 0;
+                float newWidth = 0;
 
-            Bitmap resizedImage = Bitmap.CreateScaledBitmap(originalImage, (int)newWidth, (int)newHeight, true);
-            originalImage.Recycle();
+                var originalHeight = originalImage.Height;
+                var originalWidth = originalImage.Width;
 
-            using (MemoryStream ms = new MemoryStream())
-            {
-                resizedImage.Compress(Bitmap.CompressFormat.Png, 100, ms);
-                resizedImage.Recycle();
-                return ms.ToArray();
+                if (originalHeight > originalWidth)
+                {
+                    newHeight = height;
+                    float ratio = originalHeight / height;
+                    newWidth = originalWidth / ratio;
+                }
+                else
+                {
+                    newWidth = width;
+                    float ratio = originalWidth / width;
+                    newHeight = originalHeight / ratio;
+                }
+
+                using (Bitmap resizedImage = Bitmap.CreateScaledBitmap(originalImage, (int)newWidth, (int)newHeight, true))
+                {
+                    originalImage.Recycle();
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        resizedImage.Compress(Bitmap.CompressFormat.Png, 100, ms);
+                        resizedImage.Recycle();
+                        return ms.ToArray();
+                    }
+                }
             }
         }
 
         public byte[] GenerateThumbImage(string url, long second)
         {
-            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            using (MediaMetadataRetriever retriever = new MediaMetadataRetriever())
             using (FileInputStream inputStream = new FileInputStream(url))
+            using (Bitmap bitmap = retriever.GetFrameAtTime(second))
             {
                 retriever.SetDataSource(inputStream.FD);
-            }
-            
-            Bitmap bitmap = retriever.GetFrameAtTime(second);
-            if (bitmap != null)
-            {
-                MemoryStream stream = new MemoryStream();
-                bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
-                byte[] bitmapData = stream.ToArray();
-                return bitmapData;
+
+                if (bitmap != null)
+                {
+                    MemoryStream stream = new MemoryStream();
+                    bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
+                    byte[] bitmapData = stream.ToArray();
+                    return bitmapData;
+                }
             }
             return null;
         }

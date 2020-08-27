@@ -82,7 +82,9 @@ namespace ReminderXamarin.ViewModels
         private async void ChangeUserProfile(PlatformDocument document)
         {
             // Ensure that user downloads .png or .jpg file as profile icon.
-            if (document.Name.EndsWith(".png") || document.Name.EndsWith(".jpg") || document.Name.EndsWith(".jpeg"))
+            if (document.Name.EndsWith(".png") 
+                || document.Name.EndsWith(".jpg") 
+                || document.Name.EndsWith(".jpeg"))
             {
                 try
                 {

@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Threading.Tasks;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
@@ -85,18 +85,18 @@ namespace ReminderXamarin
         {
         }
 
-        private void InitNavigation(bool shouldUsePin)
+        private async Task InitNavigation(bool shouldUsePin)
         {
             _themeSwitchService.InitializeTheme();
             _themeService.SetStatusBarColor((Color)Current.Resources["StatusBar"]);
 
             if (shouldUsePin)
             {
-                _navigationService.ToRootAsync<PinViewModel>();
+                await _navigationService.ToRootAsync<PinViewModel>();
             }
             else
             {
-                _navigationService.ToRootAsync<LoginViewModel>();
+                await _navigationService.ToRootAsync<LoginViewModel>();
             }
         }
     }

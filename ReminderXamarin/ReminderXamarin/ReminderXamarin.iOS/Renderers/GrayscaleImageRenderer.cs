@@ -28,12 +28,14 @@ namespace ReminderXamarin.iOS.Renderers
         private UIImage ConvertToGrayScale(UIImage image)
         {
             CGRect imageRect = new CGRect(0, 0, image.Size.Width, image.Size.Height);
+
             using (var colorSpace = CGColorSpace.CreateDeviceGray())
             using (var context = new CGBitmapContext(IntPtr.Zero, 
                 (int)image.Size.Width, 
                 (int)image.Size.Height, 8, 0, colorSpace, CGImageAlphaInfo.None))
             {
                 context.DrawImage(imageRect, image.CGImage);
+
                 using (var imageRef = context.ToImage())
                     return new UIImage(imageRef);
             }

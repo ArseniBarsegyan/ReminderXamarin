@@ -66,7 +66,8 @@ namespace ReminderXamarin.Droid.Renderers
             }
             _isDisposed = true;
             BitmapDrawable bitmapDrawable;
-            if (disposing && Control != null && (bitmapDrawable = (Control.Drawable as BitmapDrawable)) != null)
+            if (disposing && Control != null 
+                && (bitmapDrawable = (Control.Drawable as BitmapDrawable)) != null)
             {
                 var bitmap = bitmapDrawable.Bitmap;
                 if (bitmap != null)

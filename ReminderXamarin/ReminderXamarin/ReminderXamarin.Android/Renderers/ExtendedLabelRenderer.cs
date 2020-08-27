@@ -49,7 +49,10 @@ namespace ReminderXamarin.Droid.Renderers
             {
                 if (e.PropertyName == ExtendedLabel.IsUnderlinedProperty.PropertyName)
                 {
-                    Control.PaintFlags = view.IsUnderlined ? Control.PaintFlags | PaintFlags.UnderlineText : Control.PaintFlags &= ~PaintFlags.UnderlineText;
+                    Control.PaintFlags = view.IsUnderlined 
+                        ? Control.PaintFlags 
+                        | PaintFlags.UnderlineText 
+                        : Control.PaintFlags &= ~PaintFlags.UnderlineText;
                 }
             }
         }
@@ -63,7 +66,7 @@ namespace ReminderXamarin.Droid.Renderers
 
             if (view.IsUnderlined)
             {
-                control.PaintFlags = control.PaintFlags | PaintFlags.UnderlineText;
+                control.PaintFlags |= PaintFlags.UnderlineText;
             }
         }
     }

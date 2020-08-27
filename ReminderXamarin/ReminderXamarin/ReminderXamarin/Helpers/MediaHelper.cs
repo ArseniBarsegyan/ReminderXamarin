@@ -34,7 +34,7 @@ namespace Rm.Helpers
             var dt = DateTime.Now;
             var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
             {
-                PhotoSize = PhotoSize.Medium,
+                PhotoSize = PhotoSize.Full,
                 Directory = "Photos",
                 Name = $"{dt:yyyyMMdd}_{dt:HHmmss}.jpg",
                 SaveToAlbum = true

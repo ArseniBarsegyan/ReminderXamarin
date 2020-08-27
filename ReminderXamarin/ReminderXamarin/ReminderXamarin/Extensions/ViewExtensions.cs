@@ -6,8 +6,12 @@ namespace ReminderXamarin.Extensions
 {
     public static class ViewExtensions
     {
-        public static Task<bool> ColorTo(this VisualElement element, Color fromColor, Color toColor, Action<Color> callback,
-            uint length = 250, Easing easing = null)
+        public static Task<bool> ColorTo(this VisualElement element, 
+            Color fromColor,
+            Color toColor,
+            Action<Color> callback,
+            uint length = 250,
+            Easing easing = null)
         {
             Func<double, Color> transform = t =>
                 Color.FromRgba(fromColor.R + t * (toColor.R - fromColor.R),
@@ -23,7 +27,12 @@ namespace ReminderXamarin.Extensions
             element.AbortAnimation(nameof(ColorTo));
         }
 
-        private static Task<bool> ColorAnimation(VisualElement element, string name, Func<double, Color> transform, Action<Color> callback, uint length, Easing easing)
+        private static Task<bool> ColorAnimation(VisualElement element,
+            string name,
+            Func<double, Color> transform,
+            Action<Color> callback,
+            uint length,
+            Easing easing)
         {
             easing = easing ?? Easing.Linear;
             var taskCompletionSource = new TaskCompletionSource<bool>();

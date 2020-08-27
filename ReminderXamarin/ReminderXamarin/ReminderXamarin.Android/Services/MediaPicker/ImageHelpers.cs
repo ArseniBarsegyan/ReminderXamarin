@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 using Android.Graphics;
 using Android.Media;
@@ -12,31 +11,48 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
         {
             byte[] imageBytes;
 
-            var originalImage = BitmapFactory.DecodeFile(path);
-            var rotation = GetRotation(path);
-            var width = (originalImage.Width * scaleFactor);
-            var height = (originalImage.Height * scaleFactor);
-            var scaledImage = Bitmap.CreateScaledBitmap(originalImage, (int)width, (int)height, true);
-
-            Bitmap rotatedImage = scaledImage;
-            if (rotation != 0)
+            using (var originalImage = BitmapFactory.DecodeFile(path))
             {
-                var matrix = new Matrix();
-                matrix.PostRotate(rotation);
-                rotatedImage = Bitmap.CreateBitmap(scaledImage, 0, 0, scaledImage.Width, scaledImage.Height, matrix, true);
-                scaledImage.Recycle();
-                scaledImage.Dispose();
-            }
+                var rotation = GetRotation(path);
+                var width = (originalImage.Width * scaleFactor);
+                var height = (originalImage.Height * scaleFactor);
 
-            using (var ms = new MemoryStream())
-            {
-                rotatedImage.Compress(Bitmap.CompressFormat.Jpeg, quality, ms);
-                imageBytes = ms.ToArray();
-            }
+                using (var scaledImage = Bitmap.CreateScaledBitmap(originalImage, (int)width, (int)height, true))
+                {
+                    Bitmap rotatedImage = null;
+                    
+                    try
+                    {
+                        rotatedImage = scaledImage;
 
-            originalImage.Dispose();
-            rotatedImage.Dispose();
-            GC.Collect();
+                        if (rotation != 0)
+                        {
+                            var matrix = new Matrix();
+                            matrix.PostRotate(rotation);
+
+                            rotatedImage = Bitmap.CreateBitmap(scaledImage,
+                                0,
+                                0,
+                                scaledImage.Width,
+                                scaledImage.Height,
+                                matrix,
+                                true);
+
+                            scaledImage.Recycle();
+                        }
+
+                        using (var ms = new MemoryStream())
+                        {
+                            rotatedImage.Compress(Bitmap.CompressFormat.Jpeg, quality, ms);
+                            imageBytes = ms.ToArray();
+                        }
+                    }
+                    finally
+                    {
+                        rotatedImage.Dispose();
+                    }
+                }
+            }
 
             return imageBytes;
         }
@@ -45,7 +61,8 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
         {
             using (var ei = new ExifInterface(filePath))
             {
-                var orientation = (Orientation)ei.GetAttributeInt(ExifInterface.TagOrientation, 
+                var orientation = (Orientation)ei.GetAttributeInt(
+                    ExifInterface.TagOrientation, 
                     (int)Orientation.Normal);
 
                 switch (orientation)
