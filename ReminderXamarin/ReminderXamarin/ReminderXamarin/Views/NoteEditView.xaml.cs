@@ -58,9 +58,9 @@ namespace ReminderXamarin.Views
 
         private async Task ShowOptionsLayout()
         {
-            await AttachButton.TranslateTo(0, 240, 0);
-            await CameraButton.TranslateTo(0, 180, 0);
-            await VideoButton.TranslateTo(0, 120, 0);
+            await AttachButton.TranslateTo(0, 50, 0);
+            await CameraButton.TranslateTo(50, 25, 0);
+            await VideoButton.TranslateTo(50, 0, 0);
 
             AttachOptionLayout.IsVisible = true;
             var tasks = new Task[]

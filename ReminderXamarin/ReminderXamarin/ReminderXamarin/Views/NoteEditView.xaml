@@ -13,12 +13,12 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="PickerButtonStyle" TargetType="ImageButton">
-                <Setter Property="Padding" Value="20" />
+                <Setter Property="Padding" Value="15" />
                 <Setter Property="BackgroundColor" 
                         Value="{DynamicResource NoteOptionsMenuBackground}" />
-                <Setter Property="WidthRequest" Value="60" />
-                <Setter Property="HeightRequest" Value="60" />
-                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="WidthRequest" Value="50" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="CornerRadius" Value="25" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -129,28 +129,29 @@
                              BackgroundColor="{DynamicResource AttachOptionFrameBackground}"
                              Opacity="0.7" />
 
-                <StackLayout Padding="0"
-                             Spacing="0"
-                             AbsoluteLayout.LayoutBounds="0.97,0.7,200,200"
+
+                <ImageButton x:Name="AttachButton"
+                             AbsoluteLayout.LayoutBounds="0.95,0.83,50,50"
                              AbsoluteLayout.LayoutFlags="PositionProportional"
-                             HorizontalOptions="EndAndExpand"
-                             VerticalOptions="EndAndExpand">
+                             Source="{Binding AttachButtonImageSource}"
+                             Style="{StaticResource PickerButtonStyle}"
+                             Command="{Binding PickMultipleMediaCommand}" />
 
-                    <ImageButton x:Name="AttachButton"
-                                 Source="{Binding AttachButtonImageSource}"
-                                 Style="{StaticResource PickerButtonStyle}"
-                                 Command="{Binding PickMultipleMediaCommand}" />
+                <ImageButton x:Name="CameraButton"
+                             AbsoluteLayout.LayoutBounds="0.807,0.888,50,50"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"
+                             Source="{Binding CameraButtonImageSource}"
+                             Style="{StaticResource PickerButtonStyle}"
+                             Command="{Binding TakePhotoCommand}" />
 
-                    <ImageButton x:Name="CameraButton"
-                                 Source="{Binding CameraButtonImageSource}"
-                                 Style="{StaticResource PickerButtonStyle}"
-                                 Command="{Binding TakePhotoCommand}" />
+                <ImageButton x:Name="VideoButton"
+                             AbsoluteLayout.LayoutBounds="0.73,0.97,50,50"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"
+                             Source="{Binding VideoButtonImageSource}"
+                             Style="{StaticResource PickerButtonStyle}"
+                             Command="{Binding TakeVideoCommand}" />
 
-                    <ImageButton x:Name="VideoButton"
-                                 Source="{Binding VideoButtonImageSource}"
-                                 Style="{StaticResource PickerButtonStyle}"
-                                 Command="{Binding TakeVideoCommand}" />
-                </StackLayout>
+
             </AbsoluteLayout>
 
             <ImageButton x:Name="ShowOptionsLayoutButton"
@@ -159,6 +160,8 @@
                          Source="add.png"
                          Style="{StaticResource PickerButtonStyle}"
                          CornerRadius="28"
+                         WidthRequest="60"
+                         HeightRequest="60"
                          Padding="14"
                          HorizontalOptions="EndAndExpand"
                          Clicked="ToggleOptionsLayout" />
