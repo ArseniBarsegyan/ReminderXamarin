@@ -26,11 +26,6 @@ namespace ReminderXamarin.Utilities
             SwitchTheme(GetThemeType());
         }
 
-        public void Reset()
-        {
-            CurrentThemeType = ThemeTypes.Light;
-        }
-
         public void SwitchTheme(ThemeTypes themeType)
         {
             if (themeType != CurrentThemeType)

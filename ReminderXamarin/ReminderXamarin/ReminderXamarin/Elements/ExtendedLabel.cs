@@ -4,17 +4,20 @@ namespace ReminderXamarin.Elements
 {
     public class ExtendedLabel : Label
     {
+        private const int DefaultLinesCount = 3;
+        private const double DefaultLinesSpacing = 1.3;
+
         public static readonly BindableProperty LinesProperty =
             BindableProperty.Create(nameof(Lines), 
                 typeof(int), 
-                typeof(ExtendedLabel), 
-                3);
+                typeof(ExtendedLabel),
+                DefaultLinesCount);
 
         public static readonly BindableProperty LineSpacingProperty =
             BindableProperty.Create(nameof(LineSpacing), 
                 typeof(double), 
-                typeof(ExtendedLabel), 
-                1.3);
+                typeof(ExtendedLabel),
+                DefaultLinesSpacing);
 
         public static readonly BindableProperty IsUnderlinedProperty =
             BindableProperty.Create(nameof(IsUnderlined), 

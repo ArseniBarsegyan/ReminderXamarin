@@ -44,7 +44,7 @@ namespace ReminderXamarin.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
-            Rg.Plugins.Popup.Popup.Init(this, bundle);
+            Rg.Plugins.Popup.Popup.Init(this);
 
             Forms.SetFlags("CollectionView_Experimental", 
                 "CarouselView_Experimental", 
@@ -60,7 +60,7 @@ namespace ReminderXamarin.Droid
 
             Bootstrapper.Initialize();
             RegisterPlatformServices();
-            LoadApplication(new App(MultiMediaPickerService.SharedInstance));
+            LoadApplication(new App());
             
             App.ScreenHeight = (int)(Resources.DisplayMetrics.HeightPixels / Resources.DisplayMetrics.Density);
             App.ScreenWidth = (int)(Resources.DisplayMetrics.WidthPixels / Resources.DisplayMetrics.Density);
@@ -78,7 +78,8 @@ namespace ReminderXamarin.Droid
         {
             base.OnActivityResult(requestCode, resultCode, data);
             ActivityResult?.Invoke(requestCode, resultCode, data);
-            MultiMediaPickerService.SharedInstance.OnActivityResult(requestCode, resultCode, data);
+            var mediaPickerService = (MultiMediaPickerService)ComponentFactory.Resolve<IMultiMediaPickerService>();
+            mediaPickerService.OnActivityResult(requestCode, resultCode, data);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)

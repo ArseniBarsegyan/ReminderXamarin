@@ -195,6 +195,16 @@ namespace ReminderXamarin.ViewModels
             {
                 await NavigationService.ToRootAsync<MenuViewModel>();
             }
+            else
+            {
+                if (bool.TryParse(Settings.UseSafeMode, out var result))
+                {
+                    if (result)
+                    {
+                        await NavigationService.ToRootAsync<MenuViewModel>();
+                    }
+                } 
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Rm.Helpers
         private const string UserPinCodeKey = "0000";
         private const string ApplicationUserKey = "";
         private const string ThemeTypeKey = "Light";
+        private const string UseSafeModeKey = "False";
 
         private static readonly string SettingsDefault = string.Empty;
         private static readonly string ThemeSettingDefault = "Light";
@@ -55,6 +56,12 @@ namespace Rm.Helpers
         {
             get => AppSettings.GetValueOrDefault(ThemeTypeKey, ThemeSettingDefault);
             set => AppSettings.AddOrUpdateValue(ThemeTypeKey, value);
+        }
+
+        public static string UseSafeMode
+        {
+            get => AppSettings.GetValueOrDefault(UseSafeModeKey, SettingsDefault);
+            set => AppSettings.AddOrUpdateValue(UseSafeModeKey, value);
         }
 
         public static void Clear()

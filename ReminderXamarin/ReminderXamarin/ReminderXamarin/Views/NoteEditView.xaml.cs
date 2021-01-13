@@ -84,5 +84,10 @@ namespace ReminderXamarin.Views
             await Task.WhenAll(tasks);
             AttachOptionLayout.IsVisible = false;
         }
+
+        private void DescriptionEditor_Focused(object sender, FocusEventArgs e)
+        {
+            ShowOptionsLayoutButton.IsVisible = !ShowOptionsLayoutButton.IsVisible;
+        }
     }
 }

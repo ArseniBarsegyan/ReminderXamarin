@@ -22,10 +22,8 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
     {
         private const int MultiPickerResultCode = 9793;
         private const string TemporalDirectoryName = "TmpMedia";
-        private TaskCompletionSource<IList<MediaFile>> mediaPickedTcs;
+        private TaskCompletionSource<IList<MediaFile>> _mediaPickedTcs;
 
-        public static MultiMediaPickerService SharedInstance = new MultiMediaPickerService();
-                
         public event EventHandler<MediaFile> OnMediaPicked;
         public event EventHandler<IList<MediaFile>> OnMediaPickedCompleted;
 
@@ -68,7 +66,7 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
                         OnMediaPickedCompleted?.Invoke(this, mediaPicked);
                     }
                 }
-                mediaPickedTcs?.TrySetResult(mediaPicked);
+                _mediaPickedTcs?.TrySetResult(mediaPicked);
             }
         }
 
@@ -116,9 +114,9 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
                     using (var bitmap = ThumbnailUtils.CreateVideoThumbnail(path, ThumbnailKind.MiniKind))
                     {
                         thumbnailImagePath = ReminderXamarin.Services.MediaPicker.FileHelper.GetOutputPath(
-                        MediaFileType.Image,
-                        TemporalDirectoryName,
-                        $"{fileName}-THUMBNAIL{ext}");
+                            MediaFileType.Image,
+                            TemporalDirectoryName,
+                            $"{fileName}-THUMBNAIL{ext}");
 
                         using (var stream = new FileStream(thumbnailImagePath, FileMode.Create))
                         {
@@ -214,15 +212,11 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
             }
             finally
             {
-                if (cursor != null)
-                {
-                    cursor.Close();
-                    cursor.Dispose();
-                }
+                cursor?.Close();
+                cursor?.Dispose();
             }
 
             return null;
-
         }
 
         public void Clean()
@@ -247,9 +241,9 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
             return await PickMediaAsync("video/*", "Select Videos", MultiPickerResultCode);
         }
 
-        async Task<IList<MediaFile>> PickMediaAsync(string type, string title, int resultCode)
+        private async Task<IList<MediaFile>> PickMediaAsync(string type, string title, int resultCode)
         {
-            mediaPickedTcs = new TaskCompletionSource<IList<MediaFile>>();
+            _mediaPickedTcs = new TaskCompletionSource<IList<MediaFile>>();
 
             var imageIntent = new Intent(Intent.ActionPick);
             imageIntent.SetType(type);
@@ -257,7 +251,7 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
             CrossCurrentActivity.Current.Activity.StartActivityForResult(
                 Intent.CreateChooser(imageIntent, title), resultCode);
 
-            return await mediaPickedTcs.Task;
+            return await _mediaPickedTcs.Task;
         }
     }
 }

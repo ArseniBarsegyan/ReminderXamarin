@@ -44,7 +44,7 @@ namespace ReminderXamarin.iOS
             ImageCircleRenderer.Init();
             Bootstrapper.Initialize();
             RegisterPlatformServices();
-            LoadApplication(new App(new MultiMediaPickerService()));
+            LoadApplication(new App());
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {

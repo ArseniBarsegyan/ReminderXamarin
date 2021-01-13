@@ -96,5 +96,44 @@ namespace ReminderXamarin.Views
 
             _isAnimationInProgress = false;
         }
+
+        private async void NotesList_Scrolled(object sender, ScrolledEventArgs e)
+        {
+            if (_isAnimationInProgress)
+            {
+                return;
+            }
+
+            if (CreateNoteButton.IsVisible)
+            {
+                await HideCreateNoteButton();
+                Device.StartTimer(TimeSpan.FromMilliseconds(800), () =>
+                {
+                    ShowCreateNoteButton();
+                    return false;
+                });
+            }
+        }
+
+        private async Task HideCreateNoteButton()
+        {
+            _isAnimationInProgress = true;
+            await Task.Run(() =>
+            {
+                CreateNoteButton.FadeTo(0, 200);
+            });
+            CreateNoteButton.IsVisible = false;
+        }
+
+        private async Task ShowCreateNoteButton()
+        {
+            await Task.Run(() =>
+            {
+                CreateNoteButton.FadeTo(1, 200);
+            });
+
+            CreateNoteButton.IsVisible = true;
+            _isAnimationInProgress = false;
+        }
     }
 }

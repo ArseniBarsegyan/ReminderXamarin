@@ -372,6 +372,9 @@
   <data name="Username" xml:space="preserve">
     <value>Имя пользователя</value>
   </data>
+  <data name="UseSafeMode" xml:space="preserve">
+    <value>Использовать безопасный режим</value>
+  </data>
   <data name="Videos" xml:space="preserve">
     <value>Видео:</value>
   </data>

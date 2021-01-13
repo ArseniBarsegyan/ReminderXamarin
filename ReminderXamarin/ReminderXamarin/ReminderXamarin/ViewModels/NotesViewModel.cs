@@ -223,6 +223,16 @@ namespace ReminderXamarin.ViewModels
         private void LoadNotesFromDatabase()
         {
             _currentSkipCounter = 10;
+
+            if (bool.TryParse(Settings.UseSafeMode, out bool result))
+            {
+                if (result)
+                {
+                    _allNotes = new List<Note>();
+                    return;
+                }
+            }            
+
             _allNotes = App.NoteRepository.Value
                 .GetAll(x => x.UserId == Settings.CurrentUserId)
                 .OrderByDescending(x => x.CreationDate)

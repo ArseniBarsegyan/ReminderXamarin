@@ -95,6 +95,8 @@
                         TextColor="{DynamicResource TextCommon}"
                         Placeholder="{extensions:Translate NoteText}"
                         PlaceholderColor="{DynamicResource Placeholder}"
+                        Focused="DescriptionEditor_Focused"
+                        Unfocused="DescriptionEditor_Focused"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="FillAndExpand"
                         HeightRequest="200">

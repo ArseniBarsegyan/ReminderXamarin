@@ -39,7 +39,7 @@ namespace ReminderXamarin.ViewModels
             {
                 IsDarkTheme = true;
             }
-            SaveSettingsCommand = commandResolver.Command<string>(pin => SaveSettings(pin));
+            SaveSettingsCommand = commandResolver.Command(SaveSettings);
             OpenPinViewCommand = commandResolver.AsyncCommand(OpenPinViewAsync);
         }
 
@@ -54,6 +54,7 @@ namespace ReminderXamarin.ViewModels
         }
 
         public bool UsePin { get; set; }
+        public bool UseSafeMode { get; set; }
 
         public bool IsDarkTheme
         {
@@ -88,10 +89,11 @@ namespace ReminderXamarin.ViewModels
             }            
         }
 
-        private void SaveSettings(string pinCode)
+        private void SaveSettings()
         {
             Settings.UsePin = UsePin.ToString();
             Settings.ThemeType = _themeSwitcher.CurrentThemeType.ToString();
+            Settings.UseSafeMode = UseSafeMode.ToString();
             _savedTheme = (ThemeTypes)Enum.Parse(typeof(ThemeTypes), Settings.ThemeType);
             OnPropertyChanged();
         }

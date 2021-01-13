@@ -26,19 +26,16 @@ namespace ReminderXamarin
         private readonly IThemeService _themeService;
         private readonly INavigationService _navigationService;
 
-        public static IMultiMediaPickerService MultiMediaPickerService;
-
-        public App(IMultiMediaPickerService multiMediaPickerService)
+        public App()
         {
             InitializeComponent();
 
             Bootstrapper.RegisterServices();
             InitRepositories();
-            MultiMediaPickerService = multiMediaPickerService;                   
 
             _navigationService = ComponentFactory.Resolve<INavigationService>();
             _themeSwitchService = ComponentFactory.Resolve<ThemeSwitcher>();
-            _themeService = ComponentFactory.Resolve<IThemeService>();            
+            _themeService = ComponentFactory.Resolve<IThemeService>();
 
             bool.TryParse(Settings.UsePin, out var shouldUsePin);
             InitNavigation(shouldUsePin);
@@ -78,7 +75,6 @@ namespace ReminderXamarin
 
         protected override void OnSleep()
         {
-            _themeSwitchService.Reset();
         }
 
         protected override void OnResume()

@@ -826,6 +826,15 @@ namespace ReminderXamarin.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use safe mode.
+        /// </summary>
+        internal static string UseSafeMode {
+            get {
+                return ResourceManager.GetString("UseSafeMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Videos:.
         /// </summary>
         internal static string Videos {

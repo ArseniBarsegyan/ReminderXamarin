@@ -372,6 +372,9 @@
   <data name="Username" xml:space="preserve">
     <value>User name</value>
   </data>
+  <data name="UseSafeMode" xml:space="preserve">
+    <value>Use safe mode</value>
+  </data>
   <data name="Videos" xml:space="preserve">
     <value>Videos:</value>
   </data>

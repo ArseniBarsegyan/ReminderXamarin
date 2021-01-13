@@ -126,6 +126,7 @@
             </SearchBar>
             
             <ListView x:Name="NotesList"
+                      Scrolled="NotesList_Scrolled"
                       ItemsSource="{Binding Notes}"
                       IsPullToRefreshEnabled="True"
                       RefreshControlColor="{DynamicResource RefreshControl}"

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -14,6 +13,7 @@ using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
 using ReminderXamarin.Helpers;
+using ReminderXamarin.Services.MediaPicker;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
@@ -30,6 +30,7 @@ namespace ReminderXamarin.ViewModels
         private readonly IFileSystem _fileService;
         private readonly IMediaService _mediaService;
         private readonly IVideoService _videoService;
+        private readonly IMultiMediaPickerService _multiMediaPickerService;
 
         private readonly MediaHelper _mediaHelper;
         private readonly TransformHelper _transformHelper;
@@ -44,6 +45,7 @@ namespace ReminderXamarin.ViewModels
             IMediaService mediaService,
             IVideoService videoService,
             ICommandResolver commandResolver,
+            IMultiMediaPickerService multiMediaPickerService,
             MediaHelper mediaHelper,
             TransformHelper transformHelper)
             : base(navigationService)
@@ -52,6 +54,7 @@ namespace ReminderXamarin.ViewModels
             _fileService = fileService;
             _mediaService = mediaService;
             _videoService = videoService;
+            _multiMediaPickerService = multiMediaPickerService;
 
             _mediaHelper = mediaHelper;
             _transformHelper = transformHelper;
@@ -142,7 +145,7 @@ namespace ReminderXamarin.ViewModels
                 ConstantsHelper.ImageDeleted, (vm, id) => DeletePhoto(id));
             IsToolbarItemVisible = false;
             GalleryItemModels.CollectionChanged += GalleryItemsViewModels_CollectionChanged;
-            App.MultiMediaPickerService.OnMediaPickedCompleted += MultiMediaPickerServiceOnMediaPickedCompleted;
+            _multiMediaPickerService.OnMediaPickedCompleted += MultiMediaPickerServiceOnMediaPickedCompleted;
             _subscribed = true;
         }
 
@@ -182,7 +185,7 @@ namespace ReminderXamarin.ViewModels
                     IsLoading = false;
                 });
 
-                App.MultiMediaPickerService.OnMediaPickedCompleted -= MultiMediaPickerServiceOnMediaPickedCompleted;
+                _multiMediaPickerService.OnMediaPickedCompleted -= MultiMediaPickerServiceOnMediaPickedCompleted;
             });
         }
 
@@ -242,7 +245,7 @@ namespace ReminderXamarin.ViewModels
             var hasPermission = await CheckPermissionsAsync();
             if (hasPermission)
             {
-                await App.MultiMediaPickerService.PickPhotosAsync();
+                await _multiMediaPickerService.PickPhotosAsync();
             }
         }
 
