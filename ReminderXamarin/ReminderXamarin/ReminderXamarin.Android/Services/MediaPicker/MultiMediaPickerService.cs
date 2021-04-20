@@ -22,20 +22,22 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
     {
         private const int MultiPickerResultCode = 9793;
         private const string TemporalDirectoryName = "TmpMedia";
+        private static readonly object _obj = new object();
+
         private TaskCompletionSource<IList<MediaFile>> _mediaPickedTcs;
 
         public event EventHandler<MediaFile> OnMediaPicked;
         public event EventHandler<IList<MediaFile>> OnMediaPickedCompleted;
 
-        public void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        public async Task OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
-            ObservableCollection<MediaFile> mediaPicked = null;
+            var mediaPicked = new ObservableCollection<MediaFile>();
+            var tasks = new List<Task>();
 
             if (requestCode == MultiPickerResultCode)
             {
                 if (resultCode == Result.Ok)
                 {
-                    mediaPicked = new ObservableCollection<MediaFile>();
                     if (data != null)
                     {
                         ClipData clipData = data.ClipData;
@@ -45,12 +47,21 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
                             {
                                 ClipData.Item item = clipData.GetItemAt(i);
                                 Android.Net.Uri uri = item.Uri;
-                                var media = CreateMediaFileFromUri(uri);
-                                if (media != null)
-                                {
-                                    mediaPicked.Add(media);
-                                    OnMediaPicked?.Invoke(this, media);
-                                }
+
+                                tasks.Add(Task.Run(
+                                    () =>
+                                    {
+                                        var media = CreateMediaFileFromUri(uri);
+                                        
+                                        if (media != null)
+                                        {
+                                            lock (_obj)
+                                            {
+                                                mediaPicked.Add(media);
+                                            }
+                                            OnMediaPicked?.Invoke(this, media);
+                                        }
+                                    }));
                             }
                         }
                         else
@@ -63,9 +74,10 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
                                 OnMediaPicked?.Invoke(this, media);
                             }
                         }
-                        OnMediaPickedCompleted?.Invoke(this, mediaPicked);
                     }
                 }
+                await Task.WhenAll(tasks);
+                OnMediaPickedCompleted?.Invoke(this, mediaPicked);
                 _mediaPickedTcs?.TrySetResult(mediaPicked);
             }
         }

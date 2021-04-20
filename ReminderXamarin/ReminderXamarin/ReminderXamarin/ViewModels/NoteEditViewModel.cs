@@ -26,6 +26,8 @@ namespace ReminderXamarin.ViewModels
 {
     public class NoteEditViewModel : BaseViewModel
     {
+        private static readonly object _obj = new object();
+
         private readonly IPermissionService _permissionService;
         private readonly IFileSystem _fileService;
         private readonly IMediaService _mediaService;
@@ -144,16 +146,18 @@ namespace ReminderXamarin.ViewModels
             MessagingCenter.Subscribe<GalleryItemViewModel, int>(this,
                 ConstantsHelper.ImageDeleted, (vm, id) => DeletePhoto(id));
             IsToolbarItemVisible = false;
-            GalleryItemModels.CollectionChanged += GalleryItemsViewModels_CollectionChanged;
-            _multiMediaPickerService.OnMediaPickedCompleted += MultiMediaPickerServiceOnMediaPickedCompleted;
+            GalleryItemModels.CollectionChanged += GalleryItemsViewModelsOnCollectionChanged;
             _subscribed = true;
         }
 
         private void Unsubscribe()
         {
+            if (!_subscribed)
+                return;
+
             MessagingCenter.Unsubscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted);
             MessagingCenter.Send(this, ConstantsHelper.NoteEditPageDisappeared);
-            GalleryItemModels.CollectionChanged -= GalleryItemsViewModels_CollectionChanged;
+            GalleryItemModels.CollectionChanged -= GalleryItemsViewModelsOnCollectionChanged;
             _subscribed = false;
         }
 
@@ -162,34 +166,30 @@ namespace ReminderXamarin.ViewModels
             Unsubscribe();
         }
 
-        private void MultiMediaPickerServiceOnMediaPickedCompleted(object sender, IList<Services.MediaPicker.MediaFile> e)
+        private async void MultiMediaPickerServiceOnMediaPickedCompleted(object sender, IList<MediaFile> e)
         {
-            Task.Run(() =>
+            _multiMediaPickerService.OnMediaPickedCompleted -= MultiMediaPickerServiceOnMediaPickedCompleted;
+
+            IsLoading = true;
+
+            foreach (var item in e)
             {
+                var model = await GetGalleryItemModelFromMediaFile(item)
+                    .ConfigureAwait(false);
+
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    IsLoading = true;
-                });
-
-                Parallel.ForEach(e, async(item) =>
-                {
-                    var model = await GetGalleryItemModelFromMediaFile(item).ConfigureAwait(false);
-                    Device.BeginInvokeOnMainThread(() =>
+                    lock(_obj)
                     {
                         GalleryItemModels.Add(model);
-                    });
+                    }
                 });
+            }
 
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    IsLoading = false;
-                });
-
-                _multiMediaPickerService.OnMediaPickedCompleted -= MultiMediaPickerServiceOnMediaPickedCompleted;
-            });
+            IsLoading = false;
         }
 
-        private async Task<GalleryItemModel> GetGalleryItemModelFromMediaFile(Services.MediaPicker.MediaFile mediaFile)
+        private async Task<GalleryItemModel> GetGalleryItemModelFromMediaFile(MediaFile mediaFile)
         {
             var model = new GalleryItemModel
             {
@@ -234,7 +234,7 @@ namespace ReminderXamarin.ViewModels
                 ConstantsHelper.Cancel);
         }
 
-        private void GalleryItemsViewModels_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void GalleryItemsViewModelsOnCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             IsToolbarItemVisible = true;
             OnPropertyChanged(nameof(IsGalleryVisible));
@@ -245,6 +245,7 @@ namespace ReminderXamarin.ViewModels
             var hasPermission = await CheckPermissionsAsync();
             if (hasPermission)
             {
+                _multiMediaPickerService.OnMediaPickedCompleted += MultiMediaPickerServiceOnMediaPickedCompleted;
                 await _multiMediaPickerService.PickPhotosAsync();
             }
         }

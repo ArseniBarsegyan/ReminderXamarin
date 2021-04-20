@@ -74,12 +74,12 @@ namespace ReminderXamarin.Droid
             Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed);
         }
 
-        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        protected override async void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
             ActivityResult?.Invoke(requestCode, resultCode, data);
             var mediaPickerService = (MultiMediaPickerService)ComponentFactory.Resolve<IMultiMediaPickerService>();
-            mediaPickerService.OnActivityResult(requestCode, resultCode, data);
+            await mediaPickerService.OnActivityResult(requestCode, resultCode, data);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)

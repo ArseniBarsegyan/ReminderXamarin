@@ -40,7 +40,7 @@ namespace ReminderXamarin.Droid.Services
                 {
                     originalImage.Recycle();
 
-                    using (MemoryStream ms = new MemoryStream())
+                    using (var ms = new MemoryStream())
                     {
                         resizedImage.Compress(Bitmap.CompressFormat.Png, 100, ms);
                         resizedImage.Recycle();
@@ -60,10 +60,12 @@ namespace ReminderXamarin.Droid.Services
 
                 if (bitmap != null)
                 {
-                    MemoryStream stream = new MemoryStream();
-                    bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
-                    byte[] bitmapData = stream.ToArray();
-                    return bitmapData;
+                    using (var ms = new MemoryStream())
+                    {
+                        bitmap.Compress(Bitmap.CompressFormat.Png, 0, ms);
+                        byte[] bitmapData = ms.ToArray();
+                        return bitmapData;
+                    }
                 }
             }
             return null;
