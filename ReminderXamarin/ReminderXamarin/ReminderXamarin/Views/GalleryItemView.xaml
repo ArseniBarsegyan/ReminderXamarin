@@ -13,11 +13,16 @@
                                   Command="{Binding NavigateBackCommand}" />
         </AbsoluteLayout.GestureRecognizers>
 
-        <elements:ZoomImage x:Name="Image"
-                            Source="{Binding ImagePath}"
-                            Aspect="AspectFill"
-                            AbsoluteLayout.LayoutBounds="0.5,0.5,0.8,0.8"
-                            AbsoluteLayout.LayoutFlags="All" />
+        <elements:ZoomImage AbsoluteLayout.LayoutBounds="0.5,0.5,0.8,0.8"
+                            AbsoluteLayout.LayoutFlags="All">
+            <elements:ZoomImage.Content>
+                <Image x:Name="Image" 
+                           Source="{Binding ImagePath}"
+                           Aspect="AspectFit"
+                           WidthRequest="300"
+                           HeightRequest="500"/>
+            </elements:ZoomImage.Content>
+        </elements:ZoomImage>
         
         <ImageButton AbsoluteLayout.LayoutBounds="0.5,0.925,50,50"
                      AbsoluteLayout.LayoutFlags="PositionProportional"

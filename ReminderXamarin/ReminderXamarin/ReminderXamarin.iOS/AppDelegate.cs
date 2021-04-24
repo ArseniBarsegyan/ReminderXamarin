@@ -35,10 +35,6 @@ namespace ReminderXamarin.iOS
         {
             Rg.Plugins.Popup.Popup.Init();
 
-            Forms.SetFlags("CollectionView_Experimental",
-                "CarouselView_Experimental",
-                "IndicatorView_Experimental");
-
             Forms.Init();
             SQLitePCL.Batteries.Init();
             ImageCircleRenderer.Init();

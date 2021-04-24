@@ -1,110 +1,190 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Elements
 {
-    public class ZoomImage : Image
+    public class ZoomImage : ContentView
     {
-        private const double MinScale = 1;
-        private const double MaxScale = 4;
-        private const double Overshoot = 0.15;
-        private double _startScale;
-        private double _startX, _startY;
+        private double _currentScale = 1;
+        private double _startScale = 1;
+        private double _xOffset = 0;
+        private double _yOffset = 0;
+        private bool _isZoomed;
 
         public ZoomImage()
         {
-            var pinch = new PinchGestureRecognizer();
-            pinch.PinchUpdated += OnPinchUpdated;
-            GestureRecognizers.Add(pinch);
+            PinchGestureRecognizer pinchGesture = new PinchGestureRecognizer();
+            pinchGesture.PinchUpdated += PinchUpdated;
+            GestureRecognizers.Add(pinchGesture);
 
-            var pan = new PanGestureRecognizer();
-            pan.PanUpdated += OnPanUpdated;
-            GestureRecognizers.Add(pan);
+            var panGesture = new PanGestureRecognizer();
+            panGesture.PanUpdated += OnPanUpdated;
+            GestureRecognizers.Add(panGesture);
 
-            var tap = new TapGestureRecognizer { NumberOfTapsRequired = 2 };
-            tap.Tapped += OnTapped;
-            GestureRecognizers.Add(tap);
-
-            Scale = MinScale;
-            TranslationX = TranslationY = 0;
-            AnchorX = AnchorY = 0;
+            var tapGesture = new TapGestureRecognizer { NumberOfTapsRequired = 2 };
+            tapGesture.Tapped += DoubleTapped;
+            GestureRecognizers.Add(tapGesture);
         }
 
-        protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
+        private void PinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
         {
-            Scale = MinScale;
-            TranslationX = TranslationY = 0;
-            AnchorX = AnchorY = 0;
-            return base.OnMeasure(widthConstraint, heightConstraint);
-        }
-
-        private void OnTapped(object sender, EventArgs e)
-        {
-            if (Scale > MinScale)
+            if (e.Status == GestureStatus.Started)
             {
-                this.ScaleTo(MinScale, 250, Easing.CubicInOut);
-                this.TranslateTo(0, 0, 250, Easing.CubicInOut);
+                _startScale = Content.Scale;
+                Content.AnchorX = 0;
+                Content.AnchorY = 0;
             }
-            else
+
+            if (e.Status == GestureStatus.Running)
             {
-                AnchorX = AnchorY = 0.5;
-                this.ScaleTo(MaxScale, 250, Easing.CubicInOut);
+                _currentScale += (e.Scale - 1) * _startScale;
+                _currentScale = Math.Max(1, _currentScale);
+
+                double renderedX = Content.X + _xOffset;
+                double deltaX = renderedX / Width;
+                double deltaWidth = Width / (Content.Width * _startScale);
+                double originX = (e.ScaleOrigin.X - deltaX) * deltaWidth;
+
+                double renderedY = Content.Y + _yOffset;
+                double deltaY = renderedY / Height;
+                double deltaHeight = Height / (Content.Height * _startScale);
+                double originY = (e.ScaleOrigin.Y - deltaY) * deltaHeight;
+
+                double targetX = _xOffset - (originX * Content.Width) * (_currentScale - _startScale);
+                double targetY = _yOffset - (originY * Content.Height) * (_currentScale - _startScale);
+
+                Content.TranslationX = Math.Min(0, Math.Max(targetX, -Content.Width * (_currentScale - 1)));
+                Content.TranslationY = Math.Min(0, Math.Max(targetY, -Content.Height * (_currentScale - 1)));
+
+                Content.Scale = _currentScale;
+            }
+
+            if (e.Status == GestureStatus.Completed)
+            {
+                _xOffset = Content.TranslationX;
+                _yOffset = Content.TranslationY;
             }
         }
 
-        private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+        public void OnPanUpdated(object sender, PanUpdatedEventArgs e)
         {
+            if (Content.Scale == 1)
+            {
+                return;
+            }
+
             switch (e.StatusType)
             {
-                case GestureStatus.Started:
-                    _startX = (1 - AnchorX) * Width;
-                    _startY = (1 - AnchorY) * Height;
-                    break;
                 case GestureStatus.Running:
-                    AnchorX = Clamp(1 - (_startX + e.TotalX) / Width, 0, 1);
-                    AnchorY = Clamp(1 - (_startY + e.TotalY) / Height, 0, 1);
-                    break;
-            }
-        }
 
-        private void OnPinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
-        {
-            switch (e.Status)
-            {
-                case GestureStatus.Started:
-                    _startScale = Scale;
-                    AnchorX = e.ScaleOrigin.X;
-                    AnchorY = e.ScaleOrigin.Y;
-                    break;
-                case GestureStatus.Running:
-                    double current = Scale + (e.Scale - 1) * _startScale;
-                    Scale = Clamp(current, MinScale * (1 - Overshoot), MaxScale * (1 + Overshoot));
+                    double newX = (e.TotalX * Scale) + _xOffset;
+                    double newY = (e.TotalY * Scale) + _yOffset;
+
+                    double width = (Content.Width * Content.Scale);
+                    double height = (Content.Height * Content.Scale);
+
+                    bool canMoveX = width > Application.Current.MainPage.Width;
+                    bool canMoveY = height > Application.Current.MainPage.Height;
+
+                    if (canMoveX)
+                    {
+                        double minX = (width - (Application.Current.MainPage.Width / 2)) * -1;
+                        double maxX = Math.Min(Application.Current.MainPage.Width / 2, width / 2);
+
+                        if (newX < minX)
+                        {
+                            newX = minX;
+                        }
+
+                        if (newX > maxX)
+                        {
+                            newX = maxX;
+                        }
+                    }
+                    else
+                    {
+                        newX = 0;
+                    }
+
+                    if (canMoveY)
+                    {
+                        double minY = (height - (Application.Current.MainPage.Height / 2)) * -1;
+                        double maxY = Math.Min(Application.Current.MainPage.Width / 2, height / 2);
+
+                        if (newY < minY)
+                        {
+                            newY = minY;
+                        }
+
+                        if (newY > maxY)
+                        {
+                            newY = maxY;
+                        }
+                    }
+                    else
+                    {
+                        newY = 0;
+                    }
+
+                    Content.TranslationX = newX;
+                    Content.TranslationY = newY;
                     break;
                 case GestureStatus.Completed:
-                    if (Scale > MaxScale)
-                    {
-                        this.ScaleTo(MaxScale, 250, Easing.SpringOut);
-                    }
-                    else if (Scale < MinScale)
-                    {
-                        this.ScaleTo(MinScale, 250, Easing.SpringOut);
-                    }
+                    _xOffset = Content.TranslationX;
+                    _yOffset = Content.TranslationY;
                     break;
             }
         }
 
-        private T Clamp<T>(T value, T minimum, T maximum) where T : IComparable
+        public async void DoubleTapped(object sender, EventArgs e)
         {
-            if (value.CompareTo(minimum) < 0)
+            _startScale = Content.Scale;
+            Content.AnchorX = 0;
+            Content.AnchorY = 0;
+
+            _isZoomed = !_isZoomed;
+            await Zoom(_isZoomed);
+
+            _xOffset = Content.TranslationX;
+            _yOffset = Content.TranslationY;
+        }
+
+        private async Task Zoom(bool zoomIn)
+        {
+            double multiplicator = Math.Pow(2, 1.0 / 10.0);
+
+            for (int i = 0; i < 10; i++)
             {
-                return minimum;
+                if (zoomIn)
+                {
+                    _currentScale *= multiplicator;
+                }
+                else
+                {
+                    _currentScale /= multiplicator;
+                }
+                
+                double renderedX = Content.X + _xOffset;
+                double deltaX = renderedX / Width;
+                double deltaWidth = Width / (Content.Width * _startScale);
+                double originX = (0.5 - deltaX) * deltaWidth;
+
+                double renderedY = Content.Y + _yOffset;
+                double deltaY = renderedY / Height;
+                double deltaHeight = Height / (Content.Height * _startScale);
+                double originY = (0.5 - deltaY) * deltaHeight;
+
+                double targetX = _xOffset - (originX * Content.Width) * (_currentScale - _startScale);
+                double targetY = _yOffset - (originY * Content.Height) * (_currentScale - _startScale);
+
+                Content.TranslationX = Math.Min(0, Math.Max(targetX, -Content.Width * (_currentScale - 1)));
+                Content.TranslationY = Math.Min(0, Math.Max(targetY, -Content.Height * (_currentScale - 1)));
+
+                Content.Scale = _currentScale;
+                await Task.Delay(10);
             }
-            if (value.CompareTo(maximum) > 0)
-            {
-                return maximum;
-            }
-            return value;
         }
     }
 }
