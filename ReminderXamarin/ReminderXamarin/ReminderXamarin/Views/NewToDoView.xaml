@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors"
+                 xmlns:converters="clr-namespace:ReminderXamarin.Converters"
+                 xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+                 xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 mc:Ignorable="d"
+                 base:ViewModelHelper.AutoWireViewModel="True"
+                 x:Class="ReminderXamarin.Views.NewToDoView">
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+    <pages:PopupPage.Content>
+        <ScrollView>
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                            AbsoluteLayout.LayoutFlags="All">
+                <Frame AbsoluteLayout.LayoutBounds="0.5,0.25,0.7,0.3"
+                       AbsoluteLayout.LayoutFlags="All"
+                       CornerRadius="10"
+                       Padding="0">
+                    <Grid Padding="10,20,10,10"
+                          BackgroundColor="{DynamicResource CardViewBackground}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Padding="5,0"
+                               VerticalOptions="Center"
+                               Text="{extensions:Translate Description}" />
+
+                        <Entry x:Name="DescriptionEntry"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               VerticalOptions="Center"
+                               Placeholder="{extensions:Translate Description}"
+                               Text="{Binding Description}">
+                            <Entry.Behaviors>
+                                <behaviors:MinLengthValidatorBehavior 
+                                    x:Name="DescriptionMinLengthValidatorBehavior"
+                                    MinLength="3" />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <Label Grid.Row="2"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               FontSize="Micro"
+                               VerticalOptions="StartAndExpand"
+                               HorizontalOptions="StartAndExpand"                               
+                               Padding="5,0"
+                               Text="{extensions:Translate MinimumLengthThreeSymbolsMessage}"
+                               TextColor="{DynamicResource ErrorTextCommon}"
+                               IsVisible="{Binding Source={x:Reference DescriptionMinLengthValidatorBehavior},
+                                               Path=IsValid,
+                                               Converter={StaticResource InverseBooleanConverter}}" />
+
+                        <Button Grid.Row="3"
+                                Grid.Column="0"
+                                Text="{extensions:Translate Save}"                                
+                                CornerRadius="0"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="EndAndExpand"
+                                HeightRequest="40"
+                                TextColor="#FAFAFA"
+                                IsEnabled="{Binding IsEnabled}"
+                                Command="{Binding CreateToDoCommand}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Disabled">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" 
+                                                    Value="{DynamicResource DisabledBackground}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                    <VisualState x:Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" 
+                                                    Value="{DynamicResource SubmitButtonBackground}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Button>
+
+                        <Button Grid.Row="3"
+                                Grid.Column="1"
+                                Text="{extensions:Translate Back}"                                                             
+                                TextColor="{DynamicResource TextCommon}"
+                                BackgroundColor="{DynamicResource ViewBackground}"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="EndAndExpand"
+                                HeightRequest="40"
+                                CornerRadius="0"
+                                Command="{Binding NavigateBackCommand}" />
+                    </Grid>
+                </Frame>
+            </AbsoluteLayout>
+        </ScrollView>        
+    </pages:PopupPage.Content>
+</pages:PopupPage>

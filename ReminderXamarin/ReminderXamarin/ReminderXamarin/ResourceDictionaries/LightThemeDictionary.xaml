@@ -34,5 +34,6 @@
     <Color x:Key="ToDoListViewItemBorder">DarkGray</Color>
     <Color x:Key="ToggleVisibilityButtonBackground">#FAFAFA</Color>
     <Color x:Key="Thumb">#E1E1E1</Color>
-    <Color x:Key="ViewBackground">#F6F6F6</Color>    
+    <Color x:Key="ViewBackground">#F6F6F6</Color>
+    <Color x:Key="CalendarSelectedDate">#0277BD</Color>
 </ResourceDictionary>

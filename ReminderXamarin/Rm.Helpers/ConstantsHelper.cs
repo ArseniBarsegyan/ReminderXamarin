@@ -84,6 +84,7 @@
         public const string TimeParsingError = "Enter a valid number";
         public const string TogglePasswordLightImage = "eye_light.png";
         public const string TogglePasswordDarkImage = "eye_dark.png";
+        public const string ToDoItemCreated = nameof(ToDoItemCreated);
         public const string ToDoItemDeleteMessage = "Are you sure you want to delete this to-do?";
         public const string ToDoTextIsEmptyMessage = "To do text is empty. Creation cancelled";
         public const string ToDoListLightIcon = "todo_list_light.png";

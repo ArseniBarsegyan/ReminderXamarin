@@ -28,11 +28,8 @@ namespace ReminderXamarin.ViewModels
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(Title))
-                {
-                    return false;
-                }
-                if (Title.Length < 3)
+                if (string.IsNullOrWhiteSpace(Title)
+                    || Title.Length < 3)
                 {
                     return false;
                 }

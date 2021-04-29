@@ -5,11 +5,9 @@ using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
 
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace ReminderXamarin.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UserProfileView : ContentPage
     {
         private static readonly IPlatformDocumentPicker DocumentPicker = ComponentFactory.Resolve<IPlatformDocumentPicker>();

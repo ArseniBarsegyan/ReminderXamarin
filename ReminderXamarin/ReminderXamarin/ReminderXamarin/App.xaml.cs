@@ -8,7 +8,6 @@ using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.DependencyResolver;
 using ReminderXamarin.IoC;
 using ReminderXamarin.Services;
-using ReminderXamarin.Services.MediaPicker;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.Utilities;
 using ReminderXamarin.ViewModels;

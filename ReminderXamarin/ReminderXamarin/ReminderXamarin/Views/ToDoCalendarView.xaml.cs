@@ -1,14 +1,32 @@
 ﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace ReminderXamarin.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ToDoCalendarView : ContentPage
     {
         public ToDoCalendarView()
         {
             InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (BindingContext is ToDoCalendarView vm)
+            {
+                vm.OnAppearing();
+            }
+            ReminderCalendarView.Subscribe();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            if (BindingContext is ToDoCalendarView vm)
+            {
+                vm.OnDisappearing();
+            }
+            ReminderCalendarView.Unsubscribe();
         }
     }
 }

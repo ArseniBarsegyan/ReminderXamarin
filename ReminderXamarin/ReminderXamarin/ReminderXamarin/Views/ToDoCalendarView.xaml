@@ -1,10 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Name="ToDoCalendarViewPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin" xmlns:elements="clr-namespace:ReminderXamarin.Elements"
              x:Class="ReminderXamarin.Views.ToDoCalendarView"
              Title="{extensions:Translate ToDoPageTitle}"
              BackgroundColor="{DynamicResource ViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
+    <ContentPage.Content>
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All">
+            <ListView AbsoluteLayout.LayoutBounds="0,0,1,1"
+                      AbsoluteLayout.LayoutFlags="All"
+                      ItemsSource="{Binding AllModels}"
+                      IsPullToRefreshEnabled="True"
+                      RefreshControlColor="{DynamicResource RefreshControl}"
+                      CachingStrategy="RecycleElement"
+                      RefreshCommand="{Binding RefreshListCommand}"
+                      IsRefreshing="{Binding IsRefreshing}">
+                <ListView.Header>
+                    <elements:ReminderCalendarView x:Name="ReminderCalendarView"
+                                                   HeightRequest="400"
+                                                   Command="{Binding SelectDayCommand}" />
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Delete"
+                                          IconImageSource="delete.png"
+                                          Command="{Binding Source={x:Reference ToDoCalendarViewPage},
+                                                            Path=BindingContext.DeleteToDoCommand}"
+                                          CommandParameter="{Binding .}"
+                                          IsDestructive="True" />
+                            </ViewCell.ContextActions>
+
+                            <ViewCell.View>
+                                <Frame HasShadow="True"
+                                       Padding="0,10"
+                                       BackgroundColor="{DynamicResource CardViewBackground}"
+                                       BorderColor="{DynamicResource CardViewBorder}"
+                                       Margin="0,5">
+                                    <StackLayout>
+                                        <Label Text="{Binding Description}">
+                                            <Label.FontFamily>
+                                                <OnPlatform x:TypeArguments="x:String">
+                                                    <On Platform="iOS" Value="Roboto-Regular" />
+                                                    <On Platform="Android" Value="Roboto-Regular.ttf#Roboto-Medium" />
+                                                </OnPlatform>
+                                            </Label.FontFamily>
+                                        </Label>
+                                    </StackLayout>
+                                </Frame>                                
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ImageButton x:Name="CreateToDoButton"
+                         Source="add.png"
+                         Style="{StaticResource Fab}"
+                         Command="{Binding CreateToDoCommand}">
+                <ImageButton.CommandParameter>
+                    <x:Int32>0</x:Int32>
+                </ImageButton.CommandParameter>
+            </ImageButton>
+
+        </AbsoluteLayout>
+    </ContentPage.Content>
 </ContentPage>

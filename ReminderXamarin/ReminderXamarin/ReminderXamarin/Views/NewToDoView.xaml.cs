@@ -2,9 +2,9 @@
 
 namespace ReminderXamarin.Views
 {
-    public partial class NewAchievementView : PopupPage
+    public partial class NewToDoView : PopupPage
     {
-        public NewAchievementView()
+        public NewToDoView()
         {
             InitializeComponent();
         }
@@ -12,7 +12,7 @@ namespace ReminderXamarin.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            TitleEntry.Focus();
+            DescriptionEntry.Focus();
         }
     }
 }
