@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using ReminderXamarin.ViewModels;
+
+using Xamarin.Forms;
 
 namespace ReminderXamarin.Views
 {
@@ -12,7 +14,7 @@ namespace ReminderXamarin.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (BindingContext is ToDoCalendarView vm)
+            if (BindingContext is ToDoCalendarViewModel vm)
             {
                 vm.OnAppearing();
             }
@@ -22,7 +24,7 @@ namespace ReminderXamarin.Views
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            if (BindingContext is ToDoCalendarView vm)
+            if (BindingContext is ToDoCalendarViewModel vm)
             {
                 vm.OnDisappearing();
             }

@@ -9,18 +9,35 @@ namespace ReminderXamarin.Elements
 {
     public partial class ReminderCalendarView : ContentView
     {
-        private readonly List<CalendarDayView> _calendarViews = new List<CalendarDayView>();
+        private readonly List<CalendarDayItemView> _calendarViews = new List<CalendarDayItemView>();
 
         private DateTime _initialDate = DateTime.Now;
         private Label _dateLabel;
         private Button _prevMonthButton;
         private Button _nextMonthButton;
-        private CalendarDayView _lastSelectedView;        
-
+        private CalendarDayItemView _lastSelectedView;
+        private SwipeGestureRecognizer _leftSwipeGestureRecognizer;
+        private SwipeGestureRecognizer _rightSwipeGestureRecognizer;
+        
         public ReminderCalendarView()
         {
             InitializeComponent();
             InitializeCalendar();
+
+            _leftSwipeGestureRecognizer = new SwipeGestureRecognizer { Direction = SwipeDirection.Left };
+            _rightSwipeGestureRecognizer = new SwipeGestureRecognizer { Direction = SwipeDirection.Right };
+            GestureRecognizers.Add(_leftSwipeGestureRecognizer);
+            GestureRecognizers.Add(_rightSwipeGestureRecognizer);
+        }        
+
+        private void LeftSwipeGestureRecognizerOnSwiped(object sender, SwipedEventArgs e)
+        {
+            SwitchMonthForward();
+        }
+
+        private void RightSwipeGestureRecognizerOnSwiped(object sender, SwipedEventArgs e)
+        {
+            SwitchMonthBackward();
         }
 
         public static readonly BindableProperty CommandProperty =
@@ -34,24 +51,6 @@ namespace ReminderXamarin.Elements
         {
             get => (ICommand)GetValue(CommandProperty);
             set => SetValue(CommandProperty, value);
-        }
-
-        public void Unsubscribe()
-        {
-            if (_prevMonthButton != null)
-            {
-                _prevMonthButton.Clicked -= PreviousMonthButtonOnClicked;
-            }
-
-            if (_nextMonthButton != null)
-            {
-                _nextMonthButton.Clicked -= NextMonthButtonOnClicked;
-            }
-
-            foreach (var view in _calendarViews)
-            {
-                view.DaySelected -= DayViewOnDaySelected;
-            }
         }
 
         public void Subscribe()
@@ -71,7 +70,39 @@ namespace ReminderXamarin.Elements
             foreach (var view in _calendarViews)
             {
                 view.DaySelected += DayViewOnDaySelected;
+                view.Subscribe();
             }
+
+            if (_leftSwipeGestureRecognizer != null)
+                _leftSwipeGestureRecognizer.Swiped += LeftSwipeGestureRecognizerOnSwiped;
+
+            if (_rightSwipeGestureRecognizer != null)
+                _rightSwipeGestureRecognizer.Swiped += RightSwipeGestureRecognizerOnSwiped;
+        }
+
+        public void Unsubscribe()
+        {
+            if (_prevMonthButton != null)
+            {
+                _prevMonthButton.Clicked -= PreviousMonthButtonOnClicked;
+            }
+
+            if (_nextMonthButton != null)
+            {
+                _nextMonthButton.Clicked -= NextMonthButtonOnClicked;
+            }
+
+            foreach (var view in _calendarViews)
+            {
+                view.DaySelected -= DayViewOnDaySelected;
+                view.Unsubscribe();
+            }
+
+            if (_leftSwipeGestureRecognizer != null)
+                _leftSwipeGestureRecognizer.Swiped -= LeftSwipeGestureRecognizerOnSwiped;
+
+            if (_rightSwipeGestureRecognizer != null)
+                _rightSwipeGestureRecognizer.Swiped -= RightSwipeGestureRecognizerOnSwiped;
         }
 
         private void InitializeCalendar()
@@ -84,10 +115,22 @@ namespace ReminderXamarin.Elements
             AddPrevMonthButton();
             AddNextMonthButton();
             AddDaysNames();
+            AddCurrentMonth();
 
-            int firstDayPosition = FindFirstDayPosition();
-            AddCurrentMonth(firstDayPosition);
             Subscribe();
+        }
+
+        private void AddDateLabel()
+        {
+            _dateLabel = new Label
+            {
+                Text = _initialDate.ToString("D"),
+                Style = (Style)Resources["DateGridHeaderStyle"]
+            };
+            Grid.SetRow(_dateLabel, 0);
+            Grid.SetColumn(_dateLabel, 0);
+            Grid.SetColumnSpan(_dateLabel, 9);
+            DateGrid.Children.Add(_dateLabel);
         }
 
         private void AddPrevMonthButton()
@@ -106,19 +149,6 @@ namespace ReminderXamarin.Elements
             Grid.SetColumn(_nextMonthButton, 8);
             Grid.SetRowSpan(_nextMonthButton, 8);
             DateGrid.Children.Add(_nextMonthButton);
-        }
-
-        private void AddDateLabel()
-        {
-            _dateLabel = new Label 
-            {
-                Text = _initialDate.ToString("D"),
-                Style = (Style)Resources["DateGridHeaderStyle"] 
-            };
-            Grid.SetRow(_dateLabel, 0);
-            Grid.SetColumn(_dateLabel, 0);
-            Grid.SetColumnSpan(_dateLabel, 9);
-            DateGrid.Children.Add(_dateLabel);
         }
 
         private void AddDaysNames()
@@ -187,20 +217,9 @@ namespace ReminderXamarin.Elements
             DateGrid.Children.Add(sundayLabel);
         }
 
-        private int FindFirstDayPosition()
+        private void AddCurrentMonth()
         {
-            DayOfWeek currentMonthFirstDay = new DateTime(_initialDate.Year, _initialDate.Month, 1).DayOfWeek;
-
-            var daysOfWeekEuOrdered = Enum.GetValues(typeof(DayOfWeek))
-                .Cast<DayOfWeek>()
-                .OrderBy(x => ((int)x + 6) % 7)
-                .ToList();
-
-            return daysOfWeekEuOrdered.IndexOf(currentMonthFirstDay);
-        }
-
-        private void AddCurrentMonth(int firstDayPosition)
-        {
+            int firstDayPosition = FindFirstDayPosition();
             int daysInCurrentMonth = DateTime.DaysInMonth(_initialDate.Year, _initialDate.Month);
 
             var currentDay = 1;
@@ -228,16 +247,34 @@ namespace ReminderXamarin.Elements
             }
         }
 
+        private int FindFirstDayPosition()
+        {
+            DayOfWeek currentMonthFirstDay = new DateTime(_initialDate.Year, _initialDate.Month, 1).DayOfWeek;
+
+            var daysOfWeekEuOrdered = Enum.GetValues(typeof(DayOfWeek))
+                .Cast<DayOfWeek>()
+                .OrderBy(x => ((int)x + 6) % 7)
+                .ToList();
+
+            return daysOfWeekEuOrdered.IndexOf(currentMonthFirstDay);
+        }
+
         private void AddDay(int dayNumber, int row, int column)
         {
             var dateTime = new DateTime(_initialDate.Year, _initialDate.Month, dayNumber);
 
-            var dayView = new CalendarDayView
+            var dayView = new CalendarDayItemView
             {
                 Date = dateTime,
                 CommandParameter = dateTime
             };
-            dayView.SetBinding(CalendarDayView.CommandProperty, new Binding(nameof(Command), source:this));
+            dayView.SetBinding(CalendarDayItemView.CommandProperty, new Binding(nameof(Command), source:this));
+
+            if (_initialDate.Day == dayNumber)
+            {
+                dayView.Select();
+                _lastSelectedView = dayView;
+            }
 
             var frame = new Frame
             {
@@ -254,7 +291,7 @@ namespace ReminderXamarin.Elements
 
         private void DayViewOnDaySelected(object sender, DateTime e)
         {
-            if (sender is CalendarDayView view)
+            if (sender is CalendarDayItemView view)
             {
                 if (_lastSelectedView == view)
                 {
@@ -266,6 +303,16 @@ namespace ReminderXamarin.Elements
         }
 
         private void PreviousMonthButtonOnClicked(object sender, EventArgs e)
+        {
+            SwitchMonthBackward();
+        }
+
+        private void NextMonthButtonOnClicked(object sender, EventArgs e)
+        {
+            SwitchMonthForward();
+        }
+
+        private void SwitchMonthBackward()
         {
             var currentYear = _initialDate.Year;
             var currentMonth = _initialDate.Month;
@@ -279,11 +326,13 @@ namespace ReminderXamarin.Elements
             {
                 currentMonth--;
             }
-            _initialDate = new DateTime(currentYear, currentMonth, _initialDate.Day);
+
+            int day = GetCurrentDayInFollowingMonthAfterSwitching(currentYear, currentMonth);
+            _initialDate = new DateTime(currentYear, currentMonth, day);
             InitializeCalendar();
         }
 
-        private void NextMonthButtonOnClicked(object sender, EventArgs e)
+        private void SwitchMonthForward()
         {
             var currentYear = _initialDate.Year;
             var currentMonth = _initialDate.Month;
@@ -298,8 +347,21 @@ namespace ReminderXamarin.Elements
                 currentMonth++;
             }
 
-            _initialDate = new DateTime(currentYear, currentMonth, _initialDate.Day);
+            int day = GetCurrentDayInFollowingMonthAfterSwitching(currentYear, currentMonth);
+            _initialDate = new DateTime(currentYear, currentMonth, day);
             InitializeCalendar();
+        }
+
+        private int GetCurrentDayInFollowingMonthAfterSwitching(int year, int month)
+        {
+            var daysInFollowingMonth = DateTime.DaysInMonth(year, month);
+
+            if (_initialDate.Day < daysInFollowingMonth)
+            {
+                return _initialDate.Day;
+            }
+
+            return daysInFollowingMonth;
         }
     }
 }

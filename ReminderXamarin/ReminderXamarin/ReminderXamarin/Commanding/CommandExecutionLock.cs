@@ -10,7 +10,7 @@ namespace ReminderXamarin.Commanding
         /// This interval is necessary to avoid multi tapping command from the user
         /// It can happen when user clicks simultaneously on several buttons on the screen
         /// </summary>
-        public static int CommandExecutionInterval = 100;
+        public static int CommandExecutionInterval = 50;
 
         private readonly object _lockObject;
 

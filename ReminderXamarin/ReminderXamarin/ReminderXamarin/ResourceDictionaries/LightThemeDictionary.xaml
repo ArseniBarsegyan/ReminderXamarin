@@ -36,4 +36,5 @@
     <Color x:Key="Thumb">#E1E1E1</Color>
     <Color x:Key="ViewBackground">#F6F6F6</Color>
     <Color x:Key="CalendarSelectedDate">#0277BD</Color>
+    <Color x:Key="CalendarSelectedDateText">#FAFAFA</Color>
 </ResourceDictionary>

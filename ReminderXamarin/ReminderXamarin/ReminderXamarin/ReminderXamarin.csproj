@@ -64,9 +64,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Elements\CalendarDayView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="ResourceDictionaries\DarkThemeDictionary.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
