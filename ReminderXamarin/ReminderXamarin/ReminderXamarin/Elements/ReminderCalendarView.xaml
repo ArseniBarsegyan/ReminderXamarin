@@ -1,18 +1,30 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ReminderXamarin.Elements.ReminderCalendarView">
+             x:Class="ReminderXamarin.Elements.ReminderCalendarView"
+             BackgroundColor="{DynamicResource ViewBackground}">
     <ContentView.Resources>
         <Style x:Key="DateGridHeaderStyle" TargetType="Label">
             <Setter Property="VerticalOptions" Value="Center" />
             <Setter Property="HorizontalOptions" Value="Center" />
             <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="TextColor" Value="{DynamicResource TextCommon}" />
         </Style>
-
+        
         <Style x:Key="DateGridDayNameStyle" TargetType="Label">
             <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Start" />
+            <Setter Property="Margin" Value="5,0,0,0" />
             <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="{DynamicResource TextCommon}" />
+        </Style>
+
+        <Style x:Key="DateGridSaturdayStyle" TargetType="Label" BasedOn="{StaticResource DateGridDayNameStyle}">
+            <Setter Property="TextColor" Value="{DynamicResource CalendarSaturdayText}" />
+        </Style>
+
+        <Style x:Key="DateGridSundayStyle" TargetType="Label" BasedOn="{StaticResource DateGridDayNameStyle}">
+            <Setter Property="TextColor" Value="{DynamicResource CalendarSundayText}" />
         </Style>
     </ContentView.Resources>
   <ContentView.Content>
@@ -21,13 +33,11 @@
             Padding="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>

@@ -29,8 +29,10 @@ using Xamarin.Forms;
 namespace ReminderXamarin.iOS
 {
     [Register(nameof(AppDelegate))]
-    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
+    public partial class AppDelegate : Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
+        private const int ToDoCheckInterval = 3;
+
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Rg.Plugins.Popup.Popup.Init();
@@ -49,7 +51,9 @@ namespace ReminderXamarin.iOS
                     (approved, error) => { });
             }
 
-            NSTimer.CreateRepeatingScheduledTimer(TimeSpan.FromSeconds(5), delegate { CheckNotifications(); });
+            NSTimer.CreateRepeatingScheduledTimer(
+                TimeSpan.FromSeconds(ToDoCheckInterval),
+                delegate { CheckNotifications(); });
 
             App.ScreenHeight = (int)UIScreen.MainScreen.Bounds.Height;
             App.ScreenWidth = (int)UIScreen.MainScreen.Bounds.Width;
@@ -59,28 +63,15 @@ namespace ReminderXamarin.iOS
 
         public override void DidEnterBackground(UIApplication uiApplication)
         {
-            NSTimer.CreateRepeatingScheduledTimer(TimeSpan.FromSeconds(5), delegate { CheckNotifications(); });
+            NSTimer.CreateRepeatingScheduledTimer(
+                TimeSpan.FromSeconds(ToDoCheckInterval),
+                delegate { CheckNotifications(); });
         }
 
-        public void CheckNotifications()
+        private void CheckNotifications()
         {
-            var currentDate = DateTime.Now;
-
-            var allToDoModels = App.ToDoRepository.Value.GetAll()
-                .Where(x => x.Status == ConstantsHelper.Active)
-                .Where(x => x.WhenHappens.ToString("dd.MM.yyyy HH:mm") == currentDate.ToString("dd.MM.yyyy HH:mm"))
-                .ToList();
-
-            allToDoModels.ForEach(model =>
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    CrossLocalNotifications.Current.Show(model.WhenHappens.ToString("D"), model.Description);
-                });
-                model.Status = ToDoStatus.Completed.ToString();
-                App.ToDoRepository.Value.Save(model);
-                MessagingCenter.Send((App)App.Current, ConstantsHelper.UpdateUI);
-            });
+            var toDoNotificationService = ComponentFactory.Resolve<IToDoNotificationService>();
+            toDoNotificationService.CheckForNotifications();
         }
 
         private void RegisterPlatformServices()

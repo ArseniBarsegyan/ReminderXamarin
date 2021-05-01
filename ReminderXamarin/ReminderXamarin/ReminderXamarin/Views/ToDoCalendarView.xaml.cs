@@ -30,5 +30,17 @@ namespace ReminderXamarin.Views
             }
             ReminderCalendarView.Unsubscribe();
         }
+
+        private void ListViewOnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ToDoList.SelectedItem = null;
+            if (e.SelectedItem is ToDoViewModel model)
+            {
+                if (BindingContext is ToDoCalendarViewModel viewModel)
+                {
+                    viewModel.ChangeToDoStatusCommand.Execute(model);
+                }
+            }
+        }
     }
 }

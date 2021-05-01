@@ -102,6 +102,6 @@
         public const int AchievementImageHeight = 240;
         public const int ResizedImageWidth = 1920;
         public const int ResizedImageHeight = 1080;
-        public const long ThumbnailTimeFrame = 1;        
+        public const long ThumbnailTimeFrame = 1;
     }
 }

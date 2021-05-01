@@ -3,17 +3,25 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin" xmlns:elements="clr-namespace:ReminderXamarin.Elements"
+             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin" xmlns:elements="clr-namespace:ReminderXamarin.Elements" xmlns:converters="clr-namespace:ReminderXamarin.Converters"
              x:Class="ReminderXamarin.Views.ToDoCalendarView"
              Title="{extensions:Translate ToDoPageTitle}"
              BackgroundColor="{DynamicResource ViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ToDoStatusToColorConverter x:Key="ToDoStatusToColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                         AbsoluteLayout.LayoutFlags="All">
-            <ListView AbsoluteLayout.LayoutBounds="0,0,1,1"
+            <ListView x:Name="ToDoList"
+                      AbsoluteLayout.LayoutBounds="0,0,1,1"
                       AbsoluteLayout.LayoutFlags="All"
+                      SeparatorVisibility="None"
                       ItemsSource="{Binding AllModels}"
+                      ItemSelected="ListViewOnItemSelected"
                       IsPullToRefreshEnabled="True"
                       RefreshControlColor="{DynamicResource RefreshControl}"
                       CachingStrategy="RecycleElement"
@@ -22,6 +30,8 @@
                 <ListView.Header>
                     <elements:ReminderCalendarView x:Name="ReminderCalendarView"
                                                    HeightRequest="400"
+                                                   DaysWithActiveToDoInCurrentMonth="{Binding DaysWithActiveToDoInCurrentMonth}"
+                                                   DaysWithCompletedToDoInCurrentMonth="{Binding DaysWithCompletedToDoInCurrentMonth}"
                                                    Command="{Binding SelectDayCommand}" />
                 </ListView.Header>
                 <ListView.ItemTemplate>
@@ -38,12 +48,13 @@
 
                             <ViewCell.View>
                                 <Frame HasShadow="True"
-                                       Padding="0,10"
+                                       Padding="10,2"
                                        BackgroundColor="{DynamicResource CardViewBackground}"
                                        BorderColor="{DynamicResource CardViewBorder}"
-                                       Margin="0,5">
-                                    <StackLayout>
-                                        <Label Text="{Binding Description}">
+                                       Margin="5,0">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding Description}"
+                                               VerticalOptions="Center">
                                             <Label.FontFamily>
                                                 <OnPlatform x:TypeArguments="x:String">
                                                     <On Platform="iOS" Value="Roboto-Regular" />
@@ -51,6 +62,13 @@
                                                 </OnPlatform>
                                             </Label.FontFamily>
                                         </Label>
+                                        <BoxView HorizontalOptions="EndAndExpand"
+                                                 VerticalOptions="Center"
+                                                 BackgroundColor="{Binding Status, 
+                                                         Converter={StaticResource ToDoStatusToColorConverter}}"
+                                                 CornerRadius="10"
+                                                 WidthRequest="20"
+                                                 HeightRequest="20" />
                                     </StackLayout>
                                 </Frame>                                
                             </ViewCell.View>

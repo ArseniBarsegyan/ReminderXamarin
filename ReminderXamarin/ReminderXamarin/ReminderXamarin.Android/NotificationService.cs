@@ -1,15 +1,11 @@
-﻿using System;
-using System.Linq;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
 
-using Plugin.LocalNotifications;
+using ReminderXamarin.DependencyResolver;
+using ReminderXamarin.Services;
 
-using ReminderXamarin.Enums;
-
-using Rm.Helpers;
+using System;
 
 using Xamarin.Forms;
 
@@ -18,6 +14,8 @@ namespace ReminderXamarin.Droid
     [Service]
     public class NotificationService : Service
     {
+        private const int ToDoCheckInterval = 3;
+
         public override IBinder OnBind(Intent intent)
         {
             return null;
@@ -25,25 +23,11 @@ namespace ReminderXamarin.Droid
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
-            Device.StartTimer(TimeSpan.FromSeconds(5), () =>
+            var toDoNotificationService = ComponentFactory.Resolve<IToDoNotificationService>();
+
+            Device.StartTimer(TimeSpan.FromSeconds(ToDoCheckInterval), () =>
             {
-                var currentDate = DateTime.Now;
-
-                var allToDoModels = App.ToDoRepository.Value.GetAll()
-                    .Where(x => x.Status == ConstantsHelper.Active)
-                    .Where(x => x.WhenHappens.ToString("dd.MM.yyyy HH:mm") == currentDate.ToString("dd.MM.yyyy HH:mm"))
-                    .ToList();
-
-                allToDoModels.ForEach(model =>
-                {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        CrossLocalNotifications.Current.Show(model.WhenHappens.ToString("D"), model.Description);
-                    });
-                    model.Status = ToDoStatus.Completed.ToString();
-                    App.ToDoRepository.Value.Save(model);
-                    MessagingCenter.Send((App)App.Current, ConstantsHelper.UpdateUI);
-                });
+                toDoNotificationService.CheckForNotifications();
                 return true;
             });
             return StartCommandResult.Sticky;

@@ -41,9 +41,8 @@ namespace ReminderXamarin.Views
 
         private async void NotesList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var model = e.SelectedItem as Note;
             NotesList.SelectedItem = null;
-            if (model != null)
+            if (e.SelectedItem is Note model)
             {
                 if (BindingContext is NotesViewModel viewModel)
                 {

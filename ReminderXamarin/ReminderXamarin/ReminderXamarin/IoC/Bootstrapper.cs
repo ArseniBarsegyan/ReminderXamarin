@@ -22,6 +22,7 @@ namespace ReminderXamarin.IoC
         {
             ComponentRegistry.Register<INavigationService, NavigationService>();
             ComponentRegistry.Register<IUploadService, UploadService>();
+            ComponentRegistry.Register<IToDoNotificationService, ToDoNotificationsService>();
             ComponentRegistry.Register<ThemeSwitcher>();
 
             ComponentRegistry.Register<IAsyncCommand, AsyncCommand>();

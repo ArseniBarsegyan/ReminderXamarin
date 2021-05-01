@@ -32,7 +32,7 @@ namespace ReminderXamarin.Droid
     [Activity(Label = "Reminder", Icon = "@mipmap/Icon", Theme = "@style/MainTheme", 
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public event Action<int, Result, Intent> ActivityResult;
         public static MainActivity Instance { get; private set; }
