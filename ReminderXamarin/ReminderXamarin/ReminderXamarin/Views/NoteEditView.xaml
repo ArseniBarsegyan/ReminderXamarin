@@ -162,7 +162,7 @@
                          CornerRadius="28"
                          WidthRequest="60"
                          HeightRequest="60"
-                         Padding="14"
+                         Padding="18"
                          HorizontalOptions="EndAndExpand"
                          Clicked="ToggleOptionsLayout" />
 

@@ -14,9 +14,9 @@
 
             <Style x:Key="Fab" TargetType="ImageButton">
                 <Setter Property="CornerRadius" Value="28" />
-                <Setter Property="Padding" Value="14" />
+                <Setter Property="Padding" Value="18" />
                 <Setter Property="BackgroundColor" Value="{DynamicResource SubmitButtonBackground}" />
-                <Setter Property="AbsoluteLayout.LayoutBounds" Value="0.96,0.97,56,56" />
+                <Setter Property="AbsoluteLayout.LayoutBounds" Value="0.94,0.97,56,56" />
                 <Setter Property="AbsoluteLayout.LayoutFlags" Value="PositionProportional" />
             </Style>
 
