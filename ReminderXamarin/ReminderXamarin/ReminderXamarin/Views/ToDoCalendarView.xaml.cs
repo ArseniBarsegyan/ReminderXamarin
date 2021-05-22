@@ -2,9 +2,11 @@
 using System.Threading.Tasks;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Views
 {
+    [Preserve(AllMembers = true)]
     public partial class ToDoCalendarView : ContentPage
     {
         private bool _isFirstOpening = true;

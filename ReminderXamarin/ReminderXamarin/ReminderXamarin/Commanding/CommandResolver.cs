@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Commanding
 {
@@ -16,6 +17,7 @@ namespace ReminderXamarin.Commanding
         private readonly ICommandExecutionLock _commandExecutionLock;
         private long _lockIndex;
 
+        [Preserve]
         public CommandResolver(ICommandExecutionLock commandExecutionLock)
         {
             _commandExecutionLock = commandExecutionLock;

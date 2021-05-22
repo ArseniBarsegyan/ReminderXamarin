@@ -3,11 +3,15 @@
 using Rm.Data.Data.Entities;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Views
 {
+    [Preserve(AllMembers = true)]
     public partial class AchievementEditView : ContentPage
     {
+        private AchievementEditViewModel ViewModel => BindingContext as AchievementEditViewModel;
+        
         public AchievementEditView()
         {
             InitializeComponent();
@@ -19,10 +23,7 @@ namespace ReminderXamarin.Views
             AchievementStepsListView.SelectedItem = null;
             if (model != null)
             {
-                if (BindingContext is AchievementEditViewModel viewModel)
-                {
-                    await viewModel.NavigateToAchievementStepEditViewCommand.ExecuteAsync(model);
-                }
+                await ViewModel.NavigateToAchievementStepEditViewCommand.ExecuteAsync(model);
             }            
         }
     }

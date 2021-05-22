@@ -8,6 +8,7 @@ using PCLStorage;
 using ReminderXamarin.Core.Interfaces;
 
 using Rm.Data.Data.Entities;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Helpers
 {
@@ -16,6 +17,7 @@ namespace ReminderXamarin.Helpers
         private bool _landscape;
         private readonly IImageService _imageService;
 
+        [Preserve]
         public TransformHelper(IImageService imageService)
         {
             _imageService = imageService;

@@ -15,14 +15,17 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class ToDoCalendarViewModel : BaseNavigableViewModel
     {
         private readonly ICommandResolver _commandResolver;
-
-        public ToDoCalendarViewModel(INavigationService navigationService,
+        
+        public ToDoCalendarViewModel(
+            INavigationService navigationService,
             ICommandResolver commandResolver)
             : base(navigationService)
         {

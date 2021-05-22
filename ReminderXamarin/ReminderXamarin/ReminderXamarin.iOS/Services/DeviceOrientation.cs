@@ -1,4 +1,5 @@
-﻿using ReminderXamarin.Core.Interfaces;
+﻿using Foundation;
+using ReminderXamarin.Core.Interfaces;
 
 using UIKit;
 
@@ -6,6 +7,11 @@ namespace ReminderXamarin.iOS.Services
 {
     public class DeviceOrientation : IDeviceOrientation
     {
+        [Preserve]
+        public DeviceOrientation()
+        {
+        }
+        
         public DeviceOrientations GetOrientation()
         {
             var currentOrientation = UIApplication.SharedApplication.StatusBarOrientation;

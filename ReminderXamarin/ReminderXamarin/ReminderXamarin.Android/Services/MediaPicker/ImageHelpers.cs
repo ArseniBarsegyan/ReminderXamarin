@@ -7,7 +7,7 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
 {
     public static class ImageHelpers
     {
-        public static byte[] RotateImage(string path, float scaleFactor, int quality = 90)
+        public static byte[] GetRotatedImage(string path, float scaleFactor, int quality = 100)
         {
             byte[] imageBytes;
 

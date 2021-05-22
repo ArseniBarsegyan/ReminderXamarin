@@ -18,9 +18,11 @@ using Rm.Data.Data.Entities;
 using Rm.Helpers;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class AchievementEditViewModel : BaseNavigableViewModel
     {
         private int _achievementId;

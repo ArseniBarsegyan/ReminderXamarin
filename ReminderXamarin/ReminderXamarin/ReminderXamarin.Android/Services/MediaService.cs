@@ -11,6 +11,11 @@ namespace ReminderXamarin.Droid.Services
 {
     public class MediaService : IMediaService
     {
+        [Xamarin.Forms.Internals.Preserve]
+        public MediaService()
+        {
+        }
+        
         public byte[] ResizeImage(byte[] imageData, float width, float height)
         {
             // Load the bitmap 

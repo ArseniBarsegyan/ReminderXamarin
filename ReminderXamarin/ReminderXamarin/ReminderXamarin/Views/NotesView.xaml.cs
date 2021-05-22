@@ -14,6 +14,7 @@ namespace ReminderXamarin.Views
     public partial class NotesView : ContentPage
     {
         private bool _isAnimationInProgress;
+        private NotesViewModel ViewModel => BindingContext as NotesViewModel;
 
         public NotesView()
         {
@@ -23,20 +24,14 @@ namespace ReminderXamarin.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (BindingContext is NotesViewModel viewModel)
-            {
-                viewModel.OnAppearing();
-            }
+            ViewModel.OnAppearing();
             NotesList.SelectedItem = null;
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            if (BindingContext is NotesViewModel viewModel)
-            {
-                viewModel.OnDisappearing();
-            }
+            ViewModel.OnDisappearing();
         }
 
         private async void NotesList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -44,21 +39,15 @@ namespace ReminderXamarin.Views
             NotesList.SelectedItem = null;
             if (e.SelectedItem is Note model)
             {
-                if (BindingContext is NotesViewModel viewModel)
-                {
-                    await viewModel.NavigateToEditViewCommand.ExecuteAsync(model.Id);
-                }
+                await ViewModel.NavigateToEditViewCommand.ExecuteAsync(model.Id);
             }
         }
 
         private void NotesList_OnItemAppearing(object sender, ItemVisibilityEventArgs e)
         {
-            if (BindingContext is NotesViewModel viewModel)
+            if ((Note)e.Item == ViewModel.Notes.ElementAt(ViewModel.Notes.Count - 1))
             {
-                if ((Note)e.Item == viewModel.Notes.ElementAt(viewModel.Notes.Count - 1))
-                {
-                    viewModel.LoadMoreNotes();
-                }
+                ViewModel.LoadMoreNotes();
             }
         }
 

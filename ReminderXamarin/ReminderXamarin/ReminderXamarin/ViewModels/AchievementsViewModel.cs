@@ -12,9 +12,11 @@ using ReminderXamarin.ViewModels.Base;
 using Rm.Helpers;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class AchievementsViewModel : BaseNavigableViewModel
     {
         public AchievementsViewModel(INavigationService navigationService,
@@ -32,7 +34,6 @@ namespace ReminderXamarin.ViewModels
         public ObservableCollection<AchievementViewModel> Achievements { get; private set; }
 
         public ICommand RefreshListCommand { get; }
-        public ICommand SelectAchievementCommand { get; }
         public IAsyncCommand<int> NavigateToAchievementEditViewCommand { get; }
         public ICommand CreateNewAchievementCommand { get; }
 

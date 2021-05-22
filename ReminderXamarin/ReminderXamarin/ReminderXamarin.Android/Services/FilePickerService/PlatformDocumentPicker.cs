@@ -4,15 +4,23 @@ using System.Threading.Tasks;
 
 using Android.Content;
 using Android.Provider;
-
+using ReminderXamarin.Droid.Services.MediaPicker;
 using ReminderXamarin.Services.FilePickerService;
-
+using ReminderXamarin.Services.MediaPicker;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Droid.Services.FilePickerService
 {
     public class PlatformDocumentPicker : IPlatformDocumentPicker
     {
+        private const string TemporalDirectoryName = "TmpMedia";
+        
+        [Preserve]
+        public PlatformDocumentPicker()
+        {
+        }
+        
         public async Task<PlatformDocument> DisplayImportAsync(Page page)
         {
             var intent = await ShowPickerDialog();
@@ -29,7 +37,7 @@ namespace ReminderXamarin.Droid.Services.FilePickerService
 
             var intentFromLibrary = new Intent()
                 .SetAction(Intent.ActionGetContent)
-                .SetType("*/*")
+                .SetType("image/*")
                 .AddCategory(Intent.CategoryOpenable);
 
             taskCompletionSource.SetResult(intentFromLibrary);
@@ -48,14 +56,16 @@ namespace ReminderXamarin.Droid.Services.FilePickerService
                         var url = responseIntent.Data;
                         if (url != null)
                         {
-                            var name = "";
+                            var name = string.Empty;
                             var contentResolver = Platform.MainActivity.ContentResolver;
-                            using (var cursor = contentResolver.Query(url, new string[] { OpenableColumns.DisplayName }, null, null, null))
+                            using (var cursor = contentResolver?.Query(
+                                url,
+                                new[] { OpenableColumns.DisplayName }, null, null, null))
                             {
                                 if (cursor?.MoveToFirst() ?? false)
                                 {
                                     var columnIndex = cursor.GetColumnIndex(OpenableColumns.DisplayName);
-                                    name = cursor.IsNull(columnIndex) ? "" : cursor.GetString(columnIndex);
+                                    name = cursor.IsNull(columnIndex) ? string.Empty : cursor.GetString(columnIndex);
                                 }
                             }
                             if (string.IsNullOrEmpty(name))
@@ -63,14 +73,26 @@ namespace ReminderXamarin.Droid.Services.FilePickerService
                                 name = url.LastPathSegment;
                             }
                             var path = Path.GetTempFileName();
-                            using (var dataStream = Platform.MainActivity.ContentResolver.OpenInputStream(url))
+                            using (var dataStream = Platform.MainActivity.ContentResolver?.OpenInputStream(url))
                             using (var fileStream = File.OpenWrite(path))
                             {
-                                dataStream.CopyTo(fileStream);
+                                dataStream?.CopyTo(fileStream);
                             }
+                            
+                            var fileName = Path.GetFileNameWithoutExtension(path);
+                            var ext = Path.GetExtension(path);
+                            
+                            var fullPath = ReminderXamarin.Services.MediaPicker.FileHelper.GetOutputPath(
+                                MediaFileType.Image,
+                                TemporalDirectoryName,
+                                $"{fileName}{ext}");
+
+                            var fullImage = ImageHelpers.GetRotatedImage(path, 1);
+                            File.WriteAllBytes(fullPath, fullImage);
+
                             taskCompletionSource.SetResult(new PlatformDocument(
                                 name: name,
-                                path: path
+                                path: fullPath
                             ));
                             return;
                         }

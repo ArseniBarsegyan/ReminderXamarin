@@ -2,7 +2,7 @@
 using System.IO;
 
 using CoreGraphics;
-
+using Foundation;
 using ReminderXamarin.Core.Interfaces;
 
 using UIKit;
@@ -11,6 +11,11 @@ namespace ReminderXamarin.iOS.Services
 {
     public class ImageService : IImageService
     {
+        [Preserve]
+        public ImageService()
+        {
+        }
+        
         public void ResizeImage(string sourceFile, string targetFile, int requiredWidth, int requiredHeight)
         {
             if (File.Exists(sourceFile) && !File.Exists(targetFile))

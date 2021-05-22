@@ -2,9 +2,11 @@
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Views
 {
+    [Preserve(AllMembers=true)]
     public partial class PinView : ContentPage
     {
         public PinView()

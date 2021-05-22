@@ -83,9 +83,9 @@
                     <Entry x:Name="UserNameEntry" 
                            Style="{StaticResource LoginEntryStyle}"
                            Text="{Binding UserName}"
-                           Focused="Entry_OnFocused"
-                           Unfocused="Entry_OnUnfocused"
-                           Completed="Entry_OnCompleted"/>
+                           Focused="EntryOnFocused"
+                           Unfocused="EntryOnUnfocused"
+                           Completed="EntryOnCompleted"/>
                 </StackLayout>
 
                 <!-- Password -->
@@ -101,9 +101,9 @@
                                AbsoluteLayout.LayoutBounds="0,0,1,1"
                                AbsoluteLayout.LayoutFlags="All"
                                Text="{Binding Password}" 
-                               Focused="Entry_OnFocused"
-                               Unfocused="Entry_OnUnfocused"
-                               Completed="Entry_OnCompleted"
+                               Focused="EntryOnFocused"
+                               Unfocused="EntryOnUnfocused"
+                               Completed="EntryOnCompleted"
                                IsPassword="{Binding ShowPassword, 
                                                     Converter={StaticResource InverseBooleanConverter}}" 
                                Style="{StaticResource LoginEntryStyle}" />
@@ -135,9 +135,9 @@
                                Text="{Binding ConfirmPassword}"
                                AbsoluteLayout.LayoutBounds="0,0,1,1"
                                AbsoluteLayout.LayoutFlags="All"
-                               Focused="Entry_OnFocused"
-                               Unfocused="Entry_OnUnfocused"
-                               Completed="Entry_OnCompleted"
+                               Focused="EntryOnFocused"
+                               Unfocused="EntryOnUnfocused"
+                               Completed="EntryOnCompleted"
                                IsPassword="{Binding ShowConfirmedPassword, 
                                                     Converter={StaticResource InverseBooleanConverter}}" 
                                Style="{StaticResource LoginEntryStyle}" />
@@ -166,17 +166,15 @@
                         Text="{Binding IsRegister, 
                                        Converter={StaticResource RegisterLoginTextConverter}}" />
                 
-                <Label x:Name="QuestionLabel"
-                       TextColor="{DynamicResource TextCommon}"
+                <Label TextColor="{DynamicResource TextCommon}"
                        HorizontalOptions="Center"
                        Text="{Binding IsRegister, 
                                       Converter={StaticResource AccountQuestionConverter}}" />
                 
-                <Button x:Name="ToggleRegisterOrLoginButton"
-                        Command="{Binding ToggleRegisterOrLoginViewCommand}"
+                <Button Command="{Binding ToggleRegisterOrLoginViewCommand}"
                         VerticalOptions="EndAndExpand"
                         Style="{StaticResource CancelButtonStyle}"
-                        Clicked="ToggleRegisterOrLoginButton_OnClicked"
+                        Clicked="ToggleRegisterOrLoginButtonOnClicked"
                         Text="{Binding IsRegister, 
                                        Converter={StaticResource InverseRegisterLoginTextConverter}}" />
             </StackLayout>

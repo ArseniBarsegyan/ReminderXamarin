@@ -7,6 +7,11 @@ namespace ReminderXamarin.Droid.Services
 {
     public class FileSystem : IFileSystem
     {
+        [Xamarin.Forms.Internals.Preserve]
+        public FileSystem()
+        {
+        }
+        
         public byte[] ReadAllBytes(string path)
         {
             try

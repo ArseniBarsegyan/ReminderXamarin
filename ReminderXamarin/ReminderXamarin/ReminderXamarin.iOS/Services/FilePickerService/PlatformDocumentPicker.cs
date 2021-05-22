@@ -22,6 +22,11 @@ namespace ReminderXamarin.iOS.Services.FilePickerService
             { UTType.Item, UTType.Content, UTType.CompositeContent, UTType.Application,
             UTType.Message, UTType.Contact, UTType.Archive, UTType.DiskImage, UTType.Data };
 
+        [Preserve]
+        public PlatformDocumentPicker()
+        {
+        }
+        
         #region IPlatformDocumentPicker implementation
 
         public Task<PlatformDocument> DisplayImportAsync(Page page)

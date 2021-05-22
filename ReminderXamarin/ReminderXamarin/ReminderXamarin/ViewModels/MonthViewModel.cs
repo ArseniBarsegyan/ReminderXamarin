@@ -5,9 +5,11 @@ using System.Windows.Input;
 using ReminderXamarin.Collections;
 using ReminderXamarin.Constants;
 using ReminderXamarin.ViewModels.Base;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class MonthViewModel : BaseViewModel
     {
         private readonly ICommand _daySelectedCommand;

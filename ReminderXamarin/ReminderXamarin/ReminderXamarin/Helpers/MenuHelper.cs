@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ReminderXamarin.Resx;
 using ReminderXamarin.Utilities;
 using ReminderXamarin.Views;
+using Xamarin.Forms.Internals;
 
 namespace Rm.Helpers
 {
@@ -68,6 +69,7 @@ namespace Rm.Helpers
         }
     }
 
+    [Preserve(AllMembers = true)]
     public class MasterPageItem
     {
         public string Title { get; set; }

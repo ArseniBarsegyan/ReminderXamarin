@@ -8,11 +8,17 @@ using System;
 using System.Linq;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Services
 {
     public class ToDoNotificationsService : IToDoNotificationService
     {
+        [Preserve]
+        public ToDoNotificationsService()
+        {
+        }
+        
         public void CheckForNotifications()
         {
             var currentDate = DateTime.Now;

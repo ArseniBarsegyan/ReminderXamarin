@@ -3,12 +3,15 @@
 using ReminderXamarin.ViewModels;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Views
 {
+    [Preserve(AllMembers = true)]
     public partial class NoteEditView : ContentPage
     {
         private bool _isAnimationInProgress;
+        private NoteEditViewModel ViewModel => BindingContext as NoteEditViewModel;
 
         public NoteEditView()
         {
@@ -18,20 +21,13 @@ namespace ReminderXamarin.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            if (BindingContext is NoteEditViewModel viewModel)
-            {
-                viewModel.OnAppearing();
-            }
+            ViewModel.OnAppearing();
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            if (BindingContext is NoteEditViewModel viewModel)
-            {
-                viewModel.OnDisappearing();
-            }
+            ViewModel.OnDisappearing();
         }
 
         private async void ToggleOptionsLayout(object sender, System.EventArgs e)

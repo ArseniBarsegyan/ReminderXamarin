@@ -21,12 +21,14 @@ using Rm.Data.Data.Entities;
 using Rm.Helpers;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class NoteEditViewModel : BaseNavigableViewModel
     {
-        private static readonly object _obj = new object();
+        private static readonly object Obj = new object();
 
         private readonly IPermissionService _permissionService;
         private readonly IFileSystem _fileService;
@@ -76,9 +78,9 @@ namespace ReminderXamarin.ViewModels
             SelectImageCommand = commandResolver.AsyncCommand<GalleryItemModel>(SelectImage);
         }
 
-        public ImageSource AttachButtonImageSource { get; private set; }
-        public ImageSource CameraButtonImageSource { get; private set; }
-        public ImageSource VideoButtonImageSource { get; private set; }
+        public ImageSource AttachButtonImageSource { get; }
+        public ImageSource CameraButtonImageSource { get; }
+        public ImageSource VideoButtonImageSource { get; }
 
         public bool IsToolbarItemVisible { get; set; }
 
@@ -90,7 +92,7 @@ namespace ReminderXamarin.ViewModels
 
         public bool IsGalleryVisible => GalleryItemModels.Count > 0;
 
-        public RangeObservableCollection<GalleryItemModel> GalleryItemModels { get; set; }
+        public RangeObservableCollection<GalleryItemModel> GalleryItemModels { get; }
 
         public ICommand DescriptionTextChanged { get; }
         public IAsyncCommand TakePhotoCommand { get; }
@@ -179,7 +181,7 @@ namespace ReminderXamarin.ViewModels
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    lock(_obj)
+                    lock(Obj)
                     {
                         GalleryItemModels.Add(model);
                     }

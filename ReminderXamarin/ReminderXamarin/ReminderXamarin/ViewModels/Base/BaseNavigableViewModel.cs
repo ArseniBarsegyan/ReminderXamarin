@@ -9,9 +9,11 @@ using Plugin.Permissions.Abstractions;
 using ReminderXamarin.Services.Navigation;
 
 using Rm.Helpers;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels.Base
 {
+    [Preserve(AllMembers = true)]
     public class BaseNavigableViewModel : BaseViewModel
     {
         protected readonly INavigationService NavigationService;

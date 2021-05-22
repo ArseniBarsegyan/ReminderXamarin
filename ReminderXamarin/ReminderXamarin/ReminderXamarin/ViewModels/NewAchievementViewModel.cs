@@ -8,9 +8,11 @@ using Rm.Data.Data.Entities;
 using Rm.Helpers;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class NewAchievementViewModel : BaseNavigableViewModel
     {
         private bool _isEnabled;
@@ -19,7 +21,7 @@ namespace ReminderXamarin.ViewModels
             ICommandResolver commandResolver)
             : base(navigationService)
         {
-            CreateAchievementCommand = commandResolver.AsyncCommand(CreateAchievement, () => { return IsEnabled; });
+            CreateAchievementCommand = commandResolver.AsyncCommand(CreateAchievement, () => IsEnabled);
             NavigateBackCommand = commandResolver.AsyncCommand(NavigateBack);
         }
 

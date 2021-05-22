@@ -2,19 +2,20 @@
 using ReminderXamarin.ViewModels.Base;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Views
 {
+    [Preserve(AllMembers = true)]
     public partial class MenuView : MasterDetailPage
     {
+        private MenuViewModel ViewModel => BindingContext as MenuViewModel;
+        
         public MenuView()
         {
             InitializeComponent();
-            if (BindingContext is MenuViewModel viewModel)
-            {
-                viewModel.MasterViewModel = MenuMasterView.BindingContext as BaseNavigableViewModel;
-                viewModel.DetailViewModel = MenuDetailsView.BindingContext as BaseNavigableViewModel;
-            }
+            ViewModel.MasterViewModel = MenuMasterView.BindingContext as BaseNavigableViewModel;
+            ViewModel.DetailViewModel = MenuDetailsView.BindingContext as BaseNavigableViewModel;
         }
     }
 }

@@ -8,6 +8,11 @@ namespace ReminderXamarin.Droid.Services
 {
     public class DeviceOrientation : IDeviceOrientation
     {
+        [Xamarin.Forms.Internals.Preserve]
+        public DeviceOrientation()
+        {
+        }
+        
         public DeviceOrientations GetOrientation()
         {
             IWindowManager windowManager = Android.App.Application

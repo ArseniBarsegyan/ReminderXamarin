@@ -17,6 +17,11 @@ namespace ReminderXamarin.iOS.Services
 {
     public class MediaService : IMediaService
     {
+        [Preserve]
+        public MediaService()
+        {
+        }
+        
         public byte[] ResizeImage(byte[] imageData, float width, float height)
         {
             var data = NSData.FromArray(imageData);

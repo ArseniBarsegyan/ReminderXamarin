@@ -9,9 +9,11 @@ using Rm.Data.Data.Entities;
 using Rm.Helpers;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class NewToDoViewModel : BaseNavigableViewModel
     {
         private bool _isEnabled;
@@ -21,7 +23,7 @@ namespace ReminderXamarin.ViewModels
            ICommandResolver commandResolver)
            : base(navigationService)
         {
-            CreateToDoCommand = commandResolver.AsyncCommand(CreateToDo, () => { return IsEnabled; });
+            CreateToDoCommand = commandResolver.AsyncCommand(CreateToDo, () => IsEnabled);
             NavigateBackCommand = commandResolver.AsyncCommand(NavigateBack);
         }
 

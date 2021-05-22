@@ -11,9 +11,11 @@ using ReminderXamarin.ViewModels.Base;
 using Rm.Helpers;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class SettingsViewModel : BaseNavigableViewModel
     {
         private readonly IThemeService _themeService;
@@ -71,8 +73,8 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        public ICommand SaveSettingsCommand { get; private set; }
-        public ICommand OpenPinViewCommand { get; private set; }
+        public ICommand SaveSettingsCommand { get; }
+        public ICommand OpenPinViewCommand { get; }
 
         public void OnDisappearing()
         {

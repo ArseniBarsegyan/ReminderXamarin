@@ -10,6 +10,7 @@ using Plugin.Media.Abstractions;
 using ReminderXamarin.Helpers;
 
 using Rm.Data.Data.Entities;
+using Xamarin.Forms.Internals;
 
 namespace Rm.Helpers
 {
@@ -17,6 +18,7 @@ namespace Rm.Helpers
     {
         private readonly TransformHelper _transformHelper;
 
+        [Preserve]
         public MediaHelper(TransformHelper transformHelper)
         {
             _transformHelper = transformHelper;
@@ -24,7 +26,7 @@ namespace Rm.Helpers
 
         public async Task<GalleryItemModel> TakePhotoAsync()
         {
-            bool b = await CrossMedia.Current.Initialize();
+            await CrossMedia.Current.Initialize();
 
             if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
             {
@@ -54,7 +56,7 @@ namespace Rm.Helpers
 
         public async Task<GalleryItemModel> TakeVideoAsync()
         {
-            bool b = await CrossMedia.Current.Initialize();
+            await CrossMedia.Current.Initialize();
 
             if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakeVideoSupported)
             {

@@ -1,11 +1,15 @@
 ﻿using ReminderXamarin.ViewModels;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Views
 {
+    [Preserve(AllMembers = true)]
     public partial class AchievementsView : ContentPage
     {
+        private AchievementsViewModel ViewModel => BindingContext as AchievementsViewModel;
+        
         public AchievementsView()
         {
             InitializeComponent();
@@ -14,19 +18,13 @@ namespace ReminderXamarin.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (BindingContext is AchievementsViewModel vm)
-            {
-                vm.OnAppearing();
-            }
+            ViewModel.OnAppearing();
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            if (BindingContext is AchievementsViewModel vm)
-            {
-                vm.OnDisappearing();
-            }
+            ViewModel.OnDisappearing();
         }
 
         private async void AchievementsList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -35,10 +33,7 @@ namespace ReminderXamarin.Views
             AchievementsListView.SelectedItem = null;
             if (model != null)
             {
-                if (BindingContext is AchievementsViewModel viewModel)
-                {
-                    await viewModel.NavigateToAchievementEditViewCommand.ExecuteAsync(model.Id);
-                }
+                await ViewModel.NavigateToAchievementEditViewCommand.ExecuteAsync(model.Id);
             }
         }
     }

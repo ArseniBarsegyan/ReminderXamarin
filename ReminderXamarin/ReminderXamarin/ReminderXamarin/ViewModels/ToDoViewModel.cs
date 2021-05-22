@@ -8,9 +8,11 @@ using ReminderXamarin.Enums;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class ToDoViewModel : BaseNavigableViewModel
     {
         public ToDoViewModel(INavigationService navigationService,

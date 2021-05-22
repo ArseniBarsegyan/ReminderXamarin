@@ -14,9 +14,11 @@ using Rm.Data.Data.Entities;
 using Rm.Helpers;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class MenuMasterViewModel : BaseNavigableViewModel
     {
         private readonly ThemeSwitcher _themeSwitcher;

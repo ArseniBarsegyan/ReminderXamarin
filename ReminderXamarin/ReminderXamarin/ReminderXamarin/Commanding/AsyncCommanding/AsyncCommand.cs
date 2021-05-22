@@ -3,6 +3,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Commanding.AsyncCommanding
 {
@@ -14,6 +15,7 @@ namespace ReminderXamarin.Commanding.AsyncCommanding
         private readonly Func<T, Task> _execute;
         private readonly Func<T, bool> _canExecute;
 
+        [Preserve]
         public AsyncCommand(Func<T, Task> execute, Func<T, bool> canExecute = null)
         {
             _execute = execute;

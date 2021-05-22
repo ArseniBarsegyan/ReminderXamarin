@@ -12,9 +12,11 @@ using ReminderXamarin.ViewModels.Base;
 using Rm.Helpers;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class PinViewModel : BaseNavigableViewModel
     {
         private static int _currentCount;
@@ -61,7 +63,6 @@ namespace ReminderXamarin.ViewModels
         public string Message { get; private set; }
 
         public ICommand DeleteNumberCommand { get; }
-        public IAsyncCommand SetPin { get; }
         public IAsyncCommand<string> PinCommand { get; }
 
         private void InitializeImagesForButtons()

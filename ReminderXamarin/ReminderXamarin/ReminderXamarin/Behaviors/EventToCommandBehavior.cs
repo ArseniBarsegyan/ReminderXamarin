@@ -3,9 +3,11 @@ using System.Reflection;
 using System.Windows.Input;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Behaviors
 {
+    [Preserve(AllMembers = true)]
     public class EventToCommandBehavior : BehaviorBase<View>
     {
         private Delegate eventHandler;

@@ -3,11 +3,15 @@
 using Rm.Helpers;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Views
 {
+    [Preserve(AllMembers = true)]
     public partial class MenuMasterView : ContentPage
     {
+        private MenuMasterViewModel ViewModel => BindingContext as MenuMasterViewModel;
+        
         public MenuMasterView()
         {
             InitializeComponent();
@@ -18,10 +22,7 @@ namespace ReminderXamarin.Views
             MenuList.SelectedItem = null;
             if (e.SelectedItem is MasterPageItem item)
             {
-                if (BindingContext is MenuMasterViewModel viewModel)
-                {
-                    await viewModel.ChangeDetailsPageCommand.ExecuteAsync(item.Index);
-                }
+                await ViewModel.ChangeDetailsPageCommand.ExecuteAsync(item.Index);
             }            
         }
     }

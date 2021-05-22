@@ -12,6 +12,11 @@ namespace ReminderXamarin.Droid.Services
     {
         private static readonly int SdkVersion = (int)Android.OS.Build.VERSION.SdkInt;
 
+        [Xamarin.Forms.Internals.Preserve]
+        public PermissionService()
+        {
+        }
+        
         public async Task<bool> AskPermission()
         {
             if (SdkVersion < 23)

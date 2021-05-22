@@ -5,29 +5,30 @@ using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.ViewModels;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Views
 {
+    [Preserve(AllMembers = true)]
     public partial class UserProfileView : ContentPage
     {
-        private static readonly IPlatformDocumentPicker DocumentPicker = ComponentFactory.Resolve<IPlatformDocumentPicker>();
+        private readonly IPlatformDocumentPicker _documentPicker;
+        private UserProfileViewModel ViewModel => BindingContext as UserProfileViewModel;
 
         public UserProfileView()
         {
             InitializeComponent();
+            _documentPicker =  ComponentFactory.Resolve<IPlatformDocumentPicker>();
         }
 
-        private async void PickUserPhotoImage_OnClicked(object sender, EventArgs e)
+        private async void PickUserPhotoImageOnClicked(object sender, EventArgs e)
         {
-            var document = await DocumentPicker.DisplayImportAsync(this);
+            var document = await _documentPicker.DisplayImportAsync(this);
             if (document == null)
             {
                 return;
             }
-            if (BindingContext is UserProfileViewModel viewModel)
-            {
-                viewModel.ChangeUserProfileCommand.Execute(document);
-            }
+            ViewModel.ChangeUserProfileCommand.Execute(document);
         }
     }
 }

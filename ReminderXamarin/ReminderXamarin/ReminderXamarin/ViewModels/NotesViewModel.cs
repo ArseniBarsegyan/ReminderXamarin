@@ -20,13 +20,16 @@ using Rm.Helpers;
 
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class NotesViewModel : BaseNavigableViewModel
     {
+        private const int NotesPerLoad = 10;
+        
         private readonly IUploadService _uploadService;
-        private readonly int _notesPerLoad = 10;
         private int _currentSkipCounter = 10;
         private List<Note> _allNotes;
         private bool _isInitialized;
@@ -49,7 +52,7 @@ namespace ReminderXamarin.ViewModels
             NavigateToEditViewCommand = commandResolver.AsyncCommand<int>(NavigateToEditView);
         }
 
-        public string SearchText { get; set; }
+        public string SearchText { get; }
         public bool IsRefreshing { get; set; }
         public ObservableCollection<Note> Notes { get; private set; }
         
@@ -238,10 +241,10 @@ namespace ReminderXamarin.ViewModels
                 .OrderByDescending(x => x.CreationDate)
                 .ToList();
 
-            if (_allNotes.Count > _notesPerLoad)
+            if (_allNotes.Count > NotesPerLoad)
             {
                 Notes = _allNotes
-                    .Take(_notesPerLoad)
+                    .Take(NotesPerLoad)
                     .ToObservableCollection();
             }
             else
@@ -263,20 +266,20 @@ namespace ReminderXamarin.ViewModels
             {
                 List<Note> notesToAdd;
                 var remainingCount = _allNotes.Count - _allNotes.Skip(_currentSkipCounter).Count();
-                if (remainingCount > _notesPerLoad)
+                if (remainingCount > NotesPerLoad)
                 {
                     if (string.IsNullOrWhiteSpace(SearchText))
                     {
                         notesToAdd = _allNotes
                             .Skip(_currentSkipCounter)
-                            .Take(_notesPerLoad)
+                            .Take(NotesPerLoad)
                             .ToList();
                     }
                     else
                     {
                         notesToAdd = _allNotes
                             .Skip(_currentSkipCounter)
-                            .Take(_notesPerLoad)
+                            .Take(NotesPerLoad)
                             .Where(CheckSearchText)
                             .ToList();
                     }

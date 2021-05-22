@@ -14,7 +14,7 @@
                 <Setter Property="MinimumHeightRequest" Value="200" />
                 <Setter Property="HasShadow" Value="True" />
                 <Setter Property="Padding" Value="10" />
-                <Setter Property="Margin" Value="0,5" />
+                <Setter Property="Margin" Value="0" />
                 <Setter Property="BackgroundColor" Value="{DynamicResource CardViewBackground}" />
                 <Setter Property="BorderColor" Value="{DynamicResource CardViewBorder}" />
             </Style>
@@ -40,6 +40,7 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="0"
@@ -47,8 +48,7 @@
                                Text="{extensions:Translate UsePin}"
                                TextColor="{DynamicResource TextCommon}" />
 
-                        <Switch x:Name="UsePinSwitch"
-                                Grid.Row="0"
+                        <Switch Grid.Row="0"
                                 Grid.Column="1"
                                 Style="{StaticResource SwitchBaseStyle}"
                                 IsToggled="{Binding UsePin}">
@@ -67,6 +67,7 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="0"
@@ -74,8 +75,7 @@
                                Text="{extensions:Translate UseColorTheme}"
                                TextColor="{DynamicResource TextCommon}" />
 
-                        <Switch x:Name="ThemeSwitcher"
-                                Grid.Row="0"
+                        <Switch Grid.Row="0"
                                 Grid.Column="1"
                                 Style="{StaticResource SwitchBaseStyle}"
                                 IsToggled="{Binding IsDarkTheme}"/>
@@ -89,6 +89,7 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="0"
@@ -96,8 +97,7 @@
                                Text="{extensions:Translate UseSafeMode}"
                                TextColor="{DynamicResource TextCommon}" />
 
-                        <Switch x:Name="SafeModeSwitcher"
-                                Grid.Row="0"
+                        <Switch Grid.Row="0"
                                 Grid.Column="1"
                                 Style="{StaticResource SwitchBaseStyle}"
                                 IsToggled="{Binding UseSafeMode}"/>
@@ -105,8 +105,7 @@
                 </Frame>
             </StackLayout>            
 
-            <ImageButton x:Name="ConfirmButton"
-                         IsVisible="{Binding ModelChanged}"
+            <ImageButton IsVisible="{Binding ModelChanged}"
                          Style="{StaticResource Fab}"
                          Command="{Binding SaveSettingsCommand}"
                          Source="confirm.png" />

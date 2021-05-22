@@ -15,6 +15,7 @@ using Android.Widget;
 using Plugin.CurrentActivity;
 
 using ReminderXamarin.Services.MediaPicker;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Droid.Services.MediaPicker
 {
@@ -22,9 +23,14 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
     {
         private const int MultiPickerResultCode = 9793;
         private const string TemporalDirectoryName = "TmpMedia";
-        private static readonly object _obj = new object();
+        private static readonly object Obj = new object();
 
         private TaskCompletionSource<IList<MediaFile>> _mediaPickedTcs;
+
+        [Preserve]
+        public MultiMediaPickerService()
+        {
+        }
 
         public event EventHandler<MediaFile> OnMediaPicked;
         public event EventHandler<IList<MediaFile>> OnMediaPickedCompleted;
@@ -55,7 +61,7 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
                                         
                                         if (media != null)
                                         {
-                                            lock (_obj)
+                                            lock (Obj)
                                             {
                                                 mediaPicked.Add(media);
                                             }
@@ -92,15 +98,15 @@ namespace ReminderXamarin.Droid.Services.MediaPicker
             {
                 string fullPath = string.Empty;
                 string thumbnailImagePath = string.Empty;
-                var fileName = System.IO.Path.GetFileNameWithoutExtension(path);
-                var ext = System.IO.Path.GetExtension(path) ?? string.Empty;
+                string fileName = System.IO.Path.GetFileNameWithoutExtension(path);
+                string ext = System.IO.Path.GetExtension(path);
                 MediaFileType mediaFileType = MediaFileType.Image;
 
                 if (type.StartsWith(Enum.GetName(typeof(MediaFileType), MediaFileType.Image), 
                     StringComparison.CurrentCultureIgnoreCase))
                 {
-                    var fullImage = ImageHelpers.RotateImage(path, 1);
-                    var thumbImage = ImageHelpers.RotateImage(path, 0.25f);
+                    var fullImage = ImageHelpers.GetRotatedImage(path, 1);
+                    var thumbImage = ImageHelpers.GetRotatedImage(path, 0.5f);
 
                     fullPath = ReminderXamarin.Services.MediaPicker.FileHelper.GetOutputPath(
                         MediaFileType.Image,

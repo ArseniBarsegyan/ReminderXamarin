@@ -9,11 +9,17 @@ using Rg.Plugins.Popup.Extensions;
 using Rg.Plugins.Popup.Pages;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Services.Navigation
 {
     public class NavigationService : INavigationService
     {
+        [Preserve]
+        public NavigationService()
+        {
+        }
+        
         public Task ToRootAsync<TViewModel>() where TViewModel : BaseNavigableViewModel
         {
             return InternalNavigateToAsync(typeof(TViewModel), null, true);

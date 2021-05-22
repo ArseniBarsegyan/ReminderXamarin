@@ -15,13 +15,11 @@
                    AbsoluteLayout.LayoutBounds="0,0,1,0.5"
                    AbsoluteLayout.LayoutFlags="All" />            
 
-            <StackLayout x:Name="UserInfoLayout"
-                         AbsoluteLayout.LayoutBounds="0.5,1,1,0.5"
+            <StackLayout AbsoluteLayout.LayoutBounds="0.5,1,1,0.5"
                          AbsoluteLayout.LayoutFlags="All">
             </StackLayout>
 
-            <ImageButton x:Name="PickUserPhotoImage"
-                         Clicked="PickUserPhotoImage_OnClicked"
+            <ImageButton Clicked="PickUserPhotoImageOnClicked"
                          Source="edit.png"
                          Padding="20"
                          BackgroundColor="{DynamicResource PickUserButtonBackground}"
@@ -29,8 +27,7 @@
                          CornerRadius="30"
                          AbsoluteLayout.LayoutFlags="PositionProportional" />
 
-            <ImageButton x:Name="UpdateUserButton"
-                         Style="{StaticResource Fab}"
+            <ImageButton Style="{StaticResource Fab}"
                          IsVisible="{Binding ViewModelChanged}"
                          Command="{Binding UpdateUserCommand}"
                          Source="confirm.png" />

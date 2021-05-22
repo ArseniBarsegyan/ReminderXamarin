@@ -9,21 +9,19 @@ using ReminderXamarin.ViewModels.Base;
 using Rm.Helpers;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class LoginViewModel : BaseNavigableViewModel
     {
-        private readonly ThemeSwitcher _themeSwitcher;
-
         public LoginViewModel(INavigationService navigationService,
             ThemeSwitcher themeSwitcher,
             ICommandResolver commandResolver)
             : base(navigationService)
         {
-            _themeSwitcher = themeSwitcher;
-
-            TogglePasswordImageSource = _themeSwitcher.CurrentThemeType == ThemeTypes.Dark
+            TogglePasswordImageSource = themeSwitcher.CurrentThemeType == ThemeTypes.Dark
                         ? ConstantsHelper.TogglePasswordLightImage
                         : ConstantsHelper.TogglePasswordDarkImage;
 

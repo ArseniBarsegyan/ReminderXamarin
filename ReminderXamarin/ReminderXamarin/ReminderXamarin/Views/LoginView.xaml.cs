@@ -5,9 +5,11 @@ using ReminderXamarin.Extensions;
 using ReminderXamarin.ViewModels;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Views
 {
+    [Preserve(AllMembers = true)]
     public partial class LoginView : ContentPage
     {
         public LoginView()
@@ -18,13 +20,13 @@ namespace ReminderXamarin.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            Entry_OnUnfocused(UserNameEntry, new FocusEventArgs(UserNameEntry, false));
-            Entry_OnUnfocused(PasswordEntry, new FocusEventArgs(PasswordEntry, false));
-            Entry_OnUnfocused(ConfirmPasswordEntry, new FocusEventArgs(ConfirmPasswordEntry, false));
+            EntryOnUnfocused(UserNameEntry, new FocusEventArgs(UserNameEntry, false));
+            EntryOnUnfocused(PasswordEntry, new FocusEventArgs(PasswordEntry, false));
+            EntryOnUnfocused(ConfirmPasswordEntry, new FocusEventArgs(ConfirmPasswordEntry, false));
             await RegisterLayout.TranslateTo(0, 100, 300);
         }
 
-        private void Entry_OnCompleted(object sender, EventArgs e)
+        private void EntryOnCompleted(object sender, EventArgs e)
         {
             if (sender == UserNameEntry)
             {
@@ -39,7 +41,7 @@ namespace ReminderXamarin.Views
             }
         }
 
-        private async void Entry_OnFocused(object sender, FocusEventArgs e)
+        private async void EntryOnFocused(object sender, FocusEventArgs e)
         {
             var item = e.VisualElement;
 
@@ -57,7 +59,7 @@ namespace ReminderXamarin.Views
             }
         }
 
-        private async void Entry_OnUnfocused(object sender, FocusEventArgs e)
+        private async void EntryOnUnfocused(object sender, FocusEventArgs e)
         {
             var item = e.VisualElement;
 
@@ -95,7 +97,7 @@ namespace ReminderXamarin.Views
             }
         }
 
-        private async void ToggleRegisterOrLoginButton_OnClicked(object sender, EventArgs e)
+        private async void ToggleRegisterOrLoginButtonOnClicked(object sender, EventArgs e)
         {
             if (BindingContext is LoginViewModel viewModel)
             {

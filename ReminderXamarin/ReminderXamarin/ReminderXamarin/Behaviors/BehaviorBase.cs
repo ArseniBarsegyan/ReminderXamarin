@@ -1,9 +1,11 @@
 ﻿using System;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Behaviors
 {
+    [Preserve(AllMembers = true)]
     public class BehaviorBase<T> : Behavior<T> where T : BindableObject
     {
         public T AssociatedObject { get; private set; }

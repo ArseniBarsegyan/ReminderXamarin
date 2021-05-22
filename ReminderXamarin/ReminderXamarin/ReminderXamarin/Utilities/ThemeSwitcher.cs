@@ -5,6 +5,7 @@ using Rm.Helpers;
 using System;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Utilities
 {
@@ -15,6 +16,7 @@ namespace ReminderXamarin.Utilities
 
         public ThemeTypes CurrentThemeType { get; private set; }
 
+        [Preserve]
         public ThemeSwitcher()
         {
             _lightThemeDictionary = new LightThemeDictionary();

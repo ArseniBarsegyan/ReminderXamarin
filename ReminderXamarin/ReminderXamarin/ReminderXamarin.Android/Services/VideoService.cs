@@ -12,6 +12,11 @@ namespace ReminderXamarin.Droid.Services
 {
     public class VideoService : IVideoService
     {
+        [Xamarin.Forms.Internals.Preserve]
+        public VideoService()
+        {
+        }
+        
         public void PlayVideo(string path)
         {
             File videoFile = new File(path);

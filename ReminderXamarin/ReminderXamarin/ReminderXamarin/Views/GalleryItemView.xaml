@@ -16,11 +16,10 @@
         <elements:ZoomImage AbsoluteLayout.LayoutBounds="0.5,0.5,0.8,0.8"
                             AbsoluteLayout.LayoutFlags="All">
             <elements:ZoomImage.Content>
-                <Image x:Name="Image" 
-                           Source="{Binding ImagePath}"
-                           Aspect="AspectFit"
-                           WidthRequest="300"
-                           HeightRequest="500"/>
+                <Image Source="{Binding ImagePath}"
+                       Aspect="AspectFit"
+                       WidthRequest="300"
+                       HeightRequest="500"/>
             </elements:ZoomImage.Content>
         </elements:ZoomImage>
         

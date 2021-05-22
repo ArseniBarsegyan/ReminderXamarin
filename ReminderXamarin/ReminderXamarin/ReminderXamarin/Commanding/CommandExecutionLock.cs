@@ -1,6 +1,7 @@
 ﻿using ReminderXamarin.Core.Interfaces.Commanding;
 
 using System.Threading.Tasks;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Commanding
 {
@@ -14,6 +15,7 @@ namespace ReminderXamarin.Commanding
 
         private readonly object _lockObject;
 
+        [Preserve]
         public CommandExecutionLock()
         {
             _lockObject = new object();

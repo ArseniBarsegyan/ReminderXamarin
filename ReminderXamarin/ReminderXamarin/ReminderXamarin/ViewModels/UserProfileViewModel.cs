@@ -15,9 +15,11 @@ using Rm.Data.Data.Entities;
 using Rm.Helpers;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class UserProfileViewModel : BaseNavigableViewModel
     {
         private readonly IFileSystem _fileService;
@@ -92,7 +94,9 @@ namespace ReminderXamarin.ViewModels
                     await Task.Run(() =>
                     {
                         var imageContent = _fileService.ReadAllBytes(document.Path);
-                        var resizedImage = _mediaService.ResizeImage(imageContent, ConstantsHelper.ResizedImageWidth,
+                        var resizedImage = _mediaService.ResizeImage(
+                            imageContent,
+                            ConstantsHelper.ResizedImageWidth,
                             ConstantsHelper.ResizedImageHeight);
 
                         ImageContent = resizedImage;

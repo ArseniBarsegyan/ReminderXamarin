@@ -9,11 +9,17 @@ using ReminderXamarin.Core.Interfaces;
 
 using Rm.Data.Data.Entities;
 using Rm.Helpers;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Services
 {
     public class UploadService : IUploadService
     {
+        [Preserve]
+        public UploadService()
+        {
+        }
+        
         private readonly HttpClient _httpClient = new HttpClient();
 
         public async Task<HttpResult> UploadAll(IList<Note> notes, CancellationToken cancellationToken)

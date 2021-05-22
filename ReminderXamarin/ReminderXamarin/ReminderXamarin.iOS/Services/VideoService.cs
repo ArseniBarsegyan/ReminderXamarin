@@ -15,6 +15,11 @@ namespace ReminderXamarin.iOS.Services
 {
     public class VideoService : IVideoService
     {
+        [Preserve]
+        public VideoService()
+        {
+        }
+        
         public void PlayVideo(string path)
         {
             string name = Path.GetFileName(path);
@@ -23,7 +28,10 @@ namespace ReminderXamarin.iOS.Services
                 QLPreviewItemFileSystem prevItem = new QLPreviewItemFileSystem(name, path);
                 QLPreviewController previewController = new QLPreviewController();
                 previewController.DataSource = new PreviewControllerDS(prevItem);
-                UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(previewController, true, null);
+                UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(
+                    previewController,
+                    true, 
+                    null);
             });
         }
     }

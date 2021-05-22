@@ -8,6 +8,11 @@ namespace ReminderXamarin.Droid.Services
 {
     public class ImageService : IImageService
     {
+        [Xamarin.Forms.Internals.Preserve]
+        public ImageService()
+        {
+        }
+        
         public void ResizeImage(string sourceFile, string targetFile, int requiredWidth, int requiredHeight)
         {
             if (!File.Exists(targetFile) && File.Exists(sourceFile))

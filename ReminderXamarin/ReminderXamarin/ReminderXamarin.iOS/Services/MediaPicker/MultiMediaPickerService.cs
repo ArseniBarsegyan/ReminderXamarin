@@ -27,6 +27,11 @@ namespace ReminderXamarin.iOS.Services.MediaPicker
         private GMImagePickerController _currentPicker;
         private TaskCompletionSource<IList<MediaFile>> _mediaPickTcs;
 
+        [Preserve]
+        public MultiMediaPickerService()
+        {
+        }
+
         //Events
         public event EventHandler<MediaFile> OnMediaPicked;
         public event EventHandler<IList<MediaFile>> OnMediaPickedCompleted;

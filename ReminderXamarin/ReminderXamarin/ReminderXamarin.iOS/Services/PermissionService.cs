@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-
+using Foundation;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 
@@ -10,6 +10,11 @@ namespace ReminderXamarin.iOS.Services
 {
     public class PermissionService : IPermissionService
     {
+        [Preserve]
+        public PermissionService()
+        {
+        }
+        
         public async Task<bool> AskPermission()
         {
             try

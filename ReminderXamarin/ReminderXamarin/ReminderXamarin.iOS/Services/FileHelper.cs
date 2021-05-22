@@ -1,12 +1,17 @@
 ﻿using System;
 using System.IO;
-
+using Foundation;
 using ReminderXamarin.Core.Interfaces;
 
 namespace ReminderXamarin.iOS.Services
 {
     public class FileHelper : IFileHelper
     {
+        [Preserve]
+        public FileHelper()
+        {
+        }
+        
         public string GetLocalFilePath(string filename)
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
