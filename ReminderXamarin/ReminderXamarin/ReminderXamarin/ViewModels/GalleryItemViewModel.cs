@@ -13,7 +13,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class GalleryItemViewModel : BaseViewModel
+    public class GalleryItemViewModel : BaseNavigableViewModel
     {
         private GalleryItemModel _model;
 

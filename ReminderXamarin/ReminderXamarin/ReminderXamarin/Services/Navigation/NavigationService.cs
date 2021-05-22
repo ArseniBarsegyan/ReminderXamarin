@@ -14,22 +14,22 @@ namespace ReminderXamarin.Services.Navigation
 {
     public class NavigationService : INavigationService
     {
-        public Task ToRootAsync<TViewModel>() where TViewModel : BaseViewModel
+        public Task ToRootAsync<TViewModel>() where TViewModel : BaseNavigableViewModel
         {
             return InternalNavigateToAsync(typeof(TViewModel), null, true);
         }
 
-        public Task NavigateToDetails<TViewModel>(object parameter = null) where TViewModel : BaseViewModel
+        public Task NavigateToDetails<TViewModel>(object parameter = null) where TViewModel : BaseNavigableViewModel
         {
             return InternalNavigateToAsync(typeof(TViewModel), parameter, false, true);
         }
 
-        public Task NavigateToAsync<TViewModel>(object parameter = null) where TViewModel : BaseViewModel
+        public Task NavigateToAsync<TViewModel>(object parameter = null) where TViewModel : BaseNavigableViewModel
         {
             return InternalNavigateToAsync(typeof(TViewModel), parameter);
         }
 
-        public Task NavigateToPopupAsync<TViewModel>(object parameter = null) where TViewModel : BaseViewModel
+        public Task NavigateToPopupAsync<TViewModel>(object parameter = null) where TViewModel : BaseNavigableViewModel
         {
             return InternalNavigateToPopupAsync(typeof(TViewModel), parameter);
         }
@@ -38,7 +38,7 @@ namespace ReminderXamarin.Services.Navigation
         {
             PopupPage popupPage = CreatePopupPage(viewModelType);
 
-            if (popupPage.BindingContext is BaseViewModel viewModel)
+            if (popupPage.BindingContext is BaseNavigableViewModel viewModel)
             {
                 await viewModel.InitializeAsync(parameter);
             }
@@ -72,7 +72,7 @@ namespace ReminderXamarin.Services.Navigation
         {
             Page page = CreatePage(viewModelType);
 
-            if (page.BindingContext is BaseViewModel viewModel)
+            if (page.BindingContext is BaseNavigableViewModel viewModel)
             {
                 await viewModel.InitializeAsync(parameter);
             }

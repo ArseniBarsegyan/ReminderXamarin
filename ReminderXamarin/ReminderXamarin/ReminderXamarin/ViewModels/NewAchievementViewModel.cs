@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class NewAchievementViewModel : BaseViewModel
+    public class NewAchievementViewModel : BaseNavigableViewModel
     {
         private bool _isEnabled;
 

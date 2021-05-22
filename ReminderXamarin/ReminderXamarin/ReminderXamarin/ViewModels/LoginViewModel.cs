@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class LoginViewModel : BaseViewModel
+    public class LoginViewModel : BaseNavigableViewModel
     {
         private readonly ThemeSwitcher _themeSwitcher;
 

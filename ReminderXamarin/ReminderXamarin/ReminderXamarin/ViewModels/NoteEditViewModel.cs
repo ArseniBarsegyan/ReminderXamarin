@@ -24,7 +24,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class NoteEditViewModel : BaseViewModel
+    public class NoteEditViewModel : BaseNavigableViewModel
     {
         private static readonly object _obj = new object();
 

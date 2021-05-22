@@ -21,7 +21,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class AchievementEditViewModel : BaseViewModel
+    public class AchievementEditViewModel : BaseNavigableViewModel
     {
         private int _achievementId;
         private List<AchievementStep> _stepsToDelete;

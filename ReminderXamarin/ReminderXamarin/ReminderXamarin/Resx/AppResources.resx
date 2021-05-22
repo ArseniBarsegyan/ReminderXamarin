@@ -357,9 +357,6 @@
   <data name="TitlePlaceholder" xml:space="preserve">
     <value>Title...</value>
   </data>
-  <data name="ToDoPageTitle" xml:space="preserve">
-    <value>To-do page</value>
-  </data>
   <data name="ToDoSection" xml:space="preserve">
     <value>To-do</value>
   </data>

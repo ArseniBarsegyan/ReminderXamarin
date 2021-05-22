@@ -18,63 +18,103 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class ToDoCalendarViewModel : BaseViewModel
+    public class ToDoCalendarViewModel : BaseNavigableViewModel
     {
         private readonly ICommandResolver _commandResolver;
-
-        private DateTime? _lastSelectedDate;
 
         public ToDoCalendarViewModel(INavigationService navigationService,
             ICommandResolver commandResolver)
             : base(navigationService)
         {
             _commandResolver = commandResolver;
-            _lastSelectedDate = DateTime.Now;
 
             AllModels = new RangeObservableCollection<ToDoViewModel>();
             ActiveModels = new RangeObservableCollection<ToDoViewModel>();
             CompletedModels = new RangeObservableCollection<ToDoViewModel>();
             FailedModels = new RangeObservableCollection<ToDoViewModel>();
-            DaysWithActiveToDoInCurrentMonth = new RangeObservableCollection<DateTime>();
-            DaysWithCompletedToDoInCurrentMonth = new RangeObservableCollection<DateTime>();
+            Months = new RangeObservableCollection<MonthViewModel>();
 
             RefreshListCommand = commandResolver.Command(Refresh);
             SelectItemCommand = commandResolver.Command<int>(id => SelectItem(id));
             CreateToDoCommand = commandResolver.AsyncCommand(CreateToDo);
             DeleteToDoCommand = commandResolver.Command<ToDoViewModel>(DeleteToDo);
-            SelectDayCommand = commandResolver.Command<DateTime>(selectedDate => SelectDay(selectedDate));
+            SelectDayCommand = commandResolver.Command<DateTime>(selectedDate => SelectDay(selectedDate, true));
+            UnselectDayCommand = commandResolver.Command<DateTime>(unselectedDate => SelectDay(unselectedDate, false));
             ChangeToDoStatusCommand = commandResolver.Command<ToDoViewModel>(model => ChangeToDoStatus(model));
+            
+            InitializeMonths();
         }
 
-        public bool IsLoading { get; set; }
-        public bool IsRefreshing { get; set; }
+        private void InitializeMonths()
+        {
+            DateTime currentMonthDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            DateTime previousMonthDateTime = DateTime.Now.AddMonths(-1);
+            DateTime nextMonthDateTime = DateTime.Now.AddMonths(1);
+            
+            Months.Add(new MonthViewModel(
+                previousMonthDateTime, 
+                SelectDayCommand, 
+                UnselectDayCommand,
+                GetDaysForToDoByDateAndStatus(previousMonthDateTime, ConstantsHelper.Active),
+                GetDaysForToDoByDateAndStatus(previousMonthDateTime, ConstantsHelper.Completed)));
+            
+            Months.Add(new MonthViewModel(
+                currentMonthDateTime, 
+                SelectDayCommand, 
+                UnselectDayCommand,
+                GetDaysForToDoByDateAndStatus(currentMonthDateTime, ConstantsHelper.Active),
+                GetDaysForToDoByDateAndStatus(currentMonthDateTime, ConstantsHelper.Completed)));
+            
+            Months.Add(new MonthViewModel(
+                nextMonthDateTime, 
+                SelectDayCommand, 
+                UnselectDayCommand,
+                GetDaysForToDoByDateAndStatus(nextMonthDateTime, ConstantsHelper.Active),
+                GetDaysForToDoByDateAndStatus(nextMonthDateTime, ConstantsHelper.Completed)));
+        }
 
-        public RangeObservableCollection<ToDoViewModel> AllModels { get; private set; }
-        public RangeObservableCollection<ToDoViewModel> ActiveModels { get; private set; }
-        public RangeObservableCollection<ToDoViewModel> CompletedModels { get; private set; }
-        public RangeObservableCollection<ToDoViewModel> FailedModels { get; private set; }
-        public RangeObservableCollection<DateTime> DaysWithActiveToDoInCurrentMonth { get; private set; }
-        public RangeObservableCollection<DateTime> DaysWithCompletedToDoInCurrentMonth { get; private set; }
+        private List<int> GetDaysForToDoByDateAndStatus(DateTime dateTime, string status)
+        {
+            return GetAllToDoFromDatabase(
+                    x => x.Status == status &&
+                         x.WhenHappens.Year == dateTime.Year
+                         && x.WhenHappens.Month == dateTime.Month)
+                .Select(x => x.WhenHappens.Day)
+                .ToList();
+        }
+
+        public bool IsRefreshing { get; set; }
+        public DateTime? LastSelectedDate { get; private set; } = DateTime.Now;
+
+        public RangeObservableCollection<ToDoViewModel> AllModels { get; }
+        public RangeObservableCollection<ToDoViewModel> ActiveModels { get; }
+        public RangeObservableCollection<ToDoViewModel> CompletedModels { get; }
+        public RangeObservableCollection<ToDoViewModel> FailedModels { get; }
+        public RangeObservableCollection<MonthViewModel> Months { get; }
 
         public ICommand RefreshListCommand { get; }
-        public ICommand ShowDetailsCommand { get; }
         public ICommand SelectItemCommand { get; }
         public ICommand CreateToDoCommand { get; }
         public ICommand DeleteToDoCommand { get; }
         public ICommand SelectDayCommand { get; }
+        public ICommand UnselectDayCommand { get; }
         public ICommand ChangeToDoStatusCommand { get; }
 
         public void OnAppearing()
         {
-            MessagingCenter.Subscribe<NewToDoViewModel>(this,
-                    ConstantsHelper.ToDoItemCreated, (vm) => SelectDay(_lastSelectedDate.Value));
+            MessagingCenter.Subscribe<NewToDoViewModel, ToDoModel>(this,
+                    ConstantsHelper.ToDoItemCreated, (vm, model) =>
+                    {
+                        SelectDay(LastSelectedDate.Value, true);
+                        RefreshMonthDaysForToDo(model.ToToDoViewModel(NavigationService, _commandResolver));
+                    });
 
             MessagingCenter.Subscribe<App>(this, ConstantsHelper.UpdateUI, app =>
             {
-                SelectDay(_lastSelectedDate.Value);
+                SelectDay(LastSelectedDate.Value, true);
             });
 
-            SelectDay(_lastSelectedDate.Value);
+            SelectDay(LastSelectedDate.Value, true);
         }
 
         public void OnDisappearing()
@@ -90,7 +130,7 @@ namespace ReminderXamarin.ViewModels
         {
             IsRefreshing = true;
 
-            SelectDay(_lastSelectedDate.Value);
+            SelectDay(LastSelectedDate.Value, true);
 
             IsRefreshing = false;
         }
@@ -117,23 +157,38 @@ namespace ReminderXamarin.ViewModels
 
         private async Task CreateToDo()
         {
-            await NavigationService.NavigateToPopupAsync<NewToDoViewModel>(_lastSelectedDate);
+            await NavigationService.NavigateToPopupAsync<NewToDoViewModel>(LastSelectedDate);
         }
 
         private void DeleteToDo(ToDoViewModel viewModel)
         {
             App.ToDoRepository.Value.DeleteModel(viewModel.ToToDoModel());
             AllModels.Remove(viewModel);
-            LoadActiveToDoForSelectedDate(_lastSelectedDate.Value);
-            LoadCompletedToDoForSelectedDate(_lastSelectedDate.Value);
+            LoadActiveToDoForSelectedDate(LastSelectedDate.Value);
+            LoadCompletedToDoForSelectedDate(LastSelectedDate.Value);
+            RefreshMonthDaysForToDo(viewModel);
         }
 
-        private void SelectDay(DateTime selectedDate)
+        private void SelectDay(DateTime selectedDate, bool selected)
         {
-            _lastSelectedDate = selectedDate;
-            LoadAllToDoForSelectedDate(selectedDate);
-            LoadActiveToDoForSelectedDate(selectedDate);
-            LoadCompletedToDoForSelectedDate(selectedDate);
+            if (selected)
+            {
+                LastSelectedDate = selectedDate;
+                LoadAllToDoForSelectedDate(selectedDate);
+                LoadActiveToDoForSelectedDate(selectedDate);
+                LoadCompletedToDoForSelectedDate(selectedDate);
+                
+                foreach (var monthViewModel in Months)
+                {
+                    monthViewModel.UnselectAllDaysExceptOne(selectedDate);
+                }
+
+                Months.ElementAt(1).SelectDay(LastSelectedDate.Value);
+            }
+            else
+            {
+                LastSelectedDate = null;
+            }
         }
 
         private void LoadAllToDoForSelectedDate(DateTime selectedDate)
@@ -145,16 +200,6 @@ namespace ReminderXamarin.ViewModels
 
             AllModels.ReplaceRangeWithoutUpdating(allToDos);
             AllModels.RaiseCollectionChanged();
-
-            DaysWithActiveToDoInCurrentMonth.ReplaceRangeWithoutUpdating(
-                allToDos.Where(x => x.Status == ToDoStatus.Active)
-                .Select(x => new DateTime(x.WhenHappens.Year, x.WhenHappens.Month, x.WhenHappens.Day)));
-            DaysWithActiveToDoInCurrentMonth.RaiseCollectionChanged();
-
-            DaysWithCompletedToDoInCurrentMonth.ReplaceRangeWithoutUpdating(
-                allToDos.Where(x => x.Status == ToDoStatus.Completed)
-                .Select(x => new DateTime(x.WhenHappens.Year, x.WhenHappens.Month, x.WhenHappens.Day)));
-            DaysWithCompletedToDoInCurrentMonth.RaiseCollectionChanged();
         }
 
         private void LoadActiveToDoForSelectedDate(DateTime selectedDate)
@@ -190,7 +235,27 @@ namespace ReminderXamarin.ViewModels
                 model.Status = ToDoStatus.Active;
             }
             App.ToDoRepository.Value.Save(model.ToToDoModel());
-            SelectDay(_lastSelectedDate.Value);
+            SelectDay(LastSelectedDate.Value, true);
+            RefreshMonthDaysForToDo(model);
+        }
+
+        private void RefreshMonthDaysForToDo(ToDoViewModel model)
+        {
+            DateTime date = model.WhenHappens;
+
+            var monthToChange = Months.FirstOrDefault(m =>
+                m.Days.Any(x => x.CurrentDate.Year == date.Year
+                                && x.CurrentDate.Month == date.Month
+                                && x.CurrentDate.Day == date.Day));
+
+            if (monthToChange == null)
+            {
+                return;
+            }
+
+            monthToChange.RefreshDaysForActiveAndCompletedToDo(
+                GetDaysForToDoByDateAndStatus(monthToChange.CurrentDate, ConstantsHelper.Active), 
+                GetDaysForToDoByDateAndStatus(monthToChange.CurrentDate, ConstantsHelper.Completed));
         }
     }
 }

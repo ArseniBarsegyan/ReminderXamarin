@@ -2,10 +2,11 @@
 <ContentPage x:Name="ToDoCalendarViewPage"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
-             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin" xmlns:elements="clr-namespace:ReminderXamarin.Elements" xmlns:converters="clr-namespace:ReminderXamarin.Converters"
+             xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+             xmlns:converters="clr-namespace:ReminderXamarin.Converters"
+             xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.ToDoCalendarView"
-             Title="{extensions:Translate ToDoPageTitle}"
+             Title="{Binding LastSelectedDate, StringFormat='{0:MMM yyyy}'}"
              BackgroundColor="{DynamicResource ViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
@@ -14,10 +15,83 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+        <AbsoluteLayout x:Name="RootLayout"
+                        AbsoluteLayout.LayoutBounds="0,0,1,1"
                         AbsoluteLayout.LayoutFlags="All">
+            
+            <Grid ColumnDefinitions="*,*,*,*,*,*,*"
+                  RowDefinitions="*"
+                  AbsoluteLayout.LayoutBounds="0,0,1,0.1"
+                  AbsoluteLayout.LayoutFlags="All"
+                  Padding="0,0,0,0">
+                <Grid.Resources>
+                    <ResourceDictionary>
+                        <Style x:Key="CalendarDayNameStyle" TargetType="Label">
+                            <Setter Property="HorizontalOptions" Value="Center" />
+                            <Setter Property="Padding" Value="10,0" />
+                            <Setter Property="Grid.Row" Value="0" />
+                        </Style>
+                    </ResourceDictionary>
+                </Grid.Resources>
+                
+                <Label Text="M"
+                       TextColor="{DynamicResource TextCommon}"
+                       Style="{StaticResource CalendarDayNameStyle}"
+                       Grid.Column="0" />
+                        
+                <Label Text="T"
+                       TextColor="{DynamicResource TextCommon}"
+                       Style="{StaticResource CalendarDayNameStyle}"
+                       Grid.Column="1" />
+                        
+                <Label Text="W"
+                       TextColor="{DynamicResource TextCommon}"
+                       Style="{StaticResource CalendarDayNameStyle}"
+                       Grid.Column="2" />
+                        
+                <Label Text="T"
+                       TextColor="{DynamicResource TextCommon}"
+                       Style="{StaticResource CalendarDayNameStyle}"
+                       Grid.Column="3" />
+                        
+                <Label Text="F"
+                       TextColor="{DynamicResource TextCommon}"
+                       Style="{StaticResource CalendarDayNameStyle}"
+                       Grid.Column="4" />
+                        
+                <Label Text="S"
+                       TextColor="{DynamicResource CalendarSaturdayText}"
+                       Style="{StaticResource CalendarDayNameStyle}"
+                       Grid.Column="5" />
+                        
+                <Label Text="S"
+                       TextColor="{DynamicResource CalendarSundayText}"
+                       Style="{StaticResource CalendarDayNameStyle}"
+                       Grid.Column="6" />
+            </Grid>
+
+            <CollectionView x:Name="MonthCollectionView"
+                            AbsoluteLayout.LayoutBounds="0,0.1,1,0.7"
+                            AbsoluteLayout.LayoutFlags="All"
+                            ItemsSource="{Binding Months}"
+                            ItemsUpdatingScrollMode="KeepScrollOffset">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Horizontal"
+                                     SnapPointsType="MandatorySingle"
+                                     SnapPointsAlignment="Center"
+                                     Span="1"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <elements:CalendarMonthView WidthRequest="{Binding Width,
+                                                                    Source={x:Reference RootLayout}}"
+                                                    HeightRequest="300" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
             <ListView x:Name="ToDoList"
-                      AbsoluteLayout.LayoutBounds="0,0,1,1"
+                      AbsoluteLayout.LayoutBounds="0,0.8,1,0.2"
                       AbsoluteLayout.LayoutFlags="All"
                       SeparatorVisibility="None"
                       ItemsSource="{Binding AllModels}"
@@ -27,13 +101,6 @@
                       CachingStrategy="RecycleElement"
                       RefreshCommand="{Binding RefreshListCommand}"
                       IsRefreshing="{Binding IsRefreshing}">
-                <ListView.Header>
-                    <elements:ReminderCalendarView x:Name="ReminderCalendarView"
-                                                   HeightRequest="400"
-                                                   DaysWithActiveToDoInCurrentMonth="{Binding DaysWithActiveToDoInCurrentMonth}"
-                                                   DaysWithCompletedToDoInCurrentMonth="{Binding DaysWithCompletedToDoInCurrentMonth}"
-                                                   Command="{Binding SelectDayCommand}" />
-                </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -70,15 +137,14 @@
                                                  WidthRequest="20"
                                                  HeightRequest="20" />
                                     </StackLayout>
-                                </Frame>                                
+                                </Frame>
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
 
-            <ImageButton x:Name="CreateToDoButton"
-                         Source="add.png"
+            <ImageButton Source="add.png"
                          Style="{StaticResource Fab}"
                          Command="{Binding CreateToDoCommand}">
                 <ImageButton.CommandParameter>

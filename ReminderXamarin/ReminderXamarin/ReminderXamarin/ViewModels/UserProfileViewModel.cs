@@ -18,7 +18,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class UserProfileViewModel : BaseViewModel
+    public class UserProfileViewModel : BaseNavigableViewModel
     {
         private readonly IFileSystem _fileService;
         private readonly IMediaService _mediaService;

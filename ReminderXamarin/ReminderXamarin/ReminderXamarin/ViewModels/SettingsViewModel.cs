@@ -14,7 +14,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class SettingsViewModel : BaseViewModel
+    public class SettingsViewModel : BaseNavigableViewModel
     {
         private readonly IThemeService _themeService;
         private readonly ThemeSwitcher _themeSwitcher;

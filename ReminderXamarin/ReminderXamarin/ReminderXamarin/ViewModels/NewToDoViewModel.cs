@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class NewToDoViewModel : BaseViewModel
+    public class NewToDoViewModel : BaseNavigableViewModel
     {
         private bool _isEnabled;
         private DateTime? _dateTime;
@@ -71,7 +71,7 @@ namespace ReminderXamarin.ViewModels
                 Status = ConstantsHelper.Active
             };
             App.ToDoRepository.Value.Save(model);
-            MessagingCenter.Send(this, ConstantsHelper.ToDoItemCreated);
+            MessagingCenter.Send(this, ConstantsHelper.ToDoItemCreated, model);
             await NavigateBack();
         }
 

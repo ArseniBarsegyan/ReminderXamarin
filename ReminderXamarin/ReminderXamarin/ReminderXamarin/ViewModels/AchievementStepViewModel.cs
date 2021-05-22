@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class AchievementStepViewModel : BaseViewModel
+    public class AchievementStepViewModel : BaseNavigableViewModel
     {
         private bool _isEnabled;
         private AchievementStep _model;

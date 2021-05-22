@@ -11,7 +11,7 @@ using ReminderXamarin.ViewModels.Base;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class ToDoViewModel : BaseViewModel
+    public class ToDoViewModel : BaseNavigableViewModel
     {
         public ToDoViewModel(INavigationService navigationService,
             ICommandResolver commandResolver)

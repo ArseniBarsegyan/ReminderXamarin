@@ -15,10 +15,10 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <AndroidLinkSkip></AndroidLinkSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,10 +35,7 @@
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidEnableSGenConcurrent>false</AndroidEnableSGenConcurrent>
-    <EnableProguard>false</EnableProguard>
-    <AndroidSupportedAbis />
-    <AndroidLinkSkip>
-    </AndroidLinkSkip>
+    <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
   </PropertyGroup>
@@ -60,8 +57,6 @@
     <AndroidTlsProvider>btls</AndroidTlsProvider>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
-    <AndroidLinkSkip>
-    </AndroidLinkSkip>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <AndroidDexTool>d8</AndroidDexTool>
     <AndroidLinkTool>r8</AndroidLinkTool>
@@ -204,7 +199,7 @@
       <Name>Rm.Helpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReminderXamarin\ReminderXamarin.csproj">
-      <Project>{10FDABC7-061B-4B19-9819-DA9D5F1DAB63}</Project>
+      <Project>{980352AD-B1CA-4E5F-9DCA-A1E657748375}</Project>
       <Name>ReminderXamarin</Name>
     </ProjectReference>
   </ItemGroup>

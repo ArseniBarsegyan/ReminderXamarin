@@ -30,6 +30,8 @@ namespace ReminderXamarin.Elements
 
         private void PinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
         {
+            _isZoomed = true;
+
             if (e.Status == GestureStatus.Started)
             {
                 _startScale = Content.Scale;
@@ -39,8 +41,8 @@ namespace ReminderXamarin.Elements
 
             if (e.Status == GestureStatus.Running)
             {
-                _currentScale += (e.Scale - 1) * _startScale;
-                _currentScale = Math.Max(1, _currentScale);
+                double scale = _currentScale + (e.Scale - 1) * _startScale;
+                _currentScale = Math.Max(1, scale);
 
                 double renderedX = Content.X + _xOffset;
                 double deltaX = renderedX / Width;
@@ -65,6 +67,11 @@ namespace ReminderXamarin.Elements
             {
                 _xOffset = Content.TranslationX;
                 _yOffset = Content.TranslationY;
+            }
+
+            if (Content.Scale == 1)
+            {
+                _isZoomed = false;
             }
         }
 

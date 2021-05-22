@@ -1,34 +1,37 @@
-﻿using ReminderXamarin.ViewModels;
-
+﻿using System.Linq;
+using System.Threading.Tasks;
+using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 
 namespace ReminderXamarin.Views
 {
     public partial class ToDoCalendarView : ContentPage
     {
+        private bool _isFirstOpening = true;
+        private ToDoCalendarViewModel ViewModel => BindingContext as ToDoCalendarViewModel;
+
         public ToDoCalendarView()
         {
             InitializeComponent();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            if (BindingContext is ToDoCalendarViewModel vm)
+            ViewModel.OnAppearing();
+                
+            if (_isFirstOpening)
             {
-                vm.OnAppearing();
+                await Task.Delay(500);
+                MonthCollectionView.ScrollTo(ViewModel.Months.ElementAt(1),animate:false);
+                _isFirstOpening = false;
             }
-            ReminderCalendarView.Subscribe();
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            if (BindingContext is ToDoCalendarViewModel vm)
-            {
-                vm.OnDisappearing();
-            }
-            ReminderCalendarView.Unsubscribe();
+            ViewModel.OnDisappearing();
         }
 
         private void ListViewOnItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -36,10 +39,7 @@ namespace ReminderXamarin.Views
             ToDoList.SelectedItem = null;
             if (e.SelectedItem is ToDoViewModel model)
             {
-                if (BindingContext is ToDoCalendarViewModel viewModel)
-                {
-                    viewModel.ChangeToDoStatusCommand.Execute(model);
-                }
+                ViewModel.ChangeToDoStatusCommand.Execute(model);
             }
         }
     }

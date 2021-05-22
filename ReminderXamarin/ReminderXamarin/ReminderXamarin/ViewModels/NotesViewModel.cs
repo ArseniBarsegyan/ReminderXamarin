@@ -23,7 +23,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class NotesViewModel : BaseViewModel
+    public class NotesViewModel : BaseNavigableViewModel
     {
         private readonly IUploadService _uploadService;
         private readonly int _notesPerLoad = 10;

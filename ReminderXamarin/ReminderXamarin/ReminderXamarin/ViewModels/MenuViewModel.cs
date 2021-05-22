@@ -5,10 +5,10 @@ using ReminderXamarin.ViewModels.Base;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class MenuViewModel : BaseViewModel
+    public class MenuViewModel : BaseNavigableViewModel
     {
-        public BaseViewModel MasterViewModel { get; set; }
-        public BaseViewModel DetailViewModel { get; set; }
+        public BaseNavigableViewModel MasterViewModel { get; set; }
+        public BaseNavigableViewModel DetailViewModel { get; set; }
 
         public MenuViewModel(INavigationService navigationService)
             : base(navigationService)

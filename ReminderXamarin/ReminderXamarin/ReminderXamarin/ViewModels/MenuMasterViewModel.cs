@@ -17,7 +17,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class MenuMasterViewModel : BaseViewModel
+    public class MenuMasterViewModel : BaseNavigableViewModel
     {
         private readonly ThemeSwitcher _themeSwitcher;
         private UserModel _appUser;

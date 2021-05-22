@@ -3,7 +3,7 @@ using ReminderXamarin.ViewModels.Base;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class AchievementViewModel : BaseViewModel
+    public class AchievementViewModel : BaseNavigableViewModel
     {
         public AchievementViewModel(INavigationService navigationService)
             : base(navigationService)

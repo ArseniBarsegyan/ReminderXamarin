@@ -15,7 +15,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class PinViewModel : BaseViewModel
+    public class PinViewModel : BaseNavigableViewModel
     {
         private static int _currentCount;
         private readonly StringBuilder _pinBuilder;

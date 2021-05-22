@@ -15,7 +15,7 @@ using Xamarin.Forms;
 
 namespace ReminderXamarin.ViewModels
 {
-    public class AchievementsViewModel : BaseViewModel
+    public class AchievementsViewModel : BaseNavigableViewModel
     {
         public AchievementsViewModel(INavigationService navigationService,
             ICommandResolver commandResolver)

@@ -12,8 +12,8 @@ namespace ReminderXamarin.Views
             InitializeComponent();
             if (BindingContext is MenuViewModel viewModel)
             {
-                viewModel.MasterViewModel = MenuMasterView.BindingContext as BaseViewModel;
-                viewModel.DetailViewModel = MenuDetailsView.BindingContext as BaseViewModel;
+                viewModel.MasterViewModel = MenuMasterView.BindingContext as BaseNavigableViewModel;
+                viewModel.DetailViewModel = MenuDetailsView.BindingContext as BaseNavigableViewModel;
             }
         }
     }
