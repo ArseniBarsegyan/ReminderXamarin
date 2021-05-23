@@ -17,6 +17,16 @@ namespace ReminderXamarin.Views
             InitializeComponent();
         }
 
+        protected override bool OnBackButtonPressed()
+        {
+            if (ViewModel.IsEditMode)
+            {
+                ViewModel.IsEditMode = false;
+                return true;
+            }
+            return base.OnBackButtonPressed();
+        }
+
         protected override void OnDisappearing()
         {
             ViewModel.OnDisappearing();

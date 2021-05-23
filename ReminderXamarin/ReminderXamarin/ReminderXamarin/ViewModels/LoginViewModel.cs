@@ -31,7 +31,7 @@ namespace ReminderXamarin.ViewModels
             SwitchPasswordConfirmVisibilityCommand = commandResolver.Command(SwitchConfirmPasswordVisibility);
         }
 
-        public ImageSource TogglePasswordImageSource { get; set; }
+        public ImageSource TogglePasswordImageSource { get; }
         public bool IsRegister { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
