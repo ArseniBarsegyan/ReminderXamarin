@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using Rm.Data.Data.Repositories;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -23,6 +23,7 @@ namespace ReminderXamarin.ViewModels
     public class ToDoCalendarViewModel : BaseNavigableViewModel
     {
         private readonly ICommandResolver _commandResolver;
+        private ToDoRepository ToDoRepository => App.ToDoRepository.Value;
         
         public ToDoCalendarViewModel(
             INavigationService navigationService,
@@ -109,7 +110,7 @@ namespace ReminderXamarin.ViewModels
                     ConstantsHelper.ToDoItemCreated, (vm, model) =>
                     {
                         SelectDay(LastSelectedDate.Value, true);
-                        RefreshMonthDaysForToDo(model.ToToDoViewModel(NavigationService, _commandResolver));
+                        RefreshMonthDaysForToDo(model.ToToDoViewModel(_commandResolver));
                     });
 
             MessagingCenter.Subscribe<App>(this, ConstantsHelper.UpdateUI, app =>
@@ -140,17 +141,17 @@ namespace ReminderXamarin.ViewModels
 
         private ToDoViewModel SelectItem(int id)
         {
-            return App.ToDoRepository.Value.GetToDoAsync(id)
-                .ToToDoViewModel(NavigationService, _commandResolver);
+            return ToDoRepository.GetToDoAsync(id)
+                .ToToDoViewModel(_commandResolver);
         }
 
         private IEnumerable<ToDoViewModel> GetAllToDoFromDatabase(Func<ToDoModel, bool> predicate)
         {
-            return App.ToDoRepository.Value
+            return ToDoRepository
                     .GetAll()
                     .Where(x => x.UserId == Settings.CurrentUserId)
                     .Where(predicate)
-                    .ToToDoViewModels(NavigationService, _commandResolver);
+                    .ToToDoViewModels(_commandResolver);
         }
 
         private IEnumerable<ToDoViewModel> GetModelsByCondition(Func<ToDoViewModel, bool> predicate) =>
@@ -165,7 +166,7 @@ namespace ReminderXamarin.ViewModels
 
         private void DeleteToDo(ToDoViewModel viewModel)
         {
-            App.ToDoRepository.Value.DeleteModel(viewModel.ToToDoModel());
+            ToDoRepository.DeleteModel(viewModel.ToToDoModel());
             AllModels.Remove(viewModel);
             LoadActiveToDoForSelectedDate(LastSelectedDate.Value);
             LoadCompletedToDoForSelectedDate(LastSelectedDate.Value);
@@ -237,7 +238,7 @@ namespace ReminderXamarin.ViewModels
             {
                 model.Status = ToDoStatus.Active;
             }
-            App.ToDoRepository.Value.Save(model.ToToDoModel());
+            ToDoRepository.Save(model.ToToDoModel());
             SelectDay(LastSelectedDate.Value, true);
             RefreshMonthDaysForToDo(model);
         }

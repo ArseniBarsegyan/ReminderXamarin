@@ -16,6 +16,7 @@ using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
 using Rm.Data.Data.Entities;
+using Rm.Data.Data.Repositories;
 using Rm.Helpers;
 
 using Xamarin.Essentials;
@@ -33,7 +34,9 @@ namespace ReminderXamarin.ViewModels
         private int _currentSkipCounter = 10;
         private List<Note> _allNotes;
         private bool _isInitialized;
-        private bool _isNavigatedToEditView;        
+        private bool _isNavigatedToEditView;
+
+        private NoteRepository NoteRepository => App.NoteRepository.Value;
 
         public NotesViewModel(INavigationService navigationService,
             IUploadService uploadService,
@@ -68,19 +71,23 @@ namespace ReminderXamarin.ViewModels
             {
                 Refresh();
 
-                MessagingCenter.Subscribe<NoteEditViewModel, int>(this, ConstantsHelper.NoteDeleted, (vm, id) =>
+                MessagingCenter.Subscribe<NoteEditViewModel, int>(
+                    this, ConstantsHelper.NoteDeleted, (vm, id) =>
                 {
                     RemoveDeletedNoteFromList(id);
                 });
-                MessagingCenter.Subscribe<NoteEditViewModel>(this, ConstantsHelper.NoteCreated, (vm) =>
+                MessagingCenter.Subscribe<NoteEditViewModel>(
+                    this, ConstantsHelper.NoteCreated, (vm) =>
                 {
                     AddNewNoteToList();
                 });
-                MessagingCenter.Subscribe<NoteEditViewModel, int>(this, ConstantsHelper.NoteEdited, (vm, id) =>
+                MessagingCenter.Subscribe<NoteEditViewModel, int>(
+                    this, ConstantsHelper.NoteEdited, (vm, id) =>
                 {
                     EditExistingViewModel(id);
                 });
-                MessagingCenter.Subscribe<NoteEditViewModel>(this, ConstantsHelper.NoteEditPageDisappeared, (vm) =>
+                MessagingCenter.Subscribe<NoteEditViewModel>(
+                    this, ConstantsHelper.NoteEditPageDisappeared, (vm) =>
                 {
                     _isNavigatedToEditView = false;
                 });
@@ -141,15 +148,15 @@ namespace ReminderXamarin.ViewModels
 
             if (result)
             {
-                var noteToDelete = App.NoteRepository.Value.GetNoteAsync(noteId);
-                App.NoteRepository.Value.DeleteNote(noteToDelete);
+                var noteToDelete = NoteRepository.GetNoteAsync(noteId);
+                NoteRepository.DeleteNote(noteToDelete);
                 RemoveDeletedNoteFromList(noteId);
             }
         }
 
         private void AddNewNoteToList()
         {
-            var recentNote = App.NoteRepository.Value
+            var recentNote = NoteRepository
                 .GetAll(x => x.UserId == Settings.CurrentUserId)
                 .OrderByDescending(x => x.CreationDate)
                 .FirstOrDefault();
@@ -159,7 +166,7 @@ namespace ReminderXamarin.ViewModels
 
         private void EditExistingViewModel(int id)
         {
-            var newNote = App.NoteRepository.Value.GetNoteAsync(id);
+            var newNote = NoteRepository.GetNoteAsync(id);
 
             var oldNote = _allNotes.FirstOrDefault(x => x.Id == id);
             var oldNoteIndex = _allNotes.IndexOf(oldNote);
@@ -236,7 +243,7 @@ namespace ReminderXamarin.ViewModels
                 }
             }            
 
-            _allNotes = App.NoteRepository.Value
+            _allNotes = NoteRepository
                 .GetAll(x => x.UserId == Settings.CurrentUserId)
                 .OrderByDescending(x => x.CreationDate)
                 .ToList();

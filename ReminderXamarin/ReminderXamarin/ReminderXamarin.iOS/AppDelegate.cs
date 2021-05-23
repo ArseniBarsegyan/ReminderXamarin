@@ -86,6 +86,7 @@ namespace ReminderXamarin.iOS
             ComponentRegistry.Register<IPermissionService, PermissionService>();
             ComponentRegistry.Register<IVideoService, VideoService>();
             ComponentRegistry.Register<IThemeService, ThemeService>();
+            ComponentRegistry.Register<IStatusBar, StatusBar>();
         }
     }
 }

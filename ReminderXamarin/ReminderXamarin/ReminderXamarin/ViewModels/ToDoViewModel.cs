@@ -8,16 +8,17 @@ using ReminderXamarin.Enums;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
+using Rm.Data.Data.Repositories;
 using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
     [Preserve(AllMembers = true)]
-    public class ToDoViewModel : BaseNavigableViewModel
+    public class ToDoViewModel : BaseViewModel
     {
-        public ToDoViewModel(INavigationService navigationService,
-            ICommandResolver commandResolver)
-            : base(navigationService)
+        private ToDoRepository ToDoRepository => App.ToDoRepository.Value;
+        
+        public ToDoViewModel(ICommandResolver commandResolver)
         {
             CreateToDoCommand = commandResolver.Command(CreateToDo);
             UpdateItemCommand = commandResolver.Command(UpdateItem);
@@ -38,18 +39,18 @@ namespace ReminderXamarin.ViewModels
 
         private void CreateToDo()
         {
-            App.ToDoRepository.Value.Save(this.ToToDoModel());
+            ToDoRepository.Save(this.ToToDoModel());
         }
 
         private void UpdateItem()
         {
             // Update edit date since user pressed confirm
-            App.ToDoRepository.Value.Save(this.ToToDoModel());
+            ToDoRepository.Save(this.ToToDoModel());
         }
 
         private void DeleteItem()
         {
-            App.ToDoRepository.Value.DeleteModel(this.ToToDoModel());
+            ToDoRepository.DeleteModel(this.ToToDoModel());
         }
     }
 }

@@ -26,11 +26,10 @@ namespace ReminderXamarin.Extensions
             };
         }
 
-        public static ToDoViewModel ToToDoViewModel(this ToDoModel model, 
-            INavigationService navigationService,
+        public static ToDoViewModel ToToDoViewModel(this ToDoModel model,
             ICommandResolver commandResolver)
         {
-            var viewModel = new ToDoViewModel(navigationService, commandResolver)
+            var viewModel = new ToDoViewModel(commandResolver)
             {
                 Id = model.Id,
                 WhenHappens = model.WhenHappens,
@@ -52,15 +51,14 @@ namespace ReminderXamarin.Extensions
             return viewModel;
         }
 
-        public static ObservableCollection<ToDoViewModel> ToToDoViewModels(this IEnumerable<ToDoModel> models, 
-            INavigationService navigationService,
+        public static ObservableCollection<ToDoViewModel> ToToDoViewModels(this IEnumerable<ToDoModel> models,
             ICommandResolver commandResolver)
         {
             var viewModels = new ObservableCollection<ToDoViewModel>();
 
             foreach (var model in models)
             {
-                var viewModel = new ToDoViewModel(navigationService, commandResolver)
+                var viewModel = new ToDoViewModel(commandResolver)
                 {
                     Id = model.Id,
                     WhenHappens = model.WhenHappens,
@@ -83,10 +81,9 @@ namespace ReminderXamarin.Extensions
             return viewModels;
         }
 
-        public static AchievementViewModel ToAchievementViewModel(this AchievementModel model, 
-            INavigationService navigationService)
+        public static AchievementViewModel ToAchievementViewModel(this AchievementModel model)
         {
-            return new AchievementViewModel(navigationService)
+            return new AchievementViewModel
             {
                 Id = model.Id,
                 Title = model.Title,
@@ -96,10 +93,49 @@ namespace ReminderXamarin.Extensions
         }
 
         public static ObservableCollection<AchievementViewModel> ToAchievementViewModels(
-            this IEnumerable<AchievementModel> models,
-            INavigationService navigationService)
+            this IEnumerable<AchievementModel> models)
         {
-            return models.Select(model => model.ToAchievementViewModel(navigationService)).ToObservableCollection();
+            return models.Select(model => model.ToAchievementViewModel()).ToObservableCollection();
+        }
+
+        public static AchievementStepViewModel ToAchievementStepViewModel(this AchievementStep model)
+        {
+            return new AchievementStepViewModel
+            {
+                Id = model.Id,
+                Title = model.Title,
+                Description = model.Description,
+                AchievedDate = model.AchievedDate,
+                AchievementId = model.AchievementId,
+                TimeSpent = model.TimeSpent
+            };
+        }
+
+        public static ObservableCollection<AchievementStepViewModel> ToAchievementStepViewModels(
+            this IEnumerable<AchievementStep> models)
+        {
+            return models.Select(model => model.ToAchievementStepViewModel())
+                .ToObservableCollection();
+        }
+
+        public static AchievementStep ToAchievementModel(this AchievementStepViewModel viewModel)
+        {
+            return new AchievementStep
+            {
+                Id = viewModel.Id,
+                Title = viewModel.Title,
+                Description = viewModel.Description,
+                AchievedDate = viewModel.AchievedDate,
+                AchievementId = viewModel.AchievementId,
+                TimeSpent = viewModel.TimeSpent
+            };
+        }
+        
+        public static List<AchievementStep> ToAchievementStepViewModels(
+            this ObservableCollection<AchievementStepViewModel> models)
+        {
+            return models.Select(model => model.ToAchievementModel())
+                .ToList();
         }
     }
 }

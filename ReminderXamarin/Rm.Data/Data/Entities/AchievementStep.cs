@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Rm.Helpers;
 
 using SQLite;

@@ -77,7 +77,7 @@
     <EmbeddedResource Update="Views\AchievementEditView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\AchievementStepView.xaml">
+    <EmbeddedResource Update="Views\AchievementStepEditView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\GalleryItemView.xaml">

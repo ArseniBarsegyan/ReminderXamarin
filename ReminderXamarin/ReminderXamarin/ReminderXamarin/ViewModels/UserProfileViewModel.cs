@@ -25,7 +25,8 @@ namespace ReminderXamarin.ViewModels
         private readonly IFileSystem _fileService;
         private readonly IMediaService _mediaService;
 
-        public UserProfileViewModel(INavigationService navigationService,
+        public UserProfileViewModel(
+            INavigationService navigationService,
             IFileSystem fileService,
             IMediaService mediaService,
             ICommandResolver commandResolver)

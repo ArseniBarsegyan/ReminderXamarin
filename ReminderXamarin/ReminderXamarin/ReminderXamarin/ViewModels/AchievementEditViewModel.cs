@@ -14,7 +14,7 @@ using ReminderXamarin.Extensions;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
 
-using Rm.Data.Data.Entities;
+using Rm.Data.Data.Repositories;
 using Rm.Helpers;
 
 using Xamarin.Forms;
@@ -25,49 +25,51 @@ namespace ReminderXamarin.ViewModels
     [Preserve(AllMembers = true)]
     public class AchievementEditViewModel : BaseNavigableViewModel
     {
+        private readonly List<AchievementStepViewModel> _stepsToDelete;
         private int _achievementId;
-        private List<AchievementStep> _stepsToDelete;
 
-        public AchievementEditViewModel(INavigationService navigationService,
+        private AchievementStepRepository AchievementStepRepository => App.AchievementStepRepository.Value;
+        private AchievementRepository AchievementRepository => App.AchievementRepository.Value;
+
+        public AchievementEditViewModel(
+            INavigationService navigationService,
             ICommandResolver commandResolver)
             : base(navigationService)
         {
-            _stepsToDelete = new List<AchievementStep>();
-            AchievementSteps = new ObservableCollection<AchievementStep>();
+            _stepsToDelete = new List<AchievementStepViewModel>();
+            AchievementSteps = new ObservableCollection<AchievementStepViewModel>();
 
             SaveAchievementCommand = commandResolver.AsyncCommand(SaveAchievement);
-            NavigateToAchievementStepEditViewCommand = commandResolver.AsyncCommand<AchievementStep>(NavigateToAchievementStepEditView);
+            NavigateToAchievementStepEditViewCommand = commandResolver.AsyncCommand<AchievementStepViewModel>(NavigateToAchievementStepEditView);
             DeleteAchievementCommand = commandResolver.AsyncCommand(DeleteAchievement);
             AddStepCommand = commandResolver.AsyncCommand(AddStep);
-            DeleteStepCommand = commandResolver.AsyncCommand<AchievementStep>(DeleteStep);
+            DeleteStepCommand = commandResolver.AsyncCommand<AchievementStepViewModel>(DeleteStep);
             ChangeEditEnabledCommand = commandResolver.Command(() => IsEditMode = !IsEditMode);
 
-            MessagingCenter.Subscribe<AchievementStepViewModel, AchievementStep>(this, 
+            MessagingCenter.Subscribe<AchievementStepEditViewModel, AchievementStepViewModel>(this, 
                 ConstantsHelper.AchievementStepEditComplete,
                 (vm, args) => UpdateStepsList(args));
         }
 
         public void OnDisappearing()
         {
-            MessagingCenter.Unsubscribe<AchievementStepViewModel>(this, ConstantsHelper.AchievementStepEditComplete);
+            MessagingCenter.Unsubscribe<AchievementStepEditViewModel>(this, 
+                ConstantsHelper.AchievementStepEditComplete);
         }        
 
         public string Title { get; set; }
         public string Description { get; set; }
-        public double AchievementProgress 
-        {
-            get => GeneralTimeSpent / 10000;
-        }
+        public double AchievementProgress => GeneralTimeSpent / 10000;
         public double GeneralTimeSpent { get; set; }
         public bool IsEditMode { get; set; }
 
-        public ObservableCollection<AchievementStep> AchievementSteps { get; private set; }
+        public ObservableCollection<AchievementStepViewModel> AchievementSteps { get; private set; }
 
         public IAsyncCommand SaveAchievementCommand { get; }
-        public IAsyncCommand<AchievementStep> NavigateToAchievementStepEditViewCommand { get; }
+        public IAsyncCommand<AchievementStepViewModel> NavigateToAchievementStepEditViewCommand { get; }
         public IAsyncCommand DeleteAchievementCommand { get; }
         public IAsyncCommand AddStepCommand { get; }
-        public IAsyncCommand<AchievementStep> DeleteStepCommand { get; }
+        public IAsyncCommand<AchievementStepViewModel> DeleteStepCommand { get; }
         public ICommand ChangeEditEnabledCommand { get; }
         
         public override Task InitializeAsync(object navigationData)
@@ -80,36 +82,42 @@ namespace ReminderXamarin.ViewModels
             }
             else
             {
-                var model = App.AchievementRepository.Value.GetAchievementAsync(_achievementId);
+                var model = AchievementRepository.GetAchievementAsync(_achievementId);
                 GeneralTimeSpent = model.GeneralTimeSpent;
                 Title = model.Title;
                 Description = model.Description;
-                AchievementSteps = model.AchievementSteps.ToObservableCollection();
+                AchievementSteps = model.AchievementSteps.ToAchievementStepViewModels();
             }
             return base.InitializeAsync(navigationData);
         }
 
-        private void UpdateStepsList(AchievementStep model)
+        private void UpdateStepsList(AchievementStepViewModel viewModel)
         {
-            AchievementSteps.Add(model);
+            if (!AchievementSteps.Contains(viewModel))
+            {
+                AchievementSteps.Add(viewModel);
+            }
+
             GeneralTimeSpent = AchievementSteps.Sum(x => x.TimeSpent);
             IsEditMode = true;
         }
 
         private async Task SaveAchievement()
         {
-            var model = App.AchievementRepository.Value.GetAchievementAsync(_achievementId);
+            var model = AchievementRepository.GetAchievementAsync(_achievementId);
             model.Description = Description;
             model.Title = Title;
             model.GeneralTimeSpent = GeneralTimeSpent;
-            model.AchievementSteps = AchievementSteps.ToList();
-            App.AchievementRepository.Value.Save(model);
+            model.AchievementSteps = AchievementSteps.ToAchievementStepViewModels();
+            AchievementRepository.Save(model);
             if (_stepsToDelete.Any())
             {
-                foreach(var step in _stepsToDelete)
+                foreach(var stepViewModel in _stepsToDelete)
                 {
-                    App.AchievementStepRepository.Value.DeleteAchievementStep(step);
+                    var stepToDelete = AchievementStepRepository.GetAchievementStepAsync(stepViewModel.Id);
+                    AchievementStepRepository.DeleteAchievementStep(stepToDelete);
                 }
+                _stepsToDelete.Clear();
             }
             if (GeneralTimeSpent >= 10000)
             {
@@ -137,10 +145,11 @@ namespace ReminderXamarin.ViewModels
 
                     foreach (var step in AchievementSteps)
                     {
-                        App.AchievementStepRepository.Value.DeleteAchievementStep(step);
+                        var stepToDelete = AchievementStepRepository.GetAchievementStepAsync(step.Id);
+                        AchievementStepRepository.DeleteAchievementStep(stepToDelete);
                     }
 
-                    App.AchievementRepository.Value.DeleteAchievement(achievementToDelete);
+                    AchievementRepository.DeleteAchievement(achievementToDelete);
                     await NavigationService.NavigateBackAsync();
                 }
             }
@@ -148,14 +157,14 @@ namespace ReminderXamarin.ViewModels
 
         private Task AddStep()
         {
-            return NavigationService.NavigateToPopupAsync<AchievementStepViewModel>(
-                new AchievementStep
+            return NavigationService.NavigateToPopupAsync<AchievementStepEditViewModel>(
+                new AchievementStepViewModel
                 {
                     AchievementId = _achievementId
                 });
         }
 
-        private async Task DeleteStep(AchievementStep model)
+        private async Task DeleteStep(AchievementStepViewModel viewModel)
         {
             bool result = await UserDialogs.Instance.ConfirmAsync(
                     ConstantsHelper.AchievementStepDeleteMessage,
@@ -165,19 +174,19 @@ namespace ReminderXamarin.ViewModels
 
             if (result)
             {
-                AchievementSteps.Remove(model);
+                AchievementSteps.Remove(viewModel);
                 GeneralTimeSpent = AchievementSteps.Sum(x => x.TimeSpent);
-                if (!_stepsToDelete.Contains(model))
+                if (!_stepsToDelete.Contains(viewModel))
                 {
-                    _stepsToDelete.Add(model);
+                    _stepsToDelete.Add(viewModel);
                 }
                 IsEditMode = true;
             }
         }
 
-        private Task NavigateToAchievementStepEditView(AchievementStep model)
+        private Task NavigateToAchievementStepEditView(AchievementStepViewModel model)
         {
-            return NavigationService.NavigateToPopupAsync<AchievementStepViewModel>(model);
+            return NavigationService.NavigateToPopupAsync<AchievementStepEditViewModel>(model);
         }
     }
 }

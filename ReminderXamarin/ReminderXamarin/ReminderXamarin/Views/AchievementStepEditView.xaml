@@ -9,7 +9,7 @@
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  mc:Ignorable="d"
                  base:ViewModelHelper.AutoWireViewModel="True"
-                 x:Class="ReminderXamarin.Views.AchievementStepView">
+                 x:Class="ReminderXamarin.Views.AchievementStepEditView">
     <pages:PopupPage.Content>
         <ScrollView>
             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"

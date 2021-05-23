@@ -19,7 +19,8 @@ namespace ReminderXamarin.ViewModels
     [Preserve(AllMembers = true)]
     public class AchievementsViewModel : BaseNavigableViewModel
     {
-        public AchievementsViewModel(INavigationService navigationService,
+        public AchievementsViewModel(
+            INavigationService navigationService,
             ICommandResolver commandResolver)
             : base(navigationService)
         {
@@ -71,7 +72,7 @@ namespace ReminderXamarin.ViewModels
         {
             Achievements = App.AchievementRepository.Value
                 .GetAll(x => x.UserId == Settings.CurrentUserId)
-                .ToAchievementViewModels(NavigationService)
+                .ToAchievementViewModels()
                 .OrderByDescending(x => x.GeneralTimeSpent)
                 .ToObservableCollection();
         }

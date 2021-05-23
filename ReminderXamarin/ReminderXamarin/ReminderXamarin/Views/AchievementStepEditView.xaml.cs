@@ -4,9 +4,9 @@ using Xamarin.Forms.Internals;
 namespace ReminderXamarin.Views
 {
     [Preserve(AllMembers = true)]
-    public partial class AchievementStepView : PopupPage
+    public partial class AchievementStepEditView : PopupPage
     {
-        public AchievementStepView()
+        public AchievementStepEditView()
         {
             InitializeComponent();
         }
