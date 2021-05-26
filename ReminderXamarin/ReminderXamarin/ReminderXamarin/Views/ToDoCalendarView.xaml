@@ -14,11 +14,13 @@
             <converters:ToDoStatusToColorConverter x:Key="ToDoStatusToColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <elements:BindableToolbarItem Order="Primary"
+                                      Text="{Binding CurrentDate, StringFormat='{0:dd}'}"
+                                      Command="{Binding SelectCurrentDayCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <AbsoluteLayout x:Name="RootLayout"
-                        AbsoluteLayout.LayoutBounds="0,0,1,1"
-                        AbsoluteLayout.LayoutFlags="All">
-            
+        <AbsoluteLayout x:Name="RootLayout">
             <Grid ColumnDefinitions="*,*,*,*,*,*,*"
                   RowDefinitions="*"
                   AbsoluteLayout.LayoutBounds="0,0,1,0.1"
@@ -70,11 +72,11 @@
                        Grid.Column="6" />
             </Grid>
 
-            <CollectionView x:Name="MonthCollectionView"
-                            AbsoluteLayout.LayoutBounds="0,0.1,1,0.7"
-                            AbsoluteLayout.LayoutFlags="All"
-                            ItemsSource="{Binding Months}"
-                            ItemsUpdatingScrollMode="KeepScrollOffset">
+            <elements:CustomCollectionView x:Name="MonthCollectionView"
+                                           AbsoluteLayout.LayoutBounds="0,0.1,1,0.4"
+                                           AbsoluteLayout.LayoutFlags="All"
+                                           ItemsSource="{Binding Months}"
+                                           ItemsUpdatingScrollMode="KeepScrollOffset">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Horizontal"
                                      SnapPointsType="MandatorySingle"
@@ -88,10 +90,10 @@
                                                     HeightRequest="300" />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>
+            </elements:CustomCollectionView>
 
             <ListView x:Name="ToDoList"
-                      AbsoluteLayout.LayoutBounds="0,0.8,1,0.2"
+                      AbsoluteLayout.LayoutBounds="0,1,1,0.5"
                       AbsoluteLayout.LayoutFlags="All"
                       SeparatorVisibility="None"
                       ItemsSource="{Binding AllModels}"
@@ -100,7 +102,8 @@
                       RefreshControlColor="{DynamicResource RefreshControl}"
                       CachingStrategy="RecycleElement"
                       RefreshCommand="{Binding RefreshListCommand}"
-                      IsRefreshing="{Binding IsRefreshing}">
+                      IsRefreshing="{Binding IsRefreshing}"
+                      VerticalScrollBarVisibility="Always">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

@@ -45,15 +45,23 @@ namespace ReminderXamarin.ViewModels
             SelectDayCommand = commandResolver.Command<DateTime>(selectedDate => SelectDay(selectedDate, true));
             UnselectDayCommand = commandResolver.Command<DateTime>(unselectedDate => SelectDay(unselectedDate, false));
             ChangeToDoStatusCommand = commandResolver.Command<ToDoViewModel>(model => ChangeToDoStatus(model));
+            SelectCurrentDayCommand = commandResolver.Command(SelectCurrentDay);
             
             InitializeMonths();
         }
 
         private void InitializeMonths()
         {
-            DateTime currentMonthDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             DateTime previousMonthDateTime = DateTime.Now.AddMonths(-1);
+            DateTime currentMonthDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             DateTime nextMonthDateTime = DateTime.Now.AddMonths(1);
+            
+            Months.Add(new MonthViewModel(
+                previousMonthDateTime.AddMonths(-1), 
+                SelectDayCommand, 
+                UnselectDayCommand,
+                GetDaysForToDoByDateAndStatus(previousMonthDateTime.AddMonths(-1), ConstantsHelper.Active),
+                GetDaysForToDoByDateAndStatus(previousMonthDateTime.AddMonths(-1), ConstantsHelper.Completed)));
             
             Months.Add(new MonthViewModel(
                 previousMonthDateTime, 
@@ -75,6 +83,13 @@ namespace ReminderXamarin.ViewModels
                 UnselectDayCommand,
                 GetDaysForToDoByDateAndStatus(nextMonthDateTime, ConstantsHelper.Active),
                 GetDaysForToDoByDateAndStatus(nextMonthDateTime, ConstantsHelper.Completed)));
+            
+            Months.Add(new MonthViewModel(
+                nextMonthDateTime.AddMonths(1), 
+                SelectDayCommand, 
+                UnselectDayCommand,
+                GetDaysForToDoByDateAndStatus(nextMonthDateTime.AddMonths(1), ConstantsHelper.Active),
+                GetDaysForToDoByDateAndStatus(nextMonthDateTime.AddMonths(1), ConstantsHelper.Completed)));
         }
 
         private List<int> GetDaysForToDoByDateAndStatus(DateTime dateTime, string status)
@@ -89,6 +104,9 @@ namespace ReminderXamarin.ViewModels
 
         public bool IsRefreshing { get; set; }
         public DateTime? LastSelectedDate { get; private set; } = DateTime.Now;
+        public DateTime CurrentDate => DateTime.Now;
+
+        public int CurrentMonthIndex => Months.Count / 2;
 
         public RangeObservableCollection<ToDoViewModel> AllModels { get; }
         public RangeObservableCollection<ToDoViewModel> ActiveModels { get; }
@@ -96,6 +114,7 @@ namespace ReminderXamarin.ViewModels
         public RangeObservableCollection<ToDoViewModel> FailedModels { get; }
         public RangeObservableCollection<MonthViewModel> Months { get; }
 
+        public ICommand SelectCurrentDayCommand { get; }
         public ICommand RefreshListCommand { get; }
         public ICommand SelectItemCommand { get; }
         public ICommand CreateToDoCommand { get; }
@@ -187,7 +206,7 @@ namespace ReminderXamarin.ViewModels
                     monthViewModel.UnselectAllDaysExceptOne(selectedDate);
                 }
 
-                Months.ElementAt(1).SelectDay(LastSelectedDate.Value);
+                Months.ElementAt(CurrentMonthIndex).SelectDay(LastSelectedDate.Value);
             }
             else
             {
@@ -260,6 +279,11 @@ namespace ReminderXamarin.ViewModels
             monthToChange.RefreshDaysForActiveAndCompletedToDo(
                 GetDaysForToDoByDateAndStatus(monthToChange.CurrentDate, ConstantsHelper.Active), 
                 GetDaysForToDoByDateAndStatus(monthToChange.CurrentDate, ConstantsHelper.Completed));
+        }
+
+        private void SelectCurrentDay()
+        {
+            SelectDay(DateTime.Now, true);
         }
     }
 }

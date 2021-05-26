@@ -30,7 +30,7 @@
                   ItemsSource="{Binding AchievementSteps}"
                   CachingStrategy="RecycleElement">
             <ListView.Header>
-                <AbsoluteLayout x:Name="HeaderWrapper">
+                <AbsoluteLayout>
                     <BoxView BackgroundColor="{DynamicResource StatusBar}"
                              AbsoluteLayout.LayoutBounds="0,0,1,200"
                              AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" />
@@ -106,18 +106,20 @@
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="50" />
                             </Grid.ColumnDefinitions>
 
                             <Label Grid.Row="0"
                                    Grid.Column="0"
-                                   Grid.ColumnSpan="2"
+                                   Grid.ColumnSpan="3"
                                    Text="{Binding Title}"
                                    TextColor="{DynamicResource TextCommon}"
                                    FontSize="Medium" />
 
                             <elements:ExtendedLabel Grid.Row="1"
                                                     Grid.Column="0"
+                                                    Grid.ColumnSpan="2"
                                                     HorizontalOptions="Start"
                                                     Lines="2"
                                                     LineBreakMode="TailTruncation"
@@ -125,9 +127,15 @@
                                                     Text="{Binding Description}"
                                                     TextColor="{DynamicResource TextCommon}"
                                                     VerticalOptions="Start" />
-
+                            
                             <Label Grid.Row="1"
                                    Grid.Column="1"
+                                   HorizontalOptions="Center"
+                                   TextColor="{DynamicResource TextCommon}"
+                                   Text="{Binding AchievedDate, StringFormat='{0:d}'}" />
+
+                            <Label Grid.Row="1"
+                                   Grid.Column="2"
                                    HorizontalOptions="EndAndExpand"
                                    WidthRequest="30"
                                    TextColor="{DynamicResource TextCommon}"

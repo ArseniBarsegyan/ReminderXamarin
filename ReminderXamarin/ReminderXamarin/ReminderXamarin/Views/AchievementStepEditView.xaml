@@ -14,7 +14,7 @@
         <ScrollView>
             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                             AbsoluteLayout.LayoutFlags="All">
-                <Frame AbsoluteLayout.LayoutBounds="0.5,0.25,0.7,0.4"
+                <Frame AbsoluteLayout.LayoutBounds="0.5,0.15,0.7,0.3"
                        AbsoluteLayout.LayoutFlags="All"
                        CornerRadius="10"
                        Padding="0">
@@ -25,13 +25,15 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
                             <RowDefinition Height="20" />
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="20" />
                             <RowDefinition Height="20" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="20" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
@@ -104,9 +106,20 @@
                                Grid.Column="0"
                                Padding="5,0"
                                VerticalOptions="Center"
+                               Text="Date:" />
+                        
+                        <DatePicker Grid.Row="7"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Date="{Binding AchievedDate}" />
+                        
+                        <Label Grid.Row="8"
+                               Grid.Column="0"
+                               Padding="5,0"
+                               VerticalOptions="Center"
                                Text="Time spent:" />
 
-                        <Entry Grid.Row="7"
+                        <Entry Grid.Row="9"
                                Grid.Column="0"
                                Keyboard="Numeric"
                                Grid.ColumnSpan="2"
@@ -115,7 +128,7 @@
                                Text="{Binding TimeSpent}"
                                TextColor="{DynamicResource TextCommon}" />
 
-                        <Button Grid.Row="8"
+                        <Button Grid.Row="10"
                                 Grid.Column="0"
                                 Text="{extensions:Translate Save}"
                                 CornerRadius="0"
@@ -144,7 +157,7 @@
                             </VisualStateManager.VisualStateGroups>
                         </Button>
 
-                        <Button Grid.Row="8"
+                        <Button Grid.Row="10"
                                 Grid.Column="1"
                                 Text="{extensions:Translate Back}"
                                 TextColor="{DynamicResource TextCommon}"

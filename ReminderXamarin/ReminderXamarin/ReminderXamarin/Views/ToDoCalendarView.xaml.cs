@@ -24,8 +24,8 @@ namespace ReminderXamarin.Views
                 
             if (_isFirstOpening)
             {
-                await Task.Delay(500);
-                MonthCollectionView.ScrollTo(ViewModel.Months.ElementAt(1),animate:false);
+                await Task.Delay(250);
+                MonthCollectionView.ScrollTo(ViewModel.Months.ElementAt(ViewModel.CurrentMonthIndex),animate:false);
                 _isFirstOpening = false;
             }
         }

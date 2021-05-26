@@ -30,6 +30,7 @@ namespace ReminderXamarin.ViewModels
         public string Title { get; set; }
         public string NotesText { get; set; }
         public string TimeSpent { get; set; }
+        public DateTime AchievedDate { get; set; }
         public bool IsEnabled
         {
             get
@@ -68,6 +69,10 @@ namespace ReminderXamarin.ViewModels
                 Title = _viewModel.Title;
                 NotesText = _viewModel.Description;
                 TimeSpent = _viewModel.TimeSpent.ToString();
+                AchievedDate =
+                    _viewModel.AchievedDate == DateTime.MinValue 
+                    ? DateTime.Now 
+                    : _viewModel.AchievedDate;
             }
             return base.InitializeAsync(navigationData);
         }
@@ -80,7 +85,7 @@ namespace ReminderXamarin.ViewModels
             }
             _viewModel.Title = Title;
             _viewModel.Description = NotesText;
-            _viewModel.AchievedDate = DateTime.Now;
+            _viewModel.AchievedDate = AchievedDate;
 
             // App.AchievementStepRepository.Value.Save(_model);
 

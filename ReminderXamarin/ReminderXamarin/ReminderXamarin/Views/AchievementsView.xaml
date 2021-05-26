@@ -10,7 +10,7 @@
              BackgroundColor="{DynamicResource ViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
-      <ResourceDictionary> 
+      <ResourceDictionary>
           <converters:AchievementSpentTimePresentationConverter x:Key="SpentTimePresentationConverter" />
           <converters:NumberToColorConverter x:Key="NumberToColorConverter" />
       </ResourceDictionary>
@@ -76,8 +76,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <ImageButton x:Name="CreateAchievementButton"
-                         Command="{Binding CreateNewAchievementCommand}"
+            <ImageButton Command="{Binding CreateNewAchievementCommand}"
                          Source="add.png"
                          Style="{StaticResource Fab}" />
         </AbsoluteLayout>
