@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
@@ -9,8 +10,9 @@ namespace ReminderXamarin.Views
     [Preserve(AllMembers = true)]
     public partial class ToDoCalendarView : ContentPage
     {
-        private bool _isFirstOpening = true;
         private ToDoCalendarViewModel ViewModel => BindingContext as ToDoCalendarViewModel;
+        private bool _isFirstOpening = true;
+        private int _previousVisibleItemIndex;
 
         public ToDoCalendarView()
         {
@@ -21,10 +23,11 @@ namespace ReminderXamarin.Views
         {
             base.OnAppearing();
             ViewModel.OnAppearing();
-                
+
             if (_isFirstOpening)
             {
-                await Task.Delay(250);
+                const int timeUntilCollectionViewFullyLoad = 200;
+                await Task.Delay(timeUntilCollectionViewFullyLoad);
                 MonthCollectionView.ScrollTo(ViewModel.Months.ElementAt(ViewModel.CurrentMonthIndex),animate:false);
                 _isFirstOpening = false;
             }
@@ -42,6 +45,25 @@ namespace ReminderXamarin.Views
             if (e.SelectedItem is ToDoViewModel model)
             {
                 ViewModel.ChangeToDoStatusCommand.Execute(model);
+            }
+        }
+
+        private void MenuItemOnClicked(object sender, EventArgs e)
+        {
+            MonthCollectionView.ScrollTo(ViewModel.Months.ElementAt(ViewModel.CurrentMonthIndex),animate:false);
+        }
+
+        private void MonthCollectionViewOnScrolled(object sender, ItemsViewScrolledEventArgs e)
+        {
+            if (e.FirstVisibleItemIndex == e.LastVisibleItemIndex)
+            {
+                if (_previousVisibleItemIndex == e.LastVisibleItemIndex)
+                {
+                    return;
+                }
+
+                ViewModel.LoadDataIfNecessary(e.FirstVisibleItemIndex, _previousVisibleItemIndex);
+                _previousVisibleItemIndex = e.FirstVisibleItemIndex;
             }
         }
     }

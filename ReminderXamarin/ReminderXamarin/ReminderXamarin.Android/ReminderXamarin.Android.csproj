@@ -137,7 +137,6 @@
     <PackageReference Include="Xamarin.AndroidX.Palette" Version="1.0.0.5" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Renderers\CustomCollectionViewRenderer.cs" />
     <Compile Include="Renderers\GrayscaleImageRenderer.cs" />
     <Compile Include="Renderers\NavigationPageCustomRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

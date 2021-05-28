@@ -1,3 +1,4 @@
+using System.Linq;
 using ReminderXamarin.Constants;
 using ReminderXamarin.ViewModels;
 using ReminderXamarin.Views;
@@ -12,6 +13,7 @@ namespace ReminderXamarin.Elements
         public CalendarMonthView()
         {
             Padding = new Thickness(10, 0, 0, 0);
+            Children.Clear();
             InitializeGrid();
         }
 
@@ -42,13 +44,33 @@ namespace ReminderXamarin.Elements
                 RowDefinitions.Add(new RowDefinition {Height = UIConstants.CalendarDayViewHeight});
             }
         }
+
+        private int _firstDayColumn;
+
+        private int _lastDayRow;
+        private int _lastDayColumn;
         
         private void AddCurrentMonth()
         {
-            foreach (var dayViewModel in ViewModel.Days)
+            for (int i = 0; i < ViewModel.Days.Count; i++)
             {
+                var dayViewModel = ViewModel.Days.ElementAt(i);
+                
+                if (i == 0)
+                {
+                    _firstDayColumn = dayViewModel.DayPosition.Column;
+                }
+
+                if (i == ViewModel.Days.Count - 1)
+                {
+                    _lastDayRow = dayViewModel.DayPosition.Row;
+                    _lastDayColumn = dayViewModel.DayPosition.Column;
+                }
+                
                 AddDay(dayViewModel);
             }
+
+            //FillEmptyCells();
         }
 
         private void AddDay(DayViewModel dayViewModel)
@@ -60,6 +82,25 @@ namespace ReminderXamarin.Elements
                 BindingContext = dayViewModel
             };
             Children.Add(view, dayViewModel.DayPosition.Column, dayViewModel.DayPosition.Row);
+        }
+
+        private void FillEmptyCells()
+        {
+            if (_firstDayColumn != 0)
+            {
+                for (int i = 0; i < _firstDayColumn; i++)
+                {
+                    Children.Add(new ContentView(), i, 0);
+                } 
+            }
+
+            if (_lastDayColumn != UIConstants.DaysInWeek - 1)
+            {
+                for (int i = _lastDayColumn; i < UIConstants.DaysInWeek; i++)
+                {
+                    Children.Add(new ContentView(), i, _lastDayRow);
+                }
+            }
         }
     }
 }

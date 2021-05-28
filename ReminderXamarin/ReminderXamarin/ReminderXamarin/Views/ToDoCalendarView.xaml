@@ -17,7 +17,8 @@
     <ContentPage.ToolbarItems>
         <elements:BindableToolbarItem Order="Primary"
                                       Text="{Binding CurrentDate, StringFormat='{0:dd}'}"
-                                      Command="{Binding SelectCurrentDayCommand}" />
+                                      Command="{Binding SelectCurrentDayCommand}"
+                                      Clicked="MenuItemOnClicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <AbsoluteLayout x:Name="RootLayout">
@@ -72,11 +73,14 @@
                        Grid.Column="6" />
             </Grid>
 
-            <elements:CustomCollectionView x:Name="MonthCollectionView"
-                                           AbsoluteLayout.LayoutBounds="0,0.1,1,0.4"
-                                           AbsoluteLayout.LayoutFlags="All"
-                                           ItemsSource="{Binding Months}"
-                                           ItemsUpdatingScrollMode="KeepScrollOffset">
+            <CollectionView x:Name="MonthCollectionView"
+                            AbsoluteLayout.LayoutBounds="0,0.1,1,0.4"
+                            AbsoluteLayout.LayoutFlags="All"
+                            ItemsSource="{Binding Months}"
+                            Scrolled="MonthCollectionViewOnScrolled"
+                            ItemsUpdatingScrollMode="KeepItemsInView"
+                            HorizontalScrollBarVisibility="Never"
+                            VerticalScrollBarVisibility="Never">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Horizontal"
                                      SnapPointsType="MandatorySingle"
@@ -90,7 +94,7 @@
                                                     HeightRequest="300" />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </elements:CustomCollectionView>
+            </CollectionView>
 
             <ListView x:Name="ToDoList"
                       AbsoluteLayout.LayoutBounds="0,1,1,0.5"

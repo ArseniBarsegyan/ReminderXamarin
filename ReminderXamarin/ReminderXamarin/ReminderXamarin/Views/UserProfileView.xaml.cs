@@ -28,6 +28,7 @@ namespace ReminderXamarin.Views
             {
                 return;
             }
+            
             ViewModel.ChangeUserProfileCommand.Execute(document);
         }
     }
