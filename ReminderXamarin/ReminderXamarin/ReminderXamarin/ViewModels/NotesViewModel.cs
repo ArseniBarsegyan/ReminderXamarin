@@ -55,7 +55,7 @@ namespace ReminderXamarin.ViewModels
             NavigateToEditViewCommand = commandResolver.AsyncCommand<int>(NavigateToEditView);
         }
 
-        public string SearchText { get; }
+        public string SearchText { get; set; }
         public bool IsRefreshing { get; set; }
         public ObservableCollection<Note> Notes { get; private set; }
         

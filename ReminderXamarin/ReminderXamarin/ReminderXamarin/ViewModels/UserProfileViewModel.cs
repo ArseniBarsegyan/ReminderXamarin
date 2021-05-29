@@ -24,20 +24,23 @@ namespace ReminderXamarin.ViewModels
     {
         private readonly IFileSystem _fileService;
         private readonly IMediaService _mediaService;
+        private readonly IPlatformDocumentPicker _documentPicker;
 
         public UserProfileViewModel(
             INavigationService navigationService,
             IFileSystem fileService,
             IMediaService mediaService,
+            IPlatformDocumentPicker documentPicker,
             ICommandResolver commandResolver)
             : base(navigationService)
         {
             _fileService = fileService;
             _mediaService = mediaService;
+            _documentPicker = documentPicker;
 
             ImageContent = new byte[0];
 
-            ChangeUserProfileCommand = commandResolver.Command<PlatformDocument>(ChangeUserProfile);
+            ChangeUserProfileCommand = commandResolver.AsyncCommand(ChangeUserProfile);
             UpdateUserCommand = commandResolver.Command(UpdateUser);
         }
 
@@ -82,8 +85,15 @@ namespace ReminderXamarin.ViewModels
             }
         }
         
-        private async void ChangeUserProfile(PlatformDocument document)
+        private async Task ChangeUserProfile()
         {
+            var document = await _documentPicker.DisplayImportAsync();
+             
+            if (document == null)
+            {
+                return;
+            }
+            
             // Ensure that user downloads .png or .jpg file as profile icon.
             if (document.Name.EndsWith(".png") 
                 || document.Name.EndsWith(".jpg") 

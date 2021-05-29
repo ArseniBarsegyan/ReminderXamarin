@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Foundation;
@@ -29,16 +30,9 @@ namespace ReminderXamarin.iOS.Services.FilePickerService
         
         #region IPlatformDocumentPicker implementation
 
-        public Task<PlatformDocument> DisplayImportAsync(Page page)
+        public Task<PlatformDocument> DisplayImportAsync()
         {
             var taskCompletionSource = new TaskCompletionSource<PlatformDocument>();
-
-            if (page == null)
-            {
-                throw new ArgumentException("Provided page doesn't inherit Xamarin.Forms.Page.");
-            }
-            PageRenderer renderer = page.GetRenderer();
-
             var docPicker = new UIDocumentPickerViewController(allUTTypes, UIDocumentPickerMode.Import);
             docPicker.DidPickDocument += (sender, e) =>
             {
@@ -52,15 +46,15 @@ namespace ReminderXamarin.iOS.Services.FilePickerService
             {
                 taskCompletionSource.SetResult(null);
             };
+            
+            var window= UIApplication.SharedApplication.KeyWindow;
+            var rootViewController = window.RootViewController;
 
-            renderer.PresentViewController(docPicker, true, null);
+            rootViewController?.PresentViewController(docPicker, true, null);
             var presentationPopover = docPicker.PopoverPresentationController;
-            if (presentationPopover != null)
-            {
-                presentationPopover.SourceView = renderer.View;
-                presentationPopover.PermittedArrowDirections = 0;
-                presentationPopover.SourceRect = renderer.View.Frame;
-            }
+            presentationPopover.SourceView = rootViewController.View;
+            presentationPopover.PermittedArrowDirections = 0;
+            presentationPopover.SourceRect = rootViewController.View.Frame;
 
             return taskCompletionSource.Task;
         }

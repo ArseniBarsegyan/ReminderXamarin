@@ -1,4 +1,6 @@
 ﻿using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -38,6 +40,16 @@ namespace ReminderXamarin.ViewModels
             PinCommand = commandResolver.AsyncCommandWithoutLock<string>(CheckPinAsync);
 
             InitializeImagesForButtons();
+            
+            bool.TryParse(Settings.UsePinBackground, out bool shouldUsePinBackground);
+            UsePinPageBackground = shouldUsePinBackground;
+            
+            if (UsePinPageBackground)
+            {
+                string[] bytesStr = Settings.PinBackground.Split('x');
+                byte[] bytes = bytesStr.Select(x => (byte)int.Parse(x)).ToArray();
+                UpdatePinPhoto(bytes);
+            }
         }
 
         public override Task InitializeAsync(object navigationData)
@@ -50,6 +62,7 @@ namespace ReminderXamarin.ViewModels
             {
                 _shouldConfirmPin = false;
             }
+            
             return base.InitializeAsync(navigationData);            
         }
 
@@ -58,7 +71,8 @@ namespace ReminderXamarin.ViewModels
         public Image ThirdNumberImageSource { get; private set; }
         public Image FourthNumberImageSource { get; private set; }
         public ImageSource DeleteButtonImageSource { get; private set; }
-
+        public bool UsePinPageBackground { get; }
+        public ImageSource PinBackgroundImageSource { get; private set; }
         public int Pin { get; set; }
         public string Message { get; private set; }
 
@@ -205,6 +219,20 @@ namespace ReminderXamarin.ViewModels
                         await NavigationService.ToRootAsync<MenuViewModel>();
                     }
                 } 
+            }
+        }
+        
+        private void UpdatePinPhoto(byte[] imageContent)
+        {
+            if (imageContent == null || imageContent.Length == 0)
+            {
+                PinBackgroundImageSource = ImageSource.FromResource(
+                    ConstantsHelper.NoPhotoImage);
+            }
+            else
+            {
+                PinBackgroundImageSource = ImageSource.FromStream(
+                    () => new MemoryStream(imageContent));
             }
         }
     }

@@ -1,7 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+             xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
              x:Class="ReminderXamarin.Views.PinView"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
@@ -27,160 +28,174 @@
             <Style x:Key="PinCodeImageStyle" TargetType="Image">
                 <Setter Property="WidthRequest" Value="20" />
             </Style>
+            
+            <converters:BoolToBackgroundColorConverter x:Key="BoolToBackgroundColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid BackgroundColor="{DynamicResource ViewBackground}"
-              Padding="0,10"
-              RowSpacing="15"
-              ColumnSpacing="15">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="1.2*" />
-                <RowDefinition Height="70" />
-                <RowDefinition Height="70" />
-                <RowDefinition Height="70" />
-                <RowDefinition Height="70" />
-                <RowDefinition Height="1.2*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="0.5*" />
-            </Grid.ColumnDefinitions>
+        <AbsoluteLayout LayoutBounds="0,0,1,1"
+                        LayoutFlags="All">
+            
+            <Image AbsoluteLayout.LayoutBounds="0,0,1,1"
+                   AbsoluteLayout.LayoutFlags="All"
+                   Source="{Binding PinBackgroundImageSource}"
+                   Aspect="AspectFill" />
+            
+            <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
+                  AbsoluteLayout.LayoutFlags="All"
+                  BackgroundColor="{Binding UsePinPageBackground, 
+                                    Converter={StaticResource BoolToBackgroundColorConverter}}"
+                  Padding="0,10"
+                  RowSpacing="15"
+                  ColumnSpacing="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="1.2*" />
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="1.2*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.5*" />
+                </Grid.ColumnDefinitions>
 
-            <Label Text="{Binding Message}"
-                   Grid.Row="0"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="5"
-                   Style="{StaticResource PinViewLabelStyle}"
-                   HorizontalOptions="Center" />
+                <Label Text="{Binding Message}"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="5"
+                       Style="{StaticResource PinViewLabelStyle}"
+                       HorizontalOptions="Center" />
 
-            <StackLayout Orientation="Horizontal"
-                         HorizontalOptions="Center"
-                         Grid.Row="1"
-                         Grid.Column="1"
-                         Grid.ColumnSpan="3">
-                <Image x:Name="FirstNumber"
-                       Style="{StaticResource PinCodeImageStyle}"
-                       Source="{Binding FirstNumberImageSource.Source}" />
-                <Image x:Name="SecondNumber"
-                       Style="{StaticResource PinCodeImageStyle}"
-                       Source="{Binding SecondNumberImageSource.Source}" />
-                <Image x:Name="ThirdNumber"
-                       Style="{StaticResource PinCodeImageStyle}"
-                       Source="{Binding ThirdNumberImageSource.Source}" />
-                <Image x:Name="FourthNumber"
-                       Style="{StaticResource PinCodeImageStyle}"
-                       Source="{Binding FourthNumberImageSource.Source}" />
-            </StackLayout>
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             Grid.Row="1"
+                             Grid.Column="1"
+                             Grid.ColumnSpan="3">
+                    <Image x:Name="FirstNumber"
+                           Style="{StaticResource PinCodeImageStyle}"
+                           Source="{Binding FirstNumberImageSource.Source}" />
+                    <Image x:Name="SecondNumber"
+                           Style="{StaticResource PinCodeImageStyle}"
+                           Source="{Binding SecondNumberImageSource.Source}" />
+                    <Image x:Name="ThirdNumber"
+                           Style="{StaticResource PinCodeImageStyle}"
+                           Source="{Binding ThirdNumberImageSource.Source}" />
+                    <Image x:Name="FourthNumber"
+                           Style="{StaticResource PinCodeImageStyle}"
+                           Source="{Binding FourthNumberImageSource.Source}" />
+                </StackLayout>
 
-            <Button x:Name="Button1"
-                    Grid.Row="3"
-                    Grid.Column="1"                    
-                    HorizontalOptions="Center"
-                    Style="{StaticResource PinViewButtonStyle}"
-                    Text="1"
-                    Pressed="Button_OnPressed"
-                    Command="{Binding PinCommand}"
-                    CommandParameter="{Binding Source={x:Reference Button1}, Path=Text}" />
-            <Button x:Name="Button2"                    
-                    Grid.Row="3"
-                    Grid.Column="2"
-                    HorizontalOptions="Center"
-                    Style="{StaticResource PinViewButtonStyle}"
-                    Text="2"
-                    Pressed="Button_OnPressed"
-                    Command="{Binding PinCommand}"
-                    CommandParameter="{Binding Source={x:Reference Button2}, Path=Text}" />
-            <Button x:Name="Button3"
-                    Grid.Row="3"
-                    Grid.Column="3"
-                    HorizontalOptions="Center"
-                    Style="{StaticResource PinViewButtonStyle}"
-                    Text="3"
-                    Pressed="Button_OnPressed"
-                    Command="{Binding PinCommand}"
-                    CommandParameter="{Binding Source={x:Reference Button3}, Path=Text}" />
-            <Button x:Name="Button4"
-                    Grid.Row="4"
-                    Grid.Column="1"  
-                    HorizontalOptions="Center"
-                    Style="{StaticResource PinViewButtonStyle}"
-                    Text="4"
-                    Pressed="Button_OnPressed"
-                    Command="{Binding PinCommand}"
-                    CommandParameter="{Binding Source={x:Reference Button4}, Path=Text}" />
-            <Button x:Name="Button5"
-                    Grid.Row="4"
-                    Grid.Column="2"
-                    HorizontalOptions="Center"
-                    Style="{StaticResource PinViewButtonStyle}"
-                    Text="5"
-                    Pressed="Button_OnPressed"
-                    Command="{Binding PinCommand}"
-                    CommandParameter="{Binding Source={x:Reference Button5}, Path=Text}" />
-            <Button x:Name="Button6"
-                    Grid.Row="4"
-                    Grid.Column="3"                    
-                    HorizontalOptions="Center"
-                    Style="{StaticResource PinViewButtonStyle}"
-                    Text="6"
-                    Pressed="Button_OnPressed"
-                    Command="{Binding PinCommand}"
-                    CommandParameter="{Binding Source={x:Reference Button6}, Path=Text}"/>
-            <Button x:Name="Button7"
-                    Grid.Row="5"
-                    Grid.Column="1"  
-                    HorizontalOptions="Center"
-                    Style="{StaticResource PinViewButtonStyle}"
-                    Text="7"
-                    Pressed="Button_OnPressed"
-                    Command="{Binding PinCommand}"
-                    CommandParameter="{Binding Source={x:Reference Button7}, Path=Text}"/>
-            <Button x:Name="Button8"
-                    Grid.Row="5"
-                    Grid.Column="2"
-                    HorizontalOptions="Center"
-                    Style="{StaticResource PinViewButtonStyle}"
-                    Text="8"
-                    Pressed="Button_OnPressed"
-                    Command="{Binding PinCommand}"
-                    CommandParameter="{Binding Source={x:Reference Button8}, Path=Text}" />
-            <Button x:Name="Button9"
-                    Grid.Row="5"
-                    Grid.Column="3"
-                    HorizontalOptions="Center"
-                    Style="{StaticResource PinViewButtonStyle}"
-                    Text="9"
-                    Pressed="Button_OnPressed"
-                    Command="{Binding PinCommand}"
-                    CommandParameter="{Binding Source={x:Reference Button9}, Path=Text}" />
-            <Button x:Name="Button0"
-                    Grid.Column="2"
-                    Grid.Row="6"
-                    HorizontalOptions="Center"
-                    Style="{StaticResource PinViewButtonStyle}"
-                    Text="0"
-                    Pressed="Button_OnPressed"
-                    Command="{Binding PinCommand}"
-                    CommandParameter="{Binding Source={x:Reference Button0}, Path=Text}" />
+                <Button x:Name="Button1"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource PinViewButtonStyle}"
+                        Text="1"
+                        Pressed="Button_OnPressed"
+                        Command="{Binding PinCommand}"
+                        CommandParameter="{Binding Source={x:Reference Button1}, Path=Text}" />
+                <Button x:Name="Button2"
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource PinViewButtonStyle}"
+                        Text="2"
+                        Pressed="Button_OnPressed"
+                        Command="{Binding PinCommand}"
+                        CommandParameter="{Binding Source={x:Reference Button2}, Path=Text}" />
+                <Button x:Name="Button3"
+                        Grid.Row="3"
+                        Grid.Column="3"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource PinViewButtonStyle}"
+                        Text="3"
+                        Pressed="Button_OnPressed"
+                        Command="{Binding PinCommand}"
+                        CommandParameter="{Binding Source={x:Reference Button3}, Path=Text}" />
+                <Button x:Name="Button4"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource PinViewButtonStyle}"
+                        Text="4"
+                        Pressed="Button_OnPressed"
+                        Command="{Binding PinCommand}"
+                        CommandParameter="{Binding Source={x:Reference Button4}, Path=Text}" />
+                <Button x:Name="Button5"
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource PinViewButtonStyle}"
+                        Text="5"
+                        Pressed="Button_OnPressed"
+                        Command="{Binding PinCommand}"
+                        CommandParameter="{Binding Source={x:Reference Button5}, Path=Text}" />
+                <Button x:Name="Button6"
+                        Grid.Row="4"
+                        Grid.Column="3"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource PinViewButtonStyle}"
+                        Text="6"
+                        Pressed="Button_OnPressed"
+                        Command="{Binding PinCommand}"
+                        CommandParameter="{Binding Source={x:Reference Button6}, Path=Text}" />
+                <Button x:Name="Button7"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource PinViewButtonStyle}"
+                        Text="7"
+                        Pressed="Button_OnPressed"
+                        Command="{Binding PinCommand}"
+                        CommandParameter="{Binding Source={x:Reference Button7}, Path=Text}" />
+                <Button x:Name="Button8"
+                        Grid.Row="5"
+                        Grid.Column="2"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource PinViewButtonStyle}"
+                        Text="8"
+                        Pressed="Button_OnPressed"
+                        Command="{Binding PinCommand}"
+                        CommandParameter="{Binding Source={x:Reference Button8}, Path=Text}" />
+                <Button x:Name="Button9"
+                        Grid.Row="5"
+                        Grid.Column="3"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource PinViewButtonStyle}"
+                        Text="9"
+                        Pressed="Button_OnPressed"
+                        Command="{Binding PinCommand}"
+                        CommandParameter="{Binding Source={x:Reference Button9}, Path=Text}" />
+                <Button x:Name="Button0"
+                        Grid.Column="2"
+                        Grid.Row="6"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource PinViewButtonStyle}"
+                        Text="0"
+                        Pressed="Button_OnPressed"
+                        Command="{Binding PinCommand}"
+                        CommandParameter="{Binding Source={x:Reference Button0}, Path=Text}" />
 
-            <ImageButton x:Name="ButtonX"
-                         Grid.Row="6"
-                         Grid.Column="3"
-                         VerticalOptions="Center"
-                         HorizontalOptions="Center"
-                         WidthRequest="50"
-                         HeightRequest="50"
-                         CornerRadius="25"
-                         Source="{Binding DeleteButtonImageSource}"
-                         Pressed="Button_OnPressed"
-                         BackgroundColor="{DynamicResource PinButtonBackground}"
-                         Command="{Binding DeleteNumberCommand}" />
-        </Grid>
+                <ImageButton x:Name="ButtonX"
+                             Grid.Row="6"
+                             Grid.Column="3"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             WidthRequest="50"
+                             HeightRequest="50"
+                             CornerRadius="25"
+                             Source="{Binding DeleteButtonImageSource}"
+                             Pressed="Button_OnPressed"
+                             BackgroundColor="{DynamicResource PinButtonBackground}"
+                             Command="{Binding DeleteNumberCommand}" />
+            </Grid>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

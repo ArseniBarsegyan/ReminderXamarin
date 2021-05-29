@@ -6,6 +6,6 @@ namespace ReminderXamarin.Services.FilePickerService
 {
     public interface IPlatformDocumentPicker
     {
-        Task<PlatformDocument> DisplayImportAsync(Page page);
+        Task<PlatformDocument> DisplayImportAsync();
     }
 }

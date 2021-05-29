@@ -10,12 +10,14 @@ namespace Rm.Helpers
         #region Setting Constants
 
         private const string SettingsKey = "settings_key";
-        private const string CurrentUserIdKey = "0";
-        private const string UsePinKey = "True";
-        private const string UserPinCodeKey = "0000";
-        private const string ApplicationUserKey = "";
-        private const string ThemeTypeKey = "Light";
-        private const string UseSafeModeKey = "False";
+        private const string CurrentUserIdKey = "CurrentIdKey";
+        private const string UsePinKey = "UsePinCode";
+        private const string UserPinCodeKey = "UserPinCode";
+        private const string ApplicationUserKey = "ApplicationUserKey";
+        private const string ThemeTypeKey = "CurrentThemeKey";
+        private const string UseSafeModeKey = "UseSafeModeKey";
+        private const string PinBackgroundKey = "PinBackgroundKey";
+        private const string UsePinBackgroundKey = "UsePinBackground";
 
         private static readonly string SettingsDefault = string.Empty;
         private static readonly string ThemeSettingDefault = "Light";
@@ -62,6 +64,18 @@ namespace Rm.Helpers
         {
             get => AppSettings.GetValueOrDefault(UseSafeModeKey, SettingsDefault);
             set => AppSettings.AddOrUpdateValue(UseSafeModeKey, value);
+        }
+        
+        public static string PinBackground
+        {
+            get => AppSettings.GetValueOrDefault(PinBackgroundKey, SettingsDefault);
+            set => AppSettings.AddOrUpdateValue(PinBackgroundKey, value);
+        }
+
+        public static string UsePinBackground
+        {
+            get => AppSettings.GetValueOrDefault(UsePinBackgroundKey, SettingsDefault);
+            set => AppSettings.AddOrUpdateValue(UsePinBackgroundKey, value);
         }
 
         public static void Clear()

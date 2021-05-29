@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors"
@@ -26,89 +26,112 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                        AbsoluteLayout.LayoutFlags="All">
+        <ScrollView>
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                            AbsoluteLayout.LayoutFlags="All">
 
-            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                         AbsoluteLayout.LayoutFlags="All"
-                         Padding="10">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                             AbsoluteLayout.LayoutFlags="All"
+                             Padding="10">
 
-                <Frame Style="{StaticResource FrameBaseStyle}">
-                    <Grid VerticalOptions="Center">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                    <Frame Style="{StaticResource FrameBaseStyle}">
+                        <Grid VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="0"
-                               Grid.Column="0"                               
-                               Text="{extensions:Translate UsePin}"
-                               TextColor="{DynamicResource TextCommon}" />
+                            <Label Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="{extensions:Translate UsePin}"
+                                   TextColor="{DynamicResource TextCommon}" />
 
-                        <Switch Grid.Row="0"
-                                Grid.Column="1"
-                                Style="{StaticResource SwitchBaseStyle}"
-                                IsToggled="{Binding UsePin}">
-                            <Switch.Behaviors>
-                                <behaviors:EventToCommandBehavior EventName="Toggled"
-                                                                  Command="{Binding OpenPinViewCommand}" />
-                            </Switch.Behaviors>
-                        </Switch>
-                    </Grid>
-                </Frame>
+                            <Switch Grid.Row="0"
+                                    Grid.Column="1"
+                                    Style="{StaticResource SwitchBaseStyle}"
+                                    IsToggled="{Binding UsePin}">
+                                <Switch.Behaviors>
+                                    <behaviors:EventToCommandBehavior EventName="Toggled"
+                                                                      Command="{Binding OpenPinViewCommand}" />
+                                </Switch.Behaviors>
+                            </Switch>
+                        </Grid>
+                    </Frame>
 
-                <Frame Style="{StaticResource FrameBaseStyle}">
-                    <Grid VerticalOptions="Center">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                    <Frame Style="{StaticResource FrameBaseStyle}">
+                        <Grid VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="0"
-                               Grid.Column="0"
-                               Text="{extensions:Translate UseColorTheme}"
-                               TextColor="{DynamicResource TextCommon}" />
+                            <Label Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="{extensions:Translate UseColorTheme}"
+                                   TextColor="{DynamicResource TextCommon}" />
 
-                        <Switch Grid.Row="0"
-                                Grid.Column="1"
-                                Style="{StaticResource SwitchBaseStyle}"
-                                IsToggled="{Binding IsDarkTheme}"/>
-                    </Grid>
-                </Frame>
+                            <Switch Grid.Row="0"
+                                    Grid.Column="1"
+                                    Style="{StaticResource SwitchBaseStyle}"
+                                    IsToggled="{Binding IsDarkTheme}" />
+                        </Grid>
+                    </Frame>
 
-                <Frame Style="{StaticResource FrameBaseStyle}">
-                    <Grid VerticalOptions="Center">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                    <Frame Style="{StaticResource FrameBaseStyle}">
+                        <Grid VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="0"
-                               Grid.Column="0"
-                               Text="{extensions:Translate UseSafeMode}"
-                               TextColor="{DynamicResource TextCommon}" />
+                            <Label Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="{extensions:Translate UseSafeMode}"
+                                   TextColor="{DynamicResource TextCommon}" />
 
-                        <Switch Grid.Row="0"
-                                Grid.Column="1"
-                                Style="{StaticResource SwitchBaseStyle}"
-                                IsToggled="{Binding UseSafeMode}"/>
-                    </Grid>
-                </Frame>
-            </StackLayout>            
+                            <Switch Grid.Row="0"
+                                    Grid.Column="1"
+                                    Style="{StaticResource SwitchBaseStyle}"
+                                    IsToggled="{Binding UseSafeMode}" />
+                        </Grid>
+                    </Frame>
 
-            <ImageButton IsVisible="{Binding ModelChanged}"
-                         Style="{StaticResource Fab}"
-                         Command="{Binding SaveSettingsCommand}"
-                         Source="confirm.png" />
-        </AbsoluteLayout>
+                    <Frame Style="{StaticResource FrameBaseStyle}">
+                        <StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Use pin background"
+                                       TextColor="{DynamicResource TextCommon}" />
+                                <Switch Style="{StaticResource SwitchBaseStyle}"
+                                        HorizontalOptions="EndAndExpand"
+                                        IsToggled="{Binding UsePinPageBackground}">
+                                    <Switch.Behaviors>
+                                        <behaviors:EventToCommandBehavior EventName="Toggled"
+                                                                          Command="{Binding ChangePinViewBackgroundCommand}" />
+                                    </Switch.Behaviors>
+                                </Switch>
+                            </StackLayout>
+                            <Image Source="{Binding PinBackgroundImageSource}"
+                                   Aspect="AspectFill"
+                                   HeightRequest="200" />
+                            <Button Text="Reset" Command="{Binding ResetPinBackgroundCommand}" />
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+
+                <ImageButton IsVisible="{Binding ModelChanged}"
+                             Style="{StaticResource Fab}"
+                             Command="{Binding SaveSettingsCommand}"
+                             Source="confirm.png" />
+            </AbsoluteLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

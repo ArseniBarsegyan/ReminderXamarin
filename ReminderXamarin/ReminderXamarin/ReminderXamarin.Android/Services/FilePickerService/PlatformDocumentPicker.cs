@@ -21,7 +21,7 @@ namespace ReminderXamarin.Droid.Services.FilePickerService
         {
         }
         
-        public async Task<PlatformDocument> DisplayImportAsync(Page page)
+        public async Task<PlatformDocument> DisplayImportAsync()
         {
             var intent = await ShowPickerDialog();
             if (intent != null)
