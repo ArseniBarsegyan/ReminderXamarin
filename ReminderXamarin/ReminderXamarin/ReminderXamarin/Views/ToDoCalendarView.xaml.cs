@@ -28,7 +28,7 @@ namespace ReminderXamarin.Views
             {
                 const int timeUntilCollectionViewFullyLoad = 200;
                 await Task.Delay(timeUntilCollectionViewFullyLoad);
-                MonthCollectionView.ScrollTo(ViewModel.Months.ElementAt(ViewModel.CurrentMonthIndex),animate:false);
+                //MonthCollectionView.ScrollTo(ViewModel.Months.ElementAt(ViewModel.CurrentMonthIndex),animate:false);
                 _isFirstOpening = false;
             }
         }
@@ -62,7 +62,7 @@ namespace ReminderXamarin.Views
                     return;
                 }
 
-                ViewModel.LoadDataIfNecessary(e.FirstVisibleItemIndex, _previousVisibleItemIndex);
+                ViewModel.LoadDataIfNecessary(e.FirstVisibleItemIndex);
                 _previousVisibleItemIndex = e.FirstVisibleItemIndex;
             }
         }

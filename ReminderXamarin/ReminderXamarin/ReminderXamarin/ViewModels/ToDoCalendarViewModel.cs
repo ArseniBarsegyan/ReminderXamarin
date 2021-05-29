@@ -47,37 +47,55 @@ namespace ReminderXamarin.ViewModels
             UnselectDayCommand = commandResolver.Command<DateTime>(unselectedDate => ToggleDayState(unselectedDate, false));
             ChangeToDoStatusCommand = commandResolver.Command<ToDoViewModel>(model => ChangeToDoStatus(model));
             SelectCurrentDayCommand = commandResolver.Command(SelectCurrentDay);
-            
-            InitializeMonths();
+
+            InitializeMonth();
         }
 
-        private void InitializeMonths()
+        private void InitializeMonth()
         {
             var currentDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            var previousMonthDateTime = currentDateTime.AddMonths(-1);
-            var nextMonthDateTime = currentDateTime.AddMonths(1);
             
-            Months.Add(new MonthViewModel(
-                previousMonthDateTime,
-                SelectDayCommand,
-                UnselectDayCommand,
-                GetDaysForToDoByDateAndStatus(previousMonthDateTime, ConstantsHelper.Active),
-                GetDaysForToDoByDateAndStatus(previousMonthDateTime, ConstantsHelper.Completed)));
-
             _currentMonth = new MonthViewModel(
                 currentDateTime,
                 SelectDayCommand,
                 UnselectDayCommand,
                 GetDaysForToDoByDateAndStatus(currentDateTime, ConstantsHelper.Active),
                 GetDaysForToDoByDateAndStatus(currentDateTime, ConstantsHelper.Completed));
+            
             Months.Add(_currentMonth);
-                
-            Months.Add(new MonthViewModel(
-                nextMonthDateTime,
-                SelectDayCommand,
-                UnselectDayCommand,
-                GetDaysForToDoByDateAndStatus(nextMonthDateTime, ConstantsHelper.Active),
-                GetDaysForToDoByDateAndStatus(nextMonthDateTime, ConstantsHelper.Completed)));
+            InitializeMonths();
+        }
+
+        private async Task InitializeMonths()
+        {
+            await Task.Delay(200);
+            
+            var currentDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            for (int i = 1; i < 7; i++)
+            {
+                var previousMonthDateTime = currentDateTime.AddMonths(-i);
+                var nextMonthDateTime = currentDateTime.AddMonths(i);
+
+                var previousMonth = new MonthViewModel(
+                    previousMonthDateTime,
+                    SelectDayCommand,
+                    UnselectDayCommand,
+                    GetDaysForToDoByDateAndStatus(previousMonthDateTime, ConstantsHelper.Active),
+                    GetDaysForToDoByDateAndStatus(previousMonthDateTime, ConstantsHelper.Completed));
+
+                var nextMonth = new MonthViewModel(
+                    nextMonthDateTime,
+                    SelectDayCommand,
+                    UnselectDayCommand,
+                    GetDaysForToDoByDateAndStatus(nextMonthDateTime, ConstantsHelper.Active),
+                    GetDaysForToDoByDateAndStatus(nextMonthDateTime, ConstantsHelper.Completed));
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    Months.Insert(0, previousMonth);
+                    Months.Add(nextMonth);
+                });
+            }
         }
 
         private List<int> GetDaysForToDoByDateAndStatus(DateTime dateTime, string status)
@@ -138,9 +156,9 @@ namespace ReminderXamarin.ViewModels
                 ConstantsHelper.UpdateUI);
         }
 
-        public void LoadDataIfNecessary(int appearedItemIndex, int previousItemIndex)
+        public void LoadDataIfNecessary(int appearedItemIndex)
         {
-            if (appearedItemIndex == 0)
+            if (appearedItemIndex == 1)
             {
                 var firstMonth = Months.First();
                 var monthToInsertDateTime = firstMonth.CurrentDate.AddMonths(-1);
@@ -159,7 +177,7 @@ namespace ReminderXamarin.ViewModels
                 return;
             }
 
-            if (appearedItemIndex == Months.Count - 1)
+            if (appearedItemIndex == Months.Count - 2)
             {
                 var lastMonth = Months.Last();
                 var monthToAddDateTime = lastMonth.CurrentDate.AddMonths(1);
