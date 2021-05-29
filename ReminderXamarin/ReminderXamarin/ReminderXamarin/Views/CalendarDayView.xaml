@@ -2,32 +2,33 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
-             x:Class="ReminderXamarin.Views.CalendarDayView">
-    <ContentView.Resources>
-        <ResourceDictionary>
-            <converters:CalendarDayViewBackgroundColorConverter x:Key="DayViewBackgroundColorConverter" />
-            <converters:CalendarTextSelectedColorConverter x:Key="TextSelectedColorConverter" />
-        </ResourceDictionary>
-    </ContentView.Resources>
+             x:Class="ReminderXamarin.Views.CalendarDayView"
+             Padding="1"
+             BackgroundColor="{Binding Selected,
+                                Converter={StaticResource DayViewBackgroundColorConverter}}">
     
     <ContentView.Content>
-        <StackLayout BackgroundColor="{Binding Selected,
-                                    Converter={StaticResource DayViewBackgroundColorConverter}}"
-                     Padding="10,0,0,0">
-            <StackLayout.GestureRecognizers>
+        <Grid ColumnDefinitions="*"
+              RowDefinitions="2*,1,1,*"
+              Padding="10,0,0,0"
+              BackgroundColor="{DynamicResource ViewBackground}">
+            <Grid.GestureRecognizers>
                 <TapGestureRecognizer Tapped="TapGestureRecognizerOnTapped" />
-            </StackLayout.GestureRecognizers>
-            <Label Text="{Binding CurrentDate, StringFormat='{0:dd}'}"
-                   TextColor="{Binding Selected,
-                   Converter={StaticResource TextSelectedColorConverter}}"/>
+            </Grid.GestureRecognizers>
+            
+            <Label Text="{Binding CurrentDate, StringFormat='{0:dd}', Mode=OneTime}"
+                   TextColor="{Binding SelectedColor}"
+                   Grid.Row="0"/>
             <BoxView BackgroundColor="{DynamicResource ToDoActive}"
                      HorizontalOptions="FillAndExpand"
                      HeightRequest="1"
-                     IsVisible="{Binding HasActiveToDo}" />
+                     IsVisible="{Binding HasActiveToDo}"
+                     Grid.Row="1"/>
             <BoxView BackgroundColor="{DynamicResource ToDoCompleted}"
                      HorizontalOptions="FillAndExpand"
                      HeightRequest="1"
-                     IsVisible="{Binding HasCompletedToDo}"/>
-        </StackLayout>
+                     IsVisible="{Binding HasCompletedToDo}"
+                     Grid.Row="2"/>
+        </Grid>
     </ContentView.Content>
 </ContentView>

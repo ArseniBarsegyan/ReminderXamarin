@@ -13,13 +13,9 @@ using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Services.Navigation
 {
+    [Preserve(AllMembers = true)]
     public class NavigationService : INavigationService
     {
-        [Preserve]
-        public NavigationService()
-        {
-        }
-        
         public Task ToRootAsync<TViewModel>() where TViewModel : BaseNavigableViewModel
         {
             return InternalNavigateToAsync(typeof(TViewModel), null, true);

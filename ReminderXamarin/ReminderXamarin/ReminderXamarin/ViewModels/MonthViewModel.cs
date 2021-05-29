@@ -49,21 +49,11 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        public void SelectDay(DateTime dateTime)
-        {
-            foreach (var dayViewModel in Days)
-            {
-                if (dayViewModel.CurrentDate.Year == dateTime.Year
-                    && dayViewModel.CurrentDate.Month == dateTime.Month
-                    && dayViewModel.CurrentDate.Day == dateTime.Day)
-                {
-                    dayViewModel.Selected = true;
-                }
-            }
-        }
-
         private void InitializeDays()
         {
+            var sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+            
             const int firstWeekRow = 0;
             int currentDayNumber = 1;
 
@@ -93,6 +83,9 @@ namespace ReminderXamarin.ViewModels
                     }
                 }
             }
+            
+            sw.Stop();
+            var time = sw.ElapsedMilliseconds;
         }
         
         private int FindFirstDayPosition()

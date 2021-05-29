@@ -41,6 +41,7 @@
             <converters:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
             <converters:EmptyByteToImageSourceConverter x:Key="EmptyByteToImageSourceConverter" />
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <converters:CalendarDayViewBackgroundColorConverter x:Key="DayViewBackgroundColorConverter" />
         </ResourceDictionary>
 	</Application.Resources>
 </Application>

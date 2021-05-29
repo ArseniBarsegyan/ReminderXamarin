@@ -74,7 +74,7 @@
             </Grid>
 
             <CollectionView x:Name="MonthCollectionView"
-                            AbsoluteLayout.LayoutBounds="0,0.1,1,0.4"
+                            AbsoluteLayout.LayoutBounds="0,0.1,1,0.5"
                             AbsoluteLayout.LayoutFlags="All"
                             ItemsSource="{Binding Months}"
                             Scrolled="MonthCollectionViewOnScrolled"
@@ -97,7 +97,7 @@
             </CollectionView>
 
             <ListView x:Name="ToDoList"
-                      AbsoluteLayout.LayoutBounds="0,1,1,0.5"
+                      AbsoluteLayout.LayoutBounds="0,1,1,0.4"
                       AbsoluteLayout.LayoutFlags="All"
                       SeparatorVisibility="None"
                       ItemsSource="{Binding AllModels}"

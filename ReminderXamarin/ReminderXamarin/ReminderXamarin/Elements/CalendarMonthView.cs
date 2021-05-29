@@ -62,6 +62,7 @@ namespace ReminderXamarin.Elements
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 BindingContext = dayViewModel
             };
+
             Children.Add(view, dayViewModel.DayPosition.Column, dayViewModel.DayPosition.Row);
         }
     }
