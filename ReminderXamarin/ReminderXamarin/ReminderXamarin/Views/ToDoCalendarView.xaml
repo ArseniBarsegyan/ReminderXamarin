@@ -1,6 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Name="ToDoCalendarViewPage"
-             xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
              xmlns:converters="clr-namespace:ReminderXamarin.Converters"
@@ -18,7 +17,7 @@
         <elements:BindableToolbarItem Order="Primary"
                                       Text="{Binding CurrentDate, StringFormat='{0:dd}'}"
                                       Command="{Binding SelectCurrentDayCommand}"
-                                      Clicked="MenuItemOnClicked"/>
+                                      Clicked="MenuItemOnClicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <AbsoluteLayout x:Name="RootLayout">
@@ -32,41 +31,48 @@
                         <Style x:Key="CalendarDayNameStyle" TargetType="Label">
                             <Setter Property="HorizontalOptions" Value="Center" />
                             <Setter Property="Padding" Value="10,0" />
+                            <Setter Property="FontSize" Value="14" />
                             <Setter Property="Grid.Row" Value="0" />
+                            <Setter Property="FontFamily">
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Roboto-Regular" />
+                                    <On Platform="Android" Value="Roboto-Regular.ttf#Roboto-Medium" />
+                                </OnPlatform>
+                            </Setter>
                         </Style>
                     </ResourceDictionary>
                 </Grid.Resources>
-                
+
                 <Label Text="M"
                        TextColor="{DynamicResource TextCommon}"
                        Style="{StaticResource CalendarDayNameStyle}"
                        Grid.Column="0" />
-                        
+
                 <Label Text="T"
                        TextColor="{DynamicResource TextCommon}"
                        Style="{StaticResource CalendarDayNameStyle}"
                        Grid.Column="1" />
-                        
+
                 <Label Text="W"
                        TextColor="{DynamicResource TextCommon}"
                        Style="{StaticResource CalendarDayNameStyle}"
                        Grid.Column="2" />
-                        
+
                 <Label Text="T"
                        TextColor="{DynamicResource TextCommon}"
                        Style="{StaticResource CalendarDayNameStyle}"
                        Grid.Column="3" />
-                        
+
                 <Label Text="F"
                        TextColor="{DynamicResource TextCommon}"
                        Style="{StaticResource CalendarDayNameStyle}"
                        Grid.Column="4" />
-                        
+
                 <Label Text="S"
                        TextColor="{DynamicResource CalendarSaturdayText}"
                        Style="{StaticResource CalendarDayNameStyle}"
                        Grid.Column="5" />
-                        
+
                 <Label Text="S"
                        TextColor="{DynamicResource CalendarSundayText}"
                        Style="{StaticResource CalendarDayNameStyle}"
@@ -85,71 +91,81 @@
                     <GridItemsLayout Orientation="Horizontal"
                                      SnapPointsType="MandatorySingle"
                                      SnapPointsAlignment="Center"
-                                     Span="1"/>
+                                     Span="1" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <elements:CalendarMonthView WidthRequest="{Binding Width,
+                        <elements:CalendarMonthView
+                            WidthRequest="{Binding Width,
                                                                     Source={x:Reference RootLayout}}"
-                                                    HeightRequest="300" />
+                            HeightRequest="300" />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <ListView x:Name="ToDoList"
-                      AbsoluteLayout.LayoutBounds="0,1,1,0.4"
-                      AbsoluteLayout.LayoutFlags="All"
-                      SeparatorVisibility="None"
-                      ItemsSource="{Binding AllModels}"
-                      ItemSelected="ListViewOnItemSelected"
-                      IsPullToRefreshEnabled="True"
-                      RefreshControlColor="{DynamicResource RefreshControl}"
-                      CachingStrategy="RecycleElement"
-                      RefreshCommand="{Binding RefreshListCommand}"
-                      IsRefreshing="{Binding IsRefreshing}"
-                      VerticalScrollBarVisibility="Always">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem Text="Delete"
-                                          IconImageSource="delete.png"
-                                          Command="{Binding Source={x:Reference ToDoCalendarViewPage},
-                                                            Path=BindingContext.DeleteToDoCommand}"
-                                          CommandParameter="{Binding .}"
-                                          IsDestructive="True" />
-                            </ViewCell.ContextActions>
+            <RefreshView AbsoluteLayout.LayoutBounds="0,1,1,0.4"
+                         AbsoluteLayout.LayoutFlags="All"
+                         IsRefreshing="{Binding IsRefreshing}"
+                         Command="{Binding RefreshListCommand}"
+                         RefreshColor="{DynamicResource RefreshControl}">
+                <CollectionView x:Name="ToDoCollection"
+                                ItemsSource="{Binding AllModels}"
+                                VerticalScrollBarVisibility="Always"
+                                HorizontalScrollBarVisibility="Never"
+                                SelectionMode="Single"
+                                SelectionChanged="ToDoCollectionOnSelectionChanged">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="2" />
+                    </CollectionView.ItemsLayout>
 
-                            <ViewCell.View>
-                                <Frame HasShadow="True"
-                                       Padding="10,2"
-                                       BackgroundColor="{DynamicResource CardViewBackground}"
-                                       BorderColor="{DynamicResource CardViewBorder}"
-                                       Margin="5,0">
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding Description}"
-                                               VerticalOptions="Center">
-                                            <Label.FontFamily>
-                                                <OnPlatform x:TypeArguments="x:String">
-                                                    <On Platform="iOS" Value="Roboto-Regular" />
-                                                    <On Platform="Android" Value="Roboto-Regular.ttf#Roboto-Medium" />
-                                                </OnPlatform>
-                                            </Label.FontFamily>
-                                        </Label>
-                                        <BoxView HorizontalOptions="EndAndExpand"
-                                                 VerticalOptions="Center"
-                                                 BackgroundColor="{Binding Status, 
+                    <CollectionView.EmptyView>
+                        <StackLayout HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="FillAndExpand">
+                            <Label VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   Text="No to do found" />
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame HasShadow="False"
+                                   Padding="15,5"
+                                   BackgroundColor="{DynamicResource CardViewBackground}"
+                                   BorderColor="{DynamicResource CardViewBackground}"
+                                   CornerRadius="20"
+                                   Margin="5,2"
+                                   HeightRequest="50">
+                                <Grid RowDefinitions="*"
+                                      ColumnDefinitions="4*,*">
+                                    <elements:ExtendedLabel Grid.Column="0" 
+                                                            Grid.Row="0"
+                                                            Text="{Binding Description}"
+                                                            TextColor="{DynamicResource TextCommon}"
+                                                            VerticalOptions="Center">
+                                        <elements:ExtendedLabel.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Roboto-Regular" />
+                                                <On Platform="Android" Value="Roboto-Regular.ttf#Roboto-Medium" />
+                                            </OnPlatform>
+                                        </elements:ExtendedLabel.FontFamily>
+                                    </elements:ExtendedLabel>
+                                    <BoxView Grid.Column="1" 
+                                             Grid.Row="0"
+                                             HorizontalOptions="EndAndExpand"
+                                             VerticalOptions="Center"
+                                             BackgroundColor="{Binding Status, 
                                                          Converter={StaticResource ToDoStatusToColorConverter}}"
-                                                 CornerRadius="10"
-                                                 WidthRequest="20"
-                                                 HeightRequest="20" />
-                                    </StackLayout>
-                                </Frame>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                             CornerRadius="10"
+                                             WidthRequest="20"
+                                             HeightRequest="20" />
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
 
             <ImageButton Source="add.png"
                          Style="{StaticResource Fab}"

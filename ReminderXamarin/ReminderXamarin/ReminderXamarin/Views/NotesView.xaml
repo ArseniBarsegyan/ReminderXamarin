@@ -103,10 +103,9 @@
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
                     AbsoluteLayout.LayoutFlags="All">
         
-        <StackLayout x:Name="StackLayout" 
-                     Padding="5"
-                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                      AbsoluteLayout.LayoutFlags="All"
+                     Padding="5"
                      Spacing="0"
                      VerticalOptions="FillAndExpand"
                      HorizontalOptions="FillAndExpand">

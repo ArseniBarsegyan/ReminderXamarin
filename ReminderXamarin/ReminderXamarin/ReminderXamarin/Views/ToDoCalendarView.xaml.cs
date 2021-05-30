@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -11,7 +10,6 @@ namespace ReminderXamarin.Views
     public partial class ToDoCalendarView : ContentPage
     {
         private ToDoCalendarViewModel ViewModel => BindingContext as ToDoCalendarViewModel;
-        private bool _isFirstOpening = true;
         private int _previousVisibleItemIndex;
 
         public ToDoCalendarView()
@@ -23,29 +21,12 @@ namespace ReminderXamarin.Views
         {
             base.OnAppearing();
             ViewModel.OnAppearing();
-
-            if (_isFirstOpening)
-            {
-                const int timeUntilCollectionViewFullyLoad = 200;
-                await Task.Delay(timeUntilCollectionViewFullyLoad);
-                //MonthCollectionView.ScrollTo(ViewModel.Months.ElementAt(ViewModel.CurrentMonthIndex),animate:false);
-                _isFirstOpening = false;
-            }
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
             ViewModel.OnDisappearing();
-        }
-
-        private void ListViewOnItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            ToDoList.SelectedItem = null;
-            if (e.SelectedItem is ToDoViewModel model)
-            {
-                ViewModel.ChangeToDoStatusCommand.Execute(model);
-            }
         }
 
         private void MenuItemOnClicked(object sender, EventArgs e)
@@ -64,6 +45,15 @@ namespace ReminderXamarin.Views
 
                 ViewModel.LoadDataIfNecessary(e.FirstVisibleItemIndex);
                 _previousVisibleItemIndex = e.FirstVisibleItemIndex;
+            }
+        }
+
+        private void ToDoCollectionOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ToDoCollection.SelectedItem = null;
+            if (e.CurrentSelection.FirstOrDefault() is ToDoViewModel model)
+            {
+                ViewModel.ChangeToDoStatusCommand.Execute(model);
             }
         }
     }
