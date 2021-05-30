@@ -116,17 +116,23 @@
                                    Text="{Binding Title}"
                                    TextColor="{DynamicResource TextCommon}"
                                    FontSize="Medium" />
-
+                            
                             <elements:ExtendedLabel Grid.Row="1"
                                                     Grid.Column="0"
-                                                    Grid.ColumnSpan="2"
                                                     HorizontalOptions="Start"
+                                                    VerticalOptions="Start"
                                                     Lines="2"
-                                                    LineBreakMode="TailTruncation"
                                                     LineSpacing="1.1"
-                                                    Text="{Binding Description}"
+                                                    LineBreakMode="TailTruncation"
                                                     TextColor="{DynamicResource TextCommon}"
-                                                    VerticalOptions="Start" />
+                                                    Text="{Binding Description}">
+                                <elements:ExtendedLabel.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="iOS" Value="Roboto-Regular" />
+                                        <On Platform="Android" Value="Roboto-Regular.ttf#Roboto-Medium" />
+                                    </OnPlatform>
+                                </elements:ExtendedLabel.FontFamily>
+                            </elements:ExtendedLabel>
                             
                             <Label Grid.Row="1"
                                    Grid.Column="1"

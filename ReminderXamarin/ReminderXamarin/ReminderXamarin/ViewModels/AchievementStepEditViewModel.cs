@@ -87,8 +87,6 @@ namespace ReminderXamarin.ViewModels
             _viewModel.Description = NotesText;
             _viewModel.AchievedDate = AchievedDate;
 
-            // App.AchievementStepRepository.Value.Save(_model);
-
             MessagingCenter.Send(this, ConstantsHelper.AchievementStepEditComplete, _viewModel);
             await NavigateBack();
         }
