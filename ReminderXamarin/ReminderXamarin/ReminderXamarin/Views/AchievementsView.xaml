@@ -5,6 +5,7 @@
              xmlns:elements="clr-namespace:ReminderXamarin.Elements"
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+             x:Name="AchievementsViewPage"
              x:Class="ReminderXamarin.Views.AchievementsView"
              Title="{extensions:Translate Achievements}"
              BackgroundColor="{DynamicResource ViewBackground}"
@@ -30,47 +31,58 @@
                                 SelectionChanged="AchievementsCollectionOnSelectionChanged">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="10,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="3*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="2*" />
-                                    <RowDefinition Height="1" />
-                                </Grid.RowDefinitions>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="{DynamicResource DeleteSwipeItemBackground}"
+                                               Command="{Binding Source={x:Reference AchievementsViewPage},
+                                                    Path=BindingContext.DeleteAchievementCommand}"
+                                               CommandParameter="{Binding .}"
+                                               IsDestructive="True" />
+                                </SwipeView.RightItems>
 
-                                <elements:GrayscaleImage Grid.Row="0"
-                                                         Grid.RowSpan="2"
-                                                         Grid.Column="0"
-                                                         Aspect="AspectFill"
-                                                         HorizontalOptions="Center"
-                                                         VerticalOptions="Start"
-                                                         HeightRequest="70"
-                                                         WidthRequest="70"
-                                                         Source="achievement_icon.png" />
+                                <Frame BackgroundColor="{DynamicResource CardViewBackground}"
+                                       BorderColor="{DynamicResource CardViewBorder}"
+                                       CornerRadius="5"
+                                       Margin="0,2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="3*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="2*" />
+                                        </Grid.RowDefinitions>
 
-                                <Label Grid.Row="0"
-                                       Grid.Column="1"
-                                       FontSize="Medium"
-                                       TextColor="{DynamicResource TextCommon}"
-                                       Text="{Binding Title}" />
+                                        <elements:GrayscaleImage Grid.Row="0"
+                                                                 Grid.RowSpan="2"
+                                                                 Grid.Column="0"
+                                                                 Aspect="AspectFill"
+                                                                 HorizontalOptions="Center"
+                                                                 VerticalOptions="Start"
+                                                                 HeightRequest="70"
+                                                                 WidthRequest="70"
+                                                                 Source="achievement_icon.png" />
 
-                                <elements:ExtendedLabel Grid.Row="1"
-                                                        Grid.Column="1"
-                                                        HorizontalOptions="Start"
-                                                        Lines="5"
-                                                        LineSpacing="1.1"
-                                                        LineBreakMode="TailTruncation"
-                                                        TextColor="{DynamicResource TextCommon}"
-                                                        Text="{Binding Description}" />
-                                
-                                <BoxView Grid.Row="2"
-                                         Grid.Column="0"
-                                         Grid.ColumnSpan="2"
-                                         BackgroundColor="{DynamicResource CardViewBorder}" />
-                            </Grid>
+                                        <Label Grid.Row="0"
+                                               Grid.Column="1"
+                                               FontSize="Medium"
+                                               TextColor="{DynamicResource TextCommon}"
+                                               Text="{Binding Title}" />
+
+                                        <elements:ExtendedLabel Grid.Row="1"
+                                                                Grid.Column="1"
+                                                                HorizontalOptions="Start"
+                                                                Lines="5"
+                                                                LineSpacing="1.1"
+                                                                LineBreakMode="TailTruncation"
+                                                                TextColor="{DynamicResource TextCommon}"
+                                                                Text="{Binding Description}" />
+                                    </Grid>
+                                </Frame>
+                            </SwipeView>
+
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

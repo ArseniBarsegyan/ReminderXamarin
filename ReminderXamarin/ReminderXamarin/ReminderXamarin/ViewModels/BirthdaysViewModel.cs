@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using ReminderXamarin.Collections;
@@ -45,7 +46,10 @@ namespace ReminderXamarin.ViewModels
         private void Refresh()
         {
             IsRefreshing = true;
-            Birthdays.ReplaceRangeWithoutUpdating(BirthdaysRepository.GetAll().ToAchievementStepViewModels());
+            Birthdays.ReplaceRangeWithoutUpdating(BirthdaysRepository
+                .GetAll()
+                .ToAchievementStepViewModels()
+                .OrderBy(x => x.BirthDayDate));
             Birthdays.RaiseCollectionChanged();
             IsRefreshing = false;
         }
