@@ -375,4 +375,28 @@
   <data name="Videos" xml:space="preserve">
     <value>Videos:</value>
   </data>
+  <data name="NoToDoForCurrentDayFound" xml:space="preserve">
+    <value> No to do found for current day...</value>
+  </data>
+  <data name="CreateBirthdayTitle" xml:space="preserve">
+    <value>New Birthday</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="UsePinBackground" xml:space="preserve">
+    <value>Use image for PIN page</value>
+  </data>
+  <data name="AdditionalInfo" xml:space="preserve">
+    <value>Notes:</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Day:</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Months:</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name:</value>
+  </data>
 </root>

@@ -4,10 +4,18 @@
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
              xmlns:converters="clr-namespace:ReminderXamarin.Converters"
              xmlns:elements="clr-namespace:ReminderXamarin.Elements;assembly=ReminderXamarin"
+             xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
+             x:Name="ToDoCalendarViewPage"
              x:Class="ReminderXamarin.Views.ToDoCalendarView"
-             Title="{Binding LastSelectedDate, StringFormat='{0:MMM yyyy}'}"
              BackgroundColor="{DynamicResource ViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
+    <NavigationPage.TitleView>
+        <DatePicker Date="{Binding CalendarViewModel.LastSelectedDate}"
+                    Format="MMM yyyy"
+                    BackgroundColor="{DynamicResource ToDoCalendarPickerBackground}"
+                    TextColor="White"
+                    DateSelected="DatePickerOnDateSelected" />
+    </NavigationPage.TitleView>
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ToDoStatusToColorConverter x:Key="ToDoStatusToColorConverter" />
@@ -15,8 +23,8 @@
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <elements:BindableToolbarItem Order="Primary"
-                                      Text="{Binding CurrentDate, StringFormat='{0:dd}'}"
-                                      Command="{Binding SelectCurrentDayCommand}"
+                                      Text="{Binding CalendarViewModel.CurrentDate, StringFormat='{0:dd}'}"
+                                      Command="{Binding CalendarViewModel.SelectCurrentDayCommand}"
                                       Clicked="MenuItemOnClicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
@@ -105,8 +113,8 @@
 
             <RefreshView AbsoluteLayout.LayoutBounds="0,1,1,0.4"
                          AbsoluteLayout.LayoutFlags="All"
-                         IsRefreshing="{Binding IsRefreshing}"
-                         Command="{Binding RefreshListCommand}"
+                         IsRefreshing="{Binding CalendarViewModel.IsRefreshing}"
+                         Command="{Binding CalendarViewModel.RefreshListCommand}"
                          RefreshColor="{DynamicResource RefreshControl}">
                 <CollectionView x:Name="ToDoCollection"
                                 ItemsSource="{Binding AllModels}"
@@ -124,44 +132,62 @@
                                      VerticalOptions="FillAndExpand">
                             <Label VerticalOptions="Center"
                                    HorizontalOptions="Center"
-                                   Text="No to do found" />
+                                   Text="{extensions:Translate NoToDoForCurrentDayFound}"
+                                   TextColor="{DynamicResource TextCommon}">
+                                <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="iOS" Value="Roboto-Regular" />
+                                        <On Platform="Android" Value="Roboto-Regular.ttf#Roboto-Medium" />
+                                    </OnPlatform>
+                                </Label.FontFamily>
+                            </Label>
                         </StackLayout>
                     </CollectionView.EmptyView>
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame HasShadow="False"
-                                   Padding="15,5"
-                                   BackgroundColor="{DynamicResource CardViewBackground}"
-                                   BorderColor="{DynamicResource CardViewBackground}"
-                                   CornerRadius="20"
-                                   Margin="5,2"
-                                   HeightRequest="50">
-                                <Grid RowDefinitions="*"
-                                      ColumnDefinitions="4*,*">
-                                    <elements:ExtendedLabel Grid.Column="0" 
-                                                            Grid.Row="0"
-                                                            Text="{Binding Description}"
-                                                            TextColor="{DynamicResource TextCommon}"
-                                                            VerticalOptions="Center">
-                                        <elements:ExtendedLabel.FontFamily>
-                                            <OnPlatform x:TypeArguments="x:String">
-                                                <On Platform="iOS" Value="Roboto-Regular" />
-                                                <On Platform="Android" Value="Roboto-Regular.ttf#Roboto-Medium" />
-                                            </OnPlatform>
-                                        </elements:ExtendedLabel.FontFamily>
-                                    </elements:ExtendedLabel>
-                                    <BoxView Grid.Column="1" 
-                                             Grid.Row="0"
-                                             HorizontalOptions="EndAndExpand"
-                                             VerticalOptions="Center"
-                                             BackgroundColor="{Binding Status, 
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="{DynamicResource DeleteSwipeItemBackground}"
+                                               Command="{Binding Source={x:Reference ToDoCalendarViewPage},
+                                                    Path=BindingContext.DeleteToDoCommand}"
+                                               CommandParameter="{Binding .}"
+                                               IsDestructive="True" />
+                                </SwipeView.RightItems>
+                                <Frame HasShadow="False"
+                                       Padding="15,5"
+                                       BackgroundColor="{DynamicResource CardViewBackground}"
+                                       BorderColor="{DynamicResource CardViewBackground}"
+                                       CornerRadius="20"
+                                       Margin="5,2"
+                                       HeightRequest="50">
+                                    <Grid RowDefinitions="*"
+                                          ColumnDefinitions="4*,*">
+                                        <elements:ExtendedLabel Grid.Column="0"
+                                                                Grid.Row="0"
+                                                                Text="{Binding Description}"
+                                                                TextColor="{DynamicResource TextCommon}"
+                                                                VerticalOptions="Center">
+                                            <elements:ExtendedLabel.FontFamily>
+                                                <OnPlatform x:TypeArguments="x:String">
+                                                    <On Platform="iOS" Value="Roboto-Regular" />
+                                                    <On Platform="Android" Value="Roboto-Regular.ttf#Roboto-Medium" />
+                                                </OnPlatform>
+                                            </elements:ExtendedLabel.FontFamily>
+                                        </elements:ExtendedLabel>
+                                        <BoxView Grid.Column="1"
+                                                 Grid.Row="0"
+                                                 HorizontalOptions="EndAndExpand"
+                                                 VerticalOptions="Center"
+                                                 BackgroundColor="{Binding Status, 
                                                          Converter={StaticResource ToDoStatusToColorConverter}}"
-                                             CornerRadius="10"
-                                             WidthRequest="20"
-                                             HeightRequest="20" />
-                                </Grid>
-                            </Frame>
+                                                 CornerRadius="10"
+                                                 WidthRequest="20"
+                                                 HeightRequest="20" />
+                                    </Grid>
+                                </Frame>
+                            </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

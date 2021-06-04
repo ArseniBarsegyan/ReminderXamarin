@@ -33,22 +33,14 @@ namespace ReminderXamarin.Views
             base.OnDisappearing();
         }
 
-        private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void AchievementStepsCollectionOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var viewModel = e.SelectedItem as AchievementStepViewModel;
-            AchievementStepsListView.SelectedItem = null;
+            var viewModel = e.CurrentSelection.FirstOrDefault() as AchievementStepViewModel;
+            AchievementStepsCollection.SelectedItem = null;
             if (viewModel != null)
             {
                 await ViewModel.NavigateToAchievementStepEditViewCommand.ExecuteAsync(viewModel);
-            }            
-        }
-
-        private void AddStepButtonOnClicked(object sender, EventArgs e)
-        {
-            AchievementStepsListView.ScrollTo(
-                ViewModel.AchievementSteps.LastOrDefault(), 
-                ScrollToPosition.End, 
-                true);
+            }
         }
     }
 }

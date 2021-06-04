@@ -12,7 +12,7 @@ namespace ReminderXamarin.Elements
         
         public CalendarMonthView()
         {
-            Padding = new Thickness(10, 0, 0, 0);
+            Padding = new Thickness(5, 0, 0, 0);
             InitializeGrid();
         }
 
@@ -58,8 +58,6 @@ namespace ReminderXamarin.Elements
         {
             var view = new CalendarDayView
             {
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                VerticalOptions = LayoutOptions.FillAndExpand,
                 BindingContext = dayViewModel
             };
 

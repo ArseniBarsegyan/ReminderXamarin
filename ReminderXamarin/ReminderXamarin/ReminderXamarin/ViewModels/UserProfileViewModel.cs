@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Acr.UserDialogs;
-
+using PropertyChanged;
 using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Services.FilePickerService;
@@ -55,14 +55,30 @@ namespace ReminderXamarin.ViewModels
                 AchievementsCount = appUser.Achievements.Count;
                 FriendBirthdaysCount = appUser.Birthdays.Count;
             }
-            UpdateProfilePhoto();
+            
             return base.InitializeAsync(navigationData);
         }
 
         public string Id { get; set; }
         public string UserName { get; set; }
+        
+        [AlsoNotifyFor(nameof(UserProfileImageSource))]
         public byte[] ImageContent { get; set; }
-        public ImageSource UserProfileImageSource { get; private set; }
+
+        public ImageSource UserProfileImageSource
+        {
+            get
+            {
+                if (ImageContent == null || ImageContent.Length == 0)
+                {
+                    return ImageSource.FromResource(
+                        ConstantsHelper.NoPhotoImage);
+                }
+
+                return ImageSource.FromStream(
+                    () => new MemoryStream(ImageContent));
+            }
+        }
         public int NotesCount { get; set; }
         public int AchievementsCount { get; set; }
         public int FriendBirthdaysCount { get; set; }
@@ -71,20 +87,6 @@ namespace ReminderXamarin.ViewModels
         public ICommand ChangeUserProfileCommand { get; }
         public ICommand UpdateUserCommand { get; }
 
-        private void UpdateProfilePhoto()
-        {
-            if (ImageContent == null || ImageContent.Length == 0)
-            {
-                UserProfileImageSource = ImageSource.FromResource(
-                    ConstantsHelper.NoPhotoImage);
-            }
-            else
-            {
-                UserProfileImageSource = ImageSource.FromStream(
-                    () => new MemoryStream(ImageContent));
-            }
-        }
-        
         private async Task ChangeUserProfile()
         {
             var document = await _documentPicker.DisplayImportAsync();
@@ -112,8 +114,6 @@ namespace ReminderXamarin.ViewModels
 
                         ImageContent = resizedImage;
                     }).ConfigureAwait(false);
-
-                    Device.BeginInvokeOnMainThread(UpdateProfilePhoto);
                 }
                 catch (Exception ex)
                 {

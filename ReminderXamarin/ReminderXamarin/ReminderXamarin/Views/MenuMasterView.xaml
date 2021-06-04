@@ -12,24 +12,16 @@
                         AbsoluteLayout.LayoutFlags="All"
                         BackgroundColor="{DynamicResource MenuBackground}">            
             <!-- Side menu -->
-            <ListView x:Name="MenuList"
-                      ItemsSource="{Binding MasterPageItems}"
-                      AbsoluteLayout.LayoutBounds="0,0,1,1"
-                      AbsoluteLayout.LayoutFlags="All"
-                      RowHeight="60"
-                      SeparatorVisibility="None"
-                      HorizontalOptions="FillAndExpand"
-                      VerticalOptions="FillAndExpand"
-                      ItemSelected="MenuList_OnItemSelected">
-                <ListView.Header>
+            <CollectionView ItemsSource="{Binding MasterPageItems}"
+                            SelectionMode="Single"
+                            SelectionChanged="MenuCollectionViewOnSelectionChanged">
+                <CollectionView.Header>
                     <AbsoluteLayout>
                         <Image Aspect="AspectFill"
                                Source="{Binding HeaderBackgroundImageSource}"
                                AbsoluteLayout.LayoutBounds="0,0,1,150"
                                AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" />
-
-                        <StackLayout x:Name="UserProfileLink"
-                                     HeightRequest="150"
+                        <StackLayout HeightRequest="150"
                                      Orientation="Horizontal"
                                      AbsoluteLayout.LayoutBounds="0,0,1,1"
                                      AbsoluteLayout.LayoutFlags="All"
@@ -52,29 +44,34 @@
 
                         </StackLayout>
                     </AbsoluteLayout>
-                </ListView.Header>
-
-                <ListView.ItemTemplate>
+                </CollectionView.Header>
+                
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.View>
-                                <StackLayout Orientation="Horizontal"
-                                             Spacing="20"
-                                             Padding="30,0">
-                                    <Image Source="{Binding IconSource}" HeightRequest="50" />
-                                    <Label Text="{Binding Title}"
-                                           FontSize="Medium"
-                                           TextColor="{DynamicResource TextCommon}"
-                                           VerticalOptions="Center"
-                                           HorizontalOptions="Start" />
-
-                                </StackLayout>
-                            </ViewCell.View>
-                        </ViewCell>
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="20"
+                                     Padding="30,0">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="{DynamicResource MenuSelection}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Image Source="{Binding IconSource}" HeightRequest="50" />
+                            <Label Text="{Binding Title}"
+                                   FontSize="Medium"
+                                   TextColor="{DynamicResource TextCommon}"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start" />
+                        </StackLayout>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-
-                <ListView.Footer>
+                </CollectionView.ItemTemplate>
+                
+                <CollectionView.Footer>
                     <StackLayout Spacing="20" 
                                  Padding="30,5" 
                                  Orientation="Horizontal" 
@@ -83,8 +80,7 @@
                             <TapGestureRecognizer Command="{Binding LogoutCommand}"
                                                   NumberOfTapsRequired="1" />
                         </StackLayout.GestureRecognizers>
-                        <Image x:Name="LogoutImage" 
-                               Source="{Binding LogoutImageSource}" 
+                        <Image Source="{Binding LogoutImageSource}" 
                                HeightRequest="50" 
                                HorizontalOptions="Start" />
                         <Label Text="{extensions:Translate Logout}" 
@@ -92,10 +88,9 @@
                                TextColor="{DynamicResource TextCommon}"
                                VerticalOptions="Center" 
                                HorizontalOptions="Center" />
-
                     </StackLayout>
-                </ListView.Footer>
-            </ListView>
+                </CollectionView.Footer>
+            </CollectionView>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

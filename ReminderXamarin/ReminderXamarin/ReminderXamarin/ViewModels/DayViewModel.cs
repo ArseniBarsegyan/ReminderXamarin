@@ -18,7 +18,6 @@ namespace ReminderXamarin.ViewModels
         public DateTime CurrentDate { get; set; }
         public DayPosition DayPosition { get; set; }
         public ICommand DaySelectedCommand { get; set; }
-        public ICommand DayUnselectedCommand { get; set; }
         
         public Color SelectedColor
         {

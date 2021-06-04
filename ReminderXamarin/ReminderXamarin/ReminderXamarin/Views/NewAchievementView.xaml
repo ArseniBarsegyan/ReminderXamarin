@@ -4,18 +4,12 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:d="http://xamarin.com/schemas/2014/forms/design"
                  xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors"
-                 xmlns:converters="clr-namespace:ReminderXamarin.Converters"
                  xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
                  xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  mc:Ignorable="d"
                  base:ViewModelHelper.AutoWireViewModel="True"
                  x:Class="ReminderXamarin.Views.NewAchievementView">
-    <pages:PopupPage.Resources>
-        <ResourceDictionary>
-            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
-        </ResourceDictionary>
-    </pages:PopupPage.Resources>
     <pages:PopupPage.Content>
         <ScrollView>
             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"

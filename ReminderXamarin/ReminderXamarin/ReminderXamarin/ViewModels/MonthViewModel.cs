@@ -13,7 +13,6 @@ namespace ReminderXamarin.ViewModels
     public class MonthViewModel : BaseViewModel
     {
         private readonly ICommand _daySelectedCommand;
-        private readonly ICommand _dayUnselectedCommand;
         
         private List<int> DaysWithActiveToDo { get; set; }
         private List<int> DaysWithCompletedToDo { get; set; }
@@ -21,14 +20,12 @@ namespace ReminderXamarin.ViewModels
         public MonthViewModel(
             DateTime dateTime,
             ICommand daySelectedCommand,
-            ICommand dayUnselectedCommand,
             List<int> daysWithActiveToDo,
             List<int> daysWithCompletedToDo)
         {
             CurrentDate = dateTime;
             Days = new RangeObservableCollection<DayViewModel>();
             _daySelectedCommand = daySelectedCommand;
-            _dayUnselectedCommand = dayUnselectedCommand;
             DaysWithActiveToDo = daysWithActiveToDo;
             DaysWithCompletedToDo = daysWithCompletedToDo;
             InitializeDays();
@@ -110,7 +107,6 @@ namespace ReminderXamarin.ViewModels
                 CurrentDate = new DateTime(CurrentDate.Year, CurrentDate.Month, dayNumber),
                 DayPosition = new DayPosition {Column = column, Row = row},
                 DaySelectedCommand = _daySelectedCommand,
-                DayUnselectedCommand = _dayUnselectedCommand,
                 HasActiveToDo = hasActiveToDo,
                 HasCompletedToDo = hasCompletedToDo
             });

@@ -3,6 +3,7 @@
     public static class ConstantsHelper
     {
         public const string Active = nameof(Active);
+        public const string AdditionalInfo = nameof(AdditionalInfo);
         public const string Achievements = nameof(Achievements);
         public const string AchievementNotes = nameof(AchievementNotes);
         public const string AppThemeChanged = nameof(AppThemeChanged);
@@ -30,6 +31,7 @@
         public const string ConfirmIcon = "confirm.png";
         public const string CreateNote = nameof(CreateNote);
         public const string CreateAchievement = nameof(CreateAchievement);
+        public const string CreateBirthdayTitle = nameof(CreateBirthdayTitle);
         public const string Completed = nameof(Completed);
         public const string DeleteGalleryItemQuestion = nameof(DeleteGalleryItemQuestion);
         public const string DeleteImageSource = "delete.png";

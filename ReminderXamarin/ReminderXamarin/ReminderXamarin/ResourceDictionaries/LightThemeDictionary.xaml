@@ -9,6 +9,7 @@
     <Color x:Key="CardViewBackground">#FFFFFF</Color>
     <Color x:Key="CardViewBorder">LightGray</Color>
     <Color x:Key="DisabledBackground">#DDDDDD</Color>
+    <Color x:Key="DeleteSwipeItemBackground">#FF5252</Color>
     <Color x:Key="ErrorTextCommon">#FF5252</Color>
     <Color x:Key="LoginButtonBackground">#3072B0</Color>
     <Color x:Key="LoginButtonText">#FFFFFF</Color>
@@ -26,6 +27,7 @@
     <Color x:Key="RegisterButtonBackground">#80B76D</Color>
     <Color x:Key="RefreshControl">#0277bd</Color>
     <Color x:Key="Selection">#ACACAC</Color>
+    <Color x:Key="MenuSelection">#D3D3D3</Color>
     <Color x:Key="SearchBarBackground">#FFFFFF</Color>
     <Color x:Key="SubmitButtonBackground">#0277bd</Color>
     <Color x:Key="StatusBar">#004c8c</Color>
@@ -41,4 +43,6 @@
     <Color x:Key="ToDoActive">#C0C0C0</Color>
     <Color x:Key="ToDoCompleted">#9aff8b</Color>
     <Color x:Key="ToDoFailed">#FF5252</Color>
+    <Color x:Key="BirthdayBackgroundImageColor">#0277BD</Color>
+    <Color x:Key="ToDoCalendarPickerBackground">#0277BD</Color>
 </ResourceDictionary>

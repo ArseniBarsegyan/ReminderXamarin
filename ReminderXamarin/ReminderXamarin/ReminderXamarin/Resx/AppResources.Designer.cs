@@ -560,5 +560,53 @@ namespace ReminderXamarin.Resx {
                 return ResourceManager.GetString("Videos", resourceCulture);
             }
         }
+        
+        internal static string NoToDoForCurrentDayFound {
+            get {
+                return ResourceManager.GetString("NoToDoForCurrentDayFound", resourceCulture);
+            }
+        }
+        
+        internal static string CreateBirthdayTitle {
+            get {
+                return ResourceManager.GetString("CreateBirthdayTitle", resourceCulture);
+            }
+        }
+        
+        internal static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        internal static string UsePinBackground {
+            get {
+                return ResourceManager.GetString("UsePinBackground", resourceCulture);
+            }
+        }
+        
+        internal static string AdditionalInfo {
+            get {
+                return ResourceManager.GetString("AdditionalInfo", resourceCulture);
+            }
+        }
+        
+        internal static string Day {
+            get {
+                return ResourceManager.GetString("Day", resourceCulture);
+            }
+        }
+        
+        internal static string Month {
+            get {
+                return ResourceManager.GetString("Month", resourceCulture);
+            }
+        }
+        
+        internal static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
     }
 }

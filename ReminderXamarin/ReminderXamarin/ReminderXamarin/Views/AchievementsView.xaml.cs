@@ -1,4 +1,5 @@
-﻿using ReminderXamarin.ViewModels;
+﻿using System.Linq;
+using ReminderXamarin.ViewModels;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -27,10 +28,10 @@ namespace ReminderXamarin.Views
             ViewModel.OnDisappearing();
         }
 
-        private async void AchievementsList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void AchievementsCollectionOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var model = e.SelectedItem as AchievementViewModel;
-            AchievementsListView.SelectedItem = null;
+            var model = e.CurrentSelection.FirstOrDefault() as AchievementViewModel;
+            AchievementsCollection.SelectedItem = null;
             if (model != null)
             {
                 await ViewModel.NavigateToAchievementEditViewCommand.ExecuteAsync(model.Id);

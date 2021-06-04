@@ -375,4 +375,28 @@
   <data name="Videos" xml:space="preserve">
     <value>Видео:</value>
   </data>
+  <data name="NoToDoForCurrentDayFound" xml:space="preserve">
+    <value>Для выбранного дня напоминания не найдены...</value>
+  </data>
+  <data name="CreateBirthdayTitle" xml:space="preserve">
+    <value>Новый День рождения</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Сбросить</value>
+  </data>
+  <data name="UsePinBackground" xml:space="preserve">
+    <value>Использовать изображение для PIN страницы</value>
+  </data>
+  <data name="AdditionalInfo" xml:space="preserve">
+    <value>Заметки:</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>День:</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Месяц:</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Имя:</value>
+  </data>
 </root>

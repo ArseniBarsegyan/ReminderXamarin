@@ -1,4 +1,5 @@
-﻿using ReminderXamarin.ViewModels;
+﻿using System.Linq;
+using ReminderXamarin.ViewModels;
 
 using Rm.Helpers;
 
@@ -17,13 +18,12 @@ namespace ReminderXamarin.Views
             InitializeComponent();
         }
 
-        private async void MenuList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void MenuCollectionViewOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MenuList.SelectedItem = null;
-            if (e.SelectedItem is MasterPageItem item)
+            if (e.CurrentSelection.FirstOrDefault() is MasterPageItem item)
             {
                 await ViewModel.ChangeDetailsPageCommand.ExecuteAsync(item.Index);
-            }            
+            }
         }
     }
 }

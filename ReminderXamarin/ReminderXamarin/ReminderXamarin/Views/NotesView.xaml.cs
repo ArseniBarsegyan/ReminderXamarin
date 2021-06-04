@@ -25,30 +25,13 @@ namespace ReminderXamarin.Views
         {
             base.OnAppearing();
             ViewModel.OnAppearing();
-            NotesList.SelectedItem = null;
+            NotesCollection.SelectedItem = null;
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
             ViewModel.OnDisappearing();
-        }
-
-        private async void NotesList_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            NotesList.SelectedItem = null;
-            if (e.SelectedItem is Note model)
-            {
-                await ViewModel.NavigateToEditViewCommand.ExecuteAsync(model.Id);
-            }
-        }
-
-        private void NotesList_OnItemAppearing(object sender, ItemVisibilityEventArgs e)
-        {
-            if ((Note)e.Item == ViewModel.Notes.ElementAt(ViewModel.Notes.Count - 1))
-            {
-                ViewModel.LoadMoreNotes();
-            }
         }
 
         private async void ToggleSearchBarVisibility(object sender, EventArgs e)
@@ -85,24 +68,6 @@ namespace ReminderXamarin.Views
             _isAnimationInProgress = false;
         }
 
-        private async void NotesList_Scrolled(object sender, ScrolledEventArgs e)
-        {
-            if (_isAnimationInProgress)
-            {
-                return;
-            }
-
-            if (CreateNoteButton.IsVisible)
-            {
-                await HideCreateNoteButton();
-                Device.StartTimer(TimeSpan.FromMilliseconds(800), () =>
-                {
-                    ShowCreateNoteButton();
-                    return false;
-                });
-            }
-        }
-
         private async Task HideCreateNoteButton()
         {
             _isAnimationInProgress = true;
@@ -111,10 +76,12 @@ namespace ReminderXamarin.Views
                 CreateNoteButton.FadeTo(0, 200);
             });
             CreateNoteButton.IsVisible = false;
+            _isAnimationInProgress = false;
         }
 
         private async Task ShowCreateNoteButton()
         {
+            _isAnimationInProgress = true;
             await Task.Run(() =>
             {
                 CreateNoteButton.FadeTo(1, 200);
@@ -122,6 +89,37 @@ namespace ReminderXamarin.Views
 
             CreateNoteButton.IsVisible = true;
             _isAnimationInProgress = false;
+        }
+
+        private async void NotesCollectionOnScrolled(object sender, ItemsViewScrolledEventArgs e)
+        {
+            if (e.LastVisibleItemIndex == ViewModel.Notes.Count - 1)
+            {
+                ViewModel.LoadMoreNotes();
+            }
+            
+            if (_isAnimationInProgress)
+            {
+                return;
+            }
+
+            if (e.VerticalDelta > 0)
+            {
+                await HideCreateNoteButton();
+            }
+            else if (e.VerticalDelta < 0)
+            {
+                await ShowCreateNoteButton();
+            }
+        }
+
+        private async void NotesCollectionOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NotesCollection.SelectedItem = null;
+            if (e.CurrentSelection.FirstOrDefault() is Note model)
+            {
+                await ViewModel.NavigateToEditViewCommand.ExecuteAsync(model.Id);
+            }
         }
     }
 }

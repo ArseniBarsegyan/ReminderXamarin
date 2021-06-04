@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behaviors="clr-namespace:ReminderXamarin.Behaviors"
@@ -7,6 +7,7 @@
              xmlns:extensions="clr-namespace:ReminderXamarin.Extensions;assembly=ReminderXamarin"
              xmlns:helpers="clr-namespace:ReminderXamarin.Helpers;assembly=ReminderXamarin"
              xmlns:base="clr-namespace:ReminderXamarin.ViewModels.Base;assembly=ReminderXamarin"
+             x:Name="NotesViewPage"
              x:Class="ReminderXamarin.Views.NotesView"
              Title="{extensions:Translate AllNotes}"
              BackgroundColor="{DynamicResource ViewBackground}"
@@ -14,7 +15,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="upload_light.png"
                      Order="Primary"
-                     Command="{Binding UploadNotesToApiCommand}"/>
+                     Command="{Binding UploadNotesToApiCommand}" />
         <ToolbarItem x:Name="SearchToolbarItem"
                      Order="Primary"
                      Clicked="ToggleSearchBarVisibility"
@@ -24,53 +25,29 @@
         <ResourceDictionary>
             <converters:NullElementToImageSourceConverter x:Key="NullElementToImageSourceConverter" />
             <DataTemplate x:Key="ImageCellDataTemplate">
-                <ViewCell>
-                    <ViewCell.View>
-                        <Frame MinimumHeightRequest="200"
-                               HasShadow="True"
-                               Padding="0,0,0,10"
-                               BackgroundColor="{DynamicResource CardViewBackground}"
-                               BorderColor="{DynamicResource CardViewBorder}"
-                               Margin="0,5">
-                            <StackLayout>
-                                <Image Source="{Binding GalleryItems,
-                                                Converter={StaticResource NullElementToImageSourceConverter}}"
-                                       Aspect="AspectFill"
-                                       HorizontalOptions="FillAndExpand"
-                                       HeightRequest="200" />
-                                <StackLayout Spacing="10" Padding="10,10,10,30">
-                                    <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yyyy, HH:mm}'}"
-                                           TextColor="{DynamicResource TextCommon}" />
+                <SwipeView>
+                    <SwipeView.RightItems>
+                        <SwipeItem Text="Delete"
+                                   BackgroundColor="{DynamicResource DeleteSwipeItemBackground}"
+                                   Command="{Binding Source={x:Reference NotesViewPage},
+                                                    Path=BindingContext.DeleteNoteCommand}"
+                                   CommandParameter="{Binding .}"
+                                   IsDestructive="True" />
+                    </SwipeView.RightItems>
 
-                                    <elements:ExtendedLabel HorizontalOptions="Start"
-                                                            Lines="5"
-                                                            LineSpacing="1.1"
-                                                            LineBreakMode="TailTruncation"
-                                                            TextColor="{DynamicResource TextCommon}"
-                                                            Text="{Binding Description}">
-                                        <elements:ExtendedLabel.FontFamily>
-                                            <OnPlatform x:TypeArguments="x:String">
-                                                <On Platform="iOS" Value="Roboto-Regular" />
-                                                <On Platform="Android" Value="Roboto-Regular.ttf#Roboto-Medium" />
-                                            </OnPlatform>
-                                        </elements:ExtendedLabel.FontFamily>
-                                    </elements:ExtendedLabel>
-                                </StackLayout>
-                            </StackLayout>
-                        </Frame>
-                    </ViewCell.View>
-                </ViewCell>
-            </DataTemplate>
-            
-            <DataTemplate x:Key="TextCellDataTemplate">
-                <ViewCell>
-                    <ViewCell.View>
-                        <Frame MinimumHeightRequest="200"
-                               HasShadow="True"
-                               Padding="0,10"
-                               BackgroundColor="{DynamicResource CardViewBackground}"
-                               BorderColor="{DynamicResource CardViewBorder}"
-                               Margin="0,5">
+                    <Frame MinimumHeightRequest="200"
+                           CornerRadius="10"
+                           Padding="0,0,0,10"
+                           BackgroundColor="{DynamicResource CardViewBackground}"
+                           BorderColor="{DynamicResource CardViewBorder}"
+                           Margin="0,5">
+                        <StackLayout>
+                            <Image
+                                Source="{Binding GalleryItems,
+                                                Converter={StaticResource NullElementToImageSourceConverter}}"
+                                Aspect="AspectFill"
+                                HorizontalOptions="FillAndExpand"
+                                HeightRequest="200" />
                             <StackLayout Spacing="10" Padding="10,10,10,30">
                                 <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yyyy, HH:mm}'}"
                                        TextColor="{DynamicResource TextCommon}" />
@@ -89,27 +66,65 @@
                                     </elements:ExtendedLabel.FontFamily>
                                 </elements:ExtendedLabel>
                             </StackLayout>
-                        </Frame>
-                    </ViewCell.View>
-                </ViewCell>
+                        </StackLayout>
+                    </Frame>
+                </SwipeView>
             </DataTemplate>
-            
+
+            <DataTemplate x:Key="TextCellDataTemplate">
+                <SwipeView>
+                    <SwipeView.RightItems>
+                        <SwipeItem Text="Delete"
+                                   BackgroundColor="{DynamicResource DeleteSwipeItemBackground}"
+                                   Command="{Binding Source={x:Reference NotesViewPage},
+                                                    Path=BindingContext.DeleteNoteCommand}"
+                                   CommandParameter="{Binding .}"
+                                   IsDestructive="True" />
+                    </SwipeView.RightItems>
+                    <Frame MinimumHeightRequest="200"
+                           CornerRadius="10"
+                           Padding="0,10"
+                           BackgroundColor="{DynamicResource CardViewBackground}"
+                           BorderColor="{DynamicResource CardViewBorder}"
+                           Margin="0,5">
+                        <StackLayout Spacing="10" Padding="10,10,10,30">
+                            <Label Text="{Binding CreationDate, StringFormat='{0:dd.MM.yyyy, HH:mm}'}"
+                                   TextColor="{DynamicResource TextCommon}" />
+
+                            <elements:ExtendedLabel HorizontalOptions="Start"
+                                                    Lines="5"
+                                                    LineSpacing="1.1"
+                                                    LineBreakMode="TailTruncation"
+                                                    TextColor="{DynamicResource TextCommon}"
+                                                    Text="{Binding Description}">
+                                <elements:ExtendedLabel.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="iOS" Value="Roboto-Regular" />
+                                        <On Platform="Android" Value="Roboto-Regular.ttf#Roboto-Medium" />
+                                    </OnPlatform>
+                                </elements:ExtendedLabel.FontFamily>
+                            </elements:ExtendedLabel>
+                        </StackLayout>
+                    </Frame>
+                </SwipeView>
+            </DataTemplate>
+
             <helpers:NotesListDataTemplateSelector x:Key="ListDataTemplateSelector"
                                                    ImageCellTemplate="{StaticResource ImageCellDataTemplate}"
                                                    TextCellTemplate="{StaticResource TextCellDataTemplate}" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
+    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                     AbsoluteLayout.LayoutFlags="All">
-        
+
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                      AbsoluteLayout.LayoutFlags="All"
                      Padding="5"
                      Spacing="0"
                      VerticalOptions="FillAndExpand"
                      HorizontalOptions="FillAndExpand">
-            
+
             <SearchBar x:Name="SearchBar"
                        PlaceholderColor="{DynamicResource TextCommon}"
                        BackgroundColor="{DynamicResource SearchBarBackground}"
@@ -123,20 +138,23 @@
                                                       Command="{Binding SearchCommand}" />
                 </SearchBar.Behaviors>
             </SearchBar>
-            
-            <ListView x:Name="NotesList"
-                      Scrolled="NotesList_Scrolled"
-                      ItemsSource="{Binding Notes}"
-                      IsPullToRefreshEnabled="True"
-                      RefreshControlColor="{DynamicResource RefreshControl}"
-                      HasUnevenRows="True"
-                      CachingStrategy="RecycleElement"
-                      RefreshCommand="{Binding RefreshListCommand}"
-                      IsRefreshing="{Binding IsRefreshing}"
-                      ItemSelected="NotesList_OnItemSelected"
-                      ItemAppearing="NotesList_OnItemAppearing"
-                      SeparatorVisibility="None"
-                      ItemTemplate="{StaticResource ListDataTemplateSelector}" />
+
+            <RefreshView RefreshColor="{DynamicResource RefreshControl}"
+                         Command="{Binding RefreshListCommand}"
+                         IsRefreshing="{Binding IsRefreshing}">
+                <CollectionView x:Name="NotesCollection"
+                                Scrolled="NotesCollectionOnScrolled"
+                                ItemsSource="{Binding Notes}"
+                                SelectionMode="Single"
+                                SelectionChanged="NotesCollectionOnSelectionChanged"
+                                ItemsUpdatingScrollMode="KeepScrollOffset"
+                                ItemTemplate="{StaticResource ListDataTemplateSelector}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="2" />
+                    </CollectionView.ItemsLayout>
+                </CollectionView>
+            </RefreshView>
 
         </StackLayout>
 

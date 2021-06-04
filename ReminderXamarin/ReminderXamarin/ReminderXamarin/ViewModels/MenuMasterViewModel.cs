@@ -51,11 +51,13 @@ namespace ReminderXamarin.ViewModels
             _appUser = App.UserRepository.Value
                 .GetAll(x => x.UserName == Settings.ApplicationUser)
                 .FirstOrDefault();
+            
             if (_appUser != null)
             {
                 UserName = _appUser.UserName;
                 Settings.CurrentUserId = _appUser.Id;
             }
+            
             UpdateProfilePhoto();
         }
 

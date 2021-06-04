@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using ReminderXamarin.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -11,13 +12,14 @@ namespace ReminderXamarin.Views
     {
         private ToDoCalendarViewModel ViewModel => BindingContext as ToDoCalendarViewModel;
         private int _previousVisibleItemIndex;
+        private bool _shouldSelectFirstDayWhenSwitchMonth = true;
 
         public ToDoCalendarView()
         {
             InitializeComponent();
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             ViewModel.OnAppearing();
@@ -43,7 +45,7 @@ namespace ReminderXamarin.Views
                     return;
                 }
 
-                ViewModel.LoadDataIfNecessary(e.FirstVisibleItemIndex);
+                ViewModel.CalendarViewModel.LoadDataIfNecessary(e.FirstVisibleItemIndex, _shouldSelectFirstDayWhenSwitchMonth);
                 _previousVisibleItemIndex = e.FirstVisibleItemIndex;
             }
         }
@@ -55,6 +57,22 @@ namespace ReminderXamarin.Views
             {
                 ViewModel.ChangeToDoStatusCommand.Execute(model);
             }
+        }
+
+        private async void DatePickerOnDateSelected(object sender, DateChangedEventArgs e)
+        {
+            var month = ViewModel.GetMonthByDate(e.NewDate);
+            if (month != null)
+            {
+                MonthCollectionView.ScrollTo(ViewModel.Months.IndexOf(month),animate:false);
+            }
+
+            _shouldSelectFirstDayWhenSwitchMonth = false;
+            ViewModel.SelectDayCommand.Execute(e.NewDate);
+
+            // Necessary in order not to fire ToDoCollectionOnSelectionChanged with false param
+            await Task.Delay(800);
+            _shouldSelectFirstDayWhenSwitchMonth = true;
         }
     }
 }

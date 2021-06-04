@@ -49,7 +49,7 @@ namespace ReminderXamarin.ViewModels
             SearchText = string.Empty;
 
             UploadNotesToApiCommand = commandResolver.AsyncCommand(UploadAllNotes);
-            DeleteNoteCommand = commandResolver.AsyncCommand<int>(DeleteNote);
+            DeleteNoteCommand = commandResolver.AsyncCommand<Note>(DeleteNote);
             RefreshListCommand = commandResolver.Command(Refresh);
             SearchCommand = commandResolver.Command(SearchNotesByDescription);
             NavigateToEditViewCommand = commandResolver.AsyncCommand<int>(NavigateToEditView);
@@ -60,7 +60,7 @@ namespace ReminderXamarin.ViewModels
         public ObservableCollection<Note> Notes { get; private set; }
         
         public IAsyncCommand UploadNotesToApiCommand { get; }
-        public IAsyncCommand<int> DeleteNoteCommand { get; }
+        public IAsyncCommand<Note> DeleteNoteCommand { get; }
         public ICommand RefreshListCommand { get; }
         public ICommand SearchCommand { get; }
         public IAsyncCommand<int> NavigateToEditViewCommand { get; }
@@ -141,16 +141,15 @@ namespace ReminderXamarin.ViewModels
             }
         }
 
-        private async Task DeleteNote(int noteId)
+        private async Task DeleteNote(Note note)
         {
             bool result = await Acr.UserDialogs.UserDialogs.Instance.ConfirmAsync(ConstantsHelper.NoteDeleteMessage,
                 ConstantsHelper.Warning, ConstantsHelper.Ok, ConstantsHelper.No);
 
             if (result)
             {
-                var noteToDelete = NoteRepository.GetNoteAsync(noteId);
-                NoteRepository.DeleteNote(noteToDelete);
-                RemoveDeletedNoteFromList(noteId);
+                NoteRepository.DeleteNote(note);
+                RemoveDeletedNoteFromList(note.Id);
             }
         }
 

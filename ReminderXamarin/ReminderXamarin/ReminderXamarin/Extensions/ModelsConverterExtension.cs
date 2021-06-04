@@ -4,7 +4,6 @@ using System.Linq;
 
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Enums;
-using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels;
 
 using Rm.Data.Data.Entities;
@@ -136,6 +135,46 @@ namespace ReminderXamarin.Extensions
         {
             return models.Select(model => model.ToAchievementModel())
                 .ToList();
+        }
+
+        public static BirthdayModel ToBirthdayModel(this BirthdayViewModel viewModel)
+        {
+            return new BirthdayModel
+            {
+                Id = viewModel.Id,
+                Name = viewModel.Name,
+                GiftDescription = viewModel.GiftDescription,
+                ImageContent = viewModel.ImageContent,
+                UserId = viewModel.UserId,
+                BirthDayDate = viewModel.BirthDayDate
+            };
+        }
+        
+        public static BirthdayViewModel ToBirthdaysViewModel(this BirthdayModel model)
+        {
+            return new BirthdayViewModel
+            {
+                Id = model.Id,
+                Name = model.Name,
+                GiftDescription = model.GiftDescription,
+                ImageContent = model.ImageContent,
+                UserId = model.UserId,
+                BirthDayDate = model.BirthDayDate
+            };
+        }
+        
+        public static List<BirthdayModel> ToAchievementStepViewModels(
+            this ObservableCollection<BirthdayViewModel> models)
+        {
+            return models.Select(model => model.ToBirthdayModel())
+                .ToList();
+        }
+        
+        public static ObservableCollection<BirthdayViewModel> ToAchievementStepViewModels(
+            this IEnumerable<BirthdayModel> models)
+        {
+            return models.Select(model => model.ToBirthdaysViewModel())
+                .ToObservableCollection();
         }
     }
 }

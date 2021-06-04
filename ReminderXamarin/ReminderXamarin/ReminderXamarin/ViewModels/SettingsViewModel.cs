@@ -63,9 +63,7 @@ namespace ReminderXamarin.ViewModels
             
             if (UsePinPageBackground)
             {
-                string[] bytesStr = Settings.PinBackground.Split('x');
-                byte[] bytes = bytesStr.Select(x => (byte)int.Parse(x)).ToArray();
-                PinBackgroundImageContent = bytes;
+                PinBackgroundImagePath = Settings.PinBackground;
             }
             
             SaveSettingsCommand = commandResolver.Command(SaveSettings);
@@ -106,7 +104,7 @@ namespace ReminderXamarin.ViewModels
         }
         
         [AlsoNotifyFor(nameof(PinBackgroundImageSource))]
-        public byte[] PinBackgroundImageContent { get; set; }
+        public string PinBackgroundImagePath { get; private set; }
         public ImageSource PinBackgroundImageSource { get; private set; }
 
         public bool IsDarkTheme
@@ -144,15 +142,14 @@ namespace ReminderXamarin.ViewModels
 
         private void UpdatePinPhoto()
         {
-            if (PinBackgroundImageContent == null || PinBackgroundImageContent.Length == 0)
+            if (string.IsNullOrEmpty(PinBackgroundImagePath))
             {
                 PinBackgroundImageSource = ImageSource.FromResource(
                     ConstantsHelper.NoPhotoImage);
             }
             else
             {
-                PinBackgroundImageSource = ImageSource.FromStream(
-                    () => new MemoryStream(PinBackgroundImageContent));
+                PinBackgroundImageSource = ImageSource.FromFile(PinBackgroundImagePath);
             }
         }
 
@@ -169,7 +166,8 @@ namespace ReminderXamarin.ViewModels
             Settings.UsePin = UsePin.ToString();
             Settings.ThemeType = _themeSwitcher.CurrentThemeType.ToString();
             Settings.UseSafeMode = UseSafeMode.ToString();
-            if (PinBackgroundImageContent == null || PinBackgroundImageContent.Length == 0)
+
+            if (string.IsNullOrEmpty(PinBackgroundImagePath))
             {
                 UsePinPageBackground = false;
             }
@@ -177,8 +175,7 @@ namespace ReminderXamarin.ViewModels
 
             if (UsePinPageBackground)
             {
-                string serialized = string.Join("x", PinBackgroundImageContent);
-                Settings.PinBackground = serialized;
+                Settings.PinBackground = PinBackgroundImagePath;
             }
             
             _savedTheme = (ThemeTypes)Enum.Parse(typeof(ThemeTypes), Settings.ThemeType);
@@ -207,16 +204,8 @@ namespace ReminderXamarin.ViewModels
                 try
                 {
                     UsePinPageBackground = true;
-                    await Task.Run(() =>
-                    {
-                        var imageContent = _fileService.ReadAllBytes(document.Path);
-                        var resizedImage = _mediaService.ResizeImage(
-                            imageContent,
-                            ConstantsHelper.ResizedImageWidth,
-                            ConstantsHelper.ResizedImageHeight);
 
-                        PinBackgroundImageContent = resizedImage;
-                    }).ConfigureAwait(false);
+                    PinBackgroundImagePath = document.Path;
                     
                     Device.BeginInvokeOnMainThread(UpdatePinPhoto);
                 }
@@ -230,7 +219,7 @@ namespace ReminderXamarin.ViewModels
         private void ResetPinBackground()
         {
             UsePinPageBackground = false;
-            PinBackgroundImageContent = new byte[0];
+            PinBackgroundImagePath = string.Empty;
             UpdatePinPhoto();
         }
     }

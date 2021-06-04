@@ -21,15 +21,14 @@
                                       Command="{Binding DeleteAchievementCommand}" />
     </ContentPage.ToolbarItems>
     <AbsoluteLayout>
-        <ListView x:Name="AchievementStepsListView"
-                  AbsoluteLayout.LayoutBounds="0,0,1,0.9"
-                  AbsoluteLayout.LayoutFlags="All"
-                  HasUnevenRows="True"
-                  RowHeight="50"
-                  ItemSelected="ListView_OnItemSelected"
-                  ItemsSource="{Binding AchievementSteps}"
-                  CachingStrategy="RecycleElement">
-            <ListView.Header>
+        <CollectionView x:Name="AchievementStepsCollection"
+                        AbsoluteLayout.LayoutBounds="0,0,1,0.9"
+                        AbsoluteLayout.LayoutFlags="All"
+                        SelectionChanged="AchievementStepsCollectionOnSelectionChanged"
+                        ItemsSource="{Binding AchievementSteps}"
+                        SelectionMode="Single"
+                        ItemsUpdatingScrollMode="KeepLastItemInView">
+            <CollectionView.Header>
                 <AbsoluteLayout>
                     <BoxView BackgroundColor="{DynamicResource StatusBar}"
                              AbsoluteLayout.LayoutBounds="0,0,1,200"
@@ -87,22 +86,25 @@
                                  HeightRequest="1" />
                     </StackLayout>
                 </AbsoluteLayout>
-            </ListView.Header>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell Height="100">
-                        <ViewCell.ContextActions>
-                            <MenuItem IconImageSource="delete.png"
-                                      Command="{Binding Source={x:Reference AchievementEditViewPage},
-                                                    Path=BindingContext.DeleteStepCommand}"
-                                      CommandParameter="{Binding .}"
-                                      IsDestructive="True" />
-                        </ViewCell.ContextActions>
+            </CollectionView.Header>
 
-                        <Grid Padding="10,5">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItem Text="Delete"
+                                       BackgroundColor="{DynamicResource DeleteSwipeItemBackground}"
+                                       Command="{Binding Source={x:Reference AchievementEditViewPage},
+                                                    Path=BindingContext.DeleteStepCommand}"
+                                       CommandParameter="{Binding .}"
+                                       IsDestructive="True" />
+                        </SwipeView.RightItems>
+                        
+                        <Grid HeightRequest="100" Padding="10,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
+                                <RowDefinition Height="1" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -116,7 +118,7 @@
                                    Text="{Binding Title}"
                                    TextColor="{DynamicResource TextCommon}"
                                    FontSize="Medium" />
-                            
+
                             <elements:ExtendedLabel Grid.Row="1"
                                                     Grid.Column="0"
                                                     HorizontalOptions="Start"
@@ -133,7 +135,7 @@
                                     </OnPlatform>
                                 </elements:ExtendedLabel.FontFamily>
                             </elements:ExtendedLabel>
-                            
+
                             <Label Grid.Row="1"
                                    Grid.Column="1"
                                    HorizontalOptions="Center"
@@ -146,11 +148,16 @@
                                    WidthRequest="30"
                                    TextColor="{DynamicResource TextCommon}"
                                    Text="{Binding TimeSpent}" />
+
+                            <BoxView Grid.Row="2"
+                                     Grid.Column="0"
+                                     Grid.ColumnSpan="3"
+                                     BackgroundColor="{DynamicResource CardViewBorder}" />
                         </Grid>
-                    </ViewCell>
+                    </SwipeView>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <Button AbsoluteLayout.LayoutBounds="0,1,1,0.1"
                 AbsoluteLayout.LayoutFlags="All"
@@ -159,7 +166,6 @@
                 BackgroundColor="{DynamicResource RegisterButtonBackground}"
                 Text="{extensions:Translate AddStep}"
                 HeightRequest="50"
-                Command="{Binding AddStepCommand}"
-                Clicked="AddStepButtonOnClicked"/>
+                Command="{Binding AddStepCommand}" />
     </AbsoluteLayout>
 </ContentPage>

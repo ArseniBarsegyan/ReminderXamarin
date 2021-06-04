@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:ReminderXamarin.Converters;assembly=ReminderXamarin"
@@ -10,71 +10,71 @@
              BackgroundColor="{DynamicResource ViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.Resources>
-      <ResourceDictionary>
-          <converters:AchievementSpentTimePresentationConverter x:Key="SpentTimePresentationConverter" />
-          <converters:NumberToColorConverter x:Key="NumberToColorConverter" />
-      </ResourceDictionary>
+        <ResourceDictionary>
+            <converters:AchievementSpentTimePresentationConverter x:Key="SpentTimePresentationConverter" />
+            <converters:NumberToColorConverter x:Key="NumberToColorConverter" />
+        </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" 
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                         AbsoluteLayout.LayoutFlags="All">
-            <ListView x:Name="AchievementsListView"
-                      AbsoluteLayout.LayoutBounds="0,0,1,1"
-                      AbsoluteLayout.LayoutFlags="All"
-                      ItemsSource="{Binding Achievements}"
-                      IsPullToRefreshEnabled="True"
-                      RefreshControlColor="{DynamicResource RefreshControl}"
-                      HasUnevenRows="True"
-                      SeparatorVisibility="Default"
-                      SeparatorColor="{DynamicResource CardViewBorder}"                      
-                      CachingStrategy="RecycleElement"
-                      RefreshCommand="{Binding RefreshListCommand}"
-                      IsRefreshing="{Binding IsRefreshing}"
-                      ItemSelected="AchievementsList_OnItemSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.View>
-                                <Grid Padding="10,5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="3*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="2*" />
-                                    </Grid.RowDefinitions>
+            <RefreshView AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         AbsoluteLayout.LayoutFlags="All"
+                         RefreshColor="{DynamicResource RefreshControl}"
+                         Command="{Binding RefreshListCommand}"
+                         IsRefreshing="{Binding IsRefreshing}">
 
-                                    <elements:GrayscaleImage Grid.Row="0"
-                                           Grid.RowSpan="2"
-                                           Grid.Column="0"
-                                           Aspect="AspectFill"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Start"
-                                           HeightRequest="70"
-                                           WidthRequest="70"
-                                           Source="achievement_icon.png" />
+                <CollectionView x:Name="AchievementsCollection"
+                                ItemsSource="{Binding Achievements}"
+                                SelectionMode="Single"
+                                SelectionChanged="AchievementsCollectionOnSelectionChanged">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="3*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="2*" />
+                                    <RowDefinition Height="1" />
+                                </Grid.RowDefinitions>
 
-                                    <Label Grid.Row="0"
-                                           Grid.Column="1"
-                                           FontSize="Medium"
-                                           TextColor="{DynamicResource TextCommon}"
-                                           Text="{Binding Title}" />
+                                <elements:GrayscaleImage Grid.Row="0"
+                                                         Grid.RowSpan="2"
+                                                         Grid.Column="0"
+                                                         Aspect="AspectFill"
+                                                         HorizontalOptions="Center"
+                                                         VerticalOptions="Start"
+                                                         HeightRequest="70"
+                                                         WidthRequest="70"
+                                                         Source="achievement_icon.png" />
 
-                                    <elements:ExtendedLabel Grid.Row="1"
-                                                            Grid.Column="1"
-                                                            HorizontalOptions="Start"
-                                                            Lines="5"
-                                                            LineSpacing="1.1"
-                                                            LineBreakMode="TailTruncation"
-                                                            TextColor="{DynamicResource TextCommon}"
-                                                            Text="{Binding Description}" />
-                                </Grid>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                                <Label Grid.Row="0"
+                                       Grid.Column="1"
+                                       FontSize="Medium"
+                                       TextColor="{DynamicResource TextCommon}"
+                                       Text="{Binding Title}" />
+
+                                <elements:ExtendedLabel Grid.Row="1"
+                                                        Grid.Column="1"
+                                                        HorizontalOptions="Start"
+                                                        Lines="5"
+                                                        LineSpacing="1.1"
+                                                        LineBreakMode="TailTruncation"
+                                                        TextColor="{DynamicResource TextCommon}"
+                                                        Text="{Binding Description}" />
+                                
+                                <BoxView Grid.Row="2"
+                                         Grid.Column="0"
+                                         Grid.ColumnSpan="2"
+                                         BackgroundColor="{DynamicResource CardViewBorder}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
 
             <ImageButton Command="{Binding CreateNewAchievementCommand}"
                          Source="add.png"

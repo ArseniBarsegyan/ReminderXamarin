@@ -1,10 +1,8 @@
 ﻿using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using PropertyChanged;
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
 using ReminderXamarin.Services.Navigation;
@@ -46,9 +44,7 @@ namespace ReminderXamarin.ViewModels
             
             if (UsePinPageBackground)
             {
-                string[] bytesStr = Settings.PinBackground.Split('x');
-                byte[] bytes = bytesStr.Select(x => (byte)int.Parse(x)).ToArray();
-                UpdatePinPhoto(bytes);
+                PinBackgroundImagePath = Settings.PinBackground;
             }
         }
 
@@ -72,7 +68,23 @@ namespace ReminderXamarin.ViewModels
         public Image FourthNumberImageSource { get; private set; }
         public ImageSource DeleteButtonImageSource { get; private set; }
         public bool UsePinPageBackground { get; }
-        public ImageSource PinBackgroundImageSource { get; private set; }
+        
+        [AlsoNotifyFor(nameof(PinBackgroundImageSource))]
+        public string PinBackgroundImagePath { get; }
+
+        public ImageSource PinBackgroundImageSource
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(PinBackgroundImagePath))
+                {
+                    return ImageSource.FromResource(
+                        ConstantsHelper.NoPhotoImage);
+                }
+
+                return ImageSource.FromFile(PinBackgroundImagePath);
+            }
+        }
         public int Pin { get; set; }
         public string Message { get; private set; }
 
@@ -219,20 +231,6 @@ namespace ReminderXamarin.ViewModels
                         await NavigationService.ToRootAsync<MenuViewModel>();
                     }
                 } 
-            }
-        }
-        
-        private void UpdatePinPhoto(byte[] imageContent)
-        {
-            if (imageContent == null || imageContent.Length == 0)
-            {
-                PinBackgroundImageSource = ImageSource.FromResource(
-                    ConstantsHelper.NoPhotoImage);
-            }
-            else
-            {
-                PinBackgroundImageSource = ImageSource.FromStream(
-                    () => new MemoryStream(imageContent));
             }
         }
     }

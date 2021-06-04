@@ -108,7 +108,7 @@
                     <Frame Style="{StaticResource FrameBaseStyle}">
                         <StackLayout>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Use pin background"
+                                <Label Text="{extensions:Translate UsePinBackground}"
                                        TextColor="{DynamicResource TextCommon}" />
                                 <Switch Style="{StaticResource SwitchBaseStyle}"
                                         HorizontalOptions="EndAndExpand"
@@ -122,7 +122,9 @@
                             <Image Source="{Binding PinBackgroundImageSource}"
                                    Aspect="AspectFill"
                                    HeightRequest="200" />
-                            <Button Text="Reset" Command="{Binding ResetPinBackgroundCommand}" />
+                            <Button Text="{extensions:Translate Reset}"
+                                    TextColor="{DynamicResource TextCommon}"
+                                    Command="{Binding ResetPinBackgroundCommand}" />
                         </StackLayout>
                     </Frame>
                 </StackLayout>
