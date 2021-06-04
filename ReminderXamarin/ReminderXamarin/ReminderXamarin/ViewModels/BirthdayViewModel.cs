@@ -3,9 +3,11 @@ using System.IO;
 using ReminderXamarin.ViewModels.Base;
 using Rm.Helpers;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.ViewModels
 {
+    [Preserve(AllMembers = true)]
     public class BirthdayViewModel : BaseViewModel
     {
         public int Id { get; set; }

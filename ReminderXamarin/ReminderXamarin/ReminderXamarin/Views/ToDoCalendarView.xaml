@@ -22,10 +22,10 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <elements:BindableToolbarItem Order="Primary"
-                                      Text="{Binding CalendarViewModel.CurrentDate, StringFormat='{0:dd}'}"
-                                      Command="{Binding CalendarViewModel.SelectCurrentDayCommand}"
-                                      Clicked="MenuItemOnClicked" />
+        <ToolbarItem Order="Primary"
+                     Text="{Binding CalendarViewModel.CurrentDate, StringFormat='{0:dd}'}"
+                     Command="{Binding CalendarViewModel.SelectCurrentDayCommand}"
+                     Clicked="MenuItemOnClicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <AbsoluteLayout x:Name="RootLayout">

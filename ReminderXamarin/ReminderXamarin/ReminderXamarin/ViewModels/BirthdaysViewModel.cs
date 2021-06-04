@@ -18,7 +18,8 @@ namespace ReminderXamarin.ViewModels
     {
         private BirthdaysRepository BirthdaysRepository => App.BirthdaysRepository?.Value;
         
-        public BirthdaysViewModel(INavigationService navigationService,
+        public BirthdaysViewModel(
+            INavigationService navigationService,
             ICommandResolver commandResolver)
             : base(navigationService)
         {
