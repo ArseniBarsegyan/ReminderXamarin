@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading;
 using System.Threading.Tasks;
-
-using ReminderXamarin.Core.Interfaces;
-
+using Newtonsoft.Json;
+using ReminderXamarin.Core.Interfaces.Services;
 using Rm.Data.Data.Entities;
-using Rm.Helpers;
+using Xamarin.Essentials;
 using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Services
@@ -20,29 +16,26 @@ namespace ReminderXamarin.Services
         {
         }
         
-        private readonly HttpClient _httpClient = new HttpClient();
-
-        public async Task<HttpResult> UploadAll(IList<Note> notes, CancellationToken cancellationToken)
+        public async Task SendEmailWithAttachments(string subject, string body, IList<Note> notes)
         {
-            using (var stream = new MemoryStream())
+            var message = new EmailMessage
             {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(stream, notes);
+                Subject = subject,
+                Body = body,
+                To = new List<string>{"Arseni.Barsegyan@gmail.com"},
+                Attachments = new List<EmailAttachment> { CreateAttachment(notes) }
+            };
 
-                using (var content = new StreamContent(stream))
-                {
-                    var result = await _httpClient
-                    .PostAsync(ConstantsHelper.NotesUploadUrl, content, cancellationToken)
-                    .ConfigureAwait(false);
+            await Email.ComposeAsync(message);
+        }
 
-                    if (result.IsSuccessStatusCode)
-                    {
-                        return HttpResult.Ok;
-                    }
-                }
-
-                return HttpResult.Error;
-            }
+        private EmailAttachment CreateAttachment(IList<Note> notes)
+        {
+            var content = JsonConvert.SerializeObject(notes);
+            var fileName = "Attachment.txt";
+            var file = Path.Combine(FileSystem.CacheDirectory, fileName);
+            File.WriteAllText(file, content);
+            return new EmailAttachment(file);
         }
     }    
 }

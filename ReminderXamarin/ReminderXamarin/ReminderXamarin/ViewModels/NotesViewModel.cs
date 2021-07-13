@@ -11,6 +11,7 @@ using System.Windows.Input;
 using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Core.Interfaces.Commanding.AsyncCommanding;
+using ReminderXamarin.Core.Interfaces.Services;
 using ReminderXamarin.Extensions;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.ViewModels.Base;
@@ -118,26 +119,17 @@ namespace ReminderXamarin.ViewModels
 
             try
             {
-                var ctx = new CancellationToken();
-
-                var result = await _uploadService.UploadAll(_allNotes, ctx).ConfigureAwait(false);
-
-                if (result == HttpResult.Ok)
-                {
-                    await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("All notes uploaded successfully");
-                }
-                else
-                {
-                    await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Error while uploading notes");
-                }
+                await _uploadService.SendEmailWithAttachments(
+                    "Notes", "Reminder notes", 
+                    _allNotes);
             }
-            catch (HttpRequestException)
+            catch (FeatureNotSupportedException fbsEx)
             {
-                await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("It seems like server is offline. Please, try again later.");
+                await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Feature not supported");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Oops. It seems like server is down.");
+                await Acr.UserDialogs.UserDialogs.Instance.AlertAsync("Something went wrong during sending notes");
             }
         }
 
