@@ -145,7 +145,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task ChangePersonImage()
         {
-            var document = await _documentPicker.DisplayImportAsync();
+            var document = await _documentPicker.DisplayImageImportAsync();
              
             if (document == null)
             {

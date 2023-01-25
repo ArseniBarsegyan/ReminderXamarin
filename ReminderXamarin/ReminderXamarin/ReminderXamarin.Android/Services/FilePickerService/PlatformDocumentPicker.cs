@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -7,44 +8,66 @@ using Android.Provider;
 using ReminderXamarin.Droid.Services.MediaPicker;
 using ReminderXamarin.Services.FilePickerService;
 using ReminderXamarin.Services.MediaPicker;
-using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
 namespace ReminderXamarin.Droid.Services.FilePickerService
 {
     public class PlatformDocumentPicker : IPlatformDocumentPicker
     {
-        private const string TemporalDirectoryName = "TmpMedia";
+        private const string TempDirectoryName = "TmpMedia";
         
+        private static readonly Dictionary<ContentType, string> ContentTypeDictionary = new Dictionary<ContentType, string>
+        {
+            { ContentType.Image, "image/*" },
+            { ContentType.Text, "text/*" },
+        };
+        
+        private enum ContentType
+        {
+            Image,
+            Text,
+        }
+
         [Preserve]
         public PlatformDocumentPicker()
         {
         }
         
-        public async Task<PlatformDocument> DisplayImportAsync()
+        public Task<PlatformDocument> DisplayImageImportAsync()
         {
-            var intent = await ShowPickerDialog();
+            return DisplayImportAsync(ContentType.Image);
+        }
+
+        public Task<PlatformDocument> DisplayTextImportAsync()
+        {
+            return DisplayImportAsync(ContentType.Text);
+        }
+
+        private async Task<PlatformDocument> DisplayImportAsync(ContentType contentType)
+        {
+            var intent = await ShowPickerDialog(contentType);
             if (intent != null)
             {
-                return await StartActivity(intent);
+                return await StartActivity(intent, contentType);
             }
+
             return null;
         }
 
-        private static Task<Intent> ShowPickerDialog()
+        private static Task<Intent> ShowPickerDialog(ContentType contentType)
         {
             var taskCompletionSource = new TaskCompletionSource<Intent>();
 
             var intentFromLibrary = new Intent()
                 .SetAction(Intent.ActionGetContent)
-                .SetType("image/*")
+                .SetType(ContentTypeDictionary[contentType])
                 .AddCategory(Intent.CategoryOpenable);
 
             taskCompletionSource.SetResult(intentFromLibrary);
             return taskCompletionSource.Task;
         }
 
-        private Task<PlatformDocument> StartActivity(Intent requestIntent)
+        private Task<PlatformDocument> StartActivity(Intent requestIntent, ContentType contentType)
         {
             var taskCompletionSource = new TaskCompletionSource<PlatformDocument>();
             Platform.StartActivityForResult(requestIntent, (result, responseIntent) =>
@@ -81,19 +104,30 @@ namespace ReminderXamarin.Droid.Services.FilePickerService
                             
                             var fileName = Path.GetFileNameWithoutExtension(path);
                             var ext = Path.GetExtension(path);
+
+                            if (contentType == ContentType.Image)
+                            {
+                                var fullPath = ReminderXamarin.Services.MediaPicker.FileHelper.GetOutputPath(
+                                    MediaFileType.Image,
+                                    TempDirectoryName,
+                                    $"{fileName}{ext}");
+
+                                var fullImage = ImageHelpers.GetRotatedImage(path, 1);
+                                File.WriteAllBytes(fullPath, fullImage);
+                                
+                                taskCompletionSource.SetResult(new PlatformDocument(name: name, path: fullPath));
+                            }
+                            else
+                            {
+                                var tempDirectoryPath = Path.Combine(
+                                    Environment.GetFolderPath(Environment.SpecialFolder.Personal), TempDirectoryName);
+                                
+                                Directory.CreateDirectory(tempDirectoryPath);
+                                var fullPath = Path.Combine(tempDirectoryPath, $"{fileName}{ext}");
+                                File.WriteAllText(fullPath, File.ReadAllText(path));
+                                taskCompletionSource.SetResult(new PlatformDocument(name: name, path: fullPath));
+                            }
                             
-                            var fullPath = ReminderXamarin.Services.MediaPicker.FileHelper.GetOutputPath(
-                                MediaFileType.Image,
-                                TemporalDirectoryName,
-                                $"{fileName}{ext}");
-
-                            var fullImage = ImageHelpers.GetRotatedImage(path, 1);
-                            File.WriteAllBytes(fullPath, fullImage);
-
-                            taskCompletionSource.SetResult(new PlatformDocument(
-                                name: name,
-                                path: fullPath
-                            ));
                             return;
                         }
                     }

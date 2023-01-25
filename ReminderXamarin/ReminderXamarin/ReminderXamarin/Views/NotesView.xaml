@@ -13,9 +13,12 @@
              BackgroundColor="{DynamicResource ViewBackground}"
              base:ViewModelHelper.AutoWireViewModel="True">
     <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="import_icon.png"
+                     Order="Primary"
+                     Command="{Binding ImportNotesCommand}" />
         <ToolbarItem IconImageSource="upload_light.png"
                      Order="Primary"
-                     Command="{Binding UploadNotesToApiCommand}" />
+                     Command="{Binding UploadNotesCommand}" />
         <ToolbarItem x:Name="SearchToolbarItem"
                      Order="Primary"
                      Clicked="ToggleSearchBarVisibility"

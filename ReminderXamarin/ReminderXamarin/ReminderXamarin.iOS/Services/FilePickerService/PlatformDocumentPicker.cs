@@ -1,27 +1,21 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-
 using Foundation;
-
 using MobileCoreServices;
-
 using Photos;
-
 using ReminderXamarin.Services.FilePickerService;
-
 using UIKit;
-
-using Xamarin.Forms;
 
 namespace ReminderXamarin.iOS.Services.FilePickerService
 {
     public class PlatformDocumentPicker : IPlatformDocumentPicker
     {
-        private static readonly string[] allUTTypes =
-            { UTType.Item, UTType.Content, UTType.CompositeContent, UTType.Application,
-            UTType.Message, UTType.Contact, UTType.Archive, UTType.DiskImage, UTType.Data };
+        private static readonly string[] textUTTypes =
+            { UTType.Text, UTType.PlainText };
+        
+        private static readonly string[] imageUTTypes =
+        { UTType.Image, UTType.PNG, UTType.TIFF, UTType.JPEG, UTType.JPEG2000 };
 
         [Preserve]
         public PlatformDocumentPicker()
@@ -30,10 +24,22 @@ namespace ReminderXamarin.iOS.Services.FilePickerService
         
         #region IPlatformDocumentPicker implementation
 
-        public Task<PlatformDocument> DisplayImportAsync()
+        public Task<PlatformDocument> DisplayImageImportAsync()
+        {
+            return DisplayImportAsync(imageUTTypes);
+        }
+
+        public Task<PlatformDocument> DisplayTextImportAsync()
+        {
+            return DisplayImportAsync(textUTTypes);
+        }
+
+        #endregion
+
+        private Task<PlatformDocument> DisplayImportAsync(string[] utTypes)
         {
             var taskCompletionSource = new TaskCompletionSource<PlatformDocument>();
-            var docPicker = new UIDocumentPickerViewController(allUTTypes, UIDocumentPickerMode.Import);
+            var docPicker = new UIDocumentPickerViewController(utTypes, UIDocumentPickerMode.Import);
             docPicker.DidPickDocument += (sender, e) =>
             {
                 CompleteTaskUsing(taskCompletionSource, e.Url);
@@ -59,9 +65,9 @@ namespace ReminderXamarin.iOS.Services.FilePickerService
             return taskCompletionSource.Task;
         }
 
-        #endregion
-
-        private void CompleteTaskUsing(TaskCompletionSource<PlatformDocument> taskCompletionSource, UIImagePickerMediaPickedEventArgs args)
+        private void CompleteTaskUsing(
+            TaskCompletionSource<PlatformDocument> taskCompletionSource,
+            UIImagePickerMediaPickedEventArgs args)
         {
             if (args.MediaUrl != null)
             {
@@ -79,7 +85,7 @@ namespace ReminderXamarin.iOS.Services.FilePickerService
                         if (assets.Count >= 1)
                         {
                             var asset = assets.firstObject as PHAsset;
-                            var dateFormatter = new NSDateFormatter()
+                            var dateFormatter = new NSDateFormatter
                             {
                                 DateFormat = "yyyy-MM-dd HH:mm:ss",
                             };
@@ -90,7 +96,7 @@ namespace ReminderXamarin.iOS.Services.FilePickerService
                 imageName = imageName ?? DateTime.UtcNow.ToString();
 
                 string path;
-                using (var data = (args.OriginalImage as UIImage).AsJPEG())
+                using (var data = args.OriginalImage.AsJPEG())
                 {
                     path = WriteToTemporaryFile(data);
                 }

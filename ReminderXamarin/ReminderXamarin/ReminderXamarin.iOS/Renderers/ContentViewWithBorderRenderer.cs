@@ -14,7 +14,9 @@ namespace ReminderXamarin.iOS.Renderers
             base.OnElementChanged(e);
 
             if (e.OldElement != null)
+            {
                 return;
+            }
 
             Layer.CornerRadius = (float)Element.CornerRadius;
             Layer.BorderColor = Element.BorderColor.ToCGColor();

@@ -117,6 +117,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <ITunesArtwork Include="iTunesArtwork%402x" />
     <ITunesArtwork Include="iTunesArtwork" />
+    <BundleResource Include="Resources\import_icon@1x.png" />
+    <BundleResource Include="Resources\import_icon@2x.png" />
+    <BundleResource Include="Resources\import_icon@3x.png" />
     <BundleResource Include="Resources\Roboto-Regular.ttf" />
     <BundleResource Include="Resources\Roboto-Medium.ttf" />
   </ItemGroup>

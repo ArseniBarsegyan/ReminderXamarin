@@ -1,5 +1,4 @@
 ﻿using ReminderXamarin.Commanding;
-using ReminderXamarin.Core.Interfaces;
 using ReminderXamarin.Core.Interfaces.Commanding;
 using ReminderXamarin.Core.Interfaces.Services;
 using ReminderXamarin.DependencyResolver;
@@ -7,7 +6,6 @@ using ReminderXamarin.Helpers;
 using ReminderXamarin.Services;
 using ReminderXamarin.Services.Navigation;
 using ReminderXamarin.Utilities;
-
 using Rm.Helpers;
 
 namespace ReminderXamarin.IoC
@@ -23,6 +21,7 @@ namespace ReminderXamarin.IoC
         {
             ComponentRegistry.Register<INavigationService, NavigationService>();
             ComponentRegistry.Register<IUploadService, UploadService>();
+            ComponentRegistry.Register<INotesImportService, NotesImportService>();
             ComponentRegistry.Register<IToDoNotificationService, ToDoNotificationsService>();
             ComponentRegistry.Register<ThemeSwitcher>();
 

@@ -6,6 +6,7 @@ using SQLiteNetExtensions.Attributes;
 
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Rm.Data.Data.Entities
 {
@@ -13,7 +14,7 @@ namespace Rm.Data.Data.Entities
     [Serializable]
     public class Note
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey, AutoIncrement, JsonIgnore]
         public int Id { get; set; }
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }

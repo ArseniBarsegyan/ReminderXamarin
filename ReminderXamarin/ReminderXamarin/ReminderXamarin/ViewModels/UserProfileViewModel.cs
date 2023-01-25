@@ -89,7 +89,7 @@ namespace ReminderXamarin.ViewModels
 
         private async Task ChangeUserProfile()
         {
-            var document = await _documentPicker.DisplayImportAsync();
+            var document = await _documentPicker.DisplayImageImportAsync();
              
             if (document == null)
             {

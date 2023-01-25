@@ -143,7 +143,9 @@ namespace ReminderXamarin.ViewModels
         private void Subscribe()
         {
             if (_subscribed)
+            {
                 return;
+            }
 
             MessagingCenter.Subscribe<GalleryItemViewModel, int>(this,
                 ConstantsHelper.ImageDeleted, (vm, id) => DeletePhoto(id));
@@ -155,7 +157,9 @@ namespace ReminderXamarin.ViewModels
         private void Unsubscribe()
         {
             if (!_subscribed)
+            {
                 return;
+            }
 
             MessagingCenter.Unsubscribe<GalleryItemViewModel>(this, ConstantsHelper.ImageDeleted);
             MessagingCenter.Send(this, ConstantsHelper.NoteEditPageDisappeared);

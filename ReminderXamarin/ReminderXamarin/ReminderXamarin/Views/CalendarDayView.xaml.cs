@@ -16,7 +16,9 @@ namespace ReminderXamarin.Views
         private void TapGestureRecognizerOnTapped(object sender, EventArgs e)
         {
             if (ViewModel.Selected)
+            {
                 return;
+            }
             
             ViewModel.Selected = true;
             ViewModel.DaySelectedCommand.Execute(ViewModel.CurrentDate);
